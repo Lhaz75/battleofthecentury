@@ -11,7 +11,7 @@ const MAX_AGE = 24 * 3600 * 1000;            // une partie est oubliée après 2
 const PATH_OK = /^duels\/[A-Z]{4}$/;           // seuls les documents de partie sont acceptés
 
 const TYPES = { ".html":"text/html; charset=utf-8", ".js":"text/javascript", ".css":"text/css",
-  ".webp":"image/webp", ".png":"image/png", ".jpg":"image/jpeg", ".woff2":"font/woff2", ".json":"application/json", ".ico":"image/x-icon" };
+  ".webp":"image/webp", ".png":"image/png", ".jpg":"image/jpeg", ".woff2":"font/woff2", ".json":"application/json", ".ico":"image/x-icon", ".svg":"image/svg+xml", ".mp3":"audio/mpeg", ".css":"text/css; charset=utf-8" };
 
 // ---------- documents de partie (en mémoire + sauvegarde disque) ----------
 let docs = {};
