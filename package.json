@@ -1,0 +1,9 @@
+{
+  "name": "doomstar-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Serveur Doomstar : sert le jeu et relaie les parties en ligne",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "dependencies": { "ws": "^8.18.0" }
+}
