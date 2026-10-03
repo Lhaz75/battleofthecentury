@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v1.13.0 — 2026-10-03
+
+- Administration : liste des comptes, nouveau mot de passe, bannissement de comptes et d'adresses IP
+
 ## v1.12.4 — 2026-10-03
 
 - Nouveau décor de fond : la ville en ruines

@@ -31,8 +31,8 @@ function jsonStore(file) {
       const u = { id: db.next++, name, name_lc: lc, pass, salt, created: Date.now(), avatar: null, avatar_type: null, avatar_v: 0, stats: DEFAULT_STATS() };
       db.users.push(u); save(); return pub(u);
     },
-    async byName(name) { const u = db.users.find(u => u.name_lc === name.toLowerCase()); return u ? { ...u } : null; },
-    async byId(id) { return pub(db.users.find(u => u.id === id)); },
+    async byName(name) { const u = db.users.find(u => u.name_lc === name.toLowerCase()); return u ? { ...u, banned: !!u.banned } : null; },
+    async byId(id) { const u = pub(db.users.find(u => u.id === id)); if (u) u.banned = !!u.banned; return u; },
     async addSession(hash, uid) { db.sessions[hash] = { uid, t: Date.now() }; save(); },
     async session(hash) { const s = db.sessions[hash]; if (!s || Date.now() - s.t > SESSION_DAYS * 864e5) return null; return this.byId(s.uid); },
     async dropSession(hash) { delete db.sessions[hash]; save(); },
@@ -40,11 +40,16 @@ function jsonStore(file) {
     async avatar(uid) { const u = db.users.find(u => u.id === uid); return u && u.avatar ? { buf: Buffer.from(u.avatar, "base64"), type: u.avatar_type, v: u.avatar_v } : null; },
     async saveStats(uid, stats) { const u = db.users.find(u => u.id === uid); if (u) { u.stats = stats; save(); } },
     async top(kind, n) {
-      const list = db.users.filter(u => kind === "elo" ? u.stats.vsW + u.stats.vsL > 0 : u.stats.pts > 0)
+      const list = db.users.filter(u => !u.banned).filter(u => kind === "elo" ? u.stats.vsW + u.stats.vsL > 0 : u.stats.pts > 0)
         .sort((a, b) => kind === "elo" ? b.stats.elo - a.stats.elo : b.stats.pts - a.stats.pts).slice(0, n);
       return list.map(pub);
     },
     async getSetting(k) { return (db.settings || {})[k] ?? null; },
+    async touch(uid, ip) { const u = db.users.find(u => u.id === uid); if (u) { u.last_ip = ip; u.last_seen = Date.now(); if (!u.first_ip) u.first_ip = ip; save(); } },
+    async listUsers() { return db.users.map(u => ({ id: u.id, name: u.name, created: u.created, last_seen: u.last_seen || null, last_ip: u.last_ip || null, first_ip: u.first_ip || null, banned: !!u.banned, avatar_v: u.avatar_v || 0, stats: u.stats })); },
+    async setPassword(uid, pass, salt) { const u = db.users.find(u => u.id === uid); if (!u) return; u.pass = pass; u.salt = salt; for (const k of Object.keys(db.sessions)) if (db.sessions[k].uid === uid) delete db.sessions[k]; save(); },
+    async setBanned(uid, b) { const u = db.users.find(u => u.id === uid); if (!u) return; u.banned = !!b; if (b) for (const k of Object.keys(db.sessions)) if (db.sessions[k].uid === uid) delete db.sessions[k]; save(); },
+    async deleteUser(uid) { db.users = db.users.filter(u => u.id !== uid); for (const k of Object.keys(db.sessions)) if (db.sessions[k].uid === uid) delete db.sessions[k]; save(); },
     async setSetting(k, v) { db.settings = db.settings || {}; db.settings[k] = v; save(); },
     async getTourney(code) { const t = db.tourneys[code]; return t ? JSON.parse(JSON.stringify(t)) : null; },
     async saveTourney(t) { db.tourneys[t.code] = JSON.parse(JSON.stringify({ ...t, updated: Date.now() })); save(); },
@@ -63,14 +68,15 @@ function pgStore(url, PgPool) {
   const { Pool } = PgPool || require("pg");
   const pool = new Pool({ connectionString: url, ssl: /sslmode=disable|localhost/.test(url) ? false : { rejectUnauthorized: false }, max: 4 });
   const q = (sql, args) => pool.query(sql, args);
-  const row = r => r && ({ id: r.id, name: r.name, name_lc: r.name_lc, pass: r.pass, salt: r.salt, created: +r.created, avatar_v: r.avatar_v, stats: { ...DEFAULT_STATS(), ...(r.stats || {}) } });
-  const COLS = "id,name,name_lc,pass,salt,created,avatar_v,stats";
+  const row = r => r && ({ id: r.id, name: r.name, name_lc: r.name_lc, pass: r.pass, salt: r.salt, created: +r.created, avatar_v: r.avatar_v, banned: !!r.banned, stats: { ...DEFAULT_STATS(), ...(r.stats || {}) } });
+  const COLS = "id,name,name_lc,pass,salt,created,avatar_v,banned,stats";
   return {
     kind: "postgres",
     async init() {
       await q(`CREATE TABLE IF NOT EXISTS boc_users (id SERIAL PRIMARY KEY, name TEXT NOT NULL, name_lc TEXT NOT NULL UNIQUE, pass TEXT NOT NULL, salt TEXT NOT NULL,
         created BIGINT NOT NULL, avatar TEXT, avatar_type TEXT, avatar_v INT NOT NULL DEFAULT 0, stats JSONB NOT NULL)`);
       await q(`CREATE TABLE IF NOT EXISTS boc_sessions (hash TEXT PRIMARY KEY, uid INT NOT NULL, t BIGINT NOT NULL)`);
+      for (const c of ["banned BOOLEAN NOT NULL DEFAULT false", "last_ip TEXT", "first_ip TEXT", "last_seen BIGINT"]) await q(`ALTER TABLE boc_users ADD COLUMN IF NOT EXISTS ${c}`);
       await q(`CREATE TABLE IF NOT EXISTS boc_settings (k TEXT PRIMARY KEY, v JSONB NOT NULL)`);
       await q(`CREATE TABLE IF NOT EXISTS boc_tourneys (code TEXT PRIMARY KEY, status TEXT NOT NULL, created BIGINT NOT NULL, updated BIGINT NOT NULL, data JSONB NOT NULL)`);
     },
@@ -95,9 +101,14 @@ function pgStore(url, PgPool) {
     async top(kind, n) {
       const where = kind === "elo" ? `((stats->>'vsW')::int + (stats->>'vsL')::int) > 0` : `(stats->>'pts')::int > 0`;
       const ord = kind === "elo" ? `(stats->>'elo')::int` : `(stats->>'pts')::int`;
-      const r = await q(`SELECT ${COLS} FROM boc_users WHERE ${where} ORDER BY ${ord} DESC, id ASC LIMIT $1`, [n]); return r.rows.map(row);
+      const r = await q(`SELECT ${COLS} FROM boc_users WHERE NOT banned AND ${where} ORDER BY ${ord} DESC, id ASC LIMIT $1`, [n]); return r.rows.map(row);
     },
     async getSetting(k) { const r = await q(`SELECT v FROM boc_settings WHERE k=$1`, [k]); return r.rows[0] ? r.rows[0].v : null; },
+    async touch(uid, ip) { await q(`UPDATE boc_users SET last_ip=$2, last_seen=$3, first_ip=COALESCE(first_ip,$2) WHERE id=$1`, [uid, ip, Date.now()]); },
+    async listUsers() { const r = await q(`SELECT id,name,created,last_seen,last_ip,first_ip,banned,avatar_v,stats FROM boc_users ORDER BY id DESC`); return r.rows.map(x => ({ id: x.id, name: x.name, created: +x.created, last_seen: x.last_seen ? +x.last_seen : null, last_ip: x.last_ip, first_ip: x.first_ip, banned: !!x.banned, avatar_v: x.avatar_v, stats: { ...DEFAULT_STATS(), ...(x.stats || {}) } })); },
+    async setPassword(uid, pass, salt) { await q(`UPDATE boc_users SET pass=$2, salt=$3 WHERE id=$1`, [uid, pass, salt]); await q(`DELETE FROM boc_sessions WHERE uid=$1`, [uid]); },
+    async setBanned(uid, b) { await q(`UPDATE boc_users SET banned=$2 WHERE id=$1`, [uid, !!b]); if (b) await q(`DELETE FROM boc_sessions WHERE uid=$1`, [uid]); },
+    async deleteUser(uid) { await q(`DELETE FROM boc_sessions WHERE uid=$1`, [uid]); await q(`DELETE FROM boc_users WHERE id=$1`, [uid]); },
     async setSetting(k, v) { await q(`INSERT INTO boc_settings (k,v) VALUES ($1,$2) ON CONFLICT (k) DO UPDATE SET v=$2`, [k, JSON.stringify(v)]); },
     async getTourney(code) { const r = await q(`SELECT data FROM boc_tourneys WHERE code=$1`, [code]); return r.rows[0] ? r.rows[0].data : null; },
     async saveTourney(t) { await q(`INSERT INTO boc_tourneys (code,status,created,updated,data) VALUES ($1,$2,$3,$4,$5) ON CONFLICT (code) DO UPDATE SET status=$2, updated=$4, data=$5`, [t.code, t.status, t.created, Date.now(), JSON.stringify(t)]); },
@@ -122,6 +133,10 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
   // maintenance : MAINTENANCE=1 la force, sinon réglage stocké en base (modifiable par un admin depuis le jeu)
   let maint = { on: false, msg: "" };
   const maintOn = () => process.env.MAINTENANCE === "1" || maint.on;
+  // IP bannies : réglage stocké en base, gardé en mémoire
+  let ipBans = [];
+  Promise.resolve(ready).then(() => store.getSetting("ipbans")).then(v => { if (Array.isArray(v)) ipBans = v; }).catch(() => {});
+  const ipBanned = ip => !!ip && ipBans.some(b => b.ip === ip);
   Promise.resolve(ready).then(() => store.getSetting("maintenance")).then(v => { if (v) maint = { on: !!v.on, msg: String(v.msg || "") }; }).catch(() => {});
   const settleHooks = [];
   const matches = new Map();      // code -> { host: uid, guest: uid, done }
@@ -131,7 +146,12 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
   const limited = ip => { const now = Date.now(); const e = tries.get(ip) || { n: 0, t: now }; if (now - e.t > 60000) { e.n = 0; e.t = now; } e.n++; tries.set(ip, e); return e.n > 12; };
   const pubUser = u => ({ id: u.id, name: u.name, avatar: u.avatar_v ? `/api/avatar/${u.id}?v=${u.avatar_v}` : null, stats: u.stats, created: u.created, ...(isAdmin(u) ? { admin: true } : {}) });
   async function newSession(u) { const tok = crypto.randomBytes(32).toString("hex"); await store.addSession(sha(tok), u.id); return tok; }
-  async function auth(req) { const h = req.headers.authorization || ""; const tok = h.startsWith("Bearer ") ? h.slice(7) : ""; if (!/^[0-9a-f]{64}$/.test(tok)) return null; return store.session(sha(tok)); }
+  const seen = new Map();
+  async function auth(req) { const h = req.headers.authorization || ""; const tok = h.startsWith("Bearer ") ? h.slice(7) : ""; if (!/^[0-9a-f]{64}$/.test(tok)) return null;
+    const u = await store.session(sha(tok)); if (!u || u.banned) return null;
+    const ip = (req.headers["x-forwarded-for"] || req.socket.remoteAddress || "").split(",")[0].trim();
+    if (Date.now() - (seen.get(u.id) || 0) > 10 * 60e3) { seen.set(u.id, Date.now()); store.touch(u.id, ip).catch(() => {}); }
+    return u; }
   function bumpFav(st, team) { (Array.isArray(team) ? team : []).slice(0, 5).forEach(id => { if (typeof id === "string" && /^[a-z]{2,12}$/.test(id)) st.fav[id] = (st.fav[id] || 0) + 1; }); }
   function streak(st, won) { if (won) { st.streak = (st.streak || 0) + 1; st.best = Math.max(st.best || 0, st.streak); } else st.streak = 0; }
   const expect = (a, b) => 1 / (1 + Math.pow(10, (b - a) / 400));
@@ -168,6 +188,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       const salt = crypto.randomBytes(16).toString("hex");
       const u = await store.createUser(name, await scrypt(pw, salt), salt);
       if (!u) return [409, { error: "taken" }];
+      await store.touch(u.id, ip);
       return [200, { token: await newSession(u), user: pubUser(u) }];
     },
     "POST /api/login": async (req, body, ip) => {
@@ -177,6 +198,8 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       if (!u) { await scrypt(pw, "x".repeat(32)); return [401, { error: "bad" }]; }
       const h = await scrypt(pw, u.salt);
       if (!crypto.timingSafeEqual(Buffer.from(h, "hex"), Buffer.from(u.pass, "hex"))) return [401, { error: "bad" }];
+      if (u.banned) return [403, { error: "banned" }];
+      await store.touch(u.id, ip);
       return [200, { token: await newSession(u), user: pubUser(u) }];
     },
     "POST /api/logout": async req => { const h = (req.headers.authorization || "").slice(7); if (h) await store.dropSession(sha(h)); return [200, { ok: true }]; },
@@ -236,6 +259,34 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       console.log(`Maintenance ${maint.on ? "activée" : "désactivée"} par ${u.name}`);
       return [200, { maintenance: { on: maintOn(), msg: maint.msg, forced: process.env.MAINTENANCE === "1" } }];
     },
+    "GET /api/admin/users": async req => {
+      const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];
+      const list = (await store.listUsers()).map(x => ({ ...x, admin: isAdmin(x), avatar: x.avatar_v ? `/api/avatar/${x.id}?v=${x.avatar_v}` : null, ipBanned: ipBanned(x.last_ip) }));
+      return [200, { users: list, ipBans }];
+    },
+    "POST /api/admin/user": async (req, body) => {
+      const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];
+      const t = await store.byId(+body.id); if (!t) return [404, { error: "notfound" }];
+      if (isAdmin(t) && body.action !== "reset") return [400, { error: "self" }];
+      if (body.action === "reset") {
+        const A = "abcdefghjkmnpqrstuvwxyz23456789"; const pw = Array.from(crypto.randomBytes(10), b => A[b % A.length]).join("");
+        const salt = crypto.randomBytes(16).toString("hex"); await store.setPassword(t.id, await scrypt(pw, salt), salt);
+        console.log(`Admin ${u.name} : mot de passe de ${t.name} réinitialisé`); return [200, { password: pw }];
+      }
+      if (body.action === "ban" || body.action === "unban") { await store.setBanned(t.id, body.action === "ban"); console.log(`Admin ${u.name} : ${body.action} ${t.name}`); return [200, { ok: true }]; }
+      if (body.action === "delete") { await store.deleteUser(t.id); console.log(`Admin ${u.name} : compte ${t.name} supprimé`); return [200, { ok: true }]; }
+      return [400, { error: "bad" }];
+    },
+    "POST /api/admin/ipban": async (req, body) => {
+      const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];
+      const ip = String(body.ip || "").trim().slice(0, 64); if (!/^[0-9a-fA-F:.]{3,64}$/.test(ip)) return [400, { error: "bad" }];
+      const myIp = (req.headers["x-forwarded-for"] || req.socket.remoteAddress || "").split(",")[0].trim();
+      if (body.ban && ip === myIp) return [400, { error: "self" }];
+      ipBans = ipBans.filter(b => b.ip !== ip);
+      if (body.ban) ipBans.push({ ip, t: Date.now(), who: String(body.who || "").slice(0, 32) });
+      await store.setSetting("ipbans", ipBans); console.log(`Admin ${u.name} : IP ${ip} ${body.ban ? "bannie" : "débannie"}`);
+      return [200, { ipBans }];
+    },
     "GET /api/top": async (req, body, ip, url) => {
       const kind = url.searchParams.get("kind") === "pts" ? "pts" : "elo";
       return [200, { kind, list: (await store.top(kind, 50)).map(pubUser) }];
@@ -272,7 +323,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       catch (e) { console.error("api", url.pathname, e.message); send(500, { error: "server" }); }
     });
   }
-  return { handle };
+  return { handle, ipBanned };
 }
 
 module.exports = { jsonStore, pgStore, makeAccounts };

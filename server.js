@@ -65,6 +65,8 @@ function voiceApi(req, res, url) {
 
 // ---------- HTTP : fichiers du jeu ----------
 const server = http.createServer((req, res) => {
+  const rip = (req.headers["x-forwarded-for"] || req.socket.remoteAddress || "").split(",")[0].trim();
+  if (accounts.ipBanned(rip)) { res.writeHead(403, { "Content-Type": "text/html; charset=utf-8" }); return res.end("<!doctype html><meta charset=utf-8><body style='background:#120e0c;color:#f3e2bf;font:18px sans-serif;display:grid;place-items:center;height:100vh;margin:0'><p>Accès refusé · Access denied · Accesso negato</p>"); }
   if ((req.url || "").startsWith("/api/voice")) return voiceApi(req, res, new URL(req.url, "http://x"));
   if ((req.url || "").startsWith("/api/")) return accounts.handle(req, res);
   let p = decodeURIComponent((req.url || "/").split("?")[0]);
@@ -90,7 +92,9 @@ const subs = new Map(); // path -> Set(ws)
 function snap(p) { const d = docs[p]; if (!d) return { exists: false }; const { _t, ...data } = d; return { exists: true, data }; }
 function broadcast(p) { const msg = JSON.stringify({ op: "snap", path: p, ...snap(p) }); for (const ws of subs.get(p) || []) if (ws.readyState === 1) ws.send(msg); }
 
-wss.on("connection", ws => {
+wss.on("connection", (ws, req) => {
+  const wip = (req.headers["x-forwarded-for"] || req.socket.remoteAddress || "").split(",")[0].trim();
+  if (accounts.ipBanned(wip)) return ws.close();
   ws.mine = new Set(); ws.count = 0; ws.since = Date.now();
   ws.on("message", raw => {
     // limite simple : 40 messages par seconde
