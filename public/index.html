@@ -754,7 +754,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 /* pages info */
 .btn.sm{padding:8px 12px;font-size:13px}
 .infopage{gap:16px;padding-bottom:40px}
-@media (max-width:999px),(hover:none){*{scrollbar-width:none}*::-webkit-scrollbar{display:none}.infopage{padding-inline:8px}.infopage .ipbar{margin-inline:-8px;padding-inline:8px;gap:10px}.infopage .ipbar h2{font-size:21px;min-width:0}.infopage .ipbar .lg.flag{width:28px;height:28px}.infopage .ipbar .langs{gap:6px}}
+@media (max-width:999px),(hover:none){*{scrollbar-width:none}*::-webkit-scrollbar{display:none}.infopage{padding-inline:8px}.infopage .ipbar{margin-inline:-8px;padding-inline:8px;gap:10px}.infopage .ipbar h2{font-size:20px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ipbar .blabel{display:none}.ipbar #back{padding:8px 14px;font-size:18px}.toprow .modes.top{grid-template-columns:repeat(2,minmax(0,1fr))!important}.toprow .modes.top .btn{font-size:clamp(12px,3.8vw,15px)!important;padding-inline:4px!important;overflow:hidden;text-overflow:ellipsis}.infopage .ipbar .lg.flag{width:28px;height:28px}.infopage .ipbar .langs{gap:6px}}
 .ipbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:sticky;top:0;z-index:5;padding:10px 0;background:linear-gradient(180deg,var(--night) 70%,transparent)}
 .ipbar h2{margin:0;flex:1;font:700 26px Oswald,var(--f-display);text-transform:uppercase;letter-spacing:.06em;color:#f3e2bf}
 .iplead{margin:0;color:var(--mute);font-size:14px}
@@ -781,6 +781,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .rules h3{font:700 18px Oswald,var(--f-display);text-transform:uppercase;letter-spacing:.08em;color:#f0b24a;margin:22px 0 6px;border-left:4px solid #f0b24a;padding-left:10px}
 .rules ul,.rules ol{padding-left:22px;margin:6px 0}.rules li{margin:4px 0}.rules b{color:#fff3dc}.rules p{margin:6px 0}
 @media (max-width:999px){.toprow .modes.top{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:460px;margin:0 auto}.toprow .modes.top .btn{min-width:0;padding:11px 8px;font-size:15px}}
+@media (max-width:400px){.infopage .ipbar{gap:8px}.infopage .ipbar h2{font-size:17px;letter-spacing:.03em}.infopage .ipbar .lg.flag{width:24px;height:24px}.infopage .ipbar .langs{gap:4px}.ipbar #back{padding:7px 11px}}
 @media (min-width:1000px) and (max-width:1500px){.toprow .modes.top .btn{padding:9px 11px;font-size:13px}.toprow .modes.top{gap:7px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -1978,7 +1979,7 @@ function bindLang(redraw){
 const SVG_FS='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"/></svg>', SVG_ON='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>', SVG_OFF='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 9l6 6M22 9l-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>';
 
 function pageShell(title,body,sel){
-  $("#app").innerHTML=`<div class="screen infopage" style="overflow-y:auto"><div class="ipbar"><button class="btn ghost sm" id="back">← ${L("back")}</button><h2>${title}</h2><div class="row">${langBar()}</div></div>${body}</div>`;
+  $("#app").innerHTML=`<div class="screen infopage" style="overflow-y:auto"><div class="ipbar"><button class="btn ghost sm" id="back" aria-label="${L("back")}">←<span class="blabel"> ${L("back")}</span></button><h2>${title}</h2><div class="row">${langBar()}</div></div>${body}</div>`;
   $("#back").onclick=()=>{ SFX.play("click"); renderTitle(sel); };
 }
 function renderRoster(sel=[]){
