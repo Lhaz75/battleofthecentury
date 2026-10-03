@@ -722,6 +722,19 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .evcard .evn{font:700 clamp(26px,6vw,34px)/1.05 Oswald,var(--f-display);text-transform:uppercase;letter-spacing:.04em;color:#fff3dc;margin:6px 0 8px;text-shadow:0 2px 0 #000}
 .evcard .evt{font-size:15px;line-height:1.45;color:var(--sand)}
 @keyframes evin{0%{opacity:0;transform:translateX(-50%) scale(.85)}8%{opacity:1;transform:translateX(-50%) scale(1.03)}12%{transform:translateX(-50%) scale(1)}88%{opacity:1}100%{opacity:0;transform:translateX(-50%) scale(.97)}}
+/* mobile : cartes lisibles, losanges entiers */
+.bar-actions .pips{padding-left:4px;padding-right:2px}
+.card .viatag{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(100% - 12px)}
+@media (max-width:999px){
+  .screen.board .card{flex-basis:108px;height:150px;padding:8px 7px 7px}
+  .screen.board .card .cn{font-size:12.5px;line-height:1.05;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .screen.board .card .cx{font-size:10.5px;line-height:1.25;-webkit-line-clamp:5!important;max-height:calc(1.25em*5)}
+  .screen.board .card .dm{font-size:22px}
+  .screen.board .card .top .lv{font-size:9.5px;padding:2px 5px}
+  .screen.board .card .viatag{font-size:9px;left:auto;right:4px;bottom:4px;max-width:70%;padding:1px 4px!important}
+  .screen.board .card .kind{width:16px;height:16px}
+  .screen.board .card.via .dm{position:relative;z-index:3}
+}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 <style>html,body{margin:0}*{box-sizing:border-box}img{max-width:100%}[hidden]{display:none!important}</style>
@@ -1707,7 +1720,7 @@ function cardHTML(card,playable,k,via){
   const dim = c.kind==="react" ? "dim" : "";
   const fresh = k===ME && !SEEN.has(card.uid) ? (SEEN.add(card.uid), " deal") : "";
   return `<button class="card ${cls} ${dim}${fresh}${via?" via":""}" style="animation-delay:${fresh?(DEALN++)*70:0}ms" ${playable?"":"disabled"} data-uid="${card.uid}" ${via?`data-via="1" title="${esc(L("viaRelay",nm(via)))}"`:""} aria-label="${esc(tr(c.name))}">
-    ${via?`<span class="viatag">↻ ${esc(nm(via))}</span>`:""}
+    ${via?`<span class="viatag">↻ ${esc(nm(via).split(" ")[0])}</span>`:""}
     <span class="kind">${ICON[KIND_ICON[c.kind]]||""}</span>
     ${c.cost!==undefined?`<div class="cost"><span>${S?cardCost(S[ME],c):c.cost}</span></div>`:""}
     <div class="top">${top}</div><div class="cn">${esc(tr(c.name))}</div>${body}</button>`;
