@@ -824,6 +824,15 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .ipbar h2,.rules h3{transform:skewX(-10deg);transform-origin:0 100%}
 html,body,*{scrollbar-width:none}::-webkit-scrollbar{display:none}
 @media (min-width:1000px) and (max-width:1500px){.toprow .modes.top .btn{padding:9px 11px;font-size:13px}.toprow .modes.top{gap:7px}}
+@media (min-width:1000px){
+  .toprow{flex-wrap:wrap!important;row-gap:14px!important;column-gap:20px!important}
+  .toprow .boc1{order:0}.toprow>.row{order:1;margin-left:auto}
+  .toprow .modes.top{order:2!important;flex:0 0 100%!important;justify-content:center!important;flex-wrap:nowrap!important;gap:12px!important;min-width:0}
+  .toprow .modes.top .btn{flex:none!important;min-width:0!important;padding:10px 20px!important;font-size:15px!important;overflow:visible!important}
+  .boc2{width:300px!important}
+}
+@media (min-width:1300px){.boc2{width:360px!important}}
+@media (min-width:1000px) and (max-width:1200px){.toprow .modes.top{gap:8px!important}.toprow .modes.top .btn{padding:9px 12px!important;font-size:13px!important}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 <style>html,body{margin:0}*{box-sizing:border-box}img{max-width:100%}[hidden]{display:none!important}</style>
