@@ -1078,6 +1078,11 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .achtoast small{display:block;font:600 11px var(--f-display);letter-spacing:.08em;text-transform:uppercase;color:#e8b04a}
 .achtoast b{display:block;font:700 16px var(--f-display);color:#fff3dc}
 @keyframes achin{from{opacity:0;transform:translate(-50%,-20px)}to{opacity:1;transform:translate(-50%,0)}}
+.rpbar{position:fixed;left:50%;top:calc(8px + env(safe-area-inset-top));transform:translateX(-50%);z-index:250;display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:14px;background:rgba(14,9,7,.94);border:1px solid #e0452c;box-shadow:0 8px 24px rgba(0,0,0,.7);width:min(520px,calc(100vw - 16px))}
+.rpbar button{flex:none;height:32px;min-width:34px;padding:0 8px;border-radius:9px;border:1px solid rgba(232,176,74,.45);background:#1d130e;color:#f3e2bf;font:700 14px var(--f-display);cursor:pointer}
+.rpbar .rpx{margin-left:auto}
+.rptag{font:800 11px var(--f-display);letter-spacing:.12em;color:#fff;background:#e0452c;padding:3px 7px;border-radius:6px}
+.rpprog{flex:1;min-width:40px;height:6px;border-radius:3px;background:#2a1f19;overflow:hidden}.rpprog i{display:block;height:100%;background:#e8b04a;transition:width .3s}
 /* mobile : plateau allégé */
 @media (max-width:999px){
   .screen.board .rs{width:auto;gap:1px}
@@ -1665,6 +1670,7 @@ Object.assign(UI.fr,{onlineN:n=>`${n} en ligne`, onlineTitle:"Joueurs en ligne",
 Object.assign(UI.en,{onlineN:n=>`${n} online`, onlineTitle:"Players online", onlineEmpty:"Nobody else right now.", w_menu:"In the menus", w_solo:"Fighting the AI", w_surv:"In survival", w_vs:"In versus", w_queue:"Looking for an opponent", w_tour:"In a tournament", onlineYou:"you"});
 Object.assign(UI.it,{onlineN:n=>`${n} online`, onlineTitle:"Giocatori online", onlineEmpty:"Nessun altro per ora.", w_menu:"Nei menu", w_solo:"Contro l'IA", w_surv:"In sopravvivenza", w_vs:"In versus", w_queue:"Cerca un avversario", w_tour:"In torneo", onlineYou:"tu"});
 /* ---------- textes du mode survie ---------- */
+Object.assign(UI.fr,{rpBtn:"Revoir le combat", rpQuit:"Quitter"}); Object.assign(UI.en,{rpBtn:"Watch the replay", rpQuit:"Exit"}); Object.assign(UI.it,{rpBtn:"Rivedi il combattimento", rpQuit:"Esci"});
 Object.assign(UI.fr,{achTitle:"Succès",achUnlocked:"Succès débloqué",achMore:n=>`et ${n} autre${n>1?"s":""} : va voir ton profil !`,ach_first:"Premier sang",achd_first:"Gagner un combat contre l'IA",ach_ai10:"Chasseur de pillards",achd_ai10:"10 victoires contre l'IA",ach_ai50:"Fléau des terres désolées",achd_ai50:"50 victoires contre l'IA",ach_ai200:"Sauveur de la fin du monde",achd_ai200:"200 victoires contre l'IA",ach_vs1:"Premier duel",achd_vs1:"Gagner un combat en versus",ach_vs10:"Duelliste",achd_vs10:"10 victoires en versus",ach_vs50:"Successeur",achd_vs50:"50 victoires en versus",ach_elo1200:"Étoile montante",achd_elo1200:"Atteindre 1200 Elo",ach_elo1400:"Étoile du Nord",achd_elo1400:"Atteindre 1400 Elo",ach_streak5:"Inarrêtable",achd_streak5:"Série de 5 victoires",ach_streak10:"Invaincu",achd_streak10:"Série de 10 victoires",ach_surv5:"Survivant",achd_surv5:"Atteindre 5 vagues en survie",ach_surv10:"Dernier debout",achd_surv10:"Atteindre 10 vagues en survie",ach_surv20:"Légende du désert",achd_surv20:"Atteindre 20 vagues en survie",ach_tour1:"Champion",achd_tour1:"Gagner un tournoi",ach_tour5:"Roi des tournois",achd_tour5:"Gagner 5 tournois",ach_roster15:"Polyvalent",achd_roster15:"Jouer 15 combattants différents",ach_roster30:"Maître de toutes les écoles",achd_roster30:"Jouer 30 combattants différents",ach_flawless:"Sans une égratignure",achd_flawless:"Gagner sans perdre aucun combattant",ach_comeback:"Sur le fil",achd_comeback:"Gagner avec un seul combattant à 3 PV ou moins",ach_ultko:"Tu es déjà mort",achd_ultko:"Mettre KO avec une ultime",ach_combo4:"Coups multiples",achd_combo4:"Enchaîner 4 coups dans un tour",ach_combo5:"Cent poings",achd_combo5:"Enchaîner 5 coups dans un tour",ach_duo:"Frères d'armes",achd_duo:"Gagner avec une équipe de 2",ach_quintet:"La horde",achd_quintet:"Gagner avec une équipe de 5",ach_clanwin:"Fierté de l'école",achd_clanwin:"Gagner avec un bonus d'école actif",ach_cheap:"Petits moyens",achd_cheap:"Gagner avec une équipe de 6 points ou moins"});
 Object.assign(UI.en,{achTitle:"Achievements",achUnlocked:"Achievement unlocked",achMore:n=>`and ${n} more: check your profile!`,ach_first:"First blood",achd_first:"Win a fight against the AI",ach_ai10:"Raider hunter",achd_ai10:"10 wins against the AI",ach_ai50:"Scourge of the wasteland",achd_ai50:"50 wins against the AI",ach_ai200:"Savior of the end of the world",achd_ai200:"200 wins against the AI",ach_vs1:"First duel",achd_vs1:"Win a versus fight",ach_vs10:"Duelist",achd_vs10:"10 versus wins",ach_vs50:"Successor",achd_vs50:"50 versus wins",ach_elo1200:"Rising star",achd_elo1200:"Reach 1200 Elo",ach_elo1400:"North Star",achd_elo1400:"Reach 1400 Elo",ach_streak5:"Unstoppable",achd_streak5:"5-win streak",ach_streak10:"Undefeated",achd_streak10:"10-win streak",ach_surv5:"Survivor",achd_surv5:"Clear 5 survival waves",ach_surv10:"Last one standing",achd_surv10:"Clear 10 survival waves",ach_surv20:"Legend of the desert",achd_surv20:"Clear 20 survival waves",ach_tour1:"Champion",achd_tour1:"Win a tournament",ach_tour5:"Tournament king",achd_tour5:"Win 5 tournaments",ach_roster15:"Versatile",achd_roster15:"Play 15 different fighters",ach_roster30:"Master of all schools",achd_roster30:"Play 30 different fighters",ach_flawless:"Without a scratch",achd_flawless:"Win without losing a fighter",ach_comeback:"On the edge",achd_comeback:"Win with a single fighter at 3 HP or less",ach_ultko:"You are already dead",achd_ultko:"Knock out with an ultimate",ach_combo4:"Flurry",achd_combo4:"Chain 4 hits in one turn",ach_combo5:"Hundred fists",achd_combo5:"Chain 5 hits in one turn",ach_duo:"Brothers in arms",achd_duo:"Win with a team of 2",ach_quintet:"The horde",achd_quintet:"Win with a team of 5",ach_clanwin:"School pride",achd_clanwin:"Win with a school bonus active",ach_cheap:"Shoestring",achd_cheap:"Win with a team of 6 points or less"});
 Object.assign(UI.it,{achTitle:"Trofei",achUnlocked:"Trofeo sbloccato",achMore:n=>`e altri ${n}: guarda il tuo profilo!`,ach_first:"Primo sangue",achd_first:"Vinci un combattimento contro l'IA",ach_ai10:"Cacciatore di predoni",achd_ai10:"10 vittorie contro l'IA",ach_ai50:"Flagello delle terre desolate",achd_ai50:"50 vittorie contro l'IA",ach_ai200:"Salvatore della fine del mondo",achd_ai200:"200 vittorie contro l'IA",ach_vs1:"Primo duello",achd_vs1:"Vinci un combattimento in versus",ach_vs10:"Duellante",achd_vs10:"10 vittorie in versus",ach_vs50:"Successore",achd_vs50:"50 vittorie in versus",ach_elo1200:"Stella nascente",achd_elo1200:"Raggiungi 1200 Elo",ach_elo1400:"Stella del Nord",achd_elo1400:"Raggiungi 1400 Elo",ach_streak5:"Inarrestabile",achd_streak5:"Serie di 5 vittorie",ach_streak10:"Imbattuto",achd_streak10:"Serie di 10 vittorie",ach_surv5:"Sopravvissuto",achd_surv5:"Supera 5 ondate in sopravvivenza",ach_surv10:"Ultimo in piedi",achd_surv10:"Supera 10 ondate in sopravvivenza",ach_surv20:"Leggenda del deserto",achd_surv20:"Supera 20 ondate in sopravvivenza",ach_tour1:"Campione",achd_tour1:"Vinci un torneo",ach_tour5:"Re dei tornei",achd_tour5:"Vinci 5 tornei",ach_roster15:"Versatile",achd_roster15:"Gioca 15 combattenti diversi",ach_roster30:"Maestro di tutte le scuole",achd_roster30:"Gioca 30 combattenti diversi",ach_flawless:"Senza un graffio",achd_flawless:"Vinci senza perdere combattenti",ach_comeback:"Sul filo",achd_comeback:"Vinci con un solo combattente a 3 PV o meno",ach_ultko:"Sei già morto",achd_ultko:"Metti KO con una mossa finale",ach_combo4:"Raffica",achd_combo4:"Concatena 4 colpi in un turno",ach_combo5:"Cento pugni",achd_combo5:"Concatena 5 colpi in un turno",ach_duo:"Fratelli d'armi",achd_duo:"Vinci con una squadra di 2",ach_quintet:"L'orda",achd_quintet:"Vinci con una squadra di 5",ach_clanwin:"Orgoglio della scuola",achd_clanwin:"Vinci con un bonus di scuola attivo",ach_cheap:"Pochi mezzi",achd_cheap:"Vinci con una squadra da 6 punti o meno"});
@@ -1723,7 +1729,7 @@ function makeSide(team){
 function newGame(team,foe,prep){
   journalReset();
   S = { p:makeSide(team), a:makeSide(foe||randomTeam(team)), terrain:null, round:0, turn:null, busy:true, over:false, react:null,
-        log:L("start"), sub:"" };
+        log:L("start"), sub:"", gid:Date.now()+"-"+Math.random().toString(36).slice(2,6) };
   if(prep) prep(S);
   startTurn("p");
   SFX.voice(ENTER_VOICE[act(S[ME]).id], 300);
@@ -2175,7 +2181,7 @@ const ICON={
 };
 const KIND_ICON={atk:"fist",react:"shield",spec:"star",trap:"trap",terr:"terrain"};
 const FXQ=[];
-function rec(e){ if(MODE!=="vs" || REPLAY || !S) return; S.evn=(S.evn||0)+1; (S.ev||(S.ev=[])).push([S.evn,...e]); if(S.ev.length>80) S.ev.shift(); }
+function rec(e){ if(REPLAY || !S || RP.on || (MODE!=="vs" && !S.gid)) return; S.evn=(S.evn||0)+1; (S.ev||(S.ev=[])).push([S.evn,...e]); if(S.ev.length>80) S.ev.shift(); }
 function replayEv(e){ const [n,t,a,b,c]=e; if(t==="fx") fx(a,b,c); else if(t==="shake") shake(a); else if(t==="lunge") lunge(a); else if(t==="shout") shout(a); else if(t==="flash") flash(); else if(t==="quake") quake(); else if(t==="splat") splat(a); else if(t==="evcard") eventCard(a,b); else if(t==="hitfx") hitfx(a,b); else if(t==="impact") impact(a,b); else if(t==="hits") hitsPop(a); else if(t==="banner") banner(a); else if(t==="cutin") cutin(a,b,c); else if(t==="played") showPlayed(a,b); else if(t==="voice") SFX.voice(a,b||0); else if(t==="sfx") SFX.play(a); }
 function fx(k,txt,cls=""){ rec(["fx",k,txt,cls]); FXQ.push(()=>{ const host=$(`#por-${k}`); if(!host) return; const d=document.createElement("div"); d.className="float "+cls; d.textContent=txt; host.appendChild(d); setTimeout(()=>d.remove(),900); }); }
 function shake(k){ rec(["shake",k]); FXQ.push(()=>{ const el=$(`#por-${k}`); if(el && !reduced) el.classList.add("shake"); }); }
@@ -2430,7 +2436,7 @@ function onChatData(d){
 }
 function render(){
   if(!S||S.dead) return; MUSIC.want(S.over?null:"combat");
-  journalNote();
+  journalNote(); rpCapture();
   const _ci=document.getElementById("chatin"), _cv=_ci?_ci.value:"", _cf=_ci&&document.activeElement===_ci;
   const _jl=document.getElementById("jlist"), _jb=_jl?(_jl.scrollHeight-_jl.scrollTop-_jl.clientHeight<30):true, _jt=_jl?_jl.scrollTop:0;
   DEALN=0;
@@ -2514,15 +2520,17 @@ function reactHTML(R){
       <button class="rbtn take" data-react="none"><b>${L("take")}</b><span>${L("takeSub")}</span></button></div>
   </div>`;
 }
-function renderEnd(win){ if(S&&S.dead) return; if(SURV.on && MODE==="solo" && S && S.surv) return survAfter(win); MUSIC.want("menu");
+function renderEnd(win){ if(S&&S.dead) return; rpCapture(true); if(SURV.on && MODE==="solo" && S && S.surv) return survAfter(win); MUSIC.want("menu");
   SFX.play(win?"win":"lose");
   $("#app").innerHTML=`<div class="screen" style="overflow-y:auto"><div class="center">
     <div class="kicker">${win?L("foeDown"):L("meDown")}</div>
     <h1>${win?L("win"):`<em>${L("lose")}</em>`}</h1>
     <p class="note" id="accline">${ACC.on&&(MODE==="solo"||MODE==="vs")&&!ACC.user?L("notLogged"):""}</p>
     ${endJournalHTML()}
+    ${rpAvailable()?`<button class="btn ghost sm" id="rpgo">▶ ${L("rpBtn")}</button>`:""}
     <button class="btn" id="again">${MODE==="vs"?(TOUR.code?L("tourBack"):L("back")):L("rematch")}</button></div></div>`;
   endJournalScroll();
+  if($("#rpgo")) $("#rpgo").onclick=()=>{ SFX.play("click"); rpStart(()=>renderTitle(TITLE_SEL)); };
   $("#again").onclick=()=>{ const tc=MODE==="vs"?TOUR.code:null; if(MODE==="vs") netLeave(); if(tc) renderTour(tc); else renderTitle(); };
   if(ACC.on && ACC.user && !(S&&S.accDone)){ if(S) S.accDone=true;
     const show=t=>{ const e=$("#accline"); if(e) e.textContent=t; };
@@ -2770,6 +2778,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.26.0",d:"2026-10-04",fr:["Replay : à la fin d'un combat, bouton « Revoir le combat » pour rejouer toute la partie coup par coup, avec pause, avance/retour et vitesse ×1/×2/×4"],en:["Replay: at the end of a fight, a \"Watch the replay\" button replays the whole game move by move, with pause, step back/forward and ×1/×2/×4 speed"],it:["Replay: alla fine di un combattimento, pulsante «Rivedi il combattimento» per rigiocare tutta la partita mossa per mossa, con pausa, avanti/indietro e velocità ×1/×2/×4"]},
  {v:"0.25.0",d:"2026-10-04",fr:["Succès : 27 trophées bronze, argent et or à débloquer (victoires, versus, Elo, séries, survie, tournois, exploits en combat…), chacun rapporte des points. Ils sont dans ton profil avec ta progression"],en:["Achievements: 27 bronze, silver and gold trophies to unlock (wins, versus, Elo, streaks, survival, tournaments, combat feats…), each one gives points. They are in your profile with your progress"],it:["Trofei: 27 trofei di bronzo, argento e oro da sbloccare (vittorie, versus, Elo, serie, sopravvivenza, tornei, imprese in combattimento…), ognuno dà punti. Sono nel tuo profilo con i progressi"]},
  {v:"0.24.0",d:"2026-10-04",fr:["Admin : statistiques d'équilibrage tirées des vraies parties (taux de victoire et popularité de chaque combattant, en versus et contre l'IA)"],en:["Admin: balance statistics from real games (win rate and pick rate of each fighter, in versus and vs AI)"],it:["Admin: statistiche di bilanciamento dalle partite reali (percentuale di vittorie e popolarità di ogni combattente, in versus e contro l'IA)"]},
  {v:"0.23.0",d:"2026-10-04",fr:["Le jeu s'installe comme une appli (bouton « Installer l'appli » en bas de l'écran principal) : icône sur l'écran d'accueil, plein écran sans barre de navigateur","Images, sons et polices gardés en cache : le jeu se lance beaucoup plus vite après la première visite"],en:["The game installs like an app (\"Install the app\" button at the bottom of the main screen): home screen icon, full screen without browser bar","Images, sounds and fonts are cached: the game starts much faster after the first visit"],it:["Il gioco si installa come un'app (pulsante «Installa l'app» in fondo alla schermata principale): icona nella schermata Home, schermo intero senza barra del browser","Immagini, suoni e font in cache: il gioco si avvia molto più in fretta dopo la prima visita"]},
@@ -3134,6 +3143,55 @@ async function chInbox(){
     chJoinDuel(a.code,"guest"); };
 }
 
+/* ---------- replay du dernier combat (images clés de l'état + effets) ---------- */
+const RP={frames:[], gid:null, key:"", ev:0, meta:null, on:false, i:0, timer:0, speed:1, paused:false, back:null};
+function rpCapture(force){
+  if(RP.on || !S || !S.gid) return;
+  if(S.gid!==RP.gid){ RP.gid=S.gid; RP.frames=[]; RP.key=""; RP.ev=0; RP.meta={me:ME, names:S.names||null, surv:S.surv||0}; }
+  const key=(S.evn||0)+"|"+S.log+"|"+(S.sub||"")+"|"+S.turn+"|"+S.round+"|"+S.over;
+  if(key===RP.key && !force) return; RP.key=key;
+  const ev=(S.ev||[]).filter(e=>e[0]>RP.ev); RP.ev=S.evn||RP.ev;
+  const o=Object.assign({},S); delete o.react; delete o.ev; delete o.pending;
+  RP.frames.push({st:JSON.stringify(o), ev}); if(RP.frames.length>400) RP.frames.shift();
+}
+const rpAvailable=()=>RP.frames.length>2;
+function rpShow(i){
+  const f=RP.frames[i]; if(!f) return; RP.i=i;
+  S=JSON.parse(f.st); S.react=null; S.busy=true; S.pending=null; S.dead=false; S.over=false;
+  REPLAY=true; try{ f.ev.forEach(replayEv); } catch(e){} finally{ REPLAY=false; }
+  render(); rpBar();
+}
+function rpBar(){
+  let b=document.getElementById("rpbar"); if(!b){ b=document.createElement("div"); b.id="rpbar"; b.className="rpbar"; document.body.appendChild(b); }
+  const n=RP.frames.length;
+  b.innerHTML=`<b class="rptag">REPLAY</b><button data-rp="prev" aria-label="prev">⏮</button><button data-rp="play" aria-label="play">${RP.paused?"▶":"⏸"}</button><button data-rp="next" aria-label="next">⏭</button><button data-rp="speed">×${RP.speed}</button><span class="rpprog"><i style="width:${100*(RP.i+1)/n}%"></i></span><button data-rp="quit" class="rpx">${L("rpQuit")}</button>`;
+  b.onclick=e=>{ const k=e.target.closest("[data-rp]"); if(!k) return; const a=k.dataset.rp; SFX.play("click");
+    if(a==="quit") return rpStop();
+    if(a==="play"){ RP.paused=!RP.paused; if(!RP.paused && RP.i>=n-1) RP.i=-1; rpTick(true); }
+    if(a==="prev"){ RP.paused=true; rpShow(Math.max(0,RP.i-1)); }
+    if(a==="next"){ RP.paused=true; rpShow(Math.min(n-1,RP.i+1)); }
+    if(a==="speed"){ RP.speed=RP.speed===1?2:RP.speed===2?4:1; rpBar(); }
+    rpBar(); };
+}
+function rpTick(now){
+  clearTimeout(RP.timer); if(!RP.on || RP.paused) return;
+  const go=()=>{ if(!RP.on || RP.paused) return; if(RP.i>=RP.frames.length-1){ RP.paused=true; rpBar(); return; } rpShow(RP.i+1);
+    const f=RP.frames[RP.i], heavy=f.ev.some(e=>e[1]==="cutin"||e[1]==="evcard"); RP.timer=setTimeout(go,(heavy?2100:1100)/RP.speed); };
+  if(now) go(); else RP.timer=setTimeout(go,900/RP.speed);
+}
+function rpStart(back){
+  if(!rpAvailable()) return;
+  RP.back=back||null; RP.on=true; RP.paused=false; RP.speed=RP.speed||1; RP.saved={S, MODE, ME};
+  if(MODE==="vs"){ try{ netLeave(); }catch(e){} }
+  MODE="solo"; ME=(RP.meta&&RP.meta.me)||"p"; journalReset();
+  rpShow(0); rpTick(false);
+}
+function rpStop(){
+  clearTimeout(RP.timer); RP.on=false; const b=document.getElementById("rpbar"); if(b) b.remove();
+  if(S) S.dead=true; MODE="solo"; ME="p"; document.querySelectorAll(".cutin,.banner,.played,.hits,.shoutp").forEach(x=>x.remove());
+  const back=RP.back; RP.back=null; if(back) back(); else renderTitle(TITLE_SEL);
+}
+
 /* ---------- mode survie ---------- */
 const SURV={on:false};
 const SURV_HEAL=.75, SURV_REVIVE=.5, SURV_REST=5;
@@ -3182,7 +3240,7 @@ async function survReport(wave,win){
   try{ const r=await api("POST","/api/surv",{wave,win,team:SURV.team,feats:featsFor(win)}); if(r.ok){ ACC.user=r.user; achToast(r.ach); return r.gain||0; } }catch(e){}
   return null;
 }
-function survAfter(win){
+function survAfter(win){ rpCapture(true);
   MUSIC.want("menu"); SFX.play(win?"win":"lose");
   const n=SURV.wave, cleared=win?n:n-1, rec=cleared>SURV.best;
   let note="";
@@ -3201,8 +3259,10 @@ function survAfter(win){
     ${rec&&!win?`<p class="note lvlup">${L("survNewRec")}</p>`:""}
     <p class="note" id="accline">${ACC.on&&!ACC.user?L("notLogged"):""}</p>
     ${endJournalHTML()}
+    ${rpAvailable()?`<button class="btn ghost sm" id="rpgo">▶ ${L("rpBtn")}</button>`:""}
     <div class="row" style="justify-content:center"><button class="btn" id="svnext">${win?L("survAgain"):L("back")}</button>${win?`<button class="btn ghost" id="svquit">${L("survGiveUp")}</button>`:""}</div></div></div>`;
   endJournalScroll();
+  if($("#rpgo")) $("#rpgo").onclick=()=>{ SFX.play("click"); rpStart(()=>{ if(win && SURV.on) renderSurvWave(); else renderTitle(SURV.team||TITLE_SEL); }); };
   $("#svnext").onclick=()=>{ SFX.play("click"); if(win) renderSurvWave(); else { SURV.on=false; renderTitle(SURV.team); } };
   if($("#svquit")) $("#svquit").onclick=()=>{ SFX.play("click"); SURV.on=false; renderTitle(SURV.team); };
   if(!win) SURV.on=false;
@@ -3214,6 +3274,7 @@ function survAfter(win){
 }
 
 function quitPress(b){
+    if(RP.on){ SFX.play("click"); rpStop(); return; }
     if(!QUIT_ARM){ SFX.play("click"); QUIT_ARM=true; b.classList.add("arm"); clearTimeout(QUIT_T); QUIT_T=setTimeout(()=>{ QUIT_ARM=false; const x=$("#quit"); if(x) x.classList.remove("arm"); },4000); return; }
     QUIT_ARM=false; clearTimeout(QUIT_T);
     SFX.play("click"); const coach=document.querySelector(".coach-wrap,.coach"); if(coach) coach.remove();

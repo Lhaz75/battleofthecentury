@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.26.0 — 2026-10-04
+
+- Replay : à la fin d'un combat, bouton « Revoir le combat » pour rejouer toute la partie coup par coup, avec pause, avance/retour et vitesse ×1/×2/×4
+
 ## v0.25.0 — 2026-10-04
 
 - Succès : 27 trophées bronze, argent et or à débloquer (victoires, versus, Elo, séries, survie, tournois, exploits en combat…), chacun rapporte des points. Ils sont dans ton profil avec ta progression
