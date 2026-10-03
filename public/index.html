@@ -683,6 +683,11 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .tmr.low.mine{--tc:#ff4a2a;color:#ff8a6e;animation:tpulse .5s ease-in-out infinite alternate}
 @keyframes tpulse{to{transform:scale(1.08)}}
 .tmr:empty{display:none}
+/* fond ruines sur les portraits des combattants */
+.por,.side.foe .por{background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.05) 50%,rgba(0,0,0,.45)),url("assets/bg-ruins.webp") center 40%/cover no-repeat!important}
+.side.foe .por{background:linear-gradient(180deg,rgba(20,10,40,.3),rgba(0,0,0,.05) 50%,rgba(0,0,0,.45)),url("assets/bg-ruins.webp") center 40%/cover no-repeat!important}
+.show{background:linear-gradient(90deg,rgba(8,5,4,.55),rgba(8,5,4,0) 70%),url("assets/bg-ruins.webp") center 35%/cover no-repeat!important}
+.show::before{display:none}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 <style>html,body{margin:0}*{box-sizing:border-box}img{max-width:100%}[hidden]{display:none!important}</style>
