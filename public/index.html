@@ -968,6 +968,12 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .onl-ul .ow{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#cdb79a;white-space:nowrap}
 .ow.w-solo i,.ow.w-surv i{background:#e8b04a;box-shadow:0 0 6px #e8b04a}.ow.w-vs i,.ow.w-tour i{background:#e0452c;box-shadow:0 0 6px #e0452c}.ow.w-queue i{background:#58a6ff;box-shadow:0 0 6px #58a6ff}
 @media (max-width:600px){.toprow>.row{flex-wrap:wrap!important;justify-content:center!important;row-gap:6px!important;column-gap:6px!important;overflow:visible!important;width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box}.toprow{min-width:0;max-width:100%}.onl .lng{display:none}.clan .fgrid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px!important}.clan .ftile{width:auto!important;flex:none!important}.toprow .langs{position:relative;gap:0}.toprow .langs .lg.flag:not(.on){display:none}.toprow .langs .lg.flag{width:34px!important;height:34px!important}.toprow .langs.open .lg.flag:not(.on){display:block;position:absolute;left:0;z-index:30;opacity:1;filter:none}.toprow .langs.open .lg.flag:not(.on){top:calc(100% + 6px)}.toprow .langs.open .lg.flag:not(.on)~.lg.flag:not(.on){top:calc(100% + 46px)}.onl{height:26px;padding:0 8px;font-size:11px}.onl-ul .ow{font-size:11px}}
+.social{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px}
+.soc{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 14px;border-radius:17px;border:1px solid rgba(232,176,74,.45);background:rgba(18,10,6,.7);color:#f3e2bf;text-decoration:none;font:600 13px var(--f-body,inherit);transition:border-color .15s,background .15s}
+.soc svg{width:17px;height:17px;flex:none}
+.soc:hover{border-color:#e8b04a;background:rgba(40,24,12,.85)}
+.soc-facebook svg{color:#5b8cff}.soc-discord svg{color:#8b95ff}.soc-site svg{color:#e8b04a}
+.gate .social{justify-content:center}
 /* mobile : plateau allégé */
 @media (max-width:999px){
   .screen.board .rs{width:auto;gap:1px}
@@ -2622,6 +2628,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.20.0",d:"2026-10-03",fr:["Liens vers hokutolegacy.com et la page Facebook Hokuto Legacy sur l'écran principal et la page de connexion"],en:["Links to hokutolegacy.com and the Hokuto Legacy Facebook page on the main screen and the login page"],it:["Link a hokutolegacy.com e alla pagina Facebook Hokuto Legacy nella schermata principale e nella pagina di accesso"]},
  {v:"0.19.4",d:"2026-10-03",fr:["Mobile : la grille des combattants prend toute la largeur, mêmes marges à gauche et à droite"],en:["Mobile: the fighter grid uses the full width, same margins left and right"],it:["Mobile: la griglia dei combattenti usa tutta la larghezza, stessi margini a sinistra e a destra"]},
  {v:"0.19.3",d:"2026-10-03",fr:["Mobile : un seul drapeau en haut, qui ouvre le choix de la langue"],en:["Mobile: a single flag at the top that opens the language picker"],it:["Mobile: una sola bandiera in alto che apre la scelta della lingua"]},
  {v:"0.19.2",d:"2026-10-03",fr:["Mobile : la barre du haut ne déborde plus de l'écran"],en:["Mobile: the top bar no longer overflows the screen"],it:["Mobile: la barra in alto non esce più dallo schermo"]},
@@ -2767,6 +2774,15 @@ const MUSIC=(()=>{
   return { want, get on(){ return on; }, get track(){ return el&&!el.paused?decodeURIComponent(el.src.split("/").pop()):null; },
     toggle(){ on=!on; try{ localStorage.setItem("boc-music",on?"on":"off"); }catch(e){} if(!on){ stop(300); key=null; } else { const k=wantKey; key=null; if(k){ played[k]=false; want(k); } } } };
 })();
+
+/* ---------- liens communauté ---------- */
+const SOCIAL={site:"https://hokutolegacy.com", facebook:"https://www.facebook.com/hokutolegacy", discord:""};
+const SOC_ICON={
+  site:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M2.5 12h19M12 2.5c3 3.2 3 15.8 0 19M12 2.5c-3 3.2-3 15.8 0 19" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>',
+  facebook:'<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 22v-8.2h2.8l.4-3.3h-3.2V8.4c0-.9.3-1.6 1.6-1.6h1.7V3.9c-.3 0-1.3-.1-2.5-.1-2.5 0-4.1 1.5-4.1 4.2v2.5H7.4v3.3h2.8V22z"/></svg>',
+  discord:'<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19.6 5.3A16.6 16.6 0 0 0 15.5 4l-.5 1a15 15 0 0 0-6 0l-.5-1a16.6 16.6 0 0 0-4.1 1.3C1.8 9.2 1.1 13 1.4 16.8a16.7 16.7 0 0 0 5 2.5l1.1-1.7c-.6-.2-1.2-.5-1.7-.9l.4-.3a11.9 11.9 0 0 0 11.6 0l.4.3c-.5.4-1.1.7-1.7.9l1.1 1.7a16.7 16.7 0 0 0 5-2.5c.4-4.4-.7-8.2-3-11.5zM8.7 14.5c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2zm6.6 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2z"/></svg>'};
+function socialHTML(){ const lbl={site:"hokutolegacy.com",facebook:"Facebook",discord:"Discord"};
+  return `<div class="social">${["site","facebook","discord"].filter(k=>SOCIAL[k]).map(k=>`<a class="soc soc-${k}" href="${SOCIAL[k]}" target="_blank" rel="noopener">${SOC_ICON[k]}<span>${lbl[k]}</span></a>`).join("")}</div>`; }
 
 /* ---------- joueurs en ligne ---------- */
 const ONLINE={list:[], timer:0, last:0};
@@ -2984,7 +3000,7 @@ function renderGate(sel=[]){
     <p class="betanote">${L("betaNote")}</p><p class="iplead gatelead">${L("gateLead")}</p>
     ${accFormsHTML()}
     <div class="row gatelinks"><button class="btn ghost sm" id="groster">${L("rosterBtn")}</button><button class="btn ghost sm" id="grules">${L("rulesBtn")}</button><button class="btn ghost sm" id="gnews">${L("newsTitle")}</button></div>
-    <p class="fanmade">${L("fanMade")}</p></div></div>`;
+    ${socialHTML()}<p class="fanmade">${L("fanMade")}</p></div></div>`;
   bindAccForms(()=>renderTitle(sel));
   $("#groster").onclick=()=>{ SFX.play("click"); renderRoster(sel); };
   $("#grules").onclick=()=>{ SFX.play("click"); renderRules(sel); };
@@ -3054,7 +3070,7 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; quickStop
     </div>
     </div><div class="selR">
     ${groups}
-    <p class="howto">${L("howto")}</p><p class="betanote">${L("betaNote")}</p><p class="fanmade">${L("fanMade")}</p></div></div>
+    <p class="howto">${L("howto")}</p><p class="betanote">${L("betaNote")}</p>${socialHTML()}<p class="fanmade">${L("fanMade")}</p></div></div>
   </div>`;
   const redo=(nx,fo)=>{const sc=document.querySelector(".screen"),y=sc?sc.scrollTop:0;renderTitle(nx,fo);const s2=document.querySelector(".screen");if(s2)s2.scrollTop=y;};
   document.querySelectorAll(".ftile").forEach(b=>b.onclick=()=>{
