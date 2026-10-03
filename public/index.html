@@ -688,6 +688,11 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .side.foe .por{background:linear-gradient(180deg,rgba(20,10,40,.3),rgba(0,0,0,.05) 50%,rgba(0,0,0,.45)),url("assets/bg-ruins.webp") center 40%/cover no-repeat!important}
 .show{background:linear-gradient(90deg,rgba(8,5,4,.55),rgba(8,5,4,0) 70%),url("assets/bg-ruins.webp") center 35%/cover no-repeat!important}
 .show::before{display:none}
+/* confirmation quitter : bulle au-dessus, le bouton garde sa taille */
+.qbtn.arm{width:44px!important;padding:0!important;border-radius:50%!important;display:grid!important;place-items:center;overflow:visible}
+.qbtn.arm .qtxt{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);padding:6px 12px;border-radius:10px;background:#7a2416;border:1px solid #ff6a4a;box-shadow:0 6px 18px rgba(0,0,0,.6);z-index:20;pointer-events:none}
+.qbtn.arm .qtxt::after{content:"";position:absolute;top:100%;left:50%;margin-left:-6px;border:6px solid transparent;border-top-color:#7a2416}
+@media (max-width:999px){ .bar-actions .qbtn.arm{width:36px!important;height:36px} }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 <style>html,body{margin:0}*{box-sizing:border-box}img{max-width:100%}[hidden]{display:none!important}</style>
