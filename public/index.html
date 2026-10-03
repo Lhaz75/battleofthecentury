@@ -643,6 +643,36 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .boc2 .st{animation:twk 2.6s ease-in-out infinite}
 @keyframes twk{0%,100%{opacity:1}50%{opacity:.45}}
 @media (prefers-reduced-motion:reduce){.boc2 .dline{stroke-dashoffset:0}}
+/* nom du joueur à côté du combattant */
+.pown{display:inline-block;margin-left:8px;font:600 12px var(--f-display);letter-spacing:.06em;text-transform:none;color:var(--mute);vertical-align:middle}
+.pown::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;vertical-align:1px;background:#f0b24a}
+.pown.foe::before{background:#e0503a}
+.side.foe .nmrow .pown{margin-left:0;margin-right:8px}
+.side.foe .nmrow>span:first-child{display:flex;flex-direction:row-reverse;align-items:baseline}
+@media (min-width:1000px){.board>.side.foe .nmrow>span:first-child{flex-direction:row}.board>.side.foe .nmrow .pown{margin-left:8px;margin-right:0}.pown{font-size:14px}}
+/* infobulle terrain / piège */
+.fcard[data-tip]{cursor:help}
+#fieldtip{position:fixed;z-index:60;display:none;flex-direction:column;gap:4px;padding:10px 12px;border-radius:12px;background:rgba(14,10,8,.97);border:1px solid #a8bb6a;box-shadow:0 10px 30px rgba(0,0,0,.7);pointer-events:none}
+#fieldtip.on{display:flex}
+#fieldtip b{font:700 14px var(--f-display);text-transform:uppercase;color:#d6e39a}
+#fieldtip span{font-size:13px;line-height:1.4;color:var(--bone)}
+/* téléphone : plateau qui défile, rien ne se chevauche */
+@media (max-width:999px){
+  .screen.board{overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:0}
+  .screen.board>*{flex-shrink:0}
+  .screen.board>.ring{flex:0 0 auto;min-height:0;justify-content:flex-start;padding-block:8px}
+  .screen.board .log{min-height:0}
+  .screen.board .side .por{width:78px}
+  .screen.board .res{flex-wrap:nowrap;overflow-x:auto;gap:4px}
+  .screen.board .rs{width:50px}.screen.board .rs .av{width:40px;height:40px}
+  .screen.board .rs .rn{font-size:10px;max-width:50px}
+  .screen.board .meta{font-size:11px}
+  .screen.board .hand{padding-top:12px}
+  .screen.board .card{flex-basis:96px;height:136px}
+  .screen.board>.bar-actions{position:sticky;bottom:0;z-index:5;background:linear-gradient(180deg,rgba(18,14,12,0),rgba(18,14,12,.95) 30%);padding-top:10px;padding-bottom:max(8px,env(safe-area-inset-bottom))}
+  .bar-actions .btn{padding:9px 8px;font-size:12.5px;letter-spacing:.03em}
+}
+@media (max-width:999px){ .screen.board .card .cx{overflow:hidden;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical} }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 <style>html,body{margin:0}*{box-sizing:border-box}img{max-width:100%}[hidden]{display:none!important}</style>
@@ -1566,7 +1596,7 @@ function sideHTML(k){
   return `<div class="side ${me?"me":"foe"} ${S.turn===k?"turn":""}">
     ${por(k,f)}
     <div class="info">
-      ${MODE==="vs"?`<div class="pname ${me?"me":"foe"}"><span>${esc(who(k))}</span>${me?`<em>${L("you")}</em>`:""}</div>`:""}<div class="nmrow"><span><span class="fname">${esc(nm(f.id))}</span></span><span class="hpn statico">${ICON.heart}${f.hp}/${f.max}</span></div>
+      <div class="nmrow"><span><span class="fname">${esc(nm(f.id))}</span>${MODE==="vs"?`<span class="pown ${me?"me":"foe"}">${esc(who(k))}</span>`:""}</span><span class="hpn statico">${ICON.heart}${f.hp}/${f.max}</span></div>
       <div class="bar ${f.hp/f.max<.3?"low":""}" data-hpkey="${k}-${f.id}"><span class="chip" style="width:${(PREV_HP[k+"-"+f.id]??f.hp/f.max)*100}%"></span><i style="width:${f.hp/f.max*100}%"></i></div>
       <div class="rage ${s.rage>=RAGE_MAX?"full":""}" title="${L("rage")}"><i style="width:${s.rage/RAGE_MAX*100}%"></i></div>
       <div class="meta"><span>${tr(FIGHTERS[f.id].passive)}</span>${trapChip(k)}</div>
@@ -1578,8 +1608,8 @@ function fieldHTML(){
   const T=S.terrain?TERRAINS[S.terrain]:null;
   const trap=k=>{ const t=S[k].trap, mine=k===ME, see=mine||act(S[ME]).id==="aveugle";
     if(!t) return `<div class="fslot"><div class="flbl">${mine?L("myTrap"):L("foeTrap")}</div><div class="fcard empty">—</div></div>`;
-    return `<div class="fslot"><div class="flbl">${mine?L("myTrap"):L("foeTrap")}</div><div class="fcard trap ${see?"":"hid"}">${see?`<b>${tr(TRAPS[t].name)}</b><span>${tr(TRAPS[t].text)}</span>`:`<b>?</b><span>${L("trapSet")}</span>`}</div></div>`; };
-  return `<div class="field">${trap(ME)}<div class="fslot mid"><div class="flbl">${L("terrainWord")}</div><div class="fcard terr ${T?"":"empty"}">${T?`<b>${tr(T.name)}</b><span>${tr(T.text)}</span>`:`<span>${L("noTerrain")}</span>`}</div></div>${trap(OPPK())}</div>`;
+    return `<div class="fslot"><div class="flbl">${mine?L("myTrap"):L("foeTrap")}</div><div class="fcard trap ${see?"":"hid"}" ${see?`data-tip="${esc(tr(TRAPS[t].name))}|${esc(tr(TRAPS[t].text))}"`:""}>${see?`<b>${tr(TRAPS[t].name)}</b><span>${tr(TRAPS[t].text)}</span>`:`<b>?</b><span>${L("trapSet")}</span>`}</div></div>`; };
+  return `<div class="field">${trap(ME)}<div class="fslot mid"><div class="flbl">${L("terrainWord")}</div><div class="fcard terr ${T?"":"empty"}" ${T?`data-tip="${esc(tr(T.name))}|${esc(tr(T.text))}"`:""}>${T?`<b>${tr(T.name)}</b><span>${tr(T.text)}</span>`:`<span>${L("noTerrain")}</span>`}</div></div>${trap(OPPK())}</div>`;
 }
 function trapChip(k){ return ""; }
 function _oldTrapChip(k){
@@ -1620,6 +1650,25 @@ function comboHTML(){
 }
 let QUIT_T=0, QUIT_ARM=false;
 let JOURNAL=[], JLAST="", JTAB="log", JOPEN=false, CHAT=[], CHAT_SEEN=0, CHAT_KEY="";
+function tipShow(el){
+  let t=document.getElementById("fieldtip"); if(!t){ t=document.createElement("div"); t.id="fieldtip"; document.body.appendChild(t); }
+  if(TIP_KEY!==el.dataset.tip) TIP_T=Date.now();
+  TIP_KEY=el.dataset.tip;
+  const [n,x]=el.dataset.tip.split("|"); t.innerHTML=`<b>${n}</b><span>${x||""}</span>`; t.classList.add("on");
+  const r=el.getBoundingClientRect(), w=Math.min(280,window.innerWidth-16);
+  t.style.width=w+"px"; t.style.left=Math.max(8,Math.min(window.innerWidth-w-8, r.left+r.width/2-w/2))+"px";
+  const below=r.bottom+8, h=t.offsetHeight; t.style.top=(below+h<window.innerHeight? below : Math.max(8,r.top-h-8))+"px";
+}
+let TIP_KEY=null, TIP_T=0;
+function tipHide(){ TIP_KEY=null; const t=document.getElementById("fieldtip"); if(t) t.classList.remove("on"); }
+function bindTips(){
+  if(TIP_KEY){ const el=[...document.querySelectorAll(".fcard[data-tip]")].find(e=>e.dataset.tip===TIP_KEY); if(el) tipShow(el); else tipHide(); }
+  document.querySelectorAll(".fcard[data-tip]").forEach(el=>{
+    if(window.matchMedia && matchMedia("(hover: hover)").matches){ el.onmouseenter=()=>tipShow(el); el.onmouseleave=tipHide; }
+    el.onclick=e=>{ e.stopPropagation(); const t=document.getElementById("fieldtip"); if(t&&t.classList.contains("on")&&TIP_KEY===el.dataset.tip&&Date.now()-TIP_T>500) tipHide(); else tipShow(el); };
+  });
+}
+document.addEventListener("click",tipHide);
 function journalReset(){ JOURNAL=[]; JLAST=""; CHAT=[]; CHAT_SEEN=0; CHAT_KEY=""; JTAB="log"; JOPEN=false; }
 function journalNote(){
   if(!S || !S.log) return;
@@ -1715,6 +1764,7 @@ function render(){
   { const ci=$("#chatin"); if(ci){ ci.value=_cv; if(_cf){ ci.focus(); ci.setSelectionRange(_cv.length,_cv.length); } } }
   { const jl=$("#jlist"); if(jl) jl.scrollTop=_jb?jl.scrollHeight:_jt; }
   if(JTAB==="chat" && (JOPEN || window.innerWidth>=1000)) CHAT_SEEN=Math.max(CHAT_SEEN, CHAT.length?CHAT[CHAT.length-1].t:0);
+  bindTips();
   settleBars();
   while(FXQ.length) FXQ.shift()();
   if(MODE==="vs") schedulePush();
