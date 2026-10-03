@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.19.3 — 2026-10-03
+
+- Mobile : un seul drapeau en haut, qui ouvre le choix de la langue
+
 ## v0.19.2 — 2026-10-03
 
 - Mobile : la barre du haut ne déborde plus de l'écran

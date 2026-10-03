@@ -967,7 +967,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .onl-ul .hn{flex:1;display:flex;align-items:center;gap:6px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .onl-ul .ow{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#cdb79a;white-space:nowrap}
 .ow.w-solo i,.ow.w-surv i{background:#e8b04a;box-shadow:0 0 6px #e8b04a}.ow.w-vs i,.ow.w-tour i{background:#e0452c;box-shadow:0 0 6px #e0452c}.ow.w-queue i{background:#58a6ff;box-shadow:0 0 6px #58a6ff}
-@media (max-width:600px){.toprow>.row{flex-wrap:wrap!important;justify-content:center!important;row-gap:6px!important;column-gap:6px!important;overflow:visible!important;width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box}.toprow{min-width:0;max-width:100%}.onl .lng{display:none}.onl{height:26px;padding:0 8px;font-size:11px}.onl-ul .ow{font-size:11px}}
+@media (max-width:600px){.toprow>.row{flex-wrap:wrap!important;justify-content:center!important;row-gap:6px!important;column-gap:6px!important;overflow:visible!important;width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box}.toprow{min-width:0;max-width:100%}.onl .lng{display:none}.toprow .langs{position:relative;gap:0}.toprow .langs .lg.flag:not(.on){display:none}.toprow .langs .lg.flag{width:34px!important;height:34px!important}.toprow .langs.open .lg.flag:not(.on){display:block;position:absolute;left:0;z-index:30;opacity:1;filter:none}.toprow .langs.open .lg.flag:not(.on){top:calc(100% + 6px)}.toprow .langs.open .lg.flag:not(.on)~.lg.flag:not(.on){top:calc(100% + 46px)}.onl{height:26px;padding:0 8px;font-size:11px}.onl-ul .ow{font-size:11px}}
 /* mobile : plateau allégé */
 @media (max-width:999px){
   .screen.board .rs{width:auto;gap:1px}
@@ -2394,7 +2394,9 @@ function langBar(sel){
   return `<div class="langs" role="group" aria-label="${L("lang")}">${["fr","en","it"].map(l=>`<button class="lg flag ${LANG===l?"on":""}" data-lang="${l}" aria-pressed="${LANG===l}" aria-label="${({fr:"Français",en:"English",it:"Italiano"})[l]}" title="${({fr:"Français",en:"English",it:"Italiano"})[l]}">${FLAGS[l]}</button>`).join("")}</div>`;
 }
 function bindLang(redraw){
-  document.querySelectorAll("[data-lang]").forEach(b=>b.onclick=()=>{ LANG=b.dataset.lang; try{ localStorage.setItem("doom-lang",LANG); }catch(e){} document.documentElement.lang=LANG; redraw(); });
+  document.querySelectorAll("[data-lang]").forEach(b=>b.onclick=()=>{
+    // mobile : seul le drapeau actif est affiché, il ouvre le choix des langues
+    const box=b.closest(".toprow .langs"); if(box && b.classList.contains("on") && matchMedia("(max-width:600px)").matches){ box.classList.toggle("open"); return; } LANG=b.dataset.lang; try{ localStorage.setItem("doom-lang",LANG); }catch(e){} document.documentElement.lang=LANG; redraw(); });
 }
 const SVG_FS='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"/></svg>', SVG_ON='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>', SVG_OFF='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 9l6 6M22 9l-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>';
 
@@ -2620,6 +2622,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.19.3",d:"2026-10-03",fr:["Mobile : un seul drapeau en haut, qui ouvre le choix de la langue"],en:["Mobile: a single flag at the top that opens the language picker"],it:["Mobile: una sola bandiera in alto che apre la scelta della lingua"]},
  {v:"0.19.2",d:"2026-10-03",fr:["Mobile : la barre du haut ne déborde plus de l'écran"],en:["Mobile: the top bar no longer overflows the screen"],it:["Mobile: la barra in alto non esce più dallo schermo"]},
  {v:"0.19.1",d:"2026-10-03",fr:["Illustrations de Jackal et Uighur corrigées (il leur manquait les jambes)"],en:["Fixed Jackal and Uighur artwork (their legs were missing)"],it:["Corrette le illustrazioni di Jackal e Uighur (mancavano le gambe)"]},
  {v:"0.19.0",d:"2026-10-03",fr:["Joueurs en ligne : un compteur sur l'écran principal, et la liste de qui est connecté et ce qu'il fait (menus, combat, survie, versus, file d'attente, tournoi)"],en:["Players online: a counter on the main screen, and the list of who is connected and what they are doing (menus, fight, survival, versus, queue, tournament)"],it:["Giocatori online: un contatore nella schermata principale, e la lista di chi è connesso e cosa sta facendo (menu, combattimento, sopravvivenza, versus, coda, torneo)"]},
