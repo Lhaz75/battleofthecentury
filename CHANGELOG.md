@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v1.13.2 — 2026-10-03
+
+- Nouvelles illustrations de Rei et Toki
+
 ## v1.13.1 — 2026-10-03
 
 - Chaque joueur peut changer son mot de passe depuis sa page Compte
