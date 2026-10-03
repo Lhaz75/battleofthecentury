@@ -606,6 +606,20 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
   .ring .jpanel.open{display:flex;position:fixed;left:8px;right:8px;bottom:8px;top:22%;z-index:40;box-shadow:0 10px 40px rgba(0,0,0,.8);background:rgba(14,10,8,.97)}
   .jpanel.open .jx{display:block}
 }
+.pname{display:flex;align-items:center;gap:6px;font:700 13px var(--f-display);letter-spacing:.08em;text-transform:uppercase;color:#f0b24a;line-height:1}
+.pname span{max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:rgba(240,178,74,.12);border:1px solid rgba(240,178,74,.45);border-radius:10px;padding:3px 9px}
+.pname.foe{color:#ff8a6e}.pname.foe span{background:rgba(224,80,58,.12);border-color:rgba(224,80,58,.5)}
+.pname em{font-style:normal;font-size:10px;color:var(--mute);letter-spacing:.1em}
+.side.foe .pname{justify-content:flex-end}
+@media (min-width:1000px){.board>.side .pname{justify-content:flex-start;font-size:15px}}
+@media (max-width:999px){
+  .bar-actions{gap:6px}
+  .bar-actions .grow{flex:0 1 auto;min-width:0}
+  .bar-actions .tbtn{width:36px;height:36px}
+  .bar-actions .tbtn svg{width:18px;height:18px}
+  .bar-actions .btn{padding:9px 10px;font-size:13px;min-width:0;flex:1 1 auto}
+}
+@media (max-width:420px){ .bar-actions #fs{display:none} .bar-actions .pip{width:9px;height:9px} }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 <style>html,body{margin:0}*{box-sizing:border-box}img{max-width:100%}[hidden]{display:none!important}</style>
@@ -858,7 +872,7 @@ fr:{
   stratDestroy:c=>`Il a vu venir ton ${c} : détruit.`, stratNone:"Il lit ton jeu… aucune réaction en main.", steal:n=>`Il arrache ${n} rage à l'adversaire.`,
   youTrap:n=>`Tu poses un piège : ${n}`, foeTrap:"L'adversaire pose un piège face cachée…", blindSense:(b,n,t)=>`${b} le sent : ${n}. ${t}`, beware:"Méfie-toi.",
   terrPlace:(me,n)=>me?`Tu poses : ${n}`:`L'adversaire pose : ${n}`,
-  trapWord:"Piège", journal:"Journal", chat:"Chat", close:"Fermer", chatEmpty:"Aucun message. Dis bonjour !", chatPh:"Ton message…", send:"Envoyer", quitGame:"Quitter la partie", quitSure:"Quitter ?", myTrap:"Ton piège", foeTrap:"Son piège", trapBang:"Piège !", trapLog:(w,n)=>`PIÈGE (${w}) : ${n}`,
+  trapWord:"Piège", journal:"Journal", chat:"Chat", close:"Fermer", player1:"Joueur 1", player2:"Joueur 2", chatEmpty:"Aucun message. Dis bonjour !", chatPh:"Ton message…", send:"Envoyer", quitGame:"Quitter la partie", quitSure:"Quitter ?", myTrap:"Ton piège", foeTrap:"Son piège", trapBang:"Piège !", trapLog:(w,n)=>`PIÈGE (${w}) : ${n}`,
   filSub:n=>`${n} est stoppé net, combo terminé.`, hitSub:(lv,d,b)=>`${lv} · ${d} dégâts${b?` (combo +${b})`:""}`,
   otage:n=>`Un otage est jeté devant ${n} : le coup est annulé, combo terminé.`, instinct:n=>`${n} a senti le coup venir : esquivé, combo terminé.`,
   needles:n=>`Des aiguilles dans les yeux ! ${n} rate son coup et prend 2 dégâts.`, fakeVital:(n,d)=>`Faux point vital : ${n} frappe à côté, ${d} dégâts.`,
@@ -895,7 +909,7 @@ en:{
   stratDestroy:c=>`He saw your ${c} coming: destroyed.`, stratNone:"He reads your hand… no reactions in it.", steal:n=>`He rips ${n} rage from the opponent.`,
   youTrap:n=>`You set a trap: ${n}`, foeTrap:"The opponent sets a face-down trap…", blindSense:(b,n,t)=>`${b} senses it: ${n}. ${t}`, beware:"Watch out.",
   terrPlace:(me,n)=>me?`You play: ${n}`:`The opponent plays: ${n}`,
-  trapWord:"Trap", journal:"Log", chat:"Chat", close:"Close", chatEmpty:"No messages yet. Say hi!", chatPh:"Your message…", send:"Send", quitGame:"Quit the match", quitSure:"Quit?", myTrap:"Your trap", foeTrap:"Enemy trap", trapBang:"Trap!", trapLog:(w,n)=>`TRAP (${w}): ${n}`,
+  trapWord:"Trap", journal:"Log", chat:"Chat", close:"Close", player1:"Player 1", player2:"Player 2", chatEmpty:"No messages yet. Say hi!", chatPh:"Your message…", send:"Send", quitGame:"Quit the match", quitSure:"Quit?", myTrap:"Your trap", foeTrap:"Enemy trap", trapBang:"Trap!", trapLog:(w,n)=>`TRAP (${w}): ${n}`,
   filSub:n=>`${n} is stopped dead, combo over.`, hitSub:(lv,d,b)=>`${lv} · ${d} damage${b?` (combo +${b})`:""}`,
   otage:n=>`A hostage is thrown in front of ${n}: the hit is cancelled, combo over.`, instinct:n=>`${n} felt it coming: dodged, combo over.`,
   needles:n=>`Needles in the eyes! ${n} misses and takes 2 damage.`, fakeVital:(n,d)=>`Fake vital point: ${n} misses the mark, ${d} damage.`,
@@ -932,7 +946,7 @@ it:{
   stratDestroy:c=>`Ha previsto la tua ${c}: distrutta.`, stratNone:"Legge il tuo gioco… nessuna reazione in mano.", steal:n=>`Strappa ${n} rabbia all'avversario.`,
   youTrap:n=>`Piazzi una trappola: ${n}`, foeTrap:"L'avversario piazza una trappola coperta…", blindSense:(b,n,t)=>`${b} la percepisce: ${n}. ${t}`, beware:"Stai attento.",
   terrPlace:(me,n)=>me?`Giochi: ${n}`:`L'avversario gioca: ${n}`,
-  trapWord:"Trappola", journal:"Diario", chat:"Chat", close:"Chiudi", chatEmpty:"Nessun messaggio. Saluta!", chatPh:"Il tuo messaggio…", send:"Invia", quitGame:"Abbandona la partita", quitSure:"Uscire?", myTrap:"La tua trappola", foeTrap:"Sua trappola", trapBang:"Trappola!", trapLog:(w,n)=>`TRAPPOLA (${w}): ${n}`,
+  trapWord:"Trappola", journal:"Diario", chat:"Chat", close:"Chiudi", player1:"Giocatore 1", player2:"Giocatore 2", chatEmpty:"Nessun messaggio. Saluta!", chatPh:"Il tuo messaggio…", send:"Invia", quitGame:"Abbandona la partita", quitSure:"Uscire?", myTrap:"La tua trappola", foeTrap:"Sua trappola", trapBang:"Trappola!", trapLog:(w,n)=>`TRAPPOLA (${w}): ${n}`,
   filSub:n=>`${n} viene fermato di colpo, combo finita.`, hitSub:(lv,d,b)=>`${lv} · ${d} danni${b?` (combo +${b})`:""}`,
   otage:n=>`Un ostaggio viene gettato davanti a ${n}: il colpo è annullato, combo finita.`, instinct:n=>`${n} ha sentito arrivare il colpo: schivato, combo finita.`,
   needles:n=>`Aghi negli occhi! ${n} manca il colpo e subisce 2 danni.`, fakeVital:(n,d)=>`Falso punto vitale: ${n} colpisce di lato, ${d} danni.`,
@@ -1529,7 +1543,7 @@ function sideHTML(k){
   return `<div class="side ${me?"me":"foe"} ${S.turn===k?"turn":""}">
     ${por(k,f)}
     <div class="info">
-      <div class="nmrow"><span><span class="fname">${esc(nm(f.id))}</span></span><span class="hpn statico">${ICON.heart}${f.hp}/${f.max}</span></div>
+      ${MODE==="vs"?`<div class="pname ${me?"me":"foe"}"><span>${esc(who(k))}</span>${me?`<em>${L("you")}</em>`:""}</div>`:""}<div class="nmrow"><span><span class="fname">${esc(nm(f.id))}</span></span><span class="hpn statico">${ICON.heart}${f.hp}/${f.max}</span></div>
       <div class="bar ${f.hp/f.max<.3?"low":""}" data-hpkey="${k}-${f.id}"><span class="chip" style="width:${(PREV_HP[k+"-"+f.id]??f.hp/f.max)*100}%"></span><i style="width:${f.hp/f.max*100}%"></i></div>
       <div class="rage ${s.rage>=RAGE_MAX?"full":""}" title="${L("rage")}"><i style="width:${s.rage/RAGE_MAX*100}%"></i></div>
       <div class="meta"><span>${tr(FIGHTERS[f.id].passive)}</span>${trapChip(k)}</div>
@@ -1856,7 +1870,7 @@ function onDuel(snap){
   const chatChanged=onChatData(d);
   if(NET.role==="host" && d.status==="ready" && !d.state && !NET.started){
     NET.started=true; MODE="vs"; ME="p";
-    newGame(d.hostTeam); S.a=makeSide(d.guestTeam); S.names={p:d.hostName||"P1", a:d.guestName||"P2"};
+    newGame(d.hostTeam); S.a=makeSide(d.guestTeam); S.names={p:d.hostName||"P1", a:d.guestName||"P2"}; journalReset();
     S.log=L("turnOf",who("p")); render(); clearTimeout(NET.pushT); netPush();
     return;
   }
@@ -1893,10 +1907,10 @@ async function renderLobby(team){
       <p class="note">${window.DOOM_SELFHOST?L("inviteHelpSelf"):L("inviteHelp")}</p>
       <button class="btn ghost" id="back">${L("back")}</button>
     </div></div>`;
-  const getNick=()=>{ const n=($("#nick").value||"").trim().slice(0,16)||"???"; try{ localStorage.setItem("doom-nick",n); }catch(e){} return n; };
+  const getNick=(host)=>{ const v=($("#nick").value||"").trim().slice(0,16); if(v){ try{ localStorage.setItem("doom-nick",v); }catch(e){} } return v||L(host?"player1":"player2"); };
   $("#back").onclick=()=>renderTitle(team);
   $("#create").onclick=async()=>{
-    const name=getNick(); const code=makeCode();
+    const name=getNick(true); const code=makeCode();
     NET.ref=NET.db.doc("duels/"+code); NET.role="host"; NET.started=false;
     try{ await NET.ref.set({code, hostId:NET.uid, hostName:name, hostTeam:team, guestId:null, status:"waiting", seq:0, created:Date.now()}); }
     catch(e){ $("#err").textContent=L("netErr"); NET.ref=null; return; }
@@ -1904,7 +1918,7 @@ async function renderLobby(team){
     renderWaiting(code);
   };
   $("#join").onclick=async()=>{
-    const name=getNick(); const code=($("#code").value||"").trim().toUpperCase();
+    const name=getNick(false); const code=($("#code").value||"").trim().toUpperCase();
     if(!/^[A-Z]{4}$/.test(code)){ $("#err").textContent=L("notFound"); return; }
     const ref=NET.db.doc("duels/"+code); let snap;
     try{ snap=await ref.get(); }catch(e){ $("#err").textContent=L("netErr"); return; }
