@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v1.12.4 — 2026-10-03
+
+- Nouveau décor de fond : la ville en ruines
+
 ## v1.12.3 — 2026-10-03
 
 - Mention « jeu de fan gratuit et non monétisé, illustrations générées par IA » sur l'écran principal, les Règles et les Nouveautés

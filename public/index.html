@@ -32,7 +32,7 @@
 html,body{height:100%}
 h1,h2,.disp,[class]{font-synthesis:none}
 body{margin:0;background:var(--night);color:var(--bone);font-family:var(--f-body);font-size:14px;overflow:hidden;
-  background-image:linear-gradient(180deg,rgba(18,14,12,.55) 0%,rgba(18,14,12,.35) 40%,rgba(18,14,12,.85) 100%),radial-gradient(120% 60% at 50% 0%,rgba(120,40,20,.35) 0%,transparent 60%),url("assets/bg-wasteland.webp");
+  background-image:linear-gradient(180deg,rgba(18,14,12,.72) 0%,rgba(18,14,12,.6) 40%,rgba(18,14,12,.9) 100%),radial-gradient(120% 60% at 50% 0%,rgba(120,40,20,.3) 0%,transparent 60%),url("assets/bg-city.webp");
   background-size:cover;background-position:center;background-attachment:fixed}
 #app{height:100%;max-width:600px;margin:0 auto;display:flex;flex-direction:column;padding-inline:12px;box-sizing:border-box}
 button{font-family:inherit;color:inherit;cursor:pointer;background:none;border:none}
@@ -2479,6 +2479,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"1.12.4",d:"2026-10-03",fr:["Nouveau décor de fond : la ville en ruines"],en:["New background: the ruined city"],it:["Nuovo sfondo: la città in rovina"]},
  {v:"1.12.3",d:"2026-10-03",fr:["Mention « jeu de fan gratuit et non monétisé, illustrations générées par IA » sur l'écran principal, les Règles et les Nouveautés"],en:["“Free, non-monetized fan game, AI-generated artwork” notice on the main screen, Rules and What's new"],it:["Nota « gioco di fan gratuito e non monetizzato, illustrazioni generate con l'IA » nella schermata principale, nelle Regole e nelle Novità"]},
  {v:"1.12.2",d:"2026-10-03",fr:["PC : un clic sur un bouton du menu n'active plus le bouton voisin"],en:["PC: clicking a menu button no longer triggers the one next to it"],it:["PC: un clic su un pulsante del menu non attiva più quello accanto"]},
  {v:"1.12.1",d:"2026-10-03",fr:["Le bouton Quitter répond à chaque fois (la bulle « Quitter ? » est aussi cliquable)"],en:["The Quit button always responds (the “Quit?” bubble is clickable too)"],it:["Il pulsante Esci risponde sempre (anche il fumetto « Uscire? » è cliccabile)"]},
