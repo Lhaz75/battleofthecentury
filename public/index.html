@@ -335,16 +335,16 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .banner.foe span{color:#ff8a6e}
 @keyframes bandin{0%{transform:scaleX(0)}18%{transform:scaleX(1)}80%{transform:scaleX(1);opacity:1}100%{transform:scaleX(1);opacity:0}}
 @keyframes bandtxt{0%{transform:translateX(120vw)}22%{transform:translateX(0)}78%{transform:translateX(0);opacity:1}100%{transform:translateX(-120vw);opacity:0}}
-.cutin{position:fixed;inset:0;z-index:9;pointer-events:none;overflow:hidden;animation:cutbg 1.5s ease-in-out forwards}
+.cutin{position:fixed;inset:0;z-index:9;pointer-events:none;overflow:hidden;animation:cutbg 1.9s ease-in-out forwards}
 @keyframes cutbg{0%{background:rgba(0,0,0,0)}12%{background:rgba(0,0,0,.72)}82%{background:rgba(0,0,0,.72)}100%{background:rgba(0,0,0,0)}}
-.cutin .band{position:absolute;left:-10%;right:-10%;top:28%;height:44%;transform:skewY(-8deg) scaleY(0);background:linear-gradient(180deg,#5a0f07,#c2331a 50%,#5a0f07);box-shadow:0 0 0 3px #000,0 0 0 5px var(--ochre),0 0 60px rgba(255,90,40,.6);animation:cutband 1.5s ease-in-out forwards;overflow:hidden}
+.cutin .band{position:absolute;left:-10%;right:-10%;top:28%;height:44%;transform:skewY(-8deg) scaleY(0);background:linear-gradient(180deg,#5a0f07,#c2331a 50%,#5a0f07);box-shadow:0 0 0 3px #000,0 0 0 5px var(--ochre),0 0 60px rgba(255,90,40,.6);animation:cutband 1.9s ease-in-out forwards;overflow:hidden}
 .cutin.foe .band{background:linear-gradient(180deg,#14102a,#4b2a6e 50%,#14102a);box-shadow:0 0 0 3px #000,0 0 0 5px var(--blood),0 0 60px rgba(216,50,31,.6)}
 .cutin .band::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(100deg,transparent 0 18px,rgba(255,255,255,.07) 18px 22px);animation:speed .3s linear infinite}
 @keyframes speed{to{background-position:60px 0}}
 @keyframes cutband{0%{transform:skewY(-8deg) scaleY(0)}12%{transform:skewY(-8deg) scaleY(1)}85%{transform:skewY(-8deg) scaleY(1);opacity:1}100%{transform:skewY(-8deg) scaleY(1);opacity:0}}
-.cutin img{position:absolute;top:14%;height:86%;left:2%;transform:skewY(8deg) translateX(-120%);filter:drop-shadow(0 0 12px rgba(0,0,0,.9));animation:cutimg 1.5s cubic-bezier(.2,.9,.2,1) forwards}
+.cutin img{position:absolute;top:14%;height:86%;left:2%;transform:skewY(8deg) translateX(-120%);filter:drop-shadow(0 0 12px rgba(0,0,0,.9));animation:cutimg 1.9s cubic-bezier(.2,.9,.2,1) forwards}
 @keyframes cutimg{0%{transform:skewY(8deg) translateX(-120%)}18%{transform:skewY(8deg) translateX(0)}82%{transform:skewY(8deg) translateX(6%)}100%{transform:skewY(8deg) translateX(30%);opacity:0}}
-.cutin .nm{position:absolute;right:5%;top:50%;width:58%;transform:translateY(-50%) skewY(-8deg);text-align:right;font-family:var(--f-display);color:#fff;text-shadow:0 4px 0 #000,0 0 24px rgba(255,160,80,.8);font-size:clamp(26px,7vw,54px);line-height:.95;animation:cutnm 1.5s ease-out forwards}
+.cutin .nm{position:absolute;right:5%;top:50%;width:58%;transform:translateY(-50%) skewY(-8deg);text-align:right;font-family:var(--f-display);color:#fff;text-shadow:0 4px 0 #000,0 0 24px rgba(255,160,80,.8);font-size:clamp(26px,7vw,54px);line-height:.95;animation:cutnm 1.9s ease-out forwards}
 .cutin .nm small{display:block;font-size:.42em;letter-spacing:.2em;color:#ffd38a}
 @keyframes cutnm{0%{opacity:0;transform:translate(80px,-50%) skewY(-8deg)}22%{opacity:1;transform:translate(0,-50%) skewY(-8deg)}85%{opacity:1}100%{opacity:0}}
 .big{font-family:var(--f-display)!important;animation:stamp 1.3s forwards!important}
@@ -833,6 +833,17 @@ html,body,*{scrollbar-width:none}::-webkit-scrollbar{display:none}
 }
 @media (min-width:1300px){.boc2{width:360px!important}}
 @media (min-width:1000px) and (max-width:1200px){.toprow .modes.top{gap:8px!important}.toprow .modes.top .btn{padding:9px 12px!important;font-size:13px!important}}
+
+.cutin .band img.cu{top:-20%;height:140%;left:6%;width:66%;object-fit:cover;object-position:50% 40%;filter:none;transform:skewY(8deg);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 62%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 62%,transparent 100%);animation:cutcu 1.9s cubic-bezier(.2,.9,.2,1) forwards}
+.cutin.foe .band img.cu{left:auto;right:6%;-webkit-mask-image:linear-gradient(270deg,transparent 0,#000 12%,#000 62%,transparent 100%);mask-image:linear-gradient(270deg,transparent 0,#000 12%,#000 62%,transparent 100%);animation-name:cutcufoe}
+@keyframes cutcu{0%{transform:skewY(8deg) translateX(-70%) scale(1.25);opacity:0}14%{opacity:1;transform:skewY(8deg) translateX(0) scale(1.12)}85%{opacity:1;transform:skewY(8deg) translateX(4%) scale(1.02)}100%{opacity:0;transform:skewY(8deg) translateX(8%) scale(1)}}
+@keyframes cutcufoe{0%{transform:skewY(8deg) translateX(70%) scale(1.25);opacity:0}14%{opacity:1;transform:skewY(8deg) translateX(0) scale(1.12)}85%{opacity:1;transform:skewY(8deg) translateX(-4%) scale(1.02)}100%{opacity:0;transform:skewY(8deg) translateX(-8%) scale(1)}}
+.cutin.foe .nm{right:auto;left:5%;text-align:left;animation-name:cutnmfoe}
+@keyframes cutnmfoe{0%{opacity:0;transform:translate(-80px,-50%) skewY(-8deg)}22%{opacity:1;transform:translate(0,-50%) skewY(-8deg)}85%{opacity:1}100%{opacity:0}}
+.cutin .nm{z-index:2}
+@media (max-width:700px){.cutin .band img.cu{width:96%;left:2%;object-position:50% 35%}.cutin.foe .band img.cu{right:2%}.cutin .nm{top:auto;bottom:24%;width:90%;transform:skewY(-8deg);font-size:clamp(24px,8vw,40px)}
+ @keyframes cutnm{0%{opacity:0;transform:translateX(60px) skewY(-8deg)}22%{opacity:1;transform:translateX(0) skewY(-8deg)}85%{opacity:1}100%{opacity:0}}
+ @keyframes cutnmfoe{0%{opacity:0;transform:translateX(-60px) skewY(-8deg)}22%{opacity:1;transform:translateX(0) skewY(-8deg)}85%{opacity:1}100%{opacity:0}}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 <style>html,body{margin:0}*{box-sizing:border-box}img{max-width:100%}[hidden]{display:none!important}</style>
@@ -1818,7 +1829,7 @@ function splat(k){ rec(["splat",k]); FXQ.push(()=>{ const host=$(`#por-${k}`); i
 function impact(k,dmg){ rec(["impact",k,dmg]); FXQ.push(()=>{ const host=$(`#por-${k}`); if(!host||reduced) return; const d=document.createElement("div"); d.className="impact"+(dmg>=8?" big":""); host.appendChild(d); setTimeout(()=>d.remove(),400); if(dmg>=6){ const sl=document.createElement("div"); sl.className="slash"; host.appendChild(sl); setTimeout(()=>sl.remove(),400); } }); }
 function hitsPop(n){ rec(["hits",n]); if(reduced) return; document.querySelectorAll(".hits").forEach(e=>e.remove()); const d=document.createElement("div"); d.className="hits"; d.innerHTML=`<b>${n}</b><span>HITS</span>`; document.body.appendChild(d); setTimeout(()=>d.remove(),950); }
 function banner(k){ rec(["banner",k]); const foe=k!==ME; const text=!foe?L("bnMe"):(MODE==="vs"?esc(who(k)):L("bnFoe")); const d=document.createElement("div"); d.className="banner"+(foe?" foe":""); d.innerHTML=`<span>${text}</span>`; document.body.appendChild(d); setTimeout(()=>d.remove(),2300); }
-function cutin(k,fid,name){ rec(["cutin",k,fid,name]); const img=CONFIG.imgs[fid]; const d=document.createElement("div"); d.className="cutin"+(k===ME?"":" foe"); d.innerHTML=`<div class="band">${img?`<img src="${img}" alt="">`:""}</div><div class="nm"><small>${esc(nm(fid))}</small>${esc(name)}</div>`; document.body.appendChild(d); setTimeout(()=>d.remove(),1550); }
+function cutin(k,fid,name){ rec(["cutin",k,fid,name]); const img=CONFIG.imgs[fid]; const d=document.createElement("div"); d.className="cutin"+(k===ME?"":" foe"); d.innerHTML=`<div class="band">${img?`<img class="cu" src="assets/cut-${fid}.webp" alt="" onerror="this.src='${img}';this.className=''">`:""}</div><div class="nm"><small>${esc(nm(fid))}</small>${esc(name)}</div>`; document.body.appendChild(d); setTimeout(()=>d.remove(),1950); }
 function showPlayed(key,k){
   const isTrap = key==="__trap" || (CARDS[key] && CARDS[key].kind==="trap");
   rec(["played", isTrap?"__trap":key, k]); if(reduced) return;
