@@ -455,7 +455,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .clan h3{margin-top:8px}
 .fgrid{gap:12px}
 .show .info{padding:22px;gap:10px}
-.show .fname{font-family:"Dela Gothic One",var(--f-display)!important;font-weight:400;letter-spacing:.01em}
+.show .fname{font-family:"Dela Gothic One",var(--f-display)!important;font-weight:400;letter-spacing:.01em;overflow-wrap:normal;word-break:keep-all}
 .teambar{padding:16px 18px;gap:12px}
 .slots{gap:10px}
 .modes{gap:12px}
@@ -1985,6 +1985,13 @@ function pageShell(title,body,sel){
   $("#app").innerHTML=`<div class="screen infopage" style="overflow-y:auto"><div class="ipbar"><button class="btn ghost sm" id="back" aria-label="${L("back")}">←<span class="blabel"> ${L("back")}</span></button><h2>${title}</h2><div class="row">${langBar()}</div></div>${body}</div>`;
   $("#back").onclick=()=>{ SFX.play("click"); renderTitle(sel); };
 }
+function fitShowName(){
+  const el=document.querySelector(".show .fname"), sh=document.querySelector(".show"); if(!el||!sh) return;
+  el.style.fontSize=""; el.style.maxWidth=Math.round(sh.clientWidth*.6)+"px";
+  let fs=parseFloat(getComputedStyle(el).fontSize), lh=()=>parseFloat(getComputedStyle(el).fontSize)*1.05;
+  while(fs>16 && (el.scrollWidth>el.clientWidth+1 || el.offsetHeight>lh()*2.2)){ fs-=1; el.style.fontSize=fs+"px"; }
+}
+if(!window.__fitR){ window.__fitR=1; addEventListener("resize",()=>fitShowName()); }
 function renderRoster(sel=[]){
   const ids=Object.keys(FIGHTERS);
   const body=CLANS.map(c=>{ const m=ids.filter(id=>CLAN[id]===c); if(!m.length) return "";
@@ -2067,6 +2074,7 @@ function renderTitle(sel=[],focus=null){
   $("#rnd").onclick=()=>{ SFX.play("click"); const t=randomTeam(); redo(t,t[0]); };
   $("#tuto").onclick=()=>{ SFX.play("event"); startTuto(); };
   $("#roster").onclick=()=>{ SFX.play("click"); renderRoster(sel); };
+  fitShowName(); requestAnimationFrame(fitShowName); if(document.fonts) document.fonts.ready.then(fitShowName);
   $("#rules").onclick=()=>{ SFX.play("click"); renderRules(sel); };
   $("#snd").onclick=()=>{ SFX.toggle(); redo(sel,focus); };
   if($("#fs")) $("#fs").onclick=toggleFS;
