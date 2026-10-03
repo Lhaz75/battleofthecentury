@@ -2,6 +2,13 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.17.0 — 2026-10-03
+
+- « Hall of Fame » devient « Classement »
+- PV affichés sous les combattants en réserve, jauge de rage découpée en 8 crans
+- La main est triée : Légers, Moyens, Lourds, puis réactions, spéciales, terrains et pièges
+- Une main sans aucune attaque échange automatiquement une carte contre une attaque (merci maxGfive et Jerome R.)
+
 ## v0.16.2 — 2026-10-03
 
 - Numérotation passée en 0.x : le jeu est en bêta, la version 1.0 sera la sortie officielle
