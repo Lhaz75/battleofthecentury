@@ -1,0 +1,239 @@
+// Comptes joueurs, scores et Hall of Fame.
+// Stockage : Postgres si DATABASE_URL est défini (Neon), sinon un fichier JSON local (dev / secours).
+const crypto = require("crypto");
+const fs = require("fs");
+const path = require("path");
+
+const NAME_RE = /^[\p{L}\p{N}_\- .]{3,16}$/u;
+const AVATAR_MAX = 80 * 1024;
+const AVATAR_TYPES = { "image/webp": 1, "image/jpeg": 1, "image/png": 1 };
+const SESSION_DAYS = 90;
+const DEFAULT_STATS = () => ({ elo: 1000, pts: 0, aiW: 0, aiL: 0, vsW: 0, vsL: 0, streak: 0, best: 0, fav: {} });
+
+const sha = s => crypto.createHash("sha256").update(s).digest("hex");
+const scrypt = (pw, salt) => new Promise((ok, ko) => crypto.scrypt(pw, salt, 64, (e, k) => e ? ko(e) : ok(k.toString("hex"))));
+
+// ---------------- stockage ----------------
+function jsonStore(file) {
+  let db = { users: [], sessions: {}, next: 1 };
+  try { db = JSON.parse(fs.readFileSync(file, "utf8")); } catch (e) {}
+  let t = null;
+  const save = () => { clearTimeout(t); t = setTimeout(() => fs.mkdir(path.dirname(file), { recursive: true }, () =>
+    fs.writeFile(file, JSON.stringify(db), () => {})), 300); };
+  const pub = u => u && ({ ...u, avatar: undefined });
+  return {
+    kind: "json",
+    async init() {},
+    async createUser(name, pass, salt) {
+      const lc = name.toLowerCase();
+      if (db.users.some(u => u.name_lc === lc)) return null;
+      const u = { id: db.next++, name, name_lc: lc, pass, salt, created: Date.now(), avatar: null, avatar_type: null, avatar_v: 0, stats: DEFAULT_STATS() };
+      db.users.push(u); save(); return pub(u);
+    },
+    async byName(name) { const u = db.users.find(u => u.name_lc === name.toLowerCase()); return u ? { ...u } : null; },
+    async byId(id) { return pub(db.users.find(u => u.id === id)); },
+    async addSession(hash, uid) { db.sessions[hash] = { uid, t: Date.now() }; save(); },
+    async session(hash) { const s = db.sessions[hash]; if (!s || Date.now() - s.t > SESSION_DAYS * 864e5) return null; return this.byId(s.uid); },
+    async dropSession(hash) { delete db.sessions[hash]; save(); },
+    async setAvatar(uid, b64, type) { const u = db.users.find(u => u.id === uid); if (!u) return; u.avatar = b64; u.avatar_type = type; u.avatar_v = (u.avatar_v || 0) + 1; save(); return u.avatar_v; },
+    async avatar(uid) { const u = db.users.find(u => u.id === uid); return u && u.avatar ? { buf: Buffer.from(u.avatar, "base64"), type: u.avatar_type, v: u.avatar_v } : null; },
+    async saveStats(uid, stats) { const u = db.users.find(u => u.id === uid); if (u) { u.stats = stats; save(); } },
+    async top(kind, n) {
+      const list = db.users.filter(u => kind === "elo" ? u.stats.vsW + u.stats.vsL > 0 : u.stats.pts > 0)
+        .sort((a, b) => kind === "elo" ? b.stats.elo - a.stats.elo : b.stats.pts - a.stats.pts).slice(0, n);
+      return list.map(pub);
+    },
+    async rank(uid, kind) {
+      const me = db.users.find(u => u.id === uid); if (!me) return null;
+      const k = kind === "elo" ? "elo" : "pts";
+      if (kind === "elo" && me.stats.vsW + me.stats.vsL === 0) return null;
+      if (kind !== "elo" && me.stats.pts === 0) return null;
+      return 1 + db.users.filter(u => (kind === "elo" ? u.stats.vsW + u.stats.vsL > 0 : true) && u.stats[k] > me.stats[k]).length;
+    }
+  };
+}
+
+function pgStore(url, PgPool) {
+  const { Pool } = PgPool || require("pg");
+  const pool = new Pool({ connectionString: url, ssl: /sslmode=disable|localhost/.test(url) ? false : { rejectUnauthorized: false }, max: 4 });
+  const q = (sql, args) => pool.query(sql, args);
+  const row = r => r && ({ id: r.id, name: r.name, name_lc: r.name_lc, pass: r.pass, salt: r.salt, created: +r.created, avatar_v: r.avatar_v, stats: { ...DEFAULT_STATS(), ...(r.stats || {}) } });
+  const COLS = "id,name,name_lc,pass,salt,created,avatar_v,stats";
+  return {
+    kind: "postgres",
+    async init() {
+      await q(`CREATE TABLE IF NOT EXISTS boc_users (id SERIAL PRIMARY KEY, name TEXT NOT NULL, name_lc TEXT NOT NULL UNIQUE, pass TEXT NOT NULL, salt TEXT NOT NULL,
+        created BIGINT NOT NULL, avatar TEXT, avatar_type TEXT, avatar_v INT NOT NULL DEFAULT 0, stats JSONB NOT NULL)`);
+      await q(`CREATE TABLE IF NOT EXISTS boc_sessions (hash TEXT PRIMARY KEY, uid INT NOT NULL, t BIGINT NOT NULL)`);
+    },
+    async createUser(name, pass, salt) {
+      try {
+        const r = await q(`INSERT INTO boc_users (name,name_lc,pass,salt,created,stats) VALUES ($1,$2,$3,$4,$5,$6) RETURNING ${COLS}`,
+          [name, name.toLowerCase(), pass, salt, Date.now(), JSON.stringify(DEFAULT_STATS())]);
+        return row(r.rows[0]);
+      } catch (e) { if (e.code === "23505") return null; throw e; }
+    },
+    async byName(name) { const r = await q(`SELECT ${COLS} FROM boc_users WHERE name_lc=$1`, [name.toLowerCase()]); return row(r.rows[0]); },
+    async byId(id) { const r = await q(`SELECT ${COLS} FROM boc_users WHERE id=$1`, [id]); return row(r.rows[0]); },
+    async addSession(hash, uid) { await q(`INSERT INTO boc_sessions (hash,uid,t) VALUES ($1,$2,$3)`, [hash, uid, Date.now()]); },
+    async session(hash) {
+      const r = await q(`SELECT uid,t FROM boc_sessions WHERE hash=$1`, [hash]); const s = r.rows[0];
+      if (!s || Date.now() - +s.t > SESSION_DAYS * 864e5) return null; return this.byId(s.uid);
+    },
+    async dropSession(hash) { await q(`DELETE FROM boc_sessions WHERE hash=$1`, [hash]); },
+    async setAvatar(uid, b64, type) { const r = await q(`UPDATE boc_users SET avatar=$2, avatar_type=$3, avatar_v=avatar_v+1 WHERE id=$1 RETURNING avatar_v`, [uid, b64, type]); return r.rows[0] && r.rows[0].avatar_v; },
+    async avatar(uid) { const r = await q(`SELECT avatar,avatar_type,avatar_v FROM boc_users WHERE id=$1`, [uid]); const a = r.rows[0]; return a && a.avatar ? { buf: Buffer.from(a.avatar, "base64"), type: a.avatar_type, v: a.avatar_v } : null; },
+    async saveStats(uid, stats) { await q(`UPDATE boc_users SET stats=$2 WHERE id=$1`, [uid, JSON.stringify(stats)]); },
+    async top(kind, n) {
+      const where = kind === "elo" ? `((stats->>'vsW')::int + (stats->>'vsL')::int) > 0` : `(stats->>'pts')::int > 0`;
+      const ord = kind === "elo" ? `(stats->>'elo')::int` : `(stats->>'pts')::int`;
+      const r = await q(`SELECT ${COLS} FROM boc_users WHERE ${where} ORDER BY ${ord} DESC, id ASC LIMIT $1`, [n]); return r.rows.map(row);
+    },
+    async rank(uid, kind) {
+      const me = await this.byId(uid); if (!me) return null;
+      if (kind === "elo") {
+        if (me.stats.vsW + me.stats.vsL === 0) return null;
+        const r = await q(`SELECT COUNT(*)::int AS n FROM boc_users WHERE ((stats->>'vsW')::int + (stats->>'vsL')::int) > 0 AND (stats->>'elo')::int > $1`, [me.stats.elo]); return r.rows[0].n + 1;
+      }
+      if (me.stats.pts === 0) return null;
+      const r = await q(`SELECT COUNT(*)::int AS n FROM boc_users WHERE (stats->>'pts')::int > $1`, [me.stats.pts]); return r.rows[0].n + 1;
+    }
+  };
+}
+
+// ---------------- logique ----------------
+function makeAccounts({ store, getDuel }) {
+  const matches = new Map();      // code -> { host: uid, guest: uid, done }
+  const lastSolo = new Map();     // uid -> timestamp
+  const tries = new Map();        // ip -> { n, t }
+
+  const limited = ip => { const now = Date.now(); const e = tries.get(ip) || { n: 0, t: now }; if (now - e.t > 60000) { e.n = 0; e.t = now; } e.n++; tries.set(ip, e); return e.n > 12; };
+  const pubUser = u => ({ id: u.id, name: u.name, avatar: u.avatar_v ? `/api/avatar/${u.id}?v=${u.avatar_v}` : null, stats: u.stats, created: u.created });
+  async function newSession(u) { const tok = crypto.randomBytes(32).toString("hex"); await store.addSession(sha(tok), u.id); return tok; }
+  async function auth(req) { const h = req.headers.authorization || ""; const tok = h.startsWith("Bearer ") ? h.slice(7) : ""; if (!/^[0-9a-f]{64}$/.test(tok)) return null; return store.session(sha(tok)); }
+  function bumpFav(st, team) { (Array.isArray(team) ? team : []).slice(0, 5).forEach(id => { if (typeof id === "string" && /^[a-z]{2,12}$/.test(id)) st.fav[id] = (st.fav[id] || 0) + 1; }); }
+  function streak(st, won) { if (won) { st.streak = (st.streak || 0) + 1; st.best = Math.max(st.best || 0, st.streak); } else st.streak = 0; }
+  const expect = (a, b) => 1 / (1 + Math.pow(10, (b - a) / 400));
+
+  async function settle(code, loserRole) {
+    const m = matches.get(code); if (!m || m.done) return;
+    m.done = true;
+    const winRole = loserRole === "host" ? "guest" : "host";
+    const W = m[winRole] ? await store.byId(m[winRole]) : null, Lo = m[loserRole] ? await store.byId(m[loserRole]) : null;
+    if (W && Lo && W.id !== Lo.id) {
+      const e = expect(W.stats.elo, Lo.stats.elo), k = 32, d = Math.max(1, Math.round(k * (1 - e)));
+      W.stats.elo += d; Lo.stats.elo = Math.max(100, Lo.stats.elo - d);
+    }
+    if (W) { W.stats.vsW++; W.stats.pts += 25; streak(W.stats, true); bumpFav(W.stats, m.teams && m.teams[winRole]); await store.saveStats(W.id, W.stats); }
+    if (Lo) { Lo.stats.vsL++; Lo.stats.pts += 5; streak(Lo.stats, false); bumpFav(Lo.stats, m.teams && m.teams[loserRole]); await store.saveStats(Lo.id, Lo.stats); }
+    setTimeout(() => matches.delete(code), 3600e3);
+  }
+  // perdant lu dans l'état de la partie stocké par le serveur de relais
+  function loserFromDuel(code) {
+    const d = getDuel(code); if (!d || !d.state) return null;
+    let st; try { st = JSON.parse(d.state); } catch (e) { return null; }
+    if (!st || !st.over) return null;
+    const dead = side => side && side.team && side.team.every(t => t.ko);
+    if (dead(st.p)) return "host"; if (dead(st.a)) return "guest"; return null;
+  }
+
+  const routes = {
+    "POST /api/register": async (req, body, ip) => {
+      if (limited(ip)) return [429, { error: "slow" }];
+      const name = String(body.name || "").trim().replace(/\s+/g, " "), pw = String(body.password || "");
+      if (!NAME_RE.test(name)) return [400, { error: "name" }];
+      if (pw.length < 6 || pw.length > 100) return [400, { error: "password" }];
+      const salt = crypto.randomBytes(16).toString("hex");
+      const u = await store.createUser(name, await scrypt(pw, salt), salt);
+      if (!u) return [409, { error: "taken" }];
+      return [200, { token: await newSession(u), user: pubUser(u) }];
+    },
+    "POST /api/login": async (req, body, ip) => {
+      if (limited(ip)) return [429, { error: "slow" }];
+      const u = await store.byName(String(body.name || "").trim().replace(/\s+/g, " "));
+      const pw = String(body.password || "");
+      if (!u) { await scrypt(pw, "x".repeat(32)); return [401, { error: "bad" }]; }
+      const h = await scrypt(pw, u.salt);
+      if (!crypto.timingSafeEqual(Buffer.from(h, "hex"), Buffer.from(u.pass, "hex"))) return [401, { error: "bad" }];
+      return [200, { token: await newSession(u), user: pubUser(u) }];
+    },
+    "POST /api/logout": async req => { const h = (req.headers.authorization || "").slice(7); if (h) await store.dropSession(sha(h)); return [200, { ok: true }]; },
+    "GET /api/me": async req => {
+      const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      return [200, { user: pubUser(u), rank: { elo: await store.rank(u.id, "elo"), pts: await store.rank(u.id, "pts") } }];
+    },
+    "POST /api/avatar": async (req, body) => {
+      const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      const m = /^data:(image\/(?:webp|jpeg|png));base64,([A-Za-z0-9+/=]+)$/.exec(String(body.image || ""));
+      if (!m || !AVATAR_TYPES[m[1]]) return [400, { error: "image" }];
+      const buf = Buffer.from(m[2], "base64");
+      if (buf.length > AVATAR_MAX || buf.length < 100) return [400, { error: "size" }];
+      const sig = buf.slice(0, 12).toString("binary");
+      const okSig = m[1] === "image/png" ? sig.startsWith("\x89PNG") : m[1] === "image/jpeg" ? sig.startsWith("\xff\xd8") : sig.startsWith("RIFF") && sig.slice(8, 12) === "WEBP";
+      if (!okSig) return [400, { error: "image" }];
+      const v = await store.setAvatar(u.id, m[2], m[1]);
+      return [200, { avatar: `/api/avatar/${u.id}?v=${v}` }];
+    },
+    "POST /api/result": async (req, body) => {
+      const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      if (body.mode !== "solo") return [400, { error: "mode" }];
+      const now = Date.now(); if (now - (lastSolo.get(u.id) || 0) < 45000) return [429, { error: "slow" }];
+      lastSolo.set(u.id, now);
+      const st = u.stats, won = !!body.win;
+      if (won) { st.aiW++; st.pts += 10; } else { st.aiL++; st.pts += 2; }
+      streak(st, won); bumpFav(st, body.team);
+      await store.saveStats(u.id, st);
+      return [200, { user: pubUser(u) }];
+    },
+    "POST /api/match": async (req, body) => {
+      const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      const code = String(body.code || ""), role = body.role;
+      if (!/^[A-Z]{4}$/.test(code) || (role !== "host" && role !== "guest")) return [400, { error: "bad" }];
+      if (!getDuel(code)) return [404, { error: "nomatch" }];
+      const m = matches.get(code) || { teams: {} }; if (m.done) return [409, { error: "done" }];
+      if (m[role] && m[role] !== u.id) return [409, { error: "taken" }];
+      m[role] = u.id; m.teams[role] = body.team; matches.set(code, m);
+      return [200, { ok: true }];
+    },
+    "POST /api/match/end": async (req, body) => {
+      const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      const code = String(body.code || ""); const m = matches.get(code);
+      if (!m) return [404, { error: "nomatch" }];
+      const role = m.host === u.id ? "host" : m.guest === u.id ? "guest" : null; if (!role) return [403, { error: "role" }];
+      if (body.forfeit) { await settle(code, role); return [200, { ok: true }]; }
+      const loser = loserFromDuel(code); if (!loser) return [409, { error: "notover" }];
+      await settle(code, loser);
+      const me = await store.byId(u.id);
+      return [200, { user: pubUser(me) }];
+    },
+    "GET /api/top": async (req, body, ip, url) => {
+      const kind = url.searchParams.get("kind") === "pts" ? "pts" : "elo";
+      return [200, { kind, list: (await store.top(kind, 50)).map(pubUser) }];
+    }
+  };
+
+  async function handle(req, res) {
+    const url = new URL(req.url, "http://x");
+    const send = (code, obj, extra) => { res.writeHead(code, { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store", ...extra }); res.end(JSON.stringify(obj)); };
+    const am = /^\/api\/avatar\/(\d+)$/.exec(url.pathname);
+    if (req.method === "GET" && am) {
+      try { const a = await store.avatar(+am[1]); if (!a) { res.writeHead(404); return res.end(); }
+        res.writeHead(200, { "Content-Type": a.type, "Cache-Control": "public, max-age=31536000, immutable", "X-Content-Type-Options": "nosniff" }); return res.end(a.buf); }
+      catch (e) { res.writeHead(500); return res.end(); }
+    }
+    const fn = routes[req.method + " " + url.pathname];
+    if (!fn) return send(404, { error: "notfound" });
+    let raw = "", big = false;
+    req.on("data", c => { raw += c; if (raw.length > 150 * 1024) { big = true; req.destroy(); } });
+    req.on("end", async () => {
+      if (big) return;
+      let body = {}; if (raw) { try { body = JSON.parse(raw); } catch (e) { return send(400, { error: "json" }); } }
+      const ip = (req.headers["x-forwarded-for"] || req.socket.remoteAddress || "").split(",")[0].trim();
+      try { const [code, obj] = await fn(req, body, ip, url); send(code, obj); }
+      catch (e) { console.error("api", url.pathname, e.message); send(500, { error: "server" }); }
+    });
+  }
+  return { handle };
+}
+
+module.exports = { jsonStore, pgStore, makeAccounts };

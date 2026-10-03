@@ -3,6 +3,7 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const { WebSocketServer } = require("ws");
+const { jsonStore, pgStore, makeAccounts } = require("./accounts");
 
 const PORT = +(process.env.PORT || 8080);
 const PUBLIC = path.join(__dirname, "public");
@@ -25,8 +26,14 @@ setInterval(() => {
   fs.mkdir(path.dirname(DATA), { recursive: true }, () => fs.writeFile(DATA, JSON.stringify(docs), () => {}));
 }, 5000);
 
+// ---------- comptes / scores ----------
+const store = process.env.DATABASE_URL ? pgStore(process.env.DATABASE_URL) : jsonStore(process.env.ACCOUNTS_FILE || path.join(__dirname, "data", "accounts.json"));
+store.init().then(() => console.log("Comptes : stockage", store.kind)).catch(e => console.error("Comptes : erreur d'init", e.message));
+const accounts = makeAccounts({ store, getDuel: code => docs["duels/" + code] || null });
+
 // ---------- HTTP : fichiers du jeu ----------
 const server = http.createServer((req, res) => {
+  if ((req.url || "").startsWith("/api/")) return accounts.handle(req, res);
   let p = decodeURIComponent((req.url || "/").split("?")[0]);
   if (p === "/") p = "/index.html";
   const file = path.normalize(path.join(PUBLIC, p));
