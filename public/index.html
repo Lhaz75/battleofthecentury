@@ -949,18 +949,15 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 /* mobile : plateau allégé */
 @media (max-width:999px){
   .screen.board .rs{width:auto;gap:1px}
-  .screen.board .rs .rn{display:none}
-  .screen.board .rs .av{width:34px!important;height:34px!important;border-width:1.5px}
-  .screen.board .rs .rhp{width:34px;height:4px!important}
+  .screen.board .rs .rn{font-size:9.5px;max-width:52px}
+  .screen.board .rs .av{width:38px!important;height:38px!important;border-width:1.5px}
+  .screen.board .rs .rhp{width:38px;height:4px!important}
   .screen.board .rs .rhpn{font-size:9px}
-  .screen.board .res{gap:6px!important}
-  .screen.board .meta>span:first-child{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;font-size:11px}
-  .screen.board .field{gap:6px}
+  .screen.board .res{gap:8px!important}
+  .screen.board .meta>span:first-child{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:11px}
   .screen.board .fslot .flbl{font-size:9px;margin-bottom:2px}
-  .screen.board .fcard{min-height:30px!important;padding:4px 6px!important}
-  .screen.board .fcard.empty{font-size:11px}
-  .screen.board .combo:has(.arrow){display:none}
-  .screen.board .card{height:auto}
+  .screen.board .fcard{min-height:34px!important;padding:4px 6px!important}
+  .screen.board .card{flex-basis:112px;height:158px}
 }
 .ipbar h2,.rules h3{transform:skewX(-10deg);transform-origin:0 100%}
 html,body,*{scrollbar-width:none}::-webkit-scrollbar{display:none}
@@ -2570,7 +2567,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
- {v:"0.17.3",d:"2026-10-03",fr:["Mobile : plateau allégé (réservistes compacts, passif sur une ligne, combo masqué quand il est vide), tout tient à l'écran"],en:["Mobile: lighter board (compact reserves, one-line passive, combo hidden when empty), everything fits on screen"],it:["Mobile: tavolo più leggero (riserve compatte, passiva su una riga, combo nascosta quando è vuota), tutto entra nello schermo"]},
+ {v:"0.17.3",d:"2026-10-03",fr:["Mobile : plateau rééquilibré (réservistes plus compacts, passif sur deux lignes, cartes de la main un peu plus grandes), tout tient à l'écran"],en:["Mobile: rebalanced board (more compact reserves, two-line passive, slightly bigger hand cards), everything fits on screen"],it:["Mobile: tavolo ribilanciato (riserve più compatte, passiva su due righe, carte della mano un po' più grandi), tutto entra nello schermo"]},
  {v:"0.17.2",d:"2026-10-03",fr:["Cadre ornementé doré pour les portraits en combat (coins sculptés, liseré aux couleurs de l'école)"],en:["Ornate gold frame for battle portraits (carved corners, school-coloured trim)"],it:["Cornice dorata decorata per i ritratti in combattimento (angoli scolpiti, bordo nei colori della scuola)"]},
  {v:"0.17.1",d:"2026-10-03",fr:["Nouvelles annonces (pièges, contres, KO…) : encadré lisible au lieu du texte oblique"],en:["New announcements (traps, counters, KOs…): readable panel instead of slanted text"],it:["Nuovi annunci (trappole, contrattacchi, KO…): riquadro leggibile al posto del testo obliquo"]},
  {v:"0.17.0",d:"2026-10-03",fr:["« Hall of Fame » devient « Classement »","PV affichés sous les combattants en réserve, jauge de rage découpée en 8 crans","La main est triée : Légers, Moyens, Lourds, puis réactions, spéciales, terrains et pièges","Une main sans aucune attaque échange automatiquement une carte contre une attaque (merci maxGfive et Jerome R.)"],

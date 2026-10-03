@@ -4,7 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.17.3 — 2026-10-03
 
-- Mobile : plateau allégé (réservistes compacts, passif sur une ligne, combo masqué quand il est vide), tout tient à l'écran
+- Mobile : plateau rééquilibré (réservistes plus compacts, passif sur deux lignes, cartes de la main un peu plus grandes), tout tient à l'écran
 
 ## v0.17.2 — 2026-10-03
 
