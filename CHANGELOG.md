@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v1.12.0 — 2026-10-03
+
+- Musique sur l'écran principal
+
 ## v1.11.0 — 2026-10-03
 
 - 4 nouveaux combattants : Charles de Guise (Hokuto Sonka Ken), Liu Feiyan (Kyokujūji Seiken, rangé avec le Nanto), Fox et Mad Sarge (Pillards)
