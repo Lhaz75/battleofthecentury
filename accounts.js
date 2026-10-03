@@ -169,6 +169,30 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       if (i === 0 && kind === "v") { f.lg++; if (won) f.lw++; } });
     if (ids.length) fDirty = true;
   }
+  // succès : t = palier (1 bronze, 2 argent, 3 or), c = condition sur les stats, f = exploit signalé en fin de partie
+  const ACH_PTS = { 1: 10, 2: 25, 3: 50 };
+  const ACH = {
+    first: { t: 1, c: s => s.aiW >= 1 }, ai10: { t: 1, c: s => s.aiW >= 10 }, ai50: { t: 2, c: s => s.aiW >= 50 }, ai200: { t: 3, c: s => s.aiW >= 200 },
+    vs1: { t: 1, c: s => s.vsW >= 1 }, vs10: { t: 2, c: s => s.vsW >= 10 }, vs50: { t: 3, c: s => s.vsW >= 50 },
+    elo1200: { t: 2, c: s => s.elo >= 1200 }, elo1400: { t: 3, c: s => s.elo >= 1400 },
+    streak5: { t: 2, c: s => s.best >= 5 }, streak10: { t: 3, c: s => s.best >= 10 },
+    surv5: { t: 1, c: s => (s.surv || 0) >= 5 }, surv10: { t: 2, c: s => (s.surv || 0) >= 10 }, surv20: { t: 3, c: s => (s.surv || 0) >= 20 },
+    tour1: { t: 2, c: s => (s.tW || 0) >= 1 }, tour5: { t: 3, c: s => (s.tW || 0) >= 5 },
+    roster15: { t: 1, c: s => Object.keys(s.fav || {}).length >= 15 }, roster30: { t: 2, c: s => Object.keys(s.fav || {}).length >= 30 },
+    flawless: { t: 2, f: 1 }, comeback: { t: 2, f: 1 }, ultko: { t: 1, f: 1 }, combo4: { t: 1, f: 1 }, combo5: { t: 2, f: 1 },
+    duo: { t: 1, f: 1 }, quintet: { t: 1, f: 1 }, clanwin: { t: 1, f: 1 }, cheap: { t: 2, f: 1 }
+  };
+  // débloque ce qui est atteint ; renvoie les nouveaux succès (les points sont ajoutés aux stats)
+  function achCheck(st, feats) {
+    st.ach = st.ach || {}; const out = [], now = Date.now();
+    const fs = new Set(Array.isArray(feats) ? feats.filter(x => typeof x === "string").slice(0, 12) : []);
+    for (const [id, a] of Object.entries(ACH)) {
+      if (st.ach[id]) continue;
+      const ok = a.c ? a.c(st) : fs.has(id);
+      if (ok) { st.ach[id] = now; st.pts += ACH_PTS[a.t]; out.push(id); }
+    }
+    return out;
+  }
   function bumpFav(st, team) { (Array.isArray(team) ? team : []).slice(0, 5).forEach(id => { if (typeof id === "string" && /^[a-z]{2,12}$/.test(id)) st.fav[id] = (st.fav[id] || 0) + 1; }); }
   function streak(st, won) { if (won) { st.streak = (st.streak || 0) + 1; st.best = Math.max(st.best || 0, st.streak); } else st.streak = 0; }
   const expect = (a, b) => 1 / (1 + Math.pow(10, (b - a) / 400));
@@ -182,8 +206,8 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       const e = expect(W.stats.elo, Lo.stats.elo), k = 32, d = Math.max(1, Math.round(k * (1 - e)));
       W.stats.elo += d; Lo.stats.elo = Math.max(100, Lo.stats.elo - d);
     }
-    if (W) { W.stats.vsW++; W.stats.pts += 25; streak(W.stats, true); bumpFav(W.stats, m.teams && m.teams[winRole]); await store.saveStats(W.id, W.stats); }
-    if (Lo) { Lo.stats.vsL++; Lo.stats.pts += 5; streak(Lo.stats, false); bumpFav(Lo.stats, m.teams && m.teams[loserRole]); await store.saveStats(Lo.id, Lo.stats); }
+    if (W) { W.stats.vsW++; W.stats.pts += 25; streak(W.stats, true); bumpFav(W.stats, m.teams && m.teams[winRole]); achCheck(W.stats); await store.saveStats(W.id, W.stats); }
+    if (Lo) { Lo.stats.vsL++; Lo.stats.pts += 5; streak(Lo.stats, false); bumpFav(Lo.stats, m.teams && m.teams[loserRole]); achCheck(Lo.stats); await store.saveStats(Lo.id, Lo.stats); }
     { const d = getDuel(code) || {}; const tW = (m.teams && m.teams[winRole]) || d[winRole + "Team"], tL = (m.teams && m.teams[loserRole]) || d[loserRole + "Team"]; fRecord(tW, true, "v"); fRecord(tL, false, "v"); fstats.n = fstats.n || { v: 0, a: 0 }; fstats.n.v++; }
     for (const h of settleHooks) { try { await h(code, loserRole); } catch (e) { console.error("settle hook", e.message); } }
     setTimeout(() => matches.delete(code), 3600e3);
@@ -223,6 +247,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     "POST /api/logout": async req => { const lu = await auth(req).catch(() => null); if (lu) presence.delete(lu.id); const h = (req.headers.authorization || "").slice(7); if (h) await store.dropSession(sha(h)); return [200, { ok: true }]; },
     "GET /api/me": async req => {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      if (achCheck(u.stats).length) await store.saveStats(u.id, u.stats);
       return [200, { user: pubUser(u), rank: { elo: await store.rank(u.id, "elo"), pts: await store.rank(u.id, "pts") } }];
     },
     // équipes sauvegardées (privées : jamais renvoyées dans les profils publics)
@@ -272,8 +297,9 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       const st = u.stats, won = !!body.win;
       if (won) { st.aiW++; st.pts += 10; } else { st.aiL++; st.pts += 2; }
       streak(st, won); bumpFav(st, body.team); fRecord(body.team, won, "a"); fstats.n = fstats.n || { v: 0, a: 0 }; fstats.n.a++;
+      const ach = achCheck(st, won ? body.feats : []);
       await store.saveStats(u.id, st);
-      return [200, { user: pubUser(u) }];
+      return [200, { user: pubUser(u), ach }];
     },
     // survie : une vague à la fois, dans l'ordre (la vague 1 lance une nouvelle série)
     "POST /api/surv": async (req, body) => {
@@ -287,8 +313,9 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       lastSurv.set(u.id, now);
       const gain = 5 + wave;
       st.survRun = wave; st.surv = Math.max(st.surv || 0, wave); st.pts += gain; bumpFav(st, body.team);
+      const ach = achCheck(st, body.feats);
       await store.saveStats(u.id, st);
-      return [200, { user: pubUser(u), gain }];
+      return [200, { user: pubUser(u), gain, ach }];
     },
     "POST /api/match": async (req, body) => {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
@@ -309,7 +336,8 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       const loser = loserFromDuel(code); if (!loser) return [409, { error: "notover" }];
       await settle(code, loser);
       const me = await store.byId(u.id);
-      return [200, { user: pubUser(me) }];
+      const ach = achCheck(me.stats, loser !== role ? body.feats : []); if (ach.length) await store.saveStats(me.id, me.stats);
+      return [200, { user: pubUser(me), ach }];
     },
     // présence : chaque client connecté pingue toutes les 30 s
     "POST /api/ping": async (req, body) => {

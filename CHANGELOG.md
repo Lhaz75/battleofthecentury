@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.25.0 — 2026-10-04
+
+- Succès : 27 trophées bronze, argent et or à débloquer (victoires, versus, Elo, séries, survie, tournois, exploits en combat…), chacun rapporte des points. Ils sont dans ton profil avec ta progression
+
 ## v0.24.0 — 2026-10-04
 
 - Admin : statistiques d'équilibrage tirées des vraies parties (taux de victoire et popularité de chaque combattant, en versus et contre l'IA)
