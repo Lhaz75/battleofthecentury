@@ -2035,9 +2035,8 @@ function sideHTML(k){
     if(i===s.active) return "";
     const can = me && S.turn===ME && !S.busy && !s.relais && s.end>=1 && !t.ko;
     const tag = can?"button":"div";
-    return `<${tag} class="rs ${t.ko?"ko":""} ${can?"can":""}" ${can?`data-relais="${i}" aria-label="${L("relayTo",esc(nm(t.id)))}" title="${L("relayTo",esc(nm(t.id)))}"`:""}>
+    return `<${tag} class="rs ${t.ko?"ko":""} ${can?"can":""}" ${can?`data-relais="${i}" aria-label="${L("relayTo",esc(nm(t.id)))}" title="${L("relayTo",esc(nm(t.id)))}"`:`title="${esc(nm(t.id))}"`}>
       <span class="av"><img src="assets/face-${t.id}.webp" alt="">${t.ko?`<span class="kox">KO</span>`:""}</span>
-      <span class="rn">${esc(nm(t.id))}</span>
       <span class="rhp ${!t.ko&&t.hp<t.max?"hurt":""}"><i style="width:${t.ko?0:t.hp/t.max*100}%"></i></span><span class="rhpn">${t.ko?"":`${t.hp}/${t.max}`}</span></${tag}>`;
   }).join("");
   return `<div class="side ${me?"me":"foe"} ${S.turn===k?"turn":""}">
@@ -2573,6 +2572,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.17.5",d:"2026-10-03",fr:["Plateau : plus de nom sous les pastilles des réservistes (survol pour le voir)"],en:["Board: no more names under reserve tokens (hover to see it)"],it:["Tavolo: niente più nomi sotto le pedine delle riserve (passa sopra per vederlo)"]},
  {v:"0.17.4",d:"2026-10-03",fr:["Mobile : plateau plus aéré, il s'adapte à la hauteur de l'écran"],en:["Mobile: airier board that adapts to screen height"],it:["Mobile: tavolo più arioso, si adatta all'altezza dello schermo"]},
  {v:"0.17.3",d:"2026-10-03",fr:["Mobile : plateau rééquilibré (réservistes plus compacts, passif sur deux lignes, cartes de la main un peu plus grandes), tout tient à l'écran"],en:["Mobile: rebalanced board (more compact reserves, two-line passive, slightly bigger hand cards), everything fits on screen"],it:["Mobile: tavolo ribilanciato (riserve più compatte, passiva su due righe, carte della mano un po' più grandi), tutto entra nello schermo"]},
  {v:"0.17.2",d:"2026-10-03",fr:["Cadre ornementé doré pour les portraits en combat (coins sculptés, liseré aux couleurs de l'école)"],en:["Ornate gold frame for battle portraits (carved corners, school-coloured trim)"],it:["Cornice dorata decorata per i ritratti in combattimento (angoli scolpiti, bordo nei colori della scuola)"]},

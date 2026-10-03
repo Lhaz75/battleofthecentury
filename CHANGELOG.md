@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.17.5 — 2026-10-03
+
+- Plateau : plus de nom sous les pastilles des réservistes (survol pour le voir)
+
 ## v0.17.4 — 2026-10-03
 
 - Mobile : plateau plus aéré, il s'adapte à la hauteur de l'écran
