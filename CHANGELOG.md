@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v1.9.0 — 2026-10-03
+
+- Musiques de combat (9 morceaux tirés au hasard, enchaînés en fondu)
+- Musique sur la page Hall of Fame, jingle sur la page Tournoi
+- Bouton musique séparé du bouton son
+
 ## v1.8.0 — 2026-10-03
 
 - Messages vocaux dans le chat du versus : maintiens le micro, parle, relâche (20 s max)
