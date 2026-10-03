@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v1.14.0 — 2026-10-03
+
+- Versus : recherche rapide avec file d'attente et matchmaking (adversaire de niveau proche quand vous avez un compte)
+
 ## v1.13.3 — 2026-10-03
 
 - Journal : un coup esquivé, gardé ou contré est barré et marqué, pour ne plus croire qu'il a touché (merci Jerome R.)

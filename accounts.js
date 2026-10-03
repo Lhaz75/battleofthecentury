@@ -333,7 +333,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       catch (e) { console.error("api", url.pathname, e.message); send(500, { error: "server" }); }
     });
   }
-  return { handle, ipBanned };
+  return { handle, ipBanned, auth };
 }
 
 module.exports = { jsonStore, pgStore, makeAccounts };
