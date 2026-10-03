@@ -673,6 +673,10 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
   .bar-actions .btn{padding:9px 8px;font-size:12.5px;letter-spacing:.03em}
 }
 @media (max-width:999px){ .screen.board .card .cx{overflow:hidden;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical} }
+.sheet{z-index:30!important}
+.board.reacting>.bar-actions{visibility:hidden}
+@media (max-width:999px){ .board.reacting{padding-bottom:240px} .sheet .rbtn{flex:1 1 140px} .sheet .inc{font-size:16px} }
+@media (min-width:1000px){ .sheet{left:50%;right:auto;transform:translateX(-50%);width:min(760px,96vw);border-radius:16px 16px 0 0;border:2px solid var(--blood);border-bottom:0} }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 <style>html,body{margin:0}*{box-sizing:border-box}img{max-width:100%}[hidden]{display:none!important}</style>
@@ -1723,7 +1727,7 @@ function render(){
   const pips=Array.from({length:Math.max(ENDURANCE,p.end)},(_,i)=>`<div class="pip ${i<p.end?"":"off"}"></div>`).join("");
   const T=S.terrain?TERRAINS[S.terrain]:null;
   const ultReady = p.rage>=RAGE_MAX;
-  $("#app").innerHTML=`<div class="screen board">
+  $("#app").innerHTML=`<div class="screen board${R?" reacting":""}">
     ${sideHTML(OPPK())}
     <div class="ring">
       ${fieldHTML()}
