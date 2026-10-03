@@ -2235,7 +2235,7 @@ function reactHTML(R){
       <button class="rbtn take" data-react="none"><b>${L("take")}</b><span>${L("takeSub")}</span></button></div>
   </div>`;
 }
-function renderEnd(win){ if(S&&S.dead) return; MUSIC.want(null);
+function renderEnd(win){ if(S&&S.dead) return; MUSIC.want("menu");
   SFX.play(win?"win":"lose");
   $("#app").innerHTML=`<div class="screen"><div class="center">
     <div class="kicker">${win?L("foeDown"):L("meDown")}</div>
@@ -2484,7 +2484,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
- {v:"1.12.0",d:"2026-10-03",fr:["Musique sur l'écran principal"],en:["Music on the main screen"],it:["Musica nella schermata principale"]},
+ {v:"1.12.0",d:"2026-10-03",fr:["Musique de menu sur tous les écrans hors combat (elle ne se relance pas en changeant de page)"],en:["Menu music on every screen outside battles (it doesn't restart when you change page)"],it:["Musica del menu su tutte le schermate fuori dal combattimento (non riparte cambiando pagina)"]},
  {v:"1.11.0",d:"2026-10-03",fr:["4 nouveaux combattants : Charles de Guise (Hokuto Sonka Ken), Liu Feiyan (Kyokujūji Seiken, rangé avec le Nanto), Fox et Mad Sarge (Pillards)","Nouvelle illustration d'Amiba"],
   en:["4 new fighters: Charles de Guise (Hokuto Sonka Ken), Liu Feiyan (Kyokujūji Seiken, grouped with Nanto), Fox and Mad Sarge (Raiders)","New Amiba artwork"],
   it:["4 nuovi combattenti: Charles de Guise (Hokuto Sonka Ken), Liu Feiyan (Kyokujūji Seiken, nel gruppo Nanto), Fox e Mad Sarge (Predoni)","Nuova illustrazione di Amiba"]},
@@ -2536,7 +2536,7 @@ function renderChangelog(sel=[]){
 const STATUS={maint:{on:false,msg:""}, version:null, timer:0, bannerFor:null};
 function inGame(){ return !!(S && !S.over && document.querySelector(".screen.board")); }
 function maintBlocked(){ return STATUS.maint.on && !(ACC.user && ACC.user.admin); }
-function renderMaintenance(){
+function renderMaintenance(){ MUSIC.want("menu");
   $("#app").innerHTML=`<div class="screen"><div class="center maint"><div class="kicker">${L("maintKicker")}</div><h1>${L("maintTitle")}</h1>
     <p class="lead">${esc(STATUS.maint.msg||L("maintDefault"))}</p><div class="row" style="justify-content:center">
     <button class="btn" id="mretry">${L("maintRetry")}</button>${ACC.on?`<button class="btn ghost" id="macc">${L("accTitle")}</button>`:""}</div><p class="note">v${APP_VERSION}</p></div></div>`;
@@ -2603,7 +2603,7 @@ const MUSIC=(()=>{
     toggle(){ on=!on; try{ localStorage.setItem("boc-music",on?"on":"off"); }catch(e){} if(!on){ stop(300); key=null; } else { const k=wantKey; key=null; if(k){ played[k]=false; want(k); } } } };
 })();
 
-function pageShell(title,body,sel,music=null){ MUSIC.want(music);
+function pageShell(title,body,sel,music="menu"){ MUSIC.want(music);
   $("#app").innerHTML=`<div class="screen infopage" style="overflow-y:auto"><div class="ipbar"><button class="btn ghost sm" id="back" aria-label="${L("back")}">←<span class="blabel"> ${L("back")}</span></button><h2>${title}</h2><div class="row">${langBar()}</div></div>${body}</div>`;
   $("#back").onclick=()=>{ SFX.play("click"); renderTitle(sel); };
 }
@@ -2791,7 +2791,7 @@ function onDuel(snap){
 }
 function netLeave(){ try{ NET.unsub && NET.unsub(); }catch(e){} journalReset(); Object.assign(NET,{names:{},ref:null,unsub:null,role:null,started:false,pend:null,answered:null,seq:0,lastSeq:0,lastEv:0,handoff:false}); MODE="solo"; ME="p"; S=null; }
 function makeCode(){ const A="ABCDEFGHJKLMNPQRSTUVWXYZ"; let c=""; for(let i=0;i<4;i++) c+=A[rnd(A.length)]; return c; }
-async function renderLobby(team){
+async function renderLobby(team){ MUSIC.want("menu");
   $("#app").innerHTML=`<div class="screen" style="overflow-y:auto"><div class="kicker">${L("vsOnline")}</div><h2 style="font-size:34px;color:var(--sand)">${L("vsTitle")}</h2><p class="note">${L("connecting")}</p></div>`;
   const ok=await netInit();
   if(!ok){
@@ -2838,7 +2838,7 @@ async function renderLobby(team){
     NET.unsub=ref.onSnapshot(onDuel,()=>{});
   };
 }
-function renderWaiting(code){
+function renderWaiting(code){ MUSIC.want("menu");
   if(TOUR.code){ $("#app").innerHTML=`<div class="screen"><div class="center"><div class="kicker">${esc((TOUR.data&&TOUR.data.name)||"")}</div><div class="code">${esc(code)}</div><p class="lead">${L("tourWaitOpp",esc(TOUR.opp))}</p><button class="btn ghost" id="back">${L("tourBack")}</button></div></div>`;
     $("#back").onclick=()=>{ const c=TOUR.code; netLeave(); renderTour(c); }; return; }
   $("#app").innerHTML=`<div class="screen"><div class="center">

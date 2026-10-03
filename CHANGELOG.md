@@ -4,7 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v1.12.0 — 2026-10-03
 
-- Musique sur l'écran principal
+- Musique de menu sur tous les écrans hors combat (elle ne se relance pas en changeant de page)
 
 ## v1.11.0 — 2026-10-03
 
