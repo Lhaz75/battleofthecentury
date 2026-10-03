@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.19.1 — 2026-10-03
+
+- Illustrations de Jackal et Uighur corrigées (il leur manquait les jambes)
+
 ## v0.19.0 — 2026-10-03
 
 - Joueurs en ligne : un compteur sur l'écran principal, et la liste de qui est connecté et ce qu'il fait (menus, combat, survie, versus, file d'attente, tournoi)
