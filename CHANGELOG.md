@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v1.13.1 — 2026-10-03
+
+- Chaque joueur peut changer son mot de passe depuis sa page Compte
+
 ## v1.13.0 — 2026-10-03
 
 - Administration : liste des comptes, nouveau mot de passe, bannissement de comptes et d'adresses IP

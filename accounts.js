@@ -207,6 +207,16 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
       return [200, { user: pubUser(u), rank: { elo: await store.rank(u.id, "elo"), pts: await store.rank(u.id, "pts") } }];
     },
+    "POST /api/password": async (req, body, ip) => {
+      if (limited(ip)) return [429, { error: "slow" }];
+      const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      const full = await store.byName(u.name); const old = String(body.old || ""), pw = String(body.password || "");
+      const h = await scrypt(old, full.salt);
+      if (!crypto.timingSafeEqual(Buffer.from(h, "hex"), Buffer.from(full.pass, "hex"))) return [400, { error: "oldpw" }];
+      if (pw.length < 6 || pw.length > 100) return [400, { error: "password" }];
+      const salt = crypto.randomBytes(16).toString("hex"); await store.setPassword(u.id, await scrypt(pw, salt), salt);
+      return [200, { token: await newSession(u) }];
+    },
     "POST /api/avatar": async (req, body) => {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
       const m = /^data:(image\/(?:webp|jpeg|png));base64,([A-Za-z0-9+/=]+)$/.exec(String(body.image || ""));
