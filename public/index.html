@@ -928,6 +928,11 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .rs .rhp{height:6px!important;border:1px solid rgba(0,0,0,.6)}.rs .rhp i{background:linear-gradient(90deg,#b0281a,#ff5a3a)!important}
 .rs .rhpn{font:600 10px/1 var(--f-display);color:#e9d9bd;font-variant-numeric:tabular-nums;text-shadow:0 1px 2px #000}
 .rage .rsep{position:absolute;top:0;bottom:0;width:2px;margin-left:-1px;background:rgba(255,240,220,.55);z-index:2}
+.shoutp{position:fixed;left:50%;top:36%;z-index:9;pointer-events:none;transform:translate(-50%,-50%);min-width:min(360px,calc(100vw - 32px));max-width:calc(100vw - 32px);padding:14px 26px 16px;border-radius:16px;text-align:center;
+  background:linear-gradient(180deg,rgba(28,18,14,.96),rgba(12,8,6,.96));border:2px solid #f0b24a;box-shadow:0 0 0 1px #000,0 18px 50px rgba(0,0,0,.75),0 0 40px rgba(240,140,60,.35);animation:shoutin 1.9s ease-out forwards}
+.shoutp .shk{font:600 13px Oswald,var(--f-display);letter-spacing:.3em;text-transform:uppercase;color:#f0b24a;margin-bottom:4px}
+.shoutp .shn{font:700 clamp(26px,6vw,40px)/1.05 Oswald,var(--f-display);letter-spacing:.04em;text-transform:uppercase;color:#fff3dc;text-shadow:0 2px 0 #000}
+@keyframes shoutin{0%{opacity:0;transform:translate(-50%,-50%) scale(.85)}10%{opacity:1;transform:translate(-50%,-50%) scale(1.04)}18%{transform:translate(-50%,-50%) scale(1)}85%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(1)}}
 .ipbar h2,.rules h3{transform:skewX(-10deg);transform-origin:0 100%}
 html,body,*{scrollbar-width:none}::-webkit-scrollbar{display:none}
 @media (min-width:1000px) and (max-width:1500px){.toprow .modes.top .btn{padding:9px 11px;font-size:13px}.toprow .modes.top{gap:7px}}
@@ -1983,7 +1988,10 @@ function showPlayed(key,k){
   document.body.appendChild(d); setTimeout(()=>d.remove(),920); }
 function quake(){ rec(["quake"]); if(reduced) return; const a=$("#app"); a.classList.remove("quake"); void a.offsetWidth; a.classList.add("quake"); }
 function flash(){ rec(["flash"]); if(reduced) return; const d=document.createElement("div"); d.className="flash"; document.body.appendChild(d); setTimeout(()=>d.remove(),450); }
-function shout(t){ rec(["shout",t]); const d=document.createElement("div"); d.className="big"; d.innerHTML=t; document.body.appendChild(d); setTimeout(()=>d.remove(),1900); }
+function shout(t){ rec(["shout",t]); document.querySelectorAll(".shoutp").forEach(e=>e.remove());
+  const parts=String(t).split(/<br\s*\/?>/i); const d=document.createElement("div"); d.className="shoutp";
+  d.innerHTML=parts.length>1?`<div class="shk">${parts[0]}</div><div class="shn">${parts.slice(1).join(" ")}</div>`:`<div class="shn">${parts[0]}</div>`;
+  document.body.appendChild(d); setTimeout(()=>d.remove(),1900); }
 function eventCard(name,text){ rec(["evcard",name,text]); document.querySelectorAll(".evcard").forEach(e=>e.remove()); const d=document.createElement("div"); d.className="evcard"; d.innerHTML=`<div class="evk">${L("event")}</div><div class="evn">${name}</div><div class="evt">${text}</div>`; d.onclick=()=>d.remove(); document.body.appendChild(d); setTimeout(()=>d.remove(),4200); }
 
 /* ---------- rendu ---------- */
@@ -2532,6 +2540,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.17.1",d:"2026-10-03",fr:["Nouvelles annonces (pièges, contres, KO…) : encadré lisible au lieu du texte oblique"],en:["New announcements (traps, counters, KOs…): readable panel instead of slanted text"],it:["Nuovi annunci (trappole, contrattacchi, KO…): riquadro leggibile al posto del testo obliquo"]},
  {v:"0.17.0",d:"2026-10-03",fr:["« Hall of Fame » devient « Classement »","PV affichés sous les combattants en réserve, jauge de rage découpée en 8 crans","La main est triée : Légers, Moyens, Lourds, puis réactions, spéciales, terrains et pièges","Une main sans aucune attaque échange automatiquement une carte contre une attaque (merci maxGfive et Jerome R.)"],
   en:["“Hall of Fame” is now “Leaderboard”","HP shown under reserve fighters, rage gauge split into 8 notches","The hand is sorted: Lights, Mediums, Heavies, then reactions, specials, terrains and traps","A hand with no attack automatically swaps one card for an attack (thanks maxGfive and Jerome R.)"],
   it:["« Hall of Fame » diventa « Classifica »","PV mostrati sotto i combattenti in riserva, barra della rabbia divisa in 8 tacche","La mano è ordinata: Leggeri, Medi, Pesanti, poi reazioni, speciali, terreni e trappole","Una mano senza attacchi scambia automaticamente una carta con un attacco (grazie maxGfive e Jerome R.)"]},

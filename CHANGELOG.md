@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.17.1 — 2026-10-03
+
+- Nouvelles annonces (pièges, contres, KO…) : encadré lisible au lieu du texte oblique
+
 ## v0.17.0 — 2026-10-03
 
 - « Hall of Fame » devient « Classement »
