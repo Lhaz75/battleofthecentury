@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.20.2 — 2026-10-03
+
+- Pièges Embuscade et Embuscade du clan Kiba : on ne peut plus les poser si l'adversaire n'a plus de réserviste, et s'ils sont déjà posés quand son avant-dernier combattant tombe, ils sont défaussés pour libérer la place (merci Jerome R.)
+
 ## v0.20.1 — 2026-10-03
 
 - Lien vers le Discord Hokuto Legacy

@@ -1561,6 +1561,9 @@ Object.assign(UI.fr,{onlineN:n=>`${n} en ligne`, onlineTitle:"Joueurs en ligne",
 Object.assign(UI.en,{onlineN:n=>`${n} online`, onlineTitle:"Players online", onlineEmpty:"Nobody else right now.", w_menu:"In the menus", w_solo:"Fighting the AI", w_surv:"In survival", w_vs:"In versus", w_queue:"Looking for an opponent", w_tour:"In a tournament", onlineYou:"you"});
 Object.assign(UI.it,{onlineN:n=>`${n} online`, onlineTitle:"Giocatori online", onlineEmpty:"Nessun altro per ora.", w_menu:"Nei menu", w_solo:"Contro l'IA", w_surv:"In sopravvivenza", w_vs:"In versus", w_queue:"Cerca un avversario", w_tour:"In torneo", onlineYou:"tu"});
 /* ---------- textes du mode survie ---------- */
+Object.assign(UI.fr,{trapVoid:n=>`Plus personne en réserve : le piège « ${n} » ne sert plus à rien, il est défaussé.`});
+Object.assign(UI.en,{trapVoid:n=>`Nobody left in reserve: the "${n}" trap is useless and gets discarded.`});
+Object.assign(UI.it,{trapVoid:n=>`Nessuno più in riserva: la trappola «${n}» non serve più ed è scartata.`});
 Object.assign(UI.fr,{survBtn:"Survie", survTitle:"Mode survie", survLead:"Enchaîne les combats contre des équipes de plus en plus fortes. Entre deux vagues tu ne récupères qu'une partie de tes PV, et tes persos KO reviennent avec la moitié des leurs. Toutes les 5 vagues, repos au village : soin complet.",
   survWave:n=>`Vague ${n}`, survYou:"Ton équipe", survNext:"Adversaire", survFight:"Combattre", survGiveUp:"Abandonner", survAgain:"Vague suivante",
   survCleared:n=>`Vague ${n} remportée`, survOver:n=>n>1?`${n} vagues remportées`:`${n} vague remportée`, survNone:"Aucune vague remportée", survDead:"Fin de la survie",
@@ -1648,6 +1651,9 @@ function startTurn(k){
   if(human(k)){ S.busy=false; S.log=MODE==="vs"?L("turnOf",who(k)):L("yourTurn"); S.sub=L("yourTurnSub",s.end)+(swapped?" "+L("handSwap"):""); render(); }
   else { S.busy=true; render(); aiTurn(); }
 }
+// pièges qui se déclenchent sur un relais : inutiles si l'adversaire n'a plus personne en réserve
+const RELAY_TRAPS=["embuscade","kibaclan"];
+const canRelayAny = side => side.team.some((t,i)=>i!==side.active && !t.ko);
 function canPlay(k,card){
   const s=S[k], c=CARDS[card.k];
   if(S.turn!==k || S.over) return false;
@@ -1655,7 +1661,7 @@ function canPlay(k,card){
   if(cardCost(s,c)>s.end) return false;
   if(c.kind==="spec") return c.owner===act(s).id;
   if(c.kind==="terr") return S.terrain!==c.terr;
-  if(c.kind==="trap") return !s.trap && (!c.owner || c.owner===act(s).id);
+  if(c.kind==="trap") return !s.trap && (!c.owner || c.owner===act(s).id) && !(RELAY_TRAPS.includes(c.trap) && !canRelayAny(S[other(k)]));
   if(card.copyBy && card.copyBy!==act(s).id) return false;
   if(c.owner && c.owner!==act(s).id && !card.inh) return false;
   if(s.combo.stop) return false;
@@ -1885,6 +1891,7 @@ function ko(k){
   s.active=next;
   s.combo.last=-1; // le nouveau combattant entre sans combo
   S.sub=L("enters",esc(nm(s.team[next].id)),whoLow(k));
+  { const o=S[other(k)]; if(RELAY_TRAPS.includes(o.trap) && !canRelayAny(s)){ const t=o.trap; o.trap=null; S.sub+=" "+L("trapVoid",tr(TRAPS[t].name)); } }
   SFX.voice(ENTER_VOICE[s.team[next].id], 2600);
 }
 async function relais(k,idx){
@@ -2628,6 +2635,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.20.2",d:"2026-10-03",fr:["Pièges Embuscade et Embuscade du clan Kiba : on ne peut plus les poser si l'adversaire n'a plus de réserviste, et s'ils sont déjà posés quand son avant-dernier combattant tombe, ils sont défaussés pour libérer la place (merci Jerome R.)"],en:["Ambush and Kiba Clan Ambush traps: they can no longer be set when the opponent has no reserve left, and if already set when their second-to-last fighter falls, they are discarded to free the slot (thanks Jerome R.)"],it:["Trappole Imboscata e Imboscata del clan Kiba: non si possono più piazzare se l'avversario non ha più riserve, e se sono già piazzate quando cade il suo penultimo combattente vengono scartate per liberare lo spazio (grazie Jerome R.)"]},
  {v:"0.20.1",d:"2026-10-03",fr:["Lien vers le Discord Hokuto Legacy"],en:["Link to the Hokuto Legacy Discord"],it:["Link al Discord Hokuto Legacy"]},
  {v:"0.20.0",d:"2026-10-03",fr:["Liens vers hokutolegacy.com et la page Facebook Hokuto Legacy sur l'écran principal et la page de connexion"],en:["Links to hokutolegacy.com and the Hokuto Legacy Facebook page on the main screen and the login page"],it:["Link a hokutolegacy.com e alla pagina Facebook Hokuto Legacy nella schermata principale e nella pagina di accesso"]},
  {v:"0.19.4",d:"2026-10-03",fr:["Mobile : la grille des combattants prend toute la largeur, mêmes marges à gauche et à droite"],en:["Mobile: the fighter grid uses the full width, same margins left and right"],it:["Mobile: la griglia dei combattenti usa tutta la larghezza, stessi margini a sinistra e a destra"]},
