@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.27.0 — 2026-10-04
+
+- Défi du jour : une bannière sur l'écran principal propose un défi différent chaque jour (équipe imposée, boss renforcé ou victoire parfaite), +40 points. Elle disparaît une fois le défi réussi
+- 3 nouveaux succès liés aux défis du jour
+
 ## v0.26.0 — 2026-10-04
 
 - Replay : à la fin d'un combat, bouton « Revoir le combat » pour rejouer toute la partie coup par coup, avec pause, avance/retour et vitesse ×1/×2/×4

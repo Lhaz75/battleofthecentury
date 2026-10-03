@@ -1083,6 +1083,14 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .rpbar .rpx{margin-left:auto}
 .rptag{font:800 11px var(--f-display);letter-spacing:.12em;color:#fff;background:#e0452c;padding:3px 7px;border-radius:6px}
 .rpprog{flex:1;min-width:40px;height:6px;border-radius:3px;background:#2a1f19;overflow:hidden}.rpprog i{display:block;height:100%;background:#e8b04a;transition:width .3s}
+.daily{margin:4px auto 10px;width:100%;max-width:1100px;padding:10px 14px;border-radius:14px;border:1px solid #e0452c;background:linear-gradient(100deg,rgba(120,30,16,.55),rgba(18,10,6,.85) 60%);box-shadow:0 6px 20px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,140,100,.08);display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:6px 16px}
+.daily .dyhead{display:flex;flex-direction:column;gap:2px}.daily .dyhead b{font:700 14px var(--f-display);color:#ffd27a}
+.dytag{font:800 12px var(--f-display);letter-spacing:.1em;text-transform:uppercase;color:#fff;background:#e0452c;padding:3px 8px;border-radius:6px;white-space:nowrap}
+.daily p{margin:0;font-size:13.5px;color:#f3e2bf;line-height:1.35}
+.dyvs{display:flex;align-items:center;gap:8px}.dyvs em{font:800 italic 14px var(--f-display);color:#e8b04a}
+.dyvs .dkf img{width:30px;height:30px}.dymine small{font-size:11px;color:#cdb79a}
+.dyfail{color:#ff8a6e}
+@media (max-width:700px){.daily{grid-template-columns:1fr;padding:9px 11px;gap:6px}.daily .dyhead{flex-direction:row;align-items:center;justify-content:space-between}.dyvs{justify-content:space-between}.dyvs .dkf img{width:26px;height:26px}}
 /* mobile : plateau allégé */
 @media (max-width:999px){
   .screen.board .rs{width:auto;gap:1px}
@@ -1670,6 +1678,9 @@ Object.assign(UI.fr,{onlineN:n=>`${n} en ligne`, onlineTitle:"Joueurs en ligne",
 Object.assign(UI.en,{onlineN:n=>`${n} online`, onlineTitle:"Players online", onlineEmpty:"Nobody else right now.", w_menu:"In the menus", w_solo:"Fighting the AI", w_surv:"In survival", w_vs:"In versus", w_queue:"Looking for an opponent", w_tour:"In a tournament", onlineYou:"you"});
 Object.assign(UI.it,{onlineN:n=>`${n} online`, onlineTitle:"Giocatori online", onlineEmpty:"Nessun altro per ora.", w_menu:"Nei menu", w_solo:"Contro l'IA", w_surv:"In sopravvivenza", w_vs:"In versus", w_queue:"Cerca un avversario", w_tour:"In torneo", onlineYou:"tu"});
 /* ---------- textes du mode survie ---------- */
+Object.assign(UI.fr,{dyTitle:"Défi du jour", dyTeam:"Gagne avec l'équipe imposée.", dyBoss:n=>`Terrasse l'équipe de ${n} : PV renforcés et rage au départ. Avec ton équipe.`, dyFlawless:"Gagne sans perdre un seul combattant. Avec ton équipe.", dyGo:"Relever", dyYourTeam:"ton équipe", dyDone:n=>`Défi du jour réussi ! +${n} points`, dyFail:"Défi raté : il fallait gagner sans perdre de combattant. Retente !", ach_daily1:"Défi relevé", achd_daily1:"Réussir un défi du jour", ach_daily10:"Discipline", achd_daily10:"Réussir 10 défis du jour", ach_daily30:"Entraînement quotidien", achd_daily30:"Réussir 30 défis du jour"});
+Object.assign(UI.en,{dyTitle:"Daily challenge", dyTeam:"Win with the imposed team.", dyBoss:n=>`Crush the team of ${n}: boosted HP and rage at start. With your team.`, dyFlawless:"Win without losing a single fighter. With your team.", dyGo:"Accept", dyYourTeam:"your team", dyDone:n=>`Daily challenge complete! +${n} points`, dyFail:"Challenge failed: you had to win without losing a fighter. Try again!", ach_daily1:"Challenge accepted", achd_daily1:"Complete a daily challenge", ach_daily10:"Discipline", achd_daily10:"Complete 10 daily challenges", ach_daily30:"Daily training", achd_daily30:"Complete 30 daily challenges"});
+Object.assign(UI.it,{dyTitle:"Sfida del giorno", dyTeam:"Vinci con la squadra imposta.", dyBoss:n=>`Abbatti la squadra di ${n}: PV potenziati e rabbia all'inizio. Con la tua squadra.`, dyFlawless:"Vinci senza perdere nemmeno un combattente. Con la tua squadra.", dyGo:"Accetta", dyYourTeam:"la tua squadra", dyDone:n=>`Sfida del giorno superata! +${n} punti`, dyFail:"Sfida fallita: dovevi vincere senza perdere combattenti. Riprova!", ach_daily1:"Sfida accettata", achd_daily1:"Supera una sfida del giorno", ach_daily10:"Disciplina", achd_daily10:"Supera 10 sfide del giorno", ach_daily30:"Allenamento quotidiano", achd_daily30:"Supera 30 sfide del giorno"});
 Object.assign(UI.fr,{rpBtn:"Revoir le combat", rpQuit:"Quitter"}); Object.assign(UI.en,{rpBtn:"Watch the replay", rpQuit:"Exit"}); Object.assign(UI.it,{rpBtn:"Rivedi il combattimento", rpQuit:"Esci"});
 Object.assign(UI.fr,{achTitle:"Succès",achUnlocked:"Succès débloqué",achMore:n=>`et ${n} autre${n>1?"s":""} : va voir ton profil !`,ach_first:"Premier sang",achd_first:"Gagner un combat contre l'IA",ach_ai10:"Chasseur de pillards",achd_ai10:"10 victoires contre l'IA",ach_ai50:"Fléau des terres désolées",achd_ai50:"50 victoires contre l'IA",ach_ai200:"Sauveur de la fin du monde",achd_ai200:"200 victoires contre l'IA",ach_vs1:"Premier duel",achd_vs1:"Gagner un combat en versus",ach_vs10:"Duelliste",achd_vs10:"10 victoires en versus",ach_vs50:"Successeur",achd_vs50:"50 victoires en versus",ach_elo1200:"Étoile montante",achd_elo1200:"Atteindre 1200 Elo",ach_elo1400:"Étoile du Nord",achd_elo1400:"Atteindre 1400 Elo",ach_streak5:"Inarrêtable",achd_streak5:"Série de 5 victoires",ach_streak10:"Invaincu",achd_streak10:"Série de 10 victoires",ach_surv5:"Survivant",achd_surv5:"Atteindre 5 vagues en survie",ach_surv10:"Dernier debout",achd_surv10:"Atteindre 10 vagues en survie",ach_surv20:"Légende du désert",achd_surv20:"Atteindre 20 vagues en survie",ach_tour1:"Champion",achd_tour1:"Gagner un tournoi",ach_tour5:"Roi des tournois",achd_tour5:"Gagner 5 tournois",ach_roster15:"Polyvalent",achd_roster15:"Jouer 15 combattants différents",ach_roster30:"Maître de toutes les écoles",achd_roster30:"Jouer 30 combattants différents",ach_flawless:"Sans une égratignure",achd_flawless:"Gagner sans perdre aucun combattant",ach_comeback:"Sur le fil",achd_comeback:"Gagner avec un seul combattant à 3 PV ou moins",ach_ultko:"Tu es déjà mort",achd_ultko:"Mettre KO avec une ultime",ach_combo4:"Coups multiples",achd_combo4:"Enchaîner 4 coups dans un tour",ach_combo5:"Cent poings",achd_combo5:"Enchaîner 5 coups dans un tour",ach_duo:"Frères d'armes",achd_duo:"Gagner avec une équipe de 2",ach_quintet:"La horde",achd_quintet:"Gagner avec une équipe de 5",ach_clanwin:"Fierté de l'école",achd_clanwin:"Gagner avec un bonus d'école actif",ach_cheap:"Petits moyens",achd_cheap:"Gagner avec une équipe de 6 points ou moins"});
 Object.assign(UI.en,{achTitle:"Achievements",achUnlocked:"Achievement unlocked",achMore:n=>`and ${n} more: check your profile!`,ach_first:"First blood",achd_first:"Win a fight against the AI",ach_ai10:"Raider hunter",achd_ai10:"10 wins against the AI",ach_ai50:"Scourge of the wasteland",achd_ai50:"50 wins against the AI",ach_ai200:"Savior of the end of the world",achd_ai200:"200 wins against the AI",ach_vs1:"First duel",achd_vs1:"Win a versus fight",ach_vs10:"Duelist",achd_vs10:"10 versus wins",ach_vs50:"Successor",achd_vs50:"50 versus wins",ach_elo1200:"Rising star",achd_elo1200:"Reach 1200 Elo",ach_elo1400:"North Star",achd_elo1400:"Reach 1400 Elo",ach_streak5:"Unstoppable",achd_streak5:"5-win streak",ach_streak10:"Undefeated",achd_streak10:"10-win streak",ach_surv5:"Survivor",achd_surv5:"Clear 5 survival waves",ach_surv10:"Last one standing",achd_surv10:"Clear 10 survival waves",ach_surv20:"Legend of the desert",achd_surv20:"Clear 20 survival waves",ach_tour1:"Champion",achd_tour1:"Win a tournament",ach_tour5:"Tournament king",achd_tour5:"Win 5 tournaments",ach_roster15:"Versatile",achd_roster15:"Play 15 different fighters",ach_roster30:"Master of all schools",achd_roster30:"Play 30 different fighters",ach_flawless:"Without a scratch",achd_flawless:"Win without losing a fighter",ach_comeback:"On the edge",achd_comeback:"Win with a single fighter at 3 HP or less",ach_ultko:"You are already dead",achd_ultko:"Knock out with an ultimate",ach_combo4:"Flurry",achd_combo4:"Chain 4 hits in one turn",ach_combo5:"Hundred fists",achd_combo5:"Chain 5 hits in one turn",ach_duo:"Brothers in arms",achd_duo:"Win with a team of 2",ach_quintet:"The horde",achd_quintet:"Win with a team of 5",ach_clanwin:"School pride",achd_clanwin:"Win with a school bonus active",ach_cheap:"Shoestring",achd_cheap:"Win with a team of 6 points or less"});
@@ -2537,7 +2548,8 @@ function renderEnd(win){ if(S&&S.dead) return; rpCapture(true); if(SURV.on && MO
     const before=lvlOf(ACC.user.stats&&ACC.user.stats.pts).n;
     const after=()=>{ const v=lvlOf(ACC.user.stats&&ACC.user.stats.pts); return v.n>before?` <span class="lvlup">${L("lvlUp",v.n,esc(lvlTitle(v.n)))}</span>`:""; };
     const showH=h=>{ const e=$("#accline"); if(e) e.innerHTML=h; };
-    if(MODE==="solo") accReportSolo(win).then(n=>{ if(n){ const u=after(); showH(esc(L("ptsGain",n))+u); if(u) SFX.play("event"); } });
+    if(MODE==="solo") accReportSolo(win).then(n=>{ if(n){ const u=after(); showH(esc(L("ptsGain",n))+u); if(u) SFX.play("event"); } })
+      .then(()=>dailyReport(win)).then(g=>{ const e=$("#accline"); if(!e||!g) return; e.insertAdjacentHTML("beforeend",g==="fail"?`<br><span class="dyfail">${L("dyFail")}</span>`:`<br><span class="lvlup">${L("dyDone",g)}</span>`); if(g!=="fail") SFX.play("event"); });
     else if(MODE==="vs") accMatchEnd(false).then(ok=>{ if(ok){ const u=after(); showH(esc(L("ptsGain",win?25:5))+u); if(u) SFX.play("event"); } }); }
 }
 const FLAGS={"fr": '<svg viewBox="0 0 3 2" preserveAspectRatio="none"><rect width="1" height="2" fill="#0055a4"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ef4135"/></svg>', "it": '<svg viewBox="0 0 3 2" preserveAspectRatio="none"><rect width="1" height="2" fill="#009246"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ce2b37"/></svg>', "en": '<svg viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice"><clipPath id="uk"><path d="M30,15h30v15zv15h-30zh-30v-15zv-15h30z"/></clipPath><path d="M0,0v30h60v-30z" fill="#012169"/><path d="M0,0 60,30M60,0 0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 60,30M60,0 0,30" clip-path="url(#uk)" stroke="#C8102E" stroke-width="4"/><path d="M30,0v30M0,15h60" stroke="#fff" stroke-width="10"/><path d="M30,0v30M0,15h60" stroke="#C8102E" stroke-width="6"/></svg>'};
@@ -2778,6 +2790,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.27.0",d:"2026-10-04",fr:["Défi du jour : une bannière sur l'écran principal propose un défi différent chaque jour (équipe imposée, boss renforcé ou victoire parfaite), +40 points. Elle disparaît une fois le défi réussi","3 nouveaux succès liés aux défis du jour"],en:["Daily challenge: a banner on the main screen offers a different challenge every day (imposed team, boosted boss or flawless win), +40 points. It disappears once completed","3 new achievements for daily challenges"],it:["Sfida del giorno: un banner nella schermata principale propone una sfida diversa ogni giorno (squadra imposta, boss potenziato o vittoria perfetta), +40 punti. Scompare una volta superata","3 nuovi trofei per le sfide del giorno"]},
  {v:"0.26.0",d:"2026-10-04",fr:["Replay : à la fin d'un combat, bouton « Revoir le combat » pour rejouer toute la partie coup par coup, avec pause, avance/retour et vitesse ×1/×2/×4"],en:["Replay: at the end of a fight, a \"Watch the replay\" button replays the whole game move by move, with pause, step back/forward and ×1/×2/×4 speed"],it:["Replay: alla fine di un combattimento, pulsante «Rivedi il combattimento» per rigiocare tutta la partita mossa per mossa, con pausa, avanti/indietro e velocità ×1/×2/×4"]},
  {v:"0.25.0",d:"2026-10-04",fr:["Succès : 27 trophées bronze, argent et or à débloquer (victoires, versus, Elo, séries, survie, tournois, exploits en combat…), chacun rapporte des points. Ils sont dans ton profil avec ta progression"],en:["Achievements: 27 bronze, silver and gold trophies to unlock (wins, versus, Elo, streaks, survival, tournaments, combat feats…), each one gives points. They are in your profile with your progress"],it:["Trofei: 27 trofei di bronzo, argento e oro da sbloccare (vittorie, versus, Elo, serie, sopravvivenza, tornei, imprese in combattimento…), ognuno dà punti. Sono nel tuo profilo con i progressi"]},
  {v:"0.24.0",d:"2026-10-04",fr:["Admin : statistiques d'équilibrage tirées des vraies parties (taux de victoire et popularité de chaque combattant, en versus et contre l'IA)"],en:["Admin: balance statistics from real games (win rate and pick rate of each fighter, in versus and vs AI)"],it:["Admin: statistiche di bilanciamento dalle partite reali (percentuale di vittorie e popolarità di ogni combattente, in versus e contro l'IA)"]},
@@ -3041,8 +3054,8 @@ function drawFStats(){
 }
 
 /* ---------- succès ---------- */
-const ACH_LIST=[["first",1],["ai10",1],["ai50",2],["ai200",3],["vs1",1],["vs10",2],["vs50",3],["elo1200",2],["elo1400",3],["streak5",2],["streak10",3],["surv5",1],["surv10",2],["surv20",3],["tour1",2],["tour5",3],["roster15",1],["roster30",2],["flawless",2],["comeback",2],["ultko",1],["combo4",1],["combo5",2],["duo",1],["quintet",1],["clanwin",1],["cheap",2]];
-const ACH_PROG={ai10:s=>[s.aiW||0,10],ai50:s=>[s.aiW||0,50],ai200:s=>[s.aiW||0,200],vs10:s=>[s.vsW||0,10],vs50:s=>[s.vsW||0,50],elo1200:s=>[s.elo||1000,1200],elo1400:s=>[s.elo||1000,1400],streak5:s=>[s.best||0,5],streak10:s=>[s.best||0,10],surv5:s=>[s.surv||0,5],surv10:s=>[s.surv||0,10],surv20:s=>[s.surv||0,20],tour5:s=>[s.tW||0,5],roster15:s=>[Object.keys(s.fav||{}).length,15],roster30:s=>[Object.keys(s.fav||{}).length,30]};
+const ACH_LIST=[["first",1],["ai10",1],["ai50",2],["ai200",3],["vs1",1],["vs10",2],["vs50",3],["elo1200",2],["elo1400",3],["streak5",2],["streak10",3],["surv5",1],["surv10",2],["surv20",3],["tour1",2],["tour5",3],["roster15",1],["roster30",2],["flawless",2],["comeback",2],["ultko",1],["combo4",1],["combo5",2],["duo",1],["quintet",1],["clanwin",1],["cheap",2],["daily1",1],["daily10",2],["daily30",3]];
+const ACH_PROG={ai10:s=>[s.aiW||0,10],ai50:s=>[s.aiW||0,50],ai200:s=>[s.aiW||0,200],vs10:s=>[s.vsW||0,10],vs50:s=>[s.vsW||0,50],elo1200:s=>[s.elo||1000,1200],elo1400:s=>[s.elo||1000,1400],streak5:s=>[s.best||0,5],streak10:s=>[s.best||0,10],surv5:s=>[s.surv||0,5],surv10:s=>[s.surv||0,10],surv20:s=>[s.surv||0,20],tour5:s=>[s.tW||0,5],daily10:s=>[s.dailyN||0,10],daily30:s=>[s.dailyN||0,30],roster15:s=>[Object.keys(s.fav||{}).length,15],roster30:s=>[Object.keys(s.fav||{}).length,30]};
 const ACH_PTS={1:10,2:25,3:50};
 function featsFor(win){
   if(!S || !win) return []; const me=S[ME], f=[];
@@ -3190,6 +3203,46 @@ function rpStop(){
   clearTimeout(RP.timer); RP.on=false; const b=document.getElementById("rpbar"); if(b) b.remove();
   if(S) S.dead=true; MODE="solo"; ME="p"; document.querySelectorAll(".cutin,.banner,.played,.hits,.shoutp").forEach(x=>x.remove());
   const back=RP.back; RP.back=null; if(back) back(); else renderTitle(TITLE_SEL);
+}
+
+/* ---------- défi du jour ---------- */
+const DAILY={day:null, done:true, n:0, loading:false};
+function seeded(str){ let h=1779033703^str.length; for(let i=0;i<str.length;i++){ h=Math.imul(h^str.charCodeAt(i),3432918353); h=h<<13|h>>>19; }
+  return ()=>{ h=Math.imul(h^h>>>16,2246822507); h=Math.imul(h^h>>>13,3266489909); return ((h^=h>>>16)>>>0)/4294967296; }; }
+function dailyDef(day){
+  const r=seeded("boc-"+day), pick=a=>a[Math.floor(r()*a.length)], ids=Object.keys(FIGHTERS);
+  const sh=a=>{ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(r()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+  const build=(budget,max,pool)=>{ for(let k=0;k<200;k++){ const t=[]; let c=0; for(const f of sh(pool)){ if(t.length>=max) break; if(c+(COST[f]||3)<=budget){ t.push(f); c+=COST[f]||3; } } if(t.length>=TEAM_MIN && c>=budget-1) return t; } return sh(pool).slice(0,2); };
+  const kind=pick(["team","boss","flawless","boss","team"]);
+  if(kind==="team"){ const team=build(BUDGET,4,ids), foe=build(BUDGET,4,ids.filter(x=>!team.includes(x))); return {kind,team,foe}; }
+  if(kind==="boss"){ const big=ids.filter(x=>(COST[x]||3)>=4); const foe=sh(big).slice(0,3); return {kind,foe,mul:1.25,rage:3}; }
+  const foe=build(7,3,ids); return {kind,foe};
+}
+async function dailyLoad(){
+  if(!ACC.on || !ACC.user || DAILY.loading) return; DAILY.loading=true;
+  try{ const r=await api("GET","/api/daily"); if(r.ok){ const was=DAILY.day+"|"+DAILY.done; DAILY.day=r.day; DAILY.done=!!r.done; DAILY.n=r.streak||0; if(was!==DAILY.day+"|"+DAILY.done && document.querySelector(".selwrap")) renderTitle(TITLE_SEL); } }catch(e){}
+  DAILY.loading=false;
+}
+function dailyBannerHTML(sel){
+  if(!ACC.on || !ACC.user || !DAILY.day || DAILY.done) return "";
+  const d=dailyDef(DAILY.day);
+  const desc=d.kind==="team"?L("dyTeam"):d.kind==="boss"?L("dyBoss",d.foe.map(nm).join(", ")):L("dyFlawless");
+  const mine=d.kind==="team"?d.team:sel;
+  return `<div class="daily"><div class="dyhead"><span class="dytag">${L("dyTitle")}</span><b>+${40} pts</b></div><p>${desc}</p>
+    <div class="dyvs">${d.kind==="team"?`<span>${deckFaces(mine)}</span>`:`<span class="dymine">${mine.length>=TEAM_MIN?deckFaces(mine):`<small>${L("dyYourTeam")}</small>`}</span>`}<em>VS</em><span>${deckFaces(d.foe)}</span>
+    <button class="btn sm" id="dygo" ${d.kind!=="team"&&!(sel.length>=TEAM_MIN&&deckValid(sel))?"disabled":""}>${L("dyGo")}</button></div></div>`;
+}
+function dailyStart(sel){
+  const d=dailyDef(DAILY.day), team=d.kind==="team"?d.team:sel.slice(); if(team.length<TEAM_MIN) return;
+  MODE="solo"; ME="p";
+  newGame(team,d.foe.slice(),st=>{ st.daily=DAILY.day; st.dailyKind=d.kind; st.log=L("dyTitle")+" · "+L("start");
+    if(d.kind==="boss"){ st.a.team.forEach(t=>{ t.max=t.hp=Math.round(t.max*d.mul); }); st.a.rage=d.rage; } });
+}
+async function dailyReport(win){
+  if(!S || !S.daily || !win || !ACC.user) return null;
+  if(S.dailyKind==="flawless" && !S[ME].team.every(t=>!t.ko)) return "fail";
+  try{ const r=await api("POST","/api/daily/done",{day:S.daily}); if(r.ok){ ACC.user=r.user; DAILY.done=true; achToast(r.ach); return r.gain; } }catch(e){}
+  return null;
 }
 
 /* ---------- mode survie ---------- */
@@ -3442,6 +3495,7 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; quickStop
       <button class="btn ghost" id="rnd">${L("random")}</button>
       <button class="btn ghost" id="tuto">${L("tuto")}</button><button class="btn ghost sm" id="roster">${L("rosterBtn")}</button><button class="btn ghost sm" id="rules">${L("rulesBtn")}</button>${ACC.on?`<button class="btn ghost" id="tour">${L("tourBtn")}</button><button class="btn ghost sm" id="hof">${L("hofBtn")}</button>`:""}</div><div class="row">${presChip()}<button class="vbtn" id="ver" title="${L("newsTitle")}"><i class="betatag">BETA</i> v${APP_VERSION}</button>${accBtnHTML()}${FS_OK?`<button class="tbtn" id="fs" aria-label="${L("fullscreen")}" title="${L("fullscreen")}">${SVG_FS}</button>`:""}<button class="tbtn" id="snd" aria-pressed="${SFX.on}" aria-label="${L("sound")}" title="${L("sound")}">${SFX.on?SVG_ON:SVG_OFF}</button><button class="tbtn" id="mus" aria-pressed="${MUSIC.on}" aria-label="${L("music")}" title="${L("music")}">${MUSIC.on?SVG_MUS:SVG_MUS_OFF}</button>${langBar()}</div></div>
     
+    ${dailyBannerHTML(sel)}
     <div class="selwrap"><div class="selL">
     <div class="show cl-${CLAN[focus]}">
       <img class="full" src="assets/${focus}.webp" alt="">
@@ -3477,6 +3531,8 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; quickStop
   $("#online").onclick=()=>{ SFX.play("click"); renderLobby(sel); };
   $("#surv").onclick=()=>{ SFX.play("event"); survStart(sel); };
   bindDeckChips(sel,redo);
+  if($("#dygo")) $("#dygo").onclick=()=>{ SFX.play("event"); dailyStart(sel); };
+  if(ACC.user && (!DAILY.day || DAILY.day!==new Date().toLocaleDateString("sv-SE",{timeZone:"Europe/Brussels"}))) dailyLoad();
   if(ACC.user && !DECKS.list && !DECKS.loading) decksLoad().then(()=>{ if(document.querySelector(".selwrap") && TITLE_SEL===sel) redo(sel,focus); });
   $("#rnd").onclick=()=>{ SFX.play("click"); const t=randomTeam(); redo(t,t[0]); };
   $("#tuto").onclick=()=>{ SFX.play("event"); startTuto(); };

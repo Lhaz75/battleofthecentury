@@ -171,6 +171,8 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
   }
   // succès : t = palier (1 bronze, 2 argent, 3 or), c = condition sur les stats, f = exploit signalé en fin de partie
   const ACH_PTS = { 1: 10, 2: 25, 3: 50 };
+  const DAILY_PTS = 40;
+  const dayKey = () => new Date().toLocaleDateString("sv-SE", { timeZone: "Europe/Brussels" });
   const ACH = {
     first: { t: 1, c: s => s.aiW >= 1 }, ai10: { t: 1, c: s => s.aiW >= 10 }, ai50: { t: 2, c: s => s.aiW >= 50 }, ai200: { t: 3, c: s => s.aiW >= 200 },
     vs1: { t: 1, c: s => s.vsW >= 1 }, vs10: { t: 2, c: s => s.vsW >= 10 }, vs50: { t: 3, c: s => s.vsW >= 50 },
@@ -180,6 +182,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     tour1: { t: 2, c: s => (s.tW || 0) >= 1 }, tour5: { t: 3, c: s => (s.tW || 0) >= 5 },
     roster15: { t: 1, c: s => Object.keys(s.fav || {}).length >= 15 }, roster30: { t: 2, c: s => Object.keys(s.fav || {}).length >= 30 },
     flawless: { t: 2, f: 1 }, comeback: { t: 2, f: 1 }, ultko: { t: 1, f: 1 }, combo4: { t: 1, f: 1 }, combo5: { t: 2, f: 1 },
+    daily1: { t: 1, c: s => (s.dailyN || 0) >= 1 }, daily10: { t: 2, c: s => (s.dailyN || 0) >= 10 }, daily30: { t: 3, c: s => (s.dailyN || 0) >= 30 },
     duo: { t: 1, f: 1 }, quintet: { t: 1, f: 1 }, clanwin: { t: 1, f: 1 }, cheap: { t: 2, f: 1 }
   };
   // débloque ce qui est atteint ; renvoie les nouveaux succès (les points sont ajoutés aux stats)
@@ -251,6 +254,20 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       return [200, { user: pubUser(u), rank: { elo: await store.rank(u.id, "elo"), pts: await store.rank(u.id, "pts") } }];
     },
     // équipes sauvegardées (privées : jamais renvoyées dans les profils publics)
+    // défi du jour : le défi est construit côté jeu à partir de la date (heure belge) ; le serveur garde qui l'a réussi
+    "GET /api/daily": async req => {
+      const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      const day = dayKey(); return [200, { day, done: u.stats.daily === day, streak: u.stats.dailyN || 0 }];
+    },
+    "POST /api/daily/done": async (req, body) => {
+      const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      const day = dayKey(), st = u.stats;
+      if (body.day !== day) return [409, { error: "day" }];
+      if (st.daily === day) return [409, { error: "done" }];
+      st.daily = day; st.dailyN = (st.dailyN || 0) + 1; st.pts += DAILY_PTS;
+      const ach = achCheck(st); await store.saveStats(u.id, st);
+      return [200, { user: pubUser(u), gain: DAILY_PTS, ach }];
+    },
     "GET /api/decks": async req => {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
       return [200, { decks: u.stats.decks || [] }];
