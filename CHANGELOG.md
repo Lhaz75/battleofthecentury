@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.28.1 — 2026-10-04
+
+- Admin : l'outil de recadrage des pastilles tient sur un écran de téléphone (image et réglages côte à côte, boutons toujours accessibles)
+
 ## v0.28.0 — 2026-10-04
 
 - Admin : outil pour recadrer les pastilles des combattants directement dans le jeu
