@@ -989,6 +989,12 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .dkname:focus,.dkname:hover{border-color:rgba(232,176,74,.4);outline:none}
 .dkcost{font-size:12px;color:#cdb79a;white-space:nowrap}
 #dkadd .dkf{margin-left:6px}
+.askw{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.65);display:grid;place-items:center;padding:16px}
+.askbox{width:min(400px,100%);background:linear-gradient(180deg,#1d130e,#120a07);border:1px solid rgba(232,176,74,.5);border-radius:14px;padding:18px;box-shadow:0 18px 50px rgba(0,0,0,.7);display:flex;flex-direction:column;gap:14px}
+.askbox h3{margin:0;font:700 18px var(--f-display);letter-spacing:.06em;text-transform:uppercase;color:#e8b04a}
+.askbox input{width:100%;box-sizing:border-box;padding:10px 12px;border-radius:8px;border:1px solid rgba(232,176,74,.4);background:#0c0705;color:#f3e2bf;font:600 16px var(--f-body,inherit)}
+.askbox input:focus{outline:none;border-color:#e8b04a}
+.askbox .row{justify-content:flex-end;gap:8px}
 /* mobile : plateau allégé */
 @media (max-width:999px){
   .screen.board .rs{width:auto;gap:1px}
@@ -2664,6 +2670,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.21.1",d:"2026-10-03",fr:["Le nom d'une équipe sauvegardée se saisit dans une fenêtre aux couleurs du jeu (plus la boîte du navigateur)"],en:["Saved team names are typed in an in-game window (no more browser box)"],it:["Il nome di una squadra salvata si inserisce in una finestra del gioco (niente più box del browser)"]},
  {v:"0.21.0",d:"2026-10-03",fr:["Équipes sauvegardées : enregistre jusqu'à 12 équipes, recharge-les en un clic sous tes slots, et gère-les (renommer, supprimer) dans ton profil"],en:["Saved teams: store up to 12 teams, load them in one click under your slots, and manage them (rename, delete) in your profile"],it:["Squadre salvate: salva fino a 12 squadre, ricaricale con un clic sotto gli slot e gestiscile (rinomina, elimina) nel profilo"]},
  {v:"0.20.3",d:"2026-10-03",fr:["Écran de fin : le journal du combat est affiché, pour voir ce qui s'est passé quand ça finit très vite (merci Jerome R.)"],en:["End screen: the fight log is shown, to see what happened when it ends very fast (thanks Jerome R.)"],it:["Schermata finale: il diario del combattimento è mostrato, per vedere cos'è successo quando finisce molto in fretta (grazie Jerome R.)"]},
  {v:"0.20.2",d:"2026-10-03",fr:["Pièges Embuscade et Embuscade du clan Kiba : on ne peut plus les poser si l'adversaire n'a plus de réserviste, et s'ils sont déjà posés quand son avant-dernier combattant tombe, ils sont défaussés pour libérer la place (merci Jerome R.)"],en:["Ambush and Kiba Clan Ambush traps: they can no longer be set when the opponent has no reserve left, and if already set when their second-to-last fighter falls, they are discarded to free the slot (thanks Jerome R.)"],it:["Trappole Imboscata e Imboscata del clan Kiba: non si possono più piazzare se l'avversario non ha più riserve, e se sono già piazzate quando cade il suo penultimo combattente vengono scartate per liberare lo spazio (grazie Jerome R.)"]},
@@ -2839,6 +2846,17 @@ async function decksSave(list){
   if(r.ok) DECKS.list=r.decks; return r.ok;
 }
 function deckFaces(t){ return `<span class="dkf">${t.map(id=>FIGHTERS[id]?`<img src="assets/face-${id}.webp" alt="" title="${esc(nm(id))}">`:"").join("")}</span>`; }
+function askName(title,def){
+  return new Promise(res=>{
+    const w=document.createElement("div"); w.className="askw";
+    w.innerHTML=`<form class="askbox" role="dialog" aria-label="${esc(title)}"><h3>${esc(title)}</h3><input maxlength="24" value="${esc(def||"")}" autocomplete="off"><div class="row"><button type="button" class="btn ghost sm" data-x>${L("cancel")}</button><button class="btn sm" type="submit">${L("save")}</button></div></form>`;
+    document.body.appendChild(w); const inp=w.querySelector("input"); setTimeout(()=>{ inp.focus(); inp.select(); },30);
+    const done=v=>{ w.remove(); res(v); };
+    w.querySelector("form").onsubmit=e=>{ e.preventDefault(); done(inp.value.trim()||null); };
+    w.querySelector("[data-x]").onclick=()=>done(null);
+    w.onclick=e=>{ if(e.target===w) done(null); };
+  });
+}
 function deckChipsHTML(sel){
   if(!ACC.on || !ACC.user) return "";
   const list=(DECKS.list||[]).filter(d=>deckValid(d.team));
@@ -2848,7 +2866,7 @@ function deckChipsHTML(sel){
 function bindDeckChips(sel,redo){
   document.querySelectorAll(".dkc[data-deck]").forEach(b=>b.onclick=()=>{ SFX.play("click"); const d=DECKS.list[+b.dataset.deck]; if(d) redo(d.team.slice(),d.team[0]); });
   const sv=$("#dksave"); if(sv) sv.onclick=async()=>{ SFX.play("click");
-    const name=(prompt(L("deckName"),sel.map(nm).join(" / ").slice(0,24))||"").trim(); if(!name) return;
+    const name=(await askName(L("deckName"),sel.map(nm).join(" / ").slice(0,24))||""); if(!name) return;
     if(await decksSave([...(DECKS.list||[]),{name,team:sel.slice()}])){ SFX.play("event"); redo(sel,sel[sel.length-1]); } };
 }
 function decksProfileHTML(sel){
@@ -2861,7 +2879,7 @@ function bindDecksProfile(sel,redraw){
   document.querySelectorAll("[data-dkload]").forEach(b=>b.onclick=()=>{ SFX.play("click"); const d=DECKS.list[+b.dataset.dkload]; if(d) renderTitle(d.team.slice(),d.team[0]); });
   document.querySelectorAll("[data-dkdel]").forEach(b=>b.onclick=async()=>{ SFX.play("click"); const l=DECKS.list.slice(); l.splice(+b.dataset.dkdel,1); if(await decksSave(l)) redraw(); });
   document.querySelectorAll(".dkname").forEach(inp=>inp.onchange=async()=>{ const l=DECKS.list.map(d=>({...d})); const v=inp.value.trim(); if(!v){ inp.value=l[+inp.dataset.i].name; return; } l[+inp.dataset.i].name=v; await decksSave(l); });
-  const a=$("#dkadd"); if(a) a.onclick=async()=>{ SFX.play("click"); const name=(prompt(L("deckName"),sel.map(nm).join(" / ").slice(0,24))||"").trim(); if(!name) return; if(await decksSave([...(DECKS.list||[]),{name,team:sel.slice()}])){ SFX.play("event"); redraw(); } };
+  const a=$("#dkadd"); if(a) a.onclick=async()=>{ SFX.play("click"); const name=(await askName(L("deckName"),sel.map(nm).join(" / ").slice(0,24))||""); if(!name) return; if(await decksSave([...(DECKS.list||[]),{name,team:sel.slice()}])){ SFX.play("event"); redraw(); } };
 }
 
 /* ---------- joueurs en ligne ---------- */
