@@ -691,7 +691,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .show::before{display:none}
 /* confirmation quitter : bulle au-dessus, le bouton garde sa taille */
 .qbtn.arm{width:44px!important;padding:0!important;border-radius:50%!important;display:grid!important;place-items:center;overflow:visible}
-.qbtn.arm .qtxt{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);padding:6px 12px;border-radius:10px;background:#7a2416;border:1px solid #ff6a4a;box-shadow:0 6px 18px rgba(0,0,0,.6);z-index:20;pointer-events:none}
+.qbtn.arm .qtxt{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);padding:6px 12px;border-radius:10px;background:#7a2416;border:1px solid #ff6a4a;box-shadow:0 6px 18px rgba(0,0,0,.6);z-index:20;cursor:pointer}
 .qbtn.arm .qtxt::after{content:"";position:absolute;top:100%;left:50%;margin-left:-6px;border:6px solid transparent;border-top-color:#7a2416}
 @media (max-width:999px){ .bar-actions .qbtn.arm{width:36px!important;height:36px} }
 /* impact des coups renforcé */
@@ -2187,13 +2187,7 @@ function render(){
   document.querySelectorAll("[data-relais]").forEach(b=>b.onclick=()=>relais(ME,+b.dataset.relais));
   $("#ult").onclick=()=>ultimate(ME);
   $("#end").onclick=()=>{ SFX.play("click"); if(MODE==="vs") NET.handoff=true; endTurn(ME); };
-  if($("#quit")) $("#quit").onclick=e=>{ const b=e.currentTarget;
-    if(!QUIT_ARM){ SFX.play("click"); QUIT_ARM=true; b.classList.add("arm"); clearTimeout(QUIT_T); QUIT_T=setTimeout(()=>{ QUIT_ARM=false; const x=$("#quit"); if(x) x.classList.remove("arm"); },3000); return; }
-    QUIT_ARM=false; clearTimeout(QUIT_T);
-    SFX.play("click"); const coach=document.querySelector(".coach-wrap,.coach"); if(coach) coach.remove();
-    if(S && !S.over && ACC.user){ if(MODE==="vs") accMatchEnd(true); else if(MODE==="solo") accReportSolo(false); }
-    const tc=MODE==="vs"?TOUR.code:null;
-    if(S){ S.over=true; S.dead=true; } if(MODE==="vs") netLeave(); else { MODE="solo"; ME="p"; } if(tc) renderTour(tc); else renderTitle(); };
+
   $("#snd").onclick=()=>{ SFX.toggle(); render(); };
   if($("#mus")) $("#mus").onclick=()=>{ MUSIC.toggle(); render(); };
   if($("#fs")) $("#fs").onclick=toggleFS;
@@ -2484,6 +2478,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"1.12.1",d:"2026-10-03",fr:["Le bouton Quitter répond à chaque fois (la bulle « Quitter ? » est aussi cliquable)"],en:["The Quit button always responds (the “Quit?” bubble is clickable too)"],it:["Il pulsante Esci risponde sempre (anche il fumetto « Uscire? » è cliccabile)"]},
  {v:"1.12.0",d:"2026-10-03",fr:["Musique de menu sur tous les écrans hors combat (elle ne se relance pas en changeant de page)"],en:["Menu music on every screen outside battles (it doesn't restart when you change page)"],it:["Musica del menu su tutte le schermate fuori dal combattimento (non riparte cambiando pagina)"]},
  {v:"1.11.0",d:"2026-10-03",fr:["4 nouveaux combattants : Charles de Guise (Hokuto Sonka Ken), Liu Feiyan (Kyokujūji Seiken, rangé avec le Nanto), Fox et Mad Sarge (Pillards)","Nouvelle illustration d'Amiba"],
   en:["4 new fighters: Charles de Guise (Hokuto Sonka Ken), Liu Feiyan (Kyokujūji Seiken, grouped with Nanto), Fox and Mad Sarge (Raiders)","New Amiba artwork"],
@@ -2603,6 +2598,15 @@ const MUSIC=(()=>{
     toggle(){ on=!on; try{ localStorage.setItem("boc-music",on?"on":"off"); }catch(e){} if(!on){ stop(300); key=null; } else { const k=wantKey; key=null; if(k){ played[k]=false; want(k); } } } };
 })();
 
+function quitPress(b){
+    if(!QUIT_ARM){ SFX.play("click"); QUIT_ARM=true; b.classList.add("arm"); clearTimeout(QUIT_T); QUIT_T=setTimeout(()=>{ QUIT_ARM=false; const x=$("#quit"); if(x) x.classList.remove("arm"); },4000); return; }
+    QUIT_ARM=false; clearTimeout(QUIT_T);
+    SFX.play("click"); const coach=document.querySelector(".coach-wrap,.coach"); if(coach) coach.remove();
+    if(S && !S.over && ACC.user){ if(MODE==="vs") accMatchEnd(true); else if(MODE==="solo") accReportSolo(false); }
+    const tc=MODE==="vs"?TOUR.code:null;
+    if(S){ S.over=true; S.dead=true; } if(MODE==="vs") netLeave(); else { MODE="solo"; ME="p"; } if(tc) renderTour(tc); else renderTitle(); }
+// délégué sur le document et au pointerdown : le plateau se redessine souvent (chrono, IA), un clic pouvait se perdre entre l'appui et le relâchement
+document.addEventListener("pointerdown",e=>{ const b=e.target.closest&&e.target.closest("#quit"); if(!b || e.button>0) return; e.preventDefault(); quitPress(b); },true);
 function pageShell(title,body,sel,music="menu"){ MUSIC.want(music);
   $("#app").innerHTML=`<div class="screen infopage" style="overflow-y:auto"><div class="ipbar"><button class="btn ghost sm" id="back" aria-label="${L("back")}">←<span class="blabel"> ${L("back")}</span></button><h2>${title}</h2><div class="row">${langBar()}</div></div>${body}</div>`;
   $("#back").onclick=()=>{ SFX.play("click"); renderTitle(sel); };

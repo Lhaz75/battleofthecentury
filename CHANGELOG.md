@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v1.12.1 — 2026-10-03
+
+- Le bouton Quitter répond à chaque fois (la bulle « Quitter ? » est aussi cliquable)
+
 ## v1.12.0 — 2026-10-03
 
 - Musique de menu sur tous les écrans hors combat (elle ne se relance pas en changeant de page)
