@@ -32,8 +32,40 @@ const ready = store.init().then(() => console.log("Comptes : stockage", store.ki
 const VERSION = (() => { try { return require("./package.json").version; } catch (e) { return "0"; } })();
 const accounts = makeAccounts({ version: VERSION, ready, store, getDuel: code => docs["duels/" + code] || null, hasDuel: code => !!docs["duels/" + code] });
 
+// ---------- messages vocaux du chat versus (en mémoire, 2 h) ----------
+const voices = new Map(); let voiceBytes = 0; const voiceRate = new Map();
+const VOICE_MAX = 400 * 1024, VOICE_TOTAL = 60 * 1024 * 1024, VOICE_TTL = 2 * 3600e3;
+const VOICE_TYPES = /^audio\/(webm|ogg|mp4|aac|mpeg)(;.*)?$/;
+setInterval(() => { const now = Date.now(); for (const [id, v] of voices) if (now - v.t > VOICE_TTL) { voiceBytes -= v.buf.length; voices.delete(id); } }, 60000);
+function voiceApi(req, res, url) {
+  const send = (c, o) => { res.writeHead(c, { "Content-Type": "application/json", "Cache-Control": "no-store" }); res.end(JSON.stringify(o)); };
+  const g = /^\/api\/voice\/([a-z0-9]{16})$/.exec(url.pathname);
+  if (req.method === "GET" && g) {
+    const v = voices.get(g[1]); if (!v) { res.writeHead(404); return res.end(); }
+    res.writeHead(200, { "Content-Type": v.type, "Content-Length": v.buf.length, "Cache-Control": "private, max-age=7200", "X-Content-Type-Options": "nosniff" }); return res.end(v.buf);
+  }
+  if (req.method !== "POST" || url.pathname !== "/api/voice") return send(404, { error: "notfound" });
+  const code = url.searchParams.get("code") || "", type = String(req.headers["content-type"] || "");
+  if (!/^[A-Z]{4}$/.test(code) || !docs["duels/" + code]) return send(404, { error: "room" });
+  if (!VOICE_TYPES.test(type)) return send(400, { error: "type" });
+  const ip = (req.headers["x-forwarded-for"] || req.socket.remoteAddress || "").split(",")[0].trim();
+  const now = Date.now(), r = voiceRate.get(ip) || { n: 0, t: now }; if (now - r.t > 60000) { r.n = 0; r.t = now; } r.n++; voiceRate.set(ip, r);
+  if (r.n > 15) return send(429, { error: "slow" });
+  const chunks = []; let size = 0, big = false;
+  req.on("data", c => { size += c.length; if (size > VOICE_MAX) { big = true; req.destroy(); } else chunks.push(c); });
+  req.on("end", () => {
+    if (big || size < 200) return send(400, { error: "size" });
+    const buf = Buffer.concat(chunks);
+    while (voiceBytes + buf.length > VOICE_TOTAL && voices.size) { const [k, v] = voices.entries().next().value; voiceBytes -= v.buf.length; voices.delete(k); }
+    const id = require("crypto").randomBytes(8).toString("hex");
+    voices.set(id, { buf, type: type.split(";")[0], t: Date.now() }); voiceBytes += buf.length;
+    send(200, { id });
+  });
+}
+
 // ---------- HTTP : fichiers du jeu ----------
 const server = http.createServer((req, res) => {
+  if ((req.url || "").startsWith("/api/voice")) return voiceApi(req, res, new URL(req.url, "http://x"));
   if ((req.url || "").startsWith("/api/")) return accounts.handle(req, res);
   let p = decodeURIComponent((req.url || "/").split("?")[0]);
   if (p === "/") p = "/index.html";

@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v1.8.0 — 2026-10-03
+
+- Messages vocaux dans le chat du versus : maintiens le micro, parle, relâche (20 s max)
+- Les messages vocaux de l'adversaire se lancent tout seuls quand le son est activé
+
 ## v1.7.0 — 2026-10-03
 
 - Numéro de version et page « Nouveautés » avec l'historique des mises à jour
