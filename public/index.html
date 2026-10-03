@@ -598,7 +598,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .jdot{position:absolute;top:2px;right:2px;width:10px;height:10px;border-radius:50%;background:#e0503a;box-shadow:0 0 6px #e0503a}
 @media (min-width:1000px){
   .board>.ring{display:flex;flex-direction:column}
-  .board>.ring .jpanel{flex:1;min-height:220px}
+  .board>.ring .jpanel{flex:1 1 0;min-height:0}
   .jbtn{display:none}
 }
 @media (max-width:999px){
@@ -620,6 +620,17 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
   .bar-actions .btn{padding:9px 10px;font-size:13px;min-width:0;flex:1 1 auto}
 }
 @media (max-width:420px){ .bar-actions #fs{display:none} .bar-actions .pip{width:9px;height:9px} }
+@media (min-width:1000px){
+  .board{grid-template-rows:minmax(0,1fr) auto auto;height:100%;box-sizing:border-box}
+  .board>.ring{min-height:0;overflow:hidden;gap:10px!important;padding:12px 14px!important;justify-content:flex-start!important}
+  .board .fcard{min-height:92px;padding:8px 10px;gap:4px}
+  .board .fcard b{font-size:15px}.board .fcard span{font-size:12px}
+  .board .fcard.hid b{font-size:30px}
+  .board .log{min-height:0}
+  .board .quick{flex-wrap:nowrap;overflow-x:auto}
+  .board .quick button{white-space:nowrap}
+}
+@media (min-width:1000px) and (max-height:820px){ .board .fcard span{display:none} .board .fcard{min-height:52px} }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 <style>html,body{margin:0}*{box-sizing:border-box}img{max-width:100%}[hidden]{display:none!important}</style>
