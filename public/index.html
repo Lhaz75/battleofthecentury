@@ -957,6 +957,17 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .svf .rhp{background:#2c1410;border-radius:2px;overflow:hidden;border:1px solid rgba(0,0,0,.6)}.svf .rhp i{display:block;height:100%;background:linear-gradient(90deg,#b0281a,#ff5a3a)}
 .svf .rhpn{font-size:11px}
 .svvs{font-family:var(--f-display);font-weight:700;font-style:italic;font-size:28px;color:#e8b04a;margin:8px 0 2px}
+.onl{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 10px;border-radius:15px;border:1px solid rgba(232,176,74,.45);background:rgba(18,10,6,.7);color:var(--sand);font:600 12px var(--f-body,inherit);cursor:pointer;white-space:nowrap}
+.onl i,.ow i{width:8px;height:8px;border-radius:50%;background:#4fd36b;box-shadow:0 0 6px #4fd36b;display:inline-block;flex:none}
+.onl:hover{border-color:#e8b04a}
+.onlist{max-width:640px;margin:0 auto;width:100%}
+.onl-ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.onl-ul li{display:flex;align-items:center;gap:12px;padding:8px 12px;border:1px solid rgba(232,176,74,.25);border-radius:10px;background:rgba(18,10,6,.65)}
+.onl-ul li.me{border-color:#e8b04a}
+.onl-ul .hn{flex:1;display:flex;align-items:center;gap:6px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.onl-ul .ow{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#cdb79a;white-space:nowrap}
+.ow.w-solo i,.ow.w-surv i{background:#e8b04a;box-shadow:0 0 6px #e8b04a}.ow.w-vs i,.ow.w-tour i{background:#e0452c;box-shadow:0 0 6px #e0452c}.ow.w-queue i{background:#58a6ff;box-shadow:0 0 6px #58a6ff}
+@media (max-width:600px){.toprow>.row{flex-wrap:wrap!important;justify-content:center!important;row-gap:6px!important;overflow:visible!important;max-width:100%}.onl{height:26px;padding:0 8px;font-size:11px}.onl-ul .ow{font-size:11px}}
 /* mobile : plateau allégé */
 @media (max-width:999px){
   .screen.board .rs{width:auto;gap:1px}
@@ -1539,6 +1550,10 @@ function toggleFS(){
     else { const r=(el.requestFullscreen||el.webkitRequestFullscreen).call(el); if(r && r.catch) r.catch(()=>{}); }
   }catch(e){}
 }
+/* ---------- textes : joueurs en ligne ---------- */
+Object.assign(UI.fr,{onlineN:n=>`${n} en ligne`, onlineTitle:"Joueurs en ligne", onlineEmpty:"Personne d'autre pour l'instant.", w_menu:"Dans les menus", w_solo:"Combat contre l'IA", w_surv:"En survie", w_vs:"En versus", w_queue:"Cherche un adversaire", w_tour:"En tournoi", onlineYou:"toi"});
+Object.assign(UI.en,{onlineN:n=>`${n} online`, onlineTitle:"Players online", onlineEmpty:"Nobody else right now.", w_menu:"In the menus", w_solo:"Fighting the AI", w_surv:"In survival", w_vs:"In versus", w_queue:"Looking for an opponent", w_tour:"In a tournament", onlineYou:"you"});
+Object.assign(UI.it,{onlineN:n=>`${n} online`, onlineTitle:"Giocatori online", onlineEmpty:"Nessun altro per ora.", w_menu:"Nei menu", w_solo:"Contro l'IA", w_surv:"In sopravvivenza", w_vs:"In versus", w_queue:"Cerca un avversario", w_tour:"In torneo", onlineYou:"tu"});
 /* ---------- textes du mode survie ---------- */
 Object.assign(UI.fr,{survBtn:"Survie", survTitle:"Mode survie", survLead:"Enchaîne les combats contre des équipes de plus en plus fortes. Entre deux vagues tu ne récupères qu'une partie de tes PV, et tes persos KO reviennent avec la moitié des leurs. Toutes les 5 vagues, repos au village : soin complet.",
   survWave:n=>`Vague ${n}`, survYou:"Ton équipe", survNext:"Adversaire", survFight:"Combattre", survGiveUp:"Abandonner", survAgain:"Vague suivante",
@@ -2605,6 +2620,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.19.0",d:"2026-10-03",fr:["Joueurs en ligne : un compteur sur l'écran principal, et la liste de qui est connecté et ce qu'il fait (menus, combat, survie, versus, file d'attente, tournoi)"],en:["Players online: a counter on the main screen, and the list of who is connected and what they are doing (menus, fight, survival, versus, queue, tournament)"],it:["Giocatori online: un contatore nella schermata principale, e la lista di chi è connesso e cosa sta facendo (menu, combattimento, sopravvivenza, versus, coda, torneo)"]},
  {v:"0.18.0",d:"2026-10-03",fr:["Nouveau mode Survie : enchaîne des vagues d'adversaires de plus en plus forts, tes PV ne remontent qu'en partie entre les combats, repos au village toutes les 5 vagues","Chaque vague gagnée rapporte des points, et ton record apparaît dans le Classement (onglet Survie)"],en:["New Survival mode: fight waves of ever stronger opponents, your HP only partly recovers between fights, rest at the village every 5 waves","Each wave cleared gives points, and your record shows in the Leaderboard (Survival tab)"],it:["Nuova modalità Sopravvivenza: affronta ondate di avversari sempre più forti, i PV si recuperano solo in parte tra i combattimenti, riposo al villaggio ogni 5 ondate","Ogni ondata superata dà punti, e il tuo record appare nella Classifica (scheda Sopravvivenza)"]},
  {v:"0.17.5",d:"2026-10-03",fr:["Plateau : plus de nom sous les pastilles des réservistes (survol pour le voir)"],en:["Board: no more names under reserve tokens (hover to see it)"],it:["Tavolo: niente più nomi sotto le pedine delle riserve (passa sopra per vederlo)"]},
  {v:"0.17.4",d:"2026-10-03",fr:["Mobile : plateau plus aéré, il s'adapte à la hauteur de l'écran"],en:["Mobile: airier board that adapts to screen height"],it:["Mobile: tavolo più arioso, si adatta all'altezza dello schermo"]},
@@ -2745,6 +2761,27 @@ const MUSIC=(()=>{
   return { want, get on(){ return on; }, get track(){ return el&&!el.paused?decodeURIComponent(el.src.split("/").pop()):null; },
     toggle(){ on=!on; try{ localStorage.setItem("boc-music",on?"on":"off"); }catch(e){} if(!on){ stop(300); key=null; } else { const k=wantKey; key=null; if(k){ played[k]=false; want(k); } } } };
 })();
+
+/* ---------- joueurs en ligne ---------- */
+const ONLINE={list:[], timer:0, last:0};
+function presWhere(){
+  if(S && !S.over && !S.dead) return MODE==="vs"?(TOUR.code?"tour":"vs"):SURV.on?"surv":"solo";
+  if(QUICK_MM.t) return "queue"; if(TOUR.code) return "tour"; return "menu";
+}
+async function presPing(){
+  if(!ACC.on || !ACC.user) return; ONLINE.last=Date.now();
+  try{ const r=await api("POST","/api/ping",{where:presWhere()}); if(r.ok){ ONLINE.list=r.online||[]; presRefresh(); } }catch(e){}
+}
+function presStart(){ if(ONLINE.timer) return; presPing(); ONLINE.timer=setInterval(presPing,30000); }
+function presChip(){ if(!ACC.on || !ACC.user) return ""; const n=Math.max(1,ONLINE.list.length); return `<button class="onl" id="onl" title="${L("onlineTitle")}"><i></i><span>${L("onlineN",n)}</span></button>`; }
+function presRefresh(){ const c=$("#onl span"); if(c) c.textContent=L("onlineN",Math.max(1,ONLINE.list.length)); if($(".onlist")) drawOnline(); }
+function drawOnline(){ const box=$(".onlist"); if(!box) return; const me=ACC.user&&ACC.user.id;
+  const list=ONLINE.list.slice().sort((a,b)=>(b.id===me)-(a.id===me));
+  box.innerHTML=list.length?`<ul class="onl-ul">${list.map(u=>`<li class="${u.id===me?"me":""}">${avatarHTML(u)}<span class="hn">${lvlBadge(u.stats&&u.stats.pts)}${esc(u.name)}${u.id===me?` <small>(${L("onlineYou")})</small>`:""}</span><span class="ow w-${u.where}"><i></i>${L("w_"+u.where)}</span></li>`).join("")}</ul>${list.length<2?`<p class="note">${L("onlineEmpty")}</p>`:""}`:`<p class="note">${L("onlineEmpty")}</p>`; }
+function renderOnline(sel=[]){
+  pageShell(L("onlineTitle"),`<div class="onlist"></div>`,sel);
+  drawOnline(); presPing(); bindLang(()=>renderOnline(sel));
+}
 
 /* ---------- mode survie ---------- */
 const SURV={on:false};
@@ -2989,7 +3026,7 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; quickStop
       <button class="btn ghost" id="online" ${ready?"":"disabled"}>${L("vsOnline")}</button>
       <button class="btn ghost" id="surv" ${ready?"":"disabled"}>${L("survBtn")}</button>
       <button class="btn ghost" id="rnd">${L("random")}</button>
-      <button class="btn ghost" id="tuto">${L("tuto")}</button><button class="btn ghost sm" id="roster">${L("rosterBtn")}</button><button class="btn ghost sm" id="rules">${L("rulesBtn")}</button>${ACC.on?`<button class="btn ghost" id="tour">${L("tourBtn")}</button><button class="btn ghost sm" id="hof">${L("hofBtn")}</button>`:""}</div><div class="row"><button class="vbtn" id="ver" title="${L("newsTitle")}"><i class="betatag">BETA</i> v${APP_VERSION}</button>${accBtnHTML()}${FS_OK?`<button class="tbtn" id="fs" aria-label="${L("fullscreen")}" title="${L("fullscreen")}">${SVG_FS}</button>`:""}<button class="tbtn" id="snd" aria-pressed="${SFX.on}" aria-label="${L("sound")}" title="${L("sound")}">${SFX.on?SVG_ON:SVG_OFF}</button><button class="tbtn" id="mus" aria-pressed="${MUSIC.on}" aria-label="${L("music")}" title="${L("music")}">${MUSIC.on?SVG_MUS:SVG_MUS_OFF}</button>${langBar()}</div></div>
+      <button class="btn ghost" id="tuto">${L("tuto")}</button><button class="btn ghost sm" id="roster">${L("rosterBtn")}</button><button class="btn ghost sm" id="rules">${L("rulesBtn")}</button>${ACC.on?`<button class="btn ghost" id="tour">${L("tourBtn")}</button><button class="btn ghost sm" id="hof">${L("hofBtn")}</button>`:""}</div><div class="row">${presChip()}<button class="vbtn" id="ver" title="${L("newsTitle")}"><i class="betatag">BETA</i> v${APP_VERSION}</button>${accBtnHTML()}${FS_OK?`<button class="tbtn" id="fs" aria-label="${L("fullscreen")}" title="${L("fullscreen")}">${SVG_FS}</button>`:""}<button class="tbtn" id="snd" aria-pressed="${SFX.on}" aria-label="${L("sound")}" title="${L("sound")}">${SFX.on?SVG_ON:SVG_OFF}</button><button class="tbtn" id="mus" aria-pressed="${MUSIC.on}" aria-label="${L("music")}" title="${L("music")}">${MUSIC.on?SVG_MUS:SVG_MUS_OFF}</button>${langBar()}</div></div>
     
     <div class="selwrap"><div class="selL">
     <div class="show cl-${CLAN[focus]}">
@@ -3031,6 +3068,8 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; quickStop
   if($("#hof")) $("#hof").onclick=()=>{ SFX.play("click"); renderHof(sel); };
   if($("#tour")) $("#tour").onclick=()=>{ SFX.play("click"); renderTourHome(sel); };
   $("#ver").onclick=()=>{ SFX.play("click"); renderChangelog(sel); };
+  if($("#onl")) $("#onl").onclick=()=>{ SFX.play("click"); renderOnline(sel); };
+  if(ACC.user){ presStart(); if(Date.now()-ONLINE.last>8000) presPing(); }
   if($("#acc")) $("#acc").onclick=()=>{ SFX.play("click"); renderAccount(sel); };
   $("#snd").onclick=()=>{ SFX.toggle(); redo(sel,focus); };
   $("#mus").onclick=()=>{ MUSIC.toggle(); redo(sel,focus); };

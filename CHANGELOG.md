@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.19.0 — 2026-10-03
+
+- Joueurs en ligne : un compteur sur l'écran principal, et la liste de qui est connecté et ce qu'il fait (menus, combat, survie, versus, file d'attente, tournoi)
+
 ## v0.18.0 — 2026-10-03
 
 - Nouveau mode Survie : enchaîne des vagues d'adversaires de plus en plus forts, tes PV ne remontent qu'en partie entre les combats, repos au village toutes les 5 vagues

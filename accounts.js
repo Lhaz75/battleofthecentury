@@ -141,6 +141,11 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
   const settleHooks = [];
   const matches = new Map();      // code -> { host: uid, guest: uid, done }
   const lastSolo = new Map();     // uid -> timestamp
+  const presence = new Map();     // uid -> {user public, where, t}
+  const ONLINE_MS = 75e3;
+  function onlineList() { const now = Date.now(), out = [];
+    for (const [id, p] of presence) { if (now - p.t > ONLINE_MS) presence.delete(id); else out.push(p); }
+    return out.sort((x, y) => (y.stats && y.stats.pts || 0) - (x.stats && x.stats.pts || 0)); }
   const lastSurv = new Map();     // uid -> timestamp (survie)
   const tries = new Map();        // ip -> { n, t }
 
@@ -203,7 +208,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       await store.touch(u.id, ip);
       return [200, { token: await newSession(u), user: pubUser(u) }];
     },
-    "POST /api/logout": async req => { const h = (req.headers.authorization || "").slice(7); if (h) await store.dropSession(sha(h)); return [200, { ok: true }]; },
+    "POST /api/logout": async req => { const lu = await auth(req).catch(() => null); if (lu) presence.delete(lu.id); const h = (req.headers.authorization || "").slice(7); if (h) await store.dropSession(sha(h)); return [200, { ok: true }]; },
     "GET /api/me": async req => {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
       return [200, { user: pubUser(u), rank: { elo: await store.rank(u.id, "elo"), pts: await store.rank(u.id, "pts") } }];
@@ -277,6 +282,14 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       const me = await store.byId(u.id);
       return [200, { user: pubUser(me) }];
     },
+    // présence : chaque client connecté pingue toutes les 30 s
+    "POST /api/ping": async (req, body) => {
+      const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      const where = ["menu", "solo", "surv", "vs", "queue", "tour"].includes(body.where) ? body.where : "menu";
+      presence.set(u.id, { ...pubUser(u), where, t: Date.now() });
+      return [200, { online: onlineList() }];
+    },
+    "GET /api/online": async () => [200, { online: onlineList() }],
     "GET /api/status": async () => [200, { version, maintenance: { on: maintOn(), msg: maint.msg, forced: process.env.MAINTENANCE === "1" } }],
     "POST /api/admin/maintenance": async (req, body) => {
       const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];
