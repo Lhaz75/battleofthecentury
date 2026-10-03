@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.28.0 — 2026-10-04
+
+- Admin : outil pour recadrer les pastilles des combattants directement dans le jeu
+
 ## v0.27.0 — 2026-10-04
 
 - Défi du jour : une bannière sur l'écran principal propose un défi différent chaque jour (équipe imposée, boss renforcé ou victoire parfaite), +40 points. Elle disparaît une fois le défi réussi

@@ -159,6 +159,8 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     if (Date.now() - (seen.get(u.id) || 0) > 10 * 60e3) { seen.set(u.id, Date.now()); store.touch(u.id, ip).catch(() => {}); }
     return u; }
   // statistiques d'équilibrage par combattant (vraies parties) : vg/vw = versus, ag/aw = contre l'IA
+  let faces = {};
+  Promise.resolve(ready).then(() => store.getSetting("faces")).then(v => { if (v && typeof v === "object") faces = v; }).catch(() => {});
   let fstats = { since: Date.now(), f: {}, n: { v: 0, a: 0 } }, fDirty = false;
   Promise.resolve(ready).then(() => store.getSetting("fstats")).then(v => { if (v && v.f) fstats = v; }).catch(() => {});
   setInterval(() => { if (fDirty) { fDirty = false; store.setSetting("fstats", fstats).catch(() => { fDirty = true; }); } }, 30000);
@@ -372,6 +374,24 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       console.log(`Maintenance ${maint.on ? "activée" : "désactivée"} par ${u.name}`);
       return [200, { maintenance: { on: maintOn(), msg: maint.msg, forced: process.env.MAINTENANCE === "1" } }];
     },
+    // pastilles des combattants recadrées par l'admin (stockées en base : le disque de Render est effacé à chaque déploiement)
+    "GET /api/faces": async () => [200, { faces: faces }],
+    "POST /api/admin/face": async (req, body) => {
+      const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];
+      const id = String(body.id || ""); if (!/^[a-z]{2,12}$/.test(id)) return [400, { error: "bad" }];
+      if (body.reset) { delete faces[id]; await store.setSetting("face:" + id, null); await store.setSetting("faces", faces); return [200, { faces }]; }
+      const m = /^data:(image\/(?:webp|png|jpeg));base64,([A-Za-z0-9+/=]+)$/.exec(String(body.image || ""));
+      if (!m) return [400, { error: "image" }];
+      const buf = Buffer.from(m[2], "base64"); if (buf.length > 90 * 1024 || buf.length < 100) return [400, { error: "size" }];
+      await store.setSetting("face:" + id, { type: m[1], data: m[2], crop: body.crop || null });
+      faces[id] = Date.now().toString(36); await store.setSetting("faces", faces);
+      console.log(`Pastille de ${id} recadrée par ${u.name}`);
+      return [200, { faces }];
+    },
+    "GET /api/admin/face": async (req, body, ip, url) => {
+      const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];
+      const f = await store.getSetting("face:" + (url.searchParams.get("id") || "")); return [200, { crop: f && f.crop || null }];
+    },
     "GET /api/admin/fstats": async req => {
       const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];
       return [200, fstats];
@@ -422,6 +442,12 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
   async function handle(req, res) {
     const url = new URL(req.url, "http://x");
     const send = (code, obj, extra) => { res.writeHead(code, { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store", ...extra }); res.end(JSON.stringify(obj)); };
+    const fm = /^\/api\/face\/([a-z]{2,12})$/.exec(url.pathname);
+    if (req.method === "GET" && fm) {
+      try { const f = await store.getSetting("face:" + fm[1]); if (!f || !f.data) { res.writeHead(404); return res.end(); }
+        res.writeHead(200, { "Content-Type": f.type || "image/webp", "Cache-Control": "public, max-age=31536000, immutable", "X-Content-Type-Options": "nosniff" }); return res.end(Buffer.from(f.data, "base64")); }
+      catch (e) { res.writeHead(500); return res.end(); }
+    }
     const am = /^\/api\/avatar\/(\d+)$/.exec(url.pathname);
     if (req.method === "GET" && am) {
       try { const a = await store.avatar(+am[1]); if (!a) { res.writeHead(404); return res.end(); }

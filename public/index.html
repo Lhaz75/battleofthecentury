@@ -1091,6 +1091,21 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .dyvs .dkf img{width:30px;height:30px}.dymine small{font-size:11px;color:#cdb79a}
 .dyfail{color:#ff8a6e}
 @media (max-width:700px){.daily{grid-template-columns:1fr;padding:9px 11px;gap:6px}.daily .dyhead{flex-direction:row;align-items:center;justify-content:space-between}.dyvs{justify-content:space-between}.dyvs .dkf img{width:26px;height:26px}}
+.fagrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:10px;margin-top:8px}
+.fa{display:flex;flex-direction:column;align-items:center;gap:5px;padding:8px 4px;border-radius:10px;border:1px solid rgba(232,176,74,.2);background:rgba(18,10,6,.6);color:#f3e2bf;cursor:pointer;font:600 12px var(--f-body,inherit)}
+.fa img{width:64px;height:64px;border-radius:50%;border:2px solid #c98a2e;object-fit:cover;background:#120a06}
+.fa.mod img{border-color:#5fbf6a}.fa:hover{border-color:#e8b04a}
+.faed{width:min(560px,100%)!important}
+.fawork{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.fasrc{position:relative;flex:none;overflow:hidden;border-radius:8px;background:repeating-conic-gradient(#241a14 0 25%,#1a120e 0 50%) 0 0/20px 20px;touch-action:none;cursor:grab;user-select:none}
+.fasrc img{width:100%;height:100%;display:block;pointer-events:none}
+.facirc{position:absolute;border-radius:50%;border:2px solid #e8b04a;box-shadow:0 0 0 2000px rgba(0,0,0,.55);pointer-events:none}
+.faside{display:flex;flex-direction:column;align-items:center;gap:8px}
+.faprev{width:110px;height:110px;border-radius:50%;border:3px solid #c98a2e}
+.faside small{color:#cdb79a}.faside .mlbl{width:140px}.faside input[type=range]{width:100%}
+.fanudge{display:grid;grid-template-columns:repeat(3,34px);grid-template-rows:repeat(3,30px);gap:3px}
+.fanudge button{border-radius:6px;border:1px solid rgba(232,176,74,.4);background:#1d130e;color:#f3e2bf;cursor:pointer}
+.fanudge [data-n=u]{grid-column:2;grid-row:1}.fanudge [data-n=l]{grid-column:1;grid-row:2}.fanudge [data-n=r]{grid-column:3;grid-row:2}.fanudge [data-n=d]{grid-column:2;grid-row:3}
 /* mobile : plateau allégé */
 @media (max-width:999px){
   .screen.board .rs{width:auto;gap:1px}
@@ -1678,6 +1693,9 @@ Object.assign(UI.fr,{onlineN:n=>`${n} en ligne`, onlineTitle:"Joueurs en ligne",
 Object.assign(UI.en,{onlineN:n=>`${n} online`, onlineTitle:"Players online", onlineEmpty:"Nobody else right now.", w_menu:"In the menus", w_solo:"Fighting the AI", w_surv:"In survival", w_vs:"In versus", w_queue:"Looking for an opponent", w_tour:"In a tournament", onlineYou:"you"});
 Object.assign(UI.it,{onlineN:n=>`${n} online`, onlineTitle:"Giocatori online", onlineEmpty:"Nessun altro per ora.", w_menu:"Nei menu", w_solo:"Contro l'IA", w_surv:"In sopravvivenza", w_vs:"In versus", w_queue:"Cerca un avversario", w_tour:"In torneo", onlineYou:"tu"});
 /* ---------- textes du mode survie ---------- */
+Object.assign(UI.fr,{faTitle:"Pastilles", faLead:"Clique sur un combattant pour recadrer sa pastille (le petit rond utilisé partout dans le jeu). Les pastilles modifiées ont un contour vert.", faPreview:"Aperçu", faZoom:"Zoom", faHow:"Fais glisser le cercle sur l'image pour le déplacer, molette ou curseur pour zoomer, flèches pour ajuster au pixel près.", faReset:"Pastille d'origine"});
+Object.assign(UI.en,{faTitle:"Face tokens", faLead:"Click a fighter to recrop their token (the small circle used everywhere in the game). Modified tokens have a green outline.", faPreview:"Preview", faZoom:"Zoom", faHow:"Drag the circle on the image to move it, mouse wheel or slider to zoom, arrows for fine tuning.", faReset:"Original token"});
+Object.assign(UI.it,{faTitle:"Pedine", faLead:"Clicca su un combattente per ritagliare la sua pedina (il piccolo cerchio usato ovunque nel gioco). Le pedine modificate hanno un bordo verde.", faPreview:"Anteprima", faZoom:"Zoom", faHow:"Trascina il cerchio sull'immagine per spostarlo, rotella o cursore per lo zoom, frecce per la regolazione fine.", faReset:"Pedina originale"});
 Object.assign(UI.fr,{dyTitle:"Défi du jour", dyTeam:"Gagne avec l'équipe imposée.", dyBoss:n=>`Terrasse l'équipe de ${n} : PV renforcés et rage au départ. Avec ton équipe.`, dyFlawless:"Gagne sans perdre un seul combattant. Avec ton équipe.", dyGo:"Relever", dyYourTeam:"ton équipe", dyDone:n=>`Défi du jour réussi ! +${n} points`, dyFail:"Défi raté : il fallait gagner sans perdre de combattant. Retente !", ach_daily1:"Défi relevé", achd_daily1:"Réussir un défi du jour", ach_daily10:"Discipline", achd_daily10:"Réussir 10 défis du jour", ach_daily30:"Entraînement quotidien", achd_daily30:"Réussir 30 défis du jour"});
 Object.assign(UI.en,{dyTitle:"Daily challenge", dyTeam:"Win with the imposed team.", dyBoss:n=>`Crush the team of ${n}: boosted HP and rage at start. With your team.`, dyFlawless:"Win without losing a single fighter. With your team.", dyGo:"Accept", dyYourTeam:"your team", dyDone:n=>`Daily challenge complete! +${n} points`, dyFail:"Challenge failed: you had to win without losing a fighter. Try again!", ach_daily1:"Challenge accepted", achd_daily1:"Complete a daily challenge", ach_daily10:"Discipline", achd_daily10:"Complete 10 daily challenges", ach_daily30:"Daily training", achd_daily30:"Complete 30 daily challenges"});
 Object.assign(UI.it,{dyTitle:"Sfida del giorno", dyTeam:"Vinci con la squadra imposta.", dyBoss:n=>`Abbatti la squadra di ${n}: PV potenziati e rabbia all'inizio. Con la tua squadra.`, dyFlawless:"Vinci senza perdere nemmeno un combattente. Con la tua squadra.", dyGo:"Accetta", dyYourTeam:"la tua squadra", dyDone:n=>`Sfida del giorno superata! +${n} punti`, dyFail:"Sfida fallita: dovevi vincere senza perdere combattenti. Riprova!", ach_daily1:"Sfida accettata", achd_daily1:"Supera una sfida del giorno", ach_daily10:"Disciplina", achd_daily10:"Supera 10 sfide del giorno", ach_daily30:"Allenamento quotidiano", achd_daily30:"Supera 30 sfide del giorno"});
@@ -2236,7 +2254,7 @@ function sideHTML(k){
     const can = me && S.turn===ME && !S.busy && !s.relais && s.end>=1 && !t.ko;
     const tag = can?"button":"div";
     return `<${tag} class="rs ${t.ko?"ko":""} ${can?"can":""}" ${can?`data-relais="${i}" aria-label="${L("relayTo",esc(nm(t.id)))}" title="${L("relayTo",esc(nm(t.id)))}"`:`title="${esc(nm(t.id))}"`}>
-      <span class="av"><img src="assets/face-${t.id}.webp" alt="">${t.ko?`<span class="kox">KO</span>`:""}</span>
+      <span class="av"><img src="${FACE(t.id)}" alt="">${t.ko?`<span class="kox">KO</span>`:""}</span>
       <span class="rhp ${!t.ko&&t.hp<t.max?"hurt":""}"><i style="width:${t.ko?0:t.hp/t.max*100}%"></i></span><span class="rhpn">${t.ko?"":`${t.hp}/${t.max}`}</span></${tag}>`;
   }).join("");
   return `<div class="side ${me?"me":"foe"} ${S.turn===k?"turn":""}">
@@ -2599,7 +2617,7 @@ function renderAccount(sel=[], tab="login"){
     <div class="pfhead"><label class="avpick" title="${L("changeAv")}">${avatarHTML(u,"uavbig")}<input type="file" id="avfile" accept="image/png,image/jpeg,image/webp" hidden><span class="avedit">${L("changeAv")}</span></label>
       <div><h3 class="pfname">${esc(u.name)}</h3>${(()=>{ const v=lvlOf(st.pts); return `<div class="lvlrow"><span class="lvlb lvbig">${L("lvShort")} ${v.n}</span><b>${esc(lvlTitle(v.n))}</b></div><div class="xpbar"><i style="width:${v.pct}%"></i></div><div class="xptxt">${v.n>=LVL_MAX?L("lvlMax"):L("xpNext",v.cur,v.need,v.n+1)}</div>`; })()}<div class="err" id="averr" role="alert"></div><button class="btn ghost sm" id="logout">${L("logout")}</button></div></div>
     <div class="stgrid">${cell("st_elo",st.elo??1000,rk.elo?"#"+rk.elo:"")}${cell("st_pts",st.pts||0,rk.pts?"#"+rk.pts:"")}${cell("st_aiW",st.aiW||0)}${cell("st_aiL",st.aiL||0)}${cell("st_vsW",st.vsW||0)}${cell("st_vsL",st.vsL||0)}${cell("st_streak",st.streak||0)}${cell("st_best",st.best||0)}${cell("st_tW",st.tW||0)}${cell("st_surv",st.surv||0)}</div>
-    ${favs.length?`<h3 class="pfh">${L("favs")}</h3><div class="favs">${favs.map(([id,n])=>`<div class="fav cl-${CLAN[id]}"><img src="assets/face-${id}.webp" alt=""><b>${esc(nm(id))}</b><span>×${n}</span></div>`).join("")}</div>`:""}
+    ${favs.length?`<h3 class="pfh">${L("favs")}</h3><div class="favs">${favs.map(([id,n])=>`<div class="fav cl-${CLAN[id]}"><img src="${FACE(id)}" alt=""><b>${esc(nm(id))}</b><span>×${n}</span></div>`).join("")}</div>`:""}
     ${achHTML(st)}
     <div id="dkbox">${decksProfileHTML(sel)}</div>
     <div class="row" style="justify-content:center;margin-top:18px"><button class="btn" id="tohof">${L("hofBtn")}</button></div>
@@ -2614,7 +2632,7 @@ function renderAccount(sel=[], tab="login"){
       <label class="mlbl">${L("maintMsgLbl")}<textarea id="mmsg" maxlength="400" rows="3" placeholder="${esc(L("maintDefault"))}">${esc(STATUS.maint.msg||"")}</textarea></label>
       ${STATUS.maint.forced?`<p class="note">${L("maintForced")}</p>`:""}
       <div class="row"><button class="btn sm" id="msave">${L("save")}</button><span class="err" id="merr"></span></div>
-      <div class="row"><button class="btn sm" id="tousers">${L("admUsers")}</button><button class="btn sm" id="tofst">${L("fsTitle")}</button></div></div>`:""}
+      <div class="row"><button class="btn sm" id="tousers">${L("admUsers")}</button><button class="btn sm" id="tofst">${L("fsTitle")}</button><button class="btn sm" id="tofaces">${L("faTitle")}</button></div></div>`:""}
     <p class="note">${L("hofHow")}</p></div>`,sel);
   $("#logout").onclick=async()=>{ SFX.play("click"); try{ await api("POST","/api/logout"); }catch(e){} accForget(); ACC.ready=true; renderTitle(sel); };
   $("#tohof").onclick=()=>{ SFX.play("click"); renderHof(sel); };
@@ -2626,6 +2644,7 @@ function renderAccount(sel=[], tab="login"){
     ACC.token=r.token; try{ localStorage.setItem("boc-token",r.token); }catch(x){} f.reset(); er.classList.add("ok"); er.textContent=L("pwDone"); SFX.play("event"); };
   if($("#tousers")) $("#tousers").onclick=()=>{ SFX.play("click"); renderAdminUsers(sel); };
   if($("#tofst")) $("#tofst").onclick=()=>{ SFX.play("click"); renderFStats(sel); };
+  if($("#tofaces")) $("#tofaces").onclick=()=>{ SFX.play("click"); renderFaceAdmin(sel); };
   if($("#msave")) $("#msave").onclick=async()=>{ const er=$("#merr"); er.textContent="";
     const r=await api("POST","/api/admin/maintenance",{on:$("#mon").checked,msg:$("#mmsg").value}).catch(()=>({ok:false}));
     if(!r.ok){ er.textContent=accErr(r.error); return; } STATUS.maint=r.maintenance; SFX.play("event"); er.textContent=L(r.maintenance.on?"maintIsOn":"maintIsOff"); };
@@ -2656,7 +2675,7 @@ async function renderHof(sel=[], kind="elo"){
   if(!r.list.length){ box.innerHTML=`<p class="note">${L("hofEmpty")}</p>`; return; }
   box.innerHTML=`<ol class="hof">${r.list.map((u,i)=>{ const st=u.stats||{}, fav=Object.entries(st.fav||{}).filter(([id])=>FIGHTERS[id]).sort((a,b)=>b[1]-a[1])[0];
     const wl=kind==="elo"?`${st.vsW||0}-${st.vsL||0}`:`${(st.aiW||0)+(st.vsW||0)}-${(st.aiL||0)+(st.vsL||0)}`;
-    return `<li class="${ACC.user&&ACC.user.id===u.id?"me":""} ${i<3?"p"+(i+1):""}"><span class="hr">${i+1}</span>${avatarHTML(u)}<span class="hn">${lvlBadge(st.pts)}${esc(u.name)}${st.tW?`<span class="tw" title="${L("st_tW")}">🏆${st.tW>1?st.tW:""}</span>`:""}${fav?`<img class="hf" src="assets/face-${fav[0]}.webp" alt="" title="${esc(nm(fav[0]))}">`:""}</span><span class="hs">${kind==="elo"?(st.elo??1000):kind==="surv"?(st.surv||0):(st.pts||0)}<small>${L(kind==="elo"?"eloShort":kind==="surv"?"survShort":"ptsShort")}</small></span><span class="hw">${wl}<small>${L("wlShort")}</small></span><span class="hb">${st.best||0}<small>${L("bestShort")}</small></span></li>`; }).join("")}</ol>`;
+    return `<li class="${ACC.user&&ACC.user.id===u.id?"me":""} ${i<3?"p"+(i+1):""}"><span class="hr">${i+1}</span>${avatarHTML(u)}<span class="hn">${lvlBadge(st.pts)}${esc(u.name)}${st.tW?`<span class="tw" title="${L("st_tW")}">🏆${st.tW>1?st.tW:""}</span>`:""}${fav?`<img class="hf" src="${FACE(fav[0])}" alt="" title="${esc(nm(fav[0]))}">`:""}</span><span class="hs">${kind==="elo"?(st.elo??1000):kind==="surv"?(st.surv||0):(st.pts||0)}<small>${L(kind==="elo"?"eloShort":kind==="surv"?"survShort":"ptsShort")}</small></span><span class="hw">${wl}<small>${L("wlShort")}</small></span><span class="hb">${st.best||0}<small>${L("bestShort")}</small></span></li>`; }).join("")}</ol>`;
 }
 async function accReportSolo(win){
   if(!ACC.on || !ACC.user || !S) return null;
@@ -2678,7 +2697,7 @@ async function accMatchEnd(forfeit){
 const TOUR={code:null, data:null, poll:0, opp:""};
 const roundName=(t,r)=>{ const left=Math.log2(t.size)-r; return left===1?L("tourFinal"):left===2?L("tourSemi"):left===3?L("tourQuarter"):L("tourRoundN",r+1); };
 function tourPlayer(t,uid){ return t.players.find(p=>p.uid===uid)||null; }
-function teamFaces(team){ return `<span class="tfaces">${(team||[]).filter(id=>FIGHTERS[id]).map(id=>`<img src="assets/face-${id}.webp" alt="" title="${esc(nm(id))}">`).join("")}</span>`; }
+function teamFaces(team){ return `<span class="tfaces">${(team||[]).filter(id=>FIGHTERS[id]).map(id=>`<img src="${FACE(id)}" alt="" title="${esc(nm(id))}">`).join("")}</span>`; }
 function tourStop(){ clearInterval(TOUR.poll); TOUR.poll=0; clearInterval(TOUR.gpoll); TOUR.gpoll=0; }
 async function renderTourHome(sel=[]){
   tourStop(); TOUR.code=null;
@@ -2790,6 +2809,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.28.0",d:"2026-10-04",fr:["Admin : outil pour recadrer les pastilles des combattants directement dans le jeu"],en:["Admin: tool to recrop fighter tokens directly in the game"],it:["Admin: strumento per ritagliare le pedine dei combattenti direttamente nel gioco"]},
  {v:"0.27.0",d:"2026-10-04",fr:["Défi du jour : une bannière sur l'écran principal propose un défi différent chaque jour (équipe imposée, boss renforcé ou victoire parfaite), +40 points. Elle disparaît une fois le défi réussi","3 nouveaux succès liés aux défis du jour"],en:["Daily challenge: a banner on the main screen offers a different challenge every day (imposed team, boosted boss or flawless win), +40 points. It disappears once completed","3 new achievements for daily challenges"],it:["Sfida del giorno: un banner nella schermata principale propone una sfida diversa ogni giorno (squadra imposta, boss potenziato o vittoria perfetta), +40 punti. Scompare una volta superata","3 nuovi trofei per le sfide del giorno"]},
  {v:"0.26.0",d:"2026-10-04",fr:["Replay : à la fin d'un combat, bouton « Revoir le combat » pour rejouer toute la partie coup par coup, avec pause, avance/retour et vitesse ×1/×2/×4"],en:["Replay: at the end of a fight, a \"Watch the replay\" button replays the whole game move by move, with pause, step back/forward and ×1/×2/×4 speed"],it:["Replay: alla fine di un combattimento, pulsante «Rivedi il combattimento» per rigiocare tutta la partita mossa per mossa, con pausa, avanti/indietro e velocità ×1/×2/×4"]},
  {v:"0.25.0",d:"2026-10-04",fr:["Succès : 27 trophées bronze, argent et or à débloquer (victoires, versus, Elo, séries, survie, tournois, exploits en combat…), chacun rapporte des points. Ils sont dans ton profil avec ta progression"],en:["Achievements: 27 bronze, silver and gold trophies to unlock (wins, versus, Elo, streaks, survival, tournaments, combat feats…), each one gives points. They are in your profile with your progress"],it:["Trofei: 27 trofei di bronzo, argento e oro da sbloccare (vittorie, versus, Elo, serie, sopravvivenza, tornei, imprese in combattimento…), ognuno dà punti. Sono nel tuo profilo con i progressi"]},
@@ -2973,7 +2993,7 @@ async function decksSave(list){
   const r=await api("POST","/api/decks",{decks:list}).catch(()=>({ok:false}));
   if(r.ok) DECKS.list=r.decks; return r.ok;
 }
-function deckFaces(t){ return `<span class="dkf">${t.map(id=>FIGHTERS[id]?`<img src="assets/face-${id}.webp" alt="" title="${esc(nm(id))}">`:"").join("")}</span>`; }
+function deckFaces(t){ return `<span class="dkf">${t.map(id=>FIGHTERS[id]?`<img src="${FACE(id)}" alt="" title="${esc(nm(id))}">`:"").join("")}</span>`; }
 function askName(title,def){
   return new Promise(res=>{
     const w=document.createElement("div"); w.className="askw";
@@ -3048,7 +3068,7 @@ function drawFStats(){
   const th=(k,t)=>`<th data-fs="${k}" class="${FST.sort===k?"on":""}">${t}</th>`;
   box.innerHTML=`<p class="note">${L("fsSince",fmtDate(FST.data.since))} · ${L("fsGames",((FST.data.n||{})[m])||0)}</p>
   <div class="fswrap"><table class="fst"><thead><tr>${th("name",L("fsFighter"))}${th("cost",L("fsCost"))}${th("g",L("fsPlayed"))}${th("pick",L("fsPick"))}${th("pct",L("fsWin"))}${m==="v"?th("lpct",L("fsLead")):""}</tr></thead><tbody>
-  ${rows.map(r=>`<tr class="${cls(r)}"><td class="fn"><img src="assets/face-${r.id}.webp" alt=""><span>${esc(nm(r.id))}<small>${L("clan_"+CLAN[r.id])}</small></span></td><td>${COST[r.id]||3}</td><td>${r.g}</td><td>${Math.min(100,100*r.g/tot).toFixed(0)}%</td>
+  ${rows.map(r=>`<tr class="${cls(r)}"><td class="fn"><img src="${FACE(r.id)}" alt=""><span>${esc(nm(r.id))}<small>${L("clan_"+CLAN[r.id])}</small></span></td><td>${COST[r.id]||3}</td><td>${r.g}</td><td>${Math.min(100,100*r.g/tot).toFixed(0)}%</td>
     <td>${r.pct==null?"—":`<div class="wp"><span class="bar"><i style="width:${r.pct}%"></i></span><b>${r.pct.toFixed(0)}%</b></div>`}</td>${m==="v"?`<td>${r.lpct==null?"—":r.lpct.toFixed(0)+"% <small>("+r.lg+")</small>"}</td>`:""}</tr>`).join("")}</tbody></table></div>`;
   box.querySelectorAll("[data-fs]").forEach(t=>t.onclick=()=>{ FST.sort=t.dataset.fs; drawFStats(); });
 }
@@ -3077,6 +3097,56 @@ function achHTML(st){
   const got=st.ach||{}, n=ACH_LIST.filter(a=>got[a[0]]).length;
   return `<h3 class="pfh">${L("achTitle")} <small class="achn">${n}/${ACH_LIST.length}</small></h3><div class="achgrid">${ACH_LIST.map(([id,t])=>{ const on=!!got[id], pr=!on&&ACH_PROG[id]?ACH_PROG[id](st):null;
     return `<div class="ach t${t} ${on?"on":""}" title="${esc(L("achd_"+id))}"><i>${SVG_TROPHY}</i><div><b>${esc(L("ach_"+id))}</b><span>${esc(L("achd_"+id))}</span>${pr?`<span class="achpr"><em style="width:${Math.min(100,100*pr[0]/pr[1])}%"></em></span><small>${Math.min(pr[0],pr[1])}/${pr[1]}</small>`:""}${on?`<small>+${ACH_PTS[t]} pts</small>`:""}</div></div>`; }).join("")}</div>`;
+}
+
+/* ---------- pastilles recadrées par l'admin ---------- */
+let FACES={};
+const FACE=id=>FACES[id]?`/api/face/${id}?v=${FACES[id]}`:`assets/face-${id}.webp`;
+const EYES={"amiba":[360,126],"aveugle":[305,133],"club":[232,138],"colo":[345,80],"dagar":[281,106],"dans":[268,128],"demon":[258,110],"devil":[299,169],"diamond":[262,137],"emp":[249,100],"fourbe":[312,62],"geant":[245,78],"general":[333,90],"jackal":[224,77],"kiba":[257,74],"maitre":[236,128],"mang":[282,112],"narc":[262,71],"nuage":[282,68],"rival":[285,90],"ryuga":[257,115],"sage":[257,113],"spade":[298,115],"uighur":[326,113],"ventre":[284,75],"vieux":[265,93],"zeed":[334,91],"colonel":[335,98],"han":[285,52],"huey":[322,148],"hyo":[330,88],"jako":[360,78],"jukei":[340,90],"mamiya":[322,128],"raiga":[145,102],"shachi":[325,112],"shuren":[285,92],"solia":[292,64],"charles":[305,86],"feiyan":[290,66],"fox":[243,248],"sarge":[272,176]};
+async function facesLoad(){ if(!window.DOOM_SELFHOST) return; try{ const r=await fetch("/api/faces",{cache:"no-store"}).then(x=>x.json()); if(r && r.faces){ const ch=JSON.stringify(r.faces)!==JSON.stringify(FACES); FACES=r.faces; if(ch && document.querySelector(".selwrap")) renderTitle(TITLE_SEL); } }catch(e){} }
+function renderFaceAdmin(sel=[]){
+  const ids=Object.keys(FIGHTERS).sort((a,b)=>nm(a).localeCompare(nm(b)));
+  pageShell(L("faTitle"),`<p class="iplead">${L("faLead")}</p><div class="fagrid">${ids.map(id=>`<button class="fa ${FACES[id]?"mod":""}" data-fa="${id}"><img src="${FACE(id)}" alt=""><span>${esc(nm(id))}</span></button>`).join("")}</div>`,sel);
+  bindLang(()=>renderFaceAdmin(sel));
+  document.querySelectorAll("[data-fa]").forEach(b=>b.onclick=()=>{ SFX.play("click"); faceEditor(b.dataset.fa,()=>renderFaceAdmin(sel)); });
+}
+async function faceEditor(id,done){
+  const W=270,H=405,K=W/540;   // affichage à moitié de la taille source (540x810)
+  const e=EYES[id]||[270,140];
+  let crop={x:e[0]-70,y:e[1]-70,s:140};
+  try{ const r=await api("GET","/api/admin/face?id="+id); if(r.ok && r.crop && r.crop.s) crop=r.crop; }catch(x){}
+  const w=document.createElement("div"); w.className="askw";
+  w.innerHTML=`<div class="askbox faed"><h3>${esc(nm(id))}</h3>
+    <div class="fawork"><div class="fasrc" style="width:${W}px;height:${H}px"><img src="assets/${id}.webp" alt="" draggable="false"><i class="facirc"></i></div>
+    <div class="faside"><canvas width="160" height="160" class="faprev"></canvas><small>${L("faPreview")}</small>
+      <label class="mlbl">${L("faZoom")}<input type="range" min="60" max="420" step="2" class="fazoom"></label>
+      <div class="fanudge"><button data-n="u">▲</button><button data-n="l">◀</button><button data-n="r">▶</button><button data-n="d">▼</button></div></div></div>
+    <p class="note">${L("faHow")}</p><div class="err" role="alert"></div>
+    <div class="row"><button class="btn ghost sm" data-reset>${L("faReset")}</button><button class="btn ghost sm" data-x>${L("cancel")}</button><button class="btn sm" data-ok>${L("save")}</button></div></div>`;
+  document.body.appendChild(w);
+  const src=w.querySelector(".fasrc"), img=w.querySelector(".fasrc img"), circ=w.querySelector(".facirc"), cv=w.querySelector(".faprev"), zoom=w.querySelector(".fazoom"), err=w.querySelector(".err");
+  const full=new Image(); full.src=`assets/${id}.webp`;
+  const clamp=()=>{ crop.s=Math.max(60,Math.min(420,crop.s)); crop.x=Math.max(-crop.s/2,Math.min(540-crop.s/2,crop.x)); crop.y=Math.max(-crop.s/2,Math.min(810-crop.s/2,crop.y)); };
+  const draw=()=>{ clamp(); zoom.value=crop.s;
+    Object.assign(circ.style,{left:crop.x*K+"px",top:crop.y*K+"px",width:crop.s*K+"px",height:crop.s*K+"px"});
+    const c=cv.getContext("2d"); c.clearRect(0,0,160,160);
+    const g=c.createRadialGradient(80,70,10,80,80,90); g.addColorStop(0,"#3a2a20"); g.addColorStop(1,"#120a06"); c.fillStyle=g; c.fillRect(0,0,160,160);
+    if(full.complete) c.drawImage(full,crop.x,crop.y,crop.s,crop.s,0,0,160,160); };
+  full.onload=draw; draw();
+  let drag=null;
+  src.addEventListener("pointerdown",ev=>{ ev.preventDefault(); src.setPointerCapture(ev.pointerId); drag={x:ev.clientX,y:ev.clientY,cx:crop.x,cy:crop.y}; });
+  src.addEventListener("pointermove",ev=>{ if(!drag) return; crop.x=drag.cx+(ev.clientX-drag.x)/K; crop.y=drag.cy+(ev.clientY-drag.y)/K; draw(); });
+  src.addEventListener("pointerup",()=>drag=null); src.addEventListener("pointercancel",()=>drag=null);
+  src.addEventListener("wheel",ev=>{ ev.preventDefault(); const c0=crop.s; crop.s*=ev.deltaY>0?1.06:1/1.06; clamp(); crop.x+=(c0-crop.s)/2; crop.y+=(c0-crop.s)/2; draw(); },{passive:false});
+  zoom.oninput=()=>{ const c0=crop.s; crop.s=+zoom.value; crop.x+=(c0-crop.s)/2; crop.y+=(c0-crop.s)/2; draw(); };
+  w.querySelectorAll("[data-n]").forEach(b=>b.onclick=()=>{ const d=4; ({u:()=>crop.y-=d,d:()=>crop.y+=d,l:()=>crop.x-=d,r:()=>crop.x+=d})[b.dataset.n](); draw(); });
+  const close=()=>{ w.remove(); };
+  w.querySelector("[data-x]").onclick=()=>{ SFX.play("click"); close(); };
+  w.querySelector("[data-reset]").onclick=async()=>{ const r=await api("POST","/api/admin/face",{id,reset:true}).catch(()=>({ok:false})); if(!r.ok){ err.textContent=accErr(r.error); return; } FACES=r.faces; SFX.play("event"); close(); done&&done(); };
+  w.querySelector("[data-ok]").onclick=async()=>{ draw();
+    let data=cv.toDataURL("image/webp",.9); if(!data.startsWith("data:image/webp")) data=cv.toDataURL("image/jpeg",.9);
+    const r=await api("POST","/api/admin/face",{id,image:data,crop:{x:Math.round(crop.x),y:Math.round(crop.y),s:Math.round(crop.s)}}).catch(()=>({ok:false}));
+    if(!r.ok){ err.textContent=accErr(r.error); return; } FACES=r.faces; SFX.play("event"); close(); done&&done(); };
 }
 
 /* ---------- joueurs en ligne ---------- */
@@ -3272,7 +3342,7 @@ function survPrep(st){
   if(n>7) st.a.rage=Math.min(RAGE_MAX-2,Math.floor((n-6)/2));
 }
 function survFaces(team,hp,max){ return `<div class="svteam">${team.map((id,i)=>{ const h=hp?hp[i]:null, m=max?max[i]:null, ko=h!=null&&h<=0;
-  return `<div class="svf ${ko?"ko":""} cl-${CLAN[id]}" title="${esc(nm(id))}"><img src="assets/face-${id}.webp" alt="">${ko?`<span class="kox">KO</span>`:""}${h!=null&&!ko?`<span class="rhp ${h<m?"hurt":""}"><i style="width:${h/m*100}%"></i></span><span class="rhpn">${h}/${m}</span>`:""}</div>`; }).join("")}</div>`; }
+  return `<div class="svf ${ko?"ko":""} cl-${CLAN[id]}" title="${esc(nm(id))}"><img src="${FACE(id)}" alt="">${ko?`<span class="kox">KO</span>`:""}${h!=null&&!ko?`<span class="rhp ${h<m?"hurt":""}"><i style="width:${h/m*100}%"></i></span><span class="rhpn">${h}/${m}</span>`:""}</div>`; }).join("")}</div>`; }
 function renderSurvWave(){
   const n=SURV.wave;
   pageShell(L("survTitle"),`<div class="center svwave">
@@ -3509,7 +3579,7 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; quickStop
       </div>
     </div>
     <div class="teambar">
-      <div class="slots">${Array.from({length:TEAM_MAX},(_,i)=>sel[i]?`<button class="slot" data-rm="${sel[i]}" title="${esc(nm(sel[i]))}"><img src="assets/face-${sel[i]}.webp" alt=""><i>✕</i></button>`:`<div class="slot empty${i>=TEAM_MIN?" opt":""}">${i+1}</div>`).join("")}</div>
+      <div class="slots">${Array.from({length:TEAM_MAX},(_,i)=>sel[i]?`<button class="slot" data-rm="${sel[i]}" title="${esc(nm(sel[i]))}"><img src="${FACE(sel[i])}" alt=""><i>✕</i></button>`:`<div class="slot empty${i>=TEAM_MIN?" opt":""}">${i+1}</div>`).join("")}</div>
       <button class="btn tbgo" id="go2" ${ready?"":"disabled"}>${ready?L("vsAi"):L("more",TEAM_MIN-sel.length)}</button>
       <div class="budget"><div class="bl"><span>${L("budget",cost,BUDGET)}</span><span class="cnt">${L("teamCount",sel.length,TEAM_MIN,TEAM_MAX)}</span></div>
         <div class="pips">${Array.from({length:BUDGET},(_,i)=>`<i class="${i<cost?"u":""}"></i>`).join("")}</div>${hint}</div>
@@ -3784,7 +3854,7 @@ function tutoCheck(){
   tick();
 })();
 document.documentElement.lang=LANG;
-renderTitle(); accInit().then(statusStart); setTimeout(newsToast,1500);
+renderTitle(); facesLoad(); accInit().then(statusStart); setTimeout(newsToast,1500);
 </script>
 
 </body>
