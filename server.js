@@ -28,8 +28,9 @@ setInterval(() => {
 
 // ---------- comptes / scores ----------
 const store = process.env.DATABASE_URL ? pgStore(process.env.DATABASE_URL) : jsonStore(process.env.ACCOUNTS_FILE || path.join(__dirname, "data", "accounts.json"));
-store.init().then(() => console.log("Comptes : stockage", store.kind)).catch(e => console.error("Comptes : erreur d'init", e.message));
-const accounts = makeAccounts({ store, getDuel: code => docs["duels/" + code] || null, hasDuel: code => !!docs["duels/" + code] });
+const ready = store.init().then(() => console.log("Comptes : stockage", store.kind)).catch(e => console.error("Comptes : erreur d'init", e.message));
+const VERSION = (() => { try { return require("./package.json").version; } catch (e) { return "0"; } })();
+const accounts = makeAccounts({ version: VERSION, ready, store, getDuel: code => docs["duels/" + code] || null, hasDuel: code => !!docs["duels/" + code] });
 
 // ---------- HTTP : fichiers du jeu ----------
 const server = http.createServer((req, res) => {
@@ -86,4 +87,4 @@ wss.on("connection", ws => {
   ws.on("close", () => { for (const p of ws.mine) subs.get(p)?.delete(ws); });
 });
 
-server.listen(PORT, () => console.log(`Doomstar sur http://localhost:${PORT}`));
+server.listen(PORT, () => console.log(`Battle of the Century v${VERSION} sur http://localhost:${PORT}`));

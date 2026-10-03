@@ -44,6 +44,8 @@ function jsonStore(file) {
         .sort((a, b) => kind === "elo" ? b.stats.elo - a.stats.elo : b.stats.pts - a.stats.pts).slice(0, n);
       return list.map(pub);
     },
+    async getSetting(k) { return (db.settings || {})[k] ?? null; },
+    async setSetting(k, v) { db.settings = db.settings || {}; db.settings[k] = v; save(); },
     async getTourney(code) { const t = db.tourneys[code]; return t ? JSON.parse(JSON.stringify(t)) : null; },
     async saveTourney(t) { db.tourneys[t.code] = JSON.parse(JSON.stringify({ ...t, updated: Date.now() })); save(); },
     async openTourneys() { const now = Date.now(); return Object.values(db.tourneys).filter(t => t.status !== "done" && now - (t.updated || 0) < 6 * 3600e3).sort((a, b) => b.created - a.created).slice(0, 30); },
@@ -69,6 +71,7 @@ function pgStore(url, PgPool) {
       await q(`CREATE TABLE IF NOT EXISTS boc_users (id SERIAL PRIMARY KEY, name TEXT NOT NULL, name_lc TEXT NOT NULL UNIQUE, pass TEXT NOT NULL, salt TEXT NOT NULL,
         created BIGINT NOT NULL, avatar TEXT, avatar_type TEXT, avatar_v INT NOT NULL DEFAULT 0, stats JSONB NOT NULL)`);
       await q(`CREATE TABLE IF NOT EXISTS boc_sessions (hash TEXT PRIMARY KEY, uid INT NOT NULL, t BIGINT NOT NULL)`);
+      await q(`CREATE TABLE IF NOT EXISTS boc_settings (k TEXT PRIMARY KEY, v JSONB NOT NULL)`);
       await q(`CREATE TABLE IF NOT EXISTS boc_tourneys (code TEXT PRIMARY KEY, status TEXT NOT NULL, created BIGINT NOT NULL, updated BIGINT NOT NULL, data JSONB NOT NULL)`);
     },
     async createUser(name, pass, salt) {
@@ -94,6 +97,8 @@ function pgStore(url, PgPool) {
       const ord = kind === "elo" ? `(stats->>'elo')::int` : `(stats->>'pts')::int`;
       const r = await q(`SELECT ${COLS} FROM boc_users WHERE ${where} ORDER BY ${ord} DESC, id ASC LIMIT $1`, [n]); return r.rows.map(row);
     },
+    async getSetting(k) { const r = await q(`SELECT v FROM boc_settings WHERE k=$1`, [k]); return r.rows[0] ? r.rows[0].v : null; },
+    async setSetting(k, v) { await q(`INSERT INTO boc_settings (k,v) VALUES ($1,$2) ON CONFLICT (k) DO UPDATE SET v=$2`, [k, JSON.stringify(v)]); },
     async getTourney(code) { const r = await q(`SELECT data FROM boc_tourneys WHERE code=$1`, [code]); return r.rows[0] ? r.rows[0].data : null; },
     async saveTourney(t) { await q(`INSERT INTO boc_tourneys (code,status,created,updated,data) VALUES ($1,$2,$3,$4,$5) ON CONFLICT (code) DO UPDATE SET status=$2, updated=$4, data=$5`, [t.code, t.status, t.created, Date.now(), JSON.stringify(t)]); },
     async openTourneys() { const r = await q(`SELECT data FROM boc_tourneys WHERE status<>'done' AND updated>$1 ORDER BY created DESC LIMIT 30`, [Date.now() - 6 * 3600e3]); return r.rows.map(x => x.data); },
@@ -110,14 +115,21 @@ function pgStore(url, PgPool) {
 }
 
 // ---------------- logique ----------------
-function makeAccounts({ store, getDuel, hasDuel }) {
+function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
+  // administrateurs : pseudos listés dans la variable ADMINS (séparés par des virgules)
+  const ADMINS = new Set(String(process.env.ADMINS || "").split(",").map(x => x.trim().toLowerCase()).filter(Boolean));
+  const isAdmin = u => !!u && ADMINS.has(String(u.name).toLowerCase());
+  // maintenance : MAINTENANCE=1 la force, sinon réglage stocké en base (modifiable par un admin depuis le jeu)
+  let maint = { on: false, msg: "" };
+  const maintOn = () => process.env.MAINTENANCE === "1" || maint.on;
+  Promise.resolve(ready).then(() => store.getSetting("maintenance")).then(v => { if (v) maint = { on: !!v.on, msg: String(v.msg || "") }; }).catch(() => {});
   const settleHooks = [];
   const matches = new Map();      // code -> { host: uid, guest: uid, done }
   const lastSolo = new Map();     // uid -> timestamp
   const tries = new Map();        // ip -> { n, t }
 
   const limited = ip => { const now = Date.now(); const e = tries.get(ip) || { n: 0, t: now }; if (now - e.t > 60000) { e.n = 0; e.t = now; } e.n++; tries.set(ip, e); return e.n > 12; };
-  const pubUser = u => ({ id: u.id, name: u.name, avatar: u.avatar_v ? `/api/avatar/${u.id}?v=${u.avatar_v}` : null, stats: u.stats, created: u.created });
+  const pubUser = u => ({ id: u.id, name: u.name, avatar: u.avatar_v ? `/api/avatar/${u.id}?v=${u.avatar_v}` : null, stats: u.stats, created: u.created, ...(isAdmin(u) ? { admin: true } : {}) });
   async function newSession(u) { const tok = crypto.randomBytes(32).toString("hex"); await store.addSession(sha(tok), u.id); return tok; }
   async function auth(req) { const h = req.headers.authorization || ""; const tok = h.startsWith("Bearer ") ? h.slice(7) : ""; if (!/^[0-9a-f]{64}$/.test(tok)) return null; return store.session(sha(tok)); }
   function bumpFav(st, team) { (Array.isArray(team) ? team : []).slice(0, 5).forEach(id => { if (typeof id === "string" && /^[a-z]{2,12}$/.test(id)) st.fav[id] = (st.fav[id] || 0) + 1; }); }
@@ -216,6 +228,14 @@ function makeAccounts({ store, getDuel, hasDuel }) {
       const me = await store.byId(u.id);
       return [200, { user: pubUser(me) }];
     },
+    "GET /api/status": async () => [200, { version, maintenance: { on: maintOn(), msg: maint.msg, forced: process.env.MAINTENANCE === "1" } }],
+    "POST /api/admin/maintenance": async (req, body) => {
+      const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];
+      maint = { on: !!body.on, msg: String(body.msg || "").slice(0, 400) };
+      await store.setSetting("maintenance", maint);
+      console.log(`Maintenance ${maint.on ? "activée" : "désactivée"} par ${u.name}`);
+      return [200, { maintenance: { on: maintOn(), msg: maint.msg, forced: process.env.MAINTENANCE === "1" } }];
+    },
     "GET /api/top": async (req, body, ip, url) => {
       const kind = url.searchParams.get("kind") === "pts" ? "pts" : "elo";
       return [200, { kind, list: (await store.top(kind, 50)).map(pubUser) }];
@@ -239,6 +259,9 @@ function makeAccounts({ store, getDuel, hasDuel }) {
     const tm = /^\/api\/tourney\/([A-Z]{5})(?:\/(join|leave|start|award|kick))?$/.exec(url.pathname);
     if (!fn && tm) { const f = routes[req.method + " /api/tourney/:code" + (tm[2] ? "/" + tm[2] : "")]; if (f) fn = (rq, b, ip, u) => f(rq, b, ip, u, tm[1]); }
     if (!fn) return send(404, { error: "notfound" });
+    // pendant la maintenance : seules la connexion, la lecture et l'admin restent ouvertes
+    const open = req.method === "GET" || ["/api/login", "/api/logout", "/api/admin/maintenance", "/api/match/end"].includes(url.pathname);
+    if (maintOn() && !open) { const u = await auth(req).catch(() => null); if (!isAdmin(u)) return send(503, { error: "maintenance" }); }
     let raw = "", big = false;
     req.on("data", c => { raw += c; if (raw.length > 150 * 1024) { big = true; req.destroy(); } });
     req.on("end", async () => {
