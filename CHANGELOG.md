@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v1.12.2 — 2026-10-03
+
+- PC : un clic sur un bouton du menu n'active plus le bouton voisin
+
 ## v1.12.1 — 2026-10-03
 
 - Le bouton Quitter répond à chaque fois (la bulle « Quitter ? » est aussi cliquable)

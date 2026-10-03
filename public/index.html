@@ -357,7 +357,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .pickc[aria-pressed="true"] .sg img{box-shadow:0 0 0 2px var(--ochre),0 0 14px rgba(208,138,44,.6)}
 .btn{position:relative;overflow:hidden;transition:transform .1s, filter .15s}
 .btn:not([disabled]):active{transform:scale(.96)}
-.btn:not([disabled])::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transform:skewX(-20deg);animation:shine 3.2s ease-in-out infinite}
+.btn:not([disabled])::after{pointer-events:none;content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transform:skewX(-20deg);animation:shine 3.2s ease-in-out infinite}
 @keyframes shine{0%,70%{left:-60%}100%{left:130%}}
 .logo em{background:linear-gradient(180deg,#ff6a3d,#c2210f 55%,#7a0d05);-webkit-background-clip:text;background-clip:text;color:transparent!important;filter:drop-shadow(0 3px 0 #000) drop-shadow(0 0 18px rgba(216,50,31,.5))}
 .emblems img{animation:float 4s ease-in-out infinite}
@@ -893,7 +893,7 @@ html,body,*{scrollbar-width:none}::-webkit-scrollbar{display:none}
   .toprow{flex-wrap:wrap!important;row-gap:14px!important;column-gap:20px!important}
   .toprow .boc1{order:0}.toprow>.row{order:1;margin-left:auto}
   .toprow .modes.top{order:2!important;flex:0 0 100%!important;justify-content:center!important;flex-wrap:nowrap!important;gap:12px!important;min-width:0}
-  .toprow .modes.top .btn{flex:none!important;min-width:0!important;padding:10px 20px!important;font-size:15px!important;overflow:visible!important}
+  .toprow .modes.top .btn{flex:none!important;min-width:0!important;padding:10px 20px!important;font-size:15px!important;overflow:hidden!important}
   .boc2{width:300px!important}
 }
 @media (min-width:1300px){.boc2{width:360px!important}}
@@ -2478,6 +2478,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"1.12.2",d:"2026-10-03",fr:["PC : un clic sur un bouton du menu n'active plus le bouton voisin"],en:["PC: clicking a menu button no longer triggers the one next to it"],it:["PC: un clic su un pulsante del menu non attiva più quello accanto"]},
  {v:"1.12.1",d:"2026-10-03",fr:["Le bouton Quitter répond à chaque fois (la bulle « Quitter ? » est aussi cliquable)"],en:["The Quit button always responds (the “Quit?” bubble is clickable too)"],it:["Il pulsante Esci risponde sempre (anche il fumetto « Uscire? » è cliccabile)"]},
  {v:"1.12.0",d:"2026-10-03",fr:["Musique de menu sur tous les écrans hors combat (elle ne se relance pas en changeant de page)"],en:["Menu music on every screen outside battles (it doesn't restart when you change page)"],it:["Musica del menu su tutte le schermate fuori dal combattimento (non riparte cambiando pagina)"]},
  {v:"1.11.0",d:"2026-10-03",fr:["4 nouveaux combattants : Charles de Guise (Hokuto Sonka Ken), Liu Feiyan (Kyokujūji Seiken, rangé avec le Nanto), Fox et Mad Sarge (Pillards)","Nouvelle illustration d'Amiba"],
