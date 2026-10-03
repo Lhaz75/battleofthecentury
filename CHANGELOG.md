@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v1.15.0 — 2026-10-03
+
+- Niveaux de joueur (1 à 50) avec titres, barre de progression et annonce de passage de niveau
+- Niveau affiché dans le profil, sur le bouton de compte et au Hall of Fame
+
 ## v1.14.0 — 2026-10-03
 
 - Versus : recherche rapide avec file d'attente et matchmaking (adversaire de niveau proche quand vous avez un compte)
