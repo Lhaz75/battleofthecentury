@@ -693,6 +693,22 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .qbtn.arm .qtxt{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);padding:6px 12px;border-radius:10px;background:#7a2416;border:1px solid #ff6a4a;box-shadow:0 6px 18px rgba(0,0,0,.6);z-index:20;pointer-events:none}
 .qbtn.arm .qtxt::after{content:"";position:absolute;top:100%;left:50%;margin-left:-6px;border:6px solid transparent;border-top-color:#7a2416}
 @media (max-width:999px){ .bar-actions .qbtn.arm{width:36px!important;height:36px} }
+/* impact des coups renforcé */
+.por.hit img{animation:hitimg .45s ease-out}
+@keyframes hitimg{0%{filter:brightness(3) saturate(0) drop-shadow(0 0 6px #fff)}25%{filter:brightness(1.6) sepia(1) hue-rotate(-40deg) saturate(5)}100%{filter:none}}
+.por.hit::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,rgba(255,40,20,.0),rgba(200,0,0,.55) 75%);animation:hitred .55s ease-out forwards}
+@keyframes hitred{0%{opacity:1}100%{opacity:0}}
+.por.hit.h2{animation:shake2 .4s cubic-bezier(.36,.07,.19,.97)}
+.por.hit.h3{animation:shake3 .55s cubic-bezier(.36,.07,.19,.97)}
+@keyframes shake2{10%{transform:translate(-9px,3px) rotate(-1.5deg) scale(.97)}30%{transform:translate(8px,-3px) rotate(1.5deg)}50%{transform:translate(-6px,2px)}70%{transform:translate(4px,-1px)}100%{transform:none}}
+@keyframes shake3{8%{transform:translate(-14px,5px) rotate(-3deg) scale(.94)}22%{transform:translate(13px,-6px) rotate(3deg) scale(.96)}40%{transform:translate(-10px,4px) rotate(-2deg)}60%{transform:translate(7px,-2px) rotate(1deg)}80%{transform:translate(-3px,1px)}100%{transform:none}}
+.slashes{position:absolute;inset:0;z-index:4;pointer-events:none;overflow:hidden}
+.slashes i{position:absolute;left:-20%;right:-20%;top:var(--y);height:5px;transform:rotate(var(--a)) scaleX(0);transform-origin:left center;background:linear-gradient(90deg,transparent,#fff 30%,#ffe2a0 60%,transparent);box-shadow:0 0 12px #ff7a3a,0 0 24px rgba(255,80,40,.8);animation:slashin .32s ease-out forwards;border-radius:3px}
+.slashes.h1 i{height:3px}.slashes.h3 i{height:8px}
+@keyframes slashin{0%{transform:rotate(var(--a)) scaleX(0);opacity:1}60%{transform:rotate(var(--a)) scaleX(1);opacity:1}100%{transform:rotate(var(--a)) scaleX(1);opacity:0}}
+.crack{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:.9;animation:crackf .9s ease-out forwards;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cg fill='none' stroke='%23fff' stroke-width='1.1' stroke-linecap='round'%3E%3Cpath d='M50 45 L38 30 L33 12 M50 45 L66 33 L80 26 M50 45 L58 62 L55 84 M50 45 L30 55 L14 60 M38 30 L28 28 M66 33 L70 18 M58 62 L72 70 M30 55 L26 72'/%3E%3C/g%3E%3C/svg%3E") center/100% 100% no-repeat;filter:drop-shadow(0 0 3px #ff5a2a)}
+@keyframes crackf{0%{opacity:0;transform:scale(.6)}15%{opacity:1;transform:scale(1)}100%{opacity:0}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 <style>html,body{margin:0}*{box-sizing:border-box}img{max-width:100%}[hidden]{display:none!important}</style>
@@ -1431,7 +1447,7 @@ function hurt(k,dmg){
   f.hp=Math.max(0,f.hp-dmg);
   if(f.hp<=0 && s.unyield && f.id==="colo"){ f.hp=1; S.sub=L("unyield",esc(nm(f.id))); }
   if(f.hp<=0 && f.id==="jackal" && !f.escaped){ f.hp=1; f.escaped=true; S.sub=L("jackalEscape"); }
-  fx(k,`-${dmg}`); shake(k); impact(k,dmg); SFX.hit(dmg); if(dmg>=8) splat(k); if(dmg>=10) quake();
+  fx(k,`-${dmg}`); shake(k); impact(k,dmg); hitfx(k,dmg); SFX.hit(dmg); if(dmg>=7) splat(k); if(dmg>=7) quake();
   gainRage(s,1);
   if(f.hp<=0) ko(k);
 }
@@ -1597,9 +1613,18 @@ const ICON={
 const KIND_ICON={atk:"fist",react:"shield",spec:"star",trap:"trap",terr:"terrain"};
 const FXQ=[];
 function rec(e){ if(MODE!=="vs" || REPLAY || !S) return; S.evn=(S.evn||0)+1; (S.ev||(S.ev=[])).push([S.evn,...e]); if(S.ev.length>80) S.ev.shift(); }
-function replayEv(e){ const [n,t,a,b,c]=e; if(t==="fx") fx(a,b,c); else if(t==="shake") shake(a); else if(t==="lunge") lunge(a); else if(t==="shout") shout(a); else if(t==="flash") flash(); else if(t==="quake") quake(); else if(t==="splat") splat(a); else if(t==="impact") impact(a,b); else if(t==="hits") hitsPop(a); else if(t==="banner") banner(a); else if(t==="cutin") cutin(a,b,c); else if(t==="played") showPlayed(a,b); else if(t==="voice") SFX.voice(a,b||0); else if(t==="sfx") SFX.play(a); }
+function replayEv(e){ const [n,t,a,b,c]=e; if(t==="fx") fx(a,b,c); else if(t==="shake") shake(a); else if(t==="lunge") lunge(a); else if(t==="shout") shout(a); else if(t==="flash") flash(); else if(t==="quake") quake(); else if(t==="splat") splat(a); else if(t==="hitfx") hitfx(a,b); else if(t==="impact") impact(a,b); else if(t==="hits") hitsPop(a); else if(t==="banner") banner(a); else if(t==="cutin") cutin(a,b,c); else if(t==="played") showPlayed(a,b); else if(t==="voice") SFX.voice(a,b||0); else if(t==="sfx") SFX.play(a); }
 function fx(k,txt,cls=""){ rec(["fx",k,txt,cls]); FXQ.push(()=>{ const host=$(`#por-${k}`); if(!host) return; const d=document.createElement("div"); d.className="float "+cls; d.textContent=txt; host.appendChild(d); setTimeout(()=>d.remove(),900); }); }
 function shake(k){ rec(["shake",k]); FXQ.push(()=>{ const el=$(`#por-${k}`); if(el && !reduced) el.classList.add("shake"); }); }
+function hitfx(k,dmg){ rec(["hitfx",k,dmg]); FXQ.push(()=>{ const el=$(`#por-${k}`); if(!el||reduced) return;
+  const tier=dmg>=10?"h3":dmg>=6?"h2":"h1";
+  el.classList.remove("hit","h1","h2","h3"); void el.offsetWidth; el.classList.add("hit",tier);
+  const sl=document.createElement("div"); sl.className="slashes "+tier; const n=dmg>=10?3:dmg>=6?2:1;
+  for(let i=0;i<n;i++){ const b=document.createElement("i"); b.style.setProperty("--a",(-35+Math.random()*70|0)+"deg"); b.style.setProperty("--y",(25+Math.random()*45|0)+"%"); b.style.animationDelay=(i*60)+"ms"; sl.appendChild(b); }
+  el.appendChild(sl); setTimeout(()=>sl.remove(),700);
+  if(dmg>=6){ const c=document.createElement("div"); c.className="crack"; el.appendChild(c); setTimeout(()=>c.remove(),900); }
+  setTimeout(()=>el.classList.remove("hit","h1","h2","h3"),600);
+}); }
 function lunge(k){ rec(["lunge",k]); FXQ.push(()=>{ const el=$(`#por-${k}`); if(el && !reduced) el.classList.add(k===ME?"lunge-up":"lunge-down"); }); }
 function splat(k){ rec(["splat",k]); FXQ.push(()=>{ const host=$(`#por-${k}`); if(!host||reduced) return; const d=document.createElement("div"); d.className="splat"; host.appendChild(d); setTimeout(()=>d.remove(),1100); }); }
 function impact(k,dmg){ rec(["impact",k,dmg]); FXQ.push(()=>{ const host=$(`#por-${k}`); if(!host||reduced) return; const d=document.createElement("div"); d.className="impact"+(dmg>=8?" big":""); host.appendChild(d); setTimeout(()=>d.remove(),400); if(dmg>=6){ const sl=document.createElement("div"); sl.className="slash"; host.appendChild(sl); setTimeout(()=>sl.remove(),400); } }); }
