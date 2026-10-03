@@ -29,7 +29,7 @@ setInterval(() => {
 // ---------- comptes / scores ----------
 const store = process.env.DATABASE_URL ? pgStore(process.env.DATABASE_URL) : jsonStore(process.env.ACCOUNTS_FILE || path.join(__dirname, "data", "accounts.json"));
 store.init().then(() => console.log("Comptes : stockage", store.kind)).catch(e => console.error("Comptes : erreur d'init", e.message));
-const accounts = makeAccounts({ store, getDuel: code => docs["duels/" + code] || null });
+const accounts = makeAccounts({ store, getDuel: code => docs["duels/" + code] || null, hasDuel: code => !!docs["duels/" + code] });
 
 // ---------- HTTP : fichiers du jeu ----------
 const server = http.createServer((req, res) => {
@@ -38,11 +38,16 @@ const server = http.createServer((req, res) => {
   if (p === "/") p = "/index.html";
   const file = path.normalize(path.join(PUBLIC, p));
   if (!file.startsWith(PUBLIC)) { res.writeHead(403); return res.end(); }
-  fs.readFile(file, (err, buf) => {
-    if (err) { res.writeHead(404); return res.end("Not found"); }
-    res.writeHead(200, { "Content-Type": TYPES[path.extname(file)] || "application/octet-stream",
-      "Cache-Control": p.endsWith(".html") ? "no-cache" : "public, max-age=86400" });
-    res.end(buf);
+  // les images et sons sont revalidés à chaque chargement (ETag) : une illustration mise à jour s'affiche tout de suite
+  fs.stat(file, (err, st) => {
+    if (err || !st.isFile()) { res.writeHead(404); return res.end("Not found"); }
+    const etag = `"${st.size.toString(36)}-${Math.floor(st.mtimeMs).toString(36)}"`;
+    const head = { "Content-Type": TYPES[path.extname(file)] || "application/octet-stream", "Cache-Control": "no-cache", "ETag": etag };
+    if (req.headers["if-none-match"] === etag) { res.writeHead(304, head); return res.end(); }
+    fs.readFile(file, (e2, buf) => {
+      if (e2) { res.writeHead(404); return res.end("Not found"); }
+      res.writeHead(200, head); res.end(buf);
+    });
   });
 });
 

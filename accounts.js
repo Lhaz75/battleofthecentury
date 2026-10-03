@@ -8,15 +8,16 @@ const NAME_RE = /^[\p{L}\p{N}_\- .]{3,16}$/u;
 const AVATAR_MAX = 80 * 1024;
 const AVATAR_TYPES = { "image/webp": 1, "image/jpeg": 1, "image/png": 1 };
 const SESSION_DAYS = 90;
-const DEFAULT_STATS = () => ({ elo: 1000, pts: 0, aiW: 0, aiL: 0, vsW: 0, vsL: 0, streak: 0, best: 0, fav: {} });
+const DEFAULT_STATS = () => ({ elo: 1000, pts: 0, aiW: 0, aiL: 0, vsW: 0, vsL: 0, streak: 0, best: 0, tW: 0, fav: {} });
 
 const sha = s => crypto.createHash("sha256").update(s).digest("hex");
 const scrypt = (pw, salt) => new Promise((ok, ko) => crypto.scrypt(pw, salt, 64, (e, k) => e ? ko(e) : ok(k.toString("hex"))));
 
 // ---------------- stockage ----------------
 function jsonStore(file) {
-  let db = { users: [], sessions: {}, next: 1 };
+  let db = { users: [], sessions: {}, next: 1, tourneys: {} };
   try { db = JSON.parse(fs.readFileSync(file, "utf8")); } catch (e) {}
+  db.tourneys = db.tourneys || {};
   let t = null;
   const save = () => { clearTimeout(t); t = setTimeout(() => fs.mkdir(path.dirname(file), { recursive: true }, () =>
     fs.writeFile(file, JSON.stringify(db), () => {})), 300); };
@@ -43,6 +44,9 @@ function jsonStore(file) {
         .sort((a, b) => kind === "elo" ? b.stats.elo - a.stats.elo : b.stats.pts - a.stats.pts).slice(0, n);
       return list.map(pub);
     },
+    async getTourney(code) { const t = db.tourneys[code]; return t ? JSON.parse(JSON.stringify(t)) : null; },
+    async saveTourney(t) { db.tourneys[t.code] = JSON.parse(JSON.stringify({ ...t, updated: Date.now() })); save(); },
+    async openTourneys() { const now = Date.now(); return Object.values(db.tourneys).filter(t => t.status !== "done" && now - (t.updated || 0) < 6 * 3600e3).sort((a, b) => b.created - a.created).slice(0, 30); },
     async rank(uid, kind) {
       const me = db.users.find(u => u.id === uid); if (!me) return null;
       const k = kind === "elo" ? "elo" : "pts";
@@ -65,6 +69,7 @@ function pgStore(url, PgPool) {
       await q(`CREATE TABLE IF NOT EXISTS boc_users (id SERIAL PRIMARY KEY, name TEXT NOT NULL, name_lc TEXT NOT NULL UNIQUE, pass TEXT NOT NULL, salt TEXT NOT NULL,
         created BIGINT NOT NULL, avatar TEXT, avatar_type TEXT, avatar_v INT NOT NULL DEFAULT 0, stats JSONB NOT NULL)`);
       await q(`CREATE TABLE IF NOT EXISTS boc_sessions (hash TEXT PRIMARY KEY, uid INT NOT NULL, t BIGINT NOT NULL)`);
+      await q(`CREATE TABLE IF NOT EXISTS boc_tourneys (code TEXT PRIMARY KEY, status TEXT NOT NULL, created BIGINT NOT NULL, updated BIGINT NOT NULL, data JSONB NOT NULL)`);
     },
     async createUser(name, pass, salt) {
       try {
@@ -89,6 +94,9 @@ function pgStore(url, PgPool) {
       const ord = kind === "elo" ? `(stats->>'elo')::int` : `(stats->>'pts')::int`;
       const r = await q(`SELECT ${COLS} FROM boc_users WHERE ${where} ORDER BY ${ord} DESC, id ASC LIMIT $1`, [n]); return r.rows.map(row);
     },
+    async getTourney(code) { const r = await q(`SELECT data FROM boc_tourneys WHERE code=$1`, [code]); return r.rows[0] ? r.rows[0].data : null; },
+    async saveTourney(t) { await q(`INSERT INTO boc_tourneys (code,status,created,updated,data) VALUES ($1,$2,$3,$4,$5) ON CONFLICT (code) DO UPDATE SET status=$2, updated=$4, data=$5`, [t.code, t.status, t.created, Date.now(), JSON.stringify(t)]); },
+    async openTourneys() { const r = await q(`SELECT data FROM boc_tourneys WHERE status<>'done' AND updated>$1 ORDER BY created DESC LIMIT 30`, [Date.now() - 6 * 3600e3]); return r.rows.map(x => x.data); },
     async rank(uid, kind) {
       const me = await this.byId(uid); if (!me) return null;
       if (kind === "elo") {
@@ -102,7 +110,8 @@ function pgStore(url, PgPool) {
 }
 
 // ---------------- logique ----------------
-function makeAccounts({ store, getDuel }) {
+function makeAccounts({ store, getDuel, hasDuel }) {
+  const settleHooks = [];
   const matches = new Map();      // code -> { host: uid, guest: uid, done }
   const lastSolo = new Map();     // uid -> timestamp
   const tries = new Map();        // ip -> { n, t }
@@ -126,6 +135,7 @@ function makeAccounts({ store, getDuel }) {
     }
     if (W) { W.stats.vsW++; W.stats.pts += 25; streak(W.stats, true); bumpFav(W.stats, m.teams && m.teams[winRole]); await store.saveStats(W.id, W.stats); }
     if (Lo) { Lo.stats.vsL++; Lo.stats.pts += 5; streak(Lo.stats, false); bumpFav(Lo.stats, m.teams && m.teams[loserRole]); await store.saveStats(Lo.id, Lo.stats); }
+    for (const h of settleHooks) { try { await h(code, loserRole); } catch (e) { console.error("settle hook", e.message); } }
     setTimeout(() => matches.delete(code), 3600e3);
   }
   // perdant lu dans l'état de la partie stocké par le serveur de relais
@@ -212,6 +222,10 @@ function makeAccounts({ store, getDuel }) {
     }
   };
 
+  // extensions (tournois) : accès aux routes, à l'auth et au règlement des matchs
+  const ext = { routes, auth, pubUser, store, getDuel, hasDuel, matches, onSettle: fn => settleHooks.push(fn), settle };
+  require("./tourney").install(ext);
+
   async function handle(req, res) {
     const url = new URL(req.url, "http://x");
     const send = (code, obj, extra) => { res.writeHead(code, { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store", ...extra }); res.end(JSON.stringify(obj)); };
@@ -221,7 +235,9 @@ function makeAccounts({ store, getDuel }) {
         res.writeHead(200, { "Content-Type": a.type, "Cache-Control": "public, max-age=31536000, immutable", "X-Content-Type-Options": "nosniff" }); return res.end(a.buf); }
       catch (e) { res.writeHead(500); return res.end(); }
     }
-    const fn = routes[req.method + " " + url.pathname];
+    let fn = routes[req.method + " " + url.pathname];
+    const tm = /^\/api\/tourney\/([A-Z]{5})(?:\/(join|leave|start|award|kick))?$/.exec(url.pathname);
+    if (!fn && tm) { const f = routes[req.method + " /api/tourney/:code" + (tm[2] ? "/" + tm[2] : "")]; if (f) fn = (rq, b, ip, u) => f(rq, b, ip, u, tm[1]); }
     if (!fn) return send(404, { error: "notfound" });
     let raw = "", big = false;
     req.on("data", c => { raw += c; if (raw.length > 150 * 1024) { big = true; req.destroy(); } });

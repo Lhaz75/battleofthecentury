@@ -30,6 +30,12 @@ Sans `DATABASE_URL`, le serveur utilise un fichier local `data/accounts.json` (p
 
 Barème : contre l'IA, victoire +10 pts, défaite +2. En versus, victoire +25 pts, défaite +5, et Elo (K = 32) quand les deux joueurs ont un compte.
 
+## Tournois
+
+Bouton « Tournoi » (compte requis) : un joueur crée un tournoi (4 ou 8 places), partage le code à 5 lettres, les autres s'inscrivent avec leur équipe.
+L'organisateur lance le tableau (2 joueurs minimum, les places vides deviennent des exempts). Chaque match se joue en versus ; l'abandon compte comme une défaite.
+L'organisateur peut désigner le vainqueur d'un match (joueur absent, partie plantée). Le champion gagne +100 pts. Les tournois sont stockés dans la table `boc_tourneys`.
+
 ## Mettre à jour
 
 Remplacer le dossier `public` par la nouvelle version, committer et pousser : Render redéploie tout seul.
