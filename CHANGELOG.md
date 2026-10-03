@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v1.12.3 — 2026-10-03
+
+- Mention « jeu de fan gratuit et non monétisé » sur l'écran principal, les Règles et les Nouveautés
+
 ## v1.12.2 — 2026-10-03
 
 - PC : un clic sur un bouton du menu n'active plus le bouton voisin
