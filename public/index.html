@@ -1002,6 +1002,31 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .backbtn:hover{color:#fff}
 .backbtn .blabel{display:inline}
 @media (max-width:999px),(hover:none){.ipbar .backbtn,.ipbar #back.backbtn{padding:0!important}.backbtn .blabel{display:none!important}.backbtn .bk-ic{width:40px;height:40px}}
+.tbgo{display:none}
+@media (max-width:600px){
+  .toprow .modes.top{grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:6px!important}
+  .toprow .modes.top .btn{grid-column:span 3;padding-block:10px!important;min-height:0}
+  .toprow .modes.top #tuto,.toprow .modes.top #roster,.toprow .modes.top #rules{grid-column:span 2;font-size:12px!important;padding-block:8px!important}
+  .toprow .modes.top #tour,.toprow .modes.top #hof{grid-column:span 3;font-size:12px!important;padding-block:8px!important}
+  .show,.show .info{min-height:236px!important}
+  .show .info{padding:12px 12px!important;gap:5px!important;width:64%}
+  .show .fname{font-size:clamp(24px,8vw,32px)!important}
+  .show .stat b{font-size:18px}
+  .show .pass{font-size:12.5px!important;line-height:1.38!important}
+  .show .ult,.show .spc{font-size:11.5px!important;line-height:1.4!important}
+  .screen.sel{padding-bottom:118px!important}
+  .screen.sel .teambar{position:fixed;left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom));z-index:40;display:grid;grid-template-columns:1fr auto;align-items:center;column-gap:10px;row-gap:6px!important;padding:8px 10px!important;background:rgba(16,11,9,.97);border-color:rgba(232,176,74,.45);box-shadow:0 -6px 24px rgba(0,0,0,.75)}
+  .screen.sel .teambar .slots{gap:6px!important;justify-content:flex-start!important}
+  .screen.sel .teambar .slot{width:40px;max-width:40px;flex:none}
+  .screen.sel .teambar .slot.empty{font-size:13px}
+  .screen.sel .teambar .budget{grid-column:1/-1}
+  .screen.sel .teambar .bh{display:none}
+  .screen.sel .teambar .cbon{font-size:11px}
+  .screen.sel .teambar .bl{font-size:12px}
+  .screen.sel .teambar .pips{height:6px}
+  .tbgo{display:block;padding:9px 14px!important;font-size:13px!important;white-space:nowrap}
+}
+@media (max-width:390px){.screen.sel .teambar .slot{width:34px;max-width:34px}.screen.sel .teambar .slots{gap:4px!important}.tbgo{padding:8px 9px!important;font-size:12px!important}.screen.sel .teambar{column-gap:6px;padding:8px!important}}
 /* mobile : plateau allégé */
 @media (max-width:999px){
   .screen.board .rs{width:auto;gap:1px}
@@ -2677,6 +2702,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.21.3",d:"2026-10-03",fr:["Mobile : écran principal plus compact (boutons secondaires plus petits, fiche du perso réduite) et ton équipe reste affichée en bas de l'écran avec le bouton pour lancer le combat"],en:["Mobile: more compact main screen (smaller secondary buttons, reduced fighter card) and your team stays pinned at the bottom with the fight button"],it:["Mobile: schermata principale più compatta (pulsanti secondari più piccoli, scheda ridotta) e la tua squadra resta fissata in basso con il pulsante per combattere"]},
  {v:"0.21.2",d:"2026-10-03",fr:["Nouveau bouton retour, rond et doré comme les autres boutons"],en:["New back button, round and golden like the other buttons"],it:["Nuovo pulsante indietro, rotondo e dorato come gli altri"]},
  {v:"0.21.1",d:"2026-10-03",fr:["Le nom d'une équipe sauvegardée se saisit dans une fenêtre aux couleurs du jeu (plus la boîte du navigateur)"],en:["Saved team names are typed in an in-game window (no more browser box)"],it:["Il nome di una squadra salvata si inserisce in una finestra del gioco (niente più box del browser)"]},
  {v:"0.21.0",d:"2026-10-03",fr:["Équipes sauvegardées : enregistre jusqu'à 12 équipes, recharge-les en un clic sous tes slots, et gère-les (renommer, supprimer) dans ton profil"],en:["Saved teams: store up to 12 teams, load them in one click under your slots, and manage them (rename, delete) in your profile"],it:["Squadre salvate: salva fino a 12 squadre, ricaricale con un clic sotto gli slot e gestiscile (rinomina, elimina) nel profilo"]},
@@ -3173,6 +3199,7 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; quickStop
     </div>
     <div class="teambar">
       <div class="slots">${Array.from({length:TEAM_MAX},(_,i)=>sel[i]?`<button class="slot" data-rm="${sel[i]}" title="${esc(nm(sel[i]))}"><img src="assets/face-${sel[i]}.webp" alt=""><i>✕</i></button>`:`<div class="slot empty${i>=TEAM_MIN?" opt":""}">${i+1}</div>`).join("")}</div>
+      <button class="btn tbgo" id="go2" ${ready?"":"disabled"}>${ready?L("vsAi"):L("more",TEAM_MIN-sel.length)}</button>
       <div class="budget"><div class="bl"><span>${L("budget",cost,BUDGET)}</span><span class="cnt">${L("teamCount",sel.length,TEAM_MIN,TEAM_MAX)}</span></div>
         <div class="pips">${Array.from({length:BUDGET},(_,i)=>`<i class="${i<cost?"u":""}"></i>`).join("")}</div>${hint}</div>
     </div>${deckChipsHTML(sel)}
@@ -3189,6 +3216,7 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; quickStop
   });
   document.querySelectorAll(".slot[data-rm]").forEach(b=>b.onclick=()=>{SFX.play("click");redo(sel.filter(x=>x!==b.dataset.rm),focus);});
   $("#go").onclick=()=>{ SFX.play("event"); MODE="solo"; ME="p"; newGame(sel); };
+  if($("#go2")) $("#go2").onclick=()=>$("#go").click();
   $("#online").onclick=()=>{ SFX.play("click"); renderLobby(sel); };
   $("#surv").onclick=()=>{ SFX.play("event"); survStart(sel); };
   bindDeckChips(sel,redo);

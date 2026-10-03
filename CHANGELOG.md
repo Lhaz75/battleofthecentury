@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.21.3 — 2026-10-03
+
+- Mobile : écran principal plus compact (boutons secondaires plus petits, fiche du perso réduite) et ton équipe reste affichée en bas de l'écran avec le bouton pour lancer le combat
+
 ## v0.21.2 — 2026-10-03
 
 - Nouveau bouton retour, rond et doré comme les autres boutons
