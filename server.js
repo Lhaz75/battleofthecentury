@@ -67,7 +67,7 @@ function voiceApi(req, res, url) {
 const server = http.createServer((req, res) => {
   const rip = (req.headers["x-forwarded-for"] || req.socket.remoteAddress || "").split(",")[0].trim();
   if (accounts.ipBanned(rip)) { res.writeHead(403, { "Content-Type": "text/html; charset=utf-8" }); return res.end("<!doctype html><meta charset=utf-8><body style='background:#120e0c;color:#f3e2bf;font:18px sans-serif;display:grid;place-items:center;height:100vh;margin:0'><p>Accès refusé · Access denied · Accesso negato</p>"); }
-  if ((req.url || "").startsWith("/api/mm/")) return mm.handle(req, res, new URL(req.url, "http://x"));
+  if ((req.url || "").startsWith("/api/mm/") || (req.url || "").startsWith("/api/ch/")) return mm.handle(req, res, new URL(req.url, "http://x"));
   if ((req.url || "").startsWith("/api/voice")) return voiceApi(req, res, new URL(req.url, "http://x"));
   if ((req.url || "").startsWith("/api/")) return accounts.handle(req, res);
   let p = decodeURIComponent((req.url || "/").split("?")[0]);

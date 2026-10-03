@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.22.0 — 2026-10-04
+
+- Défis directs : dans la liste des joueurs en ligne, bouton « Défier » à côté de chaque joueur qui est dans les menus. Il reçoit une invitation qu'il peut accepter ou refuser (60 s), et le combat compte pour l'Elo
+
 ## v0.21.3 — 2026-10-03
 
 - Mobile : écran principal plus compact (boutons secondaires plus petits, fiche du perso réduite) et ton équipe reste affichée en bas de l'écran avec le bouton pour lancer le combat

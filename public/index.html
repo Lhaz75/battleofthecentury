@@ -1027,6 +1027,11 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
   .tbgo{display:block;padding:9px 14px!important;font-size:13px!important;white-space:nowrap}
 }
 @media (max-width:390px){.screen.sel .teambar .slot{width:34px;max-width:34px}.screen.sel .teambar .slots{gap:4px!important}.tbgo{padding:8px 9px!important;font-size:12px!important}.screen.sel .teambar{column-gap:6px;padding:8px!important}}
+.chbtn{margin-left:4px;padding:6px 12px!important;font-size:12px!important}
+.chbtn:disabled{opacity:.35}
+.chfrom{display:flex;align-items:center;gap:12px}.chfrom b{display:flex;align-items:center;gap:6px;font-size:17px;color:#f3e2bf;margin-bottom:6px}
+.chin .askbox{border-color:#e0452c;box-shadow:0 0 0 1px rgba(224,69,44,.4),0 18px 50px rgba(0,0,0,.7)}
+@media (max-width:600px){.onl-ul .ow{font-size:0;gap:0}}
 /* mobile : plateau allégé */
 @media (max-width:999px){
   .screen.board .rs{width:auto;gap:1px}
@@ -1614,6 +1619,9 @@ Object.assign(UI.fr,{onlineN:n=>`${n} en ligne`, onlineTitle:"Joueurs en ligne",
 Object.assign(UI.en,{onlineN:n=>`${n} online`, onlineTitle:"Players online", onlineEmpty:"Nobody else right now.", w_menu:"In the menus", w_solo:"Fighting the AI", w_surv:"In survival", w_vs:"In versus", w_queue:"Looking for an opponent", w_tour:"In a tournament", onlineYou:"you"});
 Object.assign(UI.it,{onlineN:n=>`${n} online`, onlineTitle:"Giocatori online", onlineEmpty:"Nessun altro per ora.", w_menu:"Nei menu", w_solo:"Contro l'IA", w_surv:"In sopravvivenza", w_vs:"In versus", w_queue:"Cerca un avversario", w_tour:"In torneo", onlineYou:"tu"});
 /* ---------- textes du mode survie ---------- */
+Object.assign(UI.fr,{chBtn:"Défier", chBusy:"Ce joueur est occupé", chTitle:"Défi", chWaiting:n=>`En attente de la réponse de ${n}…`, chAccepted:n=>`${n} accepte le défi !`, chDeclined:n=>`${n} a refusé le défi.`, chExpired:n=>`${n} n'a pas répondu.`, chIncoming:"Tu es défié !", chYourTeam:"Ton équipe :", chAccept:"Accepter", chDecline:"Refuser", chExpiresIn:n=>`Expire dans ${n} s`, chGone:"Ce défi n'est plus valable.", chHow:"Défie un joueur qui est dans les menus. Le combat se joue avec l'équipe choisie sur ton écran principal (sinon ta première équipe sauvegardée)."});
+Object.assign(UI.en,{chBtn:"Challenge", chBusy:"This player is busy", chTitle:"Challenge", chWaiting:n=>`Waiting for ${n} to answer…`, chAccepted:n=>`${n} accepts the challenge!`, chDeclined:n=>`${n} declined the challenge.`, chExpired:n=>`${n} did not answer.`, chIncoming:"You are challenged!", chYourTeam:"Your team:", chAccept:"Accept", chDecline:"Decline", chExpiresIn:n=>`Expires in ${n}s`, chGone:"This challenge is no longer valid.", chHow:"Challenge a player who is in the menus. The fight uses the team picked on your main screen (otherwise your first saved team)."});
+Object.assign(UI.it,{chBtn:"Sfida", chBusy:"Questo giocatore è occupato", chTitle:"Sfida", chWaiting:n=>`In attesa della risposta di ${n}…`, chAccepted:n=>`${n} accetta la sfida!`, chDeclined:n=>`${n} ha rifiutato la sfida.`, chExpired:n=>`${n} non ha risposto.`, chIncoming:"Sei stato sfidato!", chYourTeam:"La tua squadra:", chAccept:"Accetta", chDecline:"Rifiuta", chExpiresIn:n=>`Scade tra ${n} s`, chGone:"Questa sfida non è più valida.", chHow:"Sfida un giocatore che è nei menu. Il combattimento usa la squadra scelta nella schermata principale (altrimenti la tua prima squadra salvata)."});
 Object.assign(UI.fr,{decksTitle:"Mes équipes", deckSave:"Sauver", deckSaveCur:"Sauver l'équipe actuelle", deckName:"Nom de l'équipe", deckUse:"Jouer", deckDel:"Supprimer", decksEmpty:"Aucune équipe sauvegardée pour l'instant.", decksHow:"Compose une équipe sur l'écran principal puis sauve-la ici ou avec le bouton « Sauver » sous tes slots (12 max). Tes équipes te suivent sur tous tes appareils."});
 Object.assign(UI.en,{decksTitle:"My teams", deckSave:"Save", deckSaveCur:"Save current team", deckName:"Team name", deckUse:"Play", deckDel:"Delete", decksEmpty:"No saved team yet.", decksHow:"Build a team on the main screen, then save it here or with the \"Save\" button under your slots (12 max). Your teams follow you on all your devices."});
 Object.assign(UI.it,{decksTitle:"Le mie squadre", deckSave:"Salva", deckSaveCur:"Salva la squadra attuale", deckName:"Nome della squadra", deckUse:"Gioca", deckDel:"Elimina", decksEmpty:"Nessuna squadra salvata per ora.", decksHow:"Componi una squadra nella schermata principale e salvala qui o con il pulsante «Salva» sotto gli slot (max 12). Le tue squadre ti seguono su tutti i dispositivi."});
@@ -2702,6 +2710,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.22.0",d:"2026-10-04",fr:["Défis directs : dans la liste des joueurs en ligne, bouton « Défier » à côté de chaque joueur qui est dans les menus. Il reçoit une invitation qu'il peut accepter ou refuser (60 s), et le combat compte pour l'Elo"],en:["Direct challenges: in the online players list, a \"Challenge\" button next to each player in the menus. They get an invitation to accept or decline (60 s), and the fight counts for Elo"],it:["Sfide dirette: nella lista dei giocatori online, pulsante «Sfida» accanto a ogni giocatore nei menu. Riceve un invito da accettare o rifiutare (60 s), e il combattimento conta per l'Elo"]},
  {v:"0.21.3",d:"2026-10-03",fr:["Mobile : écran principal plus compact (boutons secondaires plus petits, fiche du perso réduite) et ton équipe reste affichée en bas de l'écran avec le bouton pour lancer le combat"],en:["Mobile: more compact main screen (smaller secondary buttons, reduced fighter card) and your team stays pinned at the bottom with the fight button"],it:["Mobile: schermata principale più compatta (pulsanti secondari più piccoli, scheda ridotta) e la tua squadra resta fissata in basso con il pulsante per combattere"]},
  {v:"0.21.2",d:"2026-10-03",fr:["Nouveau bouton retour, rond et doré comme les autres boutons"],en:["New back button, round and golden like the other buttons"],it:["Nuovo pulsante indietro, rotondo e dorato come gli altri"]},
  {v:"0.21.1",d:"2026-10-03",fr:["Le nom d'une équipe sauvegardée se saisit dans une fenêtre aux couleurs du jeu (plus la boîte du navigateur)"],en:["Saved team names are typed in an in-game window (no more browser box)"],it:["Il nome di una squadra salvata si inserisce in una finestra del gioco (niente più box del browser)"]},
@@ -2932,10 +2941,65 @@ function onlineLbl(n){ const t=L("onlineN",n); return `${n}<span class="lng">${e
 function presRefresh(){ const c=$("#onl>span"); if(c) c.innerHTML=onlineLbl(Math.max(1,ONLINE.list.length)); if($(".onlist")) drawOnline(); }
 function drawOnline(){ const box=$(".onlist"); if(!box) return; const me=ACC.user&&ACC.user.id;
   const list=ONLINE.list.slice().sort((a,b)=>(b.id===me)-(a.id===me));
-  box.innerHTML=list.length?`<ul class="onl-ul">${list.map(u=>`<li class="${u.id===me?"me":""}">${avatarHTML(u)}<span class="hn">${lvlBadge(u.stats&&u.stats.pts)}${esc(u.name)}${u.id===me?` <small>(${L("onlineYou")})</small>`:""}</span><span class="ow w-${u.where}"><i></i>${L("w_"+u.where)}</span></li>`).join("")}</ul>${list.length<2?`<p class="note">${L("onlineEmpty")}</p>`:""}`:`<p class="note">${L("onlineEmpty")}</p>`; }
+  box.innerHTML=list.length?`<ul class="onl-ul">${list.map(u=>`<li class="${u.id===me?"me":""}">${avatarHTML(u)}<span class="hn">${lvlBadge(u.stats&&u.stats.pts)}${esc(u.name)}${u.id===me?` <small>(${L("onlineYou")})</small>`:""}</span><span class="ow w-${u.where}"><i></i>${L("w_"+u.where)}</span>${u.id!==me?`<button class="btn sm chbtn" data-ch="${u.id}" ${u.where==="menu"?"":"disabled"} title="${u.where==="menu"?L("chBtn"):L("chBusy")}">${L("chBtn")}</button>`:""}</li>`).join("")}</ul>${list.length<2?`<p class="note">${L("onlineEmpty")}</p>`:""}`:`<p class="note">${L("onlineEmpty")}</p>`; }
 function renderOnline(sel=[]){
-  pageShell(L("onlineTitle"),`<div class="onlist"></div>`,sel);
+  pageShell(L("onlineTitle"),`<div class="onlist"></div><p class="note" style="text-align:center">${L("chHow")}</p>`,sel);
   drawOnline(); presPing(); bindLang(()=>renderOnline(sel));
+  $(".onlist").onclick=e=>{ const b=e.target.closest("[data-ch]"); if(!b || b.disabled) return; const u=ONLINE.list.find(x=>x.id===+b.dataset.ch); if(u){ SFX.play("event"); chSend(u); } };
+}
+
+/* ---------- défis directs ---------- */
+const CH={out:null, timer:0, inboxT:0, shown:null, seen:new Set()};
+function chTeam(){ if(TITLE_SEL && TITLE_SEL.length>=TEAM_MIN && deckValid(TITLE_SEL)) return TITLE_SEL.slice();
+  const d=(DECKS.list||[]).find(x=>deckValid(x.team)); return d?d.team.slice():randomTeam(); }
+function chStopOut(){ clearInterval(CH.timer); CH.timer=0; if(CH.out){ const id=CH.out; CH.out=null; api("POST","/api/ch/cancel",{id}).catch(()=>{}); } }
+function chJoinDuel(code,role){
+  NET.ref=NET.db.doc("duels/"+code); NET.role=role; NET.started=false;
+  NET.unsub=NET.ref.onSnapshot(onDuel,()=>{});
+}
+async function chSend(u){
+  const team=chTeam();
+  const scr=html=>{ $("#app").innerHTML=`<div class="screen"><div class="center quickmm"><div class="kicker">${L("chTitle")}</div>${avatarHTML(u,"uavbig")}<h2 style="margin:0">${esc(u.name)}</h2>${html}<button class="btn ghost" id="chx">${L("cancel")}</button></div></div>`;
+    $("#chx").onclick=()=>{ SFX.play("click"); chStopOut(); renderOnline(team); }; };
+  scr(`<div class="qspin"></div><p class="lead">${L("connecting")}</p>`);
+  if(!await netInit()){ scr(`<p class="lead">${L("offline")}</p>`); return; }
+  const r=await api("POST","/api/ch/send",{to:u.id,uid:NET.uid,team}).catch(()=>({ok:false}));
+  if(!r.ok){ scr(`<p class="lead">${L("netErr")}</p>`); return; }
+  CH.out=r.id; const t0=Date.now();
+  const draw=()=>{ const left=Math.max(0,(r.ttl||60)-Math.floor((Date.now()-t0)/1000)); const e=$(".chleft"); if(e) e.textContent=left+" s"; };
+  scr(`<div class="qspin"></div><p class="lead">${L("chWaiting",esc(u.name))}</p><div class="qtime chleft"></div><div class="tmyteam" style="justify-content:center">${deckFaces(team)}</div>`); draw();
+  CH.timer=setInterval(async()=>{
+    if(!CH.out || !document.querySelector(".quickmm")){ chStopOut(); return; } draw();
+    let st; try{ st=await api("GET","/api/ch/status?id="+CH.out); }catch(e){ return; }
+    if(!CH.out || st.status==="pending") return;
+    clearInterval(CH.timer); CH.timer=0; CH.out=null;
+    if(st.status==="accepted" && st.code){ SFX.play("event"); scr(`<p class="lead">${L("chAccepted",esc(u.name))}</p><div class="code">${esc(st.code)}</div>`); chJoinDuel(st.code,"host"); return; }
+    scr(`<p class="lead">${L(st.status==="declined"?"chDeclined":"chExpired",esc(u.name))}</p>`);
+  },1500);
+}
+function chInboxStart(){ if(CH.inboxT) return; CH.inboxT=setInterval(chInbox,4000); }
+async function chInbox(){
+  if(!ACC.on || !ACC.user || CH.shown || CH.out) return;
+  if(presWhere()!=="menu" || document.querySelector(".askw")) return;
+  let r; try{ r=await api("GET","/api/ch/inbox"); }catch(e){ return; }
+  const c=r.ok && (r.list||[]).find(x=>!CH.seen.has(x.id)); if(!c || CH.shown) return;
+  CH.shown=c.id; CH.seen.add(c.id); SFX.play("event");
+  const team=chTeam(), u=c.from;
+  const w=document.createElement("div"); w.className="askw chin";
+  w.innerHTML=`<div class="askbox" role="dialog"><h3>${L("chIncoming")}</h3><div class="chfrom">${avatarHTML(u,"uavbig")}<div><b>${lvlBadge(u.pts)}${esc(u.name)}</b><div class="dkf">${deckFaces(c.team)}</div></div></div>
+    <p class="note">${L("chYourTeam")} ${deckFaces(team)}</p><p class="note chleft2"></p>
+    <div class="row"><button class="btn ghost sm" data-no>${L("chDecline")}</button><button class="btn sm" data-yes>${L("chAccept")}</button></div></div>`;
+  document.body.appendChild(w);
+  let left=c.left||60; const tick=setInterval(()=>{ left--; const e=w.querySelector(".chleft2"); if(e) e.textContent=L("chExpiresIn",Math.max(0,left)); if(left<=0) close(); },1000);
+  const close=()=>{ clearInterval(tick); w.remove(); CH.shown=null; };
+  w.querySelector("[data-no]").onclick=()=>{ SFX.play("click"); api("POST","/api/ch/decline",{id:c.id}).catch(()=>{}); close(); };
+  w.querySelector("[data-yes]").onclick=async()=>{ SFX.play("event"); close();
+    $("#app").innerHTML=`<div class="screen"><div class="center quickmm"><div class="kicker">${L("chTitle")}</div><div class="qspin"></div><p class="lead">${L("connecting")}</p></div></div>`;
+    if(!await netInit()){ renderTitle(TITLE_SEL); return; }
+    const a=await api("POST","/api/ch/accept",{id:c.id,uid:NET.uid,team}).catch(()=>({ok:false}));
+    if(!a.ok){ $("#app").innerHTML=`<div class="screen"><div class="center"><p class="lead">${L("chGone")}</p><button class="btn ghost" id="back">${L("back")}</button></div></div>`; $("#back").onclick=()=>renderTitle(TITLE_SEL); return; }
+    $("#app").innerHTML=`<div class="screen"><div class="center"><div class="kicker">${L("chTitle")}</div><div class="code">${esc(a.code)}</div><p class="lead">${L("joining")}</p></div></div>`;
+    chJoinDuel(a.code,"guest"); };
 }
 
 /* ---------- mode survie ---------- */
@@ -3230,7 +3294,7 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; quickStop
   if($("#tour")) $("#tour").onclick=()=>{ SFX.play("click"); renderTourHome(sel); };
   $("#ver").onclick=()=>{ SFX.play("click"); renderChangelog(sel); };
   if($("#onl")) $("#onl").onclick=()=>{ SFX.play("click"); renderOnline(sel); };
-  if(ACC.user){ presStart(); if(Date.now()-ONLINE.last>8000) presPing(); }
+  if(ACC.user){ presStart(); chInboxStart(); if(Date.now()-ONLINE.last>8000) presPing(); }
   if($("#acc")) $("#acc").onclick=()=>{ SFX.play("click"); renderAccount(sel); };
   $("#snd").onclick=()=>{ SFX.toggle(); redo(sel,focus); };
   $("#mus").onclick=()=>{ MUSIC.toggle(); redo(sel,focus); };
