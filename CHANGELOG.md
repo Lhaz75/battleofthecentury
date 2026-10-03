@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v1.11.0 — 2026-10-03
+
+- 4 nouveaux combattants : Charles de Guise (Hokuto Sonka Ken), Liu Feiyan (Kyokujūji Seiken, rangé avec le Nanto), Fox et Mad Sarge (Pillards)
+- Nouvelle illustration d'Amiba
+
 ## v1.10.0 — 2026-10-03
 
 - Nouveau piège : Embuscade du clan Kiba (relais adverse → 4 dégâts et −1 endurance)
