@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.17.2 — 2026-10-03
+
+- Cadre ornementé doré pour les portraits en combat (coins sculptés, liseré aux couleurs de l'école, emblème du combattant)
+
 ## v0.17.1 — 2026-10-03
 
 - Nouvelles annonces (pièges, contres, KO…) : encadré lisible au lieu du texte oblique

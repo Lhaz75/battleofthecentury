@@ -933,6 +933,18 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .shoutp .shk{font:600 13px Oswald,var(--f-display);letter-spacing:.3em;text-transform:uppercase;color:#f0b24a;margin-bottom:4px}
 .shoutp .shn{font:700 clamp(26px,6vw,40px)/1.05 Oswald,var(--f-display);letter-spacing:.04em;text-transform:uppercase;color:#fff3dc;text-shadow:0 2px 0 #000}
 @keyframes shoutin{0%{opacity:0;transform:translate(-50%,-50%) scale(.85)}10%{opacity:1;transform:translate(-50%,-50%) scale(1.04)}18%{transform:translate(-50%,-50%) scale(1)}85%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(1)}}
+
+/* cadre ornementé des portraits de combat */
+.por::after{box-shadow:inset 0 0 0 2px #d9a441, inset 0 0 0 4px rgba(10,6,4,.95), inset 0 0 0 5px color-mix(in srgb,var(--cl,#d9a441) 85%,#fff 15%), inset 0 0 26px rgba(0,0,0,.65)!important;z-index:3}
+.por{border:0!important;background-color:#0d0806}
+.pframe{position:absolute;inset:0;z-index:4;pointer-events:none}
+.pframe .pc{position:absolute;width:26%;max-width:78px;min-width:22px;aspect-ratio:1;display:block;filter:drop-shadow(0 1px 1px rgba(0,0,0,.9))}
+.pframe .pc svg{width:100%;height:100%;display:block}
+.pframe .tl{left:0;top:0}.pframe .tr{right:0;top:0;transform:scaleX(-1)}.pframe .bl{left:0;bottom:0;transform:scaleY(-1)}.pframe .br{right:0;bottom:0;transform:scale(-1,-1)}
+.pframe .psig{position:absolute;left:50%;bottom:6px;transform:translateX(-50%) rotate(45deg);width:clamp(18px,11%,34px);aspect-ratio:1;display:grid;place-items:center;background:linear-gradient(135deg,color-mix(in srgb,var(--cl,#d9a441) 70%,#000),#120a06);border:1.5px solid #e8b04a;box-shadow:0 2px 6px rgba(0,0,0,.8)}
+.pframe .psig{font:700 clamp(9px,1.4vh,15px)/1 serif;color:#fff1c1;text-shadow:0 1px 2px #000}
+.pframe .psig span{transform:rotate(-45deg)}
+@media (max-width:999px){.pframe .psig{display:none}}
 .ipbar h2,.rules h3{transform:skewX(-10deg);transform-origin:0 100%}
 html,body,*{scrollbar-width:none}::-webkit-scrollbar{display:none}
 @media (min-width:1000px) and (max-width:1500px){.toprow .modes.top .btn{padding:9px 11px;font-size:13px}.toprow .modes.top{gap:7px}}
@@ -1995,7 +2007,8 @@ function shout(t){ rec(["shout",t]); document.querySelectorAll(".shoutp").forEac
 function eventCard(name,text){ rec(["evcard",name,text]); document.querySelectorAll(".evcard").forEach(e=>e.remove()); const d=document.createElement("div"); d.className="evcard"; d.innerHTML=`<div class="evk">${L("event")}</div><div class="evn">${name}</div><div class="evt">${text}</div>`; d.onclick=()=>d.remove(); document.body.appendChild(d); setTimeout(()=>d.remove(),4200); }
 
 /* ---------- rendu ---------- */
-function por(k,f){ const img=CONFIG.imgs[f.id]; return `<div class="por" id="por-${k}">${img?`<img src="${img}" alt="">`:`<div class="ph">${FIGHTERS[f.id].sigil}</div>`}</div>`; }
+const PCORNER='<svg viewBox="0 0 60 60" aria-hidden="true"><path d="M4 58V16Q4 4 16 4h42" fill="none" stroke="#e8b04a" stroke-width="4"/><path d="M4 58V16Q4 4 16 4h42" fill="none" stroke="#fff1c1" stroke-width="1.2" opacity=".7"/><path d="M12 54V22q0-10 10-10h32" fill="none" stroke="#c98a2e" stroke-width="1.6"/><path d="M2 2h14L2 16z" fill="#e8b04a"/><path d="M20 20l7 -7 7 7 -7 7z" fill="#e8b04a" stroke="#120a06" stroke-width="1.2"/><circle cx="27" cy="20" r="1.8" fill="#fff1c1"/><path d="M38 12q6-6 12 0M12 38q-6 6 0 12" fill="none" stroke="#e8b04a" stroke-width="1.6" stroke-linecap="round"/></svg>';
+function por(k,f){ const img=CONFIG.imgs[f.id]; return `<div class="por cl-${CLAN[f.id]||"libres"}" id="por-${k}">${img?`<img src="${img}" alt="">`:`<div class="ph">${FIGHTERS[f.id].sigil}</div>`}<span class="pframe" aria-hidden="true"><i class="pc tl">${PCORNER}</i><i class="pc tr">${PCORNER}</i><i class="pc bl">${PCORNER}</i><i class="pc br">${PCORNER}</i><b class="psig"><span>${FIGHTERS[f.id].sigil}</span></b></span></div>`; }
 function sideHTML(k){
   const s=S[k], f=act(s), me=k===ME;
   const res=s.team.map((t,i)=>{
@@ -2540,6 +2553,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.17.2",d:"2026-10-03",fr:["Cadre ornementé doré pour les portraits en combat (coins sculptés, liseré aux couleurs de l'école, emblème du combattant)"],en:["Ornate gold frame for battle portraits (carved corners, school-coloured trim, fighter emblem)"],it:["Cornice dorata decorata per i ritratti in combattimento (angoli scolpiti, bordo nei colori della scuola, emblema del combattente)"]},
  {v:"0.17.1",d:"2026-10-03",fr:["Nouvelles annonces (pièges, contres, KO…) : encadré lisible au lieu du texte oblique"],en:["New announcements (traps, counters, KOs…): readable panel instead of slanted text"],it:["Nuovi annunci (trappole, contrattacchi, KO…): riquadro leggibile al posto del testo obliquo"]},
  {v:"0.17.0",d:"2026-10-03",fr:["« Hall of Fame » devient « Classement »","PV affichés sous les combattants en réserve, jauge de rage découpée en 8 crans","La main est triée : Légers, Moyens, Lourds, puis réactions, spéciales, terrains et pièges","Une main sans aucune attaque échange automatiquement une carte contre une attaque (merci maxGfive et Jerome R.)"],
   en:["“Hall of Fame” is now “Leaderboard”","HP shown under reserve fighters, rage gauge split into 8 notches","The hand is sorted: Lights, Mediums, Heavies, then reactions, specials, terrains and traps","A hand with no attack automatically swaps one card for an attack (thanks maxGfive and Jerome R.)"],
