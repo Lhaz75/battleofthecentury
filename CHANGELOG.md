@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v1.16.0 — 2026-10-03
+
+- Un compte est désormais nécessaire pour jouer (création gratuite en 10 secondes)
+
 ## v1.15.0 — 2026-10-03
 
 - Niveaux de joueur (1 à 50) avec titres, barre de progression et annonce de passage de niveau

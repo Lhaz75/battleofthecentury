@@ -53,7 +53,8 @@ function makeMatchmaking({ docs, markDirty, broadcast, auth }) {
       const team = Array.isArray(b.team) ? b.team.filter(x => typeof x === "string" && TEAM_RE.test(x)).slice(0, 5) : [];
       if (team.length < 2) return send(400, { error: "team" });
       const u = await auth(req).catch(() => null);
-      const name = u ? u.name : String(b.name || "").trim().slice(0, 16) || "Joueur";
+      if (!u) return send(401, { error: "auth" });
+      const name = u.name;
       for (const [k, q] of queue) if (q.uid === uid) queue.delete(k);   // une seule recherche par joueur
       const t = crypto.randomBytes(12).toString("hex"), now = Date.now();
       queue.set(t, { uid, name, team, elo: u ? (u.stats.elo || 1000) : 1000, t: now, seen: now, ip });
