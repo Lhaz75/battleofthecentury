@@ -967,7 +967,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .onl-ul .hn{flex:1;display:flex;align-items:center;gap:6px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .onl-ul .ow{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#cdb79a;white-space:nowrap}
 .ow.w-solo i,.ow.w-surv i{background:#e8b04a;box-shadow:0 0 6px #e8b04a}.ow.w-vs i,.ow.w-tour i{background:#e0452c;box-shadow:0 0 6px #e0452c}.ow.w-queue i{background:#58a6ff;box-shadow:0 0 6px #58a6ff}
-@media (max-width:600px){.toprow>.row{flex-wrap:wrap!important;justify-content:center!important;row-gap:6px!important;overflow:visible!important;max-width:100%}.onl{height:26px;padding:0 8px;font-size:11px}.onl-ul .ow{font-size:11px}}
+@media (max-width:600px){.toprow>.row{flex-wrap:wrap!important;justify-content:center!important;row-gap:6px!important;column-gap:6px!important;overflow:visible!important;width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box}.toprow{min-width:0;max-width:100%}.onl .lng{display:none}.onl{height:26px;padding:0 8px;font-size:11px}.onl-ul .ow{font-size:11px}}
 /* mobile : plateau allégé */
 @media (max-width:999px){
   .screen.board .rs{width:auto;gap:1px}
@@ -2620,6 +2620,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.19.2",d:"2026-10-03",fr:["Mobile : la barre du haut ne déborde plus de l'écran"],en:["Mobile: the top bar no longer overflows the screen"],it:["Mobile: la barra in alto non esce più dallo schermo"]},
  {v:"0.19.1",d:"2026-10-03",fr:["Illustrations de Jackal et Uighur corrigées (il leur manquait les jambes)"],en:["Fixed Jackal and Uighur artwork (their legs were missing)"],it:["Corrette le illustrazioni di Jackal e Uighur (mancavano le gambe)"]},
  {v:"0.19.0",d:"2026-10-03",fr:["Joueurs en ligne : un compteur sur l'écran principal, et la liste de qui est connecté et ce qu'il fait (menus, combat, survie, versus, file d'attente, tournoi)"],en:["Players online: a counter on the main screen, and the list of who is connected and what they are doing (menus, fight, survival, versus, queue, tournament)"],it:["Giocatori online: un contatore nella schermata principale, e la lista di chi è connesso e cosa sta facendo (menu, combattimento, sopravvivenza, versus, coda, torneo)"]},
  {v:"0.18.0",d:"2026-10-03",fr:["Nouveau mode Survie : enchaîne des vagues d'adversaires de plus en plus forts, tes PV ne remontent qu'en partie entre les combats, repos au village toutes les 5 vagues","Chaque vague gagnée rapporte des points, et ton record apparaît dans le Classement (onglet Survie)"],en:["New Survival mode: fight waves of ever stronger opponents, your HP only partly recovers between fights, rest at the village every 5 waves","Each wave cleared gives points, and your record shows in the Leaderboard (Survival tab)"],it:["Nuova modalità Sopravvivenza: affronta ondate di avversari sempre più forti, i PV si recuperano solo in parte tra i combattimenti, riposo al villaggio ogni 5 ondate","Ogni ondata superata dà punti, e il tuo record appare nella Classifica (scheda Sopravvivenza)"]},
@@ -2774,8 +2775,9 @@ async function presPing(){
   try{ const r=await api("POST","/api/ping",{where:presWhere()}); if(r.ok){ ONLINE.list=r.online||[]; presRefresh(); } }catch(e){}
 }
 function presStart(){ if(ONLINE.timer) return; presPing(); ONLINE.timer=setInterval(presPing,30000); }
-function presChip(){ if(!ACC.on || !ACC.user) return ""; const n=Math.max(1,ONLINE.list.length); return `<button class="onl" id="onl" title="${L("onlineTitle")}"><i></i><span>${L("onlineN",n)}</span></button>`; }
-function presRefresh(){ const c=$("#onl span"); if(c) c.textContent=L("onlineN",Math.max(1,ONLINE.list.length)); if($(".onlist")) drawOnline(); }
+function presChip(){ if(!ACC.on || !ACC.user) return ""; const n=Math.max(1,ONLINE.list.length); return `<button class="onl" id="onl" title="${L("onlineTitle")}"><i></i><span>${onlineLbl(n)}</span></button>`; }
+function onlineLbl(n){ const t=L("onlineN",n); return `${n}<span class="lng">${esc(t.replace(String(n),""))}</span>`; }
+function presRefresh(){ const c=$("#onl>span"); if(c) c.innerHTML=onlineLbl(Math.max(1,ONLINE.list.length)); if($(".onlist")) drawOnline(); }
 function drawOnline(){ const box=$(".onlist"); if(!box) return; const me=ACC.user&&ACC.user.id;
   const list=ONLINE.list.slice().sort((a,b)=>(b.id===me)-(a.id===me));
   box.innerHTML=list.length?`<ul class="onl-ul">${list.map(u=>`<li class="${u.id===me?"me":""}">${avatarHTML(u)}<span class="hn">${lvlBadge(u.stats&&u.stats.pts)}${esc(u.name)}${u.id===me?` <small>(${L("onlineYou")})</small>`:""}</span><span class="ow w-${u.where}"><i></i>${L("w_"+u.where)}</span></li>`).join("")}</ul>${list.length<2?`<p class="note">${L("onlineEmpty")}</p>`:""}`:`<p class="note">${L("onlineEmpty")}</p>`; }
