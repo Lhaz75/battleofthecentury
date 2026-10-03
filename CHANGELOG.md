@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v1.16.1 — 2026-10-03
+
+- Mention « version bêta de test » : tous les combattants sont jouables pendant les tests
+
 ## v1.16.0 — 2026-10-03
 
 - Un compte est désormais nécessaire pour jouer (création gratuite en 10 secondes)
