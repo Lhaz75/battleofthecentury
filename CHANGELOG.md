@@ -4,7 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.17.2 — 2026-10-03
 
-- Cadre ornementé doré pour les portraits en combat (coins sculptés, liseré aux couleurs de l'école, emblème du combattant)
+- Cadre ornementé doré pour les portraits en combat (coins sculptés, liseré aux couleurs de l'école)
 
 ## v0.17.1 — 2026-10-03
 
