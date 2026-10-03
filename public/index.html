@@ -977,6 +977,18 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .endj{width:min(560px,100%);margin:6px auto 14px;border:1px solid rgba(232,176,74,.3);border-radius:10px;background:rgba(14,9,7,.82);text-align:left}
 .endj summary{cursor:pointer;padding:8px 12px;font:700 13px var(--f-display);letter-spacing:.08em;text-transform:uppercase;color:#e8b04a}
 .endj .jlist{max-height:min(32vh,260px);flex:none;border-top:1px solid rgba(232,176,74,.2)}
+.dkchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.dkc{display:inline-flex;align-items:center;gap:6px;max-width:100%;height:32px;padding:0 10px 0 4px;border-radius:16px;border:1px solid rgba(232,176,74,.35);background:rgba(18,10,6,.75);color:#f3e2bf;font:600 12px var(--f-body,inherit);cursor:pointer}
+.dkc b{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px}
+.dkc.on{border-color:#e8b04a;background:rgba(232,176,74,.16)}.dkc.add{padding-left:10px;color:#e8b04a;border-style:dashed}
+.dkf{display:inline-flex}.dkf img{width:24px;height:24px;border-radius:50%;border:1.5px solid #c98a2e;margin-left:-6px;background:#120a06;object-fit:cover}.dkf img:first-child{margin-left:0}
+.dklist{display:flex;flex-direction:column;gap:8px;margin:6px 0 10px}
+.dkrow{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid rgba(232,176,74,.25);border-radius:10px;background:rgba(18,10,6,.6)}
+.dkrow.bad{opacity:.55}.dkrow .dkf img{width:30px;height:30px}
+.dkname{flex:1;min-width:0;background:transparent;border:1px solid transparent;border-radius:6px;color:#f3e2bf;font:600 14px var(--f-body,inherit);padding:4px 6px}
+.dkname:focus,.dkname:hover{border-color:rgba(232,176,74,.4);outline:none}
+.dkcost{font-size:12px;color:#cdb79a;white-space:nowrap}
+#dkadd .dkf{margin-left:6px}
 /* mobile : plateau allégé */
 @media (max-width:999px){
   .screen.board .rs{width:auto;gap:1px}
@@ -1564,6 +1576,9 @@ Object.assign(UI.fr,{onlineN:n=>`${n} en ligne`, onlineTitle:"Joueurs en ligne",
 Object.assign(UI.en,{onlineN:n=>`${n} online`, onlineTitle:"Players online", onlineEmpty:"Nobody else right now.", w_menu:"In the menus", w_solo:"Fighting the AI", w_surv:"In survival", w_vs:"In versus", w_queue:"Looking for an opponent", w_tour:"In a tournament", onlineYou:"you"});
 Object.assign(UI.it,{onlineN:n=>`${n} online`, onlineTitle:"Giocatori online", onlineEmpty:"Nessun altro per ora.", w_menu:"Nei menu", w_solo:"Contro l'IA", w_surv:"In sopravvivenza", w_vs:"In versus", w_queue:"Cerca un avversario", w_tour:"In torneo", onlineYou:"tu"});
 /* ---------- textes du mode survie ---------- */
+Object.assign(UI.fr,{decksTitle:"Mes équipes", deckSave:"Sauver", deckSaveCur:"Sauver l'équipe actuelle", deckName:"Nom de l'équipe", deckUse:"Jouer", deckDel:"Supprimer", decksEmpty:"Aucune équipe sauvegardée pour l'instant.", decksHow:"Compose une équipe sur l'écran principal puis sauve-la ici ou avec le bouton « Sauver » sous tes slots (12 max). Tes équipes te suivent sur tous tes appareils."});
+Object.assign(UI.en,{decksTitle:"My teams", deckSave:"Save", deckSaveCur:"Save current team", deckName:"Team name", deckUse:"Play", deckDel:"Delete", decksEmpty:"No saved team yet.", decksHow:"Build a team on the main screen, then save it here or with the \"Save\" button under your slots (12 max). Your teams follow you on all your devices."});
+Object.assign(UI.it,{decksTitle:"Le mie squadre", deckSave:"Salva", deckSaveCur:"Salva la squadra attuale", deckName:"Nome della squadra", deckUse:"Gioca", deckDel:"Elimina", decksEmpty:"Nessuna squadra salvata per ora.", decksHow:"Componi una squadra nella schermata principale e salvala qui o con il pulsante «Salva» sotto gli slot (max 12). Le tue squadre ti seguono su tutti i dispositivi."});
 Object.assign(UI.fr,{endLog:"Journal du combat"}); Object.assign(UI.en,{endLog:"Fight log"}); Object.assign(UI.it,{endLog:"Diario del combattimento"});
 Object.assign(UI.fr,{trapVoid:n=>`Plus personne en réserve : le piège « ${n} » ne sert plus à rien, il est défaussé.`});
 Object.assign(UI.en,{trapVoid:n=>`Nobody left in reserve: the "${n}" trap is useless and gets discarded.`});
@@ -2434,7 +2449,7 @@ async function api(method,path,body){
   if(r.status===401 && ACC.token && path!=="/api/login"){ accForget(); }
   return {ok:r.ok,status:r.status,...j};
 }
-function accForget(){ ACC.token=null; ACC.user=null; ACC.rank=null; try{ localStorage.removeItem("boc-token"); }catch(e){} }
+function accForget(){ ACC.token=null; ACC.user=null; ACC.rank=null; DECKS.list=null; try{ localStorage.removeItem("boc-token"); }catch(e){} }
 async function accInit(){
   if(!ACC.on || !ACC.token) return;
   try{ const r=await api("GET","/api/me"); if(r.ok){ ACC.user=r.user; ACC.rank=r.rank; if(document.querySelector(".selwrap")) refreshAccBtn(); } }catch(e){}
@@ -2462,6 +2477,7 @@ function renderAccount(sel=[], tab="login"){
       <div><h3 class="pfname">${esc(u.name)}</h3>${(()=>{ const v=lvlOf(st.pts); return `<div class="lvlrow"><span class="lvlb lvbig">${L("lvShort")} ${v.n}</span><b>${esc(lvlTitle(v.n))}</b></div><div class="xpbar"><i style="width:${v.pct}%"></i></div><div class="xptxt">${v.n>=LVL_MAX?L("lvlMax"):L("xpNext",v.cur,v.need,v.n+1)}</div>`; })()}<div class="err" id="averr" role="alert"></div><button class="btn ghost sm" id="logout">${L("logout")}</button></div></div>
     <div class="stgrid">${cell("st_elo",st.elo??1000,rk.elo?"#"+rk.elo:"")}${cell("st_pts",st.pts||0,rk.pts?"#"+rk.pts:"")}${cell("st_aiW",st.aiW||0)}${cell("st_aiL",st.aiL||0)}${cell("st_vsW",st.vsW||0)}${cell("st_vsL",st.vsL||0)}${cell("st_streak",st.streak||0)}${cell("st_best",st.best||0)}${cell("st_tW",st.tW||0)}${cell("st_surv",st.surv||0)}</div>
     ${favs.length?`<h3 class="pfh">${L("favs")}</h3><div class="favs">${favs.map(([id,n])=>`<div class="fav cl-${CLAN[id]}"><img src="assets/face-${id}.webp" alt=""><b>${esc(nm(id))}</b><span>×${n}</span></div>`).join("")}</div>`:""}
+    <div id="dkbox">${decksProfileHTML(sel)}</div>
     <div class="row" style="justify-content:center;margin-top:18px"><button class="btn" id="tohof">${L("hofBtn")}</button></div>
     <details class="pwbox"><summary>${L("pwChange")}</summary>
       <form class="accform" id="fpw" autocomplete="on"><input type="text" name="username" value="${esc(u.name)}" autocomplete="username" hidden>
@@ -2478,6 +2494,7 @@ function renderAccount(sel=[], tab="login"){
     <p class="note">${L("hofHow")}</p></div>`,sel);
   $("#logout").onclick=async()=>{ SFX.play("click"); try{ await api("POST","/api/logout"); }catch(e){} accForget(); ACC.ready=true; renderTitle(sel); };
   $("#tohof").onclick=()=>{ SFX.play("click"); renderHof(sel); };
+  { const drawDk=()=>{ const b=$("#dkbox"); if(!b) return; b.innerHTML=decksProfileHTML(sel); bindDecksProfile(sel,drawDk); }; bindDecksProfile(sel,drawDk); decksLoad(true).then(drawDk); }
   $("#fpw").onsubmit=async e=>{ e.preventDefault(); const f=e.target, fd=new FormData(f), er=f.querySelector(".err"); er.textContent=""; er.classList.remove("ok");
     const pw=String(fd.get("password")||""); if(pw!==String(fd.get("password2")||"")){ er.textContent=L("e_match"); return; }
     const r=await api("POST","/api/password",{old:String(fd.get("old")||""),password:pw}).catch(()=>({ok:false}));
@@ -2647,6 +2664,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.21.0",d:"2026-10-03",fr:["Équipes sauvegardées : enregistre jusqu'à 12 équipes, recharge-les en un clic sous tes slots, et gère-les (renommer, supprimer) dans ton profil"],en:["Saved teams: store up to 12 teams, load them in one click under your slots, and manage them (rename, delete) in your profile"],it:["Squadre salvate: salva fino a 12 squadre, ricaricale con un clic sotto gli slot e gestiscile (rinomina, elimina) nel profilo"]},
  {v:"0.20.3",d:"2026-10-03",fr:["Écran de fin : le journal du combat est affiché, pour voir ce qui s'est passé quand ça finit très vite (merci Jerome R.)"],en:["End screen: the fight log is shown, to see what happened when it ends very fast (thanks Jerome R.)"],it:["Schermata finale: il diario del combattimento è mostrato, per vedere cos'è successo quando finisce molto in fretta (grazie Jerome R.)"]},
  {v:"0.20.2",d:"2026-10-03",fr:["Pièges Embuscade et Embuscade du clan Kiba : on ne peut plus les poser si l'adversaire n'a plus de réserviste, et s'ils sont déjà posés quand son avant-dernier combattant tombe, ils sont défaussés pour libérer la place (merci Jerome R.)"],en:["Ambush and Kiba Clan Ambush traps: they can no longer be set when the opponent has no reserve left, and if already set when their second-to-last fighter falls, they are discarded to free the slot (thanks Jerome R.)"],it:["Trappole Imboscata e Imboscata del clan Kiba: non si possono più piazzare se l'avversario non ha più riserve, e se sono già piazzate quando cade il suo penultimo combattente vengono scartate per liberare lo spazio (grazie Jerome R.)"]},
  {v:"0.20.1",d:"2026-10-03",fr:["Lien vers le Discord Hokuto Legacy"],en:["Link to the Hokuto Legacy Discord"],it:["Link al Discord Hokuto Legacy"]},
@@ -2805,6 +2823,46 @@ const SOC_ICON={
   discord:'<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19.6 5.3A16.6 16.6 0 0 0 15.5 4l-.5 1a15 15 0 0 0-6 0l-.5-1a16.6 16.6 0 0 0-4.1 1.3C1.8 9.2 1.1 13 1.4 16.8a16.7 16.7 0 0 0 5 2.5l1.1-1.7c-.6-.2-1.2-.5-1.7-.9l.4-.3a11.9 11.9 0 0 0 11.6 0l.4.3c-.5.4-1.1.7-1.7.9l1.1 1.7a16.7 16.7 0 0 0 5-2.5c.4-4.4-.7-8.2-3-11.5zM8.7 14.5c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2zm6.6 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2z"/></svg>'};
 function socialHTML(){ const lbl={site:"hokutolegacy.com",facebook:"Facebook",discord:"Discord"};
   return `<div class="social">${["site","facebook","discord"].filter(k=>SOCIAL[k]).map(k=>`<a class="soc soc-${k}" href="${SOCIAL[k]}" target="_blank" rel="noopener">${SOC_ICON[k]}<span>${lbl[k]}</span></a>`).join("")}</div>`; }
+
+/* ---------- équipes sauvegardées ---------- */
+const DECKS={list:null, loading:null};
+const DECK_MAX=12;
+function deckValid(t){ return Array.isArray(t) && t.length>=TEAM_MIN && t.length<=TEAM_MAX && t.every(id=>FIGHTERS[id]) && teamCost(t)<=BUDGET; }
+async function decksLoad(force){
+  if(!ACC.on || !ACC.user) return [];
+  if(DECKS.list && !force) return DECKS.list;
+  if(!DECKS.loading) DECKS.loading=api("GET","/api/decks").then(r=>{ DECKS.list=r.ok?(r.decks||[]):(DECKS.list||[]); DECKS.loading=null; return DECKS.list; }).catch(()=>{ DECKS.loading=null; return DECKS.list||[]; });
+  return DECKS.loading;
+}
+async function decksSave(list){
+  const r=await api("POST","/api/decks",{decks:list}).catch(()=>({ok:false}));
+  if(r.ok) DECKS.list=r.decks; return r.ok;
+}
+function deckFaces(t){ return `<span class="dkf">${t.map(id=>FIGHTERS[id]?`<img src="assets/face-${id}.webp" alt="" title="${esc(nm(id))}">`:"").join("")}</span>`; }
+function deckChipsHTML(sel){
+  if(!ACC.on || !ACC.user) return "";
+  const list=(DECKS.list||[]).filter(d=>deckValid(d.team));
+  const same=d=>d.team.length===sel.length && d.team.every((id,i)=>sel[i]===id);
+  return `<div class="dkchips">${list.map((d,i)=>`<button class="dkc ${same(d)?"on":""}" data-deck="${(DECKS.list||[]).indexOf(d)}" title="${esc(d.name)}">${deckFaces(d.team)}<b>${esc(d.name)}</b></button>`).join("")}${sel.length>=TEAM_MIN&&!list.some(same)&&(DECKS.list||[]).length<DECK_MAX?`<button class="dkc add" id="dksave">＋ ${L("deckSave")}</button>`:""}</div>`;
+}
+function bindDeckChips(sel,redo){
+  document.querySelectorAll(".dkc[data-deck]").forEach(b=>b.onclick=()=>{ SFX.play("click"); const d=DECKS.list[+b.dataset.deck]; if(d) redo(d.team.slice(),d.team[0]); });
+  const sv=$("#dksave"); if(sv) sv.onclick=async()=>{ SFX.play("click");
+    const name=(prompt(L("deckName"),sel.map(nm).join(" / ").slice(0,24))||"").trim(); if(!name) return;
+    if(await decksSave([...(DECKS.list||[]),{name,team:sel.slice()}])){ SFX.play("event"); redo(sel,sel[sel.length-1]); } };
+}
+function decksProfileHTML(sel){
+  const list=DECKS.list||[];
+  return `<h3 class="pfh">${L("decksTitle")}</h3><div class="dklist">${list.length?list.map((d,i)=>`<div class="dkrow ${deckValid(d.team)?"":"bad"}">${deckFaces(d.team)}<input class="dkname" data-i="${i}" maxlength="24" value="${esc(d.name)}" aria-label="${L("deckName")}"><span class="dkcost">${teamCost(d.team)}/${BUDGET}</span>
+    <button class="btn sm" data-dkload="${i}" ${deckValid(d.team)?"":"disabled"}>${L("deckUse")}</button><button class="btn ghost sm" data-dkdel="${i}" aria-label="${L("deckDel")}" title="${L("deckDel")}">✕</button></div>`).join(""):`<p class="note">${L("decksEmpty")}</p>`}</div>
+    ${sel.length>=TEAM_MIN&&list.length<DECK_MAX&&!list.some(d=>d.team.join()===sel.join())?`<div class="row" style="justify-content:center"><button class="btn ghost sm" id="dkadd">＋ ${L("deckSaveCur")} ${deckFaces(sel)}</button></div>`:""}<p class="note">${L("decksHow")}</p>`;
+}
+function bindDecksProfile(sel,redraw){
+  document.querySelectorAll("[data-dkload]").forEach(b=>b.onclick=()=>{ SFX.play("click"); const d=DECKS.list[+b.dataset.dkload]; if(d) renderTitle(d.team.slice(),d.team[0]); });
+  document.querySelectorAll("[data-dkdel]").forEach(b=>b.onclick=async()=>{ SFX.play("click"); const l=DECKS.list.slice(); l.splice(+b.dataset.dkdel,1); if(await decksSave(l)) redraw(); });
+  document.querySelectorAll(".dkname").forEach(inp=>inp.onchange=async()=>{ const l=DECKS.list.map(d=>({...d})); const v=inp.value.trim(); if(!v){ inp.value=l[+inp.dataset.i].name; return; } l[+inp.dataset.i].name=v; await decksSave(l); });
+  const a=$("#dkadd"); if(a) a.onclick=async()=>{ SFX.play("click"); const name=(prompt(L("deckName"),sel.map(nm).join(" / ").slice(0,24))||"").trim(); if(!name) return; if(await decksSave([...(DECKS.list||[]),{name,team:sel.slice()}])){ SFX.play("event"); redraw(); } };
+}
 
 /* ---------- joueurs en ligne ---------- */
 const ONLINE={list:[], timer:0, last:0};
@@ -3091,7 +3149,7 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; quickStop
       <div class="slots">${Array.from({length:TEAM_MAX},(_,i)=>sel[i]?`<button class="slot" data-rm="${sel[i]}" title="${esc(nm(sel[i]))}"><img src="assets/face-${sel[i]}.webp" alt=""><i>✕</i></button>`:`<div class="slot empty${i>=TEAM_MIN?" opt":""}">${i+1}</div>`).join("")}</div>
       <div class="budget"><div class="bl"><span>${L("budget",cost,BUDGET)}</span><span class="cnt">${L("teamCount",sel.length,TEAM_MIN,TEAM_MAX)}</span></div>
         <div class="pips">${Array.from({length:BUDGET},(_,i)=>`<i class="${i<cost?"u":""}"></i>`).join("")}</div>${hint}</div>
-    </div>
+    </div>${deckChipsHTML(sel)}
     </div><div class="selR">
     ${groups}
     <p class="howto">${L("howto")}</p><p class="betanote">${L("betaNote")}</p>${socialHTML()}<p class="fanmade">${L("fanMade")}</p></div></div>
@@ -3107,6 +3165,8 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; quickStop
   $("#go").onclick=()=>{ SFX.play("event"); MODE="solo"; ME="p"; newGame(sel); };
   $("#online").onclick=()=>{ SFX.play("click"); renderLobby(sel); };
   $("#surv").onclick=()=>{ SFX.play("event"); survStart(sel); };
+  bindDeckChips(sel,redo);
+  if(ACC.user && !DECKS.list && !DECKS.loading) decksLoad().then(()=>{ if(document.querySelector(".selwrap") && TITLE_SEL===sel) redo(sel,focus); });
   $("#rnd").onclick=()=>{ SFX.play("click"); const t=randomTeam(); redo(t,t[0]); };
   $("#tuto").onclick=()=>{ SFX.play("event"); startTuto(); };
   $("#roster").onclick=()=>{ SFX.play("click"); renderRoster(sel); };

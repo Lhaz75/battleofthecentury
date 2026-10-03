@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.21.0 — 2026-10-03
+
+- Équipes sauvegardées : enregistre jusqu'à 12 équipes, recharge-les en un clic sous tes slots, et gère-les (renommer, supprimer) dans ton profil
+
 ## v0.20.3 — 2026-10-03
 
 - Écran de fin : le journal du combat est affiché, pour voir ce qui s'est passé quand ça finit très vite (merci Jerome R.)

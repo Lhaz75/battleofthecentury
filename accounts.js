@@ -150,7 +150,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
   const tries = new Map();        // ip -> { n, t }
 
   const limited = ip => { const now = Date.now(); const e = tries.get(ip) || { n: 0, t: now }; if (now - e.t > 60000) { e.n = 0; e.t = now; } e.n++; tries.set(ip, e); return e.n > 12; };
-  const pubUser = u => ({ id: u.id, name: u.name, avatar: u.avatar_v ? `/api/avatar/${u.id}?v=${u.avatar_v}` : null, stats: u.stats, created: u.created, ...(isAdmin(u) ? { admin: true } : {}) });
+  const pubUser = u => ({ id: u.id, name: u.name, avatar: u.avatar_v ? `/api/avatar/${u.id}?v=${u.avatar_v}` : null, stats: (({ decks, survRun, ...r }) => r)(u.stats || {}), created: u.created, ...(isAdmin(u) ? { admin: true } : {}) });
   async function newSession(u) { const tok = crypto.randomBytes(32).toString("hex"); await store.addSession(sha(tok), u.id); return tok; }
   const seen = new Map();
   async function auth(req) { const h = req.headers.authorization || ""; const tok = h.startsWith("Bearer ") ? h.slice(7) : ""; if (!/^[0-9a-f]{64}$/.test(tok)) return null;
@@ -212,6 +212,23 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     "GET /api/me": async req => {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
       return [200, { user: pubUser(u), rank: { elo: await store.rank(u.id, "elo"), pts: await store.rank(u.id, "pts") } }];
+    },
+    // équipes sauvegardées (privées : jamais renvoyées dans les profils publics)
+    "GET /api/decks": async req => {
+      const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      return [200, { decks: u.stats.decks || [] }];
+    },
+    "POST /api/decks": async (req, body) => {
+      const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      const list = Array.isArray(body.decks) ? body.decks.slice(0, 12) : null; if (!list) return [400, { error: "bad" }];
+      const ok = [];
+      for (const d of list) {
+        const team = Array.isArray(d && d.team) ? d.team.filter(id => typeof id === "string" && /^[a-z]{2,12}$/.test(id)).slice(0, 5) : [];
+        if (team.length < 2 || new Set(team).size !== team.length) continue;
+        ok.push({ name: String(d.name || "").trim().slice(0, 24) || "Équipe", team });
+      }
+      u.stats.decks = ok; await store.saveStats(u.id, u.stats);
+      return [200, { decks: ok }];
     },
     "POST /api/password": async (req, body, ip) => {
       if (limited(ip)) return [429, { error: "slow" }];
