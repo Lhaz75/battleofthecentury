@@ -574,6 +574,38 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .card .viatag{position:absolute}
 .card[disabled]{filter:saturate(.55) brightness(.75)}
 .card:not([disabled]):hover{box-shadow:inset 0 0 0 2px rgba(0,0,0,.75),inset 0 0 0 3px color-mix(in srgb,var(--kc) 60%,transparent),0 0 16px color-mix(in srgb,var(--kc) 55%,transparent),0 8px 18px rgba(0,0,0,.7)!important}
+/* journal + chat */
+.jpanel{display:flex;flex-direction:column;min-height:0;border:1px solid var(--line);border-radius:12px;background:rgba(8,6,5,.7);overflow:hidden}
+.jtabs{display:flex;align-items:center;gap:4px;padding:6px;border-bottom:1px solid var(--line)}
+.jt{position:relative;font:600 12px var(--f-display);letter-spacing:.08em;text-transform:uppercase;color:var(--mute);background:none;border:0;padding:6px 10px;border-radius:8px;cursor:pointer}
+.jt.on{color:var(--bone);background:rgba(255,255,255,.07)}
+.jt i{position:absolute;top:0;right:-2px;min-width:16px;height:16px;border-radius:8px;background:#e0503a;color:#fff;font:700 10px/16px var(--f-display);font-style:normal;padding:0 4px}
+.jx{margin-left:auto;background:none;border:0;color:var(--mute);font-size:16px;cursor:pointer;display:none}
+.jlist{flex:1;min-height:0;overflow-y:auto;padding:8px 10px;display:flex;flex-direction:column;gap:6px}
+.je{display:flex;gap:8px;font-size:12.5px;line-height:1.35}
+.je .jr{flex:none;min-width:20px;height:18px;border-radius:9px;background:#2a1f19;color:var(--mute);font:600 10px/18px var(--f-display);text-align:center}
+.je .jl{color:var(--bone)} .je .js{color:var(--mute);font-size:11.5px}
+.jempty{color:var(--mute);font-size:12px;text-align:center;padding:10px}
+.cm{font-size:13px;line-height:1.35;max-width:90%;align-self:flex-start;background:#241a15;border-radius:10px 10px 10px 2px;padding:5px 9px}
+.cm.me{align-self:flex-end;background:#3a2414;border-radius:10px 10px 2px 10px}
+.cm b{display:block;font:600 10.5px var(--f-display);letter-spacing:.06em;text-transform:uppercase;color:#f0b24a}
+.quick{display:flex;gap:4px;flex-wrap:wrap;padding:6px 8px;border-top:1px solid var(--line)}
+.quick button{font-size:11px;padding:3px 8px;border-radius:12px;border:1px solid #5a4636;background:#1c1411;color:var(--sand);cursor:pointer}
+.cin{display:flex;gap:6px;padding:6px 8px 8px}
+.cin input{flex:1;min-width:0;background:#120d0b;border:1px solid #5a4636;border-radius:8px;color:var(--bone);padding:8px 10px;font:14px var(--f-body)}
+.cin .btn{padding:6px 12px;font-size:13px;transform:none}
+.jbtn{position:relative}
+.jdot{position:absolute;top:2px;right:2px;width:10px;height:10px;border-radius:50%;background:#e0503a;box-shadow:0 0 6px #e0503a}
+@media (min-width:1000px){
+  .board>.ring{display:flex;flex-direction:column}
+  .board>.ring .jpanel{flex:1;min-height:220px}
+  .jbtn{display:none}
+}
+@media (max-width:999px){
+  .ring .jpanel{display:none}
+  .ring .jpanel.open{display:flex;position:fixed;left:8px;right:8px;bottom:8px;top:22%;z-index:40;box-shadow:0 10px 40px rgba(0,0,0,.8);background:rgba(14,10,8,.97)}
+  .jpanel.open .jx{display:block}
+}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 <style>html,body{margin:0}*{box-sizing:border-box}img{max-width:100%}[hidden]{display:none!important}</style>
@@ -826,7 +858,7 @@ fr:{
   stratDestroy:c=>`Il a vu venir ton ${c} : détruit.`, stratNone:"Il lit ton jeu… aucune réaction en main.", steal:n=>`Il arrache ${n} rage à l'adversaire.`,
   youTrap:n=>`Tu poses un piège : ${n}`, foeTrap:"L'adversaire pose un piège face cachée…", blindSense:(b,n,t)=>`${b} le sent : ${n}. ${t}`, beware:"Méfie-toi.",
   terrPlace:(me,n)=>me?`Tu poses : ${n}`:`L'adversaire pose : ${n}`,
-  trapWord:"Piège", quitGame:"Quitter la partie", quitSure:"Quitter ?", myTrap:"Ton piège", foeTrap:"Son piège", trapBang:"Piège !", trapLog:(w,n)=>`PIÈGE (${w}) : ${n}`,
+  trapWord:"Piège", journal:"Journal", chat:"Chat", close:"Fermer", chatEmpty:"Aucun message. Dis bonjour !", chatPh:"Ton message…", send:"Envoyer", quitGame:"Quitter la partie", quitSure:"Quitter ?", myTrap:"Ton piège", foeTrap:"Son piège", trapBang:"Piège !", trapLog:(w,n)=>`PIÈGE (${w}) : ${n}`,
   filSub:n=>`${n} est stoppé net, combo terminé.`, hitSub:(lv,d,b)=>`${lv} · ${d} dégâts${b?` (combo +${b})`:""}`,
   otage:n=>`Un otage est jeté devant ${n} : le coup est annulé, combo terminé.`, instinct:n=>`${n} a senti le coup venir : esquivé, combo terminé.`,
   needles:n=>`Des aiguilles dans les yeux ! ${n} rate son coup et prend 2 dégâts.`, fakeVital:(n,d)=>`Faux point vital : ${n} frappe à côté, ${d} dégâts.`,
@@ -863,7 +895,7 @@ en:{
   stratDestroy:c=>`He saw your ${c} coming: destroyed.`, stratNone:"He reads your hand… no reactions in it.", steal:n=>`He rips ${n} rage from the opponent.`,
   youTrap:n=>`You set a trap: ${n}`, foeTrap:"The opponent sets a face-down trap…", blindSense:(b,n,t)=>`${b} senses it: ${n}. ${t}`, beware:"Watch out.",
   terrPlace:(me,n)=>me?`You play: ${n}`:`The opponent plays: ${n}`,
-  trapWord:"Trap", quitGame:"Quit the match", quitSure:"Quit?", myTrap:"Your trap", foeTrap:"Enemy trap", trapBang:"Trap!", trapLog:(w,n)=>`TRAP (${w}): ${n}`,
+  trapWord:"Trap", journal:"Log", chat:"Chat", close:"Close", chatEmpty:"No messages yet. Say hi!", chatPh:"Your message…", send:"Send", quitGame:"Quit the match", quitSure:"Quit?", myTrap:"Your trap", foeTrap:"Enemy trap", trapBang:"Trap!", trapLog:(w,n)=>`TRAP (${w}): ${n}`,
   filSub:n=>`${n} is stopped dead, combo over.`, hitSub:(lv,d,b)=>`${lv} · ${d} damage${b?` (combo +${b})`:""}`,
   otage:n=>`A hostage is thrown in front of ${n}: the hit is cancelled, combo over.`, instinct:n=>`${n} felt it coming: dodged, combo over.`,
   needles:n=>`Needles in the eyes! ${n} misses and takes 2 damage.`, fakeVital:(n,d)=>`Fake vital point: ${n} misses the mark, ${d} damage.`,
@@ -900,7 +932,7 @@ it:{
   stratDestroy:c=>`Ha previsto la tua ${c}: distrutta.`, stratNone:"Legge il tuo gioco… nessuna reazione in mano.", steal:n=>`Strappa ${n} rabbia all'avversario.`,
   youTrap:n=>`Piazzi una trappola: ${n}`, foeTrap:"L'avversario piazza una trappola coperta…", blindSense:(b,n,t)=>`${b} la percepisce: ${n}. ${t}`, beware:"Stai attento.",
   terrPlace:(me,n)=>me?`Giochi: ${n}`:`L'avversario gioca: ${n}`,
-  trapWord:"Trappola", quitGame:"Abbandona la partita", quitSure:"Uscire?", myTrap:"La tua trappola", foeTrap:"Sua trappola", trapBang:"Trappola!", trapLog:(w,n)=>`TRAPPOLA (${w}): ${n}`,
+  trapWord:"Trappola", journal:"Diario", chat:"Chat", close:"Chiudi", chatEmpty:"Nessun messaggio. Saluta!", chatPh:"Il tuo messaggio…", send:"Invia", quitGame:"Abbandona la partita", quitSure:"Uscire?", myTrap:"La tua trappola", foeTrap:"Sua trappola", trapBang:"Trappola!", trapLog:(w,n)=>`TRAPPOLA (${w}): ${n}`,
   filSub:n=>`${n} viene fermato di colpo, combo finita.`, hitSub:(lv,d,b)=>`${lv} · ${d} danni${b?` (combo +${b})`:""}`,
   otage:n=>`Un ostaggio viene gettato davanti a ${n}: il colpo è annullato, combo finita.`, instinct:n=>`${n} ha sentito arrivare il colpo: schivato, combo finita.`,
   needles:n=>`Aghi negli occhi! ${n} manca il colpo e subisce 2 danni.`, fakeVital:(n,d)=>`Falso punto vitale: ${n} colpisce di lato, ${d} danni.`,
@@ -1061,6 +1093,7 @@ function makeSide(team){
   };
 }
 function newGame(team){
+  journalReset();
   S = { p:makeSide(team), a:makeSide(randomTeam(team)), terrain:null, round:0, turn:null, busy:true, over:false, react:null,
         log:L("start"), sub:"" };
   startTurn("p");
@@ -1549,8 +1582,55 @@ function comboHTML(){
   return `<div class="combo"><span class="lbl">${S.turn===ME?L("yourCombo"):L("hisCombo")}</span>${tr||`<span class="arrow">—</span>`}${nb}</div>`;
 }
 let QUIT_T=0, QUIT_ARM=false;
+let JOURNAL=[], JLAST="", JTAB="log", JOPEN=false, CHAT=[], CHAT_SEEN=0, CHAT_KEY="";
+function journalReset(){ JOURNAL=[]; JLAST=""; CHAT=[]; CHAT_SEEN=0; CHAT_KEY=""; JTAB="log"; JOPEN=false; }
+function journalNote(){
+  if(!S || !S.log) return;
+  const key=S.log;
+  if(key!==JLAST){ JLAST=key; JOURNAL.push({r:S.round||0,log:S.log,sub:S.sub||""}); if(JOURNAL.length>80) JOURNAL.shift(); }
+  else if(JOURNAL.length && S.sub && JOURNAL[JOURNAL.length-1].sub!==S.sub) JOURNAL[JOURNAL.length-1].sub=S.sub;
+}
+const QUICK=["GG","Omae wa mou shindeiru","Nani ?!","Hokuto Hyakuretsu Ken !","Bien joué","Aïe…"];
+function chatUnread(){ return CHAT.filter(m=>m.who!==NET.role && m.t>CHAT_SEEN).length; }
+function journalHTML(){
+  const vs=MODE==="vs";
+  if(JTAB==="chat" && !vs) JTAB="log";
+  const unread=vs?chatUnread():0;
+  const tabs=`<div class="jtabs"><button class="jt ${JTAB==="log"?"on":""}" data-jt="log">${L("journal")}</button>${vs?`<button class="jt ${JTAB==="chat"?"on":""}" data-jt="chat">${L("chat")}${unread&&JTAB!=="chat"?`<i>${unread}</i>`:""}</button>`:""}<button class="jx" id="jclose" aria-label="${L("close")}">✕</button></div>`;
+  let body;
+  if(JTAB==="log"){
+    body=`<div class="jlist" id="jlist">${JOURNAL.length?JOURNAL.map(e=>`<div class="je"><span class="jr">${e.r}</span><div><div class="jl">${e.log}</div>${e.sub?`<div class="js">${e.sub}</div>`:""}</div></div>`).join(""):`<div class="jempty">—</div>`}</div>`;
+  } else {
+    const nm2=w=>esc((w==="host"?NET.names.host:NET.names.guest)||"?");
+    body=`<div class="jlist" id="jlist">${CHAT.length?CHAT.map(m=>`<div class="cm ${m.who===NET.role?"me":""}"><b>${nm2(m.who)}</b><span>${esc(m.x)}</span></div>`).join(""):`<div class="jempty">${L("chatEmpty")}</div>`}</div>
+      <div class="quick">${QUICK.map((q,i)=>`<button data-q="${i}">${esc(q)}</button>`).join("")}</div>
+      <form class="cin" id="chatform"><input id="chatin" maxlength="160" autocomplete="off" placeholder="${L("chatPh")}"><button class="btn" type="submit">${L("send")}</button></form>`;
+  }
+  return `<div class="jpanel ${JOPEN?"open":""}">${tabs}${body}</div>`;
+}
+async function sendChat(txt){
+  txt=(txt||"").trim().slice(0,160); if(!txt || !NET.ref) return;
+  const key=NET.role==="host"?"chatH":"chatG";
+  const mine=CHAT.filter(m=>m.who===NET.role).map(m=>({t:m.t,x:m.x}));
+  mine.push({t:Date.now(),x:txt}); while(mine.length>30) mine.shift();
+  CHAT=CHAT.concat([{who:NET.role,t:mine[mine.length-1].t,x:txt}]).sort((a,b)=>a.t-b.t);
+  SFX.play("click"); render();
+  try{ await NET.ref.update({[key]:mine}); }catch(e){}
+}
+function onChatData(d){
+  const all=[].concat((d.chatH||[]).map(m=>({who:"host",t:m.t,x:m.x})),(d.chatG||[]).map(m=>({who:"guest",t:m.t,x:m.x}))).sort((a,b)=>a.t-b.t);
+  const key=all.map(m=>m.t).join(",");
+  if(key===CHAT_KEY) return false;
+  const before=CHAT.filter(m=>m.who!==NET.role).length;
+  CHAT_KEY=key; CHAT=all;
+  if(all.filter(m=>m.who!==NET.role).length>before){ SFX.play("click"); if(JTAB==="chat"&&(JOPEN||window.innerWidth>=1000)) CHAT_SEEN=Date.now(); }
+  return true;
+}
 function render(){
   if(!S||S.dead) return;
+  journalNote();
+  const _ci=document.getElementById("chatin"), _cv=_ci?_ci.value:"", _cf=_ci&&document.activeElement===_ci;
+  const _jl=document.getElementById("jlist"), _jb=_jl?(_jl.scrollHeight-_jl.scrollTop-_jl.clientHeight<30):true, _jt=_jl?_jl.scrollTop:0;
   DEALN=0;
   const R=currentReact(); const p=S[ME], myTurn=S.turn===ME && !S.busy && !R && !S.pending;
   document.body.dataset.me=ME;
@@ -1563,6 +1643,7 @@ function render(){
       ${fieldHTML()}
       ${comboHTML()}
       <div class="log" aria-live="polite">${S.log}<br><span class="sub">${S.pending&&S.pending.def!==ME?L("waitReact",who(S.pending.def)):(S.sub||"")}</span>${stuckHint(myTurn)}</div>
+      ${journalHTML()}
     </div>
     ${sideHTML(ME)}
     <div class="hand">${p.hand.map(c=>{ const ok=myTurn && canPlay(ME,c); const via=!ok && myTurn ? viaRelay(ME,c) : -1; return cardHTML(c,ok||via>=0,ME,via>=0?p.team[via].id:null); }).join("")}</div>
@@ -1570,6 +1651,7 @@ function render(){
       <div class="grow"><div class="pips" aria-label="${L("endurance")} ${p.end}">${pips}</div></div>
       ${FS_OK?`<button class="tbtn" id="fs" aria-label="${L("fullscreen")}" title="${L("fullscreen")}">${SVG_FS}</button>`:""}
       <button class="tbtn" id="snd" aria-pressed="${SFX.on}" aria-label="${L("sound")}" title="${L("sound")}">${SFX.on?`${SVG_ON}`:`${SVG_OFF}`}</button>
+      <button class="tbtn jbtn" id="jbtn" aria-label="${L("journal")}" title="${L("journal")}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11l3 3v13H5z M8 9h8M8 13h8M8 17h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>${MODE==="vs"&&chatUnread()?`<i class="jdot"></i>`:""}</button>
       <button class="tbtn qbtn ${QUIT_ARM?"arm":""}" id="quit" aria-label="${L("quitGame")}" title="${L("quitGame")}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h5v16h-5M10 8l-4 4 4 4M6 12h10" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="qtxt">${L("quitSure")}</span></button>
       <button class="btn ${ultReady&&myTurn?"ult":""}" id="ult" ${ultReady&&myTurn?"":"disabled"}>${L("ultimate")}</button>
       <button class="btn ghost" id="end" ${myTurn?"":"disabled"}>${L("endTurn")}</button>
@@ -1588,6 +1670,14 @@ function render(){
   $("#snd").onclick=()=>{ SFX.toggle(); render(); };
   if($("#fs")) $("#fs").onclick=toggleFS;
   document.querySelectorAll("[data-react]").forEach(b=>b.onclick=()=>{ const uid=b.dataset.react; if(R && R.remote) answerRemote(uid==="none"?null:+uid); else answerReaction(uid==="none"?null:S[ME].hand.find(x=>x.uid==uid)); });
+  document.querySelectorAll("[data-jt]").forEach(b=>b.onclick=()=>{ JTAB=b.dataset.jt; if(JTAB==="chat") CHAT_SEEN=Date.now(); render(); });
+  if($("#jbtn")) $("#jbtn").onclick=()=>{ JOPEN=!JOPEN; if(JOPEN && JTAB==="chat") CHAT_SEEN=Date.now(); render(); };
+  if($("#jclose")) $("#jclose").onclick=()=>{ JOPEN=false; render(); };
+  document.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>sendChat(QUICK[+b.dataset.q]));
+  if($("#chatform")) $("#chatform").onsubmit=e=>{ e.preventDefault(); const v=$("#chatin").value; $("#chatin").value=""; sendChat(v); };
+  { const ci=$("#chatin"); if(ci){ ci.value=_cv; if(_cf){ ci.focus(); ci.setSelectionRange(_cv.length,_cv.length); } } }
+  { const jl=$("#jlist"); if(jl) jl.scrollTop=_jb?jl.scrollHeight:_jt; }
+  if(JTAB==="chat" && (JOPEN || window.innerWidth>=1000)) CHAT_SEEN=Math.max(CHAT_SEEN, CHAT.length?CHAT[CHAT.length-1].t:0);
   settleBars();
   while(FXQ.length) FXQ.shift()();
   if(MODE==="vs") schedulePush();
@@ -1711,7 +1801,7 @@ function currentReact(){
 }
 
 /* ---------- versus en ligne ---------- */
-const NET={db:null,user:null,uid:null,ref:null,unsub:null,role:null,seq:0,lastSeq:0,pushT:null,handoff:false,pend:null,rid:0,answered:null,team:null};
+const NET={names:{},db:null,user:null,uid:null,ref:null,unsub:null,role:null,seq:0,lastSeq:0,pushT:null,handoff:false,pend:null,rid:0,answered:null,team:null};
 async function netInit(){
   if(NET.db) return true;
   try{ NET.db = window.claude ? await window.claude.use("db") : null; NET.user = window.claude ? await window.claude.use("user") : null; }catch(e){ NET.db=null; }
@@ -1762,6 +1852,8 @@ function applyRemote(d, force){
 function onDuel(snap){
   if(!snap.exists) return;
   const d=snap.data();
+  NET.names={host:d.hostName||"P1",guest:d.guestName||"P2"};
+  const chatChanged=onChatData(d);
   if(NET.role==="host" && d.status==="ready" && !d.state && !NET.started){
     NET.started=true; MODE="vs"; ME="p";
     newGame(d.hostTeam); S.a=makeSide(d.guestTeam); S.names={p:d.hostName||"P1", a:d.guestName||"P2"};
@@ -1777,8 +1869,10 @@ function onDuel(snap){
     pe.res(d.answer.uid==null ? null : (pe.options.find(o=>o.uid===d.answer.uid)||null));
   }
   if(NET.role==="host" && d.status==="waiting" && !NET.started) renderWaiting(d.code);
+  if(chatChanged && NET.started && S && !d.state) render();
+  else if(chatChanged && NET.started && S && d.seq===NET.lastSeq) render();
 }
-function netLeave(){ try{ NET.unsub && NET.unsub(); }catch(e){} Object.assign(NET,{ref:null,unsub:null,role:null,started:false,pend:null,answered:null,seq:0,lastSeq:0,lastEv:0,handoff:false}); MODE="solo"; ME="p"; S=null; }
+function netLeave(){ try{ NET.unsub && NET.unsub(); }catch(e){} journalReset(); Object.assign(NET,{names:{},ref:null,unsub:null,role:null,started:false,pend:null,answered:null,seq:0,lastSeq:0,lastEv:0,handoff:false}); MODE="solo"; ME="p"; S=null; }
 function makeCode(){ const A="ABCDEFGHJKLMNPQRSTUVWXYZ"; let c=""; for(let i=0;i<4;i++) c+=A[rnd(A.length)]; return c; }
 async function renderLobby(team){
   $("#app").innerHTML=`<div class="screen" style="overflow-y:auto"><div class="kicker">${L("vsOnline")}</div><h2 style="font-size:34px;color:var(--sand)">${L("vsTitle")}</h2><p class="note">${L("connecting")}</p></div>`;
@@ -1854,6 +1948,7 @@ const TIPS=[
   ["endturn",(p,my)=>my && !p.hand.some(c=>canPlay(ME,c)) && p.rage<RAGE_MAX]
 ];
 function startTuto(){
+  journalReset();
   MODE="tuto"; ME="p"; TUTO.seen={}; TUTO.open=false;
   S = { p:makeSide(["maitre","dans","sage"]), a:makeSide(["ventre","fourbe","rival"]), terrain:null, round:0, turn:null, busy:true, over:false, react:null, log:L("start"), sub:"" };
   startTurn("p");
