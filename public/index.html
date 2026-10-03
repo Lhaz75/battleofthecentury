@@ -880,6 +880,9 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .newstoast{position:fixed;right:14px;bottom:14px;z-index:40;padding:10px 16px;border-radius:14px;background:rgba(26,15,8,.95);border:1px solid #f0b24a;color:#fff3dc;font-size:14px;box-shadow:0 8px 24px rgba(0,0,0,.6);animation:slidein .4s ease-out}
 .newstoast b{color:#f0b24a;font-family:Oswald,var(--f-display)}
 .maint h1{font-size:clamp(30px,8.5vw,80px)!important;line-height:1}.maint .lead{max-width:560px;margin:10px auto}
+.adminbox>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;margin:0}.adminbox>summary::-webkit-details-marker{display:none}
+.adminbox>summary::before{content:"▸";transition:transform .15s;color:#ff8a6e}.adminbox[open]>summary::before{transform:rotate(90deg)}
+.adminbox:not([open]){padding-block:10px!important}
 .adminbox{margin:0 0 16px;display:flex;flex-direction:column;gap:10px;padding:16px;border-radius:16px;border:1px dashed rgba(255,138,110,.6);background:rgba(40,12,8,.5)}
 .adminbox .chk{display:flex;gap:10px;align-items:center;color:#f3e2bf}.adminbox .chk input{width:20px;height:20px;accent-color:#f0b24a}
 .adminbox .mlbl{display:flex;flex-direction:column;gap:6px;font-size:13px;color:#cdb79a}
@@ -2604,6 +2607,7 @@ function refreshAccBtn(){ const b=$("#acc"); if(!b) return; b.outerHTML=accBtnHT
 let TITLE_SEL=[];
 function accErr(code){ return L("e_"+(["name","password","taken","bad","slow","image","size","started","full","notfound","few","team","maintenance","admin","banned","self","oldpw"].includes(code)?code:"net")); }
 
+let ADMIN_OPEN=false;
 function renderAccount(sel=[], tab="login"){
   if(!ACC.user){
     pageShell(L("accTitle"),`<p class="iplead">${L("accLead")}</p>${accFormsHTML()}<p class="note">${L("hofHow")}</p>`,sel);
@@ -2615,12 +2619,12 @@ function renderAccount(sel=[], tab="login"){
   const favs=Object.entries(st.fav||{}).filter(([id])=>FIGHTERS[id]).sort((a,b)=>b[1]-a[1]).slice(0,3);
   const cell=(k,v,sub)=>`<div class="stc"><b>${v}</b><span>${L(k)}</span>${sub?`<i>${sub}</i>`:""}</div>`;
   pageShell(L("accTitle"),`<div class="profile">
-    ${u.admin?`<div class="adminbox"><h3 class="pfh">${L("adminTitle")}</h3>
+    ${u.admin?`<details class="adminbox" ${ADMIN_OPEN?"open":""}><summary class="pfh">${L("adminTitle")}</summary>
       <label class="chk"><input type="checkbox" id="mon" ${STATUS.maint.on?"checked":""}> ${L("maintToggle")}</label>
       <label class="mlbl">${L("maintMsgLbl")}<textarea id="mmsg" maxlength="400" rows="3" placeholder="${esc(L("maintDefault"))}">${esc(STATUS.maint.msg||"")}</textarea></label>
       ${STATUS.maint.forced?`<p class="note">${L("maintForced")}</p>`:""}
       <div class="row"><button class="btn sm" id="msave">${L("save")}</button><span class="err" id="merr"></span></div>
-      <div class="row"><button class="btn sm" id="tousers">${L("admUsers")}</button><button class="btn sm" id="tofst">${L("fsTitle")}</button><button class="btn sm" id="tofaces">${L("faTitle")}</button></div></div>`:""}
+      <div class="row"><button class="btn sm" id="tousers">${L("admUsers")}</button><button class="btn sm" id="tofst">${L("fsTitle")}</button><button class="btn sm" id="tofaces">${L("faTitle")}</button></div></details>`:""}
     <div class="pfhead"><label class="avpick" title="${L("changeAv")}">${avatarHTML(u,"uavbig")}<input type="file" id="avfile" accept="image/png,image/jpeg,image/webp" hidden><span class="avedit">${L("changeAv")}</span></label>
       <div><h3 class="pfname">${esc(u.name)}</h3>${(()=>{ const v=lvlOf(st.pts); return `<div class="lvlrow"><span class="lvlb lvbig">${L("lvShort")} ${v.n}</span><b>${esc(lvlTitle(v.n))}</b></div><div class="xpbar"><i style="width:${v.pct}%"></i></div><div class="xptxt">${v.n>=LVL_MAX?L("lvlMax"):L("xpNext",v.cur,v.need,v.n+1)}</div>`; })()}<div class="err" id="averr" role="alert"></div><button class="btn ghost sm" id="logout">${L("logout")}</button></div></div>
     <div class="stgrid">${cell("st_elo",st.elo??1000,rk.elo?"#"+rk.elo:"")}${cell("st_pts",st.pts||0,rk.pts?"#"+rk.pts:"")}${cell("st_aiW",st.aiW||0)}${cell("st_aiL",st.aiL||0)}${cell("st_vsW",st.vsW||0)}${cell("st_vsL",st.vsL||0)}${cell("st_streak",st.streak||0)}${cell("st_best",st.best||0)}${cell("st_tW",st.tW||0)}${cell("st_surv",st.surv||0)}</div>
@@ -2644,6 +2648,7 @@ function renderAccount(sel=[], tab="login"){
     const r=await api("POST","/api/password",{old:String(fd.get("old")||""),password:pw}).catch(()=>({ok:false}));
     if(!r.ok){ er.textContent=accErr(r.error); return; }
     ACC.token=r.token; try{ localStorage.setItem("boc-token",r.token); }catch(x){} f.reset(); er.classList.add("ok"); er.textContent=L("pwDone"); SFX.play("event"); };
+  { const ab=document.querySelector(".adminbox"); if(ab) ab.ontoggle=()=>{ ADMIN_OPEN=ab.open; }; }
   if($("#tousers")) $("#tousers").onclick=()=>{ SFX.play("click"); renderAdminUsers(sel); };
   if($("#tofst")) $("#tofst").onclick=()=>{ SFX.play("click"); renderFStats(sel); };
   if($("#tofaces")) $("#tofaces").onclick=()=>{ SFX.play("click"); renderFaceAdmin(sel); };
@@ -2811,6 +2816,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.28.4",d:"2026-10-04",fr:["Admin : le bloc Administration du profil est replié par défaut, un clic pour le déplier"],en:["Admin: the profile Administration block is collapsed by default, one click to expand"],it:["Admin: il blocco Amministrazione del profilo è chiuso di default, un clic per aprirlo"]},
  {v:"0.28.3",d:"2026-10-04",fr:["Correctif : certaines anciennes illustrations (Kaioh) pouvaient rester bloquées dans le cache du navigateur, elles sont maintenant toujours revérifiées"],en:["Fix: some old artwork (Kaioh) could stay stuck in the browser cache, it is now always rechecked"],it:["Correzione: alcune vecchie illustrazioni (Kaioh) potevano restare bloccate nella cache del browser, ora vengono sempre ricontrollate"]},
  {v:"0.28.2",d:"2026-10-04",fr:["Admin : le bloc Administration est en haut de la page profil"],en:["Admin: the Administration block is at the top of the profile page"],it:["Admin: il blocco Amministrazione è in cima alla pagina profilo"]},
  {v:"0.28.1",d:"2026-10-04",fr:["Admin : l'outil de recadrage des pastilles tient sur un écran de téléphone (image et réglages côte à côte, boutons toujours accessibles)"],en:["Admin: the token cropping tool fits on a phone screen (image and controls side by side, buttons always reachable)"],it:["Admin: lo strumento di ritaglio delle pedine entra nello schermo del telefono (immagine e comandi affiancati, pulsanti sempre raggiungibili)"]},

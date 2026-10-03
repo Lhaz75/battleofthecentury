@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.28.4 — 2026-10-04
+
+- Admin : le bloc Administration du profil est replié par défaut, un clic pour le déplier
+
 ## v0.28.3 — 2026-10-04
 
 - Correctif : certaines anciennes illustrations (Kaioh) pouvaient rester bloquées dans le cache du navigateur, elles sont maintenant toujours revérifiées
