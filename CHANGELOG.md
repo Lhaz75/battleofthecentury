@@ -4,7 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v1.12.3 — 2026-10-03
 
-- Mention « jeu de fan gratuit et non monétisé » sur l'écran principal, les Règles et les Nouveautés
+- Mention « jeu de fan gratuit et non monétisé, illustrations générées par IA » sur l'écran principal, les Règles et les Nouveautés
 
 ## v1.12.2 — 2026-10-03
 
