@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.17.4 — 2026-10-03
+
+- Mobile : plateau plus aéré, il s'adapte à la hauteur de l'écran
+
 ## v0.17.3 — 2026-10-03
 
 - Mobile : plateau rééquilibré (réservistes plus compacts, passif sur deux lignes, cartes de la main un peu plus grandes), tout tient à l'écran
