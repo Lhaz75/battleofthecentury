@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.23.0 — 2026-10-04
+
+- Le jeu s'installe comme une appli (bouton « Installer l'appli » en bas de l'écran principal) : icône sur l'écran d'accueil, plein écran sans barre de navigateur
+- Images, sons et polices gardés en cache : le jeu se lance beaucoup plus vite après la première visite
+
 ## v0.22.0 — 2026-10-04
 
 - Défis directs : dans la liste des joueurs en ligne, bouton « Défier » à côté de chaque joueur qui est dans les menus. Il reçoit une invitation qu'il peut accepter ou refuser (60 s), et le combat compte pour l'Elo

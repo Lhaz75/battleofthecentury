@@ -4,6 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#120e0c">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="48x48" href="assets/favicon-48.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="BotC">
 <title>Battle of the Century</title>
 <style>
 @font-face{font-family:"Oswald";font-weight:500;font-display:swap;src:url(fonts/oswald-500.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+20AC}
@@ -972,6 +979,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .soc{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 14px;border-radius:17px;border:1px solid rgba(232,176,74,.45);background:rgba(18,10,6,.7);color:#f3e2bf;text-decoration:none;font:600 13px var(--f-body,inherit);transition:border-color .15s,background .15s}
 .soc svg{width:17px;height:17px;flex:none}
 .soc:hover{border-color:#e8b04a;background:rgba(40,24,12,.85)}
+.soc-app{cursor:pointer;border-color:#e8b04a;background:linear-gradient(180deg,rgba(232,176,74,.22),rgba(18,10,6,.8))}.soc-app svg{color:#e8b04a}.soc[hidden]{display:none}
 .soc-facebook svg{color:#5b8cff}.soc-discord svg{color:#8b95ff}.soc-site svg{color:#e8b04a}
 .gate .social{justify-content:center}
 .endj{width:min(560px,100%);margin:6px auto 14px;border:1px solid rgba(232,176,74,.3);border-radius:10px;background:rgba(14,9,7,.82);text-align:left}
@@ -1619,6 +1627,9 @@ Object.assign(UI.fr,{onlineN:n=>`${n} en ligne`, onlineTitle:"Joueurs en ligne",
 Object.assign(UI.en,{onlineN:n=>`${n} online`, onlineTitle:"Players online", onlineEmpty:"Nobody else right now.", w_menu:"In the menus", w_solo:"Fighting the AI", w_surv:"In survival", w_vs:"In versus", w_queue:"Looking for an opponent", w_tour:"In a tournament", onlineYou:"you"});
 Object.assign(UI.it,{onlineN:n=>`${n} online`, onlineTitle:"Giocatori online", onlineEmpty:"Nessun altro per ora.", w_menu:"Nei menu", w_solo:"Contro l'IA", w_surv:"In sopravvivenza", w_vs:"In versus", w_queue:"Cerca un avversario", w_tour:"In torneo", onlineYou:"tu"});
 /* ---------- textes du mode survie ---------- */
+Object.assign(UI.fr,{pwaBtn:"Installer l'appli", pwaIos:"Sur iPhone / iPad : ouvre le jeu dans Safari, touche le bouton Partager (le carré avec la flèche), puis « Sur l'écran d'accueil ». Le jeu s'ouvrira en plein écran comme une vraie appli.", pwaOther:"Ouvre le menu de ton navigateur (les 3 points) et choisis « Installer l'application » ou « Ajouter à l'écran d'accueil »."});
+Object.assign(UI.en,{pwaBtn:"Install the app", pwaIos:"On iPhone / iPad: open the game in Safari, tap the Share button (the square with the arrow), then \"Add to Home Screen\". The game will open full screen like a real app.", pwaOther:"Open your browser menu (the 3 dots) and choose \"Install app\" or \"Add to Home screen\"."});
+Object.assign(UI.it,{pwaBtn:"Installa l'app", pwaIos:"Su iPhone / iPad: apri il gioco in Safari, tocca il pulsante Condividi (il quadrato con la freccia), poi «Aggiungi alla schermata Home». Il gioco si aprirà a schermo intero come una vera app.", pwaOther:"Apri il menu del browser (i 3 puntini) e scegli «Installa app» o «Aggiungi a schermata Home»."});
 Object.assign(UI.fr,{chBtn:"Défier", chBusy:"Ce joueur est occupé", chTitle:"Défi", chWaiting:n=>`En attente de la réponse de ${n}…`, chAccepted:n=>`${n} accepte le défi !`, chDeclined:n=>`${n} a refusé le défi.`, chExpired:n=>`${n} n'a pas répondu.`, chIncoming:"Tu es défié !", chYourTeam:"Ton équipe :", chAccept:"Accepter", chDecline:"Refuser", chExpiresIn:n=>`Expire dans ${n} s`, chGone:"Ce défi n'est plus valable.", chHow:"Défie un joueur qui est dans les menus. Le combat se joue avec l'équipe choisie sur ton écran principal (sinon ta première équipe sauvegardée)."});
 Object.assign(UI.en,{chBtn:"Challenge", chBusy:"This player is busy", chTitle:"Challenge", chWaiting:n=>`Waiting for ${n} to answer…`, chAccepted:n=>`${n} accepts the challenge!`, chDeclined:n=>`${n} declined the challenge.`, chExpired:n=>`${n} did not answer.`, chIncoming:"You are challenged!", chYourTeam:"Your team:", chAccept:"Accept", chDecline:"Decline", chExpiresIn:n=>`Expires in ${n}s`, chGone:"This challenge is no longer valid.", chHow:"Challenge a player who is in the menus. The fight uses the team picked on your main screen (otherwise your first saved team)."});
 Object.assign(UI.it,{chBtn:"Sfida", chBusy:"Questo giocatore è occupato", chTitle:"Sfida", chWaiting:n=>`In attesa della risposta di ${n}…`, chAccepted:n=>`${n} accetta la sfida!`, chDeclined:n=>`${n} ha rifiutato la sfida.`, chExpired:n=>`${n} non ha risposto.`, chIncoming:"Sei stato sfidato!", chYourTeam:"La tua squadra:", chAccept:"Accetta", chDecline:"Rifiuta", chExpiresIn:n=>`Scade tra ${n} s`, chGone:"Questa sfida non è più valida.", chHow:"Sfida un giocatore che è nei menu. Il combattimento usa la squadra scelta nella schermata principale (altrimenti la tua prima squadra salvata)."});
@@ -2710,6 +2721,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.23.0",d:"2026-10-04",fr:["Le jeu s'installe comme une appli (bouton « Installer l'appli » en bas de l'écran principal) : icône sur l'écran d'accueil, plein écran sans barre de navigateur","Images, sons et polices gardés en cache : le jeu se lance beaucoup plus vite après la première visite"],en:["The game installs like an app (\"Install the app\" button at the bottom of the main screen): home screen icon, full screen without browser bar","Images, sounds and fonts are cached: the game starts much faster after the first visit"],it:["Il gioco si installa come un'app (pulsante «Installa l'app» in fondo alla schermata principale): icona nella schermata Home, schermo intero senza barra del browser","Immagini, suoni e font in cache: il gioco si avvia molto più in fretta dopo la prima visita"]},
  {v:"0.22.0",d:"2026-10-04",fr:["Défis directs : dans la liste des joueurs en ligne, bouton « Défier » à côté de chaque joueur qui est dans les menus. Il reçoit une invitation qu'il peut accepter ou refuser (60 s), et le combat compte pour l'Elo"],en:["Direct challenges: in the online players list, a \"Challenge\" button next to each player in the menus. They get an invitation to accept or decline (60 s), and the fight counts for Elo"],it:["Sfide dirette: nella lista dei giocatori online, pulsante «Sfida» accanto a ogni giocatore nei menu. Riceve un invito da accettare o rifiutare (60 s), e il combattimento conta per l'Elo"]},
  {v:"0.21.3",d:"2026-10-03",fr:["Mobile : écran principal plus compact (boutons secondaires plus petits, fiche du perso réduite) et ton équipe reste affichée en bas de l'écran avec le bouton pour lancer le combat"],en:["Mobile: more compact main screen (smaller secondary buttons, reduced fighter card) and your team stays pinned at the bottom with the fight button"],it:["Mobile: schermata principale più compatta (pulsanti secondari più piccoli, scheda ridotta) e la tua squadra resta fissata in basso con il pulsante per combattere"]},
  {v:"0.21.2",d:"2026-10-03",fr:["Nouveau bouton retour, rond et doré comme les autres boutons"],en:["New back button, round and golden like the other buttons"],it:["Nuovo pulsante indietro, rotondo e dorato come gli altri"]},
@@ -2872,7 +2884,7 @@ const SOC_ICON={
   facebook:'<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 22v-8.2h2.8l.4-3.3h-3.2V8.4c0-.9.3-1.6 1.6-1.6h1.7V3.9c-.3 0-1.3-.1-2.5-.1-2.5 0-4.1 1.5-4.1 4.2v2.5H7.4v3.3h2.8V22z"/></svg>',
   discord:'<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19.6 5.3A16.6 16.6 0 0 0 15.5 4l-.5 1a15 15 0 0 0-6 0l-.5-1a16.6 16.6 0 0 0-4.1 1.3C1.8 9.2 1.1 13 1.4 16.8a16.7 16.7 0 0 0 5 2.5l1.1-1.7c-.6-.2-1.2-.5-1.7-.9l.4-.3a11.9 11.9 0 0 0 11.6 0l.4.3c-.5.4-1.1.7-1.7.9l1.1 1.7a16.7 16.7 0 0 0 5-2.5c.4-4.4-.7-8.2-3-11.5zM8.7 14.5c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2zm6.6 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2z"/></svg>'};
 function socialHTML(){ const lbl={site:"hokutolegacy.com",facebook:"Facebook",discord:"Discord"};
-  return `<div class="social">${["site","facebook","discord"].filter(k=>SOCIAL[k]).map(k=>`<a class="soc soc-${k}" href="${SOCIAL[k]}" target="_blank" rel="noopener">${SOC_ICON[k]}<span>${lbl[k]}</span></a>`).join("")}</div>`; }
+  return `<div class="social">${pwaBtnHTML()}${["site","facebook","discord"].filter(k=>SOCIAL[k]).map(k=>`<a class="soc soc-${k}" href="${SOCIAL[k]}" target="_blank" rel="noopener">${SOC_ICON[k]}<span>${lbl[k]}</span></a>`).join("")}</div>`; }
 
 /* ---------- équipes sauvegardées ---------- */
 const DECKS={list:null, loading:null};
@@ -2924,6 +2936,20 @@ function bindDecksProfile(sel,redraw){
   document.querySelectorAll(".dkname").forEach(inp=>inp.onchange=async()=>{ const l=DECKS.list.map(d=>({...d})); const v=inp.value.trim(); if(!v){ inp.value=l[+inp.dataset.i].name; return; } l[+inp.dataset.i].name=v; await decksSave(l); });
   const a=$("#dkadd"); if(a) a.onclick=async()=>{ SFX.play("click"); const name=(await askName(L("deckName"),sel.map(nm).join(" / ").slice(0,24))||""); if(!name) return; if(await decksSave([...(DECKS.list||[]),{name,team:sel.slice()}])){ SFX.play("event"); redraw(); } };
 }
+
+/* ---------- appli installable ---------- */
+const PWA={prompt:null, standalone:(()=>{ try{ return matchMedia("(display-mode: standalone)").matches || navigator.standalone===true; }catch(e){ return false; } })()};
+const IS_IOS=/iphone|ipad|ipod/i.test(navigator.userAgent||"") || (navigator.platform==="MacIntel" && navigator.maxTouchPoints>1);
+if(window.DOOM_SELFHOST && "serviceWorker" in navigator){ window.addEventListener("load",()=>{ navigator.serviceWorker.register("sw.js").catch(()=>{}); }); }
+window.addEventListener("beforeinstallprompt",e=>{ e.preventDefault(); PWA.prompt=e; const b=$("#pwa"); if(b) b.hidden=false; });
+window.addEventListener("appinstalled",()=>{ PWA.prompt=null; PWA.standalone=true; const b=$("#pwa"); if(b) b.hidden=true; });
+function pwaBtnHTML(){ if(!window.DOOM_SELFHOST || PWA.standalone) return ""; const show=!!PWA.prompt || IS_IOS;
+  return `<button class="soc soc-app" id="pwa" ${show?"":"hidden"}><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v7m-3-3 3 3 3-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>${L("pwaBtn")}</span></button>`; }
+function bindPwa(){ const b=$("#pwa"); if(!b) return; b.onclick=async()=>{ SFX.play("click");
+  if(PWA.prompt){ const p=PWA.prompt; PWA.prompt=null; try{ p.prompt(); await p.userChoice; }catch(e){} b.hidden=true; return; }
+  const w=document.createElement("div"); w.className="askw";
+  w.innerHTML=`<div class="askbox" role="dialog"><h3>${L("pwaBtn")}</h3><p class="note" style="font-size:14px;line-height:1.5">${L(IS_IOS?"pwaIos":"pwaOther")}</p><div class="row"><button class="btn sm" data-x>OK</button></div></div>`;
+  document.body.appendChild(w); w.onclick=e=>{ if(e.target===w || e.target.closest("[data-x]")) w.remove(); }; }; }
 
 /* ---------- joueurs en ligne ---------- */
 const ONLINE={list:[], timer:0, last:0};
@@ -3199,7 +3225,7 @@ function renderGate(sel=[]){
     ${accFormsHTML()}
     <div class="row gatelinks"><button class="btn ghost sm" id="groster">${L("rosterBtn")}</button><button class="btn ghost sm" id="grules">${L("rulesBtn")}</button><button class="btn ghost sm" id="gnews">${L("newsTitle")}</button></div>
     ${socialHTML()}<p class="fanmade">${L("fanMade")}</p></div></div>`;
-  bindAccForms(()=>renderTitle(sel));
+  bindAccForms(()=>renderTitle(sel)); bindPwa();
   $("#groster").onclick=()=>{ SFX.play("click"); renderRoster(sel); };
   $("#grules").onclick=()=>{ SFX.play("click"); renderRules(sel); };
   $("#gnews").onclick=()=>{ SFX.play("click"); renderChangelog(sel); };
@@ -3294,6 +3320,7 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; quickStop
   if($("#tour")) $("#tour").onclick=()=>{ SFX.play("click"); renderTourHome(sel); };
   $("#ver").onclick=()=>{ SFX.play("click"); renderChangelog(sel); };
   if($("#onl")) $("#onl").onclick=()=>{ SFX.play("click"); renderOnline(sel); };
+  bindPwa();
   if(ACC.user){ presStart(); chInboxStart(); if(Date.now()-ONLINE.last>8000) presPing(); }
   if($("#acc")) $("#acc").onclick=()=>{ SFX.play("click"); renderAccount(sel); };
   $("#snd").onclick=()=>{ SFX.toggle(); redo(sel,focus); };
