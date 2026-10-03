@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v1.10.0 — 2026-10-03
+
+- Nouveau piège : Embuscade du clan Kiba (relais adverse → 4 dégâts et −1 endurance)
+
 ## v1.9.0 — 2026-10-03
 
 - Musiques de combat (9 morceaux tirés au hasard, enchaînés en fondu)
