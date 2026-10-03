@@ -38,7 +38,7 @@ L'organisateur peut désigner le vainqueur d'un match (joueur absent, partie pla
 
 ## Versions et maintenance
 
-- La version du jeu est la première entrée de `CHANGELOG` dans `public/index.html` ; `package.json` et `CHANGELOG.md` sont générés à partir d'elle, et chaque version a son tag git (`v1.7.0`…).
+- La version du jeu est la première entrée de `CHANGELOG` dans `public/index.html` ; `package.json` et `CHANGELOG.md` sont générés à partir d'elle.
 - En jeu : bouton de version (ex. « v1.7.0 ») → page Nouveautés. Les joueurs qui ont la page ouverte sont prévenus quand une nouvelle version est déployée.
 - Admins : variable `ADMINS` sur Render = pseudos séparés par des virgules (ex. `Dave`). Un admin voit un bloc « Administration » sur sa page Compte pour activer la maintenance avec un message.
 - Pendant la maintenance, les joueurs non-admin voient un écran d'attente ; les parties déjà lancées peuvent se terminer. `MAINTENANCE=1` sur Render force la maintenance même si la base est inaccessible.
