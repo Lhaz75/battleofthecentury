@@ -974,6 +974,9 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .soc:hover{border-color:#e8b04a;background:rgba(40,24,12,.85)}
 .soc-facebook svg{color:#5b8cff}.soc-discord svg{color:#8b95ff}.soc-site svg{color:#e8b04a}
 .gate .social{justify-content:center}
+.endj{width:min(560px,100%);margin:6px auto 14px;border:1px solid rgba(232,176,74,.3);border-radius:10px;background:rgba(14,9,7,.82);text-align:left}
+.endj summary{cursor:pointer;padding:8px 12px;font:700 13px var(--f-display);letter-spacing:.08em;text-transform:uppercase;color:#e8b04a}
+.endj .jlist{max-height:min(32vh,260px);flex:none;border-top:1px solid rgba(232,176,74,.2)}
 /* mobile : plateau allégé */
 @media (max-width:999px){
   .screen.board .rs{width:auto;gap:1px}
@@ -1561,6 +1564,7 @@ Object.assign(UI.fr,{onlineN:n=>`${n} en ligne`, onlineTitle:"Joueurs en ligne",
 Object.assign(UI.en,{onlineN:n=>`${n} online`, onlineTitle:"Players online", onlineEmpty:"Nobody else right now.", w_menu:"In the menus", w_solo:"Fighting the AI", w_surv:"In survival", w_vs:"In versus", w_queue:"Looking for an opponent", w_tour:"In a tournament", onlineYou:"you"});
 Object.assign(UI.it,{onlineN:n=>`${n} online`, onlineTitle:"Giocatori online", onlineEmpty:"Nessun altro per ora.", w_menu:"Nei menu", w_solo:"Contro l'IA", w_surv:"In sopravvivenza", w_vs:"In versus", w_queue:"Cerca un avversario", w_tour:"In torneo", onlineYou:"tu"});
 /* ---------- textes du mode survie ---------- */
+Object.assign(UI.fr,{endLog:"Journal du combat"}); Object.assign(UI.en,{endLog:"Fight log"}); Object.assign(UI.it,{endLog:"Diario del combattimento"});
 Object.assign(UI.fr,{trapVoid:n=>`Plus personne en réserve : le piège « ${n} » ne sert plus à rien, il est défaussé.`});
 Object.assign(UI.en,{trapVoid:n=>`Nobody left in reserve: the "${n}" trap is useless and gets discarded.`});
 Object.assign(UI.it,{trapVoid:n=>`Nessuno più in riserva: la trappola «${n}» non serve più ed è scartata.`});
@@ -2263,6 +2267,12 @@ function voicePlay(id){
 }
 
 function chatUnread(){ return CHAT.filter(m=>m.who!==NET.role && m.t>CHAT_SEEN).length; }
+// écran de fin : relire les derniers coups (la fin peut arriver très vite)
+function endJournalHTML(){
+  journalNote(); if(!JOURNAL.length) return "";
+  return `<details class="endj" open><summary>${L("endLog")}</summary><div class="jlist">${JOURNAL.map(e=>`<div class="je ${e.miss?"miss":""}"><span class="jr">${e.r}</span><div><div class="jl">${e.log}${e.miss?` <b class="jmiss">${e.miss}</b>`:""}</div>${e.sub?`<div class="js">${e.sub}</div>`:""}</div></div>`).join("")}</div></details>`;
+}
+function endJournalScroll(){ const l=document.querySelector(".endj .jlist"); if(l) l.scrollTop=l.scrollHeight; }
 function journalHTML(){
   const vs=MODE==="vs";
   if(JTAB==="chat" && !vs) JTAB="log";
@@ -2388,11 +2398,13 @@ function reactHTML(R){
 }
 function renderEnd(win){ if(S&&S.dead) return; if(SURV.on && MODE==="solo" && S && S.surv) return survAfter(win); MUSIC.want("menu");
   SFX.play(win?"win":"lose");
-  $("#app").innerHTML=`<div class="screen"><div class="center">
+  $("#app").innerHTML=`<div class="screen" style="overflow-y:auto"><div class="center">
     <div class="kicker">${win?L("foeDown"):L("meDown")}</div>
     <h1>${win?L("win"):`<em>${L("lose")}</em>`}</h1>
     <p class="note" id="accline">${ACC.on&&(MODE==="solo"||MODE==="vs")&&!ACC.user?L("notLogged"):""}</p>
+    ${endJournalHTML()}
     <button class="btn" id="again">${MODE==="vs"?(TOUR.code?L("tourBack"):L("back")):L("rematch")}</button></div></div>`;
+  endJournalScroll();
   $("#again").onclick=()=>{ const tc=MODE==="vs"?TOUR.code:null; if(MODE==="vs") netLeave(); if(tc) renderTour(tc); else renderTitle(); };
   if(ACC.on && ACC.user && !(S&&S.accDone)){ if(S) S.accDone=true;
     const show=t=>{ const e=$("#accline"); if(e) e.textContent=t; };
@@ -2635,6 +2647,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.20.3",d:"2026-10-03",fr:["Écran de fin : le journal du combat est affiché, pour voir ce qui s'est passé quand ça finit très vite (merci Jerome R.)"],en:["End screen: the fight log is shown, to see what happened when it ends very fast (thanks Jerome R.)"],it:["Schermata finale: il diario del combattimento è mostrato, per vedere cos'è successo quando finisce molto in fretta (grazie Jerome R.)"]},
  {v:"0.20.2",d:"2026-10-03",fr:["Pièges Embuscade et Embuscade du clan Kiba : on ne peut plus les poser si l'adversaire n'a plus de réserviste, et s'ils sont déjà posés quand son avant-dernier combattant tombe, ils sont défaussés pour libérer la place (merci Jerome R.)"],en:["Ambush and Kiba Clan Ambush traps: they can no longer be set when the opponent has no reserve left, and if already set when their second-to-last fighter falls, they are discarded to free the slot (thanks Jerome R.)"],it:["Trappole Imboscata e Imboscata del clan Kiba: non si possono più piazzare se l'avversario non ha più riserve, e se sono già piazzate quando cade il suo penultimo combattente vengono scartate per liberare lo spazio (grazie Jerome R.)"]},
  {v:"0.20.1",d:"2026-10-03",fr:["Lien vers le Discord Hokuto Legacy"],en:["Link to the Hokuto Legacy Discord"],it:["Link al Discord Hokuto Legacy"]},
  {v:"0.20.0",d:"2026-10-03",fr:["Liens vers hokutolegacy.com et la page Facebook Hokuto Legacy sur l'écran principal et la page de connexion"],en:["Links to hokutolegacy.com and the Hokuto Legacy Facebook page on the main screen and the login page"],it:["Link a hokutolegacy.com e alla pagina Facebook Hokuto Legacy nella schermata principale e nella pagina di accesso"]},
@@ -2875,13 +2888,15 @@ function survAfter(win){
     SURV.wave=n+1; SURV.foe=survFoe(n+1,SURV.team);
   }
   if(rec) SURV.best=cleared;
-  $("#app").innerHTML=`<div class="screen"><div class="center">
+  $("#app").innerHTML=`<div class="screen" style="overflow-y:auto"><div class="center">
     <div class="kicker">${win?L("survCleared",n):L("survDead")}</div>
     <h1>${win?L("win"):`<em>${cleared?L("survOver",cleared):L("survNone")}</em>`}</h1>
     ${win?`<p class="note">${note}</p>${survFaces(SURV.team,SURV.hp,SURV.max)}`:""}
     ${rec&&!win?`<p class="note lvlup">${L("survNewRec")}</p>`:""}
     <p class="note" id="accline">${ACC.on&&!ACC.user?L("notLogged"):""}</p>
+    ${endJournalHTML()}
     <div class="row" style="justify-content:center"><button class="btn" id="svnext">${win?L("survAgain"):L("back")}</button>${win?`<button class="btn ghost" id="svquit">${L("survGiveUp")}</button>`:""}</div></div></div>`;
+  endJournalScroll();
   $("#svnext").onclick=()=>{ SFX.play("click"); if(win) renderSurvWave(); else { SURV.on=false; renderTitle(SURV.team); } };
   if($("#svquit")) $("#svquit").onclick=()=>{ SFX.play("click"); SURV.on=false; renderTitle(SURV.team); };
   if(!win) SURV.on=false;
