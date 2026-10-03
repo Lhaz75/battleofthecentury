@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.17.3 — 2026-10-03
+
+- Mobile : plateau allégé (réservistes compacts, passif sur une ligne, combo masqué quand il est vide), tout tient à l'écran
+
 ## v0.17.2 — 2026-10-03
 
 - Cadre ornementé doré pour les portraits en combat (coins sculptés, liseré aux couleurs de l'école)
