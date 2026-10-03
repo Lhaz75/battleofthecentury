@@ -995,6 +995,13 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .askbox input{width:100%;box-sizing:border-box;padding:10px 12px;border-radius:8px;border:1px solid rgba(232,176,74,.4);background:#0c0705;color:#f3e2bf;font:600 16px var(--f-body,inherit)}
 .askbox input:focus{outline:none;border-color:#e8b04a}
 .askbox .row{justify-content:flex-end;gap:8px}
+.ipbar .backbtn,.ipbar #back.backbtn{flex:none;display:inline-flex;align-items:center;gap:10px;padding:0 16px 0 0!important;height:44px;border:0;background:none;color:#f3e2bf;cursor:pointer;font:700 15px var(--f-display);letter-spacing:.08em;text-transform:uppercase;font-style:italic}
+.backbtn .bk-ic{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;border:2px solid #c9973f;background:radial-gradient(circle at 35% 28%,#4a3626,#1a110c 70%);box-shadow:inset 0 2px 3px rgba(255,220,160,.25),inset 0 -3px 6px rgba(0,0,0,.6),0 3px 10px rgba(0,0,0,.6);transition:transform .15s,border-color .15s}
+.backbtn .bk-ic svg{width:22px;height:22px;margin-left:-2px}
+.backbtn:hover .bk-ic{border-color:#f2c46a;transform:translateX(-2px)}
+.backbtn:hover{color:#fff}
+.backbtn .blabel{display:inline}
+@media (max-width:999px),(hover:none){.ipbar .backbtn,.ipbar #back.backbtn{padding:0!important}.backbtn .blabel{display:none!important}.backbtn .bk-ic{width:40px;height:40px}}
 /* mobile : plateau allégé */
 @media (max-width:999px){
   .screen.board .rs{width:auto;gap:1px}
@@ -2670,6 +2677,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.21.2",d:"2026-10-03",fr:["Nouveau bouton retour, rond et doré comme les autres boutons"],en:["New back button, round and golden like the other buttons"],it:["Nuovo pulsante indietro, rotondo e dorato come gli altri"]},
  {v:"0.21.1",d:"2026-10-03",fr:["Le nom d'une équipe sauvegardée se saisit dans une fenêtre aux couleurs du jeu (plus la boîte du navigateur)"],en:["Saved team names are typed in an in-game window (no more browser box)"],it:["Il nome di una squadra salvata si inserisce in una finestra del gioco (niente più box del browser)"]},
  {v:"0.21.0",d:"2026-10-03",fr:["Équipes sauvegardées : enregistre jusqu'à 12 équipes, recharge-les en un clic sous tes slots, et gère-les (renommer, supprimer) dans ton profil"],en:["Saved teams: store up to 12 teams, load them in one click under your slots, and manage them (rename, delete) in your profile"],it:["Squadre salvate: salva fino a 12 squadre, ricaricale con un clic sotto gli slot e gestiscile (rinomina, elimina) nel profilo"]},
  {v:"0.20.3",d:"2026-10-03",fr:["Écran de fin : le journal du combat est affiché, pour voir ce qui s'est passé quand ça finit très vite (merci Jerome R.)"],en:["End screen: the fight log is shown, to see what happened when it ends very fast (thanks Jerome R.)"],it:["Schermata finale: il diario del combattimento è mostrato, per vedere cos'è successo quando finisce molto in fretta (grazie Jerome R.)"]},
@@ -3109,7 +3117,7 @@ function renderGate(sel=[]){
 }
 
 function pageShell(title,body,sel,music="menu"){ MUSIC.want(music);
-  $("#app").innerHTML=`<div class="screen infopage" style="overflow-y:auto"><div class="ipbar"><button class="btn ghost sm" id="back" aria-label="${L("back")}">←<span class="blabel"> ${L("back")}</span></button><h2>${title}</h2><div class="row">${langBar()}</div></div>${body}</div>`;
+  $("#app").innerHTML=`<div class="screen infopage" style="overflow-y:auto"><div class="ipbar"><button class="backbtn" id="back" aria-label="${L("back")}"><i class="bk-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></i><span class="blabel">${L("back")}</span></button><h2>${title}</h2><div class="row">${langBar()}</div></div>${body}</div>`;
   $("#back").onclick=()=>{ SFX.play("click"); renderTitle(sel); };
 }
 function fitShowName(){

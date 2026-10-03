@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.21.2 — 2026-10-03
+
+- Nouveau bouton retour, rond et doré comme les autres boutons
+
 ## v0.21.1 — 2026-10-03
 
 - Le nom d'une équipe sauvegardée se saisit dans une fenêtre aux couleurs du jeu (plus la boîte du navigateur)
