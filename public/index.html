@@ -2628,6 +2628,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.20.1",d:"2026-10-03",fr:["Lien vers le Discord Hokuto Legacy"],en:["Link to the Hokuto Legacy Discord"],it:["Link al Discord Hokuto Legacy"]},
  {v:"0.20.0",d:"2026-10-03",fr:["Liens vers hokutolegacy.com et la page Facebook Hokuto Legacy sur l'écran principal et la page de connexion"],en:["Links to hokutolegacy.com and the Hokuto Legacy Facebook page on the main screen and the login page"],it:["Link a hokutolegacy.com e alla pagina Facebook Hokuto Legacy nella schermata principale e nella pagina di accesso"]},
  {v:"0.19.4",d:"2026-10-03",fr:["Mobile : la grille des combattants prend toute la largeur, mêmes marges à gauche et à droite"],en:["Mobile: the fighter grid uses the full width, same margins left and right"],it:["Mobile: la griglia dei combattenti usa tutta la larghezza, stessi margini a sinistra e a destra"]},
  {v:"0.19.3",d:"2026-10-03",fr:["Mobile : un seul drapeau en haut, qui ouvre le choix de la langue"],en:["Mobile: a single flag at the top that opens the language picker"],it:["Mobile: una sola bandiera in alto che apre la scelta della lingua"]},
@@ -2776,7 +2777,7 @@ const MUSIC=(()=>{
 })();
 
 /* ---------- liens communauté ---------- */
-const SOCIAL={site:"https://hokutolegacy.com", facebook:"https://www.facebook.com/hokutolegacy", discord:""};
+const SOCIAL={site:"https://hokutolegacy.com", facebook:"https://www.facebook.com/hokutolegacy", discord:"https://discord.gg/TfZEBzT9vg"};
 const SOC_ICON={
   site:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M2.5 12h19M12 2.5c3 3.2 3 15.8 0 19M12 2.5c-3 3.2-3 15.8 0 19" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>',
   facebook:'<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 22v-8.2h2.8l.4-3.3h-3.2V8.4c0-.9.3-1.6 1.6-1.6h1.7V3.9c-.3 0-1.3-.1-2.5-.1-2.5 0-4.1 1.5-4.1 4.2v2.5H7.4v3.3h2.8V22z"/></svg>',

@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.20.1 — 2026-10-03
+
+- Lien vers le Discord Hokuto Legacy
+
 ## v0.20.0 — 2026-10-03
 
 - Liens vers hokutolegacy.com et la page Facebook Hokuto Legacy sur l'écran principal et la page de connexion
