@@ -735,6 +735,19 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
   .screen.board .card .kind{width:16px;height:16px}
   .screen.board .card.via .dm{position:relative;z-index:3}
 }
+/* zoom carte (appui long) */
+.hand .card{-webkit-touch-callout:none;user-select:none;-webkit-user-select:none}
+.zoomov{position:fixed;inset:0;z-index:50;background:rgba(5,3,2,.78);backdrop-filter:blur(3px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;animation:zin .18s ease-out}
+@keyframes zin{from{opacity:0}to{opacity:1}}
+.zoomwrap .card{width:min(250px,70vw)!important;height:auto!important;min-height:340px;flex:none!important;padding:16px 14px!important;transform:none!important;cursor:default;animation:zpop .2s cubic-bezier(.2,.9,.3,1.3)}
+@keyframes zpop{from{transform:scale(.7)}to{transform:scale(1)}}
+.zoomwrap .card .cn{font-size:24px!important;-webkit-line-clamp:unset!important;display:block!important;overflow:visible!important}
+.zoomwrap .card .cx{font-size:16px!important;line-height:1.4!important;-webkit-line-clamp:unset!important;display:block!important;max-height:none!important;overflow:visible!important}
+.zoomwrap .card .dm{font-size:48px!important}
+.zoomwrap .card .top .lv{font-size:13px!important}
+.zoomwrap .card .cost{width:40px;height:40px;top:-14px;left:-12px}.zoomwrap .card .cost span{font-size:24px}
+.zoomwrap .card .kind{width:28px;height:28px}
+.zhint{font:600 12px Oswald,var(--f-display);letter-spacing:.15em;text-transform:uppercase;color:var(--mute)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 <style>html,body{margin:0}*{box-sizing:border-box}img{max-width:100%}[hidden]{display:none!important}</style>
@@ -995,7 +1008,7 @@ fr:{
   stratDestroy:c=>`Il a vu venir ton ${c} : détruit.`, stratNone:"Il lit ton jeu… aucune réaction en main.", steal:n=>`Il arrache ${n} rage à l'adversaire.`,
   youTrap:n=>`Tu poses un piège : ${n}`, foeTrap:"L'adversaire pose un piège face cachée…", blindSense:(b,n,t)=>`${b} le sent : ${n}. ${t}`, beware:"Méfie-toi.",
   terrPlace:(me,n)=>me?`Tu poses : ${n}`:`L'adversaire pose : ${n}`,
-  trapWord:"Piège", journal:"Journal", chat:"Chat", close:"Fermer", timeUp:"Temps écoulé !", timerMine:"Ton temps pour jouer", timerTheirs:"Temps de l'adversaire", player1:"Joueur 1", player2:"Joueur 2", chatEmpty:"Aucun message. Dis bonjour !", chatPh:"Ton message…", send:"Envoyer", quitGame:"Quitter la partie", quitSure:"Quitter ?", myTrap:"Ton piège", foeTrap:"Son piège", trapBang:"Piège !", trapLog:(w,n)=>`PIÈGE (${w}) : ${n}`,
+  trapWord:"Piège", journal:"Journal", chat:"Chat", close:"Fermer", tapClose:"Touche pour fermer", holdHint:"Appui long sur une carte : texte complet", timeUp:"Temps écoulé !", timerMine:"Ton temps pour jouer", timerTheirs:"Temps de l'adversaire", player1:"Joueur 1", player2:"Joueur 2", chatEmpty:"Aucun message. Dis bonjour !", chatPh:"Ton message…", send:"Envoyer", quitGame:"Quitter la partie", quitSure:"Quitter ?", myTrap:"Ton piège", foeTrap:"Son piège", trapBang:"Piège !", trapLog:(w,n)=>`PIÈGE (${w}) : ${n}`,
   filSub:n=>`${n} est stoppé net, combo terminé.`, hitSub:(lv,d,b)=>`${lv} · ${d} dégâts${b?` (combo +${b})`:""}`,
   otage:n=>`Un otage est jeté devant ${n} : le coup est annulé, combo terminé.`, instinct:n=>`${n} a senti le coup venir : esquivé, combo terminé.`,
   needles:n=>`Des aiguilles dans les yeux ! ${n} rate son coup et prend 2 dégâts.`, fakeVital:(n,d)=>`Faux point vital : ${n} frappe à côté, ${d} dégâts.`,
@@ -1032,7 +1045,7 @@ en:{
   stratDestroy:c=>`He saw your ${c} coming: destroyed.`, stratNone:"He reads your hand… no reactions in it.", steal:n=>`He rips ${n} rage from the opponent.`,
   youTrap:n=>`You set a trap: ${n}`, foeTrap:"The opponent sets a face-down trap…", blindSense:(b,n,t)=>`${b} senses it: ${n}. ${t}`, beware:"Watch out.",
   terrPlace:(me,n)=>me?`You play: ${n}`:`The opponent plays: ${n}`,
-  trapWord:"Trap", journal:"Log", chat:"Chat", close:"Close", timeUp:"Time's up!", timerMine:"Your time to play", timerTheirs:"Opponent's time", player1:"Player 1", player2:"Player 2", chatEmpty:"No messages yet. Say hi!", chatPh:"Your message…", send:"Send", quitGame:"Quit the match", quitSure:"Quit?", myTrap:"Your trap", foeTrap:"Enemy trap", trapBang:"Trap!", trapLog:(w,n)=>`TRAP (${w}): ${n}`,
+  trapWord:"Trap", journal:"Log", chat:"Chat", close:"Close", tapClose:"Tap to close", holdHint:"Long press a card: full text", timeUp:"Time's up!", timerMine:"Your time to play", timerTheirs:"Opponent's time", player1:"Player 1", player2:"Player 2", chatEmpty:"No messages yet. Say hi!", chatPh:"Your message…", send:"Send", quitGame:"Quit the match", quitSure:"Quit?", myTrap:"Your trap", foeTrap:"Enemy trap", trapBang:"Trap!", trapLog:(w,n)=>`TRAP (${w}): ${n}`,
   filSub:n=>`${n} is stopped dead, combo over.`, hitSub:(lv,d,b)=>`${lv} · ${d} damage${b?` (combo +${b})`:""}`,
   otage:n=>`A hostage is thrown in front of ${n}: the hit is cancelled, combo over.`, instinct:n=>`${n} felt it coming: dodged, combo over.`,
   needles:n=>`Needles in the eyes! ${n} misses and takes 2 damage.`, fakeVital:(n,d)=>`Fake vital point: ${n} misses the mark, ${d} damage.`,
@@ -1069,7 +1082,7 @@ it:{
   stratDestroy:c=>`Ha previsto la tua ${c}: distrutta.`, stratNone:"Legge il tuo gioco… nessuna reazione in mano.", steal:n=>`Strappa ${n} rabbia all'avversario.`,
   youTrap:n=>`Piazzi una trappola: ${n}`, foeTrap:"L'avversario piazza una trappola coperta…", blindSense:(b,n,t)=>`${b} la percepisce: ${n}. ${t}`, beware:"Stai attento.",
   terrPlace:(me,n)=>me?`Giochi: ${n}`:`L'avversario gioca: ${n}`,
-  trapWord:"Trappola", journal:"Diario", chat:"Chat", close:"Chiudi", timeUp:"Tempo scaduto!", timerMine:"Il tuo tempo per giocare", timerTheirs:"Tempo dell'avversario", player1:"Giocatore 1", player2:"Giocatore 2", chatEmpty:"Nessun messaggio. Saluta!", chatPh:"Il tuo messaggio…", send:"Invia", quitGame:"Abbandona la partita", quitSure:"Uscire?", myTrap:"La tua trappola", foeTrap:"Sua trappola", trapBang:"Trappola!", trapLog:(w,n)=>`TRAPPOLA (${w}): ${n}`,
+  trapWord:"Trappola", journal:"Diario", chat:"Chat", close:"Chiudi", tapClose:"Tocca per chiudere", holdHint:"Pressione lunga su una carta: testo completo", timeUp:"Tempo scaduto!", timerMine:"Il tuo tempo per giocare", timerTheirs:"Tempo dell'avversario", player1:"Giocatore 1", player2:"Giocatore 2", chatEmpty:"Nessun messaggio. Saluta!", chatPh:"Il tuo messaggio…", send:"Invia", quitGame:"Abbandona la partita", quitSure:"Uscire?", myTrap:"La tua trappola", foeTrap:"Sua trappola", trapBang:"Trappola!", trapLog:(w,n)=>`TRAPPOLA (${w}): ${n}`,
   filSub:n=>`${n} viene fermato di colpo, combo finita.`, hitSub:(lv,d,b)=>`${lv} · ${d} danni${b?` (combo +${b})`:""}`,
   otage:n=>`Un ostaggio viene gettato davanti a ${n}: il colpo è annullato, combo finita.`, instinct:n=>`${n} ha sentito arrivare il colpo: schivato, combo finita.`,
   needles:n=>`Aghi negli occhi! ${n} manca il colpo e subisce 2 danni.`, fakeVital:(n,d)=>`Falso punto vitale: ${n} colpisce di lato, ${d} danni.`,
@@ -1731,7 +1744,14 @@ function comboHTML(){
   const nb = s.combo.stop ? `<span class="bonus" style="color:var(--mute)">${L("comboDone")}</span>` : (s.combo.n?`<span class="bonus">${L("nextHit",COMBO_BONUS[Math.min(s.combo.n,5)])}</span>`:"");
   return `<div class="combo"><span class="lbl">${S.turn===ME?L("yourCombo"):L("hisCombo")}</span>${tr||`<span class="arrow">—</span>`}${nb}</div>`;
 }
-let QUIT_T=0, QUIT_ARM=false;
+let QUIT_T=0, QUIT_ARM=false, LP_T=0, LP_FIRED=false;
+function zoomCard(card){
+  document.querySelectorAll(".zoomov").forEach(e=>e.remove());
+  const d=document.createElement("div"); d.className="zoomov";
+  d.innerHTML=`<div class="zoomwrap">${cardHTML({uid:-2,k:card.k,copy:card.copy,inh:card.inh},true,"x")}</div><div class="zhint">${L("tapClose")}</div>`;
+  d.onclick=()=>{ d.remove(); setTimeout(()=>{LP_FIRED=false;},50); };
+  document.body.appendChild(d); if(navigator.vibrate) try{navigator.vibrate(15);}catch(e){}
+}
 const TURN_SEC=60, REACT_SEC=15;
 let TMR={key:null,end:0,dur:1};
 function timerTick(){
@@ -1846,7 +1866,14 @@ function render(){
     </div>
   </div>
   ${R?reactHTML(R):""}`;
-  document.querySelectorAll(".hand .card").forEach(b=>b.onclick=()=>{ const card=p.hand.find(x=>x.uid==b.dataset.uid); if(!card) return; if(b.dataset.via) relayAndPlay(ME,card); else playCard(ME,card); });
+  document.querySelectorAll(".hand .card").forEach(b=>{
+    b.onclick=()=>{ if(LP_FIRED){ LP_FIRED=false; return; } const card=p.hand.find(x=>x.uid==b.dataset.uid); if(!card) return; if(b.dataset.via) relayAndPlay(ME,card); else playCard(ME,card); };
+    b.addEventListener("pointerdown",e=>{ clearTimeout(LP_T); LP_FIRED=false; const sx=e.clientX, sy=e.clientY;
+      LP_T=setTimeout(()=>{ LP_FIRED=true; const card=p.hand.find(x=>x.uid==b.dataset.uid); if(card) zoomCard(card); },420);
+      const cancel=ev=>{ if(ev.type==="pointermove" && Math.hypot(ev.clientX-sx,ev.clientY-sy)<10) return; clearTimeout(LP_T); b.removeEventListener("pointermove",cancel); };
+      b.addEventListener("pointermove",cancel); b.addEventListener("pointerup",cancel,{once:true}); b.addEventListener("pointercancel",cancel,{once:true}); });
+    b.addEventListener("contextmenu",e=>{ e.preventDefault(); const card=p.hand.find(x=>x.uid==b.dataset.uid); if(card){ LP_FIRED=true; zoomCard(card); } });
+  });
   document.querySelectorAll("[data-relais]").forEach(b=>b.onclick=()=>relais(ME,+b.dataset.relais));
   $("#ult").onclick=()=>ultimate(ME);
   $("#end").onclick=()=>{ SFX.play("click"); if(MODE==="vs") NET.handoff=true; endTurn(ME); };
