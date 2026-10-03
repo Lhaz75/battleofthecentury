@@ -677,6 +677,12 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .board.reacting>.bar-actions{visibility:hidden}
 @media (max-width:999px){ .board.reacting{padding-bottom:240px} .sheet .rbtn{flex:1 1 140px} .sheet .inc{font-size:16px} }
 @media (min-width:1000px){ .sheet{left:50%;right:auto;transform:translateX(-50%);width:min(760px,96vw);border-radius:16px 16px 0 0;border:2px solid var(--blood);border-bottom:0} }
+.tmr{flex:none;min-width:46px;height:36px;padding:0 8px;border-radius:18px;display:grid;place-items:center;font:700 14px var(--f-display);font-variant-numeric:tabular-nums;color:var(--bone);background:conic-gradient(var(--tc,#f0b24a) calc(var(--p,1)*360deg),#2a1f19 0);position:relative;isolation:isolate}
+.tmr::before{content:"";position:absolute;inset:3px;border-radius:15px;background:#140e0b;z-index:-1}
+.tmr.theirs{--tc:#7a6a5c;color:var(--mute)}
+.tmr.low.mine{--tc:#ff4a2a;color:#ff8a6e;animation:tpulse .5s ease-in-out infinite alternate}
+@keyframes tpulse{to{transform:scale(1.08)}}
+.tmr:empty{display:none}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 <style>html,body{margin:0}*{box-sizing:border-box}img{max-width:100%}[hidden]{display:none!important}</style>
@@ -929,7 +935,7 @@ fr:{
   stratDestroy:c=>`Il a vu venir ton ${c} : détruit.`, stratNone:"Il lit ton jeu… aucune réaction en main.", steal:n=>`Il arrache ${n} rage à l'adversaire.`,
   youTrap:n=>`Tu poses un piège : ${n}`, foeTrap:"L'adversaire pose un piège face cachée…", blindSense:(b,n,t)=>`${b} le sent : ${n}. ${t}`, beware:"Méfie-toi.",
   terrPlace:(me,n)=>me?`Tu poses : ${n}`:`L'adversaire pose : ${n}`,
-  trapWord:"Piège", journal:"Journal", chat:"Chat", close:"Fermer", player1:"Joueur 1", player2:"Joueur 2", chatEmpty:"Aucun message. Dis bonjour !", chatPh:"Ton message…", send:"Envoyer", quitGame:"Quitter la partie", quitSure:"Quitter ?", myTrap:"Ton piège", foeTrap:"Son piège", trapBang:"Piège !", trapLog:(w,n)=>`PIÈGE (${w}) : ${n}`,
+  trapWord:"Piège", journal:"Journal", chat:"Chat", close:"Fermer", timeUp:"Temps écoulé !", timerMine:"Ton temps pour jouer", timerTheirs:"Temps de l'adversaire", player1:"Joueur 1", player2:"Joueur 2", chatEmpty:"Aucun message. Dis bonjour !", chatPh:"Ton message…", send:"Envoyer", quitGame:"Quitter la partie", quitSure:"Quitter ?", myTrap:"Ton piège", foeTrap:"Son piège", trapBang:"Piège !", trapLog:(w,n)=>`PIÈGE (${w}) : ${n}`,
   filSub:n=>`${n} est stoppé net, combo terminé.`, hitSub:(lv,d,b)=>`${lv} · ${d} dégâts${b?` (combo +${b})`:""}`,
   otage:n=>`Un otage est jeté devant ${n} : le coup est annulé, combo terminé.`, instinct:n=>`${n} a senti le coup venir : esquivé, combo terminé.`,
   needles:n=>`Des aiguilles dans les yeux ! ${n} rate son coup et prend 2 dégâts.`, fakeVital:(n,d)=>`Faux point vital : ${n} frappe à côté, ${d} dégâts.`,
@@ -966,7 +972,7 @@ en:{
   stratDestroy:c=>`He saw your ${c} coming: destroyed.`, stratNone:"He reads your hand… no reactions in it.", steal:n=>`He rips ${n} rage from the opponent.`,
   youTrap:n=>`You set a trap: ${n}`, foeTrap:"The opponent sets a face-down trap…", blindSense:(b,n,t)=>`${b} senses it: ${n}. ${t}`, beware:"Watch out.",
   terrPlace:(me,n)=>me?`You play: ${n}`:`The opponent plays: ${n}`,
-  trapWord:"Trap", journal:"Log", chat:"Chat", close:"Close", player1:"Player 1", player2:"Player 2", chatEmpty:"No messages yet. Say hi!", chatPh:"Your message…", send:"Send", quitGame:"Quit the match", quitSure:"Quit?", myTrap:"Your trap", foeTrap:"Enemy trap", trapBang:"Trap!", trapLog:(w,n)=>`TRAP (${w}): ${n}`,
+  trapWord:"Trap", journal:"Log", chat:"Chat", close:"Close", timeUp:"Time's up!", timerMine:"Your time to play", timerTheirs:"Opponent's time", player1:"Player 1", player2:"Player 2", chatEmpty:"No messages yet. Say hi!", chatPh:"Your message…", send:"Send", quitGame:"Quit the match", quitSure:"Quit?", myTrap:"Your trap", foeTrap:"Enemy trap", trapBang:"Trap!", trapLog:(w,n)=>`TRAP (${w}): ${n}`,
   filSub:n=>`${n} is stopped dead, combo over.`, hitSub:(lv,d,b)=>`${lv} · ${d} damage${b?` (combo +${b})`:""}`,
   otage:n=>`A hostage is thrown in front of ${n}: the hit is cancelled, combo over.`, instinct:n=>`${n} felt it coming: dodged, combo over.`,
   needles:n=>`Needles in the eyes! ${n} misses and takes 2 damage.`, fakeVital:(n,d)=>`Fake vital point: ${n} misses the mark, ${d} damage.`,
@@ -1003,7 +1009,7 @@ it:{
   stratDestroy:c=>`Ha previsto la tua ${c}: distrutta.`, stratNone:"Legge il tuo gioco… nessuna reazione in mano.", steal:n=>`Strappa ${n} rabbia all'avversario.`,
   youTrap:n=>`Piazzi una trappola: ${n}`, foeTrap:"L'avversario piazza una trappola coperta…", blindSense:(b,n,t)=>`${b} la percepisce: ${n}. ${t}`, beware:"Stai attento.",
   terrPlace:(me,n)=>me?`Giochi: ${n}`:`L'avversario gioca: ${n}`,
-  trapWord:"Trappola", journal:"Diario", chat:"Chat", close:"Chiudi", player1:"Giocatore 1", player2:"Giocatore 2", chatEmpty:"Nessun messaggio. Saluta!", chatPh:"Il tuo messaggio…", send:"Invia", quitGame:"Abbandona la partita", quitSure:"Uscire?", myTrap:"La tua trappola", foeTrap:"Sua trappola", trapBang:"Trappola!", trapLog:(w,n)=>`TRAPPOLA (${w}): ${n}`,
+  trapWord:"Trappola", journal:"Diario", chat:"Chat", close:"Chiudi", timeUp:"Tempo scaduto!", timerMine:"Il tuo tempo per giocare", timerTheirs:"Tempo dell'avversario", player1:"Giocatore 1", player2:"Giocatore 2", chatEmpty:"Nessun messaggio. Saluta!", chatPh:"Il tuo messaggio…", send:"Invia", quitGame:"Abbandona la partita", quitSure:"Uscire?", myTrap:"La tua trappola", foeTrap:"Sua trappola", trapBang:"Trappola!", trapLog:(w,n)=>`TRAPPOLA (${w}): ${n}`,
   filSub:n=>`${n} viene fermato di colpo, combo finita.`, hitSub:(lv,d,b)=>`${lv} · ${d} danni${b?` (combo +${b})`:""}`,
   otage:n=>`Un ostaggio viene gettato davanti a ${n}: il colpo è annullato, combo finita.`, instinct:n=>`${n} ha sentito arrivare il colpo: schivato, combo finita.`,
   needles:n=>`Aghi negli occhi! ${n} manca il colpo e subisce 2 danni.`, fakeVital:(n,d)=>`Falso punto vitale: ${n} colpisce di lato, ${d} danni.`,
@@ -1653,6 +1659,24 @@ function comboHTML(){
   return `<div class="combo"><span class="lbl">${S.turn===ME?L("yourCombo"):L("hisCombo")}</span>${tr||`<span class="arrow">—</span>`}${nb}</div>`;
 }
 let QUIT_T=0, QUIT_ARM=false;
+const TURN_SEC=60, REACT_SEC=15;
+let TMR={key:null,end:0,dur:1};
+function timerTick(){
+  if(MODE!=="vs" || !S || S.over || S.dead){ TMR.key=null; return; }
+  const R=currentReact();
+  let key,dur,mine;
+  if(R){ key="r"+(R.remote?S.pending.id:(S.round+"|"+S.turn+"|"+(S.evn||0)+"|"+R.dmg)); dur=REACT_SEC; mine=true; }
+  else if(S.pending){ key="w"+S.pending.id; dur=REACT_SEC; mine=false; }
+  else { key="t"+S.turn+"|"+S.round; dur=TURN_SEC; mine=S.turn===ME; }
+  if(key!==TMR.key){ TMR={key,end:Date.now()+dur*1000,dur}; }
+  const left=Math.max(0,Math.ceil((TMR.end-Date.now())/1000));
+  const el=document.getElementById("tmr");
+  if(el){ el.textContent=left+"s"; el.className="tmr "+(mine?"mine":"theirs")+(left<=10?" low":""); el.style.setProperty("--p",Math.max(0,(TMR.end-Date.now())/(TMR.dur*1000))); el.title=mine?L("timerMine"):L("timerTheirs"); }
+  if(left>0 || !mine) return;
+  if(R){ TMR.key=null; if(R.remote) answerRemote(null); else answerReaction(null); return; }
+  if(S.turn===ME && !S.busy && !S.pending){ TMR.key="done"+key; NET.handoff=true; S.log=L("timeUp"); endTurn(ME); }
+}
+setInterval(timerTick,250);
 let JOURNAL=[], JLAST="", JTAB="log", JOPEN=false, CHAT=[], CHAT_SEEN=0, CHAT_KEY="";
 function tipShow(el){
   let t=document.getElementById("fieldtip"); if(!t){ t=document.createElement("div"); t.id="fieldtip"; document.body.appendChild(t); }
@@ -1744,6 +1768,7 @@ function render(){
       <button class="tbtn jbtn" id="jbtn" aria-label="${L("journal")}" title="${L("journal")}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11l3 3v13H5z M8 9h8M8 13h8M8 17h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>${MODE==="vs"&&chatUnread()?`<i class="jdot"></i>`:""}</button>
       <button class="tbtn qbtn ${QUIT_ARM?"arm":""}" id="quit" aria-label="${L("quitGame")}" title="${L("quitGame")}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h5v16h-5M10 8l-4 4 4 4M6 12h10" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="qtxt">${L("quitSure")}</span></button>
       <button class="btn ${ultReady&&myTurn?"ult":""}" id="ult" ${ultReady&&myTurn?"":"disabled"}>${L("ultimate")}</button>
+      ${MODE==="vs"?`<span class="tmr" id="tmr"></span>`:""}
       <button class="btn ghost" id="end" ${myTurn?"":"disabled"}>${L("endTurn")}</button>
     </div>
   </div>
