@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.24.0 — 2026-10-04
+
+- Admin : statistiques d'équilibrage tirées des vraies parties (taux de victoire et popularité de chaque combattant, en versus et contre l'IA)
+
 ## v0.23.0 — 2026-10-04
 
 - Le jeu s'installe comme une appli (bouton « Installer l'appli » en bas de l'écran principal) : icône sur l'écran d'accueil, plein écran sans barre de navigateur

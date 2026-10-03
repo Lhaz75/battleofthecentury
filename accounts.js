@@ -158,6 +158,17 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     const ip = (req.headers["x-forwarded-for"] || req.socket.remoteAddress || "").split(",")[0].trim();
     if (Date.now() - (seen.get(u.id) || 0) > 10 * 60e3) { seen.set(u.id, Date.now()); store.touch(u.id, ip).catch(() => {}); }
     return u; }
+  // statistiques d'équilibrage par combattant (vraies parties) : vg/vw = versus, ag/aw = contre l'IA
+  let fstats = { since: Date.now(), f: {}, n: { v: 0, a: 0 } }, fDirty = false;
+  Promise.resolve(ready).then(() => store.getSetting("fstats")).then(v => { if (v && v.f) fstats = v; }).catch(() => {});
+  setInterval(() => { if (fDirty) { fDirty = false; store.setSetting("fstats", fstats).catch(() => { fDirty = true; }); } }, 30000);
+  function fRecord(team, won, kind) {
+    const ids = Array.isArray(team) ? [...new Set(team.filter(id => typeof id === "string" && /^[a-z]{2,12}$/.test(id)))].slice(0, 5) : [];
+    ids.forEach((id, i) => { const f = fstats.f[id] = fstats.f[id] || { vg: 0, vw: 0, ag: 0, aw: 0, lg: 0, lw: 0 };
+      f[kind + "g"]++; if (won) f[kind + "w"]++;
+      if (i === 0 && kind === "v") { f.lg++; if (won) f.lw++; } });
+    if (ids.length) fDirty = true;
+  }
   function bumpFav(st, team) { (Array.isArray(team) ? team : []).slice(0, 5).forEach(id => { if (typeof id === "string" && /^[a-z]{2,12}$/.test(id)) st.fav[id] = (st.fav[id] || 0) + 1; }); }
   function streak(st, won) { if (won) { st.streak = (st.streak || 0) + 1; st.best = Math.max(st.best || 0, st.streak); } else st.streak = 0; }
   const expect = (a, b) => 1 / (1 + Math.pow(10, (b - a) / 400));
@@ -173,6 +184,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     }
     if (W) { W.stats.vsW++; W.stats.pts += 25; streak(W.stats, true); bumpFav(W.stats, m.teams && m.teams[winRole]); await store.saveStats(W.id, W.stats); }
     if (Lo) { Lo.stats.vsL++; Lo.stats.pts += 5; streak(Lo.stats, false); bumpFav(Lo.stats, m.teams && m.teams[loserRole]); await store.saveStats(Lo.id, Lo.stats); }
+    { const d = getDuel(code) || {}; const tW = (m.teams && m.teams[winRole]) || d[winRole + "Team"], tL = (m.teams && m.teams[loserRole]) || d[loserRole + "Team"]; fRecord(tW, true, "v"); fRecord(tL, false, "v"); fstats.n = fstats.n || { v: 0, a: 0 }; fstats.n.v++; }
     for (const h of settleHooks) { try { await h(code, loserRole); } catch (e) { console.error("settle hook", e.message); } }
     setTimeout(() => matches.delete(code), 3600e3);
   }
@@ -259,7 +271,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       lastSolo.set(u.id, now);
       const st = u.stats, won = !!body.win;
       if (won) { st.aiW++; st.pts += 10; } else { st.aiL++; st.pts += 2; }
-      streak(st, won); bumpFav(st, body.team);
+      streak(st, won); bumpFav(st, body.team); fRecord(body.team, won, "a"); fstats.n = fstats.n || { v: 0, a: 0 }; fstats.n.a++;
       await store.saveStats(u.id, st);
       return [200, { user: pubUser(u) }];
     },
@@ -314,6 +326,15 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       await store.setSetting("maintenance", maint);
       console.log(`Maintenance ${maint.on ? "activée" : "désactivée"} par ${u.name}`);
       return [200, { maintenance: { on: maintOn(), msg: maint.msg, forced: process.env.MAINTENANCE === "1" } }];
+    },
+    "GET /api/admin/fstats": async req => {
+      const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];
+      return [200, fstats];
+    },
+    "POST /api/admin/fstats/reset": async req => {
+      const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];
+      fstats = { since: Date.now(), f: {}, n: { v: 0, a: 0 } }; await store.setSetting("fstats", fstats); console.log(`Stats d'équilibrage remises à zéro par ${u.name}`);
+      return [200, fstats];
     },
     "GET /api/admin/users": async req => {
       const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];
