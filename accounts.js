@@ -40,8 +40,8 @@ function jsonStore(file) {
     async avatar(uid) { const u = db.users.find(u => u.id === uid); return u && u.avatar ? { buf: Buffer.from(u.avatar, "base64"), type: u.avatar_type, v: u.avatar_v } : null; },
     async saveStats(uid, stats) { const u = db.users.find(u => u.id === uid); if (u) { u.stats = stats; save(); } },
     async top(kind, n) {
-      const list = db.users.filter(u => !u.banned).filter(u => kind === "elo" ? u.stats.vsW + u.stats.vsL > 0 : u.stats.pts > 0)
-        .sort((a, b) => kind === "elo" ? b.stats.elo - a.stats.elo : b.stats.pts - a.stats.pts).slice(0, n);
+      const list = db.users.filter(u => !u.banned).filter(u => kind === "elo" ? u.stats.vsW + u.stats.vsL > 0 : kind === "surv" ? (u.stats.surv || 0) > 0 : u.stats.pts > 0)
+        .sort((a, b) => kind === "elo" ? b.stats.elo - a.stats.elo : kind === "surv" ? (b.stats.surv || 0) - (a.stats.surv || 0) : b.stats.pts - a.stats.pts).slice(0, n);
       return list.map(pub);
     },
     async getSetting(k) { return (db.settings || {})[k] ?? null; },
@@ -99,8 +99,8 @@ function pgStore(url, PgPool) {
     async avatar(uid) { const r = await q(`SELECT avatar,avatar_type,avatar_v FROM boc_users WHERE id=$1`, [uid]); const a = r.rows[0]; return a && a.avatar ? { buf: Buffer.from(a.avatar, "base64"), type: a.avatar_type, v: a.avatar_v } : null; },
     async saveStats(uid, stats) { await q(`UPDATE boc_users SET stats=$2 WHERE id=$1`, [uid, JSON.stringify(stats)]); },
     async top(kind, n) {
-      const where = kind === "elo" ? `((stats->>'vsW')::int + (stats->>'vsL')::int) > 0` : `(stats->>'pts')::int > 0`;
-      const ord = kind === "elo" ? `(stats->>'elo')::int` : `(stats->>'pts')::int`;
+      const where = kind === "elo" ? `((stats->>'vsW')::int + (stats->>'vsL')::int) > 0` : kind === "surv" ? `COALESCE((stats->>'surv')::int,0) > 0` : `(stats->>'pts')::int > 0`;
+      const ord = kind === "elo" ? `(stats->>'elo')::int` : kind === "surv" ? `COALESCE((stats->>'surv')::int,0)` : `(stats->>'pts')::int`;
       const r = await q(`SELECT ${COLS} FROM boc_users WHERE NOT banned AND ${where} ORDER BY ${ord} DESC, id ASC LIMIT $1`, [n]); return r.rows.map(row);
     },
     async getSetting(k) { const r = await q(`SELECT v FROM boc_settings WHERE k=$1`, [k]); return r.rows[0] ? r.rows[0].v : null; },
@@ -141,6 +141,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
   const settleHooks = [];
   const matches = new Map();      // code -> { host: uid, guest: uid, done }
   const lastSolo = new Map();     // uid -> timestamp
+  const lastSurv = new Map();     // uid -> timestamp (survie)
   const tries = new Map();        // ip -> { n, t }
 
   const limited = ip => { const now = Date.now(); const e = tries.get(ip) || { n: 0, t: now }; if (now - e.t > 60000) { e.n = 0; e.t = now; } e.n++; tries.set(ip, e); return e.n > 12; };
@@ -240,6 +241,21 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       await store.saveStats(u.id, st);
       return [200, { user: pubUser(u) }];
     },
+    // survie : une vague à la fois, dans l'ordre (la vague 1 lance une nouvelle série)
+    "POST /api/surv": async (req, body) => {
+      const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      const wave = Math.floor(+body.wave), won = !!body.win, st = u.stats;
+      if (!(wave >= 1 && wave <= 999)) return [400, { error: "bad" }];
+      const now = Date.now();
+      if (!won) { st.survRun = 0; await store.saveStats(u.id, st); return [200, { user: pubUser(u), gain: 0 }]; }
+      if (now - (lastSurv.get(u.id) || 0) < 20000) return [429, { error: "slow" }];
+      if (wave !== 1 && wave !== (st.survRun || 0) + 1) return [409, { error: "bad" }];
+      lastSurv.set(u.id, now);
+      const gain = 5 + wave;
+      st.survRun = wave; st.surv = Math.max(st.surv || 0, wave); st.pts += gain; bumpFav(st, body.team);
+      await store.saveStats(u.id, st);
+      return [200, { user: pubUser(u), gain }];
+    },
     "POST /api/match": async (req, body) => {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
       const code = String(body.code || ""), role = body.role;
@@ -298,7 +314,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       return [200, { ipBans }];
     },
     "GET /api/top": async (req, body, ip, url) => {
-      const kind = url.searchParams.get("kind") === "pts" ? "pts" : "elo";
+      const k = url.searchParams.get("kind"), kind = k === "pts" || k === "surv" ? k : "elo";
       return [200, { kind, list: (await store.top(kind, 50)).map(pubUser) }];
     }
   };

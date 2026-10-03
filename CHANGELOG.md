@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.18.0 — 2026-10-03
+
+- Nouveau mode Survie : enchaîne des vagues d'adversaires de plus en plus forts, tes PV ne remontent qu'en partie entre les combats, repos au village toutes les 5 vagues
+- Chaque vague gagnée rapporte des points, et ton record apparaît dans le Classement (onglet Survie)
+
 ## v0.17.5 — 2026-10-03
 
 - Plateau : plus de nom sous les pastilles des réservistes (survol pour le voir)
