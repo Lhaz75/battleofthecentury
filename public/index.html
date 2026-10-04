@@ -632,7 +632,8 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
   .bar-actions .tbtn svg{width:18px;height:18px}
   .bar-actions .btn{padding:9px 10px;font-size:13px;min-width:0;flex:1 1 auto}
 }
-@media (max-width:420px){ .bar-actions #fs{display:none} .bar-actions .pip{width:11px;height:11px} }
+@media (max-width:420px){ .bar-actions #fs{display:none} }
+@media (max-width:999px){ .bar-actions .pips{display:grid;grid-template-columns:repeat(3,auto);gap:5px 4px;flex:none;padding:0 4px 0 2px!important} .bar-actions .pip{width:9px;height:9px;box-shadow:0 0 4px rgba(255,186,64,.6)} .bar-actions .pip.off{box-shadow:inset 0 1px 2px rgba(0,0,0,.9)} .bar-actions .pip::before{inset:1px 4px 4px 1px} }
 @media (max-width:420px){ .screen.board .bar-actions{gap:4px} .screen.board .bar-actions .tbtn{width:32px;height:32px} .screen.board .bar-actions .tbtn svg{width:16px;height:16px} .screen.board .bar-actions .btn{padding:9px 6px!important;font-size:11px!important} }
 @media (min-width:1000px){
   .board{grid-template-rows:minmax(0,1fr) auto auto;height:100%;box-sizing:border-box}
@@ -2839,6 +2840,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.29.4",d:"2026-10-04",fr:["Mobile : les gemmes d'endurance sont rangées sur deux lignes, la barre du bas ne déborde plus"],en:["Mobile: endurance gems are arranged on two rows, the bottom bar no longer overflows"],it:["Mobile: le gemme di resistenza sono su due righe, la barra in basso non esce più dallo schermo"]},
  {v:"0.29.3",d:"2026-10-04",fr:["Losanges d'endurance redessinés en gemmes dorées facettées et lumineuses, emplacements vides en creux"],en:["Endurance diamonds redrawn as glowing faceted golden gems, empty ones as dark sockets"],it:["Rombi di resistenza ridisegnati come gemme dorate sfaccettate e luminose, quelli vuoti come incavi scuri"]},
  {v:"0.29.2",d:"2026-10-04",fr:["Combattants KO : portrait teinté rouge sang foncé (sans croix)"],en:["KO'd fighters: dark blood-red tinted portrait (no cross)"],it:["Combattenti KO: ritratto tinto rosso sangue scuro (senza croce)"]},
  {v:"0.29.1",d:"2026-10-04",fr:["Combattants KO : portrait grisé barré d'entailles sanglantes en X"],en:["KO'd fighters: greyed portrait crossed by bloody X slashes"],it:["Combattenti KO: ritratto in grigio barrato da tagli insanguinati a X"]},

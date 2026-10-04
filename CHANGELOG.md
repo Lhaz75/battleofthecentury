@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.29.4 — 2026-10-04
+
+- Mobile : les gemmes d'endurance sont rangées sur deux lignes, la barre du bas ne déborde plus
+
 ## v0.29.3 — 2026-10-04
 
 - Losanges d'endurance redessinés en gemmes dorées facettées et lumineuses, emplacements vides en creux
