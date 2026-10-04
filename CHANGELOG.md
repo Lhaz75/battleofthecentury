@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.30.4 — 2026-10-04
+
+- Cartes : la petite icône de type dans le coin est retirée (le type est déjà écrit en haut)
+
 ## v0.30.3 — 2026-10-04
 
 - Liu Zongwu rejoint sa vraie école : le Hokuto Ryūka Ken
