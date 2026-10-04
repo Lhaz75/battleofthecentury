@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.32.0 — 2026-10-04
+
+- Survie : la récupération des PV après chaque vague est affichée (+PV, barre qui remonte)
+- Survie : message de soin plus visible
+- Journal : on voit pourquoi la rage monte (coup reçu, contre, clan Shura, talent, effet, arène)
+
 ## v0.31.5 — 2026-10-04
 
 - Journal : les dégâts du coup fatal sont affichés
