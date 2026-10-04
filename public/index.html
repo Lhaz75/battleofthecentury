@@ -1128,6 +1128,23 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .pfsec>summary .achn{margin-left:auto}
 .pfbody{padding:0 14px 14px}.pfbody .stgrid,.pfbody .achgrid,.pfbody .dklist{margin-top:0}
 @media (max-width:600px){.pfchips b{font-size:16px}.pfchips span{font-size:10px}}
+.bspray{position:fixed;inset:0;pointer-events:none;z-index:60}
+.bspray i{position:absolute;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:radial-gradient(circle at 35% 30%,#ff4a3a,#a10a04 55%,#4a0201);box-shadow:0 0 2px rgba(0,0,0,.6);animation:bdrop .8s cubic-bezier(.2,.6,.4,1) forwards;opacity:0}
+@keyframes bdrop{0%{opacity:1;transform:translate(0,0) scale(1)}55%{opacity:1;transform:translate(var(--dx),calc(var(--dy) + var(--g)*.25)) scale(1)}100%{opacity:0;transform:translate(calc(var(--dx)*1.2),calc(var(--dy) + var(--g))) scale(.6)}}
+.sblood{position:fixed;inset:-6%;pointer-events:none;z-index:59;background:url("assets/blood.webp") center/cover no-repeat;transform:rotate(var(--rot)) scale(1.15);opacity:0;animation:sblood 1.7s ease-out forwards;mix-blend-mode:multiply;filter:saturate(1.3)}
+.sblood.heavy{animation-duration:1.9s;filter:saturate(1.5) brightness(.9)}
+@keyframes sblood{0%{opacity:0;transform:rotate(var(--rot)) scale(.9)}8%{opacity:.85;transform:rotate(var(--rot)) scale(1.15)}60%{opacity:.7}100%{opacity:0;transform:rotate(var(--rot)) scale(1.18) translateY(14px)}}
+.por .wound{position:absolute;inset:0;z-index:2;pointer-events:none;transition:opacity .5s;
+  background:url("assets/blood.webp") 0 0/120% auto no-repeat,url("assets/blood.webp") 100% 100%/95% auto no-repeat,linear-gradient(180deg,rgba(120,0,0,0) 35%,rgba(120,0,0,.45));}
+.por .wound::after{content:"";position:absolute;inset:0;background:url("assets/blood.webp") 20% 60%/140% auto no-repeat;transform:scaleX(-1);opacity:.9}
+.por.dying .wound{animation:dying 1.2s ease-in-out infinite}
+@keyframes dying{50%{filter:brightness(1.35) saturate(1.4)}}
+.por.dying{box-shadow:0 0 0 2px #a00,0 0 22px rgba(220,0,0,.7)!important}
+.float.big{font-size:36px;color:#ffb48a;text-shadow:0 3px 0 #000,0 0 16px #c00}
+.float.crit{font-size:48px;color:#ff3b1f;-webkit-text-stroke:1px #2a0000;text-shadow:0 4px 0 #000,0 0 22px #ff2a00,0 0 40px #900}
+.dcry{position:fixed;left:50%;top:22%;z-index:120;pointer-events:none;font:900 clamp(56px,13vw,140px)/1 "Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;color:#ff2a10;-webkit-text-stroke:3px #1a0000;text-shadow:0 6px 0 #000,0 0 30px rgba(255,0,0,.8);transform:translate(-50%,-50%) rotate(-8deg);opacity:0;animation:dcry 1.6s cubic-bezier(.2,1.6,.4,1) forwards;letter-spacing:-.02em;white-space:nowrap}
+.dcry.me{top:70%;transform:translate(-50%,-50%) rotate(7deg)}
+@keyframes dcry{0%{opacity:0;scale:.3}14%{opacity:1;scale:1.15}24%{scale:1}75%{opacity:1}100%{opacity:0;scale:1.08;translate:0 -18px}}
 /* mobile : plateau allégé */
 @media (max-width:999px){
   .screen.board .rs{width:auto;gap:1px}
@@ -2147,7 +2164,7 @@ function hurt(k,dmg){
   if(f.id==="shachi" && !f.eye && f.hp>0 && f.hp<10){ f.eye=true; gainRage(s,3); S.sub=L("shachiEye"); }
   if(f.id==="jako") gainRage(s,1);
   if(f.id==="fox" && !f.fake && f.hp>0 && f.hp*2<f.max && !S.over){ f.fake=true; S.sub=L("foxFake"); hurt(other(k),5); }
-  fx(k,`-${dmg}`); shake(k); impact(k,dmg); hitfx(k,dmg); SFX.hit(dmg); if(dmg>=7) splat(k); if(dmg>=7) quake();
+  fx(k,`-${dmg}`,dmg>=10?"crit":dmg>=6?"big":""); shake(k); impact(k,dmg); hitfx(k,dmg); SFX.hit(dmg); if(dmg>=7) splat(k); if(dmg>=7) quake();
   gainRage(s,1);
   if(f.hp<=0) ko(k);
 }
@@ -2158,7 +2175,7 @@ function ko(k){
   { const kl=act(S[other(k)]); if(kl && kl.id==="nameless" && !kl.ko && kl.hp>0){ kl.hp=Math.min(kl.max,kl.hp+6); fx(other(k),"+6","h"); S.sub=L("namelessName",esc(nm("nameless"))); } }
   SFX.play("ko");
   { const killer=act(S[other(k)]); SFX.voice(killer && killer.id==="maitre" && !killer.ko ? "omaewamo" : DEATH_VOICE[f.id], 250); }
-  shout(`${esc(nm(f.id))}<br>KO`); flash();
+  shout(`${esc(nm(f.id))}<br>KO`); flash(); deathFx(k,DEATH_CRIES[rnd(DEATH_CRIES.length)]);
   // ses techniques disparaissent
   const dead = x => x.copyBy ? x.copyBy===f.id : CARDS[x.k].owner===f.id;
   s.hand=s.hand.filter(x=>!dead(x)); s.draw=s.draw.filter(x=>!dead(x)); s.disc=s.disc.filter(x=>!dead(x));
@@ -2350,10 +2367,26 @@ const ICON={
 const KIND_ICON={atk:"fist",react:"shield",spec:"star",trap:"trap",terr:"terrain"};
 const FXQ=[];
 function rec(e){ if(REPLAY || !S || RP.on || (MODE!=="vs" && !S.gid)) return; S.evn=(S.evn||0)+1; (S.ev||(S.ev=[])).push([S.evn,...e]); if(S.ev.length>80) S.ev.shift(); }
-function replayEv(e){ const [n,t,a,b,c]=e; if(t==="fx") fx(a,b,c); else if(t==="shake") shake(a); else if(t==="lunge") lunge(a); else if(t==="shout") shout(a); else if(t==="flash") flash(); else if(t==="quake") quake(); else if(t==="splat") splat(a); else if(t==="evcard") eventCard(a,b); else if(t==="hitfx") hitfx(a,b); else if(t==="impact") impact(a,b); else if(t==="hits") hitsPop(a); else if(t==="banner") banner(a); else if(t==="cutin") cutin(a,b,c); else if(t==="played") showPlayed(a,b); else if(t==="voice") SFX.voice(a,b||0); else if(t==="sfx") SFX.play(a); }
+function replayEv(e){ const [n,t,a,b,c]=e; if(t==="fx") fx(a,b,c); else if(t==="shake") shake(a); else if(t==="lunge") lunge(a); else if(t==="shout") shout(a); else if(t==="flash") flash(); else if(t==="quake") quake(); else if(t==="splat") splat(a); else if(t==="evcard") eventCard(a,b); else if(t==="hitfx") hitfx(a,b); else if(t==="death") deathFx(a,b); else if(t==="impact") impact(a,b); else if(t==="hits") hitsPop(a); else if(t==="banner") banner(a); else if(t==="cutin") cutin(a,b,c); else if(t==="played") showPlayed(a,b); else if(t==="voice") SFX.voice(a,b||0); else if(t==="sfx") SFX.play(a); }
 function fx(k,txt,cls=""){ rec(["fx",k,txt,cls]); FXQ.push(()=>{ const host=$(`#por-${k}`); if(!host) return; const d=document.createElement("div"); d.className="float "+cls; d.textContent=txt; host.appendChild(d); setTimeout(()=>d.remove(),900); }); }
 function shake(k){ rec(["shake",k]); FXQ.push(()=>{ const el=$(`#por-${k}`); if(el && !reduced) el.classList.add("shake"); }); }
+// gerbe de sang : gouttes lancées depuis le portrait touché (au-dessus de tout, avec gravité)
+function bloodSpray(el,n,force){
+  if(!el||reduced) return; const r=el.getBoundingClientRect(); if(!r.width) return;
+  const cx=r.left+r.width*(.35+Math.random()*.3), cy=r.top+r.height*(.25+Math.random()*.3), side=el.closest(".foe")?1:-1;
+  const box=document.createElement("div"); box.className="bspray"; document.body.appendChild(box);
+  for(let i=0;i<n;i++){ const d=document.createElement("i"); const sz=2+Math.random()*(4+force*.6);
+    const ang=(-90+side*(10+Math.random()*70))*(Math.PI/180)+(Math.random()-.5)*1.4, sp=(60+Math.random()*120)*(.6+force/12);
+    d.style.cssText=`left:${cx}px;top:${cy}px;width:${sz}px;height:${sz*(1+Math.random()*1.2)}px;--dx:${Math.cos(ang)*sp}px;--dy:${Math.sin(ang)*sp}px;--g:${120+Math.random()*160}px;animation-duration:${.55+Math.random()*.5}s;animation-delay:${Math.random()*.08}s`;
+    box.appendChild(d); }
+  setTimeout(()=>box.remove(),1300);
+}
+function screenBlood(strength){ if(reduced) return; const d=document.createElement("div"); d.className="sblood"+(strength>1?" heavy":""); d.style.setProperty("--rot",(Math.random()*360|0)+"deg"); document.body.appendChild(d); setTimeout(()=>d.remove(),1800); }
+const DEATH_CRIES=["あべし!","ひでぶ!","たわば!","うわらば!","ぱっぴっぷ!","ちにゃ!","ひでぶっ!","あわびゅ!"];
+function deathFx(k,word){ rec(["death",k,word]); FXQ.push(()=>{ const el=$(`#por-${k}`); bloodSpray(el,46,14); setTimeout(()=>bloodSpray(el,30,10),140); screenBlood(2);
+  if(reduced) return; const c=document.createElement("div"); c.className="dcry"+(k===ME?" me":""); c.textContent=word; document.body.appendChild(c); setTimeout(()=>c.remove(),1700); }); }
 function hitfx(k,dmg){ rec(["hitfx",k,dmg]); FXQ.push(()=>{ const el=$(`#por-${k}`); if(!el||reduced) return;
+  bloodSpray(el,Math.min(34,4+dmg*2),dmg); if(dmg>=10) screenBlood(1);
   const tier=dmg>=10?"h3":dmg>=6?"h2":"h1";
   el.classList.remove("hit","h1","h2","h3"); void el.offsetWidth; el.classList.add("hit",tier);
   const sl=document.createElement("div"); sl.className="slashes "+tier; const n=dmg>=10?3:dmg>=6?2:1;
@@ -2385,7 +2418,7 @@ function eventCard(name,text){ rec(["evcard",name,text]); document.querySelector
 
 /* ---------- rendu ---------- */
 const PCORNER='<svg viewBox="0 0 60 60" aria-hidden="true"><path d="M4 58V16Q4 4 16 4h42" fill="none" stroke="#e8b04a" stroke-width="4"/><path d="M4 58V16Q4 4 16 4h42" fill="none" stroke="#fff1c1" stroke-width="1.2" opacity=".7"/><path d="M12 54V22q0-10 10-10h32" fill="none" stroke="#c98a2e" stroke-width="1.6"/><path d="M2 2h14L2 16z" fill="#e8b04a"/><path d="M20 20l7 -7 7 7 -7 7z" fill="#e8b04a" stroke="#120a06" stroke-width="1.2"/><circle cx="27" cy="20" r="1.8" fill="#fff1c1"/><path d="M38 12q6-6 12 0M12 38q-6 6 0 12" fill="none" stroke="#e8b04a" stroke-width="1.6" stroke-linecap="round"/></svg>';
-function por(k,f){ const img=CONFIG.imgs[f.id]; return `<div class="por cl-${CLAN[f.id]||"libres"}" id="por-${k}">${img?`<img src="${img}" alt="">`:`<div class="ph">${FIGHTERS[f.id].sigil}</div>`}<span class="pframe" aria-hidden="true"><i class="pc tl">${PCORNER}</i><i class="pc tr">${PCORNER}</i><i class="pc bl">${PCORNER}</i><i class="pc br">${PCORNER}</i></span></div>`; }
+function por(k,f){ const img=CONFIG.imgs[f.id]; const w=f.max?Math.max(0,1-f.hp/f.max):0; return `<div class="por cl-${CLAN[f.id]||"libres"}${w>.7?" dying":""}" id="por-${k}">${img?`<img src="${img}" alt="">`:`<div class="ph">${FIGHTERS[f.id].sigil}</div>`}${w>.05?`<i class="wound" style="opacity:${(Math.min(1,w*1.15)).toFixed(2)}"></i>`:""}<span class="pframe" aria-hidden="true"><i class="pc tl">${PCORNER}</i><i class="pc tr">${PCORNER}</i><i class="pc bl">${PCORNER}</i><i class="pc br">${PCORNER}</i></span></div>`; }
 function sideHTML(k){
   const s=S[k], f=act(s), me=k===ME;
   const res=s.team.map((t,i)=>{
@@ -2953,6 +2986,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.31.0",d:"2026-10-04",fr:["Coups plus violents : gerbes de sang à chaque impact (plus fortes selon les dégâts), éclaboussures sur l'écran pour les gros coups, chiffres de dégâts plus imposants","Les portraits se couvrent de sang au fil des blessures et rougeoient quand le combattant est presque mort","KO : explosion de sang et cri de mort façon Hokuto (あべし ! ひでぶ ! たわば !)"],en:["More violent hits: blood sprays on every impact (bigger with damage), screen splatter on big hits, bigger damage numbers","Portraits get covered in blood as wounds pile up and glow red when the fighter is almost dead","KO: blood explosion and Hokuto-style death cry (あべし! ひでぶ! たわば!)"],it:["Colpi più violenti: spruzzi di sangue a ogni impatto (più forti in base ai danni), schizzi sullo schermo per i colpi grossi, numeri di danno più imponenti","I ritratti si coprono di sangue con le ferite e diventano rossi quando il combattente è quasi morto","KO: esplosione di sangue e urlo di morte stile Hokuto (あべし! ひでぶ! たわば!)"]},
  {v:"0.30.4",d:"2026-10-04",fr:["Cartes : la petite icône de type dans le coin est retirée (le type est déjà écrit en haut)"],en:["Cards: the small type icon in the corner is removed (the type is already written at the top)"],it:["Carte: rimossa la piccola icona del tipo nell'angolo (il tipo è già scritto in alto)"]},
  {v:"0.30.3",d:"2026-10-04",fr:["Liu Zongwu rejoint sa vraie école : le Hokuto Ryūka Ken"],en:["Liu Zongwu joins his true school: Hokuto Ryūka Ken"],it:["Liu Zongwu passa alla sua vera scuola: lo Hokuto Ryūka Ken"]},
  {v:"0.30.2",d:"2026-10-04",fr:["Vignettes de sélection recadrées selon la taille du visage : tous les combattants ont maintenant la même taille sur leur carte"],en:["Selection thumbnails recropped: all fighters now have the same size on their card"],it:["Miniature di selezione ritagliate: tutti i combattenti ora hanno la stessa dimensione sulla carta"]},

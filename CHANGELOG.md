@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.31.0 — 2026-10-04
+
+- Coups plus violents : gerbes de sang à chaque impact (plus fortes selon les dégâts), éclaboussures sur l'écran pour les gros coups, chiffres de dégâts plus imposants
+- Les portraits se couvrent de sang au fil des blessures et rougeoient quand le combattant est presque mort
+- KO : explosion de sang et cri de mort façon Hokuto (あべし ! ひでぶ ! たわば !)
+
 ## v0.30.4 — 2026-10-04
 
 - Cartes : la petite icône de type dans le coin est retirée (le type est déjà écrit en haut)
