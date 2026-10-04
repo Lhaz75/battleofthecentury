@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.35.0 — 2026-10-04
+
+- Nouvelle page « Cartes & événements » (depuis les Règles) : événements, terrains, pièges, réactions et spéciaux, repliés pour éviter les spoilers
+
 ## v0.34.1 — 2026-10-04
 
 - Défis : tu choisis ton équipe (en cours, sauvegardée ou au hasard) avant d'envoyer ou d'accepter un défi
