@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.30.0 — 2026-10-04
+
+- 18 nouveaux combattants : Akashachi, Alf, Bask, Boltz, Dekai Babaa, Ein, Frieda, Garuda, les frères Harn, Kaiser, Kuroyasha, Liu Zongwu, Ogai, Rihaku, Rima, Rofu, le Shura sans nom et Taiga, chacun avec ses techniques, son passif, sa carte spéciale et son ultime
+- Nouvelle école : Shura (3 Shura : +1 rage au début de chaque tour)
+- Nouvelle illustration de Fudo
+
 ## v0.29.4 — 2026-10-04
 
 - Mobile : les gemmes d'endurance sont rangées sur deux lignes, la barre du bas ne déborde plus
