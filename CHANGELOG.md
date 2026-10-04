@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.41.1 — 2026-10-05
+
+- Le bouton « Contre l'IA » s'appelle maintenant « Entraînement »
+
 ## v0.41.0 — 2026-10-04
 
 - Défi de la semaine : la même équipe adverse pour tout le monde, classement par coût d'équipe le plus bas puis par rapidité, le top 3 gagne +100/+60/+40 pts chaque lundi (idée de Jerome R.)
