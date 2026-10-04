@@ -4,7 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.29.1 — 2026-10-04
 
-- Nouvelle tête de mort pour les combattants KO (crâne fissuré aux yeux rougeoyants, portrait grisé)
+- Combattants KO : portrait grisé barré d'entailles sanglantes en X
 
 ## v0.29.0 — 2026-10-04
 
