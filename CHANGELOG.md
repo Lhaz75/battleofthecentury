@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.29.2 — 2026-10-04
+
+- Combattants KO : portrait teinté rouge sang foncé (sans croix)
+
 ## v0.29.1 — 2026-10-04
 
 - Combattants KO : portrait grisé barré d'entailles sanglantes en X

@@ -152,9 +152,9 @@ h1 em{font-style:normal;color:var(--blood)}
 .rs .rhp{width:46px;height:4px;background:#2c1410;border-radius:2px;overflow:hidden}
 .rs .rhp i{display:block;height:100%;background:linear-gradient(90deg,#8e1d10,var(--blood))}
 .rs .rl{position:absolute;right:1px;bottom:1px;width:16px;height:16px;border-radius:50%;background:var(--ochre);color:var(--night);font-size:12px;font-weight:700;display:grid;place-items:center;line-height:1}
-.rs .kox{position:absolute;inset:0;display:grid;place-items:center;border-radius:50%;overflow:hidden}
+.rs .kox,.svf .kox{position:absolute;inset:0;border-radius:50%;background:#9a0c08;mix-blend-mode:multiply;pointer-events:none}
 .kox .skl{width:96%;height:96%;filter:drop-shadow(0 1px 1px #000) drop-shadow(0 0 3px rgba(255,40,10,.45))}
-.rs.ko .av img{filter:grayscale(1) brightness(.45) contrast(1.15)}
+.rs.ko .av img{filter:grayscale(1) brightness(1.15) contrast(1.35)}
 .rs .s{font-family:serif;font-weight:900;font-size:13px}
 .rs.ko .av img{filter:grayscale(1) brightness(.6)}
 .rs.ko .rn{opacity:.5}
@@ -963,8 +963,8 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .svteam{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:6px 0 4px}
 .svf{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;width:62px;font-variant-numeric:tabular-nums;color:var(--sand)}
 .svf img{width:56px;height:56px;border-radius:50%;border:2px solid #c98a2e;object-fit:cover;background:#120a06}
-.svf.ko img{filter:grayscale(1) brightness(.5)}
-.svf .kox{position:absolute;top:0;left:3px;width:56px;height:56px;display:grid;place-items:center;color:#f3e2bf}
+.svf.ko img{filter:grayscale(1) brightness(1.15) contrast(1.35)}
+.svf .kox{inset:auto;top:0;left:3px;width:56px;height:56px}
 .svf .rhp{width:52px;height:5px}
 .svf .rhp{background:#2c1410;border-radius:2px;overflow:hidden;border:1px solid rgba(0,0,0,.6)}.svf .rhp i{display:block;height:100%;background:linear-gradient(90deg,#b0281a,#ff5a3a)}
 .svf .rhpn{font-size:11px}
@@ -2275,7 +2275,7 @@ function sideHTML(k){
     const can = me && S.turn===ME && !S.busy && !s.relais && s.end>=1 && !t.ko;
     const tag = can?"button":"div";
     return `<${tag} class="rs ${t.ko?"ko":""} ${can?"can":""}" ${can?`data-relais="${i}" aria-label="${L("relayTo",esc(nm(t.id)))}" title="${L("relayTo",esc(nm(t.id)))}"`:`title="${esc(nm(t.id))}"`}>
-      <span class="av"><img src="${FACE(t.id)}" alt="">${t.ko?`<span class="kox">${SKULL_SVG}</span>`:""}</span>
+      <span class="av"><img src="${FACE(t.id)}" alt="">${t.ko?`<span class="kox"></span>`:""}</span>
       <span class="rhp ${!t.ko&&t.hp<t.max?"hurt":""}"><i style="width:${t.ko?0:t.hp/t.max*100}%"></i></span><span class="rhpn">${t.ko?"":`${t.hp}/${t.max}`}</span></${tag}>`;
   }).join("");
   return `<div class="side ${me?"me":"foe"} ${S.turn===k?"turn":""}">
@@ -2836,6 +2836,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.29.2",d:"2026-10-04",fr:["Combattants KO : portrait teinté rouge sang foncé (sans croix)"],en:["KO'd fighters: dark blood-red tinted portrait (no cross)"],it:["Combattenti KO: ritratto tinto rosso sangue scuro (senza croce)"]},
  {v:"0.29.1",d:"2026-10-04",fr:["Combattants KO : portrait grisé barré d'entailles sanglantes en X"],en:["KO'd fighters: greyed portrait crossed by bloody X slashes"],it:["Combattenti KO: ritratto in grigio barrato da tagli insanguinati a X"]},
  {v:"0.29.0",d:"2026-10-04",fr:["Les combattants KO sont marqués d'une tête de mort","Page profil réorganisée : carte de profil avec les chiffres clés, sections repliables (statistiques, succès, équipes, mot de passe)","Défi du jour : après une victoire, le bouton devient « Retour » ; après un échec, « Retenter le défi » relance directement le défi","Kenshiro, Souther, Ryuken et Jagi : leur piège personnel est maintenant affiché sur leur fiche (ils ont un piège à la place d'une carte spéciale)"],en:["KO'd fighters are marked with a skull","Reorganized profile page: profile card with key numbers, collapsible sections (stats, achievements, teams, password)","Daily challenge: after a win the button becomes \"Back\"; after a failure \"Retry the challenge\" restarts it directly","Kenshiro, Souther, Ryuken and Jagi: their own trap is now shown on their card (they have a trap instead of a special card)"],it:["I combattenti KO sono segnati con un teschio","Pagina profilo riorganizzata: scheda con i numeri chiave, sezioni richiudibili (statistiche, trofei, squadre, password)","Sfida del giorno: dopo una vittoria il pulsante diventa «Indietro»; dopo un fallimento «Riprova la sfida» la rilancia subito","Kenshiro, Souther, Ryuken e Jagi: la loro trappola personale ora è mostrata nella scheda (hanno una trappola invece di una carta speciale)"]},
  {v:"0.28.4",d:"2026-10-04",fr:["Admin : le bloc Administration du profil est replié par défaut, un clic pour le déplier"],en:["Admin: the profile Administration block is collapsed by default, one click to expand"],it:["Admin: il blocco Amministrazione del profilo è chiuso di default, un clic per aprirlo"]},
@@ -3376,7 +3377,7 @@ function survPrep(st){
   if(n>7) st.a.rage=Math.min(RAGE_MAX-2,Math.floor((n-6)/2));
 }
 function survFaces(team,hp,max){ return `<div class="svteam">${team.map((id,i)=>{ const h=hp?hp[i]:null, m=max?max[i]:null, ko=h!=null&&h<=0;
-  return `<div class="svf ${ko?"ko":""} cl-${CLAN[id]}" title="${esc(nm(id))}"><img src="${FACE(id)}" alt="">${ko?`<span class="kox">${SKULL_SVG}</span>`:""}${h!=null&&!ko?`<span class="rhp ${h<m?"hurt":""}"><i style="width:${h/m*100}%"></i></span><span class="rhpn">${h}/${m}</span>`:""}</div>`; }).join("")}</div>`; }
+  return `<div class="svf ${ko?"ko":""} cl-${CLAN[id]}" title="${esc(nm(id))}"><img src="${FACE(id)}" alt="">${ko?`<span class="kox"></span>`:""}${h!=null&&!ko?`<span class="rhp ${h<m?"hurt":""}"><i style="width:${h/m*100}%"></i></span><span class="rhpn">${h}/${m}</span>`:""}</div>`; }).join("")}</div>`; }
 function renderSurvWave(){
   const n=SURV.wave;
   pageShell(L("survTitle"),`<div class="center svwave">
