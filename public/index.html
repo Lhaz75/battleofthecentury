@@ -1888,7 +1888,7 @@ function makeSide(team){
   };
 }
 function newGame(team,foe,prep){
-  journalReset();
+  journalReset(); FXQ.length=0;
   S = { p:makeSide(team), a:makeSide(foe||randomTeam(team)), terrain:null, round:0, turn:null, busy:true, over:false, react:null,
         log:L("start"), sub:"", gid:Date.now()+"-"+Math.random().toString(36).slice(2,6) };
   if(prep) prep(S);
@@ -2184,7 +2184,7 @@ function hurt(k,dmg){
   if(f.hp<=0) ko(k);
 }
 function ko(k){
-  const s=S[k], f=act(s);
+  const s=S[k], f=act(s), hitSub=S.sub||"";
   f.ko=true;
   if(S.ultBy && S.ultBy===other(k) && S.ultBy===ME) S.ultKo=true;
   { const kl=act(S[other(k)]); if(kl && kl.id==="nameless" && !kl.ko && kl.hp>0){ kl.hp=Math.min(kl.max,kl.hp+6); fx(other(k),"+6","h"); S.sub=L("namelessName",esc(nm("nameless"))); } }
@@ -2198,7 +2198,7 @@ function ko(k){
   if(next<0){ S.over=true; if(MODE==="vs"){ clearTimeout(NET.pushT); netPush(); } setTimeout(()=>renderEnd(k!==ME),1400); return; }
   s.active=next;
   s.combo.last=-1; // le nouveau combattant entre sans combo
-  S.sub=L("enters",esc(nm(s.team[next].id)),whoLow(k));
+  S.sub=(hitSub&&!/entre|enters|entra/i.test(hitSub)?hitSub+" — ":"")+L("enters",esc(nm(s.team[next].id)),whoLow(k));
   { const o=S[other(k)]; if(RELAY_TRAPS.includes(o.trap) && !canRelayAny(s)){ const t=o.trap; o.trap=null; S.sub+=" "+L("trapVoid",tr(TRAPS[t].name)); } }
   SFX.voice(ENTER_VOICE[s.team[next].id], 2600);
 }
@@ -3018,6 +3018,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.31.5",d:"2026-10-04",fr:["Journal : les dégâts du coup fatal sont affichés","Survie : plus d'animation de coup fantôme au début de la vague suivante","Survie : l'adversaire de la vague précédente ne revient pas tout de suite"],en:["Log: damage of the finishing blow is shown","Survival: no more ghost hit animation at the start of the next wave","Survival: the previous wave's opponent doesn't come back right away"],it:["Registro: mostrati i danni del colpo fatale","Sopravvivenza: niente più animazione di colpo fantasma all'inizio dell'ondata successiva","Sopravvivenza: l'avversario dell'ondata precedente non ritorna subito"]},
  {v:"0.31.4",d:"2026-10-04",fr:["Retrait de l'éclat en étoile sur les portraits à chaque coup"],en:["Removed the star burst on portraits at each hit"],it:["Rimosso lo scoppio a stella sui ritratti a ogni colpo"]},
  {v:"0.31.3",d:"2026-10-04",fr:["Onomatopées plus violentes : lettres déchirées et tranchées en deux, contours rugueux"],en:["More violent sound effects: torn letters sliced in two, rough edges"],it:["Onomatopee più violente: lettere strappate e tagliate in due, contorni ruvidi"]},
  {v:"0.31.2",d:"2026-10-04",fr:["Onomatopées plus brèves et en couleur (blanc, jaune, orange selon la force du coup)"],en:["Shorter, colored sound effects (white, yellow, orange depending on the hit strength)"],it:["Onomatopee più brevi e colorate (bianco, giallo, arancione in base alla forza del colpo)"]},
@@ -3549,8 +3550,8 @@ const SURV={on:false};
 const SURV_HEAL=.75, SURV_REVIVE=.5, SURV_REST=5;
 const survHpMul=n=>.5+.05*(n-1);
 function survFoe(n,mine){
-  const b=Math.min(BUDGET,3+n), mx=Math.min(TEAM_MAX,2+Math.floor((n-1)/2));
-  let pool=Object.keys(FIGHTERS).filter(f=>!mine.includes(f)); if(pool.length<6) pool=Object.keys(FIGHTERS);
+  const b=Math.min(BUDGET,3+n), mx=Math.min(TEAM_MAX,2+Math.floor((n-1)/2)), prev=(SURV.foe||[]);
+  let pool=Object.keys(FIGHTERS).filter(f=>!mine.includes(f)&&!prev.includes(f)); if(pool.length<6) pool=Object.keys(FIGHTERS);
   for(let k=0;k<300;k++){ const t=[]; let c=0;
     for(const f of shuffle(pool.slice())){ if(t.length>=mx) break; if(c+(COST[f]||3)<=b){ t.push(f); c+=COST[f]||3; } }
     if(t.length>=TEAM_MIN && c>=b-1) return t; }

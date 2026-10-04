@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.31.5 — 2026-10-04
+
+- Journal : les dégâts du coup fatal sont affichés
+- Survie : plus d'animation de coup fantôme au début de la vague suivante
+- Survie : l'adversaire de la vague précédente ne revient pas tout de suite
+
 ## v0.31.4 — 2026-10-04
 
 - Retrait de l'éclat en étoile sur les portraits à chaque coup
