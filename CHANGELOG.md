@@ -4,7 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.30.2 — 2026-10-04
 
-- Vignettes de sélection recadrées : tous les combattants ont maintenant la même taille sur leur carte
+- Vignettes de sélection recadrées selon la taille du visage : tous les combattants ont maintenant la même taille sur leur carte
 
 ## v0.30.1 — 2026-10-04
 
