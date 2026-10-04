@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.38.1 — 2026-10-04
+
+- Règles : bouton « Cartes & événements » qui s'affichait écrasé
+
 ## v0.38.0 — 2026-10-04
 
 - Nouveau mode Arcade : la Tour, 8 étages à thème (pillards, désert, querelle d'école, guerrier masqué, tempête d'événements, reflet, généraux, boss final), PV remis à fond à chaque étage
