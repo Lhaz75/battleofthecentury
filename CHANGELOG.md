@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.33.0 — 2026-10-04
+
+- Relais gratuit au premier tour de chaque joueur : choisis ton combattant selon ta main (idée de maxGfive)
+
 ## v0.32.2 — 2026-10-04
 
 - Carte d'événement : icône retirée
