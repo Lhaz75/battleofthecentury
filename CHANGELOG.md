@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.40.1 — 2026-10-04
+
+- Yasaka recadré comme les autres combattants (jusqu'aux genoux)
+
 ## v0.40.0 — 2026-10-04
 
 - 3 nouveaux combattants : Joker (homme de main de Shin, KING), Yasaka (Seito Gekken) et Zhang Taiyan (Hokuto Sōkaken)
