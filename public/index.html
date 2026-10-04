@@ -2468,9 +2468,9 @@ function shout(t){ rec(["shout",t]); document.querySelectorAll(".shoutp").forEac
   d.innerHTML=parts.length>1?`<div class="shk">${parts[0]}</div><div class="shn">${parts.slice(1).join(" ")}</div>`:`<div class="shn">${parts[0]}</div>`;
   document.body.appendChild(d); setTimeout(()=>d.remove(),1900); }
 function eventCard(name,text,tone){ rec(["evcard",name,text,tone]); document.querySelectorAll(".evwrap").forEach(e=>e.remove());
-  const t=tone||"neu", ico=t==="pos"?"✚":t==="neg"?"☠":"⚑";
+  const t=tone||"neu";
   const w=document.createElement("div"); w.className="evwrap ev-"+t;
-  w.innerHTML=`<div class="evcard"><div class="evico">${ico}</div><div class="evk">${L("event")} · ${L("ev_"+t)}</div><div class="evn">${name}</div><div class="evt">${text}</div><div class="evtap">${L("evTap")}</div></div>`;
+  w.innerHTML=`<div class="evcard"><div class="evk">${L("event")} · ${L("ev_"+t)}</div><div class="evn">${name}</div><div class="evt">${text}</div><div class="evtap">${L("evTap")}</div></div>`;
   const t0=Date.now(), close=()=>{ if(!w.isConnected) return; w.classList.add("out"); setTimeout(()=>w.remove(),280); };
   w.onclick=()=>{ if(Date.now()-t0>900) close(); };
   document.body.appendChild(w); setTimeout(close,RP&&RP.on?1900:4200); }
@@ -3049,6 +3049,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.32.2",d:"2026-10-04",fr:["Carte d'événement : icône retirée"],en:["Event card: icon removed"],it:["Carta evento: icona rimossa"]},
  {v:"0.32.1",d:"2026-10-04",fr:["Événements : grosse carte plein écran, rouge pour les mauvais, verte pour les bons, dorée pour les retournements"],en:["Events: big full-screen card, red for bad ones, green for good ones, gold for twists"],it:["Eventi: grande carta a schermo intero, rossa per i negativi, verde per i positivi, dorata per i colpi di scena"]},
  {v:"0.32.0",d:"2026-10-04",fr:["Survie : la récupération des PV après chaque vague est affichée (+PV, barre qui remonte)","Survie : message de soin plus visible","Journal : on voit pourquoi la rage monte (coup reçu, contre, clan Shura, talent, effet, arène)"],en:["Survival: HP recovery after each wave is shown (+HP, bar refilling)","Survival: healing message more visible","Log: shows why rage goes up (hit taken, counter, Shura clan, passive, effect, arena)"],it:["Sopravvivenza: il recupero dei PV dopo ogni ondata è mostrato (+PV, barra che risale)","Sopravvivenza: messaggio di cura più visibile","Registro: si vede perché la rabbia sale (colpo subito, contrattacco, clan Shura, talento, effetto, arena)"]},
  {v:"0.31.5",d:"2026-10-04",fr:["Journal : les dégâts du coup fatal sont affichés","Survie : plus d'animation de coup fantôme au début de la vague suivante","Survie : l'adversaire de la vague précédente ne revient pas tout de suite"],en:["Log: damage of the finishing blow is shown","Survival: no more ghost hit animation at the start of the next wave","Survival: the previous wave's opponent doesn't come back right away"],it:["Registro: mostrati i danni del colpo fatale","Sopravvivenza: niente più animazione di colpo fantasma all'inizio dell'ondata successiva","Sopravvivenza: l'avversario dell'ondata precedente non ritorna subito"]},
