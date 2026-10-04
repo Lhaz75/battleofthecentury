@@ -4,7 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.31.3 — 2026-10-04
 
-- Onomatopées plus violentes : lettres déchirées et tranchées en deux, contours rugueux, éclat d'impact derrière les coups moyens et lourds
+- Onomatopées plus violentes : lettres déchirées et tranchées en deux, contours rugueux
 
 ## v0.31.2 — 2026-10-04
 
