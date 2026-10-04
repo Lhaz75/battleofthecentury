@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.42.1 — 2026-10-05
+
+- Téléphone en paysage : nouveau plateau sur toute la largeur, la main et les boutons tiennent à l'écran sans défiler
+- Écrans de PC peu hauts : la main ne chevauche plus les PV des remplaçants adverses, plateau plus compact
+- Cartes : les textes longs (pièges, noms de techniques) se resserrent pour tenir dans la carte (merci maxGfive)
+
 ## v0.42.0 — 2026-10-05
 
 - Liens du lore : 19 liens donnent un bonus quand certains combattants sont dans la même équipe (Frères Hokuto, Six étoiles du Nanto, Shin et ses valets, Rei et Kenshiro, Shuren et Huey…). Ils s'affichent à la sélection (touche-les pour le détail) et sur la page Combattants

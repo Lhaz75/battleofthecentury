@@ -426,6 +426,17 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
   .board>.side .por{height:34vh}
   .board .card{height:170px;flex-basis:124px}
 }
+@media (min-width:1000px) and (max-height:700px){
+  .board{gap:6px 18px;padding-block:8px}
+  .board>.side{gap:6px}
+  .board>.side .por{height:24vh}
+  .board .fname{font-size:20px}
+  .board .rs{width:54px}.board .rs .av{width:44px;height:44px}
+  .board>.ring{padding:10px 14px;gap:8px}
+  .board>.hand{padding-top:10px;gap:10px}
+  .board .card{height:150px;flex-basis:112px;padding:7px}
+  .board .card .cn{font-size:14px}.board .card .cx{font-size:11.5px}.board .card .dm{font-size:24px}
+}
 @font-face{font-family:"Dela Gothic One";src:url(assets/fonts/dela.woff2) format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+2000-206F}
 @font-face{font-family:"Dela Gothic One";src:url(assets/fonts/dela-ext.woff2) format("woff2");font-display:swap;unicode-range:U+0100-02AF}
 @font-face{font-family:"Ono";src:url(assets/fonts/dela-ono.woff2) format("woff2");font-display:block}
@@ -1270,6 +1281,26 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
   .screen.board .fcard{min-height:clamp(30px,5vh,46px)!important}
   .screen.board .hand{margin-top:auto}
   @media (max-height:700px){.screen.board .card{flex-basis:96px;height:132px}.screen.board .side .por{width:66px!important}.screen.board .fslot .flbl{display:none}}
+}
+/* mobile en paysage : adversaire | centre | moi en haut, la main et la barre en dessous, sans défilement */
+@media (max-width:999px) and (orientation:landscape) and (max-height:560px){
+  .screen.board{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr) minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto auto;grid-template-areas:"me ring foe" "hand hand hand" "act act act";gap:4px 10px!important;overflow:hidden;padding-block:max(4px,env(safe-area-inset-top)) 0}
+  .screen.board>.side.me{grid-area:me}.screen.board>.side.foe{grid-area:foe}.screen.board>.ring{grid-area:ring}.screen.board>.hand{grid-area:hand}.screen.board>.bar-actions{grid-area:act}
+  .screen.board>.side{align-self:start;gap:6px;min-width:0}
+  .screen.board .side .por{width:clamp(52px,15vh,70px)!important;margin:0}
+  .screen.board .side .fname{font-size:15px}
+  .screen.board .side .meta>span:first-child{-webkit-line-clamp:2;font-size:10px}
+  .screen.board .rs .av{width:30px!important;height:30px!important}
+  .screen.board .rs .rhp{width:30px}
+  .screen.board>.ring{align-self:start;padding:6px 8px;gap:4px;min-width:0;overflow:hidden;max-height:100%}
+  .screen.board .ring .fslot .flbl{display:none}
+  .screen.board .ring .fcard{min-height:26px!important;padding:3px 5px!important;font-size:10px}
+  .screen.board .ring .log{font-size:11.5px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .screen.board .ring .jpanel{display:none}
+  .screen.board>.hand{margin-top:0;padding-top:12px;padding-bottom:2px;justify-content:safe center}
+  .screen.board .card{flex-basis:clamp(92px,27vh,118px);height:clamp(124px,40vh,168px)}
+  .screen.board .card .cn,.screen.board .card .cx{display:block;-webkit-line-clamp:unset!important;max-height:none;overflow:visible}
+  .screen.board>.bar-actions{position:static;padding-top:2px;padding-bottom:max(4px,env(safe-area-inset-bottom))}
 }
 .ipbar h2,.rules h3{transform:skewX(-10deg);transform-origin:0 100%}
 html,body,*{scrollbar-width:none}::-webkit-scrollbar{display:none}
@@ -2890,6 +2921,16 @@ function onChatData(d){
   const fresh=all.filter(m=>m.who!==NET.role); if(fresh.length>before){ const last=fresh[fresh.length-1]; if(last.v && Date.now()-last.t<60000 && SFX.on) voicePlay(last.v); else SFX.play("click"); if(JTAB==="chat"&&(JOPEN||window.innerWidth>=1000)) CHAT_SEEN=Date.now(); }
   return true;
 }
+function fitCards(){
+  document.querySelectorAll(".hand .card").forEach(c=>{
+    const cn=c.querySelector(".cn"), cx=c.querySelector(".cx"); if(!cn) return;
+    cn.style.fontSize=""; if(cx){ cx.style.fontSize=""; cx.style.lineHeight=""; }
+    let g=parseFloat(getComputedStyle(cn).fontSize), f=cx?parseFloat(getComputedStyle(cx).fontSize):0;
+    const over=()=>{ const lim=c.getBoundingClientRect().bottom-4; return c.scrollHeight>c.clientHeight+1 || [cx,c.querySelector(".dm")].some(e=>e && e.getBoundingClientRect().bottom>lim); };
+    for(let i=0;i<12 && over();i++){ g*=.94; cn.style.fontSize=g+"px"; if(cx){ f*=.92; cx.style.fontSize=f+"px"; cx.style.lineHeight="1.15"; } }
+  });
+}
+let FIT_T=0; addEventListener("resize",()=>{ clearTimeout(FIT_T); FIT_T=setTimeout(fitCards,120); });
 function render(){
   if(!S||S.dead) return; MUSIC.want(S.over?null:"combat");
   journalNote(); rpCapture();
@@ -2931,6 +2972,7 @@ function render(){
       b.addEventListener("pointermove",cancel); b.addEventListener("pointerup",cancel,{once:true}); b.addEventListener("pointercancel",cancel,{once:true}); });
     b.addEventListener("contextmenu",e=>{ e.preventDefault(); const card=p.hand.find(x=>x.uid==b.dataset.uid); if(card){ LP_FIRED=true; zoomCard(card); } });
   });
+  fitCards();
   document.querySelectorAll("[data-relais]").forEach(b=>b.onclick=()=>relais(ME,+b.dataset.relais));
   $("#ult").onclick=()=>ultimate(ME);
   $("#end").onclick=()=>{ SFX.play("click"); if(MODE==="vs") NET.handoff=true; endTurn(ME); };
@@ -3262,6 +3304,7 @@ Object.assign(UI.fr,{"lkTitle":"Liens actifs","relayFreeLink":"Relais gratuit (F
 Object.assign(UI.en,{"lkTitle":"Active links","relayFreeLink":"Free tag (Brotherhood).","rg_link":"link","lk_brothers":"Hokuto brothers","lkd_brothers":"2 or more brothers (Kenshiro, Raoh, Toki, Jagi): their ultimates deal +1 per brother beyond the first.","lk_stars":"Six Stars of Nanto","lkd_stars":"2 or more stars (Rei, Shin, Yuda, Shu, Souther): each star gets +1 max HP (+2 from 4 stars).","lk_ryuken":"The master and his pupils","lkd_ryuken":"Ryuken with Raoh, Toki or Kenshiro: +1 starting rage per pupil present.","lk_king":"Shin and his jacks","lkd_king":"Shin with Joker, Club, Spade, Diamond or Heart: Shin gets +1 max HP per jack, and the jacks deal +1 damage.","lk_reiken":"Brotherhood","lkd_reiken":"Rei and Kenshiro: tags between the two of them are free.","lk_mamiya":"For Mamiya","lkd_mamiya":"Rei and Mamiya: if Mamiya falls while Rei is still standing, +3 rage.","lk_shinjagi":"Jagi's manipulation","lkd_shinjagi":"Shin and Jagi: +2 starting rage.","lk_dagar":"Yuda's lieutenant","lkd_dagar":"Yuda and Dagar: Dagar deals +2 damage while Yuda is still standing.","lk_ogai":"Ogai's legacy","lkd_ogai":"Ogai and Souther: Souther's Heavies deal +1.","lk_ryuga":"The king's wolf","lkd_ryuga":"Ryuga and Raoh: Ryuga's Mediums deal +1.","lk_flamewind":"Flame and Wind","lkd_flamewind":"Shuren and Huey: each deals +1 damage while the other is standing.","lk_kuro":"Devoted servant","lkd_kuro":"Kuroyasha and Hyō: when Hyō takes hits, Kuroyasha (in reserve) absorbs up to 2 damage instead.","lk_devil":"The monster unleashed","lkd_devil":"Jackal and Devil Rebirth: Devil has +3 HP.","lk_foxjackal":"Gang of crooks","lkd_foxjackal":"Fox and Jackal: +1 card drawn on the first turn.","lk_jako":"End of the blackmail","lkd_jako":"Jakoh and Falco: when Jakoh is KO, Falco is freed and deals +2 damage.","lk_shoki":"Childhood friends","lkd_shoki":"Shoki and Falco: Shoki deals +1 damage and his Guards heal him.","lk_colonel":"War veterans","lkd_colonel":"Colonel and Mad Sarge: Mad Sarge's Lights deal +1 more.","lk_shachi":"Father and son","lkd_shachi":"Shachi and Akashachi: Akashachi's 1st hit deals +1.","lk_rima":"Partners","lkd_rima":"Rima and Frieda: Rima's special gives +3 more rage.",kuroAbsorb:n=>`Kuroyasha takes ${n} damage in Hyō's place.`});
 Object.assign(UI.it,{"lkTitle":"Legami attivi","relayFreeLink":"Cambio gratis (Fratellanza).","rg_link":"legame","lk_brothers":"Fratelli Hokuto","lkd_brothers":"2 fratelli o più (Kenshiro, Raoh, Toki, Jagi): le loro ultime fanno +1 per ogni fratello oltre il primo.","lk_stars":"Sei stelle di Nanto","lkd_stars":"2 stelle o più (Rei, Shin, Yuda, Shu, Souther): ogni stella ha +1 PV max (+2 da 4 stelle).","lk_ryuken":"Il maestro e i suoi allievi","lkd_ryuken":"Ryuken con Raoh, Toki o Kenshiro: +1 rabbia iniziale per allievo presente.","lk_king":"Shin e i suoi fanti","lkd_king":"Shin con Joker, Club, Spade, Diamond o Heart: Shin ha +1 PV max per fante, e i fanti fanno +1 danno.","lk_reiken":"Fratellanza","lkd_reiken":"Rei e Kenshiro: i cambi tra loro due sono gratis.","lk_mamiya":"Per Mamiya","lkd_mamiya":"Rei e Mamiya: se Mamiya cade mentre Rei è ancora in piedi, +3 rabbia.","lk_shinjagi":"La manipolazione di Jagi","lkd_shinjagi":"Shin e Jagi: +2 rabbia iniziale.","lk_dagar":"Luogotenente di Yuda","lkd_dagar":"Yuda e Dagar: Dagar fa +2 danni finché Yuda è in piedi.","lk_ogai":"L'eredità di Ogai","lkd_ogai":"Ogai e Souther: i Pesanti di Souther fanno +1.","lk_ryuga":"Il lupo del re","lkd_ryuga":"Ryuga e Raoh: i Medi di Ryuga fanno +1.","lk_flamewind":"Fiamma e Vento","lkd_flamewind":"Shuren e Huey: ognuno fa +1 danno finché l'altro è in piedi.","lk_kuro":"Servitore devoto","lkd_kuro":"Kuroyasha e Hyō: quando Hyō subisce colpi, Kuroyasha (in riserva) assorbe fino a 2 danni al suo posto.","lk_devil":"Il mostro liberato","lkd_devil":"Jackal e Devil Rebirth: Devil ha +3 PV.","lk_foxjackal":"Banda di furfanti","lkd_foxjackal":"Fox e Jackal: +1 carta pescata al primo turno.","lk_jako":"Fine del ricatto","lkd_jako":"Jako e Falco: quando Jako è KO, Falco è libero e fa +2 danni.","lk_shoki":"Amici d'infanzia","lkd_shoki":"Shoki e Falco: Shoki fa +1 danno e le sue Parate lo curano.","lk_colonel":"Veterani di guerra","lkd_colonel":"Colonel e Mad Sarge: i Leggeri di Mad Sarge fanno +1 in più.","lk_shachi":"Padre e figlio","lkd_shachi":"Shachi e Akashachi: il 1° colpo di Akashachi fa +1.","lk_rima":"Partner","lkd_rima":"Rima e Frieda: lo speciale di Rima dà +3 rabbia in più.",kuroAbsorb:n=>`Kuroyasha subisce ${n} danni al posto di Hyō.`});
 const CHANGELOG=[
+ {v:"0.42.1",d:"2026-10-05",fr:["Téléphone en paysage : nouveau plateau sur toute la largeur, la main et les boutons tiennent à l'écran sans défiler","Écrans de PC peu hauts : la main ne chevauche plus les PV des remplaçants adverses, plateau plus compact","Cartes : les textes longs (pièges, noms de techniques) se resserrent pour tenir dans la carte (merci maxGfive)"],en:["Phone in landscape: new full-width board, the hand and buttons fit on screen without scrolling","Short PC screens: the hand no longer overlaps the opponent's reserve HP, more compact board","Cards: long texts (traps, technique names) shrink to fit inside the card (thanks maxGfive)"],it:["Telefono in orizzontale: nuova plancia a tutta larghezza, la mano e i pulsanti stanno nello schermo senza scorrere","Schermi PC bassi: la mano non copre più i PV delle riserve avversarie, plancia più compatta","Carte: i testi lunghi (trappole, nomi delle tecniche) si restringono per stare nella carta (grazie maxGfive)"]},
  {v:"0.42.0",d:"2026-10-05",fr:["Liens du lore : 19 liens donnent un bonus quand certains combattants sont dans la même équipe (Frères Hokuto, Six étoiles du Nanto, Shin et ses valets, Rei et Kenshiro, Shuren et Huey…). Ils s'affichent à la sélection (touche-les pour le détail) et sur la page Combattants"],en:["Lore links: 19 links give a bonus when certain fighters are on the same team (Hokuto brothers, Six Stars of Nanto, Shin and his jacks, Rei and Kenshiro, Shuren and Huey…). They show on the selection screen (tap for details) and on the Fighters page"],it:["Legami del lore: 19 legami danno un bonus quando certi combattenti sono nella stessa squadra (Fratelli Hokuto, Sei stelle di Nanto, Shin e i suoi fanti, Rei e Kenshiro, Shuren e Huey…). Appaiono nella selezione (toccali per i dettagli) e nella pagina Combattenti"]},
  {v:"0.41.1",d:"2026-10-05",fr:["Le bouton « Contre l'IA » s'appelle maintenant « Entraînement »"],en:["The “vs AI” button is now called “Training”"],it:["Il pulsante «Contro l'IA» ora si chiama «Allenamento»"]},
  {v:"0.41.0",d:"2026-10-04",fr:["Défi de la semaine : la même équipe adverse pour tout le monde, classement par coût d'équipe le plus bas puis par rapidité, le top 3 gagne +100/+60/+40 pts chaque lundi (idée de Jerome R.)","2 nouveaux succès : podium et champion de la semaine"],en:["Weekly challenge: the same enemy team for everyone, ranked by lowest team cost then speed, the top 3 get +100/+60/+40 pts every Monday (idea by Jerome R.)","2 new achievements: weekly podium and weekly champion"],it:["Sfida della settimana: la stessa squadra avversaria per tutti, classifica per costo di squadra più basso poi velocità, il top 3 vince +100/+60/+40 pt ogni lunedì (idea di Jerome R.)","2 nuovi trofei: podio e campione della settimana"]},
