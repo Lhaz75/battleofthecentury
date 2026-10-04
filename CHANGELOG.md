@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.40.0 — 2026-10-04
+
+- 3 nouveaux combattants : Joker (homme de main de Shin, KING), Yasaka (Seito Gekken) et Zhang Taiyan (Hokuto Sōkaken)
+- 11 punks (non jouables) débarquent en survie et en arcade : les premières vagues et le 1er étage de la tour sont maintenant des bandes de pillards
+
 ## v0.39.2 — 2026-10-04
 
 - Mobile : bandeau « Installe le jeu sur ton téléphone » bien visible sur l'écran principal
