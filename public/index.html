@@ -1134,6 +1134,12 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .wklist li.me{border-color:#e8b04a;background:rgba(232,176,74,.1)}
 .wklist .hr{font:700 15px var(--f-display);color:#e8b04a;width:22px;text-align:center}.wklist li.p1 .hr{color:#ffd700}.wklist li.p2 .hr{color:#c0c0c0}.wklist li.p3 .hr{color:#cd7f32}
 .wklist .hn{font-weight:600;color:#f3e2bf;min-width:80px;flex:1}
+.lkon{display:block;margin-top:3px;padding:0;background:none;border:0;text-align:left;font:700 12px/1.35 var(--f-body,inherit);color:#9fd8ff;cursor:pointer;text-decoration:underline dotted}
+.screen.sel .teambar .lkon{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.lklist{list-style:none;margin:6px 0 12px;padding:0;display:flex;flex-direction:column;gap:8px}
+.lklist li{display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:8px;background:rgba(80,160,220,.08);border:1px solid rgba(120,190,255,.25)}
+.lklist b{color:#9fd8ff}.lklist span{font-size:13px;color:var(--sand)}
+.rlink{margin-top:6px;font-size:12.5px;line-height:1.4;color:var(--sand)}.rlink span{color:#9fd8ff;font-weight:700}
 .chin .askbox{border-color:#e0452c;box-shadow:0 0 0 1px rgba(224,69,44,.4),0 18px 50px rgba(0,0,0,.7)}
 @media (max-width:600px){.onl-ul .ow{font-size:0;gap:0}}
 .fsbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
@@ -2038,10 +2044,13 @@ function makeSide(team){
   shuffle(Object.keys(TRAPS).filter(t=>!TRAPS[t].own)).slice(0,3).forEach(t=>deck.push("x_"+t));
   team.forEach(fid=>Object.keys(TRAPS).forEach(t=>{ if(TRAPS[t].own===fid) deck.push("x_"+t); }));
   team.forEach(fid=>{ if(SPECS[fid]) deck.push("sp_"+fid); });
-  return {
-    team: team.map(fid=>{const h=fighterHP(fid,team.length)+(clanBonus(team)==="goshasei"?3:0);return {id:fid,hp:h,max:h,ko:false}}), clan:clanBonus(team),
+  const lk=linksOf(team), nStars=STARS.filter(x=>team.includes(x)).length, nVal=VALETS.filter(x=>team.includes(x)).length;
+  const lkHp=fid=>(lk.includes("devil")&&fid==="devil"?3:0)+(lk.includes("king")&&fid==="rival"?nVal:0)+(lk.includes("stars")&&STARS.includes(fid)?(nStars>=4?2:1):0);
+  const lkRage=(lk.includes("shinjagi")?2:0)+(lk.includes("ryuken")?STUDENTS.filter(x=>team.includes(x)).length:0);
+  return { links:lk, nBro:BROTHERS.filter(x=>team.includes(x)).length,
+    team: team.map(fid=>{const h=fighterHP(fid,team.length)+(clanBonus(team)==="goshasei"?3:0)+lkHp(fid);return {id:fid,hp:h,max:h,ko:false}}), clan:clanBonus(team),
     active:0, draw:shuffle(deck.map(k=>({uid:++UID,k}))), hand:[], disc:[],
-    end:0, rage:clanBonus(team)==="sonkaken"?2:0, combo:{n:0,last:-1,stop:false,trail:[]}, relais:false,
+    end:0, rage:Math.min(RAGE_MAX-1,(clanBonus(team)==="sonkaken"?2:0)+lkRage), combo:{n:0,last:-1,stop:false,trail:[]}, relais:false,
     sageBonus:0, drain:0, empGuard:true, trap:null
   };
 }
@@ -2084,7 +2093,7 @@ function startTurn(k){
   s.combo={n:0,last:-1,stop:false,trail:[]};
   S[other(k)].empGuard=true;
   if(S.terrain==="village") s.team.forEach((f,i)=>{ if(i!==s.active && !f.ko) f.hp=Math.min(f.max,f.hp+3); });
-  drawTo(s,HAND + (act(s).id==="vieux"?1:0) + (act(s).id==="rihaku" && s.trap?1:0));
+  drawTo(s,HAND + (act(s).id==="vieux"?1:0) + (act(s).id==="rihaku" && s.trap?1:0) + (s.nT===1 && hasLink(s,"foxjackal")?1:0));
   if(s.clan==="shura") gainRage(s,1,"clan");
   const swapped=ensureAttack(s);
   const op=S[other(k)];
@@ -2098,6 +2107,29 @@ function startTurn(k){
   else { S.busy=true; render(); aiTurn(); }
 }
 // pièges qui se déclenchent sur un relais : inutiles si l'adversaire n'a plus personne en réserve
+
+/* ---------- liens du lore : bonus quand certains combattants sont dans la même équipe ---------- */
+const VALETS=["joker","club","spade","diamond","ventre"], STARS=["dans","rival","narc","aveugle","emp"], BROTHERS=["maitre","colo","sage","fourbe"], STUDENTS=["colo","sage","maitre"];
+const LINKS=[
+ {id:"brothers",m:BROTHERS,ok:t=>BROTHERS.filter(x=>t.includes(x)).length>=2},
+ {id:"stars",m:STARS,ok:t=>STARS.filter(x=>t.includes(x)).length>=2},
+ {id:"ryuken",m:["vieux",...STUDENTS],ok:t=>t.includes("vieux")&&STUDENTS.some(x=>t.includes(x))},
+ {id:"king",m:["rival",...VALETS],ok:t=>t.includes("rival")&&VALETS.some(x=>t.includes(x))},
+ {id:"reiken",m:["dans","maitre"]},{id:"mamiya",m:["dans","mamiya"]},{id:"shinjagi",m:["rival","fourbe"]},
+ {id:"dagar",m:["narc","dagar"]},{id:"ogai",m:["ogai","emp"]},{id:"ryuga",m:["ryuga","colo"]},
+ {id:"flamewind",m:["shuren","huey"]},{id:"kuro",m:["kuroyasha","hyo"]},{id:"devil",m:["jackal","devil"]},
+ {id:"foxjackal",m:["fox","jackal"]},{id:"jako",m:["jako","general"]},{id:"shoki",m:["shoki","general"]},
+ {id:"colonel",m:["colonel","sarge"]},{id:"shachi",m:["shachi","akashachi"]},{id:"rima",m:["rima","frieda"]}
+];
+function linksOf(team){ return LINKS.filter(l=>l.ok?l.ok(team):l.m.every(x=>team.includes(x))).map(l=>l.id); }
+const hasLink=(s,id)=>!!(s.links&&s.links.includes(id));
+const alive=(s,id)=>s.team.some(t=>t.id===id&&!t.ko);
+function linkNames(ids){ return ids.map(id=>L("lk_"+id)).join(" · "); }
+function linksPop(team){ const ids=linksOf(team); if(!ids.length) return;
+  const w=document.createElement("div"); w.className="askw";
+  w.innerHTML=`<div class="askbox" role="dialog"><h3>${L("lkTitle")}</h3><ul class="lklist">${ids.map(id=>`<li><b>${L("lk_"+id)}</b><span>${L("lkd_"+id)}</span></li>`).join("")}</ul><div class="row"><button class="btn sm" data-x>OK</button></div></div>`;
+  document.body.appendChild(w); w.onclick=e=>{ if(e.target===w||e.target.closest("[data-x]")) w.remove(); }; }
+function linksFor(id){ return LINKS.filter(l=>l.m.includes(id)); }
 const RELAY_TRAPS=["embuscade","kibaclan"];
 const canRelayAny = side => side.team.some((t,i)=>i!==side.active && !t.ko);
 function canPlay(k,card){
@@ -2118,14 +2150,15 @@ function canPlay(k,card){
 // carte d'un coéquipier en réserve : jouable en faisant le relais automatiquement
 function viaRelay(k,card){
   const s=S[k], c=CARDS[card.k];
-  if(S.turn!==k || S.over || s.relais || s.end<relayCost(s) || !c.owner || card.copyBy || card.inh) return -1;
+  if(S.turn!==k || S.over || s.relais || !c.owner || card.copyBy || card.inh) return -1;
   const idx=s.team.findIndex((t,i)=>t.id===c.owner && i!==s.active && !t.ko);
   if(idx<0) return -1;
-  const a=s.active, e=s.end; s.active=idx; s.end=e-relayCost(s);
+  const rc=relayCost(s,idx); if(s.end<rc) return -1;
+  const a=s.active, e=s.end; s.active=idx; s.end=e-rc;
   let ok=false; try{ ok=canPlay(k,card); } finally { s.active=a; s.end=e; }
   return ok?idx:-1;
 }
-function relayCost(s){ return (s.nT||0)<=1?0:1; }
+function relayCost(s,idx){ if(idx!=null && hasLink(s,"reiken")){ const a=act(s).id, b=s.team[idx]&&s.team[idx].id; if((a==="dans"&&b==="maitre")||(a==="maitre"&&b==="dans")) return 0; } return (s.nT||0)<=1?0:1; }
 async function relayAndPlay(k,card){
   const idx=viaRelay(k,card); if(idx<0) return;
   await relais(k,idx);
@@ -2153,6 +2186,13 @@ function hitDamage(k,c){
   if(act(s).id==="spade" && c.lvl===0) d+=1;
   if(act(s).id==="dagar") d+=s.team.filter((t,i)=>i!==s.active&&!t.ko).length;
   if(act(s).id==="uighur" && c.lvl===0) d+=2;
+  { const id=act(s).id;
+    if(hasLink(s,"flamewind") && ((id==="shuren"&&alive(s,"huey"))||(id==="huey"&&alive(s,"shuren")))) d+=1;
+    if(hasLink(s,"king") && VALETS.includes(id)) d+=1;
+    if(hasLink(s,"ogai") && id==="emp" && c.lvl===2) d+=1;
+    if(hasLink(s,"dagar") && id==="dagar" && alive(s,"narc")) d+=2;
+    if(hasLink(s,"ryuga") && id==="ryuga" && c.lvl===1) d+=1;
+    if(hasLink(s,"jako") && id==="general" && s.team.some(t=>t.id==="jako"&&t.ko)) d+=2; }
   if(act(s).id==="yasaka" && c.lvl===2 && s.combo.n>=2) d+=3;
   if(act(s).id==="taiyan" && c.lvl>=1 && act(s).hp*2<act(s).max) d+=2;
   if(FIGHTERS[act(s).id].npc && s.team.some((t,i)=>i!==s.active && !t.ko && FIGHTERS[t.id].npc)) d+=1;
@@ -2340,6 +2380,7 @@ function gainRage(side,n,why){ const b=side.rage, x=S.terrain==="arene"?2:1; sid
   const got=side.rage-b; if(got>0){ const f=act(side); (S.rg=S.rg||[]).push({w:f?f.id:"",n:got,y:why||"fx",x:x>1}); } }
 function hurt(k,dmg){
   const s=S[k], f=act(s);
+  if(dmg>0 && f.id==="hyo" && hasLink(s,"kuro")){ const kr=s.team.find(t=>t.id==="kuroyasha"&&!t.ko); if(kr && kr.hp>1){ const ab=Math.min(2,dmg,kr.hp-1); kr.hp-=ab; dmg-=ab; S.sub=(S.sub?S.sub+" ":"")+L("kuroAbsorb",ab); } }
   if(dmg<=0){ fx(k,"0","g"); return; }
   f.hp=Math.max(0,f.hp-dmg);
   if(f.hp<=0 && s.unyield && f.id==="colo"){ f.hp=1; S.sub=L("unyield",esc(nm(f.id))); }
@@ -2355,6 +2396,7 @@ function hurt(k,dmg){
 function ko(k){
   const s=S[k], f=act(s), hitSub=S.sub||"";
   f.ko=true;
+  if(f.id==="mamiya" && hasLink(s,"mamiya") && alive(s,"dans")) gainRage(s,3,"link");
   if(S.ultBy && S.ultBy===other(k) && S.ultBy===ME) S.ultKo=true;
   { const kl=act(S[other(k)]); if(kl && kl.id==="nameless" && !kl.ko && kl.hp>0){ kl.hp=Math.min(kl.max,kl.hp+6); fx(other(k),"+6","h"); S.sub=L("namelessName",esc(nm("nameless"))); } }
   SFX.play("ko");
@@ -2373,13 +2415,13 @@ function ko(k){
 }
 async function relais(k,idx){
   const s=S[k];
-  if(S.turn!==k || s.relais || s.end<relayCost(s) || idx===s.active || s.team[idx].ko || S.over) return;
+  if(S.turn!==k || s.relais || s.end<relayCost(s,idx) || idx===s.active || s.team[idx].ko || S.over) return;
   SFX.play("relay");
   S.busy=true;
-  const rc=relayCost(s); s.end-=rc; s.relais=true;
+  const rc=relayCost(s,idx); s.end-=rc; s.relais=true;
   const out=act(s).id; s.active=idx;
   SFX.voice(ENTER_VOICE[act(s).id], 200);
-  S.log=L("relayLog",who(k),esc(nm(out)),esc(nm(act(s).id))); S.sub=(rc?"":L("relayFreeUsed")+" ")+L("relaySub");
+  S.log=L("relayLog",who(k),esc(nm(out)),esc(nm(act(s).id))); S.sub=(rc?"":L(hasLink(s,"reiken")&&(s.nT||0)>1?"relayFreeLink":"relayFreeUsed")+" ")+L("relaySub");
   if(S[other(k)].trap==="embuscade"){ trapFired(other(k)); hurt(k,6); S.sub=L("ambush",esc(nm(act(s).id))); }
   else if(S[other(k)].trap==="kibaclan"){ trapFired(other(k)); hurt(k,4); s.drain+=1; S.sub=L("kibaAmbush",esc(nm(act(s).id))); }
   render(); await wait(k==="a"?600:250);
@@ -2391,7 +2433,7 @@ async function ultimate(k,forced){
   if(S.turn!==k || s.rage<RAGE_MAX || S.over) return;
   S.busy=true;
   s.rage=0;
-  let dmg=u.dmg+(s.clan==="hokuto"?3:0)+(s.clan==="taizan"?2:0)+(act(s).id==="jukei"?4:0); const chained=s.combo.n>=2 && !s.combo.stop;
+  let dmg=u.dmg+(s.clan==="hokuto"?3:0)+(s.clan==="taizan"?2:0)+(act(s).id==="jukei"?4:0)+(hasLink(s,"brothers")?(s.nBro||2)-1:0); const chained=s.combo.n>=2 && !s.combo.stop;
   if(chained) dmg=Math.round(dmg*1.5);
   const od=S[other(k)];
   if(od.trap==="aiguilles" && act(od).id==="fourbe"){
@@ -2633,7 +2675,7 @@ function sideHTML(k){
   const s=S[k], f=act(s), me=k===ME;
   const res=s.team.map((t,i)=>{
     if(i===s.active) return "";
-    const can = me && S.turn===ME && !S.busy && !s.relais && s.end>=relayCost(s) && !t.ko;
+    const can = me && S.turn===ME && !S.busy && !s.relais && s.end>=relayCost(s,i) && !t.ko;
     const tag = can?"button":"div";
     return `<${tag} class="rs ${t.ko?"ko":""} ${can?"can":""}" ${can?`data-relais="${i}" aria-label="${L("relayTo",esc(nm(t.id)))}" title="${L("relayTo",esc(nm(t.id)))}"`:`title="${esc(nm(t.id))}"`}>
       <span class="av"><img src="${FACE(t.id)}" alt="">${t.ko?`<span class="kox"></span>`:""}</span>
@@ -3216,7 +3258,11 @@ async function playTourMatch(t,m){
 Object.assign(UI.fr,{arcBtn:"Arcade",arcTitle:"La Tour",arcFloor:(n,t)=>`Étage ${n} / ${t}`,arcRecord:n=>`Ton record : étage ${n}`,arcF_punks:"Les pillards de la route",arcD_punks:"Une bande de petites frappes bloque l'entrée de la tour. Échauffement.",arcF_desert:"Le désert brûlant",arcD_desert:"Le combat commence sous un soleil de plomb : terrain Désert brûlant dès le départ.",arcF_clan:"Querelle d'école",arcD_clan:c=>`Toute une équipe de l'école ${c} veut ta peau.`,arcF_mask:"Le guerrier masqué",arcD_mask:"Tu ne sais pas qui t'attend. Tu le découvriras sur le ring.",arcF_storm:"La tempête des événements",arcD_storm:"Le monde s'écroule autour de vous : un événement à chaque tour.",arcF_mirror:"Le reflet",arcD_mirror:"Ta propre équipe, jouée par une IA sans pitié.",arcF_generals:"Les généraux",arcD_generals:"Deux combattants d'élite, plus solides et déjà enragés.",arcF_boss:"Le sommet de la tour",arcD_boss:"Un seul adversaire. Une légende. Énormément de PV et une rage déjà haute.",arcSecretK:"Combat secret",arcSecretName:"Un challenger mystère",arcSecretD:"Une silhouette te barre la route et te défie. Combat facultatif : gagne et tu empoches +30 pts. Perdre ne met pas fin à la tour.",arcSecretWin:"Challenger vaincu !",arcSecretLose:"Le challenger t'a eu…",arcSecretAfter:"La tour t'attend toujours, tes PV sont remis à fond.",arcContinue:"Reprendre la tour",arcNext:"Étage suivant",arcFloorWin:n=>`Étage ${n} conquis`,arcSomeone:"Quelqu'un t'attend dans l'ombre…",arcClear:"Tour conquise !",arcClearSub:"Tu as vaincu la tour entière. Ton nom va résonner dans tout le désert.",arcFall:n=>`Tombé à l'étage ${n}`,w_arc:"Mode arcade",st_arc:"Record arcade",ach_arc1:"Maître de la tour",achd_arc1:"Conquérir la tour en mode arcade",ach_arc5:"Seigneur de la tour",achd_arc5:"Conquérir la tour 5 fois",ach_arcsecret:"Ombre démasquée",achd_arcsecret:"Battre un challenger mystère en arcade",arcHow:"Arcade : chaque étage rapporte 5 pts + 3 × l'étage, +40 pts pour la tour complète, +30 pts par challenger mystère vaincu."});
 Object.assign(UI.en,{arcBtn:"Arcade",arcTitle:"The Tower",arcFloor:(n,t)=>`Floor ${n} / ${t}`,arcRecord:n=>`Your record: floor ${n}`,arcF_punks:"Road raiders",arcD_punks:"A gang of small fry blocks the tower entrance. Warm-up.",arcF_desert:"The burning desert",arcD_desert:"The fight starts under a scorching sun: Burning desert terrain from the start.",arcF_clan:"School feud",arcD_clan:c=>`A whole team from the ${c} school wants your head.`,arcF_mask:"The masked warrior",arcD_mask:"You don't know who's waiting. You'll find out in the ring.",arcF_storm:"Storm of events",arcD_storm:"The world is collapsing around you: an event every turn.",arcF_mirror:"The reflection",arcD_mirror:"Your own team, played by a merciless AI.",arcF_generals:"The generals",arcD_generals:"Two elite fighters, tougher and already enraged.",arcF_boss:"Top of the tower",arcD_boss:"A single opponent. A legend. Tons of HP and rage already high.",arcSecretK:"Secret fight",arcSecretName:"A mystery challenger",arcSecretD:"A silhouette blocks your way and challenges you. Optional fight: win and you get +30 pts. Losing doesn't end the tower.",arcSecretWin:"Challenger defeated!",arcSecretLose:"The challenger got you…",arcSecretAfter:"The tower is still waiting, your HP are fully restored.",arcContinue:"Back to the tower",arcNext:"Next floor",arcFloorWin:n=>`Floor ${n} conquered`,arcSomeone:"Someone is waiting in the shadows…",arcClear:"Tower conquered!",arcClearSub:"You beat the whole tower. Your name will echo across the desert.",arcFall:n=>`Fell on floor ${n}`,w_arc:"Arcade mode",st_arc:"Arcade record",ach_arc1:"Master of the tower",achd_arc1:"Conquer the tower in arcade mode",ach_arc5:"Lord of the tower",achd_arc5:"Conquer the tower 5 times",ach_arcsecret:"Shadow unmasked",achd_arcsecret:"Beat a mystery challenger in arcade",arcHow:"Arcade: each floor gives 5 pts + 3 × the floor, +40 pts for the full tower, +30 pts per mystery challenger defeated."});
 Object.assign(UI.it,{arcBtn:"Arcade",arcTitle:"La Torre",arcFloor:(n,t)=>`Piano ${n} / ${t}`,arcRecord:n=>`Il tuo record: piano ${n}`,arcF_punks:"I predoni della strada",arcD_punks:"Una banda di teppisti blocca l'ingresso della torre. Riscaldamento.",arcF_desert:"Il deserto rovente",arcD_desert:"Il combattimento inizia sotto un sole cocente: terreno Deserto rovente fin dall'inizio.",arcF_clan:"Faida di scuola",arcD_clan:c=>`Un'intera squadra della scuola ${c} vuole la tua pelle.`,arcF_mask:"Il guerriero mascherato",arcD_mask:"Non sai chi ti aspetta. Lo scoprirai sul ring.",arcF_storm:"La tempesta di eventi",arcD_storm:"Il mondo crolla intorno a voi: un evento a ogni turno.",arcF_mirror:"Il riflesso",arcD_mirror:"La tua stessa squadra, giocata da un'IA spietata.",arcF_generals:"I generali",arcD_generals:"Due combattenti d'élite, più resistenti e già infuriati.",arcF_boss:"La cima della torre",arcD_boss:"Un solo avversario. Una leggenda. Tantissimi PV e rabbia già alta.",arcSecretK:"Combattimento segreto",arcSecretName:"Uno sfidante misterioso",arcSecretD:"Una sagoma ti sbarra la strada e ti sfida. Combattimento facoltativo: vinci e ottieni +30 pt. Perdere non chiude la torre.",arcSecretWin:"Sfidante sconfitto!",arcSecretLose:"Lo sfidante ti ha battuto…",arcSecretAfter:"La torre ti aspetta ancora, i tuoi PV sono ripristinati.",arcContinue:"Torna alla torre",arcNext:"Piano successivo",arcFloorWin:n=>`Piano ${n} conquistato`,arcSomeone:"Qualcuno ti aspetta nell'ombra…",arcClear:"Torre conquistata!",arcClearSub:"Hai battuto l'intera torre. Il tuo nome risuonerà in tutto il deserto.",arcFall:n=>`Caduto al piano ${n}`,w_arc:"Modalità arcade",st_arc:"Record arcade",ach_arc1:"Maestro della torre",achd_arc1:"Conquista la torre in modalità arcade",ach_arc5:"Signore della torre",achd_arc5:"Conquista la torre 5 volte",ach_arcsecret:"Ombra smascherata",achd_arcsecret:"Batti uno sfidante misterioso in arcade",arcHow:"Arcade: ogni piano vale 5 pt + 3 × il piano, +40 pt per la torre completa, +30 pt per ogni sfidante misterioso battuto."});
+Object.assign(UI.fr,{"lkTitle":"Liens actifs","relayFreeLink":"Relais gratuit (Fraternité).","rg_link":"lien","lk_brothers":"Frères Hokuto","lkd_brothers":"2 frères ou plus (Kenshiro, Raoh, Toki, Jagi) : leurs ultimes font +1 par frère au-delà du premier.","lk_stars":"Six étoiles du Nanto","lkd_stars":"2 étoiles ou plus (Rei, Shin, Yuda, Shu, Souther) : chaque étoile gagne +1 PV max (+2 à partir de 4 étoiles).","lk_ryuken":"Le maître et ses élèves","lkd_ryuken":"Ryuken avec Raoh, Toki ou Kenshiro : +1 rage au départ par élève présent.","lk_king":"Shin et ses valets","lkd_king":"Shin avec Joker, Club, Spade, Diamond ou Heart : Shin gagne +1 PV max par valet, et les valets font +1 dégât.","lk_reiken":"Fraternité","lkd_reiken":"Rei et Kenshiro : les relais entre eux deux sont gratuits.","lk_mamiya":"Pour Mamiya","lkd_mamiya":"Rei et Mamiya : si Mamiya tombe et que Rei est encore debout, +3 rage.","lk_shinjagi":"La manipulation de Jagi","lkd_shinjagi":"Shin et Jagi : +2 rage au départ.","lk_dagar":"Lieutenant de Yuda","lkd_dagar":"Yuda et Dagar : Dagar fait +2 dégâts tant que Yuda est encore debout.","lk_ogai":"Héritage d'Ogai","lkd_ogai":"Ogai et Souther : les Lourds de Souther font +1.","lk_ryuga":"Loup du roi","lkd_ryuga":"Ryuga et Raoh : les Moyens de Ryuga font +1.","lk_flamewind":"Flamme et Vent","lkd_flamewind":"Shuren et Huey : chacun fait +1 dégât tant que l'autre est debout.","lk_kuro":"Serviteur dévoué","lkd_kuro":"Kuroyasha et Hyō : quand Hyō prend des coups, Kuroyasha (en réserve) encaisse jusqu'à 2 dégâts à sa place.","lk_devil":"Le monstre libéré","lkd_devil":"Jackal et Devil Rebirth : Devil a +3 PV.","lk_foxjackal":"Bande de truands","lkd_foxjackal":"Fox et Jackal : +1 carte piochée au premier tour.","lk_jako":"Fin du chantage","lkd_jako":"Jako et Falco : quand Jako est KO, Falco est libéré et fait +2 dégâts.","lk_shoki":"Amis d'enfance","lkd_shoki":"Shoki et Falco : Shoki fait +1 dégât et ses Gardes le soignent.","lk_colonel":"Vétérans de la guerre","lkd_colonel":"Colonel et Mad Sarge : les Légers de Mad Sarge font +1 de plus.","lk_shachi":"Père et fils","lkd_shachi":"Shachi et Akashachi : le 1er coup d'Akashachi fait +1.","lk_rima":"Partenaires","lkd_rima":"Rima et Frieda : le spécial de Rima donne +3 rage de plus.",kuroAbsorb:n=>`Kuroyasha encaisse ${n} dégâts à la place de Hyō.`});
+Object.assign(UI.en,{"lkTitle":"Active links","relayFreeLink":"Free tag (Brotherhood).","rg_link":"link","lk_brothers":"Hokuto brothers","lkd_brothers":"2 or more brothers (Kenshiro, Raoh, Toki, Jagi): their ultimates deal +1 per brother beyond the first.","lk_stars":"Six Stars of Nanto","lkd_stars":"2 or more stars (Rei, Shin, Yuda, Shu, Souther): each star gets +1 max HP (+2 from 4 stars).","lk_ryuken":"The master and his pupils","lkd_ryuken":"Ryuken with Raoh, Toki or Kenshiro: +1 starting rage per pupil present.","lk_king":"Shin and his jacks","lkd_king":"Shin with Joker, Club, Spade, Diamond or Heart: Shin gets +1 max HP per jack, and the jacks deal +1 damage.","lk_reiken":"Brotherhood","lkd_reiken":"Rei and Kenshiro: tags between the two of them are free.","lk_mamiya":"For Mamiya","lkd_mamiya":"Rei and Mamiya: if Mamiya falls while Rei is still standing, +3 rage.","lk_shinjagi":"Jagi's manipulation","lkd_shinjagi":"Shin and Jagi: +2 starting rage.","lk_dagar":"Yuda's lieutenant","lkd_dagar":"Yuda and Dagar: Dagar deals +2 damage while Yuda is still standing.","lk_ogai":"Ogai's legacy","lkd_ogai":"Ogai and Souther: Souther's Heavies deal +1.","lk_ryuga":"The king's wolf","lkd_ryuga":"Ryuga and Raoh: Ryuga's Mediums deal +1.","lk_flamewind":"Flame and Wind","lkd_flamewind":"Shuren and Huey: each deals +1 damage while the other is standing.","lk_kuro":"Devoted servant","lkd_kuro":"Kuroyasha and Hyō: when Hyō takes hits, Kuroyasha (in reserve) absorbs up to 2 damage instead.","lk_devil":"The monster unleashed","lkd_devil":"Jackal and Devil Rebirth: Devil has +3 HP.","lk_foxjackal":"Gang of crooks","lkd_foxjackal":"Fox and Jackal: +1 card drawn on the first turn.","lk_jako":"End of the blackmail","lkd_jako":"Jakoh and Falco: when Jakoh is KO, Falco is freed and deals +2 damage.","lk_shoki":"Childhood friends","lkd_shoki":"Shoki and Falco: Shoki deals +1 damage and his Guards heal him.","lk_colonel":"War veterans","lkd_colonel":"Colonel and Mad Sarge: Mad Sarge's Lights deal +1 more.","lk_shachi":"Father and son","lkd_shachi":"Shachi and Akashachi: Akashachi's 1st hit deals +1.","lk_rima":"Partners","lkd_rima":"Rima and Frieda: Rima's special gives +3 more rage.",kuroAbsorb:n=>`Kuroyasha takes ${n} damage in Hyō's place.`});
+Object.assign(UI.it,{"lkTitle":"Legami attivi","relayFreeLink":"Cambio gratis (Fratellanza).","rg_link":"legame","lk_brothers":"Fratelli Hokuto","lkd_brothers":"2 fratelli o più (Kenshiro, Raoh, Toki, Jagi): le loro ultime fanno +1 per ogni fratello oltre il primo.","lk_stars":"Sei stelle di Nanto","lkd_stars":"2 stelle o più (Rei, Shin, Yuda, Shu, Souther): ogni stella ha +1 PV max (+2 da 4 stelle).","lk_ryuken":"Il maestro e i suoi allievi","lkd_ryuken":"Ryuken con Raoh, Toki o Kenshiro: +1 rabbia iniziale per allievo presente.","lk_king":"Shin e i suoi fanti","lkd_king":"Shin con Joker, Club, Spade, Diamond o Heart: Shin ha +1 PV max per fante, e i fanti fanno +1 danno.","lk_reiken":"Fratellanza","lkd_reiken":"Rei e Kenshiro: i cambi tra loro due sono gratis.","lk_mamiya":"Per Mamiya","lkd_mamiya":"Rei e Mamiya: se Mamiya cade mentre Rei è ancora in piedi, +3 rabbia.","lk_shinjagi":"La manipolazione di Jagi","lkd_shinjagi":"Shin e Jagi: +2 rabbia iniziale.","lk_dagar":"Luogotenente di Yuda","lkd_dagar":"Yuda e Dagar: Dagar fa +2 danni finché Yuda è in piedi.","lk_ogai":"L'eredità di Ogai","lkd_ogai":"Ogai e Souther: i Pesanti di Souther fanno +1.","lk_ryuga":"Il lupo del re","lkd_ryuga":"Ryuga e Raoh: i Medi di Ryuga fanno +1.","lk_flamewind":"Fiamma e Vento","lkd_flamewind":"Shuren e Huey: ognuno fa +1 danno finché l'altro è in piedi.","lk_kuro":"Servitore devoto","lkd_kuro":"Kuroyasha e Hyō: quando Hyō subisce colpi, Kuroyasha (in riserva) assorbe fino a 2 danni al suo posto.","lk_devil":"Il mostro liberato","lkd_devil":"Jackal e Devil Rebirth: Devil ha +3 PV.","lk_foxjackal":"Banda di furfanti","lkd_foxjackal":"Fox e Jackal: +1 carta pescata al primo turno.","lk_jako":"Fine del ricatto","lkd_jako":"Jako e Falco: quando Jako è KO, Falco è libero e fa +2 danni.","lk_shoki":"Amici d'infanzia","lkd_shoki":"Shoki e Falco: Shoki fa +1 danno e le sue Parate lo curano.","lk_colonel":"Veterani di guerra","lkd_colonel":"Colonel e Mad Sarge: i Leggeri di Mad Sarge fanno +1 in più.","lk_shachi":"Padre e figlio","lkd_shachi":"Shachi e Akashachi: il 1° colpo di Akashachi fa +1.","lk_rima":"Partner","lkd_rima":"Rima e Frieda: lo speciale di Rima dà +3 rabbia in più.",kuroAbsorb:n=>`Kuroyasha subisce ${n} danni al posto di Hyō.`});
 const CHANGELOG=[
+ {v:"0.42.0",d:"2026-10-05",fr:["Liens du lore : 19 liens donnent un bonus quand certains combattants sont dans la même équipe (Frères Hokuto, Six étoiles du Nanto, Shin et ses valets, Rei et Kenshiro, Shuren et Huey…). Ils s'affichent à la sélection (touche-les pour le détail) et sur la page Combattants"],en:["Lore links: 19 links give a bonus when certain fighters are on the same team (Hokuto brothers, Six Stars of Nanto, Shin and his jacks, Rei and Kenshiro, Shuren and Huey…). They show on the selection screen (tap for details) and on the Fighters page"],it:["Legami del lore: 19 legami danno un bonus quando certi combattenti sono nella stessa squadra (Fratelli Hokuto, Sei stelle di Nanto, Shin e i suoi fanti, Rei e Kenshiro, Shuren e Huey…). Appaiono nella selezione (toccali per i dettagli) e nella pagina Combattenti"]},
  {v:"0.41.1",d:"2026-10-05",fr:["Le bouton « Contre l'IA » s'appelle maintenant « Entraînement »"],en:["The “vs AI” button is now called “Training”"],it:["Il pulsante «Contro l'IA» ora si chiama «Allenamento»"]},
  {v:"0.41.0",d:"2026-10-04",fr:["Défi de la semaine : la même équipe adverse pour tout le monde, classement par coût d'équipe le plus bas puis par rapidité, le top 3 gagne +100/+60/+40 pts chaque lundi (idée de Jerome R.)","2 nouveaux succès : podium et champion de la semaine"],en:["Weekly challenge: the same enemy team for everyone, ranked by lowest team cost then speed, the top 3 get +100/+60/+40 pts every Monday (idea by Jerome R.)","2 new achievements: weekly podium and weekly champion"],it:["Sfida della settimana: la stessa squadra avversaria per tutti, classifica per costo di squadra più basso poi velocità, il top 3 vince +100/+60/+40 pt ogni lunedì (idea di Jerome R.)","2 nuovi trofei: podio e campione della settimana"]},
  {v:"0.40.2",d:"2026-10-04",fr:["Illustrations harmonisées : 11 combattants recadrés pour avoir à peu près la même taille à l'écran de sélection et en combat"],en:["Artwork harmonised: 11 fighters reframed to have roughly the same size on the selection screen and in fights"],it:["Illustrazioni armonizzate: 11 combattenti reinquadrati per avere più o meno la stessa taglia nella selezione e in combattimento"]},
@@ -4220,7 +4266,8 @@ function renderRoster(sel=[]){
       return `<article class="rcard cl-${CLAN[id]}"><div class="rhead"><img src="assets/bust-${id}.webp" alt="" loading="lazy"><div><div class="rname">${esc(nm(id))}</div><div class="rmeta"><span class="dc">${COST[id]||3}</span><span>${L("ptsShort")}</span><span class="rhp">♥ ${fighterHP(id,3)} ${L("hpShort")}</span></div><div class="rpass">${tr(f.passive)}</div></div></div>
       <table class="rtech"><tbody>${f.techs.map(t=>`<tr><td><span class="lvb l${t[1]}">${LV[t[1]]}</span></td><td class="tn">${esc(tr(t[0]))}</td><td class="tc">${t[2]}</td><td class="td">${t[3]}</td></tr>`).join("")}
       <tr class="ult"><td><span class="lvb ul">${L("ultimate")}</span></td><td class="tn">${esc(tr(f.ult.name))}</td><td class="tc">—</td><td class="td">${f.ult.dmg}</td></tr></tbody></table>
-      ${sp?`<div class="rspec"><span>${L("tSpec")} · ${sp.cost}</span><b>${esc(tr(sp.name))}</b> ${tr(sp.text)}</div>`:""}</article>`; }).join("")}</div></section>`; }).join("");
+      ${sp?`<div class="rspec"><span>${L("tSpec")} · ${sp.cost}</span><b>${esc(tr(sp.name))}</b> ${tr(sp.text)}</div>`:""}
+      ${linksFor(id).map(l=>`<div class="rlink"><span>🔗 ${L("lk_"+l.id)}</span> ${L("lkd_"+l.id)}</div>`).join("")}</article>`; }).join("")}</div></section>`; }).join("");
   pageShell(L("rosterBtn"),`<p class="iplead">${L("rosterLead")}</p>${body}`,sel);
   bindLang(()=>renderRoster(sel));
 }
@@ -4253,7 +4300,8 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; ARC.on=fa
     return `<button class="ftile cl-${CLAN[id]}${id===focus?" foc":""}${off?" off":""}" aria-pressed="${on}" data-id="${id}"><img src="assets/bust-${id}.webp" alt="" loading="lazy"><span class="cc">${COST[id]||3}</span>${on?`<span class="ord">${sel.indexOf(id)+1}</span>`:""}<span class="fn">${esc(nm(id))}</span></button>`};
   const groups=CLANS.map(c=>{const m=ids.filter(id=>CLAN[id]===c);return m.length?`<section class="clan cl-${c}"><h3><b>${L("clan_"+c)}</b><span>${L("cb_"+c)}</span></h3><div class="fgrid">${m.map(tile).join("")}</div></section>`:""}).join("");
   const f=FIGHTERS[focus], sp=SPECS[focus], n=Math.max(sel.length,3);
-  const hint=cb?`<div class="cbon">★ ${L("clanOn",L("clan_"+cb))} · ${L("cb_"+cb)}</div>`:`<div class="bh">${stuck&&!ready?L("noRoom"):L("budgetHelp")}</div>`;
+  const lks=linksOf(sel);
+  const hint=(cb?`<div class="cbon">★ ${L("clanOn",L("clan_"+cb))} · ${L("cb_"+cb)}</div>`:(lks.length?"":`<div class="bh">${stuck&&!ready?L("noRoom"):L("budgetHelp")}</div>`))+(lks.length?`<button class="lkon" id="lkon">🔗 ${linkNames(lks)}</button>`:"");
   $("#app").innerHTML=`<div class="screen sel" style="overflow-y:auto">
     <div class="toprow">${LOGO_HTML}<div class="modes top"><button class="btn" id="go" ${ready?"":"disabled"}>${ready?L("vsAi"):L("more",TEAM_MIN-sel.length)}</button>
       <button class="btn ghost" id="online" ${ready?"":"disabled"}>${L("vsOnline")}</button>
@@ -4302,6 +4350,7 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; ARC.on=fa
   $("#arc").onclick=()=>{ SFX.play("event"); arcStart(sel); };
   bindDeckChips(sel,redo);
   if($("#dygo")) $("#dygo").onclick=()=>{ SFX.play("event"); dailyStart(sel); };
+  if($("#lkon")) $("#lkon").onclick=()=>{ SFX.play("click"); linksPop(sel); };
   bindWeeklyBanner(sel); if(ACC.user) weeklyLoad();
   if(ACC.user && (!DAILY.day || DAILY.day!==new Date().toLocaleDateString("sv-SE",{timeZone:"Europe/Brussels"}))) dailyLoad();
   if(ACC.user && !DECKS.list && !DECKS.loading) decksLoad().then(()=>{ if(document.querySelector(".selwrap") && TITLE_SEL===sel) redo(sel,focus); });

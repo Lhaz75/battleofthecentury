@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.42.0 — 2026-10-05
+
+- Liens du lore : 19 liens donnent un bonus quand certains combattants sont dans la même équipe (Frères Hokuto, Six étoiles du Nanto, Shin et ses valets, Rei et Kenshiro, Shuren et Huey…). Ils s'affichent à la sélection (touche-les pour le détail) et sur la page Combattants
+
 ## v0.41.1 — 2026-10-05
 
 - Le bouton « Contre l'IA » s'appelle maintenant « Entraînement »
