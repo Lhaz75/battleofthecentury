@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.30.1 — 2026-10-04
+
+- Nouveau combattant : Shoki, général du Gento Kōken et ami de Falco
+- Nouvelle illustration de Rofu
+
 ## v0.30.0 — 2026-10-04
 
 - 18 nouveaux combattants : Akashachi, Alf, Bask, Boltz, Dekai Babaa, Ein, Frieda, Garuda, les frères Harn, Kaiser, Kuroyasha, Liu Zongwu, Ogai, Rihaku, Rima, Rofu, le Shura sans nom et Taiga, chacun avec ses techniques, son passif, sa carte spéciale et son ultime
