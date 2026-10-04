@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.29.1 — 2026-10-04
+
+- Nouvelle tête de mort pour les combattants KO (crâne fissuré aux yeux rougeoyants, portrait grisé)
+
 ## v0.29.0 — 2026-10-04
 
 - Les combattants KO sont marqués d'une tête de mort

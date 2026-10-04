@@ -152,8 +152,9 @@ h1 em{font-style:normal;color:var(--blood)}
 .rs .rhp{width:46px;height:4px;background:#2c1410;border-radius:2px;overflow:hidden}
 .rs .rhp i{display:block;height:100%;background:linear-gradient(90deg,#8e1d10,var(--blood))}
 .rs .rl{position:absolute;right:1px;bottom:1px;width:16px;height:16px;border-radius:50%;background:var(--ochre);color:var(--night);font-size:12px;font-weight:700;display:grid;place-items:center;line-height:1}
-.rs .kox{position:absolute;inset:0;display:grid;place-items:center;color:#f3e2bf;background:rgba(0,0,0,.55);border-radius:50%}
-.kox .ico{width:62%;height:62%;fill:currentColor;filter:drop-shadow(0 2px 0 #000) drop-shadow(0 0 4px rgba(224,69,44,.8))}
+.rs .kox{position:absolute;inset:0;display:grid;place-items:center;background:rgba(0,0,0,.25);border-radius:50%}
+.kox .skl{width:74%;height:74%;filter:drop-shadow(0 2px 2px #000) drop-shadow(0 0 6px rgba(224,69,44,.55))}
+.rs.ko .av img{filter:grayscale(1) brightness(.4) contrast(1.1)}
 .rs .s{font-family:serif;font-weight:900;font-size:13px}
 .rs.ko .av img{filter:grayscale(1) brightness(.6)}
 .rs.ko .rn{opacity:.5}
@@ -2217,6 +2218,7 @@ async function aiTurn(k="a"){
 
 /* ---------- effets ---------- */
 
+const SKULL_SVG='<svg viewBox="0 0 64 64" class="skl" aria-hidden="true"><defs><radialGradient id="skB" cx=".4" cy=".28" r=".8"><stop offset="0" stop-color="#fffaf0"/><stop offset=".4" stop-color="#e8dbbd"/><stop offset=".75" stop-color="#b19b74"/><stop offset="1" stop-color="#6e5a3c"/></radialGradient><radialGradient id="skH" cx=".5" cy=".45" r=".6"><stop offset="0" stop-color="#4a0a04"/><stop offset=".6" stop-color="#140302"/><stop offset="1" stop-color="#000"/></radialGradient></defs><g stroke="#120804" stroke-width="1.8" stroke-linejoin="round"><path d="M32 3C17.5 3 8 13 8 26.5c0 6 2 10.5 5 13.5l1.5 6.5c.4 1.8 2 3 3.8 3H22l1 3h18l1-3h3.7c1.8 0 3.4-1.2 3.8-3L51 40c3-3 5-7.5 5-13.5C56 13 46.5 3 32 3z" fill="url(#skB)"/><path d="M23 50.5l1.5 8.5c.3 1.6 1.6 2.5 3.2 2.5h8.6c1.6 0 2.9-.9 3.2-2.5L41 50.5z" fill="url(#skB)"/><path d="M13.5 28.5c.5-5 4.5-7.5 9-7.5 4.6 0 7.8 3 7.8 7.2 0 5-3.8 9.3-8.8 9.3-4.8 0-8.5-3.8-8-9z" fill="url(#skH)"/><path d="M50.5 28.5c-.5-5-4.5-7.5-9-7.5-4.6 0-7.8 3-7.8 7.2 0 5 3.8 9.3 8.8 9.3 4.8 0 8.5-3.8 8-9z" fill="url(#skH)"/><path d="M32 37.5c-1.5 2.5-3.8 5.5-3.8 7.3 0 1 .9 1.6 1.9 1.1l1.9-1 1.9 1c1 .5 1.9-.1 1.9-1.1 0-1.8-2.3-4.8-3.8-7.3z" fill="#120402"/></g><g stroke="#120804" stroke-width="1.3" fill="#f1e5c9"><path d="M25 50.5h3.5v6h-3.5zM28.5 50.5H32v6.5h-3.5zM32 50.5h3.5v6.5H32zM35.5 50.5H39v6h-3.5z"/></g><path d="M30 4.5l2.2 5.5-3.2 3.5 2.6 5" fill="none" stroke="#3b2814" stroke-width="1.2" stroke-linecap="round"/><path d="M15 41.5c2 1.5 4 1.8 6 1.2M49 41.5c-2 1.5-4 1.8-6 1.2" fill="none" stroke="#6b5434" stroke-width="1.1" stroke-linecap="round"/><circle cx="22.2" cy="29.5" r="5.5" fill="#ff2a12" opacity=".22"/><circle cx="41.8" cy="29.5" r="5.5" fill="#ff2a12" opacity=".22"/><circle cx="22.2" cy="29.5" r="1.9" fill="#ff5a3a"/><circle cx="41.8" cy="29.5" r="1.9" fill="#ff5a3a"/></svg>';
 const ICON={
   fist:'<svg class="ico" viewBox="0 0 24 24"><path d="M6 10V6.5a1.5 1.5 0 0 1 3 0V9h.5V5.5a1.5 1.5 0 0 1 3 0V9h.5V6a1.5 1.5 0 0 1 3 0v3h.5V7.5a1.5 1.5 0 0 1 3 0V14a7 7 0 0 1-7 7h-1A6.5 6.5 0 0 1 5 14.5V12a2 2 0 0 1 1-2z"/></svg>',
   shield:'<svg class="ico" viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.4 9.3-8 11-4.6-1.7-8-6-8-11V5l8-3zm0 3.2L7 7v4c0 3.4 2.1 6.5 5 7.8 2.9-1.3 5-4.4 5-7.8V7l-5-1.8z"/></svg>',
@@ -2273,7 +2275,7 @@ function sideHTML(k){
     const can = me && S.turn===ME && !S.busy && !s.relais && s.end>=1 && !t.ko;
     const tag = can?"button":"div";
     return `<${tag} class="rs ${t.ko?"ko":""} ${can?"can":""}" ${can?`data-relais="${i}" aria-label="${L("relayTo",esc(nm(t.id)))}" title="${L("relayTo",esc(nm(t.id)))}"`:`title="${esc(nm(t.id))}"`}>
-      <span class="av"><img src="${FACE(t.id)}" alt="">${t.ko?`<span class="kox">${ICON.skull}</span>`:""}</span>
+      <span class="av"><img src="${FACE(t.id)}" alt="">${t.ko?`<span class="kox">${SKULL_SVG}</span>`:""}</span>
       <span class="rhp ${!t.ko&&t.hp<t.max?"hurt":""}"><i style="width:${t.ko?0:t.hp/t.max*100}%"></i></span><span class="rhpn">${t.ko?"":`${t.hp}/${t.max}`}</span></${tag}>`;
   }).join("");
   return `<div class="side ${me?"me":"foe"} ${S.turn===k?"turn":""}">
@@ -2834,6 +2836,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.29.1",d:"2026-10-04",fr:["Nouvelle tête de mort pour les combattants KO (crâne fissuré aux yeux rougeoyants, portrait grisé)"],en:["New skull for KO'd fighters (cracked skull with glowing eyes, greyed portrait)"],it:["Nuovo teschio per i combattenti KO (cranio crepato con occhi incandescenti, ritratto in grigio)"]},
  {v:"0.29.0",d:"2026-10-04",fr:["Les combattants KO sont marqués d'une tête de mort","Page profil réorganisée : carte de profil avec les chiffres clés, sections repliables (statistiques, succès, équipes, mot de passe)","Défi du jour : après une victoire, le bouton devient « Retour » ; après un échec, « Retenter le défi » relance directement le défi","Kenshiro, Souther, Ryuken et Jagi : leur piège personnel est maintenant affiché sur leur fiche (ils ont un piège à la place d'une carte spéciale)"],en:["KO'd fighters are marked with a skull","Reorganized profile page: profile card with key numbers, collapsible sections (stats, achievements, teams, password)","Daily challenge: after a win the button becomes \"Back\"; after a failure \"Retry the challenge\" restarts it directly","Kenshiro, Souther, Ryuken and Jagi: their own trap is now shown on their card (they have a trap instead of a special card)"],it:["I combattenti KO sono segnati con un teschio","Pagina profilo riorganizzata: scheda con i numeri chiave, sezioni richiudibili (statistiche, trofei, squadre, password)","Sfida del giorno: dopo una vittoria il pulsante diventa «Indietro»; dopo un fallimento «Riprova la sfida» la rilancia subito","Kenshiro, Souther, Ryuken e Jagi: la loro trappola personale ora è mostrata nella scheda (hanno una trappola invece di una carta speciale)"]},
  {v:"0.28.4",d:"2026-10-04",fr:["Admin : le bloc Administration du profil est replié par défaut, un clic pour le déplier"],en:["Admin: the profile Administration block is collapsed by default, one click to expand"],it:["Admin: il blocco Amministrazione del profilo è chiuso di default, un clic per aprirlo"]},
  {v:"0.28.3",d:"2026-10-04",fr:["Correctif : certaines anciennes illustrations (Kaioh) pouvaient rester bloquées dans le cache du navigateur, elles sont maintenant toujours revérifiées"],en:["Fix: some old artwork (Kaioh) could stay stuck in the browser cache, it is now always rechecked"],it:["Correzione: alcune vecchie illustrazioni (Kaioh) potevano restare bloccate nella cache del browser, ora vengono sempre ricontrollate"]},
@@ -3373,7 +3376,7 @@ function survPrep(st){
   if(n>7) st.a.rage=Math.min(RAGE_MAX-2,Math.floor((n-6)/2));
 }
 function survFaces(team,hp,max){ return `<div class="svteam">${team.map((id,i)=>{ const h=hp?hp[i]:null, m=max?max[i]:null, ko=h!=null&&h<=0;
-  return `<div class="svf ${ko?"ko":""} cl-${CLAN[id]}" title="${esc(nm(id))}"><img src="${FACE(id)}" alt="">${ko?`<span class="kox">${ICON.skull}</span>`:""}${h!=null&&!ko?`<span class="rhp ${h<m?"hurt":""}"><i style="width:${h/m*100}%"></i></span><span class="rhpn">${h}/${m}</span>`:""}</div>`; }).join("")}</div>`; }
+  return `<div class="svf ${ko?"ko":""} cl-${CLAN[id]}" title="${esc(nm(id))}"><img src="${FACE(id)}" alt="">${ko?`<span class="kox">${SKULL_SVG}</span>`:""}${h!=null&&!ko?`<span class="rhp ${h<m?"hurt":""}"><i style="width:${h/m*100}%"></i></span><span class="rhpn">${h}/${m}</span>`:""}</div>`; }).join("")}</div>`; }
 function renderSurvWave(){
   const n=SURV.wave;
   pageShell(L("survTitle"),`<div class="center svwave">
