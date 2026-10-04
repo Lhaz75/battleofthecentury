@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.39.1 — 2026-10-04
+
+- Menu principal sur mobile plus clair : les 4 modes de jeu en gros, les 6 autres boutons en petit et alignés
+
 ## v0.39.0 — 2026-10-04
 
 - Combat contre l'IA : 4 niveaux au choix (Facile, Normal, Difficile, Hokuto), plus de points quand c'est plus dur
