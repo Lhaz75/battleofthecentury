@@ -75,7 +75,7 @@ h1 em{font-style:normal;color:var(--blood)}
 .show .pass{font-size:13.5px;line-height:1.38;color:var(--bone)}
 .show .ult,.show .spc{font-size:12.5px;line-height:1.38;color:var(--sand)}
 .show .ult span,.show .spc span{display:inline-block;font:700 11px var(--f-display);text-transform:uppercase;letter-spacing:.06em;color:#1a0f08;background:#f0b24a;padding:1px 6px;margin-right:4px}
-.show .spc span{background:#b78cff}
+.show .spc span{background:#b78cff}.show .spc.trp span{background:#8fbf6a}
 .dc{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffd27a,#c06a1c);color:#1a0f08;font:800 15px var(--f-display);box-shadow:0 1px 4px #000}
 .teambar{display:flex;flex-direction:column;gap:8px;background:rgba(20,15,13,.92);border:1px solid var(--line);border-radius:4px;padding:10px}
 .slots{display:flex;gap:6px}
@@ -152,7 +152,8 @@ h1 em{font-style:normal;color:var(--blood)}
 .rs .rhp{width:46px;height:4px;background:#2c1410;border-radius:2px;overflow:hidden}
 .rs .rhp i{display:block;height:100%;background:linear-gradient(90deg,#8e1d10,var(--blood))}
 .rs .rl{position:absolute;right:1px;bottom:1px;width:16px;height:16px;border-radius:50%;background:var(--ochre);color:var(--night);font-size:12px;font-weight:700;display:grid;place-items:center;line-height:1}
-.rs .kox{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-destroy);font-size:18px;color:#ff4a2a;background:rgba(0,0,0,.45);text-shadow:0 2px 0 #000}
+.rs .kox{position:absolute;inset:0;display:grid;place-items:center;color:#f3e2bf;background:rgba(0,0,0,.55);border-radius:50%}
+.kox .ico{width:62%;height:62%;fill:currentColor;filter:drop-shadow(0 2px 0 #000) drop-shadow(0 0 4px rgba(224,69,44,.8))}
 .rs .s{font-family:serif;font-weight:900;font-size:13px}
 .rs.ko .av img{filter:grayscale(1) brightness(.6)}
 .rs.ko .rn{opacity:.5}
@@ -962,7 +963,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .svf{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;width:62px;font-variant-numeric:tabular-nums;color:var(--sand)}
 .svf img{width:56px;height:56px;border-radius:50%;border:2px solid #c98a2e;object-fit:cover;background:#120a06}
 .svf.ko img{filter:grayscale(1) brightness(.5)}
-.svf .kox{position:absolute;top:18px;left:0;right:0;text-align:center;font-family:var(--f-display);font-weight:700;color:#e0452c}
+.svf .kox{position:absolute;top:0;left:3px;width:56px;height:56px;display:grid;place-items:center;color:#f3e2bf}
 .svf .rhp{width:52px;height:5px}
 .svf .rhp{background:#2c1410;border-radius:2px;overflow:hidden;border:1px solid rgba(0,0,0,.6)}.svf .rhp i{display:block;height:100%;background:linear-gradient(90deg,#b0281a,#ff5a3a)}
 .svf .rhpn{font-size:11px}
@@ -1110,6 +1111,18 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .fanudge{display:grid;grid-template-columns:repeat(3,34px);grid-template-rows:repeat(3,30px);gap:3px}
 .fanudge button{border-radius:6px;border:1px solid rgba(232,176,74,.4);background:#1d130e;color:#f3e2bf;cursor:pointer}
 .fanudge [data-n=u]{grid-column:2;grid-row:1}.fanudge [data-n=l]{grid-column:1;grid-row:2}.fanudge [data-n=r]{grid-column:3;grid-row:2}.fanudge [data-n=d]{grid-column:2;grid-row:3}
+.pfcard{padding:16px;border-radius:16px;border:1px solid rgba(232,176,74,.35);background:linear-gradient(160deg,rgba(40,26,16,.85),rgba(14,9,7,.85));display:flex;flex-direction:column;gap:12px;margin-bottom:12px}
+.pfcard .pfhead{margin:0;display:flex;gap:14px;align-items:center}.pfmain{flex:1;min-width:0}.pfcard .xpbar{width:100%!important;max-width:100%}
+.pfchips{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.pfchips span{display:flex;flex-direction:column;align-items:center;padding:7px 4px;border-radius:10px;background:rgba(0,0,0,.35);border:1px solid rgba(232,176,74,.18);font-size:11px;color:#cdb79a;text-transform:uppercase;letter-spacing:.05em;text-align:center}
+.pfchips b{font:700 18px var(--f-display);color:#f3e2bf;letter-spacing:0}.pfchips i{font-style:normal;color:#e8b04a}
+.pfbtns{justify-content:flex-start;gap:8px}
+.pfsec{margin:0 0 10px;border-radius:14px;border:1px solid rgba(232,176,74,.25);background:rgba(14,9,7,.7);overflow:hidden}
+.pfsec>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;padding:12px 14px;font:700 15px var(--f-display);letter-spacing:.08em;text-transform:uppercase;color:#e8b04a}
+.pfsec>summary::-webkit-details-marker{display:none}.pfsec>summary::before{content:"▸";transition:transform .15s}.pfsec[open]>summary::before{transform:rotate(90deg)}
+.pfsec>summary .achn{margin-left:auto}
+.pfbody{padding:0 14px 14px}.pfbody .stgrid,.pfbody .achgrid,.pfbody .dklist{margin-top:0}
+@media (max-width:600px){.pfchips b{font-size:16px}.pfchips span{font-size:10px}}
 /* mobile : plateau allégé */
 @media (max-width:999px){
   .screen.board .rs{width:auto;gap:1px}
@@ -1697,12 +1710,14 @@ Object.assign(UI.fr,{onlineN:n=>`${n} en ligne`, onlineTitle:"Joueurs en ligne",
 Object.assign(UI.en,{onlineN:n=>`${n} online`, onlineTitle:"Players online", onlineEmpty:"Nobody else right now.", w_menu:"In the menus", w_solo:"Fighting the AI", w_surv:"In survival", w_vs:"In versus", w_queue:"Looking for an opponent", w_tour:"In a tournament", onlineYou:"you"});
 Object.assign(UI.it,{onlineN:n=>`${n} online`, onlineTitle:"Giocatori online", onlineEmpty:"Nessun altro per ora.", w_menu:"Nei menu", w_solo:"Contro l'IA", w_surv:"In sopravvivenza", w_vs:"In versus", w_queue:"Cerca un avversario", w_tour:"In torneo", onlineYou:"tu"});
 /* ---------- textes du mode survie ---------- */
+Object.assign(UI.fr,{ownTrap:"Piège perso"}); Object.assign(UI.en,{ownTrap:"Own trap"}); Object.assign(UI.it,{ownTrap:"Trappola personale"});
+Object.assign(UI.fr,{pfStats:"Statistiques"}); Object.assign(UI.en,{pfStats:"Statistics"}); Object.assign(UI.it,{pfStats:"Statistiche"});
 Object.assign(UI.fr,{faTitle:"Pastilles", faLead:"Clique sur un combattant pour recadrer sa pastille (le petit rond utilisé partout dans le jeu). Les pastilles modifiées ont un contour vert.", faPreview:"Aperçu", faZoom:"Zoom", faHow:"Fais glisser le cercle sur l'image pour le déplacer, molette ou curseur pour zoomer, flèches pour ajuster au pixel près.", faReset:"Pastille d'origine"});
 Object.assign(UI.en,{faTitle:"Face tokens", faLead:"Click a fighter to recrop their token (the small circle used everywhere in the game). Modified tokens have a green outline.", faPreview:"Preview", faZoom:"Zoom", faHow:"Drag the circle on the image to move it, mouse wheel or slider to zoom, arrows for fine tuning.", faReset:"Original token"});
 Object.assign(UI.it,{faTitle:"Pedine", faLead:"Clicca su un combattente per ritagliare la sua pedina (il piccolo cerchio usato ovunque nel gioco). Le pedine modificate hanno un bordo verde.", faPreview:"Anteprima", faZoom:"Zoom", faHow:"Trascina il cerchio sull'immagine per spostarlo, rotella o cursore per lo zoom, frecce per la regolazione fine.", faReset:"Pedina originale"});
-Object.assign(UI.fr,{dyTitle:"Défi du jour", dyTeam:"Gagne avec l'équipe imposée.", dyBoss:n=>`Terrasse l'équipe de ${n} : PV renforcés et rage au départ. Avec ton équipe.`, dyFlawless:"Gagne sans perdre un seul combattant. Avec ton équipe.", dyGo:"Relever", dyYourTeam:"ton équipe", dyDone:n=>`Défi du jour réussi ! +${n} points`, dyFail:"Défi raté : il fallait gagner sans perdre de combattant. Retente !", ach_daily1:"Défi relevé", achd_daily1:"Réussir un défi du jour", ach_daily10:"Discipline", achd_daily10:"Réussir 10 défis du jour", ach_daily30:"Entraînement quotidien", achd_daily30:"Réussir 30 défis du jour"});
-Object.assign(UI.en,{dyTitle:"Daily challenge", dyTeam:"Win with the imposed team.", dyBoss:n=>`Crush the team of ${n}: boosted HP and rage at start. With your team.`, dyFlawless:"Win without losing a single fighter. With your team.", dyGo:"Accept", dyYourTeam:"your team", dyDone:n=>`Daily challenge complete! +${n} points`, dyFail:"Challenge failed: you had to win without losing a fighter. Try again!", ach_daily1:"Challenge accepted", achd_daily1:"Complete a daily challenge", ach_daily10:"Discipline", achd_daily10:"Complete 10 daily challenges", ach_daily30:"Daily training", achd_daily30:"Complete 30 daily challenges"});
-Object.assign(UI.it,{dyTitle:"Sfida del giorno", dyTeam:"Vinci con la squadra imposta.", dyBoss:n=>`Abbatti la squadra di ${n}: PV potenziati e rabbia all'inizio. Con la tua squadra.`, dyFlawless:"Vinci senza perdere nemmeno un combattente. Con la tua squadra.", dyGo:"Accetta", dyYourTeam:"la tua squadra", dyDone:n=>`Sfida del giorno superata! +${n} punti`, dyFail:"Sfida fallita: dovevi vincere senza perdere combattenti. Riprova!", ach_daily1:"Sfida accettata", achd_daily1:"Supera una sfida del giorno", ach_daily10:"Disciplina", achd_daily10:"Supera 10 sfide del giorno", ach_daily30:"Allenamento quotidiano", achd_daily30:"Supera 30 sfide del giorno"});
+Object.assign(UI.fr,{dyTitle:"Défi du jour", dyTeam:"Gagne avec l'équipe imposée.", dyBoss:n=>`Terrasse l'équipe de ${n} : PV renforcés et rage au départ. Avec ton équipe.`, dyFlawless:"Gagne sans perdre un seul combattant. Avec ton équipe.", dyGo:"Relever", dyRetry:"Retenter le défi", dyYourTeam:"ton équipe", dyDone:n=>`Défi du jour réussi ! +${n} points`, dyFail:"Défi raté : il fallait gagner sans perdre de combattant. Retente !", ach_daily1:"Défi relevé", achd_daily1:"Réussir un défi du jour", ach_daily10:"Discipline", achd_daily10:"Réussir 10 défis du jour", ach_daily30:"Entraînement quotidien", achd_daily30:"Réussir 30 défis du jour"});
+Object.assign(UI.en,{dyTitle:"Daily challenge", dyTeam:"Win with the imposed team.", dyBoss:n=>`Crush the team of ${n}: boosted HP and rage at start. With your team.`, dyFlawless:"Win without losing a single fighter. With your team.", dyGo:"Accept", dyRetry:"Retry the challenge", dyYourTeam:"your team", dyDone:n=>`Daily challenge complete! +${n} points`, dyFail:"Challenge failed: you had to win without losing a fighter. Try again!", ach_daily1:"Challenge accepted", achd_daily1:"Complete a daily challenge", ach_daily10:"Discipline", achd_daily10:"Complete 10 daily challenges", ach_daily30:"Daily training", achd_daily30:"Complete 30 daily challenges"});
+Object.assign(UI.it,{dyTitle:"Sfida del giorno", dyTeam:"Vinci con la squadra imposta.", dyBoss:n=>`Abbatti la squadra di ${n}: PV potenziati e rabbia all'inizio. Con la tua squadra.`, dyFlawless:"Vinci senza perdere nemmeno un combattente. Con la tua squadra.", dyGo:"Accetta", dyRetry:"Riprova la sfida", dyYourTeam:"la tua squadra", dyDone:n=>`Sfida del giorno superata! +${n} punti`, dyFail:"Sfida fallita: dovevi vincere senza perdere combattenti. Riprova!", ach_daily1:"Sfida accettata", achd_daily1:"Supera una sfida del giorno", ach_daily10:"Disciplina", achd_daily10:"Supera 10 sfide del giorno", ach_daily30:"Allenamento quotidiano", achd_daily30:"Supera 30 sfide del giorno"});
 Object.assign(UI.fr,{rpBtn:"Revoir le combat", rpQuit:"Quitter"}); Object.assign(UI.en,{rpBtn:"Watch the replay", rpQuit:"Exit"}); Object.assign(UI.it,{rpBtn:"Rivedi il combattimento", rpQuit:"Esci"});
 Object.assign(UI.fr,{achTitle:"Succès",achUnlocked:"Succès débloqué",achMore:n=>`et ${n} autre${n>1?"s":""} : va voir ton profil !`,ach_first:"Premier sang",achd_first:"Gagner un combat contre l'IA",ach_ai10:"Chasseur de pillards",achd_ai10:"10 victoires contre l'IA",ach_ai50:"Fléau des terres désolées",achd_ai50:"50 victoires contre l'IA",ach_ai200:"Sauveur de la fin du monde",achd_ai200:"200 victoires contre l'IA",ach_vs1:"Premier duel",achd_vs1:"Gagner un combat en versus",ach_vs10:"Duelliste",achd_vs10:"10 victoires en versus",ach_vs50:"Successeur",achd_vs50:"50 victoires en versus",ach_elo1200:"Étoile montante",achd_elo1200:"Atteindre 1200 Elo",ach_elo1400:"Étoile du Nord",achd_elo1400:"Atteindre 1400 Elo",ach_streak5:"Inarrêtable",achd_streak5:"Série de 5 victoires",ach_streak10:"Invaincu",achd_streak10:"Série de 10 victoires",ach_surv5:"Survivant",achd_surv5:"Atteindre 5 vagues en survie",ach_surv10:"Dernier debout",achd_surv10:"Atteindre 10 vagues en survie",ach_surv20:"Légende du désert",achd_surv20:"Atteindre 20 vagues en survie",ach_tour1:"Champion",achd_tour1:"Gagner un tournoi",ach_tour5:"Roi des tournois",achd_tour5:"Gagner 5 tournois",ach_roster15:"Polyvalent",achd_roster15:"Jouer 15 combattants différents",ach_roster30:"Maître de toutes les écoles",achd_roster30:"Jouer 30 combattants différents",ach_flawless:"Sans une égratignure",achd_flawless:"Gagner sans perdre aucun combattant",ach_comeback:"Sur le fil",achd_comeback:"Gagner avec un seul combattant à 3 PV ou moins",ach_ultko:"Tu es déjà mort",achd_ultko:"Mettre KO avec une ultime",ach_combo4:"Coups multiples",achd_combo4:"Enchaîner 4 coups dans un tour",ach_combo5:"Cent poings",achd_combo5:"Enchaîner 5 coups dans un tour",ach_duo:"Frères d'armes",achd_duo:"Gagner avec une équipe de 2",ach_quintet:"La horde",achd_quintet:"Gagner avec une équipe de 5",ach_clanwin:"Fierté de l'école",achd_clanwin:"Gagner avec un bonus d'école actif",ach_cheap:"Petits moyens",achd_cheap:"Gagner avec une équipe de 6 points ou moins"});
 Object.assign(UI.en,{achTitle:"Achievements",achUnlocked:"Achievement unlocked",achMore:n=>`and ${n} more: check your profile!`,ach_first:"First blood",achd_first:"Win a fight against the AI",ach_ai10:"Raider hunter",achd_ai10:"10 wins against the AI",ach_ai50:"Scourge of the wasteland",achd_ai50:"50 wins against the AI",ach_ai200:"Savior of the end of the world",achd_ai200:"200 wins against the AI",ach_vs1:"First duel",achd_vs1:"Win a versus fight",ach_vs10:"Duelist",achd_vs10:"10 versus wins",ach_vs50:"Successor",achd_vs50:"50 versus wins",ach_elo1200:"Rising star",achd_elo1200:"Reach 1200 Elo",ach_elo1400:"North Star",achd_elo1400:"Reach 1400 Elo",ach_streak5:"Unstoppable",achd_streak5:"5-win streak",ach_streak10:"Undefeated",achd_streak10:"10-win streak",ach_surv5:"Survivor",achd_surv5:"Clear 5 survival waves",ach_surv10:"Last one standing",achd_surv10:"Clear 10 survival waves",ach_surv20:"Legend of the desert",achd_surv20:"Clear 20 survival waves",ach_tour1:"Champion",achd_tour1:"Win a tournament",ach_tour5:"Tournament king",achd_tour5:"Win 5 tournaments",ach_roster15:"Versatile",achd_roster15:"Play 15 different fighters",ach_roster30:"Master of all schools",achd_roster30:"Play 30 different fighters",ach_flawless:"Without a scratch",achd_flawless:"Win without losing a fighter",ach_comeback:"On the edge",achd_comeback:"Win with a single fighter at 3 HP or less",ach_ultko:"You are already dead",achd_ultko:"Knock out with an ultimate",ach_combo4:"Flurry",achd_combo4:"Chain 4 hits in one turn",ach_combo5:"Hundred fists",achd_combo5:"Chain 5 hits in one turn",ach_duo:"Brothers in arms",achd_duo:"Win with a team of 2",ach_quintet:"The horde",achd_quintet:"Win with a team of 5",ach_clanwin:"School pride",achd_clanwin:"Win with a school bonus active",ach_cheap:"Shoestring",achd_cheap:"Win with a team of 6 points or less"});
@@ -2258,7 +2273,7 @@ function sideHTML(k){
     const can = me && S.turn===ME && !S.busy && !s.relais && s.end>=1 && !t.ko;
     const tag = can?"button":"div";
     return `<${tag} class="rs ${t.ko?"ko":""} ${can?"can":""}" ${can?`data-relais="${i}" aria-label="${L("relayTo",esc(nm(t.id)))}" title="${L("relayTo",esc(nm(t.id)))}"`:`title="${esc(nm(t.id))}"`}>
-      <span class="av"><img src="${FACE(t.id)}" alt="">${t.ko?`<span class="kox">KO</span>`:""}</span>
+      <span class="av"><img src="${FACE(t.id)}" alt="">${t.ko?`<span class="kox">${ICON.skull}</span>`:""}</span>
       <span class="rhp ${!t.ko&&t.hp<t.max?"hurt":""}"><i style="width:${t.ko?0:t.hp/t.max*100}%"></i></span><span class="rhpn">${t.ko?"":`${t.hp}/${t.max}`}</span></${tag}>`;
   }).join("");
   return `<div class="side ${me?"me":"foe"} ${S.turn===k?"turn":""}">
@@ -2561,10 +2576,11 @@ function renderEnd(win){ if(S&&S.dead) return; rpCapture(true); if(SURV.on && MO
     <p class="note" id="accline">${ACC.on&&(MODE==="solo"||MODE==="vs")&&!ACC.user?L("notLogged"):""}</p>
     ${endJournalHTML()}
     ${rpAvailable()?`<button class="btn ghost sm" id="rpgo">▶ ${L("rpBtn")}</button>`:""}
-    <button class="btn" id="again">${MODE==="vs"?(TOUR.code?L("tourBack"):L("back")):L("rematch")}</button></div></div>`;
+    <button class="btn" id="again">${MODE==="vs"?(TOUR.code?L("tourBack"):L("back")):S&&S.daily?(dailyOk(win)?L("back"):L("dyRetry")):L("rematch")}</button></div></div>`;
   endJournalScroll();
   if($("#rpgo")) $("#rpgo").onclick=()=>{ SFX.play("click"); rpStart(()=>renderTitle(TITLE_SEL)); };
-  $("#again").onclick=()=>{ const tc=MODE==="vs"?TOUR.code:null; if(MODE==="vs") netLeave(); if(tc) renderTour(tc); else renderTitle(); };
+  const dyRetry=S&&S.daily&&!dailyOk(win);
+  $("#again").onclick=()=>{ if(dyRetry && !DAILY.done){ SFX.play("event"); dailyStart(TITLE_SEL); return; } const tc=MODE==="vs"?TOUR.code:null; if(MODE==="vs") netLeave(); if(tc) renderTour(tc); else renderTitle(); };
   if(ACC.on && ACC.user && !(S&&S.accDone)){ if(S) S.accDone=true;
     const show=t=>{ const e=$("#accline"); if(e) e.textContent=t; };
     const before=lvlOf(ACC.user.stats&&ACC.user.stats.pts).n;
@@ -2608,6 +2624,8 @@ let TITLE_SEL=[];
 function accErr(code){ return L("e_"+(["name","password","taken","bad","slow","image","size","started","full","notfound","few","team","maintenance","admin","banned","self","oldpw"].includes(code)?code:"net")); }
 
 let ADMIN_OPEN=false;
+const PF_OPEN=new Set(["decks"]);
+const pfSec=(k,title,body)=>`<details class="pfsec" data-sec="${k}" ${PF_OPEN.has(k)?"open":""}><summary>${title}</summary><div class="pfbody">${body}</div></details>`;
 function renderAccount(sel=[], tab="login"){
   if(!ACC.user){
     pageShell(L("accTitle"),`<p class="iplead">${L("accLead")}</p>${accFormsHTML()}<p class="note">${L("hofHow")}</p>`,sel);
@@ -2625,20 +2643,19 @@ function renderAccount(sel=[], tab="login"){
       ${STATUS.maint.forced?`<p class="note">${L("maintForced")}</p>`:""}
       <div class="row"><button class="btn sm" id="msave">${L("save")}</button><span class="err" id="merr"></span></div>
       <div class="row"><button class="btn sm" id="tousers">${L("admUsers")}</button><button class="btn sm" id="tofst">${L("fsTitle")}</button><button class="btn sm" id="tofaces">${L("faTitle")}</button></div></details>`:""}
-    <div class="pfhead"><label class="avpick" title="${L("changeAv")}">${avatarHTML(u,"uavbig")}<input type="file" id="avfile" accept="image/png,image/jpeg,image/webp" hidden><span class="avedit">${L("changeAv")}</span></label>
-      <div><h3 class="pfname">${esc(u.name)}</h3>${(()=>{ const v=lvlOf(st.pts); return `<div class="lvlrow"><span class="lvlb lvbig">${L("lvShort")} ${v.n}</span><b>${esc(lvlTitle(v.n))}</b></div><div class="xpbar"><i style="width:${v.pct}%"></i></div><div class="xptxt">${v.n>=LVL_MAX?L("lvlMax"):L("xpNext",v.cur,v.need,v.n+1)}</div>`; })()}<div class="err" id="averr" role="alert"></div><button class="btn ghost sm" id="logout">${L("logout")}</button></div></div>
-    <div class="stgrid">${cell("st_elo",st.elo??1000,rk.elo?"#"+rk.elo:"")}${cell("st_pts",st.pts||0,rk.pts?"#"+rk.pts:"")}${cell("st_aiW",st.aiW||0)}${cell("st_aiL",st.aiL||0)}${cell("st_vsW",st.vsW||0)}${cell("st_vsL",st.vsL||0)}${cell("st_streak",st.streak||0)}${cell("st_best",st.best||0)}${cell("st_tW",st.tW||0)}${cell("st_surv",st.surv||0)}</div>
-    ${favs.length?`<h3 class="pfh">${L("favs")}</h3><div class="favs">${favs.map(([id,n])=>`<div class="fav cl-${CLAN[id]}"><img src="${FACE(id)}" alt=""><b>${esc(nm(id))}</b><span>×${n}</span></div>`).join("")}</div>`:""}
-    ${achHTML(st)}
-    <div id="dkbox">${decksProfileHTML(sel)}</div>
-    <div class="row" style="justify-content:center;margin-top:18px"><button class="btn" id="tohof">${L("hofBtn")}</button></div>
-    <details class="pwbox"><summary>${L("pwChange")}</summary>
-      <form class="accform" id="fpw" autocomplete="on"><input type="text" name="username" value="${esc(u.name)}" autocomplete="username" hidden>
+    <div class="pfcard"><div class="pfhead"><label class="avpick" title="${L("changeAv")}">${avatarHTML(u,"uavbig")}<input type="file" id="avfile" accept="image/png,image/jpeg,image/webp" hidden><span class="avedit">${L("changeAv")}</span></label>
+      <div class="pfmain"><h3 class="pfname">${esc(u.name)}</h3>${(()=>{ const v=lvlOf(st.pts); return `<div class="lvlrow"><span class="lvlb lvbig">${L("lvShort")} ${v.n}</span><b>${esc(lvlTitle(v.n))}</b></div><div class="xpbar"><i style="width:${v.pct}%"></i></div><div class="xptxt">${v.n>=LVL_MAX?L("lvlMax"):L("xpNext",v.cur,v.need,v.n+1)}</div>`; })()}<div class="err" id="averr" role="alert"></div></div></div>
+      <div class="pfchips"><span><b>${st.elo??1000}</b>${L("eloShort")}${rk.elo?` <i>#${rk.elo}</i>`:""}</span><span><b>${st.pts||0}</b>${L("ptsShort")}${rk.pts?` <i>#${rk.pts}</i>`:""}</span><span><b>${ACH_LIST.filter(a=>(st.ach||{})[a[0]]).length}/${ACH_LIST.length}</b>${L("achTitle")}</span><span><b>${st.surv||0}</b>${L("survShort")}</span></div>
+      <div class="row pfbtns"><button class="btn sm" id="tohof">${L("hofBtn")}</button><button class="btn ghost sm" id="logout">${L("logout")}</button></div></div>
+    ${pfSec("stats",L("pfStats"),`<div class="stgrid">${cell("st_elo",st.elo??1000,rk.elo?"#"+rk.elo:"")}${cell("st_pts",st.pts||0,rk.pts?"#"+rk.pts:"")}${cell("st_aiW",st.aiW||0)}${cell("st_aiL",st.aiL||0)}${cell("st_vsW",st.vsW||0)}${cell("st_vsL",st.vsL||0)}${cell("st_streak",st.streak||0)}${cell("st_best",st.best||0)}${cell("st_tW",st.tW||0)}${cell("st_surv",st.surv||0)}</div>
+      ${favs.length?`<h3 class="pfh">${L("favs")}</h3><div class="favs">${favs.map(([id,n])=>`<div class="fav cl-${CLAN[id]}"><img src="${FACE(id)}" alt=""><b>${esc(nm(id))}</b><span>×${n}</span></div>`).join("")}</div>`:""}`)}
+    ${pfSec("ach",`${L("achTitle")} <small class="achn">${ACH_LIST.filter(a=>(st.ach||{})[a[0]]).length}/${ACH_LIST.length}</small>`,achHTML(st))}
+    ${pfSec("decks",L("decksTitle"),`<div id="dkbox">${decksProfileHTML(sel)}</div>`)}
+    ${pfSec("pw",L("pwChange"),`<form class="accform" id="fpw" autocomplete="on"><input type="text" name="username" value="${esc(u.name)}" autocomplete="username" hidden>
         <label>${L("pwOld")}<input name="old" type="password" maxlength="100" autocomplete="current-password" required></label>
         <label>${L("pwNew")}<input name="password" type="password" maxlength="100" autocomplete="new-password" required></label>
         <label>${L("password2")}<input name="password2" type="password" maxlength="100" autocomplete="new-password" required></label>
-        <div class="err" role="alert"></div><button class="btn sm" type="submit">${L("save")}</button></form></details>
-
+        <div class="err" role="alert"></div><button class="btn sm" type="submit">${L("save")}</button></form>`)}
     <p class="note">${L("hofHow")}</p></div>`,sel);
   $("#logout").onclick=async()=>{ SFX.play("click"); try{ await api("POST","/api/logout"); }catch(e){} accForget(); ACC.ready=true; renderTitle(sel); };
   $("#tohof").onclick=()=>{ SFX.play("click"); renderHof(sel); };
@@ -2649,6 +2666,7 @@ function renderAccount(sel=[], tab="login"){
     if(!r.ok){ er.textContent=accErr(r.error); return; }
     ACC.token=r.token; try{ localStorage.setItem("boc-token",r.token); }catch(x){} f.reset(); er.classList.add("ok"); er.textContent=L("pwDone"); SFX.play("event"); };
   { const ab=document.querySelector(".adminbox"); if(ab) ab.ontoggle=()=>{ ADMIN_OPEN=ab.open; }; }
+  document.querySelectorAll(".pfsec").forEach(d=>d.ontoggle=()=>{ if(d.open) PF_OPEN.add(d.dataset.sec); else PF_OPEN.delete(d.dataset.sec); });
   if($("#tousers")) $("#tousers").onclick=()=>{ SFX.play("click"); renderAdminUsers(sel); };
   if($("#tofst")) $("#tofst").onclick=()=>{ SFX.play("click"); renderFStats(sel); };
   if($("#tofaces")) $("#tofaces").onclick=()=>{ SFX.play("click"); renderFaceAdmin(sel); };
@@ -2816,6 +2834,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.29.0",d:"2026-10-04",fr:["Les combattants KO sont marqués d'une tête de mort","Page profil réorganisée : carte de profil avec les chiffres clés, sections repliables (statistiques, succès, équipes, mot de passe)","Défi du jour : après une victoire, le bouton devient « Retour » ; après un échec, « Retenter le défi » relance directement le défi","Kenshiro, Souther, Ryuken et Jagi : leur piège personnel est maintenant affiché sur leur fiche (ils ont un piège à la place d'une carte spéciale)"],en:["KO'd fighters are marked with a skull","Reorganized profile page: profile card with key numbers, collapsible sections (stats, achievements, teams, password)","Daily challenge: after a win the button becomes \"Back\"; after a failure \"Retry the challenge\" restarts it directly","Kenshiro, Souther, Ryuken and Jagi: their own trap is now shown on their card (they have a trap instead of a special card)"],it:["I combattenti KO sono segnati con un teschio","Pagina profilo riorganizzata: scheda con i numeri chiave, sezioni richiudibili (statistiche, trofei, squadre, password)","Sfida del giorno: dopo una vittoria il pulsante diventa «Indietro»; dopo un fallimento «Riprova la sfida» la rilancia subito","Kenshiro, Souther, Ryuken e Jagi: la loro trappola personale ora è mostrata nella scheda (hanno una trappola invece di una carta speciale)"]},
  {v:"0.28.4",d:"2026-10-04",fr:["Admin : le bloc Administration du profil est replié par défaut, un clic pour le déplier"],en:["Admin: the profile Administration block is collapsed by default, one click to expand"],it:["Admin: il blocco Amministrazione del profilo è chiuso di default, un clic per aprirlo"]},
  {v:"0.28.3",d:"2026-10-04",fr:["Correctif : certaines anciennes illustrations (Kaioh) pouvaient rester bloquées dans le cache du navigateur, elles sont maintenant toujours revérifiées"],en:["Fix: some old artwork (Kaioh) could stay stuck in the browser cache, it is now always rechecked"],it:["Correzione: alcune vecchie illustrazioni (Kaioh) potevano restare bloccate nella cache del browser, ora vengono sempre ricontrollate"]},
  {v:"0.28.2",d:"2026-10-04",fr:["Admin : le bloc Administration est en haut de la page profil"],en:["Admin: the Administration block is at the top of the profile page"],it:["Admin: il blocco Amministrazione è in cima alla pagina profilo"]},
@@ -3030,7 +3049,7 @@ function bindDeckChips(sel,redo){
 }
 function decksProfileHTML(sel){
   const list=DECKS.list||[];
-  return `<h3 class="pfh">${L("decksTitle")}</h3><div class="dklist">${list.length?list.map((d,i)=>`<div class="dkrow ${deckValid(d.team)?"":"bad"}">${deckFaces(d.team)}<input class="dkname" data-i="${i}" maxlength="24" value="${esc(d.name)}" aria-label="${L("deckName")}"><span class="dkcost">${teamCost(d.team)}/${BUDGET}</span>
+  return `<div class="dklist">${list.length?list.map((d,i)=>`<div class="dkrow ${deckValid(d.team)?"":"bad"}">${deckFaces(d.team)}<input class="dkname" data-i="${i}" maxlength="24" value="${esc(d.name)}" aria-label="${L("deckName")}"><span class="dkcost">${teamCost(d.team)}/${BUDGET}</span>
     <button class="btn sm" data-dkload="${i}" ${deckValid(d.team)?"":"disabled"}>${L("deckUse")}</button><button class="btn ghost sm" data-dkdel="${i}" aria-label="${L("deckDel")}" title="${L("deckDel")}">✕</button></div>`).join(""):`<p class="note">${L("decksEmpty")}</p>`}</div>
     ${sel.length>=TEAM_MIN&&list.length<DECK_MAX&&!list.some(d=>d.team.join()===sel.join())?`<div class="row" style="justify-content:center"><button class="btn ghost sm" id="dkadd">＋ ${L("deckSaveCur")} ${deckFaces(sel)}</button></div>`:""}<p class="note">${L("decksHow")}</p>`;
 }
@@ -3106,7 +3125,7 @@ function achToast(ids){ ids=(ids||[]).slice(); if(!ids.length) return;
     document.body.appendChild(d); SFX.play("event"); setTimeout(()=>d.classList.add("out"),2300); setTimeout(()=>d.remove(),2800); },400+i*2600)); }
 function achHTML(st){
   const got=st.ach||{}, n=ACH_LIST.filter(a=>got[a[0]]).length;
-  return `<h3 class="pfh">${L("achTitle")} <small class="achn">${n}/${ACH_LIST.length}</small></h3><div class="achgrid">${ACH_LIST.map(([id,t])=>{ const on=!!got[id], pr=!on&&ACH_PROG[id]?ACH_PROG[id](st):null;
+  return `<div class="achgrid">${ACH_LIST.map(([id,t])=>{ const on=!!got[id], pr=!on&&ACH_PROG[id]?ACH_PROG[id](st):null;
     return `<div class="ach t${t} ${on?"on":""}" title="${esc(L("achd_"+id))}"><i>${SVG_TROPHY}</i><div><b>${esc(L("ach_"+id))}</b><span>${esc(L("achd_"+id))}</span>${pr?`<span class="achpr"><em style="width:${Math.min(100,100*pr[0]/pr[1])}%"></em></span><small>${Math.min(pr[0],pr[1])}/${pr[1]}</small>`:""}${on?`<small>+${ACH_PTS[t]} pts</small>`:""}</div></div>`; }).join("")}</div>`;
 }
 
@@ -3319,6 +3338,7 @@ function dailyStart(sel){
   newGame(team,d.foe.slice(),st=>{ st.daily=DAILY.day; st.dailyKind=d.kind; st.log=L("dyTitle")+" · "+L("start");
     if(d.kind==="boss"){ st.a.team.forEach(t=>{ t.max=t.hp=Math.round(t.max*d.mul); }); st.a.rage=d.rage; } });
 }
+const dailyOk=win=>!!(S && S.daily && win && (S.dailyKind!=="flawless" || S[ME].team.every(t=>!t.ko)));
 async function dailyReport(win){
   if(!S || !S.daily || !win || !ACC.user) return null;
   if(S.dailyKind==="flawless" && !S[ME].team.every(t=>!t.ko)) return "fail";
@@ -3353,7 +3373,7 @@ function survPrep(st){
   if(n>7) st.a.rage=Math.min(RAGE_MAX-2,Math.floor((n-6)/2));
 }
 function survFaces(team,hp,max){ return `<div class="svteam">${team.map((id,i)=>{ const h=hp?hp[i]:null, m=max?max[i]:null, ko=h!=null&&h<=0;
-  return `<div class="svf ${ko?"ko":""} cl-${CLAN[id]}" title="${esc(nm(id))}"><img src="${FACE(id)}" alt="">${ko?`<span class="kox">KO</span>`:""}${h!=null&&!ko?`<span class="rhp ${h<m?"hurt":""}"><i style="width:${h/m*100}%"></i></span><span class="rhpn">${h}/${m}</span>`:""}</div>`; }).join("")}</div>`; }
+  return `<div class="svf ${ko?"ko":""} cl-${CLAN[id]}" title="${esc(nm(id))}"><img src="${FACE(id)}" alt="">${ko?`<span class="kox">${ICON.skull}</span>`:""}${h!=null&&!ko?`<span class="rhp ${h<m?"hurt":""}"><i style="width:${h/m*100}%"></i></span><span class="rhpn">${h}/${m}</span>`:""}</div>`; }).join("")}</div>`; }
 function renderSurvWave(){
   const n=SURV.wave;
   pageShell(L("survTitle"),`<div class="center svwave">
@@ -3586,7 +3606,7 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; quickStop
         <div class="stat"><b>${fighterHP(focus,n)}</b> ${L("hpShort")}</div>
         <div class="pass">${tr(f.passive)}</div>
         <div class="ult"><span>${L("ultimate")}</span> ${tr(f.ult.name)}</div>
-        ${sp?`<div class="spc"><span>${tr(sp.name)}</span> ${tr(sp.text)}</div>`:""}
+        ${sp?`<div class="spc"><span>${tr(sp.name)}</span> ${tr(sp.text)}</div>`:(()=>{ const t=Object.keys(TRAPS).find(k=>TRAPS[k].own===focus); return t?`<div class="spc trp"><span>${L("ownTrap")} · ${tr(TRAPS[t].name)}</span> ${tr(TRAPS[t].text).replace(/^(Carte de|Carta di) [^.]+\.\s*|^[^.]+'s card\.\s*/,"")}</div>`:""; })()}
       </div>
     </div>
     <div class="teambar">

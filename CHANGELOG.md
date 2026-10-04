@@ -2,6 +2,13 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.29.0 — 2026-10-04
+
+- Les combattants KO sont marqués d'une tête de mort
+- Page profil réorganisée : carte de profil avec les chiffres clés, sections repliables (statistiques, succès, équipes, mot de passe)
+- Défi du jour : après une victoire, le bouton devient « Retour » ; après un échec, « Retenter le défi » relance directement le défi
+- Kenshiro, Souther, Ryuken et Jagi : leur piège personnel est maintenant affiché sur leur fiche (ils ont un piège à la place d'une carte spéciale)
+
 ## v0.28.4 — 2026-10-04
 
 - Admin : le bloc Administration du profil est replié par défaut, un clic pour le déplier
