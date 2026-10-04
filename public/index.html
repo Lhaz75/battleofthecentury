@@ -1083,6 +1083,14 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .chbtn{margin-left:4px;padding:6px 12px!important;font-size:12px!important}
 .chbtn:disabled{opacity:.35}
 .chfrom{display:flex;align-items:center;gap:12px}.chfrom b{display:flex;align-items:center;gap:6px;font-size:17px;color:#f3e2bf;margin-bottom:6px}
+.chdnd{display:flex;align-items:center;justify-content:center;gap:8px;margin:6px auto 0;font-size:13px;color:var(--sand);cursor:pointer}
+.newch .askbox{border-color:#ffcf3a;box-shadow:0 0 0 2px rgba(0,0,0,.7),0 0 60px rgba(255,190,40,.45),0 18px 50px rgba(0,0,0,.8)}
+.ncban{text-align:center;margin:-4px 0 8px;animation:evpop .5s cubic-bezier(.2,1.6,.4,1) both}
+.ncban span{display:block;font:700 15px/1 Oswald,var(--f-display);letter-spacing:.3em;color:#ffcf3a}
+.ncban b{display:block;font:900 clamp(30px,8.5vw,44px)/1 var(--f-display);font-style:italic;text-transform:uppercase;color:#fff;-webkit-text-stroke:1.5px #b0281a;text-shadow:0 3px 0 #7a180a,0 0 24px rgba(255,90,40,.8);animation:ncb .9s ease-in-out infinite alternate}
+@keyframes ncb{to{text-shadow:0 3px 0 #7a180a,0 0 40px rgba(255,200,60,1)}}
+.ncnote{text-align:center;color:#ffd27a!important}
+.ncdnd{display:block;margin:10px auto 0;background:none;border:0;color:var(--mute);font-size:12px;text-decoration:underline;cursor:pointer}
 .chin .askbox{border-color:#e0452c;box-shadow:0 0 0 1px rgba(224,69,44,.4),0 18px 50px rgba(0,0,0,.7)}
 @media (max-width:600px){.onl-ul .ow{font-size:0;gap:0}}
 .fsbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
@@ -1886,9 +1894,9 @@ Object.assign(UI.it,{fsTitle:"Statistiche di bilanciamento", fsVs:"Versus", fsAi
 Object.assign(UI.fr,{pwaBtn:"Installer l'appli", pwaIos:"Sur iPhone / iPad : ouvre le jeu dans Safari, touche le bouton Partager (le carré avec la flèche), puis « Sur l'écran d'accueil ». Le jeu s'ouvrira en plein écran comme une vraie appli.", pwaOther:"Ouvre le menu de ton navigateur (les 3 points) et choisis « Installer l'application » ou « Ajouter à l'écran d'accueil »."});
 Object.assign(UI.en,{pwaBtn:"Install the app", pwaIos:"On iPhone / iPad: open the game in Safari, tap the Share button (the square with the arrow), then \"Add to Home Screen\". The game will open full screen like a real app.", pwaOther:"Open your browser menu (the 3 dots) and choose \"Install app\" or \"Add to Home screen\"."});
 Object.assign(UI.it,{pwaBtn:"Installa l'app", pwaIos:"Su iPhone / iPad: apri il gioco in Safari, tocca il pulsante Condividi (il quadrato con la freccia), poi «Aggiungi alla schermata Home». Il gioco si aprirà a schermo intero come una vera app.", pwaOther:"Apri il menu del browser (i 3 puntini) e scegli «Installa app» o «Aggiungi a schermata Home»."});
-Object.assign(UI.fr,{chBtn:"Défier", chBusy:"Ce joueur est occupé", chTitle:"Défi", chWaiting:n=>`En attente de la réponse de ${n}…`, chAccepted:n=>`${n} accepte le défi !`, chDeclined:n=>`${n} a refusé le défi.`, chExpired:n=>`${n} n'a pas répondu.`, chIncoming:"Tu es défié !", chYourTeam:"Ton équipe :", chAccept:"Accepter", chDecline:"Refuser", chExpiresIn:n=>`Expire dans ${n} s`, chGone:"Ce défi n'est plus valable.", chHow:"Défie un joueur qui est dans les menus. Tu choisis ton équipe (en cours, sauvegardée ou au hasard) avant d'envoyer le défi.", chCurTeam:"Équipe en cours", chPickTitle:n=>`Défier ${n} avec quelle équipe ?`});
-Object.assign(UI.en,{chBtn:"Challenge", chBusy:"This player is busy", chTitle:"Challenge", chWaiting:n=>`Waiting for ${n} to answer…`, chAccepted:n=>`${n} accepts the challenge!`, chDeclined:n=>`${n} declined the challenge.`, chExpired:n=>`${n} did not answer.`, chIncoming:"You are challenged!", chYourTeam:"Your team:", chAccept:"Accept", chDecline:"Decline", chExpiresIn:n=>`Expires in ${n}s`, chGone:"This challenge is no longer valid.", chHow:"Challenge a player who is in the menus. You pick your team (current, saved or random) before sending the challenge.", chCurTeam:"Current team", chPickTitle:n=>`Challenge ${n} with which team?`});
-Object.assign(UI.it,{chBtn:"Sfida", chBusy:"Questo giocatore è occupato", chTitle:"Sfida", chWaiting:n=>`In attesa della risposta di ${n}…`, chAccepted:n=>`${n} accetta la sfida!`, chDeclined:n=>`${n} ha rifiutato la sfida.`, chExpired:n=>`${n} non ha risposto.`, chIncoming:"Sei stato sfidato!", chYourTeam:"La tua squadra:", chAccept:"Accetta", chDecline:"Rifiuta", chExpiresIn:n=>`Scade tra ${n} s`, chGone:"Questa sfida non è più valida.", chHow:"Sfida un giocatore che è nei menu. Scegli la squadra (attuale, salvata o a caso) prima di inviare la sfida.", chCurTeam:"Squadra attuale", chPickTitle:n=>`Sfidare ${n} con quale squadra?`});
+Object.assign(UI.fr,{chBtn:"Défier",w_ai:"Contre l'IA (défiable)", chDndLbl:"Accepter les défis pendant mes combats contre l'IA", ncNote:"Le combat contre l'IA sera annulé (pas de défaite). Points du duel +50\u00a0%\u00a0!", ncDnd:"Ne plus me déranger pendant mes combats", chCool:n=>`Tu as déjà défié ${n} il y a peu. Réessaie dans quelques minutes.`, chBusy:"Ce joueur est occupé", chTitle:"Défi", chWaiting:n=>`En attente de la réponse de ${n}…`, chAccepted:n=>`${n} accepte le défi !`, chDeclined:n=>`${n} a refusé le défi.`, chExpired:n=>`${n} n'a pas répondu.`, chIncoming:"Tu es défié !", chYourTeam:"Ton équipe :", chAccept:"Accepter", chDecline:"Refuser", chExpiresIn:n=>`Expire dans ${n} s`, chGone:"Ce défi n'est plus valable.", chHow:"Défie un joueur qui est dans les menus ou en combat contre l'IA. Tu choisis ton équipe (en cours, sauvegardée ou au hasard) avant d'envoyer le défi.", chCurTeam:"Équipe en cours", chPickTitle:n=>`Défier ${n} avec quelle équipe ?`});
+Object.assign(UI.en,{chBtn:"Challenge",w_ai:"Fighting the AI (challengeable)", chDndLbl:"Accept challenges during my fights against the AI", ncNote:"The AI fight will be cancelled (no loss). Duel points +50%!", ncDnd:"Don't disturb me during my fights anymore", chCool:n=>`You challenged ${n} recently. Try again in a few minutes.`, chBusy:"This player is busy", chTitle:"Challenge", chWaiting:n=>`Waiting for ${n} to answer…`, chAccepted:n=>`${n} accepts the challenge!`, chDeclined:n=>`${n} declined the challenge.`, chExpired:n=>`${n} did not answer.`, chIncoming:"You are challenged!", chYourTeam:"Your team:", chAccept:"Accept", chDecline:"Decline", chExpiresIn:n=>`Expires in ${n}s`, chGone:"This challenge is no longer valid.", chHow:"Challenge a player who is in the menus or fighting the AI. You pick your team (current, saved or random) before sending the challenge.", chCurTeam:"Current team", chPickTitle:n=>`Challenge ${n} with which team?`});
+Object.assign(UI.it,{chBtn:"Sfida",w_ai:"Contro l'IA (sfidabile)", chDndLbl:"Accetta sfide durante i miei combattimenti contro l'IA", ncNote:"Il combattimento contro l'IA sarà annullato (nessuna sconfitta). Punti del duello +50%!", ncDnd:"Non disturbarmi più durante i combattimenti", chCool:n=>`Hai sfidato ${n} da poco. Riprova tra qualche minuto.`, chBusy:"Questo giocatore è occupato", chTitle:"Sfida", chWaiting:n=>`In attesa della risposta di ${n}…`, chAccepted:n=>`${n} accetta la sfida!`, chDeclined:n=>`${n} ha rifiutato la sfida.`, chExpired:n=>`${n} non ha risposto.`, chIncoming:"Sei stato sfidato!", chYourTeam:"La tua squadra:", chAccept:"Accetta", chDecline:"Rifiuta", chExpiresIn:n=>`Scade tra ${n} s`, chGone:"Questa sfida non è più valida.", chHow:"Sfida un giocatore che è nei menu o contro l'IA. Scegli la squadra (attuale, salvata o a caso) prima di inviare la sfida.", chCurTeam:"Squadra attuale", chPickTitle:n=>`Sfidare ${n} con quale squadra?`});
 Object.assign(UI.fr,{decksTitle:"Mes équipes", deckSave:"Sauver", deckSaveCur:"Sauver l'équipe actuelle", deckName:"Nom de l'équipe", deckUse:"Jouer", deckDel:"Supprimer", decksEmpty:"Aucune équipe sauvegardée pour l'instant.", decksHow:"Compose une équipe sur l'écran principal puis sauve-la ici ou avec le bouton « Sauver » sous tes slots (12 max). Tes équipes te suivent sur tous tes appareils."});
 Object.assign(UI.en,{decksTitle:"My teams", deckSave:"Save", deckSaveCur:"Save current team", deckName:"Team name", deckUse:"Play", deckDel:"Delete", decksEmpty:"No saved team yet.", decksHow:"Build a team on the main screen, then save it here or with the \"Save\" button under your slots (12 max). Your teams follow you on all your devices."});
 Object.assign(UI.it,{decksTitle:"Le mie squadre", deckSave:"Salva", deckSaveCur:"Salva la squadra attuale", deckName:"Nome della squadra", deckUse:"Gioca", deckDel:"Elimina", decksEmpty:"Nessuna squadra salvata per ora.", decksHow:"Componi una squadra nella schermata principale e salvala qui o con il pulsante «Salva» sotto gli slot (max 12). Le tue squadre ti seguono su tutti i dispositivi."});
@@ -1939,7 +1947,7 @@ function makeSide(team){
   };
 }
 function newGame(team,foe,prep){
-  journalReset(); FXQ.length=0;
+  journalReset(); FXQ.length=0; if(ACC.user) setTimeout(presPing,600);
   S = { p:makeSide(team), a:makeSide(foe||randomTeam(team)), terrain:null, round:0, turn:null, busy:true, over:false, react:null,
         log:L("start"), sub:"", gid:Date.now()+"-"+Math.random().toString(36).slice(2,6) };
   if(prep) prep(S);
@@ -3086,6 +3094,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.37.0",d:"2026-10-04",fr:["Here comes a new challenger! On peut défier un joueur en plein combat contre l'IA : s'il accepte, son combat est annulé sans défaite et le duel rapporte +50 % de points (idée de Jerome R. et maxGfive)","Anti-spam : un même joueur ne peut te redéfier qu'après 3 minutes, et tu peux couper les défis pendant tes combats"],en:["Here comes a new challenger! You can challenge a player in the middle of an AI fight: if they accept, their fight is cancelled with no loss and the duel gives +50% points (idea by Jerome R. and maxGfive)","Anti-spam: the same player can only challenge you again after 3 minutes, and you can turn off challenges during your fights"],it:["Here comes a new challenger! Puoi sfidare un giocatore durante un combattimento contro l'IA: se accetta, il combattimento è annullato senza sconfitta e il duello dà +50% di punti (idea di Jerome R. e maxGfive)","Anti-spam: lo stesso giocatore può risfidarti solo dopo 3 minuti, e puoi disattivare le sfide durante i combattimenti"]},
  {v:"0.36.0",d:"2026-10-04",fr:["Combo : enchaînement, une fois par combo tu peux répéter un Léger ou un Moyen (ex. Léger → Moyen → Moyen → Lourd), le coup répété ne fait pas monter le bonus (idée de Jerome R.)"],en:["Combo: follow-up, once per combo you can repeat a Light or a Medium (e.g. Light → Medium → Medium → Heavy), the repeated hit doesn't raise the bonus (idea by Jerome R.)"],it:["Combo: concatenazione, una volta per combo puoi ripetere un Leggero o un Medio (es. Leggero → Medio → Medio → Pesante), il colpo ripetuto non fa salire il bonus (idea di Jerome R.)"]},
  {v:"0.35.0",d:"2026-10-04",fr:["Nouvelle page « Cartes & événements » (depuis les Règles) : événements, terrains, pièges, réactions et spéciaux, repliés pour éviter les spoilers"],en:["New “Cards & events” page (from Rules): events, terrains, traps, reactions and specials, folded to avoid spoilers"],it:["Nuova pagina «Carte ed eventi» (dalle Regole): eventi, terreni, trappole, reazioni e speciali, chiusi per evitare spoiler"]},
  {v:"0.34.1",d:"2026-10-04",fr:["Défis : tu choisis ton équipe (en cours, sauvegardée ou au hasard) avant d'envoyer ou d'accepter un défi"],en:["Challenges: pick your team (current, saved or random) before sending or accepting a challenge"],it:["Sfide: scegli la squadra (attuale, salvata o a caso) prima di inviare o accettare una sfida"]},
@@ -3457,7 +3466,7 @@ async function faceEditor(id,done){
 /* ---------- joueurs en ligne ---------- */
 const ONLINE={list:[], timer:0, last:0};
 function presWhere(){
-  if(S && !S.over && !S.dead) return MODE==="vs"?(TOUR.code?"tour":"vs"):SURV.on?"surv":"solo";
+  if(S && !S.over && !S.dead) return MODE==="vs"?(TOUR.code?"tour":"vs"):SURV.on?"surv":(MODE==="solo" && !S.daily && !RP.on && !chDnd())?"ai":"solo";
   if(QUICK_MM.t) return "queue"; if(TOUR.code) return "tour"; return "menu";
 }
 async function presPing(){
@@ -3483,15 +3492,18 @@ function mmToast(n){ document.querySelectorAll(".mmtoast").forEach(x=>x.remove()
   d.querySelector(".mmx").onclick=()=>d.remove();
   d.querySelector("#mmgo").onclick=()=>{ d.remove(); const b=$("#online"); if(b && !b.disabled){ b.click(); setTimeout(()=>{ const q=$("#quick"); if(q) q.classList.add("pulse"); },50); } else { const h=$(".bh"); if(h){ h.textContent=L("mmPickTeam"); h.classList.add("flashh"); } } };
   setTimeout(()=>d.remove(),12000); SFX.play("event"); }
+function chDnd(){ try{ return localStorage.getItem("boc-chdnd")==="1"; }catch(e){ return false; } }
+function chSetDnd(v){ try{ localStorage.setItem("boc-chdnd",v?"1":"0"); }catch(e){} presPing(); }
 function presStart(){ if(ONLINE.timer) return; presPing(); ONLINE.timer=setInterval(presPing,30000); }
 function presChip(){ if(!ACC.on || !ACC.user) return ""; const n=Math.max(1,ONLINE.list.length); return `<button class="onl" id="onl" title="${L("onlineTitle")}"><i></i><span>${onlineLbl(n)}</span></button>`; }
 function onlineLbl(n){ const t=L("onlineN",n); return `${n}<span class="lng">${esc(t.replace(String(n),""))}</span>`; }
 function presRefresh(){ const c=$("#onl>span"); if(c) c.innerHTML=onlineLbl(Math.max(1,ONLINE.list.length)); if($(".onlist")) drawOnline(); }
 function drawOnline(){ const box=$(".onlist"); if(!box) return; const me=ACC.user&&ACC.user.id;
   const list=ONLINE.list.slice().sort((a,b)=>(b.id===me)-(a.id===me));
-  box.innerHTML=list.length?`<ul class="onl-ul">${list.map(u=>`<li class="${u.id===me?"me":""}">${avatarHTML(u)}<span class="hn">${lvlBadge(u.stats&&u.stats.pts)}${esc(u.name)}${u.id===me?` <small>(${L("onlineYou")})</small>`:""}</span><span class="ow w-${u.where}"><i></i>${L("w_"+u.where)}</span>${u.id!==me?`<button class="btn sm chbtn" data-ch="${u.id}" ${u.where==="menu"?"":"disabled"} title="${u.where==="menu"?L("chBtn"):L("chBusy")}">${L("chBtn")}</button>`:""}</li>`).join("")}</ul>${list.length<2?`<p class="note">${L("onlineEmpty")}</p>`:""}`:`<p class="note">${L("onlineEmpty")}</p>`; }
+  box.innerHTML=list.length?`<ul class="onl-ul">${list.map(u=>`<li class="${u.id===me?"me":""}">${avatarHTML(u)}<span class="hn">${lvlBadge(u.stats&&u.stats.pts)}${esc(u.name)}${u.id===me?` <small>(${L("onlineYou")})</small>`:""}</span><span class="ow w-${u.where}"><i></i>${L("w_"+u.where)}</span>${u.id!==me?`<button class="btn sm chbtn" data-ch="${u.id}" ${u.where==="menu"||u.where==="ai"?"":"disabled"} title="${u.where==="menu"||u.where==="ai"?L("chBtn"):L("chBusy")}">${L("chBtn")}</button>`:""}</li>`).join("")}</ul>${list.length<2?`<p class="note">${L("onlineEmpty")}</p>`:""}`:`<p class="note">${L("onlineEmpty")}</p>`; }
 function renderOnline(sel=[]){
-  pageShell(L("onlineTitle"),`<div class="onlist"></div><p class="note" style="text-align:center">${L("chHow")}</p>`,sel);
+  pageShell(L("onlineTitle"),`<div class="onlist"></div><p class="note" style="text-align:center">${L("chHow")}</p><label class="chdnd"><input type="checkbox" id="chdnd" ${chDnd()?"":"checked"}> ${L("chDndLbl")}</label>`,sel);
+  $("#chdnd").onchange=e=>{ SFX.play("click"); chSetDnd(!e.target.checked); };
   drawOnline(); presPing(); bindLang(()=>renderOnline(sel));
   $(".onlist").onclick=e=>{ const b=e.target.closest("[data-ch]"); if(!b || b.disabled) return; const u=ONLINE.list.find(x=>x.id===+b.dataset.ch); if(u){ SFX.play("event"); chSend(u); } };
 }
@@ -3531,7 +3543,7 @@ async function chSend(u){
   scr(`<div class="qspin"></div><p class="lead">${L("connecting")}</p>`);
   if(!await netInit()){ scr(`<p class="lead">${L("offline")}</p>`); return; }
   const r=await api("POST","/api/ch/send",{to:u.id,uid:NET.uid,team}).catch(()=>({ok:false}));
-  if(!r.ok){ scr(`<p class="lead">${L("netErr")}</p>`); return; }
+  if(!r.ok){ scr(`<p class="lead">${r.error==="cooldown"?L("chCool",esc(u.name)):L("netErr")}</p>`); return; }
   CH.out=r.id; const t0=Date.now();
   const draw=()=>{ const left=Math.max(0,(r.ttl||60)-Math.floor((Date.now()-t0)/1000)); const e=$(".chleft"); if(e) e.textContent=left+" s"; };
   scr(`<div class="qspin"></div><p class="lead">${L("chWaiting",esc(u.name))}</p><div class="qtime chleft"></div><div class="tmyteam" style="justify-content:center">${deckFaces(team)}</div>`); draw();
@@ -3547,23 +3559,26 @@ async function chSend(u){
 function chInboxStart(){ if(CH.inboxT) return; CH.inboxT=setInterval(chInbox,4000); }
 async function chInbox(){
   if(!ACC.on || !ACC.user || CH.shown || CH.out) return;
-  if(presWhere()!=="menu" || document.querySelector(".askw")) return;
+  const where=presWhere(); if((where!=="menu" && where!=="ai") || document.querySelector(".askw")) return;
   let r; try{ r=await api("GET","/api/ch/inbox"); }catch(e){ return; }
   const c=r.ok && (r.list||[]).find(x=>!CH.seen.has(x.id)); if(!c || CH.shown) return;
   CH.shown=c.id; CH.seen.add(c.id); SFX.play("event");
   await decksLoad(); const u=c.from, list=chChoices(), st={i:list.length?0:-1, team:list.length?list[0].team.slice():chTeam()};
-  const w=document.createElement("div"); w.className="askw chin";
-  w.innerHTML=`<div class="askbox" role="dialog"><h3>${L("chIncoming")}</h3><div class="chfrom">${avatarHTML(u,"uavbig")}<div><b>${lvlBadge(u.pts)}${esc(u.name)}</b><div class="dkf">${deckFaces(c.team)}</div></div></div>
+  const fight=presWhere()==="ai"; if(fight){ SFX.play("ult"); flash(); }
+  const w=document.createElement("div"); w.className="askw chin"+(fight?" newch":"");
+  w.innerHTML=`<div class="askbox" role="dialog">${fight?`<div class="ncban"><span>HERE COMES A</span><b>NEW CHALLENGER!</b></div><p class="note ncnote">${L("ncNote")}</p>`:`<h3>${L("chIncoming")}</h3>`}<div class="chfrom">${avatarHTML(u,"uavbig")}<div><b>${lvlBadge(u.pts)}${esc(u.name)}</b><div class="dkf">${deckFaces(c.team)}</div></div></div>
     <p class="note" style="margin-bottom:0">${L("chYourTeam")}</p>${chPickerHTML(list,st.i)}<p class="note chleft2"></p>
-    <div class="row"><button class="btn ghost sm" data-no>${L("chDecline")}</button><button class="btn sm" data-yes>${L("chAccept")}</button></div></div>`;
+    <div class="row"><button class="btn ghost sm" data-no>${L("chDecline")}</button><button class="btn sm" data-yes>${L("chAccept")}</button></div>${fight?`<button class="ncdnd" data-dnd>${L("ncDnd")}</button>`:""}</div>`;
   document.body.appendChild(w); chBindPicker(w,list,st);
+  if(w.querySelector("[data-dnd]")) w.querySelector("[data-dnd]").onclick=()=>{ SFX.play("click"); chSetDnd(true); api("POST","/api/ch/decline",{id:c.id}).catch(()=>{}); close(); };
   let left=c.left||60; const tick=setInterval(()=>{ left--; const e=w.querySelector(".chleft2"); if(e) e.textContent=L("chExpiresIn",Math.max(0,left)); if(left<=0) close(); },1000);
   const close=()=>{ clearInterval(tick); w.remove(); CH.shown=null; };
   w.querySelector("[data-no]").onclick=()=>{ SFX.play("click"); api("POST","/api/ch/decline",{id:c.id}).catch(()=>{}); close(); };
   w.querySelector("[data-yes]").onclick=async()=>{ SFX.play("event"); close();
+    const ingame=fight && S && !S.over && !S.dead; if(S && !S.over){ S.over=true; S.dead=true; } if(ingame){ MODE="solo"; ME="p"; document.querySelectorAll(".evwrap,.banner,.cutin").forEach(x=>x.remove()); }
     $("#app").innerHTML=`<div class="screen"><div class="center quickmm"><div class="kicker">${L("chTitle")}</div><div class="qspin"></div><p class="lead">${L("connecting")}</p></div></div>`;
     if(!await netInit()){ renderTitle(TITLE_SEL); return; }
-    const team=st.team; const a=await api("POST","/api/ch/accept",{id:c.id,uid:NET.uid,team}).catch(()=>({ok:false}));
+    const team=st.team; const a=await api("POST","/api/ch/accept",{id:c.id,uid:NET.uid,team,ingame}).catch(()=>({ok:false}));
     if(!a.ok){ $("#app").innerHTML=`<div class="screen"><div class="center"><p class="lead">${L("chGone")}</p><button class="btn ghost" id="back">${L("back")}</button></div></div>`; $("#back").onclick=()=>renderTitle(TITLE_SEL); return; }
     $("#app").innerHTML=`<div class="screen"><div class="center"><div class="kicker">${L("chTitle")}</div><div class="code">${esc(a.code)}</div><p class="lead">${L("joining")}</p></div></div>`;
     chJoinDuel(a.code,"guest"); };

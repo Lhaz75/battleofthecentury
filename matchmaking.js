@@ -35,8 +35,11 @@ function makeMatchmaking({ docs, markDirty, broadcast, auth }) {
 
   // défis directs entre joueurs connectés
   const challenges = new Map();   // id -> { id, from:{id,name,avatar,lvlPts}, fromNet, fromTeam, to, t, status, code }
-  const CH_TTL = 60000;
-  function chClean() { const now = Date.now(); for (const [k, c] of challenges) if (now - c.t > (c.status === "pending" ? CH_TTL : CH_TTL * 2)) challenges.delete(k); }
+  const CH_TTL = 60000, CH_COOL = 180000;
+  const cool = new Map();         // "de>vers" -> fin du délai après un défi refusé ou expiré (anti-spam)
+  function chClean() { const now = Date.now();
+    for (const [k, c] of challenges) if (now - c.t > (c.status === "pending" ? CH_TTL : CH_TTL * 2)) { if (c.status === "pending") cool.set(c.from.id + ">" + c.to, now + CH_COOL); challenges.delete(k); }
+    for (const [k, t] of cool) if (t < now) cool.delete(k); }
   setInterval(chClean, 5000);
   const cleanTeam = t => Array.isArray(t) ? t.filter(x => typeof x === "string" && TEAM_RE.test(x)).slice(0, 5) : [];
 
@@ -73,6 +76,7 @@ function makeMatchmaking({ docs, markDirty, broadcast, auth }) {
         if (url.pathname === "/api/ch/send") {
           const to = +b.to, uid = String(b.uid || ""), team = cleanTeam(b.team);
           if (!to || to === u.id) return send(400, { error: "self" });
+          if ((cool.get(u.id + ">" + to) || 0) > Date.now()) return send(429, { error: "cooldown" });
           if (!/^[a-z0-9]{6,40}$/i.test(uid)) return send(400, { error: "uid" }); if (team.length < 2) return send(400, { error: "team" });
           for (const [k, c] of challenges) if (c.from.id === u.id && c.status === "pending") challenges.delete(k);   // un seul défi à la fois
           if ([...challenges.values()].filter(c => c.to === to && c.status === "pending").length >= 5) return send(429, { error: "slow" });
@@ -83,12 +87,12 @@ function makeMatchmaking({ docs, markDirty, broadcast, auth }) {
         const c = challenges.get(String(b.id || ""));
         if (url.pathname === "/api/ch/cancel") { if (c && c.from.id === u.id) challenges.delete(c.id); return send(200, { ok: true }); }
         if (!c || c.to !== u.id || c.status !== "pending" || Date.now() - c.t > CH_TTL) return send(404, { error: "notfound" });
-        if (url.pathname === "/api/ch/decline") { c.status = "declined"; return send(200, { ok: true }); }
+        if (url.pathname === "/api/ch/decline") { c.status = "declined"; cool.set(c.from.id + ">" + c.to, Date.now() + CH_COOL); return send(200, { ok: true }); }
         if (url.pathname === "/api/ch/accept") {
           const uid = String(b.uid || ""), team = cleanTeam(b.team);
           if (!/^[a-z0-9]{6,40}$/i.test(uid)) return send(400, { error: "uid" }); if (team.length < 2) return send(400, { error: "team" });
           const code = code4(), now = Date.now();
-          docs["duels/" + code] = { code, hostId: c.fromNet, hostName: c.from.name, hostTeam: c.fromTeam, guestId: uid, guestName: u.name, guestTeam: team, status: "ready", seq: 0, created: now, challenge: true, _t: now };
+          docs["duels/" + code] = { code, hostId: c.fromNet, hostName: c.from.name, hostTeam: c.fromTeam, guestId: uid, guestName: u.name, guestTeam: team, status: "ready", seq: 0, created: now, challenge: true, newch: !!b.ingame, _t: now };
           markDirty(); broadcast("duels/" + code);
           c.status = "accepted"; c.code = code; c.t = now;
           return send(200, { code, role: "guest", opp: c.from.name });

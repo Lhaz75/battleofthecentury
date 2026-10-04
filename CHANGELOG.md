@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.37.0 — 2026-10-04
+
+- Here comes a new challenger! On peut défier un joueur en plein combat contre l'IA : s'il accepte, son combat est annulé sans défaite et le duel rapporte +50 % de points (idée de Jerome R. et maxGfive)
+- Anti-spam : un même joueur ne peut te redéfier qu'après 3 minutes, et tu peux couper les défis pendant tes combats
+
 ## v0.36.0 — 2026-10-04
 
 - Combo : enchaînement, une fois par combo tu peux répéter un Léger ou un Moyen (ex. Léger → Moyen → Moyen → Lourd), le coup répété ne fait pas monter le bonus (idée de Jerome R.)

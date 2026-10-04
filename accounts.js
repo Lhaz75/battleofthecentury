@@ -211,8 +211,9 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       const e = expect(W.stats.elo, Lo.stats.elo), k = 32, d = Math.max(1, Math.round(k * (1 - e)));
       W.stats.elo += d; Lo.stats.elo = Math.max(100, Lo.stats.elo - d);
     }
-    if (W) { W.stats.vsW++; W.stats.pts += 25; streak(W.stats, true); bumpFav(W.stats, m.teams && m.teams[winRole]); achCheck(W.stats); await store.saveStats(W.id, W.stats); }
-    if (Lo) { Lo.stats.vsL++; Lo.stats.pts += 5; streak(Lo.stats, false); bumpFav(Lo.stats, m.teams && m.teams[loserRole]); achCheck(Lo.stats); await store.saveStats(Lo.id, Lo.stats); }
+    const nc = !!(getDuel(code) || {}).newch;   // défi lancé pendant un combat contre l'IA : +50 % de points
+    if (W) { W.stats.vsW++; W.stats.pts += nc ? 38 : 25; streak(W.stats, true); bumpFav(W.stats, m.teams && m.teams[winRole]); achCheck(W.stats); await store.saveStats(W.id, W.stats); }
+    if (Lo) { Lo.stats.vsL++; Lo.stats.pts += nc ? 8 : 5; streak(Lo.stats, false); bumpFav(Lo.stats, m.teams && m.teams[loserRole]); achCheck(Lo.stats); await store.saveStats(Lo.id, Lo.stats); }
     { const d = getDuel(code) || {}; const tW = (m.teams && m.teams[winRole]) || d[winRole + "Team"], tL = (m.teams && m.teams[loserRole]) || d[loserRole + "Team"]; fRecord(tW, true, "v"); fRecord(tL, false, "v"); fstats.n = fstats.n || { v: 0, a: 0 }; fstats.n.v++; }
     for (const h of settleHooks) { try { await h(code, loserRole); } catch (e) { console.error("settle hook", e.message); } }
     setTimeout(() => matches.delete(code), 3600e3);
@@ -361,7 +362,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     // présence : chaque client connecté pingue toutes les 30 s
     "POST /api/ping": async (req, body) => {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
-      const where = ["menu", "solo", "surv", "vs", "queue", "tour"].includes(body.where) ? body.where : "menu";
+      const where = ["menu", "ai", "solo", "surv", "vs", "queue", "tour"].includes(body.where) ? body.where : "menu";
       presence.set(u.id, { ...pubUser(u), where, t: Date.now() });
       return [200, { online: onlineList() }];
     },
