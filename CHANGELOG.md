@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.42.2 — 2026-10-05
+
+- Nouveau terrain : Cité-prison de Cassandra (Moyens +2)
+
 ## v0.42.1 — 2026-10-05
 
 - Téléphone en paysage : nouveau plateau sur toute la largeur, la main et les boutons tiennent à l'écran sans défiler
