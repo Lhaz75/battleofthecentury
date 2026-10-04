@@ -1091,6 +1091,16 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 @keyframes ncb{to{text-shadow:0 3px 0 #7a180a,0 0 40px rgba(255,200,60,1)}}
 .ncnote{text-align:center;color:#ffd27a!important}
 .ncdnd{display:block;margin:10px auto 0;background:none;border:0;color:var(--mute);font-size:12px;text-decoration:underline;cursor:pointer}
+.arctw{display:flex;flex-direction:column-reverse;align-items:center;gap:3px;margin:0 auto 10px}
+.arctw{flex-direction:column}.arctw i{display:grid;place-items:center;width:46px;height:18px;font:700 11px/1 var(--f-display);font-style:normal;color:#8a7458;background:#1c130d;border:1px solid #3a2a1c;border-radius:3px}
+.arctw i.done{background:#5b1a0e;border-color:#b0281a;color:#ffb39e}.arctw i.cur{background:#e8b04a;border-color:#fff1c1;color:#1a0f08;width:58px;box-shadow:0 0 14px rgba(232,176,74,.7)}
+.arctw i.top{width:30px;border-radius:8px 8px 3px 3px}
+.arcn{margin:2px 0 4px;font:700 clamp(24px,6vw,32px)/1.1 Oswald,var(--f-display);text-transform:uppercase;color:#fff3dc}
+.arcd{max-width:520px;margin:0 auto 10px!important;text-align:center}
+.svf.arcq{width:56px;height:56px;border-radius:50%;border:2px dashed #c98a2e;display:grid;place-items:center;background:#120a06}.svf.arcq span{font:900 26px var(--f-display);color:#e8b04a}
+.arcsil{width:180px;height:240px;margin:6px auto;border-radius:14px;overflow:hidden;border:2px solid #ffcf3a;box-shadow:0 0 40px rgba(255,190,40,.4);background:radial-gradient(circle,#4a1408,#0a0402)}
+.arcsil img{width:100%;height:100%;object-fit:cover;object-position:top;filter:brightness(0) drop-shadow(0 0 8px #ff3a1a);animation:arcsil 2s ease-in-out infinite alternate}
+@keyframes arcsil{to{filter:brightness(0) drop-shadow(0 0 18px #ffb43a)}}
 .chin .askbox{border-color:#e0452c;box-shadow:0 0 0 1px rgba(224,69,44,.4),0 18px 50px rgba(0,0,0,.7)}
 @media (max-width:600px){.onl-ul .ow{font-size:0;gap:0}}
 .fsbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
@@ -1991,7 +2001,7 @@ function startTurn(k){
   const op=S[other(k)];
   if(op.trap==="provoc"){ s.end=Math.max(1,s.end-2); trapFired(other(k)); S.sub=L("poisonWell"); }
   let ev=null;
-  if(k==="p"){ S.round++; if(S.round%3===0){ ev=EVENTS[rnd(EVENTS.length)]; ev.run(); } }
+  if(k==="p"){ S.round++; if(S.round%(S.evEvery||3)===0){ ev=EVENTS[rnd(EVENTS.length)]; ev.run(); } }
   if(S.over) { render(); return; }
   if(ev){ S.evName=ev.name; S.busy=!human(k); SFX.play("event"); eventCard(tr(ev.name),tr(ev.text),EV_TONE[ev.name]); S.log=`${L("event")} : ${tr(ev.name)}`; S.sub=tr(ev.text); render(); return; }
   banner(k);
@@ -2828,7 +2838,7 @@ function reactHTML(R){
       <button class="rbtn take" data-react="none"><b>${L("take")}</b><span>${L("takeSub")}</span></button></div>
   </div>`;
 }
-function renderEnd(win){ if(S&&S.dead) return; rpCapture(true); if(SURV.on && MODE==="solo" && S && S.surv) return survAfter(win); MUSIC.want("menu");
+function renderEnd(win){ if(S&&S.dead) return; rpCapture(true); if(SURV.on && MODE==="solo" && S && S.surv) return survAfter(win); if(ARC.on && MODE==="solo" && S && S.arc) return arcAfter(win); MUSIC.want("menu");
   SFX.play(win?"win":"lose");
   $("#app").innerHTML=`<div class="screen" style="overflow-y:auto"><div class="center">
     <div class="kicker">${win?L("foeDown"):L("meDown")}</div>
@@ -2907,7 +2917,7 @@ function renderAccount(sel=[], tab="login"){
       <div class="pfmain"><h3 class="pfname">${esc(u.name)}</h3>${(()=>{ const v=lvlOf(st.pts); return `<div class="lvlrow"><span class="lvlb lvbig">${L("lvShort")} ${v.n}</span><b>${esc(lvlTitle(v.n))}</b></div><div class="xpbar"><i style="width:${v.pct}%"></i></div><div class="xptxt">${v.n>=LVL_MAX?L("lvlMax"):L("xpNext",v.cur,v.need,v.n+1)}</div>`; })()}<div class="err" id="averr" role="alert"></div></div></div>
       <div class="pfchips"><span><b>${st.elo??1000}</b>${L("eloShort")}${rk.elo?` <i>#${rk.elo}</i>`:""}</span><span><b>${st.pts||0}</b>${L("ptsShort")}${rk.pts?` <i>#${rk.pts}</i>`:""}</span><span><b>${ACH_LIST.filter(a=>(st.ach||{})[a[0]]).length}/${ACH_LIST.length}</b>${L("achTitle")}</span><span><b>${st.surv||0}</b>${L("survShort")}</span></div>
       <div class="row pfbtns"><button class="btn sm" id="tohof">${L("hofBtn")}</button><button class="btn ghost sm" id="logout">${L("logout")}</button></div></div>
-    ${pfSec("stats",L("pfStats"),`<div class="stgrid">${cell("st_elo",st.elo??1000,rk.elo?"#"+rk.elo:"")}${cell("st_pts",st.pts||0,rk.pts?"#"+rk.pts:"")}${cell("st_aiW",st.aiW||0)}${cell("st_aiL",st.aiL||0)}${cell("st_vsW",st.vsW||0)}${cell("st_vsL",st.vsL||0)}${cell("st_streak",st.streak||0)}${cell("st_best",st.best||0)}${cell("st_tW",st.tW||0)}${cell("st_surv",st.surv||0)}</div>
+    ${pfSec("stats",L("pfStats"),`<div class="stgrid">${cell("st_elo",st.elo??1000,rk.elo?"#"+rk.elo:"")}${cell("st_pts",st.pts||0,rk.pts?"#"+rk.pts:"")}${cell("st_aiW",st.aiW||0)}${cell("st_aiL",st.aiL||0)}${cell("st_vsW",st.vsW||0)}${cell("st_vsL",st.vsL||0)}${cell("st_streak",st.streak||0)}${cell("st_best",st.best||0)}${cell("st_tW",st.tW||0)}${cell("st_surv",st.surv||0)}${cell("st_arc",(st.arc||0)+"/"+ARC_N)}</div>
       ${favs.length?`<h3 class="pfh">${L("favs")}</h3><div class="favs">${favs.map(([id,n])=>`<div class="fav cl-${CLAN[id]}"><img src="${FACE(id)}" alt=""><b>${esc(nm(id))}</b><span>×${n}</span></div>`).join("")}</div>`:""}`)}
     ${pfSec("ach",`${L("achTitle")} <small class="achn">${ACH_LIST.filter(a=>(st.ach||{})[a[0]]).length}/${ACH_LIST.length}</small>`,achHTML(st))}
     ${pfSec("decks",L("decksTitle"),`<div id="dkbox">${decksProfileHTML(sel)}</div>`)}
@@ -2951,7 +2961,7 @@ function squareAvatar(file){
 }
 async function renderHof(sel=[], kind="elo"){
   const head=`<div class="hoftabs" role="tablist">${["elo","pts","surv"].map(k=>`<button class="htab ${k===kind?"on":""}" role="tab" aria-selected="${k===kind}" data-k="${k}">${L(k==="elo"?"hofElo":k==="surv"?"hofSurv":"hofPts")}</button>`).join("")}</div>`;
-  pageShell(L("hofBtn"),`${head}<div id="hoflist" class="hoflist"><p class="note">${L("connecting")}</p></div><p class="note">${L("hofHow")} ${L("survHow")}</p>`,sel,"hof");
+  pageShell(L("hofBtn"),`${head}<div id="hoflist" class="hoflist"><p class="note">${L("connecting")}</p></div><p class="note">${L("hofHow")} ${L("survHow")} ${L("arcHow")}</p>`,sel,"hof");
   document.querySelectorAll(".htab").forEach(b=>b.onclick=()=>{ SFX.play("click"); renderHof(sel,b.dataset.k); });
   bindLang(()=>renderHof(sel,kind));
   let r; try{ r=await api("GET","/api/top?kind="+kind); }catch(e){ r={ok:false}; }
@@ -3093,7 +3103,11 @@ async function playTourMatch(t,m){
 }
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
+Object.assign(UI.fr,{arcBtn:"Arcade",arcTitle:"La Tour",arcFloor:(n,t)=>`Étage ${n} / ${t}`,arcRecord:n=>`Ton record : étage ${n}`,arcF_punks:"Les pillards de la route",arcD_punks:"Une bande de petites frappes bloque l'entrée de la tour. Échauffement.",arcF_desert:"Le désert brûlant",arcD_desert:"Le combat commence sous un soleil de plomb : terrain Désert brûlant dès le départ.",arcF_clan:"Querelle d'école",arcD_clan:c=>`Toute une équipe de l'école ${c} veut ta peau.`,arcF_mask:"Le guerrier masqué",arcD_mask:"Tu ne sais pas qui t'attend. Tu le découvriras sur le ring.",arcF_storm:"La tempête des événements",arcD_storm:"Le monde s'écroule autour de vous : un événement à chaque tour.",arcF_mirror:"Le reflet",arcD_mirror:"Ta propre équipe, jouée par une IA sans pitié.",arcF_generals:"Les généraux",arcD_generals:"Deux combattants d'élite, plus solides et déjà enragés.",arcF_boss:"Le sommet de la tour",arcD_boss:"Un seul adversaire. Une légende. Énormément de PV et une rage déjà haute.",arcSecretK:"Combat secret",arcSecretName:"Un challenger mystère",arcSecretD:"Une silhouette te barre la route et te défie. Combat facultatif : gagne et tu empoches +30 pts. Perdre ne met pas fin à la tour.",arcSecretWin:"Challenger vaincu !",arcSecretLose:"Le challenger t'a eu…",arcSecretAfter:"La tour t'attend toujours, tes PV sont remis à fond.",arcContinue:"Reprendre la tour",arcNext:"Étage suivant",arcFloorWin:n=>`Étage ${n} conquis`,arcSomeone:"Quelqu'un t'attend dans l'ombre…",arcClear:"Tour conquise !",arcClearSub:"Tu as vaincu la tour entière. Ton nom va résonner dans tout le désert.",arcFall:n=>`Tombé à l'étage ${n}`,w_arc:"Mode arcade",st_arc:"Record arcade",ach_arc1:"Maître de la tour",achd_arc1:"Conquérir la tour en mode arcade",ach_arc5:"Seigneur de la tour",achd_arc5:"Conquérir la tour 5 fois",ach_arcsecret:"Ombre démasquée",achd_arcsecret:"Battre un challenger mystère en arcade",arcHow:"Arcade : chaque étage rapporte 5 pts + 3 × l'étage, +40 pts pour la tour complète, +30 pts par challenger mystère vaincu."});
+Object.assign(UI.en,{arcBtn:"Arcade",arcTitle:"The Tower",arcFloor:(n,t)=>`Floor ${n} / ${t}`,arcRecord:n=>`Your record: floor ${n}`,arcF_punks:"Road raiders",arcD_punks:"A gang of small fry blocks the tower entrance. Warm-up.",arcF_desert:"The burning desert",arcD_desert:"The fight starts under a scorching sun: Burning desert terrain from the start.",arcF_clan:"School feud",arcD_clan:c=>`A whole team from the ${c} school wants your head.`,arcF_mask:"The masked warrior",arcD_mask:"You don't know who's waiting. You'll find out in the ring.",arcF_storm:"Storm of events",arcD_storm:"The world is collapsing around you: an event every turn.",arcF_mirror:"The reflection",arcD_mirror:"Your own team, played by a merciless AI.",arcF_generals:"The generals",arcD_generals:"Two elite fighters, tougher and already enraged.",arcF_boss:"Top of the tower",arcD_boss:"A single opponent. A legend. Tons of HP and rage already high.",arcSecretK:"Secret fight",arcSecretName:"A mystery challenger",arcSecretD:"A silhouette blocks your way and challenges you. Optional fight: win and you get +30 pts. Losing doesn't end the tower.",arcSecretWin:"Challenger defeated!",arcSecretLose:"The challenger got you…",arcSecretAfter:"The tower is still waiting, your HP are fully restored.",arcContinue:"Back to the tower",arcNext:"Next floor",arcFloorWin:n=>`Floor ${n} conquered`,arcSomeone:"Someone is waiting in the shadows…",arcClear:"Tower conquered!",arcClearSub:"You beat the whole tower. Your name will echo across the desert.",arcFall:n=>`Fell on floor ${n}`,w_arc:"Arcade mode",st_arc:"Arcade record",ach_arc1:"Master of the tower",achd_arc1:"Conquer the tower in arcade mode",ach_arc5:"Lord of the tower",achd_arc5:"Conquer the tower 5 times",ach_arcsecret:"Shadow unmasked",achd_arcsecret:"Beat a mystery challenger in arcade",arcHow:"Arcade: each floor gives 5 pts + 3 × the floor, +40 pts for the full tower, +30 pts per mystery challenger defeated."});
+Object.assign(UI.it,{arcBtn:"Arcade",arcTitle:"La Torre",arcFloor:(n,t)=>`Piano ${n} / ${t}`,arcRecord:n=>`Il tuo record: piano ${n}`,arcF_punks:"I predoni della strada",arcD_punks:"Una banda di teppisti blocca l'ingresso della torre. Riscaldamento.",arcF_desert:"Il deserto rovente",arcD_desert:"Il combattimento inizia sotto un sole cocente: terreno Deserto rovente fin dall'inizio.",arcF_clan:"Faida di scuola",arcD_clan:c=>`Un'intera squadra della scuola ${c} vuole la tua pelle.`,arcF_mask:"Il guerriero mascherato",arcD_mask:"Non sai chi ti aspetta. Lo scoprirai sul ring.",arcF_storm:"La tempesta di eventi",arcD_storm:"Il mondo crolla intorno a voi: un evento a ogni turno.",arcF_mirror:"Il riflesso",arcD_mirror:"La tua stessa squadra, giocata da un'IA spietata.",arcF_generals:"I generali",arcD_generals:"Due combattenti d'élite, più resistenti e già infuriati.",arcF_boss:"La cima della torre",arcD_boss:"Un solo avversario. Una leggenda. Tantissimi PV e rabbia già alta.",arcSecretK:"Combattimento segreto",arcSecretName:"Uno sfidante misterioso",arcSecretD:"Una sagoma ti sbarra la strada e ti sfida. Combattimento facoltativo: vinci e ottieni +30 pt. Perdere non chiude la torre.",arcSecretWin:"Sfidante sconfitto!",arcSecretLose:"Lo sfidante ti ha battuto…",arcSecretAfter:"La torre ti aspetta ancora, i tuoi PV sono ripristinati.",arcContinue:"Torna alla torre",arcNext:"Piano successivo",arcFloorWin:n=>`Piano ${n} conquistato`,arcSomeone:"Qualcuno ti aspetta nell'ombra…",arcClear:"Torre conquistata!",arcClearSub:"Hai battuto l'intera torre. Il tuo nome risuonerà in tutto il deserto.",arcFall:n=>`Caduto al piano ${n}`,w_arc:"Modalità arcade",st_arc:"Record arcade",ach_arc1:"Maestro della torre",achd_arc1:"Conquista la torre in modalità arcade",ach_arc5:"Signore della torre",achd_arc5:"Conquista la torre 5 volte",ach_arcsecret:"Ombra smascherata",achd_arcsecret:"Batti uno sfidante misterioso in arcade",arcHow:"Arcade: ogni piano vale 5 pt + 3 × il piano, +40 pt per la torre completa, +30 pt per ogni sfidante misterioso battuto."});
 const CHANGELOG=[
+ {v:"0.38.0",d:"2026-10-04",fr:["Nouveau mode Arcade : la Tour, 8 étages à thème (pillards, désert, querelle d'école, guerrier masqué, tempête d'événements, reflet, généraux, boss final), PV remis à fond à chaque étage","Surprise : un challenger mystère peut te défier entre deux étages, +30 pts si tu le bats (idée de maxGfive)","3 nouveaux succès d'arcade"],en:["New Arcade mode: the Tower, 8 themed floors (raiders, desert, school feud, masked warrior, storm of events, reflection, generals, final boss), HP fully restored each floor","Surprise: a mystery challenger may challenge you between floors, +30 pts if you beat them (idea by maxGfive)","3 new arcade achievements"],it:["Nuova modalità Arcade: la Torre, 8 piani a tema (predoni, deserto, faida di scuola, guerriero mascherato, tempesta di eventi, riflesso, generali, boss finale), PV ripristinati a ogni piano","Sorpresa: uno sfidante misterioso può sfidarti tra due piani, +30 pt se lo batti (idea di maxGfive)","3 nuovi trofei arcade"]},
  {v:"0.37.0",d:"2026-10-04",fr:["Here comes a new challenger! On peut défier un joueur en plein combat contre l'IA : s'il accepte, son combat est annulé sans défaite et le duel rapporte +50 % de points (idée de Jerome R. et maxGfive)","Anti-spam : un même joueur ne peut te redéfier qu'après 3 minutes, et tu peux couper les défis pendant tes combats"],en:["Here comes a new challenger! You can challenge a player in the middle of an AI fight: if they accept, their fight is cancelled with no loss and the duel gives +50% points (idea by Jerome R. and maxGfive)","Anti-spam: the same player can only challenge you again after 3 minutes, and you can turn off challenges during your fights"],it:["Here comes a new challenger! Puoi sfidare un giocatore durante un combattimento contro l'IA: se accetta, il combattimento è annullato senza sconfitta e il duello dà +50% di punti (idea di Jerome R. e maxGfive)","Anti-spam: lo stesso giocatore può risfidarti solo dopo 3 minuti, e puoi disattivare le sfide durante i combattimenti"]},
  {v:"0.36.0",d:"2026-10-04",fr:["Combo : enchaînement, une fois par combo tu peux répéter un Léger ou un Moyen (ex. Léger → Moyen → Moyen → Lourd), le coup répété ne fait pas monter le bonus (idée de Jerome R.)"],en:["Combo: follow-up, once per combo you can repeat a Light or a Medium (e.g. Light → Medium → Medium → Heavy), the repeated hit doesn't raise the bonus (idea by Jerome R.)"],it:["Combo: concatenazione, una volta per combo puoi ripetere un Leggero o un Medio (es. Leggero → Medio → Medio → Pesante), il colpo ripetuto non fa salire il bonus (idea di Jerome R.)"]},
  {v:"0.35.0",d:"2026-10-04",fr:["Nouvelle page « Cartes & événements » (depuis les Règles) : événements, terrains, pièges, réactions et spéciaux, repliés pour éviter les spoilers"],en:["New “Cards & events” page (from Rules): events, terrains, traps, reactions and specials, folded to avoid spoilers"],it:["Nuova pagina «Carte ed eventi» (dalle Regole): eventi, terreni, trappole, reazioni e speciali, chiusi per evitare spoiler"]},
@@ -3388,8 +3402,8 @@ function drawFStats(){
 }
 
 /* ---------- succès ---------- */
-const ACH_LIST=[["first",1],["ai10",1],["ai50",2],["ai200",3],["vs1",1],["vs10",2],["vs50",3],["elo1200",2],["elo1400",3],["streak5",2],["streak10",3],["surv5",1],["surv10",2],["surv20",3],["tour1",2],["tour5",3],["roster15",1],["roster30",2],["flawless",2],["comeback",2],["ultko",1],["combo4",1],["combo5",2],["duo",1],["quintet",1],["clanwin",1],["cheap",2],["daily1",1],["daily10",2],["daily30",3]];
-const ACH_PROG={ai10:s=>[s.aiW||0,10],ai50:s=>[s.aiW||0,50],ai200:s=>[s.aiW||0,200],vs10:s=>[s.vsW||0,10],vs50:s=>[s.vsW||0,50],elo1200:s=>[s.elo||1000,1200],elo1400:s=>[s.elo||1000,1400],streak5:s=>[s.best||0,5],streak10:s=>[s.best||0,10],surv5:s=>[s.surv||0,5],surv10:s=>[s.surv||0,10],surv20:s=>[s.surv||0,20],tour5:s=>[s.tW||0,5],daily10:s=>[s.dailyN||0,10],daily30:s=>[s.dailyN||0,30],roster15:s=>[Object.keys(s.fav||{}).length,15],roster30:s=>[Object.keys(s.fav||{}).length,30]};
+const ACH_LIST=[["first",1],["ai10",1],["ai50",2],["ai200",3],["vs1",1],["vs10",2],["vs50",3],["elo1200",2],["elo1400",3],["streak5",2],["streak10",3],["surv5",1],["surv10",2],["surv20",3],["tour1",2],["tour5",3],["roster15",1],["roster30",2],["flawless",2],["comeback",2],["ultko",1],["combo4",1],["combo5",2],["duo",1],["quintet",1],["clanwin",1],["cheap",2],["daily1",1],["daily10",2],["daily30",3],["arc1",2],["arc5",3],["arcsecret",2]];
+const ACH_PROG={arc5:s=>[s.arcClears||0,5],ai10:s=>[s.aiW||0,10],ai50:s=>[s.aiW||0,50],ai200:s=>[s.aiW||0,200],vs10:s=>[s.vsW||0,10],vs50:s=>[s.vsW||0,50],elo1200:s=>[s.elo||1000,1200],elo1400:s=>[s.elo||1000,1400],streak5:s=>[s.best||0,5],streak10:s=>[s.best||0,10],surv5:s=>[s.surv||0,5],surv10:s=>[s.surv||0,10],surv20:s=>[s.surv||0,20],tour5:s=>[s.tW||0,5],daily10:s=>[s.dailyN||0,10],daily30:s=>[s.dailyN||0,30],roster15:s=>[Object.keys(s.fav||{}).length,15],roster30:s=>[Object.keys(s.fav||{}).length,30]};
 const ACH_PTS={1:10,2:25,3:50};
 function featsFor(win){
   if(!S || !win) return []; const me=S[ME], f=[];
@@ -3466,7 +3480,7 @@ async function faceEditor(id,done){
 /* ---------- joueurs en ligne ---------- */
 const ONLINE={list:[], timer:0, last:0};
 function presWhere(){
-  if(S && !S.over && !S.dead) return MODE==="vs"?(TOUR.code?"tour":"vs"):SURV.on?"surv":(MODE==="solo" && !S.daily && !RP.on && !chDnd())?"ai":"solo";
+  if(S && !S.over && !S.dead) return MODE==="vs"?(TOUR.code?"tour":"vs"):SURV.on?"surv":ARC.on?"arc":(MODE==="solo" && !S.daily && !RP.on && !chDnd())?"ai":"solo";
   if(QUICK_MM.t) return "queue"; if(TOUR.code) return "tour"; return "menu";
 }
 async function presPing(){
@@ -3717,6 +3731,101 @@ function renderSurvWave(){
   $("#svquit").onclick=()=>{ SFX.play("click"); renderTitle(SURV.team); };
   bindLang(renderSurvWave);
 }
+
+/* ---------- mode arcade : la tour (8 étages à thème, PV remis à fond, challenger secret possible) ---------- */
+const ARC={on:false};
+const ARC_N=8, ARC_BOSS=["colo","demon","emp","hyo","kaiser","liu"], ARC_SECRET=["ryuga","rofu","garuda","ogai","shuren","han","raiga","boltz"];
+function arcPick(pool,n,mine){ let p=pool.filter(f=>FIGHTERS[f]&&!mine.includes(f)); if(p.length<n) p=pool.filter(f=>FIGHTERS[f]); return shuffle(p.slice()).slice(0,n); }
+function arcFloor(n,mine){
+  const all=Object.keys(FIGHTERS);
+  if(n===1) return {k:"punks", foe:arcPick(all.filter(f=>(COST[f]||3)<=2),3,mine), hp:.8, ai:.5};
+  if(n===2) return {k:"desert", foe:survFoe(3,mine), terr:"desert", ai:.6};
+  if(n===3){ const cl=shuffle(CLANS.filter(c=>all.filter(f=>CLAN[f]===c).length>=3).slice())[0]; return {k:"clan", clan:cl, foe:arcPick(all.filter(f=>CLAN[f]===cl),3,mine), ai:.7}; }
+  if(n===4) return {k:"mask", foe:survFoe(5,mine), hide:true, ai:.75};
+  if(n===5) return {k:"storm", foe:survFoe(6,mine), ev:1, ai:.8};
+  if(n===6) return {k:"mirror", foe:mine.slice(), ai:.9};
+  if(n===7) return {k:"generals", foe:arcPick(all.filter(f=>(COST[f]||3)>=4),2,mine), hp:.95, rage:2, ai:1};
+  return {k:"boss", foe:[shuffle(ARC_BOSS.filter(f=>FIGHTERS[f]))[0]], hp:2.7, rage:4, ai:1};
+}
+function arcSecret(mine){ return {k:"secret", foe:[shuffle(ARC_SECRET.filter(f=>FIGHTERS[f]&&!mine.includes(f)))[0]||"ryuga"], hp:2.6, rage:3, ai:1, secret:true}; }
+function arcStart(team){
+  Object.assign(ARC,{on:true,floor:1,team:team.slice(),bonusDone:false,pending:null,best:(ACC.user&&ACC.user.stats&&ACC.user.stats.arc)||0});
+  ARC.cur=arcFloor(1,ARC.team); renderArcFloor();
+}
+function arcPrep(st){
+  const f=ARC.cur; st.arc=ARC.floor; st.arcBonus=!!f.secret; st.aiSkill=f.ai;
+  st.log=(f.secret?L("arcSecretK"):L("arcFloor",ARC.floor,ARC_N))+" · "+L("start");
+  if(f.hp) st.a.team.forEach(t=>{ t.max=t.hp=Math.max(4,Math.round(t.max*f.hp)); });
+  if(f.rage) st.a.rage=Math.min(RAGE_MAX-1,f.rage);
+  if(f.terr) st.terrain=f.terr;
+  if(f.ev) st.evEvery=f.ev;
+}
+function arcTower(){ return `<div class="arctw">${Array.from({length:ARC_N},(_,i)=>{ const n=ARC_N-i; return `<i class="${n<ARC.floor?"done":n===ARC.floor?"cur":""}${n===ARC_N?" top":""}">${n}</i>`; }).join("")}</div>`; }
+function renderArcFloor(){
+  if(ARC.pending) return renderArcInvite();
+  const n=ARC.floor, f=ARC.cur;
+  const foe=f.hide?`<div class="svteam">${f.foe.map(()=>`<div class="svf arcq"><span>?</span></div>`).join("")}</div>`:survFaces(f.foe);
+  pageShell(L("arcTitle"),`<div class="center svwave arcw">
+    ${arcTower()}
+    <div class="kicker">${L("arcFloor",n,ARC_N)}</div>
+    <h2 class="arcn">${L("arcF_"+f.k)}</h2><p class="iplead arcd">${L("arcD_"+f.k,f.clan?L("clan_"+f.clan):"")}</p>
+    <h3 class="pfh">${L("survYou")}</h3>${survFaces(ARC.team)}
+    <div class="svvs">VS</div>
+    ${foe}
+    ${ARC.best?`<p class="note">${L("arcRecord",ARC.best)}</p>`:""}
+    <div class="row" style="justify-content:center;margin-top:14px"><button class="btn" id="arcgo">${L("survFight")}</button><button class="btn ghost" id="arcquit">${L("survGiveUp")}</button></div></div>`,ARC.team);
+  $("#arcgo").onclick=()=>{ SFX.play("event"); MODE="solo"; ME="p"; newGame(ARC.team,f.foe.slice(),arcPrep); };
+  $("#arcquit").onclick=()=>{ SFX.play("click"); arcReport(ARC.floor,false); ARC.on=false; renderTitle(ARC.team); };
+  bindLang(renderArcFloor);
+}
+function renderArcInvite(){
+  const f=ARC.pending, id=f.foe[0];
+  SFX.play("ult");
+  pageShell(L("arcTitle"),`<div class="center svwave arcw arcinv">
+    <div class="ncban"><span>HERE COMES A</span><b>NEW CHALLENGER!</b></div>
+    <div class="arcsil"><img src="${CONFIG.imgs[id]}" alt=""></div>
+    <h2 class="arcn">${L("arcSecretName")}</h2><p class="iplead arcd">${L("arcSecretD")}</p>
+    <div class="row" style="justify-content:center;margin-top:14px"><button class="btn" id="arcyes">${L("chAccept")}</button><button class="btn ghost" id="arcno">${L("chDecline")}</button></div></div>`,ARC.team);
+  $("#arcyes").onclick=()=>{ SFX.play("event"); ARC.cur=f; ARC.pending=null; MODE="solo"; ME="p"; newGame(ARC.team,f.foe.slice(),arcPrep); };
+  $("#arcno").onclick=()=>{ SFX.play("click"); ARC.pending=null; renderArcFloor(); };
+  bindLang(renderArcInvite);
+}
+async function arcReport(floor,win,bonus){
+  if(!ACC.on || !ACC.user) return null;
+  try{ const r=await api("POST","/api/arc",{floor,win,bonus:!!bonus,team:ARC.team,feats:featsFor(win)}); if(r.ok){ ACC.user=r.user; achToast(r.ach); return r.gain||0; } }catch(e){}
+  return null;
+}
+function arcAfter(win){ rpCapture(true);
+  MUSIC.want("menu"); SFX.play(win?"win":"lose");
+  const n=ARC.floor, bonus=!!(S&&S.arcBonus); let head, sub="", next=null, done=false;
+  if(bonus){
+    head=win?L("arcSecretWin"):L("arcSecretLose"); sub=L("arcSecretAfter"); ARC.cur=arcFloor(n,ARC.team); next=L("arcContinue");
+  } else if(win){
+    if(n>=ARC_N){ head=L("arcClear"); sub=L("arcClearSub"); ARC.on=false; done=true; }
+    else { head=L("arcFloorWin",n); ARC.floor=n+1; ARC.cur=arcFloor(n+1,ARC.team); next=L("arcNext");
+      if(!ARC.bonusDone && n>=2 && n<=6 && Math.random()<.35){ ARC.bonusDone=true; ARC.pending=arcSecret(ARC.team); sub=L("arcSomeone"); } }
+  } else { head=L("arcFall",n); ARC.on=false; }
+  if(ARC.floor>ARC.best && !bonus) ARC.best=Math.max(ARC.best,win?n:n-1);
+  $("#app").innerHTML=`<div class="screen" style="overflow-y:auto"><div class="center">
+    ${ARC.team?`<div class="arcw">${arcTower()}</div>`:""}
+    <div class="kicker">${bonus?L("arcSecretK"):L("arcFloor",n,ARC_N)}</div>
+    <h1>${win?head:`<em>${head}</em>`}</h1>
+    ${sub?`<p class="svheal">${sub}</p>`:""}
+    <p class="note" id="accline">${ACC.on&&!ACC.user?L("notLogged"):""}</p>
+    ${endJournalHTML()}
+    ${rpAvailable()?`<button class="btn ghost sm" id="rpgo">▶ ${L("rpBtn")}</button>`:""}
+    <div class="row" style="justify-content:center"><button class="btn" id="arcnext">${next||L("back")}</button>${next?`<button class="btn ghost" id="arcquit">${L("survGiveUp")}</button>`:""}</div></div></div>`;
+  endJournalScroll();
+  const cont=()=>{ if(next && ARC.on) renderArcFloor(); else renderTitle(ARC.team); };
+  if($("#rpgo")) $("#rpgo").onclick=()=>{ SFX.play("click"); rpStart(cont); };
+  $("#arcnext").onclick=()=>{ SFX.play("click"); cont(); };
+  if($("#arcquit")) $("#arcquit").onclick=()=>{ SFX.play("click"); arcReport(ARC.floor,false); ARC.on=false; renderTitle(ARC.team); };
+  if(ACC.on && ACC.user && !(S&&S.accDone)){ if(S) S.accDone=true;
+    const before=lvlOf(ACC.user.stats&&ACC.user.stats.pts).n;
+    arcReport(n,win,bonus).then(g=>{ if(!g) return; const v=lvlOf(ACC.user.stats&&ACC.user.stats.pts), e=$("#accline"); if(!e) return;
+      e.innerHTML=esc(L("ptsGain",g))+(v.n>before?` <span class="lvlup">${L("lvlUp",v.n,esc(lvlTitle(v.n)))}</span>`:""); if(v.n>before) SFX.play("event"); });
+  }
+}
 async function survReport(wave,win){
   if(!ACC.on || !ACC.user) return null;
   try{ const r=await api("POST","/api/surv",{wave,win,team:SURV.team,feats:featsFor(win)}); if(r.ok){ ACC.user=r.user; achToast(r.ach); return r.gain||0; } }catch(e){}
@@ -3761,7 +3870,7 @@ function quitPress(b){
     if(!QUIT_ARM){ SFX.play("click"); QUIT_ARM=true; b.classList.add("arm"); clearTimeout(QUIT_T); QUIT_T=setTimeout(()=>{ QUIT_ARM=false; const x=$("#quit"); if(x) x.classList.remove("arm"); },4000); return; }
     QUIT_ARM=false; clearTimeout(QUIT_T);
     SFX.play("click"); const coach=document.querySelector(".coach-wrap,.coach"); if(coach) coach.remove();
-    if(S && !S.over && ACC.user){ if(MODE==="vs") accMatchEnd(true); else if(MODE==="solo"){ if(SURV.on) survReport(SURV.wave,false); else accReportSolo(false); } }
+    if(S && !S.over && ACC.user){ if(MODE==="vs") accMatchEnd(true); else if(MODE==="solo"){ if(SURV.on) survReport(SURV.wave,false); else if(ARC.on && S.arc){ if(!S.arcBonus){ arcReport(ARC.floor,false); ARC.on=false; } } else accReportSolo(false); } }
     const tc=MODE==="vs"?TOUR.code:null;
     if(S){ S.over=true; S.dead=true; } if(MODE==="vs") netLeave(); else { MODE="solo"; ME="p"; } if(tc) renderTour(tc); else renderTitle(); }
 // délégué sur le document et au pointerdown : le plateau se redessine souvent (chrono, IA), un clic pouvait se perdre entre l'appui et le relâchement
@@ -3924,7 +4033,7 @@ function renderCodex(sel=[]){
     </div>`,sel);
   bindLang(()=>renderCodex(sel));
 }
-function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; quickStop(); MUSIC.want("menu"); tourStop(); TOUR.code=null; if(maintBlocked()) return renderMaintenance(); if(ACC.on && !ACC.user) return renderGate(sel);
+function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; ARC.on=false; quickStop(); MUSIC.want("menu"); tourStop(); TOUR.code=null; if(maintBlocked()) return renderMaintenance(); if(ACC.on && !ACC.user) return renderGate(sel);
   const ids=Object.keys(FIGHTERS);
   focus=focus||sel[sel.length-1]||"maitre";
   const cost=teamCost(sel), left=BUDGET-cost, cb=clanBonus(sel), ready=sel.length>=TEAM_MIN;
@@ -3938,6 +4047,7 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; quickStop
     <div class="toprow">${LOGO_HTML}<div class="modes top"><button class="btn" id="go" ${ready?"":"disabled"}>${ready?L("vsAi"):L("more",TEAM_MIN-sel.length)}</button>
       <button class="btn ghost" id="online" ${ready?"":"disabled"}>${L("vsOnline")}</button>
       <button class="btn ghost" id="surv" ${ready?"":"disabled"}>${L("survBtn")}</button>
+      <button class="btn ghost" id="arc" ${ready?"":"disabled"}>${L("arcBtn")}</button>
       <button class="btn ghost" id="rnd">${L("random")}</button>
       <button class="btn ghost" id="tuto">${L("tuto")}</button><button class="btn ghost sm" id="roster">${L("rosterBtn")}</button><button class="btn ghost sm" id="rules">${L("rulesBtn")}</button>${ACC.on?`<button class="btn ghost" id="tour">${L("tourBtn")}</button><button class="btn ghost sm" id="hof">${L("hofBtn")}</button>`:""}</div><div class="row">${presChip()}<button class="vbtn" id="ver" title="${L("newsTitle")}"><i class="betatag">BETA</i> v${APP_VERSION}</button>${accBtnHTML()}${FS_OK?`<button class="tbtn" id="fs" aria-label="${L("fullscreen")}" title="${L("fullscreen")}">${SVG_FS}</button>`:""}<button class="tbtn" id="snd" aria-pressed="${SFX.on}" aria-label="${L("sound")}" title="${L("sound")}">${SFX.on?SVG_ON:SVG_OFF}</button><button class="tbtn" id="mus" aria-pressed="${MUSIC.on}" aria-label="${L("music")}" title="${L("music")}">${MUSIC.on?SVG_MUS:SVG_MUS_OFF}</button>${langBar()}</div></div>
     
@@ -3976,6 +4086,7 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; quickStop
   if($("#go2")) $("#go2").onclick=()=>$("#go").click();
   $("#online").onclick=()=>{ SFX.play("click"); renderLobby(sel); };
   $("#surv").onclick=()=>{ SFX.play("event"); survStart(sel); };
+  $("#arc").onclick=()=>{ SFX.play("event"); arcStart(sel); };
   bindDeckChips(sel,redo);
   if($("#dygo")) $("#dygo").onclick=()=>{ SFX.play("event"); dailyStart(sel); };
   if(ACC.user && (!DAILY.day || DAILY.day!==new Date().toLocaleDateString("sv-SE",{timeZone:"Europe/Brussels"}))) dailyLoad();

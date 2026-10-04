@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.38.0 — 2026-10-04
+
+- Nouveau mode Arcade : la Tour, 8 étages à thème (pillards, désert, querelle d'école, guerrier masqué, tempête d'événements, reflet, généraux, boss final), PV remis à fond à chaque étage
+- Surprise : un challenger mystère peut te défier entre deux étages, +30 pts si tu le bats (idée de maxGfive)
+- 3 nouveaux succès d'arcade
+
 ## v0.37.0 — 2026-10-04
 
 - Here comes a new challenger! On peut défier un joueur en plein combat contre l'IA : s'il accepte, son combat est annulé sans défaite et le duel rapporte +50 % de points (idée de Jerome R. et maxGfive)

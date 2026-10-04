@@ -147,10 +147,11 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     for (const [id, p] of presence) { if (now - p.t > ONLINE_MS) presence.delete(id); else out.push(p); }
     return out.sort((x, y) => (y.stats && y.stats.pts || 0) - (x.stats && x.stats.pts || 0)); }
   const lastSurv = new Map();     // uid -> timestamp (survie)
+  const lastArc = new Map();      // uid -> timestamp (arcade)
   const tries = new Map();        // ip -> { n, t }
 
   const limited = ip => { const now = Date.now(); const e = tries.get(ip) || { n: 0, t: now }; if (now - e.t > 60000) { e.n = 0; e.t = now; } e.n++; tries.set(ip, e); return e.n > 12; };
-  const pubUser = u => ({ id: u.id, name: u.name, avatar: u.avatar_v ? `/api/avatar/${u.id}?v=${u.avatar_v}` : null, stats: (({ decks, survRun, ...r }) => r)(u.stats || {}), created: u.created, ...(isAdmin(u) ? { admin: true } : {}) });
+  const pubUser = u => ({ id: u.id, name: u.name, avatar: u.avatar_v ? `/api/avatar/${u.id}?v=${u.avatar_v}` : null, stats: (({ decks, survRun, arcRun, arcBonusRun, ...r }) => r)(u.stats || {}), created: u.created, ...(isAdmin(u) ? { admin: true } : {}) });
   async function newSession(u) { const tok = crypto.randomBytes(32).toString("hex"); await store.addSession(sha(tok), u.id); return tok; }
   const seen = new Map();
   async function auth(req) { const h = req.headers.authorization || ""; const tok = h.startsWith("Bearer ") ? h.slice(7) : ""; if (!/^[0-9a-f]{64}$/.test(tok)) return null;
@@ -184,6 +185,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     tour1: { t: 2, c: s => (s.tW || 0) >= 1 }, tour5: { t: 3, c: s => (s.tW || 0) >= 5 },
     roster15: { t: 1, c: s => Object.keys(s.fav || {}).length >= 15 }, roster30: { t: 2, c: s => Object.keys(s.fav || {}).length >= 30 },
     flawless: { t: 2, f: 1 }, comeback: { t: 2, f: 1 }, ultko: { t: 1, f: 1 }, combo4: { t: 1, f: 1 }, combo5: { t: 2, f: 1 },
+    arc1: { t: 2, c: s => (s.arcClears || 0) >= 1 }, arc5: { t: 3, c: s => (s.arcClears || 0) >= 5 }, arcsecret: { t: 2, c: s => (s.arcSecret || 0) >= 1 },
     daily1: { t: 1, c: s => (s.dailyN || 0) >= 1 }, daily10: { t: 2, c: s => (s.dailyN || 0) >= 10 }, daily30: { t: 3, c: s => (s.dailyN || 0) >= 30 },
     duo: { t: 1, f: 1 }, quintet: { t: 1, f: 1 }, clanwin: { t: 1, f: 1 }, cheap: { t: 2, f: 1 }
   };
@@ -321,6 +323,29 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       await store.saveStats(u.id, st);
       return [200, { user: pubUser(u), ach }];
     },
+    // arcade : la tour, un étage à la fois dans l'ordre ; le combat secret (bonus) est facultatif, une fois par montée
+    "POST /api/arc": async (req, body) => {
+      const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      const floor = Math.floor(+body.floor), won = !!body.win, bonus = !!body.bonus, st = u.stats, N = 8;
+      if (!(floor >= 1 && floor <= N)) return [400, { error: "bad" }];
+      const now = Date.now();
+      if (bonus) {
+        if (!won) return [200, { user: pubUser(u), gain: 0 }];
+        if (st.arcBonusRun || (st.arcRun || 0) < 2 || now - (lastArc.get(u.id) || 0) < 20000) return [409, { error: "bad" }];
+        lastArc.set(u.id, now); st.arcBonusRun = 1; st.arcSecret = (st.arcSecret || 0) + 1; st.pts += 30;
+        const ach = achCheck(st, body.feats); await store.saveStats(u.id, st); return [200, { user: pubUser(u), gain: 30, ach }];
+      }
+      if (!won) { st.arcRun = 0; st.arcBonusRun = 0; await store.saveStats(u.id, st); return [200, { user: pubUser(u), gain: 0 }]; }
+      if (now - (lastArc.get(u.id) || 0) < 20000) return [429, { error: "slow" }];
+      if (floor !== 1 && floor !== (st.arcRun || 0) + 1) return [409, { error: "bad" }];
+      if (floor === 1) st.arcBonusRun = 0;
+      lastArc.set(u.id, now);
+      let gain = 5 + 3 * floor; if (floor === N) { gain += 40; st.arcClears = (st.arcClears || 0) + 1; }
+      st.arcRun = floor === N ? 0 : floor; st.arc = Math.max(st.arc || 0, floor); st.pts += gain; bumpFav(st, body.team);
+      const ach = achCheck(st, body.feats);
+      await store.saveStats(u.id, st);
+      return [200, { user: pubUser(u), gain, ach }];
+    },
     // survie : une vague à la fois, dans l'ordre (la vague 1 lance une nouvelle série)
     "POST /api/surv": async (req, body) => {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
@@ -362,7 +387,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     // présence : chaque client connecté pingue toutes les 30 s
     "POST /api/ping": async (req, body) => {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
-      const where = ["menu", "ai", "solo", "surv", "vs", "queue", "tour"].includes(body.where) ? body.where : "menu";
+      const where = ["menu", "ai", "solo", "surv", "arc", "vs", "queue", "tour"].includes(body.where) ? body.where : "menu";
       presence.set(u.id, { ...pubUser(u), where, t: Date.now() });
       return [200, { online: onlineList() }];
     },
