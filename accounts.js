@@ -317,11 +317,13 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       const now = Date.now(); if (now - (lastSolo.get(u.id) || 0) < 45000) return [429, { error: "slow" }];
       lastSolo.set(u.id, now);
       const st = u.stats, won = !!body.win;
-      if (won) { st.aiW++; st.pts += 10; } else { st.aiL++; st.pts += 2; }
-      streak(st, won); bumpFav(st, body.team); fRecord(body.team, won, "a"); fstats.n = fstats.n || { v: 0, a: 0 }; fstats.n.a++;
+      const LV = { easy: [5, 1], norm: [10, 2], hard: [15, 3], hokuto: [20, 4] }, lv = LV[body.lv] ? body.lv : "norm", gain = LV[lv][won ? 0 : 1];
+      if (won) st.aiW++; else st.aiL++; st.pts += gain;
+      streak(st, won); bumpFav(st, body.team);
+      if (lv === "norm") { fRecord(body.team, won, "a"); fstats.n = fstats.n || { v: 0, a: 0 }; fstats.n.a++; }   // stats d'équilibrage : niveau normal seulement
       const ach = achCheck(st, won ? body.feats : []);
       await store.saveStats(u.id, st);
-      return [200, { user: pubUser(u), ach }];
+      return [200, { user: pubUser(u), ach, gain }];
     },
     // arcade : la tour, un étage à la fois dans l'ordre ; le combat secret (bonus) est facultatif, une fois par montée
     "POST /api/arc": async (req, body) => {

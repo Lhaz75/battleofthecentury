@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.39.0 — 2026-10-04
+
+- Combat contre l'IA : 4 niveaux au choix (Facile, Normal, Difficile, Hokuto), plus de points quand c'est plus dur
+
 ## v0.38.2 — 2026-10-04
 
 - Arcade : la tour s'affiche en ligne, l'écran tient sans scroller sur PC
