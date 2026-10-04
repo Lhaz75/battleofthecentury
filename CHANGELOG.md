@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.36.0 — 2026-10-04
+
+- Combo : enchaînement, une fois par combo tu peux répéter un Léger ou un Moyen (ex. Léger → Moyen → Moyen → Lourd), le coup répété ne fait pas monter le bonus (idée de Jerome R.)
+
 ## v0.35.0 — 2026-10-04
 
 - Nouvelle page « Cartes & événements » (depuis les Règles) : événements, terrains, pièges, réactions et spéciaux, repliés pour éviter les spoilers
