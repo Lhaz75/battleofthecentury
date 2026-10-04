@@ -176,6 +176,23 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
   const ACH_PTS = { 1: 10, 2: 25, 3: 50 };
   const DAILY_PTS = 40;
   const dayKey = () => new Date().toLocaleDateString("sv-SE", { timeZone: "Europe/Brussels" });
+  // défi de la semaine : clé = lundi de la semaine (heure de Bruxelles)
+  const weekKey = (off = 0) => { const d = new Date(dayKey() + "T12:00:00Z"); const wd = (d.getUTCDay() + 6) % 7; d.setUTCDate(d.getUTCDate() - wd + off * 7); return d.toISOString().slice(0, 10); };
+  const wkCache = new Map();
+  async function wkGet(k) { if (wkCache.has(k)) return wkCache.get(k); const v = (await store.getSetting("weekly:" + k)) || { foe: null, entries: {}, awarded: false }; wkCache.set(k, v); return v; }
+  async function wkSave(k, v) { wkCache.set(k, v); await store.setSetting("weekly:" + k, v); }
+  const wkCmp = (a, b) => (a.cost - b.cost) || (a.rounds - b.rounds) || (a.lost - b.lost) || (a.t - b.t);
+  const wkRank = w => Object.entries(w.entries || {}).map(([id, e]) => ({ id: +id, ...e })).sort(wkCmp);
+  const WK_PRIZE = [100, 60, 40];
+  async function wkAward() {
+    const pk = weekKey(-1), w = await wkGet(pk); if (w.awarded) return;
+    w.awarded = true; await wkSave(pk, w);
+    const top = wkRank(w).slice(0, 3);
+    for (let i = 0; i < top.length; i++) { const u = await store.byId(top[i].id); if (!u) continue;
+      u.stats.pts += WK_PRIZE[i]; u.stats.wkPod = (u.stats.wkPod || 0) + 1; if (i === 0) u.stats.wkWin = (u.stats.wkWin || 0) + 1;
+      achCheck(u.stats); await store.saveStats(u.id, u.stats); }
+  }
+  const lastWk = new Map();
   const ACH = {
     first: { t: 1, c: s => s.aiW >= 1 }, ai10: { t: 1, c: s => s.aiW >= 10 }, ai50: { t: 2, c: s => s.aiW >= 50 }, ai200: { t: 3, c: s => s.aiW >= 200 },
     vs1: { t: 1, c: s => s.vsW >= 1 }, vs10: { t: 2, c: s => s.vsW >= 10 }, vs50: { t: 3, c: s => s.vsW >= 50 },
@@ -186,6 +203,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     roster15: { t: 1, c: s => Object.keys(s.fav || {}).length >= 15 }, roster30: { t: 2, c: s => Object.keys(s.fav || {}).length >= 30 },
     flawless: { t: 2, f: 1 }, comeback: { t: 2, f: 1 }, ultko: { t: 1, f: 1 }, combo4: { t: 1, f: 1 }, combo5: { t: 2, f: 1 },
     arc1: { t: 2, c: s => (s.arcClears || 0) >= 1 }, arc5: { t: 3, c: s => (s.arcClears || 0) >= 5 }, arcsecret: { t: 2, c: s => (s.arcSecret || 0) >= 1 },
+    weekpod: { t: 2, c: s => (s.wkPod || 0) >= 1 }, weekwin: { t: 3, c: s => (s.wkWin || 0) >= 1 },
     daily1: { t: 1, c: s => (s.dailyN || 0) >= 1 }, daily10: { t: 2, c: s => (s.dailyN || 0) >= 10 }, daily30: { t: 3, c: s => (s.dailyN || 0) >= 30 },
     duo: { t: 1, f: 1 }, quintet: { t: 1, f: 1 }, clanwin: { t: 1, f: 1 }, cheap: { t: 2, f: 1 }
   };
@@ -260,6 +278,34 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     },
     // équipes sauvegardées (privées : jamais renvoyées dans les profils publics)
     // défi du jour : le défi est construit côté jeu à partir de la date (heure belge) ; le serveur garde qui l'a réussi
+    "GET /api/weekly": async req => {
+      const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      await wkAward().catch(e => console.error("weekly award", e.message));
+      const k = weekKey(), w = await wkGet(k), r = wkRank(w), mi = r.findIndex(e => e.id === u.id);
+      const prev = wkRank(await wkGet(weekKey(-1))).slice(0, 3).map(e => ({ name: e.name, cost: e.cost, rounds: e.rounds, lost: e.lost, team: e.team }));
+      return [200, { week: k, ends: weekKey(1), foe: w.foe, n: r.length, top: r.slice(0, 10).map(e => ({ id: e.id, name: e.name, cost: e.cost, rounds: e.rounds, lost: e.lost, team: e.team })), me: mi >= 0 ? { rank: mi + 1, ...r[mi] } : null, prev, prize: WK_PRIZE }];
+    },
+    "POST /api/weekly/init": async (req, body) => {
+      const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      const k = weekKey(), w = await wkGet(k);
+      if (body.week !== k) return [409, { error: "week" }];
+      if (!w.foe) { const foe = Array.isArray(body.foe) ? body.foe.filter(x => typeof x === "string" && /^[a-z0-9]{2,12}$/.test(x)).slice(0, 5) : []; if (foe.length < 2) return [400, { error: "foe" }]; w.foe = foe; await wkSave(k, w); }
+      return [200, { foe: w.foe }];
+    },
+    "POST /api/weekly/result": async (req, body) => {
+      const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      const k = weekKey(), w = await wkGet(k), now = Date.now();
+      if (body.week !== k) return [409, { error: "week" }];
+      if (now - (lastWk.get(u.id) || 0) < 20000) return [429, { error: "slow" }];
+      lastWk.set(u.id, now);
+      const cost = Math.floor(+body.cost), rounds = Math.floor(+body.rounds), lost = Math.floor(+body.lost);
+      const team = Array.isArray(body.team) ? body.team.filter(x => typeof x === "string" && /^[a-z0-9]{2,12}$/.test(x)).slice(0, 5) : [];
+      if (!body.win || !(cost >= 1 && cost <= 10) || !(rounds >= 1 && rounds <= 300) || !(lost >= 0 && lost <= 2000) || team.length < 2) return [400, { error: "bad" }];
+      const e = { name: u.name, cost, rounds, lost, team, t: now }, old = w.entries[u.id], better = !old || wkCmp(e, old) < 0;
+      if (better) { w.entries[u.id] = e; await wkSave(k, w); }
+      const r = wkRank(w), mi = r.findIndex(x => x.id === u.id);
+      return [200, { better, rank: mi + 1, n: r.length, best: w.entries[u.id] }];
+    },
     "GET /api/daily": async req => {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
       const day = dayKey(); return [200, { day, done: u.stats.daily === day, streak: u.stats.dailyN || 0 }];

@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.41.0 — 2026-10-04
+
+- Défi de la semaine : la même équipe adverse pour tout le monde, classement par coût d'équipe le plus bas puis par rapidité, le top 3 gagne +100/+60/+40 pts chaque lundi (idée de Jerome R.)
+- 2 nouveaux succès : podium et champion de la semaine
+
 ## v0.40.2 — 2026-10-04
 
 - Illustrations harmonisées : 11 combattants recadrés pour avoir à peu près la même taille à l'écran de sélection et en combat
