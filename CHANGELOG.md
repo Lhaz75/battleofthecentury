@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.31.2 — 2026-10-04
+
+- Onomatopées plus brèves et en couleur (blanc, jaune, orange selon la force du coup)
+
 ## v0.31.1 — 2026-10-04
 
 - Onomatopées façon manga à chaque coup (バキッ ! ドゴォッ ! グシャァ !…), plus grosses selon la force du coup

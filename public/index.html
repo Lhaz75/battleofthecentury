@@ -1146,11 +1146,11 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .dcry{position:fixed;left:50%;top:22%;z-index:120;pointer-events:none;font:900 clamp(56px,13vw,140px)/1 "Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;color:#ff2a10;-webkit-text-stroke:3px #1a0000;text-shadow:0 6px 0 #000,0 0 30px rgba(255,0,0,.8);transform:translate(-50%,-50%) rotate(-8deg);opacity:0;animation:dcry 1.6s cubic-bezier(.2,1.6,.4,1) forwards;letter-spacing:-.02em;white-space:nowrap}
 .dcry.me{top:70%;transform:translate(-50%,-50%) rotate(7deg)}
 @keyframes dcry{0%{opacity:0;scale:.3}14%{opacity:1;scale:1.15}24%{scale:1}75%{opacity:1}100%{opacity:0;scale:1.08;translate:0 -18px}}
-.ono{position:fixed;z-index:65;pointer-events:none;font-family:"Ono","Dela Gothic One","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;font-weight:900;line-height:1;white-space:nowrap;color:#120604;
-  -webkit-text-stroke:6px #fff8ec;paint-order:stroke fill;text-shadow:0 0 0 #fff,4px 5px 0 rgba(150,0,0,.85),0 0 18px rgba(0,0,0,.6);
-  transform:translate(-50%,-50%) rotate(var(--rot)) skewX(var(--sk)) scale(.2);animation:ono .95s cubic-bezier(.2,1.7,.35,1) forwards;letter-spacing:-.06em}
-.ono.ol{font-size:34px;-webkit-text-stroke-width:5px}.ono.om{font-size:48px}.ono.oh{font-size:68px;color:#2a0000;-webkit-text-stroke-width:7px;text-shadow:5px 6px 0 #b00000,0 0 24px rgba(255,0,0,.55)}
-@keyframes ono{0%{opacity:0;transform:translate(-50%,-50%) rotate(var(--rot)) skewX(var(--sk)) scale(.2)}18%{opacity:1;transform:translate(-50%,-50%) rotate(var(--rot)) skewX(var(--sk)) scale(1.15)}30%{transform:translate(-50%,-50%) rotate(var(--rot)) skewX(var(--sk)) scale(1)}75%{opacity:1}100%{opacity:0;transform:translate(-50%,-60%) rotate(var(--rot)) skewX(var(--sk)) scale(1.04)}}
+.ono{position:fixed;z-index:65;pointer-events:none;font-family:"Ono","Dela Gothic One","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;font-weight:900;line-height:1;white-space:nowrap;color:#fff6e0;
+  -webkit-text-stroke:6px #120604;paint-order:stroke fill;text-shadow:3px 4px 0 #b00000,0 0 14px rgba(255,60,20,.55);
+  transform:translate(-50%,-50%) rotate(var(--rot)) skewX(var(--sk)) scale(.2);animation:ono .55s cubic-bezier(.2,1.7,.35,1) forwards;letter-spacing:-.06em}
+.ono.ol{font-size:34px;-webkit-text-stroke-width:5px}.ono.om{font-size:48px;color:#ffe08a}.ono.oh{font-size:66px;color:#ffb43a;-webkit-text-stroke-width:7px;text-shadow:4px 5px 0 #b00000,0 0 22px rgba(255,80,0,.7)}
+@keyframes ono{0%{opacity:0;transform:translate(-50%,-50%) rotate(var(--rot)) skewX(var(--sk)) scale(.2)}25%{opacity:1;transform:translate(-50%,-50%) rotate(var(--rot)) skewX(var(--sk)) scale(1.15)}40%{transform:translate(-50%,-50%) rotate(var(--rot)) skewX(var(--sk)) scale(1)}70%{opacity:1}100%{opacity:0;transform:translate(-50%,-56%) rotate(var(--rot)) skewX(var(--sk)) scale(1.03)}}
 @media (max-width:600px){.ono.ol{font-size:32px}.ono.om{font-size:42px}.ono.oh{font-size:54px}}
 /* mobile : plateau allégé */
 @media (max-width:999px){
@@ -2401,7 +2401,7 @@ function onomato(el,dmg){
   const foe=!!el.closest(".foe"), x=r.left+r.width*(foe?-.15+Math.random()*.4:.55+Math.random()*.4), y=r.top+r.height*(.15+Math.random()*.5);
   d.style.left=Math.max(8,Math.min(innerWidth-8,x))+"px"; d.style.top=y+"px";
   d.style.setProperty("--rot",((Math.random()*36-18)|0)+"deg"); d.style.setProperty("--sk",((Math.random()*20-10)|0)+"deg");
-  document.body.appendChild(d); setTimeout(()=>d.remove(),1000);
+  document.body.appendChild(d); setTimeout(()=>d.remove(),600);
 }
 function hitfx(k,dmg){ rec(["hitfx",k,dmg]); FXQ.push(()=>{ const el=$(`#por-${k}`); if(!el||reduced) return;
   bloodSpray(el,Math.min(34,4+dmg*2),dmg); if(dmg>=10) screenBlood(1); onomato(el,dmg);
@@ -3004,6 +3004,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.31.2",d:"2026-10-04",fr:["Onomatopées plus brèves et en couleur (blanc, jaune, orange selon la force du coup)"],en:["Shorter, colored sound effects (white, yellow, orange depending on the hit strength)"],it:["Onomatopee più brevi e colorate (bianco, giallo, arancione in base alla forza del colpo)"]},
  {v:"0.31.1",d:"2026-10-04",fr:["Onomatopées façon manga à chaque coup (バキッ ! ドゴォッ ! グシャァ !…), plus grosses selon la force du coup","Le cri de mort en japonais au KO est retiré (l'explosion de sang reste)"],en:["Manga-style sound effects on every hit (バキッ! ドゴォッ! グシャァ!…), bigger for stronger hits","The Japanese death cry on KO is removed (the blood explosion stays)"],it:["Onomatopee in stile manga a ogni colpo (バキッ! ドゴォッ! グシャァ!…), più grandi per i colpi più forti","Rimosso l'urlo di morte in giapponese al KO (l'esplosione di sangue resta)"]},
  {v:"0.31.0",d:"2026-10-04",fr:["Coups plus violents : gerbes de sang à chaque impact (plus fortes selon les dégâts), éclaboussures sur l'écran pour les gros coups, chiffres de dégâts plus imposants","Les portraits se couvrent de sang au fil des blessures et rougeoient quand le combattant est presque mort","KO : explosion de sang et cri de mort façon Hokuto (あべし ! ひでぶ ! たわば !)"],en:["More violent hits: blood sprays on every impact (bigger with damage), screen splatter on big hits, bigger damage numbers","Portraits get covered in blood as wounds pile up and glow red when the fighter is almost dead","KO: blood explosion and Hokuto-style death cry (あべし! ひでぶ! たわば!)"],it:["Colpi più violenti: spruzzi di sangue a ogni impatto (più forti in base ai danni), schizzi sullo schermo per i colpi grossi, numeri di danno più imponenti","I ritratti si coprono di sangue con le ferite e diventano rossi quando il combattente è quasi morto","KO: esplosione di sangue e urlo di morte stile Hokuto (あべし! ひでぶ! たわば!)"]},
  {v:"0.30.4",d:"2026-10-04",fr:["Cartes : la petite icône de type dans le coin est retirée (le type est déjà écrit en haut)"],en:["Cards: the small type icon in the corner is removed (the type is already written at the top)"],it:["Carte: rimossa la piccola icona del tipo nell'angolo (il tipo è già scritto in alto)"]},
