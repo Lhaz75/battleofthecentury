@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.39.2 — 2026-10-04
+
+- Mobile : bandeau « Installe le jeu sur ton téléphone » bien visible sur l'écran principal
+
 ## v0.39.1 — 2026-10-04
 
 - Menu principal sur mobile plus clair : les 4 modes de jeu en gros, les 6 autres boutons en petit et alignés
