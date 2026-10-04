@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.32.1 — 2026-10-04
+
+- Événements : grosse carte plein écran, rouge pour les mauvais, verte pour les bons, dorée pour les retournements
+
 ## v0.32.0 — 2026-10-04
 
 - Survie : la récupération des PV après chaque vague est affichée (+PV, barre qui remonte)
