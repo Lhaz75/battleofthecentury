@@ -1023,6 +1023,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .dkc b{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px}
 .dkc.on{border-color:#e8b04a;background:rgba(232,176,74,.16)}.dkc.add{padding-left:10px;color:#e8b04a;border-style:dashed}
 .dkf{display:inline-flex}.dkf img{width:24px;height:24px;border-radius:50%;border:1.5px solid #c98a2e;margin-left:-6px;background:#120a06;object-fit:cover}.dkf img:first-child{margin-left:0}
+.chpick{justify-content:center;margin:8px 0}.chprev{display:flex;justify-content:center;margin:4px 0 12px}.chprev .dkf img{width:34px;height:34px}
 .dklist{display:flex;flex-direction:column;gap:8px;margin:6px 0 10px}
 .dkrow{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid rgba(232,176,74,.25);border-radius:10px;background:rgba(18,10,6,.6)}
 .dkrow.bad{opacity:.55}.dkrow .dkf img{width:30px;height:30px}
@@ -1871,9 +1872,9 @@ Object.assign(UI.it,{fsTitle:"Statistiche di bilanciamento", fsVs:"Versus", fsAi
 Object.assign(UI.fr,{pwaBtn:"Installer l'appli", pwaIos:"Sur iPhone / iPad : ouvre le jeu dans Safari, touche le bouton Partager (le carré avec la flèche), puis « Sur l'écran d'accueil ». Le jeu s'ouvrira en plein écran comme une vraie appli.", pwaOther:"Ouvre le menu de ton navigateur (les 3 points) et choisis « Installer l'application » ou « Ajouter à l'écran d'accueil »."});
 Object.assign(UI.en,{pwaBtn:"Install the app", pwaIos:"On iPhone / iPad: open the game in Safari, tap the Share button (the square with the arrow), then \"Add to Home Screen\". The game will open full screen like a real app.", pwaOther:"Open your browser menu (the 3 dots) and choose \"Install app\" or \"Add to Home screen\"."});
 Object.assign(UI.it,{pwaBtn:"Installa l'app", pwaIos:"Su iPhone / iPad: apri il gioco in Safari, tocca il pulsante Condividi (il quadrato con la freccia), poi «Aggiungi alla schermata Home». Il gioco si aprirà a schermo intero come una vera app.", pwaOther:"Apri il menu del browser (i 3 puntini) e scegli «Installa app» o «Aggiungi a schermata Home»."});
-Object.assign(UI.fr,{chBtn:"Défier", chBusy:"Ce joueur est occupé", chTitle:"Défi", chWaiting:n=>`En attente de la réponse de ${n}…`, chAccepted:n=>`${n} accepte le défi !`, chDeclined:n=>`${n} a refusé le défi.`, chExpired:n=>`${n} n'a pas répondu.`, chIncoming:"Tu es défié !", chYourTeam:"Ton équipe :", chAccept:"Accepter", chDecline:"Refuser", chExpiresIn:n=>`Expire dans ${n} s`, chGone:"Ce défi n'est plus valable.", chHow:"Défie un joueur qui est dans les menus. Le combat se joue avec l'équipe choisie sur ton écran principal (sinon ta première équipe sauvegardée)."});
-Object.assign(UI.en,{chBtn:"Challenge", chBusy:"This player is busy", chTitle:"Challenge", chWaiting:n=>`Waiting for ${n} to answer…`, chAccepted:n=>`${n} accepts the challenge!`, chDeclined:n=>`${n} declined the challenge.`, chExpired:n=>`${n} did not answer.`, chIncoming:"You are challenged!", chYourTeam:"Your team:", chAccept:"Accept", chDecline:"Decline", chExpiresIn:n=>`Expires in ${n}s`, chGone:"This challenge is no longer valid.", chHow:"Challenge a player who is in the menus. The fight uses the team picked on your main screen (otherwise your first saved team)."});
-Object.assign(UI.it,{chBtn:"Sfida", chBusy:"Questo giocatore è occupato", chTitle:"Sfida", chWaiting:n=>`In attesa della risposta di ${n}…`, chAccepted:n=>`${n} accetta la sfida!`, chDeclined:n=>`${n} ha rifiutato la sfida.`, chExpired:n=>`${n} non ha risposto.`, chIncoming:"Sei stato sfidato!", chYourTeam:"La tua squadra:", chAccept:"Accetta", chDecline:"Rifiuta", chExpiresIn:n=>`Scade tra ${n} s`, chGone:"Questa sfida non è più valida.", chHow:"Sfida un giocatore che è nei menu. Il combattimento usa la squadra scelta nella schermata principale (altrimenti la tua prima squadra salvata)."});
+Object.assign(UI.fr,{chBtn:"Défier", chBusy:"Ce joueur est occupé", chTitle:"Défi", chWaiting:n=>`En attente de la réponse de ${n}…`, chAccepted:n=>`${n} accepte le défi !`, chDeclined:n=>`${n} a refusé le défi.`, chExpired:n=>`${n} n'a pas répondu.`, chIncoming:"Tu es défié !", chYourTeam:"Ton équipe :", chAccept:"Accepter", chDecline:"Refuser", chExpiresIn:n=>`Expire dans ${n} s`, chGone:"Ce défi n'est plus valable.", chHow:"Défie un joueur qui est dans les menus. Tu choisis ton équipe (en cours, sauvegardée ou au hasard) avant d'envoyer le défi.", chCurTeam:"Équipe en cours", chPickTitle:n=>`Défier ${n} avec quelle équipe ?`});
+Object.assign(UI.en,{chBtn:"Challenge", chBusy:"This player is busy", chTitle:"Challenge", chWaiting:n=>`Waiting for ${n} to answer…`, chAccepted:n=>`${n} accepts the challenge!`, chDeclined:n=>`${n} declined the challenge.`, chExpired:n=>`${n} did not answer.`, chIncoming:"You are challenged!", chYourTeam:"Your team:", chAccept:"Accept", chDecline:"Decline", chExpiresIn:n=>`Expires in ${n}s`, chGone:"This challenge is no longer valid.", chHow:"Challenge a player who is in the menus. You pick your team (current, saved or random) before sending the challenge.", chCurTeam:"Current team", chPickTitle:n=>`Challenge ${n} with which team?`});
+Object.assign(UI.it,{chBtn:"Sfida", chBusy:"Questo giocatore è occupato", chTitle:"Sfida", chWaiting:n=>`In attesa della risposta di ${n}…`, chAccepted:n=>`${n} accetta la sfida!`, chDeclined:n=>`${n} ha rifiutato la sfida.`, chExpired:n=>`${n} non ha risposto.`, chIncoming:"Sei stato sfidato!", chYourTeam:"La tua squadra:", chAccept:"Accetta", chDecline:"Rifiuta", chExpiresIn:n=>`Scade tra ${n} s`, chGone:"Questa sfida non è più valida.", chHow:"Sfida un giocatore che è nei menu. Scegli la squadra (attuale, salvata o a caso) prima di inviare la sfida.", chCurTeam:"Squadra attuale", chPickTitle:n=>`Sfidare ${n} con quale squadra?`});
 Object.assign(UI.fr,{decksTitle:"Mes équipes", deckSave:"Sauver", deckSaveCur:"Sauver l'équipe actuelle", deckName:"Nom de l'équipe", deckUse:"Jouer", deckDel:"Supprimer", decksEmpty:"Aucune équipe sauvegardée pour l'instant.", decksHow:"Compose une équipe sur l'écran principal puis sauve-la ici ou avec le bouton « Sauver » sous tes slots (12 max). Tes équipes te suivent sur tous tes appareils."});
 Object.assign(UI.en,{decksTitle:"My teams", deckSave:"Save", deckSaveCur:"Save current team", deckName:"Team name", deckUse:"Play", deckDel:"Delete", decksEmpty:"No saved team yet.", decksHow:"Build a team on the main screen, then save it here or with the \"Save\" button under your slots (12 max). Your teams follow you on all your devices."});
 Object.assign(UI.it,{decksTitle:"Le mie squadre", deckSave:"Salva", deckSaveCur:"Salva la squadra attuale", deckName:"Nome della squadra", deckUse:"Gioca", deckDel:"Elimina", decksEmpty:"Nessuna squadra salvata per ora.", decksHow:"Componi una squadra nella schermata principale e salvala qui o con il pulsante «Salva» sotto gli slot (max 12). Le tue squadre ti seguono su tutti i dispositivi."});
@@ -3066,6 +3067,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.34.1",d:"2026-10-04",fr:["Défis : tu choisis ton équipe (en cours, sauvegardée ou au hasard) avant d'envoyer ou d'accepter un défi"],en:["Challenges: pick your team (current, saved or random) before sending or accepting a challenge"],it:["Sfide: scegli la squadra (attuale, salvata o a caso) prima di inviare o accettare una sfida"]},
  {v:"0.34.0",d:"2026-10-04",fr:["Recherche rapide : le nombre de joueurs en attente s'affiche sur le bouton Versus en ligne, et une alerte prévient quand quelqu'un cherche un adversaire"],en:["Quick match: the number of waiting players shows on the Online versus button, and an alert pops when someone is looking for an opponent"],it:["Partita rapida: il numero di giocatori in attesa appare sul pulsante Versus online, e un avviso compare quando qualcuno cerca un avversario"]},
  {v:"0.33.0",d:"2026-10-04",fr:["Relais gratuit au premier tour de chaque joueur : choisis ton combattant selon ta main (idée de maxGfive)"],en:["Free tag on each player's first turn: pick your fighter based on your hand (idea by maxGfive)"],it:["Cambio gratis al primo turno di ogni giocatore: scegli il combattente in base alla mano (idea di maxGfive)"]},
  {v:"0.32.2",d:"2026-10-04",fr:["Carte d'événement : icône retirée"],en:["Event card: icon removed"],it:["Carta evento: icona rimossa"]},
@@ -3477,13 +3479,32 @@ function renderOnline(sel=[]){
 const CH={out:null, timer:0, inboxT:0, shown:null, seen:new Set()};
 function chTeam(){ if(TITLE_SEL && TITLE_SEL.length>=TEAM_MIN && deckValid(TITLE_SEL)) return TITLE_SEL.slice();
   const d=(DECKS.list||[]).find(x=>deckValid(x.team)); return d?d.team.slice():randomTeam(); }
+// équipes proposées pour un défi : équipe en cours, équipes sauvegardées, au hasard
+function chChoices(){ const out=[], key=t=>t.slice().sort().join(",");
+  if(TITLE_SEL && deckValid(TITLE_SEL)) out.push({name:L("chCurTeam"),team:TITLE_SEL.slice()});
+  (DECKS.list||[]).forEach(d=>{ if(deckValid(d.team) && !out.some(o=>key(o.team)===key(d.team))) out.push({name:d.name,team:d.team.slice()}); });
+  return out; }
+function chPickerHTML(list,cur){ return `<div class="dkchips chpick">${list.map((o,i)=>`<button class="dkc ${i===cur?"on":""}" data-chp="${i}" title="${esc(o.name)}">${deckFaces(o.team)}<b>${esc(o.name)}</b></button>`).join("")}<button class="dkc ${cur<0?"on":""}" data-chp="rnd"><b>${L("random")}</b></button></div>`; }
+function chBindPicker(root,list,st,onChange){ root.querySelectorAll("[data-chp]").forEach(b=>b.onclick=()=>{ SFX.play("click");
+  if(b.dataset.chp==="rnd"){ st.team=randomTeam(); st.i=-1; } else { st.i=+b.dataset.chp; st.team=list[st.i].team.slice(); }
+  root.querySelectorAll("[data-chp]").forEach(x=>x.classList.toggle("on",x===b)); onChange&&onChange(); }); }
+function chAskTeam(u){ return new Promise(async res=>{ await decksLoad();
+  const list=chChoices(), st={i:list.length?0:-1, team:list.length?list[0].team.slice():randomTeam()};
+  const w=document.createElement("div"); w.className="askw";
+  w.innerHTML=`<div class="askbox" role="dialog"><h3>${L("chPickTitle",esc(u.name))}</h3>${chPickerHTML(list,st.i)}<div class="chprev">${deckFaces(st.team)}</div>
+    <div class="row"><button class="btn ghost sm" data-no>${L("cancel")}</button><button class="btn sm" data-yes>${L("chBtn")}</button></div></div>`;
+  document.body.appendChild(w);
+  chBindPicker(w,list,st,()=>{ w.querySelector(".chprev").innerHTML=deckFaces(st.team); });
+  w.querySelector("[data-no]").onclick=()=>{ SFX.play("click"); w.remove(); res(null); };
+  w.querySelector("[data-yes]").onclick=()=>{ w.remove(); res(st.team); };
+}); }
 function chStopOut(){ clearInterval(CH.timer); CH.timer=0; if(CH.out){ const id=CH.out; CH.out=null; api("POST","/api/ch/cancel",{id}).catch(()=>{}); } }
 function chJoinDuel(code,role){
   NET.ref=NET.db.doc("duels/"+code); NET.role=role; NET.started=false;
   NET.unsub=NET.ref.onSnapshot(onDuel,()=>{});
 }
 async function chSend(u){
-  const team=chTeam();
+  const team=await chAskTeam(u); if(!team) return;
   const scr=html=>{ $("#app").innerHTML=`<div class="screen"><div class="center quickmm"><div class="kicker">${L("chTitle")}</div>${avatarHTML(u,"uavbig")}<h2 style="margin:0">${esc(u.name)}</h2>${html}<button class="btn ghost" id="chx">${L("cancel")}</button></div></div>`;
     $("#chx").onclick=()=>{ SFX.play("click"); chStopOut(); renderOnline(team); }; };
   scr(`<div class="qspin"></div><p class="lead">${L("connecting")}</p>`);
@@ -3509,19 +3530,19 @@ async function chInbox(){
   let r; try{ r=await api("GET","/api/ch/inbox"); }catch(e){ return; }
   const c=r.ok && (r.list||[]).find(x=>!CH.seen.has(x.id)); if(!c || CH.shown) return;
   CH.shown=c.id; CH.seen.add(c.id); SFX.play("event");
-  const team=chTeam(), u=c.from;
+  await decksLoad(); const u=c.from, list=chChoices(), st={i:list.length?0:-1, team:list.length?list[0].team.slice():chTeam()};
   const w=document.createElement("div"); w.className="askw chin";
   w.innerHTML=`<div class="askbox" role="dialog"><h3>${L("chIncoming")}</h3><div class="chfrom">${avatarHTML(u,"uavbig")}<div><b>${lvlBadge(u.pts)}${esc(u.name)}</b><div class="dkf">${deckFaces(c.team)}</div></div></div>
-    <p class="note">${L("chYourTeam")} ${deckFaces(team)}</p><p class="note chleft2"></p>
+    <p class="note" style="margin-bottom:0">${L("chYourTeam")}</p>${chPickerHTML(list,st.i)}<p class="note chleft2"></p>
     <div class="row"><button class="btn ghost sm" data-no>${L("chDecline")}</button><button class="btn sm" data-yes>${L("chAccept")}</button></div></div>`;
-  document.body.appendChild(w);
+  document.body.appendChild(w); chBindPicker(w,list,st);
   let left=c.left||60; const tick=setInterval(()=>{ left--; const e=w.querySelector(".chleft2"); if(e) e.textContent=L("chExpiresIn",Math.max(0,left)); if(left<=0) close(); },1000);
   const close=()=>{ clearInterval(tick); w.remove(); CH.shown=null; };
   w.querySelector("[data-no]").onclick=()=>{ SFX.play("click"); api("POST","/api/ch/decline",{id:c.id}).catch(()=>{}); close(); };
   w.querySelector("[data-yes]").onclick=async()=>{ SFX.play("event"); close();
     $("#app").innerHTML=`<div class="screen"><div class="center quickmm"><div class="kicker">${L("chTitle")}</div><div class="qspin"></div><p class="lead">${L("connecting")}</p></div></div>`;
     if(!await netInit()){ renderTitle(TITLE_SEL); return; }
-    const a=await api("POST","/api/ch/accept",{id:c.id,uid:NET.uid,team}).catch(()=>({ok:false}));
+    const team=st.team; const a=await api("POST","/api/ch/accept",{id:c.id,uid:NET.uid,team}).catch(()=>({ok:false}));
     if(!a.ok){ $("#app").innerHTML=`<div class="screen"><div class="center"><p class="lead">${L("chGone")}</p><button class="btn ghost" id="back">${L("back")}</button></div></div>`; $("#back").onclick=()=>renderTitle(TITLE_SEL); return; }
     $("#app").innerHTML=`<div class="screen"><div class="center"><div class="kicker">${L("chTitle")}</div><div class="code">${esc(a.code)}</div><p class="lead">${L("joining")}</p></div></div>`;
     chJoinDuel(a.code,"guest"); };
