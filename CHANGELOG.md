@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.31.4 — 2026-10-04
+
+- Retrait de l'éclat en étoile sur les portraits à chaque coup
+
 ## v0.31.3 — 2026-10-04
 
 - Onomatopées plus violentes : lettres déchirées et tranchées en deux, contours rugueux
