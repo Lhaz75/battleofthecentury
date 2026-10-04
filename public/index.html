@@ -1146,11 +1146,19 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .dcry{position:fixed;left:50%;top:22%;z-index:120;pointer-events:none;font:900 clamp(56px,13vw,140px)/1 "Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;color:#ff2a10;-webkit-text-stroke:3px #1a0000;text-shadow:0 6px 0 #000,0 0 30px rgba(255,0,0,.8);transform:translate(-50%,-50%) rotate(-8deg);opacity:0;animation:dcry 1.6s cubic-bezier(.2,1.6,.4,1) forwards;letter-spacing:-.02em;white-space:nowrap}
 .dcry.me{top:70%;transform:translate(-50%,-50%) rotate(7deg)}
 @keyframes dcry{0%{opacity:0;scale:.3}14%{opacity:1;scale:1.15}24%{scale:1}75%{opacity:1}100%{opacity:0;scale:1.08;translate:0 -18px}}
-.ono{position:fixed;z-index:65;pointer-events:none;font-family:"Ono","Dela Gothic One","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;font-weight:900;line-height:1;white-space:nowrap;color:#fff6e0;
-  -webkit-text-stroke:6px #120604;paint-order:stroke fill;text-shadow:3px 4px 0 #b00000,0 0 14px rgba(255,60,20,.55);
-  transform:translate(-50%,-50%) rotate(var(--rot)) skewX(var(--sk)) scale(.2);animation:ono .55s cubic-bezier(.2,1.7,.35,1) forwards;letter-spacing:-.06em}
-.ono.ol{font-size:34px;-webkit-text-stroke-width:5px}.ono.om{font-size:48px;color:#ffe08a}.ono.oh{font-size:66px;color:#ffb43a;-webkit-text-stroke-width:7px;text-shadow:4px 5px 0 #b00000,0 0 22px rgba(255,80,0,.7)}
-@keyframes ono{0%{opacity:0;transform:translate(-50%,-50%) rotate(var(--rot)) skewX(var(--sk)) scale(.2)}25%{opacity:1;transform:translate(-50%,-50%) rotate(var(--rot)) skewX(var(--sk)) scale(1.15)}40%{transform:translate(-50%,-50%) rotate(var(--rot)) skewX(var(--sk)) scale(1)}70%{opacity:1}100%{opacity:0;transform:translate(-50%,-56%) rotate(var(--rot)) skewX(var(--sk)) scale(1.03)}}
+.ono{position:fixed;z-index:65;pointer-events:none;font-family:"Ono","Dela Gothic One","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;font-weight:900;line-height:1;white-space:nowrap;
+  transform:translate(-50%,-50%) rotate(var(--rot)) skewX(var(--sk)) scale(.2);animation:ono .55s cubic-bezier(.2,1.7,.35,1) forwards;letter-spacing:-.07em;display:grid}
+.ono .ot{grid-area:1/1;align-self:center;justify-self:center;position:relative;z-index:1;color:#fff6e0;-webkit-text-stroke:7px #120604;paint-order:stroke fill;filter:url(#onoRough) drop-shadow(3px 4px 0 #b00000);font-style:italic}
+.ono .ta{clip-path:polygon(0 0,100% 0,100% calc(var(--cut) - 14%),0 calc(var(--cut) + 14%))}
+.ono .tb{clip-path:polygon(0 calc(var(--cut) + 16%),100% calc(var(--cut) - 12%),100% 100%,0 100%);transform:translate(7%,9%);animation:otear .55s ease-out forwards}
+@keyframes otear{0%{transform:translate(0,0)}35%{transform:translate(9%,11%)}100%{transform:translate(11%,13%)}}
+.ono .oburst{grid-area:1/1;place-self:center;width:var(--bs,120px);height:var(--bs,120px);background:#c00000;transform:rotate(var(--br));opacity:.9;
+  clip-path:polygon(50% 0,57% 32%,78% 6%,66% 38%,100% 22%,72% 48%,100% 60%,68% 62%,86% 92%,58% 70%,50% 100%,42% 70%,14% 94%,32% 62%,0 64%,28% 49%,0 26%,34% 38%,20% 6%,43% 31%);filter:drop-shadow(0 0 2px #000)}
+.ono.oh .oburst{background:radial-gradient(circle,#ffde5a 0 18%,#ff6a00 40%,#b00000 70%)}
+.ono.ol{font-size:36px}.ono.ol .ot{-webkit-text-stroke-width:6px}
+.ono.om{font-size:50px;--bs:120px}.ono.oh{--bs:170px}.ono.om .ot{color:#ffe08a}
+.ono.oh{font-size:70px}.ono.oh .ot{color:#fff2c0;-webkit-text-stroke-width:8px;filter:url(#onoRough) drop-shadow(4px 5px 0 #6a0000)}
+@keyframes ono{0%{opacity:0;transform:translate(-50%,-50%) rotate(var(--rot)) skewX(var(--sk)) scale(2.2)}22%{opacity:1;transform:translate(-50%,-50%) rotate(var(--rot)) skewX(var(--sk)) scale(.92)}36%{transform:translate(-50%,-50%) rotate(var(--rot)) skewX(var(--sk)) scale(1.04)}72%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) rotate(var(--rot)) skewX(var(--sk)) scale(1.08)}}
 @media (max-width:600px){.ono.ol{font-size:32px}.ono.om{font-size:42px}.ono.oh{font-size:54px}}
 /* mobile : plateau allégé */
 @media (max-width:999px){
@@ -2389,6 +2397,9 @@ function bloodSpray(el,n,force){
   setTimeout(()=>box.remove(),1300);
 }
 function screenBlood(strength){ if(reduced) return; const d=document.createElement("div"); d.className="sblood"+(strength>1?" heavy":""); d.style.setProperty("--rot",(Math.random()*360|0)+"deg"); document.body.appendChild(d); setTimeout(()=>d.remove(),1800); }
+if(typeof document!=="undefined" && document.createElementNS) (()=>{ const sv=document.createElementNS("http://www.w3.org/2000/svg","svg"); sv.setAttribute("width","0"); sv.setAttribute("height","0"); sv.style.position="absolute";
+  sv.innerHTML='<filter id="onoRough" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="2" seed="7"/><feDisplacementMap in="SourceGraphic" scale="6" xChannelSelector="R" yChannelSelector="G"/></filter>';
+  document.body.appendChild(sv); })();
 const DEATH_CRIES=["あべし!","ひでぶ!","たわば!","うわらば!","ぱっぴっぷ!","ちにゃ!","ひでぶっ!","あわびゅ!"];
 function deathFx(k,word){ rec(["death",k,word]); FXQ.push(()=>{ const el=$(`#por-${k}`); bloodSpray(el,46,14); setTimeout(()=>bloodSpray(el,30,10),140); screenBlood(2);
   }); }
@@ -2397,10 +2408,13 @@ const ONO={l:["バシッ","ガッ","ビシッ","パンッ","ドッ","ゴッ"],m:
 function onomato(el,dmg){
   if(!el||reduced) return; const r=el.getBoundingClientRect(); if(!r.width) return;
   const tier=dmg>=10?"h":dmg>=6?"m":"l", list=ONO[tier], word=list[rnd(list.length)];
-  const d=document.createElement("div"); d.className="ono o"+tier; d.textContent=word;
+  const d=document.createElement("div"); d.className="ono o"+tier;
+  // texte coupé en deux le long d'une entaille diagonale, les deux morceaux décalés : effet « déchiré »
+  const cut=30+Math.random()*40, burst=tier==="l"?"":`<b class="oburst" style="--br:${(Math.random()*360)|0}deg"></b>`;
+  d.innerHTML=`${burst}<span class="ot ta" style="--cut:${cut}%">${word}</span><span class="ot tb" style="--cut:${cut}%">${word}</span>`;
   const foe=!!el.closest(".foe"), x=r.left+r.width*(foe?-.15+Math.random()*.4:.55+Math.random()*.4), y=r.top+r.height*(.15+Math.random()*.5);
-  d.style.left=Math.max(8,Math.min(innerWidth-8,x))+"px"; d.style.top=y+"px";
-  d.style.setProperty("--rot",((Math.random()*36-18)|0)+"deg"); d.style.setProperty("--sk",((Math.random()*20-10)|0)+"deg");
+  d.style.left=Math.max(8,Math.min(innerWidth-8,x))+"px"; d.style.top=Math.max(tier==="h"?60:40,y)+"px";
+  d.style.setProperty("--rot",((Math.random()*40-20)|0)+"deg"); d.style.setProperty("--sk",((Math.random()*28-20)|0)+"deg");
   document.body.appendChild(d); setTimeout(()=>d.remove(),600);
 }
 function hitfx(k,dmg){ rec(["hitfx",k,dmg]); FXQ.push(()=>{ const el=$(`#por-${k}`); if(!el||reduced) return;
@@ -3004,6 +3018,7 @@ async function playTourMatch(t,m){
 /* ---------- versions et journal des modifications ---------- */
 // La première entrée est la version en cours. À chaque mise à jour : nouvelle entrée en tête (fr / en / it).
 const CHANGELOG=[
+ {v:"0.31.3",d:"2026-10-04",fr:["Onomatopées plus violentes : lettres déchirées et tranchées en deux, contours rugueux, éclat d'impact derrière les coups moyens et lourds"],en:["More violent sound effects: torn letters sliced in two, rough edges, impact burst behind medium and heavy hits"],it:["Onomatopee più violente: lettere strappate e tagliate in due, contorni ruvidi, scoppio d'impatto dietro i colpi medi e pesanti"]},
  {v:"0.31.2",d:"2026-10-04",fr:["Onomatopées plus brèves et en couleur (blanc, jaune, orange selon la force du coup)"],en:["Shorter, colored sound effects (white, yellow, orange depending on the hit strength)"],it:["Onomatopee più brevi e colorate (bianco, giallo, arancione in base alla forza del colpo)"]},
  {v:"0.31.1",d:"2026-10-04",fr:["Onomatopées façon manga à chaque coup (バキッ ! ドゴォッ ! グシャァ !…), plus grosses selon la force du coup","Le cri de mort en japonais au KO est retiré (l'explosion de sang reste)"],en:["Manga-style sound effects on every hit (バキッ! ドゴォッ! グシャァ!…), bigger for stronger hits","The Japanese death cry on KO is removed (the blood explosion stays)"],it:["Onomatopee in stile manga a ogni colpo (バキッ! ドゴォッ! グシャァ!…), più grandi per i colpi più forti","Rimosso l'urlo di morte in giapponese al KO (l'esplosione di sangue resta)"]},
  {v:"0.31.0",d:"2026-10-04",fr:["Coups plus violents : gerbes de sang à chaque impact (plus fortes selon les dégâts), éclaboussures sur l'écran pour les gros coups, chiffres de dégâts plus imposants","Les portraits se couvrent de sang au fil des blessures et rougeoient quand le combattant est presque mort","KO : explosion de sang et cri de mort façon Hokuto (あべし ! ひでぶ ! たわば !)"],en:["More violent hits: blood sprays on every impact (bigger with damage), screen splatter on big hits, bigger damage numbers","Portraits get covered in blood as wounds pile up and glow red when the fighter is almost dead","KO: blood explosion and Hokuto-style death cry (あべし! ひでぶ! たわば!)"],it:["Colpi più violenti: spruzzi di sangue a ogni impatto (più forti in base ai danni), schizzi sullo schermo per i colpi grossi, numeri di danno più imponenti","I ritratti si coprono di sangue con le ferite e diventano rossi quando il combattente è quasi morto","KO: esplosione di sangue e urlo di morte stile Hokuto (あべし! ひでぶ! たわば!)"]},
