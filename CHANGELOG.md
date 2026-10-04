@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.31.1 — 2026-10-04
+
+- Onomatopées façon manga à chaque coup (バキッ ! ドゴォッ ! グシャァ !…), plus grosses selon la force du coup
+- Le cri de mort en japonais au KO est retiré (l'explosion de sang reste)
+
 ## v0.31.0 — 2026-10-04
 
 - Coups plus violents : gerbes de sang à chaque impact (plus fortes selon les dégâts), éclaboussures sur l'écran pour les gros coups, chiffres de dégâts plus imposants
