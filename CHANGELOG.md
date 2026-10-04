@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.38.2 — 2026-10-04
+
+- Arcade : la tour s'affiche en ligne, l'écran tient sans scroller sur PC
+
 ## v0.38.1 — 2026-10-04
 
 - Règles : bouton « Cartes & événements » qui s'affichait écrasé
