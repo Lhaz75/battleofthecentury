@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.55.1 — 2026-10-05
+
+- Juza joue ses techniques dans l'ordre qu'il veut, à chaque coup (avant : une fois par tour). Un coup hors ordre garde le combo mais n'augmente pas le bonus
+
 ## v0.55.0 — 2026-10-05
 
 - Les 9 cartes pièges ont leurs illustrations (main, zone de combat, codex)
