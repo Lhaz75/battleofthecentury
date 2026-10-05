@@ -1389,7 +1389,9 @@ html,body,*{scrollbar-width:none}::-webkit-scrollbar{display:none}
 /* v0.48.1 : main ajustée sur mobile */
 .screen.board>.hand.fit .card{flex:0 0 var(--cw)!important;width:var(--cw)!important;height:var(--chh)!important}
 @media (max-width:999px) and (orientation:portrait){.screen.board .combo.empty{display:none}}
-.screen.board>.hand.two{flex-wrap:wrap;justify-content:center;overflow:visible;row-gap:7px}
+.screen.board>.hand.two{flex-wrap:wrap;justify-content:center;overflow:visible;row-gap:18px}
+.screen.board>.hand.two .card .cn{display:block!important;-webkit-line-clamp:unset!important;overflow:visible!important;max-height:none!important;flex:none}
+.screen.board>.hand.two .card .cx{overflow:hidden}
 </style>
 <style>html,body{margin:0}*{box-sizing:border-box}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
@@ -2858,7 +2860,7 @@ function fitHand(){
   const cs=getComputedStyle(hand), pv=parseFloat(cs.paddingTop)+parseFloat(cs.paddingBottom), ph=parseFloat(cs.paddingLeft)+parseFloat(cs.paddingRight), gap=parseFloat(cs.columnGap)||7;
   const H=hand.getBoundingClientRect().bottom-prev.getBoundingClientRect().bottom-6-pv, W=hand.clientWidth-ph;
   const h0=cards[0].offsetHeight, w0=cards[0].offsetWidth; if(H<h0+16) return;
-  if(n>=4){ const cols=Math.ceil(n/2), cw=Math.min(150,(W-(cols-1)*gap)/cols), ch=Math.min(cw*1.42,(H-gap)/2);
+  if(n>=4){ const cols=Math.ceil(n/2), cw=Math.min(150,(W-(cols-1)*gap)/cols), ch=Math.min(cw*1.42,(H-18)/2);
     if(cw>=88 && ch>=124 && ch>=cw*1.1){ hand.classList.add("fit","two"); hand.style.setProperty("--cw",cw+"px"); hand.style.setProperty("--chh",ch+"px"); return; } }
   let ch=Math.min(H,250); const cw=Math.max(w0,Math.min(ch*.7,(W-2*gap)/3)); ch=Math.min(ch,cw*1.55); if(ch<h0+8) return;
   hand.classList.add("fit"); hand.style.setProperty("--cw",cw+"px"); hand.style.setProperty("--chh",ch+"px");
