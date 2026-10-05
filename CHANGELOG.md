@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.55.0 — 2026-10-05
+
+- Les 9 cartes pièges ont leurs illustrations (main, zone de combat, codex)
+- Nouveaux combattants : Sha & Zan, les sbires masqués de Kaiser (Shura), avec le lien « Les sbires de Kaiser »
+- Nouvelle illustration de Falco
+
 ## v0.54.0 — 2026-10-05
 
 - Contre : il renvoie maintenant la moitié des dégâts. Toki et Raoh ont un contre parfait qui renvoie tout
