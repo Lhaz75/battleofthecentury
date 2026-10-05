@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.59.2 — 2026-10-05
+
+- PC : la mention fan-made en bas de l'accueil tient sur une ligne
+
 ## v0.59.1 — 2026-10-05
 
 - Accueil : nouvelle police pour les modes, titre sur une ligne, illustration fondue dans le décor, bas de page centré
