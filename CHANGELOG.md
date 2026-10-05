@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.56.0 — 2026-10-05
+
+- 5 nouveaux combattants : Kenshiro Kasumi, Tesshin Kasumi et Shūken (Hokuto Shinken), Yuria (Nanto) et Baran
+- Nouveaux liens : Père et fils Kasumi, Amour éternel (Yuria + Kenshiro), Le disciple refusé (Baran + Ken-Oh)
+- Nouvelles illustrations de Ken-Oh et de deux pillards
+
 ## v0.55.2 — 2026-10-05
 
 - Raoh s'appelle maintenant Ken-Oh
