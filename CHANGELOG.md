@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.62.4 — 2026-10-05
+
+- Le bouton de l'écran d'équipe dit « Choisis au moins 2 persos » (une équipe va de 2 à 5)
+
 ## v0.62.3 — 2026-10-05
 
 - PC : juste le dé dans la barre d'équipe, avec une bulle « Jouer avec une équipe aléatoire » au survol ; le texte d'aide sous les points est de nouveau lisible en entier
