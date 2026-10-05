@@ -2,6 +2,13 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.59.0 — 2026-10-05
+
+- Nouvel accueil : on choisit d'abord son mode de jeu, puis son équipe sur un écran à part
+- PC : menu façon borne d'arcade, le perso du mode survolé s'affiche en grand
+- Mobile : les modes en affiches à faire défiler, les défis en haut
+- Bouton « Au hasard » déplacé sur l'écran d'équipe
+
 ## v0.58.2 — 2026-10-05
 
 - PC : les boutons du menu passent à la ligne au lieu de déborder, et le panneau de gauche n'est plus coupé

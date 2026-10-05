@@ -1432,8 +1432,71 @@ body[data-terr="medicine"]{--terrbg:url("assets/terrain-medicine.webp")}body[dat
 
 /* v0.58.1 : pas d'effet de survol bloqué sur écran tactile */
 @media (hover:none){.card:not([disabled]):hover,.board .card:hover{transform:none!important;z-index:auto}}
-@media (min-width:1000px){.toprow .modes.top{flex-wrap:wrap!important;row-gap:10px;min-width:0}}
+@media (min-width:1000px){.toprow .modes.top{flex-wrap:wrap!important;row-gap:12px;min-width:0}
+.toprow .modes.top::before{content:"";order:1;flex-basis:100%;height:0}
+.toprow .modes.top .btn{order:0}
+.toprow .modes.top #tour{order:0;margin:0}
+.toprow .modes.top #surv,.toprow .modes.top #arc,.toprow .modes.top #story{order:1}
+.toprow .modes.top::before{order:2!important}
+.toprow .modes.top #rnd,.toprow .modes.top #tuto,.toprow .modes.top #roster,.toprow .modes.top #rules,.toprow .modes.top #hof{order:3;padding:6px 14px!important;font-size:12.5px!important;letter-spacing:.06em;background:rgba(18,10,6,.55);box-shadow:none;border-radius:8px}}
 .screen.sel{overflow-x:hidden}
+
+/* v0.59 : accueil (B sur PC, affiches sur mobile) */
+:root{--hm-ai:#c0392b;--hm-online:#2f6fd6;--hm-tour:#d4a017;--hm-surv:#2e8b57;--hm-arc:#8e44ad;--hm-story:#7a3cff}
+.hm{display:flex;flex-direction:column;gap:16px;margin-top:6px}
+.hmL{display:flex;flex-direction:column;gap:14px;min-width:0}
+.hmlist{display:flex;gap:10px}
+.hmi{all:unset;box-sizing:border-box;cursor:pointer;position:relative;-webkit-tap-highlight-color:transparent}
+.hmi b{font-family:var(--f-destroy);font-weight:400;text-transform:uppercase;line-height:1;color:#f3e7d3}
+.hmi small{display:block;color:#cdb79a;line-height:1.25}
+.hmch{display:flex;flex-direction:column;gap:10px}
+.hmch .daily{box-sizing:border-box;margin:0;grid-template-columns:1fr;padding:10px 12px;gap:6px;min-width:0}
+.hmch .daily .dyhead{flex-direction:row;align-items:center;justify-content:space-between}
+.hmch .dyvs{justify-content:space-between;flex-wrap:wrap;row-gap:6px}
+.hmch .dyvs .dkf img{width:26px;height:26px}
+.hmch .daily p{font-size:13px}
+.hmstage{display:none}
+.hmlinks{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:6px}
+.hmlinks .btn{background:rgba(18,10,6,.55);box-shadow:none;letter-spacing:.08em}
+.screen.home .fanmade{text-align:center}
+.pickhead{display:flex;align-items:center;gap:14px;flex:1;min-width:0}
+.pkmode{display:flex;flex-direction:column;line-height:1.05;min-width:0}
+.pkmode small{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#cdb79a}
+.pkmode b{font-family:var(--f-destroy);font-weight:400;font-size:24px;text-transform:uppercase;color:#f3e7d3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pkx{display:flex;justify-content:flex-end}
+@media (max-width:999px){
+  .hmch{order:-1}
+  .hmlist{overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 8px;margin-inline:-2px}
+  .hmi{flex:0 0 46%;aspect-ratio:2/3.05;border-radius:14px;overflow:hidden;background:#140d09;border:1px solid rgba(255,255,255,.14);box-shadow:0 10px 24px rgba(0,0,0,.55);scroll-snap-align:start}
+  .hmi:before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:var(--hc);z-index:2}
+  .hmi:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 42%,rgba(10,6,4,.95) 86%),linear-gradient(0deg,var(--hc),transparent 32%);opacity:.95}
+  .hmp{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
+  .hmt{position:absolute;left:10px;right:10px;bottom:12px;z-index:2}
+  .hmi b{font-size:clamp(12px,3.6vw,17px)}.hmi small{font-size:11.5px;margin-top:5px}
+  .pickhead{order:2;flex-basis:100%;justify-content:flex-start}
+  .pkmode b{font-size:20px}
+}
+@media (min-width:1000px){
+  .hm{display:grid;grid-template-columns:minmax(380px,440px) 1fr;gap:20px;align-items:stretch}
+  .hmlist{flex-direction:column;gap:4px}
+  .hmp{display:none}
+  .hmi{display:flex;align-items:baseline;gap:14px;padding:11px 18px;transform:skewX(-12deg);border-left:5px solid transparent;transition:background .15s}
+  .hmi .hmt{display:flex;align-items:baseline;gap:12px;transform:skewX(12deg);min-width:0}
+  .hmi b{font-size:26px;color:#9c8a74;white-space:nowrap;transition:color .15s}
+  .hmi small{display:none}
+  .hmi.on{background:linear-gradient(90deg,var(--hc),transparent);border-left-color:#fff}
+  .hmi.on b{color:#fff;text-shadow:0 0 18px var(--hc)}
+  .hmch{margin-top:10px;max-width:420px}
+  .hmstage{display:block;position:relative;overflow:hidden;border-radius:18px;min-height:clamp(440px,calc(100vh - 230px),680px);background:radial-gradient(ellipse at 75% 60%,color-mix(in srgb,var(--hc) 45%,transparent),transparent 65%)}
+  .hmstage img{position:absolute;right:0;bottom:-4%;height:108%;max-width:70%;object-fit:contain;object-position:right bottom;filter:drop-shadow(0 0 40px color-mix(in srgb,var(--hc) 60%,transparent))}
+  .hminfo{position:absolute;left:26px;bottom:40px;max-width:400px;z-index:2}
+  .hminfo .k{letter-spacing:.3em;font-size:13px;text-transform:uppercase;color:color-mix(in srgb,var(--hc) 55%,#fff)}
+  .hminfo h1{font-family:var(--f-destroy);font-weight:400;font-size:clamp(40px,4.6vw,64px);line-height:.95;margin:6px 0;text-transform:uppercase;text-shadow:0 4px 18px #000}
+  .hminfo p{font-size:16px;color:#e8d9c2;text-shadow:0 2px 6px #000;margin:0 0 14px}
+  .hmplay{font-size:20px!important;padding:13px 34px!important;letter-spacing:.12em}
+  .pickhead{justify-content:center}
+}
+@media (min-width:1000px){.tbgo{display:block;order:5;width:100%;font-size:18px!important;padding:13px!important;letter-spacing:.1em}}
 </style>
 <style>html,body{margin:0}*{box-sizing:border-box}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
@@ -3317,7 +3380,7 @@ function renderEnd(win){ if(S&&S.dead) return; rpCapture(true); if(SURV.on && MO
   endJournalScroll();
   if($("#rpgo")) $("#rpgo").onclick=()=>{ SFX.play("click"); rpStart(()=>renderTitle(TITLE_SEL)); };
   const dyRetry=S&&S.daily&&!dailyOk(win);
-  if($("#tomenu")) $("#tomenu").onclick=()=>{ SFX.play("click"); renderTitle(TITLE_SEL); };
+  if($("#tomenu")) $("#tomenu").onclick=()=>{ SFX.play("click"); HOME_M=null; renderTitle(TITLE_SEL); };
   const rmTeam=S&&S.p?S.p.team.map(t=>t.id):null, rmFoe=S&&S.a?S.a.team.map(t=>t.id):null, rmLv=S?(AI_LV.find(x=>x.k===S.aiLv)||aiLvGet()):null;
   $("#again").onclick=()=>{ if(dyRetry && !DAILY.done){ SFX.play("event"); dailyStart(TITLE_SEL); return; }
     if(MODE==="solo" && !(S&&S.daily) && rmTeam && rmFoe){ SFX.play("event"); ME="p"; newGame(rmTeam,rmFoe,aiPrep(rmLv)); return; } const tc=MODE==="vs"?TOUR.code:null; if(MODE==="vs") netLeave(); if(tc) renderTour(tc); else renderTitle(); };
@@ -3602,6 +3665,7 @@ Object.assign(UI.fr,{"stBtn": "Histoire", "stTitle": "Mode histoire", "stArc1": 
 Object.assign(UI.en,{"stBtn": "Story", "stTitle": "Story mode", "stArc1": "Arc 1: KING", "stLead": "Follow Kenshiro through the ravaged world, chapter after chapter. Each chapter has 3 stars to earn.", "stLocked": "Clear the previous chapter", "stPlay": "Fight", "stNext": "Next chapter", "stBackList": "Chapters", "stRetry": "Retry", "stObj": "Objectives", "stUnlock": "Unlocks", "stUnlockNote": "(from version 1.0)", "stYou": "You play", "stFoe": "Opponent", "stWave": "Wave {a}/{b}", "stWaveNext": "Next wave", "stWin": "Chapter cleared!", "stLose": "Defeat…", "stStars": "{n} star(s)", "stJoined": "Unlocked at 1.0: {who}", "stFat": "His Lights do nothing to him.", "stTrap": "An Ambush trap is already set against you.", "stArcDone": "Arc complete! More coming soon.", "stHow": "Story: 20 pts the first time a chapter is cleared, +10 pts per new star.", "w_story": "Story mode", "ach_story1": "The legend begins", "achd_story1": "Clear arc 1 of story mode", "ach_story27": "Seven stars… and more", "achd_story27": "Earn all 27 stars of arc 1", "st_t_king-0": "Prologue: the seven scars", "st_i_king-0": "One year before it all. Shin, of Nanto Koshūken, has sworn to tear Yuria away from Kenshiro. Tonight he takes the woman, and leaves him seven holes in his chest to remember.", "st_o_king-0": "\"I am Shin. Remember that name.\" Kenshiro lies in the dust, branded with seven scars shaped like the Big Dipper. He will survive. And he will come back.", "st_t_king-1": "The besieged village", "st_i_king-1": "A man collapses from hunger at the edge of a village. In a cell he meets little Lin and a thieving kid, Bat. Outside, Zeed's gang rides in to loot everything.", "st_o_king-1": "The raiders don't understand what's happening. \"You are already dead.\" Their bodies burst one after another. Zeed will want revenge.", "st_t_king-2": "Zeed", "st_i_king-2": "Zeed and his biker horde surround the village. He demands the water and the women. Kenshiro walks out alone to meet them, Lin and Bat hiding behind him.", "st_o_king-2": "Zeed wanted to strike first. His skull didn't hold. Lin finds her voice again, and Bat decides to follow this strange man. The journey begins.", "st_t_king-3": "Spade, the spearman", "st_i_king-3": "In the ruins of a city, men wear a badge: a spade. They are KING's soldiers. Their leader, Spade, amuses himself shooting at fugitives.", "st_o_king-3": "Spade swallowed his own bolt. Before dying, a name: KING. Kenshiro clenches his fist. The man with seven scars already knows who hides behind it.", "st_t_king-4": "Diamond and the captive village", "st_i_king-4": "A whole village is enslaved by Diamond, another of KING's suits. His guards first, then the master himself. Two fights in a row, no rest.", "st_o_king-4": "The last diamond has shattered. The villagers raise their heads. There is talk of a city to the south, Southern Cross, where KING keeps a woman prisoner.", "st_t_king-5": "Club", "st_i_king-5": "Club has prepared the ground: raiders hide everywhere, ready to fall on anyone who switches fighters. Fox, the sly one, prowls with him.", "st_o_king-5": "Club thought he had Kenshiro caught in his web. The threads snapped. Fox tried to flee into the desert. He didn't get far.", "st_t_king-6": "Heart, the colossus", "st_i_king-6": "Heart, KING's heart, is a mountain of fat. Light blows sink into his flesh without hurting him at all. And when he sees his own blood, he goes mad.", "st_o_king-6": "Fat protects from everything… except pressure points. Heart swells, swells again, and bursts. Southern Cross isn't far now.", "st_t_king-7": "Joker, the messenger", "st_i_king-7": "Joker, Shin's right-hand man, plays with his razor cards and vanishes before anyone can touch him. He has come to see what the man with seven scars can do.", "st_o_king-7": "\"I'd rather die than be your messenger.\" Joker won't go warn Shin. Kenshiro will do it himself.", "st_t_king-8": "Southern Cross: Shin", "st_i_king-8": "At the top of his city, Shin waits. He built it all for her, for Yuria. A year after the night of the seven scars, the two men face each other again.", "st_o_king-8": "Shin has lost. He won't let Kenshiro take his life: he throws himself from the top of his palace. Yuria was already gone. Kenshiro's journey has only just begun…", "sto_win": "Win the fight", "sto_rounds": "Win in {n} turns or fewer", "sto_hits": "Land {n} hits on the opponent", "sto_lost": "Lose {n} HP or fewer", "sto_lastUlt": "Finish with an ultimate", "sto_keep": "Keep more than {n}% of your HP", "sto_noRelay": "Make no tag", "sto_noTrap": "Trigger no enemy trap", "sto_noJoker": "Never let Joker draw", "sto_firstKo": "KO {who} first", "sto_killLvl": "Finish {who} with {lvl}", "stLvl2": "a Heavy", "stLvlU": "an ultimate"});
 Object.assign(UI.it,{"stBtn": "Storia", "stTitle": "Modalità storia", "stArc1": "Arco 1: KING", "stLead": "Segui Kenshiro nel mondo devastato, capitolo dopo capitolo. Ogni capitolo ha 3 stelle da guadagnare.", "stLocked": "Completa il capitolo precedente", "stPlay": "Combatti", "stNext": "Capitolo successivo", "stBackList": "Capitoli", "stRetry": "Riprova", "stObj": "Obiettivi", "stUnlock": "Sblocca", "stUnlockNote": "(dalla versione 1.0)", "stYou": "Giochi", "stFoe": "Avversario", "stWave": "Ondata {a}/{b}", "stWaveNext": "Ondata successiva", "stWin": "Capitolo completato!", "stLose": "Sconfitta…", "stStars": "{n} stella/e", "stJoined": "Sbloccato alla 1.0: {who}", "stFat": "I suoi Leggeri non gli fanno nulla.", "stTrap": "Una trappola Imboscata è già piazzata contro di te.", "stArcDone": "Arco completato! Il seguito arriva presto.", "stHow": "Storia: 20 pt la prima volta che si completa un capitolo, +10 pt per ogni nuova stella.", "w_story": "Modalità storia", "ach_story1": "La leggenda comincia", "achd_story1": "Completa l'arco 1 della modalità storia", "ach_story27": "Sette stelle… e oltre", "achd_story27": "Ottieni le 27 stelle dell'arco 1", "st_t_king-0": "Prologo: le sette cicatrici", "st_i_king-0": "Un anno prima di tutto. Shin, del Nanto Koshūken, ha giurato di strappare Yuria a Kenshiro. Stanotte si prende la donna, e gli lascia sette buchi nel petto come ricordo.", "st_o_king-0": "«Io sono Shin. Ricorda questo nome.» Kenshiro giace nella polvere, marchiato da sette cicatrici a forma di Orsa Maggiore. Sopravvivrà. E tornerà.", "st_t_king-1": "Il villaggio assediato", "st_i_king-1": "Un uomo crolla per la fame all'ingresso di un villaggio. In una cella incontra la piccola Lin e un ragazzino ladro, Bat. Fuori arriva la banda di Zeed per saccheggiare tutto.", "st_o_king-1": "I predoni non capiscono cosa succede. «Sei già morto.» I loro corpi esplodono uno dopo l'altro. Zeed vorrà vendetta.", "st_t_king-2": "Zeed", "st_i_king-2": "Zeed e la sua orda in moto circondano il villaggio. Pretende l'acqua e le donne. Kenshiro esce da solo ad affrontarli, con Lin e Bat nascosti dietro di lui.", "st_o_king-2": "Zeed voleva colpire per primo. Il suo cranio non ha retto. Lin ritrova la voce, e Bat decide di seguire quello strano uomo. Il viaggio comincia.", "st_t_king-3": "Spade, il lanciere", "st_i_king-3": "Tra le rovine di una città, degli uomini portano un'insegna: una picca. Sono i soldati di KING. Il loro capo, Spade, si diverte a tirare sui fuggiaschi.", "st_o_king-3": "Spade ha ingoiato il suo stesso dardo. Prima di morire, un nome: KING. Kenshiro stringe il pugno. L'uomo dalle sette cicatrici sa già chi si nasconde dietro.", "st_t_king-4": "Diamond e il villaggio prigioniero", "st_i_king-4": "Un intero villaggio è ridotto in schiavitù da Diamond, un altro seme di KING. Prima le sue guardie, poi il padrone. Due combattimenti di fila, senza riposo.", "st_o_king-4": "L'ultimo diamante si è spezzato. Gli abitanti rialzano la testa. Si parla di una città a sud, Southern Cross, dove KING tiene prigioniera una donna.", "st_t_king-5": "Club", "st_i_king-5": "Club ha preparato il terreno: predoni nascosti ovunque, pronti a piombare su chiunque cambi combattente. Fox, la volpe, si aggira con lui.", "st_o_king-5": "Club credeva di avere Kenshiro nella sua rete. I fili si sono spezzati. Fox ha cercato di fuggire nel deserto. Non è andato lontano.", "st_t_king-6": "Heart, il colosso", "st_i_king-6": "Heart, il cuore di KING, è una montagna di grasso. I colpi leggeri affondano nella sua carne senza fargli alcun male. E quando vede il suo sangue, impazzisce.", "st_o_king-6": "Il grasso protegge da tutto… tranne che dai punti vitali. Heart si gonfia, si gonfia ancora, ed esplode. Southern Cross non è più lontana.", "st_t_king-7": "Joker, il messaggero", "st_i_king-7": "Joker, l'uomo di fiducia di Shin, gioca con le sue carte taglienti e sparisce prima che lo si possa toccare. È venuto a vedere di cosa è capace l'uomo dalle sette cicatrici.", "st_o_king-7": "«Preferisco morire che farti da messaggero.» Joker non andrà ad avvertire Shin. Ci penserà Kenshiro stesso.", "st_t_king-8": "Southern Cross: Shin", "st_i_king-8": "In cima alla sua città, Shin aspetta. Ha costruito tutto per lei, per Yuria. Un anno dopo la notte delle sette cicatrici, i due uomini si affrontano di nuovo.", "st_o_king-8": "Shin ha perso. Non lascerà che Kenshiro gli dia la morte: si getta dalla cima del suo palazzo. Yuria non c'era più. Il viaggio di Kenshiro è appena cominciato…", "sto_win": "Vinci il combattimento", "sto_rounds": "Vinci in {n} turni o meno", "sto_hits": "Colpisci l'avversario {n} volte", "sto_lost": "Perdi al massimo {n} PV", "sto_lastUlt": "Finisci con una mossa finale", "sto_keep": "Conserva più del {n}% dei tuoi PV", "sto_noRelay": "Non fare nessun cambio", "sto_noTrap": "Non far scattare nessuna trappola nemica", "sto_noJoker": "Non lasciare mai pescare Joker", "sto_firstKo": "Metti KO {who} per primo", "sto_killLvl": "Finisci {who} con {lvl}", "stLvl2": "un Pesante", "stLvlU": "una mossa finale"});
 const CHANGELOG=[
+ {v:"0.59.0",d:"2026-10-05",fr:["Nouvel accueil : on choisit d'abord son mode de jeu, puis son équipe sur un écran à part","PC : menu façon borne d'arcade, le perso du mode survolé s'affiche en grand","Mobile : les modes en affiches à faire défiler, les défis en haut","Bouton « Au hasard » déplacé sur l'écran d'équipe"],en:["New home screen: pick your game mode first, then your team on its own screen","PC: arcade-style menu, the hovered mode shows its fighter in full","Mobile: modes as swipeable posters, challenges on top","“Random” button moved to the team screen"],it:["Nuova schermata iniziale: prima scegli la modalità, poi la squadra in una schermata a parte","PC: menu in stile cabinato arcade, la modalità selezionata mostra il suo combattente in grande","Mobile: le modalità come locandine da scorrere, le sfide in alto","Il pulsante « A caso » è ora nella schermata della squadra"],ja:["新しいホーム画面：先にモードを選び、次の画面でチームを組む","PC：アーケード風メニュー。選んだモードのキャラが大きく表示","スマホ：モードをスワイプできるポスター表示、チャレンジは上部に","「ランダム」ボタンをチーム画面へ移動"]},
  {v:"0.58.2",d:"2026-10-05",fr:["PC : les boutons du menu passent à la ligne au lieu de déborder, et le panneau de gauche n'est plus coupé"],en:["PC: menu buttons now wrap instead of overflowing, and the left panel is no longer cut off"],it:["PC: i pulsanti del menu vanno a capo invece di uscire dallo schermo, e il pannello a sinistra non è più tagliato"],ja:["PC：メニューボタンがはみ出さず折り返すように。左パネルが切れなくなりました"]},
  {v:"0.58.1",d:"2026-10-05",fr:["Mobile : une carte ne reste plus surélevée après l'avoir touchée"],en:["Mobile: a card no longer stays raised after being tapped"],it:["Mobile: una carta non resta più sollevata dopo averla toccata"],ja:["モバイル：タップ後にカードが浮いたままになる問題を修正"]},
  {v:"0.58.0",d:"2026-10-05",fr:["Nouvelle barre de rage : 8 lames inclinées et un compteur (ex. 5/8), elle s'illumine quand l'ultime est prêt"],en:["New rage bar: 8 slanted blades and a counter (e.g. 5/8), it lights up when the ultimate is ready"],it:["Nuova barra della rabbia: 8 lame inclinate e un contatore (es. 5/8), si illumina quando la suprema è pronta"],ja:["怒りゲージを8枚の刃とカウンター表示に"]},
@@ -3981,7 +4045,7 @@ function achHTML(st){
 let FACES={};
 const FACE=id=>FACES[id]?`/api/face/${id}?v=${FACES[id]}`:`assets/face-${id}.webp`;
 const EYES={"baran":[316, 111],"colo":[280, 153],"kasumi":[304, 127],"shuken":[259, 125],"tesshin":[250, 71],"yuria":[285, 90],"punk1":[294, 158],"punk2":[299, 158],"general":[194, 159],"shazan":[353, 108],"koryu":[285, 142],"lastgen":[275, 111],"linh":[274, 126],"jugai":[282, 123],"sanga":[237, 127],"seiji":[232, 123],"rihaku":[282, 97],"rival":[276, 127],"asura":[316, 63],"bat":[223, 94],"borge":[336, 208],"boltz":[290, 97],"joker":[315, 114],"taiga":[258, 71],"kiba1":[251, 158],"kiba2":[282, 158],"kiba3":[281, 158],"kiba4":[263, 158],"kiba5":[259, 158],"kiba6":[286, 158],"kiba7":[257, 158],"yasaka":[270, 179],"taiyan":[259, 108],"punk3":[293, 287],"punk4":[232, 317],"punk5":[340, 185],"punk6":[321, 257],"punk7":[255, 158],"punk8":[285, 161],"punk9":[287, 158],"punk10":[293, 158],"punk11":[251, 172],"amiba":[360,126],"aveugle":[305,133],"club":[232,138],"dagar":[281,106],"dans":[268,128],"demon":[258,110],"devil":[299,169],"diamond":[262,137],"emp":[249,100],"fourbe":[312,62],"geant":[300,90],"jackal":[224,77],"kiba":[257,74],"maitre":[236,128],"mang":[282,112],"narc":[262,71],"nuage":[282,68],"ryuga":[257,115],"sage":[257,113],"spade":[298,115],"uighur":[326,113],"ventre":[284,75],"vieux":[265,93],"zeed":[334,91],"colonel":[335,98],"han":[285,52],"huey":[322,148],"hyo":[330,88],"jako":[360,78],"jukei":[340,90],"mamiya":[322,128],"raiga":[145,102],"shachi":[325,112],"shuren":[285,92],"solia":[292,64],"charles":[305,86],"feiyan":[290,66],"fox":[243,248],"sarge":[272,176],"akashachi":[300,130],"alf":[280,90],"bask":[276,100],"ein":[296,115],"frieda":[255,127],"garuda":[270,106],"harn":[330,250],"kaiser":[332,80],"kuroyasha":[247,275],"liu":[240,80],"nameless":[276,88],"ogai":[300,70],"rima":[255,80],"rofu":[330,62],"hag":[304,90],"shoki":[304,82]};
-async function facesLoad(){ if(!window.DOOM_SELFHOST) return; try{ const r=await fetch("/api/faces",{cache:"no-store"}).then(x=>x.json()); if(r && r.faces){ const ch=JSON.stringify(r.faces)!==JSON.stringify(FACES); FACES=r.faces; if(ch && document.querySelector(".selwrap")) renderTitle(TITLE_SEL); } }catch(e){} }
+async function facesLoad(){ if(!window.DOOM_SELFHOST) return; try{ const r=await fetch("/api/faces",{cache:"no-store"}).then(x=>x.json()); if(r && r.faces){ const ch=JSON.stringify(r.faces)!==JSON.stringify(FACES); FACES=r.faces; if(ch && document.querySelector(".selwrap,.hm")) renderTitle(TITLE_SEL); } }catch(e){} }
 function renderFaceAdmin(sel=[]){
   const ids=Object.keys(FIGHTERS).sort((a,b)=>nm(a).localeCompare(nm(b)));
   pageShell(L("faTitle"),`<p class="iplead">${L("faLead")}</p><div class="fagrid">${ids.map(id=>`<button class="fa ${FACES[id]?"mod":""}" data-fa="${id}"><img src="${FACE(id)}" alt=""><span>${esc(nm(id))}</span></button>`).join("")}</div>`,sel);
@@ -4054,7 +4118,7 @@ function mmToast(n){ document.querySelectorAll(".mmtoast").forEach(x=>x.remove()
   const d=document.createElement("div"); d.className="mmtoast"; d.innerHTML=`<b>${L("mmWait",n)}</b><button class="btn sm" id="mmgo">${L("mmGo")}</button><button class="mmx" aria-label="${L("close")}">✕</button>`;
   document.body.appendChild(d);
   d.querySelector(".mmx").onclick=()=>d.remove();
-  d.querySelector("#mmgo").onclick=()=>{ d.remove(); const b=$("#online"); if(b && !b.disabled){ b.click(); setTimeout(()=>{ const q=$("#quick"); if(q) q.classList.add("pulse"); },50); } else { const h=$(".bh"); if(h){ h.textContent=L("mmPickTeam"); h.classList.add("flashh"); } } };
+  d.querySelector("#mmgo").onclick=()=>{ d.remove(); HOME_M="online"; if(TITLE_SEL.length>=TEAM_MIN && deckValid(TITLE_SEL)){ renderLobby(TITLE_SEL); setTimeout(()=>{ const q=$("#quick"); if(q) q.classList.add("pulse"); },50); } else { renderTitle(TITLE_SEL); const h=$(".bh"); if(h){ h.textContent=L("mmPickTeam"); h.classList.add("flashh"); } } };
   setTimeout(()=>d.remove(),12000); SFX.play("event"); }
 function chDnd(){ try{ return localStorage.getItem("boc-chdnd")==="1"; }catch(e){ return false; } }
 function chSetDnd(v){ try{ localStorage.setItem("boc-chdnd",v?"1":"0"); }catch(e){} presPing(); }
@@ -4212,7 +4276,7 @@ function dailyDef(day){
 }
 async function dailyLoad(){
   if(!ACC.on || !ACC.user || DAILY.loading) return; DAILY.loading=true;
-  try{ const r=await api("GET","/api/daily"); if(r.ok){ const was=DAILY.day+"|"+DAILY.done; DAILY.day=r.day; DAILY.done=!!r.done; DAILY.n=r.streak||0; if(was!==DAILY.day+"|"+DAILY.done && document.querySelector(".selwrap")) renderTitle(TITLE_SEL); } }catch(e){}
+  try{ const r=await api("GET","/api/daily"); if(r.ok){ const was=DAILY.day+"|"+DAILY.done; DAILY.day=r.day; DAILY.done=!!r.done; DAILY.n=r.streak||0; if(was!==DAILY.day+"|"+DAILY.done && document.querySelector(".selwrap,.hm")) renderTitle(TITLE_SEL); } }catch(e){}
   DAILY.loading=false;
 }
 function dailyBannerHTML(sel){
@@ -4276,7 +4340,7 @@ function renderWeekly(sel=TITLE_SEL){
     <div class="wkvs"><div><h3 class="pfh">${L("survYou")}</h3>${ok?survFaces(sel):`<p class="note">${L("dyYourTeam")}</p>`}${ok?`<p class="note">${L("wkCost",teamCost(sel))}</p>`:""}</div>
       <div class="svvs">VS</div>
       <div><h3 class="pfh">${L("wkFoe")}</h3>${survFaces(foe)}<p class="note">${L("wkFoeMod")}</p></div></div>
-    <div class="row" style="justify-content:center;margin:6px 0 14px"><button class="btn" id="wkfight" ${ok&&foe.length?"":"disabled"}>${L("survFight")}</button></div>
+    <div class="row" style="justify-content:center;margin:6px 0 14px">${ok?"":`<button class="btn ghost" id="wkteam">${L("hmTeamBtn")}</button>`}<button class="btn" id="wkfight" ${ok&&foe.length?"":"disabled"}>${L("survFight")}</button></div>
     ${WEEK.me?`<p class="wkme">${L("wkYourBest",WEEK.me.rank,WEEK.n)} ${wkScore(WEEK.me)}</p>`:""}
     <h3 class="pfh">${L("wkTop")}</h3>
     ${WEEK.top.length?`<ol class="wklist">${WEEK.top.map(row).join("")}</ol>`:`<p class="note">${L("wkEmpty")}</p>`}
@@ -4284,6 +4348,7 @@ function renderWeekly(sel=TITLE_SEL){
     ${WEEK.prev.length?`<h3 class="pfh">${L("wkPrev")}</h3><ol class="wklist prev">${WEEK.prev.map(row).join("")}</ol>`:""}
   </div>`,sel);
   $("#wkfight").onclick=()=>weeklyStart(sel);
+  if($("#wkteam")) $("#wkteam").onclick=()=>{ SFX.play("click"); HOME_M="weekly"; renderTitle(sel); };
   bindLang(()=>renderWeekly(sel));
   if(Date.now()-WEEK.t>60000) weeklyLoad(true);
 }
@@ -4790,17 +4855,10 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; ARC.on=fa
   const f=FIGHTERS[focus], sp=SPECS[focus], n=Math.max(sel.length,3);
   const lks=linksOf(sel);
   const hint=(cb?`<div class="cbon">★ ${L("clanOn",L("clan_"+cb))} · ${L("cb_"+cb)}</div>`:(lks.length?"":`<div class="bh">${stuck&&!ready?L("noRoom"):L("budgetHelp")}</div>`))+(lks.length?`<button class="lkon" id="lkon">🔗 ${linkNames(lks)}</button>`:"");
-  $("#app").innerHTML=`<div class="screen sel" style="overflow-y:auto">
-    <div class="toprow">${LOGO_HTML}<div class="modes top"><button class="btn" id="go" ${ready?"":"disabled"}>${ready?L("vsAi"):`<span class="lgo">${L("more",TEAM_MIN-sel.length)}</span><span class="smo">${L("vsAi")}</span>`}</button>
-      <button class="btn ghost" id="online" ${ready?"":"disabled"}>${L("vsOnline")}</button>
-      <button class="btn ghost" id="surv" ${ready?"":"disabled"}>${L("survBtn")}</button>
-      <button class="btn ghost" id="arc" ${ready?"":"disabled"}>${L("arcBtn")}</button>
-      ${ACC.user&&ACC.user.admin?`<button class="btn ghost" id="story">${L("stBtn")} 🔒</button>`:""}
-      <button class="btn ghost" id="rnd">${L("random")}</button>
-      <button class="btn ghost" id="tuto">${L("tuto")}</button><button class="btn ghost sm" id="roster">${L("rosterBtn")}</button><button class="btn ghost sm" id="rules">${L("rulesBtn")}</button>${ACC.on?`<button class="btn ghost" id="tour">${L("tourBtn")}</button><button class="btn ghost sm" id="hof">${L("hofBtn")}</button>`:""}</div><div class="row">${presChip()}<button class="vbtn" id="ver" title="${L("newsTitle")}"><i class="betatag">BETA</i> v${APP_VERSION}</button><div class="icodrop${MOBM?" open":""}" id="icodrop"><button class="tbtn mmbtn" id="mmbtn" aria-label="${L("mmMenu")}" title="${L("mmMenu")}" aria-expanded="${MOBM}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6.5h16M4 12h16M4 17.5h16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></button><div class="icol">${accBtnHTML()}${FS_OK?`<button class="tbtn" id="fs" aria-label="${L("fullscreen")}" title="${L("fullscreen")}">${SVG_FS}</button>`:""}<button class="tbtn" id="snd" aria-pressed="${SFX.on}" aria-label="${L("sound")}" title="${L("sound")}">${SFX.on?SVG_ON:SVG_OFF}</button><button class="tbtn" id="mus" aria-pressed="${MUSIC.on}" aria-label="${L("music")}" title="${L("music")}">${MUSIC.on?SVG_MUS:SVG_MUS_OFF}</button><i class="icsep"></i>${langBar()}</div></div>${langBar()}</div></div>
+  $("#app").innerHTML=`<div class="screen ${HOME_M?"sel":"home"}" style="overflow-y:auto">
+    <div class="toprow">${LOGO_HTML}${HOME_M?pickHeadHTML():""}<div class="row">${presChip()}<button class="vbtn" id="ver" title="${L("newsTitle")}"><i class="betatag">BETA</i> v${APP_VERSION}</button><div class="icodrop${MOBM?" open":""}" id="icodrop"><button class="tbtn mmbtn" id="mmbtn" aria-label="${L("mmMenu")}" title="${L("mmMenu")}" aria-expanded="${MOBM}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6.5h16M4 12h16M4 17.5h16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></button><div class="icol">${accBtnHTML()}${FS_OK?`<button class="tbtn" id="fs" aria-label="${L("fullscreen")}" title="${L("fullscreen")}">${SVG_FS}</button>`:""}<button class="tbtn" id="snd" aria-pressed="${SFX.on}" aria-label="${L("sound")}" title="${L("sound")}">${SFX.on?SVG_ON:SVG_OFF}</button><button class="tbtn" id="mus" aria-pressed="${MUSIC.on}" aria-label="${L("music")}" title="${L("music")}">${MUSIC.on?SVG_MUS:SVG_MUS_OFF}</button><i class="icsep"></i>${langBar()}</div></div>${langBar()}</div></div>
     ${pwaBarHTML()}
-    ${dailyBannerHTML(sel)}
-    ${weeklyBannerHTML(sel)}
+    ${HOME_M?`${HOME_M==="daily"?dailyBannerHTML(sel):""}
     <div class="selwrap"><div class="selL">
     <div class="show cl-${CLAN[focus]}">
       <img class="full" src="assets/${focus}.webp" alt="">
@@ -4815,13 +4873,13 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; ARC.on=fa
     </div>
     <div class="teambar">
       <div class="slots">${Array.from({length:TEAM_MAX},(_,i)=>sel[i]?`<button class="slot" data-rm="${sel[i]}" title="${esc(nm(sel[i]))}"><img src="${FACE(sel[i])}" alt=""><i>✕</i></button>`:`<div class="slot empty${i>=TEAM_MIN?" opt":""}">${i+1}</div>`).join("")}</div>
-      <button class="btn tbgo" id="go2" ${ready?"":"disabled"}>${ready?L("vsAi"):L("more",TEAM_MIN-sel.length)}</button>
+      <button class="btn tbgo" id="go2" ${ready?"":"disabled"}>${ready?L("hmGo"):L("more",TEAM_MIN-sel.length)}</button>
       <div class="budget"><div class="bl"><span>${L("budget",cost,BUDGET)}</span><span class="cnt">${L("teamCount",sel.length,TEAM_MIN,TEAM_MAX)}</span></div>
         <div class="pips">${Array.from({length:BUDGET},(_,i)=>`<i class="${i<cost?"u":""}"></i>`).join("")}</div>${hint}</div>
-    </div>${deckChipsHTML(sel)}
+    </div><div class="pkx"><button class="btn ghost sm" id="rnd">🎲 ${L("random")}</button></div>${deckChipsHTML(sel)}
     </div><div class="selR">
     ${groups}
-    <p class="howto">${L("howto")}</p><p class="betanote">${L("betaNote")}</p>${socialHTML()}<p class="fanmade">${L("fanMade")}</p></div></div>
+    <p class="howto">${L("howto")}</p><p class="betanote">${L("betaNote")}</p>${socialHTML()}<p class="fanmade">${L("fanMade")}</p></div></div>`:homeHTML(sel)}
   </div>`;
   const redo=(nx,fo)=>{const sc=document.querySelector(".screen"),y=sc?sc.scrollTop:0;renderTitle(nx,fo);const s2=document.querySelector(".screen");if(s2)s2.scrollTop=y;};
   document.querySelectorAll(".ftile").forEach(b=>b.onclick=()=>{
@@ -4831,23 +4889,20 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; ARC.on=fa
     redo([...sel,id],id);
   });
   document.querySelectorAll(".slot[data-rm]").forEach(b=>b.onclick=()=>{SFX.play("click");redo(sel.filter(x=>x!==b.dataset.rm),focus);});
-  $("#go").onclick=()=>{ SFX.play("click"); aiAsk(sel); };
-  if($("#go2")) $("#go2").onclick=()=>$("#go").click();
-  $("#online").onclick=()=>{ SFX.play("click"); renderLobby(sel); };
-  $("#surv").onclick=()=>{ SFX.play("event"); survStart(sel); };
-  $("#arc").onclick=()=>{ SFX.play("event"); arcStart(sel); };
-  if($("#story")) $("#story").onclick=()=>{ SFX.play("event"); renderStory(sel); };
+  if($("#go2")) $("#go2").onclick=()=>{ SFX.play("event"); pickLaunch(sel); };
+  if($("#hmback")) $("#hmback").onclick=()=>{ SFX.play("click"); HOME_M=null; renderTitle(sel); };
+  if(!HOME_M) bindHome(sel);
   bindDeckChips(sel,redo);
-  if($("#dygo")) $("#dygo").onclick=()=>{ SFX.play("event"); dailyStart(sel); };
+  if($("#dygo")) $("#dygo").onclick=()=>{ SFX.play("event"); const d=dailyDef(DAILY.day); if(HOME_M || d.kind==="team") dailyStart(sel); else { HOME_M="daily"; renderTitle(sel); } };
   if($("#lkon")) $("#lkon").onclick=()=>{ SFX.play("click"); linksPop(sel); };
-  bindWeeklyBanner(sel); if(ACC.user) weeklyLoad();
+  if(!HOME_M) bindWeeklyBanner(sel); if(ACC.user) weeklyLoad();
   if(ACC.user && (!DAILY.day || DAILY.day!==new Date().toLocaleDateString("sv-SE",{timeZone:"Europe/Brussels"}))) dailyLoad();
   if(ACC.user && !DECKS.list && !DECKS.loading) decksLoad().then(()=>{ if(document.querySelector(".selwrap") && TITLE_SEL===sel) redo(sel,focus); });
-  $("#rnd").onclick=()=>{ SFX.play("click"); const t=randomTeam(); redo(t,t[0]); };
-  $("#tuto").onclick=()=>{ SFX.play("event"); startTuto(); };
-  $("#roster").onclick=()=>{ SFX.play("click"); renderRoster(sel); };
+  if($("#rnd")) $("#rnd").onclick=()=>{ SFX.play("click"); const t=randomTeam(); redo(t,t[0]); };
+  if($("#tuto")) $("#tuto").onclick=()=>{ SFX.play("event"); startTuto(); };
+  if($("#roster")) $("#roster").onclick=()=>{ SFX.play("click"); renderRoster(sel); };
   fitShowName(); requestAnimationFrame(fitShowName); if(document.fonts) document.fonts.ready.then(fitShowName);
-  $("#rules").onclick=()=>{ SFX.play("click"); renderRules(sel); };
+  if($("#rules")) $("#rules").onclick=()=>{ SFX.play("click"); renderRules(sel); };
   if($("#hof")) $("#hof").onclick=()=>{ SFX.play("click"); renderHof(sel); };
   if($("#tour")) $("#tour").onclick=()=>{ SFX.play("click"); renderTourHome(sel); };
   $("#ver").onclick=()=>{ SFX.play("click"); renderChangelog(sel); };
@@ -4865,6 +4920,48 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; ARC.on=fa
     if(!window._icoDoc && document.addEventListener){ window._icoDoc=1; document.addEventListener("click",e=>{ if(MOBM && !(e.target.closest&&e.target.closest("#icodrop"))){ MOBM=false; const d2=$("#icodrop"); if(d2) d2.classList.remove("open"); } }); } }
 }
 let MOBM=false;
+
+/* ---------- accueil : choix du mode, puis écran d'équipe ---------- */
+let HOME_M=null;
+const HM_ART={ai:"maitre",online:"colo",tour:"emp",surv:"fourbe",arc:"sage",story:"rival"};
+function hmModes(){ const m=[["ai",L("vsAi")],["online",L("vsOnline")]]; if(ACC.on) m.push(["tour",L("tourBtn")]); m.push(["surv",L("survBtn")],["arc",L("arcBtn")]); if(ACC.user&&ACC.user.admin) m.push(["story",L("stBtn")+" 🔒"]); return m; }
+function hmName(m){ return {ai:L("vsAi"),online:L("vsOnline"),surv:L("survBtn"),arc:L("arcBtn"),daily:L("dyTitle"),weekly:L("wkTitle")}[m]||""; }
+function pickHeadHTML(){ return `<div class="pickhead"><button class="backbtn" id="hmback" aria-label="${L("hmBack")}"><i class="bk-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></i><span class="blabel">${L("hmBack")}</span></button><div class="pkmode"><small>${L("hmPick")}</small><b>${esc(hmName(HOME_M))}</b></div></div>`; }
+function hmDailyHTML(){
+  if(!ACC.on || !ACC.user || !DAILY.day || DAILY.done) return "";
+  const d=dailyDef(DAILY.day), desc=d.kind==="team"?L("dyTeam"):d.kind==="boss"?L("dyBoss",d.foe.map(nm).join(", ")):L("dyFlawless");
+  return `<div class="daily hmc"><div class="dyhead"><span class="dytag">${L("dyTitle")}</span><b>+40 pts</b></div><p>${desc}</p><div class="dyvs">${d.kind==="team"?`<span>${deckFaces(d.team)}</span><em>VS</em>`:""}<span>${deckFaces(d.foe)}</span><button class="btn sm" id="dygo">${L("dyGo")}</button></div></div>`;
+}
+function homeHTML(sel){
+  const ms=hmModes(), m0=ms[0][0];
+  return `<div class="hm"><div class="hmL"><div class="hmlist">${ms.map(([m,n],i)=>`<button class="hmi${i===0?" on":""}" data-m="${m}"${m==="online"?' id="online"':""} style="--hc:var(--hm-${m})"><img class="hmp" src="assets/${HM_ART[m]}.webp" alt="" loading="lazy"><span class="hmt"><b>${n}</b><small>${L("hmd_"+m)}</small></span></button>`).join("")}</div>
+    <div class="hmch">${hmDailyHTML()}${weeklyBannerHTML(sel)}</div></div>
+    <div class="hmstage" style="--hc:var(--hm-${m0})"><img id="hmimg" src="assets/${HM_ART[m0]}.webp" alt=""><div class="hminfo"><div class="k">${L("hmMode")}</div><h1 id="hmh">${ms[0][1]}</h1><p id="hmd">${L("hmd_"+m0)}</p><button class="btn hmplay" id="hmplay" data-m="${m0}">${L("hmPlay")}</button></div></div></div>
+    <div class="hmlinks"><button class="btn ghost sm" id="tuto">${L("tuto")}</button><button class="btn ghost sm" id="roster">${L("rosterBtn")}</button><button class="btn ghost sm" id="rules">${L("rulesBtn")}</button>${ACC.on?`<button class="btn ghost sm" id="hof">${L("hofBtn")}</button>`:""}</div>
+    ${socialHTML()}<p class="fanmade">${L("fanMade")}</p>`;
+}
+function hmEnter(m,sel){
+  if(m==="tour") return renderTourHome(sel);
+  if(m==="story") return renderStory(sel);
+  HOME_M=m; renderTitle(sel);
+}
+function bindHome(sel){
+  const show=b=>{ const m=b.dataset.m, st=$(".hmstage"); if(!st||!st.style) return;
+    document.querySelectorAll(".hmi").forEach(x=>x.classList.toggle("on",x===b));
+    st.style.setProperty("--hc",`var(--hm-${m})`); $("#hmimg").src=`assets/${HM_ART[m]}.webp`;
+    $("#hmh").textContent=b.querySelector("b").textContent; $("#hmd").textContent=L("hmd_"+m); $("#hmplay").dataset.m=m; };
+  document.querySelectorAll(".hmi").forEach(b=>{ b.onmouseenter=()=>show(b); b.onfocus=()=>show(b);
+    b.onclick=()=>{ SFX.play("event"); hmEnter(b.dataset.m,sel); }; });
+  if($("#hmplay")) $("#hmplay").onclick=()=>{ SFX.play("event"); hmEnter($("#hmplay").dataset.m,sel); };
+}
+function pickLaunch(sel){
+  if(!(sel.length>=TEAM_MIN)) return;
+  ({ai:()=>aiAsk(sel),online:()=>renderLobby(sel),surv:()=>survStart(sel),arc:()=>arcStart(sel),daily:()=>dailyStart(sel),weekly:()=>weeklyStart(sel)}[HOME_M]||(()=>aiAsk(sel)))();
+}
+Object.assign(UI.fr,{hmMode:"Mode",hmPlay:"Jouer",hmGo:"C'est parti",hmBack:"Modes",hmPick:"Choisis ton équipe",hmTeamBtn:"Choisir mon équipe",hmd_ai:"Monte ton équipe et affronte l'IA. 4 niveaux de difficulté.",hmd_online:"Affronte un vrai joueur, en partie rapide ou avec un code.",hmd_tour:"Un tournoi entre joueurs, un seul vainqueur.",hmd_surv:"Enchaîne les vagues sans récupérer tes PV. Tiens le plus longtemps.",hmd_arc:"Monte les étages de la Tour jusqu'au boss final.",hmd_story:"Suis Kenshiro chapitre après chapitre. Arc 1 : KING."});
+Object.assign(UI.en,{hmMode:"Mode",hmPlay:"Play",hmGo:"Let's go",hmBack:"Modes",hmPick:"Pick your team",hmTeamBtn:"Pick my team",hmd_ai:"Build your team and fight the AI. 4 difficulty levels.",hmd_online:"Fight a real player, in quick match or with a code.",hmd_tour:"A tournament between players, only one winner.",hmd_surv:"Fight wave after wave without healing. Last as long as you can.",hmd_arc:"Climb the floors of the Tower up to the final boss.",hmd_story:"Follow Kenshiro chapter after chapter. Arc 1: KING."});
+Object.assign(UI.it,{hmMode:"Modalità",hmPlay:"Gioca",hmGo:"Si parte",hmBack:"Modalità",hmPick:"Scegli la tua squadra",hmTeamBtn:"Scegli la mia squadra",hmd_ai:"Componi la tua squadra e affronta l'IA. 4 livelli di difficoltà.",hmd_online:"Affronta un vero giocatore, in partita rapida o con un codice.",hmd_tour:"Un torneo tra giocatori, un solo vincitore.",hmd_surv:"Affronta ondate su ondate senza recuperare PV. Resisti il più a lungo possibile.",hmd_arc:"Sali i piani della Torre fino al boss finale.",hmd_story:"Segui Kenshiro capitolo dopo capitolo. Arco 1: KING."});
+Object.assign(UI.ja,{hmMode:"モード",hmPlay:"プレイ",hmGo:"開始",hmBack:"モード",hmPick:"チームを選べ",hmTeamBtn:"チームを選ぶ",hmd_ai:"チームを組んでAIと戦う。難易度は4段階。",hmd_online:"本物のプレイヤーと対戦。クイックマッチかコードで。",hmd_tour:"プレイヤー同士のトーナメント。勝者はただ一人。",hmd_surv:"HPを回復せずに連戦。どこまで耐えられるか。",hmd_arc:"塔を登り、最上階のボスを目指せ。",hmd_story:"ケンシロウの旅を章ごとに追う。第1部：KING。"});
 
 /* ---------- réaction affichée (locale ou à distance) ---------- */
 function currentReact(){
