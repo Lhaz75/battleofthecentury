@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.48.0 — 2026-10-05
+
+- Mobile : nouveau menu ☰ (son, musique, plein écran, langue, combattants, tuto, règles), l'écran d'accueil est moins chargé
+- Combat : les cases de piège et de terrain vides ne s'affichent plus
+
 ## v0.47.1 — 2026-10-05
 
 - Retour de l'icône d'origine (médaillon bleu)
