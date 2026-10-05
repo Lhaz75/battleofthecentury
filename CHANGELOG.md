@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.58.1 — 2026-10-05
+
+- Mobile : une carte ne reste plus surélevée après l'avoir touchée
+
 ## v0.58.0 — 2026-10-05
 
 - Nouvelle barre de rage : 8 lames inclinées et un compteur (ex. 5/8), elle s'illumine quand l'ultime est prêt
