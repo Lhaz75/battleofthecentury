@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.62.1 — 2026-10-05
+
+- Le dé s'appelle « Équipe au hasard » et se trouve dans la barre d'équipe, à côté de tes emplacements
+
 ## v0.62.0 — 2026-10-05
 
 - PC : écran d'équipe réorganisé, la barre d'équipe (slots, points, bouton pour lancer) est fixée en bas et toujours visible
