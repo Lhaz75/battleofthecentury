@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.64.0 — 2026-10-06
+
+- Nouveaux liens « Frères de sang » : Toki et Ken-Oh, Kenshiro et Hyō. Si l'un tombe, l'autre gagne +3 rage et ses coups font +1 jusqu'à la fin du combat
+
 ## v0.63.3 — 2026-10-06
 
 - Accueil PC : menu et défis plus compacts, la page tient dans l'écran même avec le défi du jour (description au survol)
