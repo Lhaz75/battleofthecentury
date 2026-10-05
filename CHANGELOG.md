@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.57.0 — 2026-10-05
+
+- Équilibrage : les PV de 25 combattants sont ajustés, tous les persos gagnent maintenant entre 45 et 55 % de leurs combats (testé sur 60 000 parties)
+- Arcade : l'étage 7 « Les généraux » est moins brutal (moins de PV et de rage au départ)
+
 ## v0.56.1 — 2026-10-05
 
 - Les gros plans d'ultime utilisent maintenant l'illustration du perso directement (jeu plus léger, et tous les persos ont leur gros plan, pillards et Kiba compris)
