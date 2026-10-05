@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.60.0 — 2026-10-05
+
+- Combattants : recherche (nom, technique, effet), filtre par école et par coût, tri par école, coût, PV ou nom
+- Vignettes des persos refaites : toutes les têtes ont maintenant à peu près la même taille
+
 ## v0.59.5 — 2026-10-05
 
 - Mobile : l'administration passe en bas de Mon compte, avec des boutons plus compacts
