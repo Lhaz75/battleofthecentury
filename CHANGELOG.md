@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.61.1 — 2026-10-05
+
+- Versus en ligne : page refaite, avec le bouton retour en haut, ton équipe affichée, la partie rapide d'un côté et la partie entre amis de l'autre (le code se tape et se valide avec Entrée)
+
 ## v0.61.0 — 2026-10-05
 
 - Admin : nouvelle page Cadrages pour recadrer à la main l'illustration de combat et la vignette de chaque perso
