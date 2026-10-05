@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.52.0 — 2026-10-05
+
+- Nouvelle combattante : Lin (Hokuto no Ken 2), arbalétrière de l'Armée de Hokuto
+- Le lien Armée de Hokuto marche maintenant avec 2 persos parmi Bat, Ein et Lin
+
 ## v0.51.0 — 2026-10-05
 
 - 3 nouveaux combattants : Jugai (Nanto Kōshūken), Seiji (Hokumon no Ken) et Sanga (dictateur de Last Land)
