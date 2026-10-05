@@ -1,6 +1,6 @@
 // Recherche rapide : file d'attente en mémoire, appariement par Elo (fenêtre qui s'élargit avec l'attente).
 const crypto = require("crypto");
-const TEAM_RE = /^[a-z]{2,12}$/;
+const TEAM_RE = /^[a-z0-9]{2,12}$/;
 const A = "ABCDEFGHJKLMNPQRSTUVWXYZ";
 
 function makeMatchmaking({ docs, markDirty, broadcast, auth }) {

@@ -166,7 +166,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
   Promise.resolve(ready).then(() => store.getSetting("fstats")).then(v => { if (v && v.f) fstats = v; }).catch(() => {});
   setInterval(() => { if (fDirty) { fDirty = false; store.setSetting("fstats", fstats).catch(() => { fDirty = true; }); } }, 30000);
   function fRecord(team, won, kind) {
-    const ids = Array.isArray(team) ? [...new Set(team.filter(id => typeof id === "string" && /^[a-z]{2,12}$/.test(id)))].slice(0, 5) : [];
+    const ids = Array.isArray(team) ? [...new Set(team.filter(id => typeof id === "string" && /^[a-z0-9]{2,12}$/.test(id)))].slice(0, 5) : [];
     ids.forEach((id, i) => { const f = fstats.f[id] = fstats.f[id] || { vg: 0, vw: 0, ag: 0, aw: 0, lg: 0, lw: 0 };
       f[kind + "g"]++; if (won) f[kind + "w"]++;
       if (i === 0 && kind === "v") { f.lg++; if (won) f.lw++; } });
@@ -218,7 +218,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     }
     return out;
   }
-  function bumpFav(st, team) { (Array.isArray(team) ? team : []).slice(0, 5).forEach(id => { if (typeof id === "string" && /^[a-z]{2,12}$/.test(id)) st.fav[id] = (st.fav[id] || 0) + 1; }); }
+  function bumpFav(st, team) { (Array.isArray(team) ? team : []).slice(0, 5).forEach(id => { if (typeof id === "string" && /^[a-z0-9]{2,12}$/.test(id)) st.fav[id] = (st.fav[id] || 0) + 1; }); }
   function streak(st, won) { if (won) { st.streak = (st.streak || 0) + 1; st.best = Math.max(st.best || 0, st.streak); } else st.streak = 0; }
   const expect = (a, b) => 1 / (1 + Math.pow(10, (b - a) / 400));
 
@@ -328,7 +328,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       const list = Array.isArray(body.decks) ? body.decks.slice(0, 12) : null; if (!list) return [400, { error: "bad" }];
       const ok = [];
       for (const d of list) {
-        const team = Array.isArray(d && d.team) ? d.team.filter(id => typeof id === "string" && /^[a-z]{2,12}$/.test(id)).slice(0, 5) : [];
+        const team = Array.isArray(d && d.team) ? d.team.filter(id => typeof id === "string" && /^[a-z0-9]{2,12}$/.test(id)).slice(0, 5) : [];
         if (team.length < 2 || new Set(team).size !== team.length) continue;
         ok.push({ name: String(d.name || "").trim().slice(0, 24) || "Équipe", team });
       }
@@ -452,7 +452,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     "GET /api/faces": async () => [200, { faces: faces }],
     "POST /api/admin/face": async (req, body) => {
       const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];
-      const id = String(body.id || ""); if (!/^[a-z]{2,12}$/.test(id)) return [400, { error: "bad" }];
+      const id = String(body.id || ""); if (!/^[a-z0-9]{2,12}$/.test(id)) return [400, { error: "bad" }];
       if (body.reset) { delete faces[id]; await store.setSetting("face:" + id, null); await store.setSetting("faces", faces); return [200, { faces }]; }
       const m = /^data:(image\/(?:webp|png|jpeg));base64,([A-Za-z0-9+/=]+)$/.exec(String(body.image || ""));
       if (!m) return [400, { error: "image" }];
@@ -516,7 +516,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
   async function handle(req, res) {
     const url = new URL(req.url, "http://x");
     const send = (code, obj, extra) => { res.writeHead(code, { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store", ...extra }); res.end(JSON.stringify(obj)); };
-    const fm = /^\/api\/face\/([a-z]{2,12})$/.exec(url.pathname);
+    const fm = /^\/api\/face\/([a-z0-9]{2,12})$/.exec(url.pathname);
     if (req.method === "GET" && fm) {
       try { const f = await store.getSetting("face:" + fm[1]); if (!f || !f.data) { res.writeHead(404); return res.end(); }
         res.writeHead(200, { "Content-Type": f.type || "image/webp", "Cache-Control": "public, max-age=31536000, immutable", "X-Content-Type-Options": "nosniff" }); return res.end(Buffer.from(f.data, "base64")); }

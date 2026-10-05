@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.43.1 — 2026-10-05
+
+- Admin : les pastilles des punks et des Kiba peuvent maintenant être recadrées (erreur « mot de passe incorrect » corrigée)
+
 ## v0.43.0 — 2026-10-05
 
 - 3 nouveaux combattants : Asura de la Lumière Blanche (Gento Kōken), Bat adulte (Hokuto Shinken) et Borge (Tazu Kyōja Kon)
