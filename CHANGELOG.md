@@ -2,6 +2,13 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.46.0 — 2026-10-05
+
+- Écran d'équipe : bouton plus clair (« Choisis 2 persos »)
+- Les petites écoles s'affichent côte à côte, moins de défilement
+- Fiche du perso : le texte prend toute la largeur
+- PC : l'équipe reste visible sans défiler
+
 ## v0.45.1 — 2026-10-05
 
 - Drapeau japonais : le rond rouge n'est plus déformé
