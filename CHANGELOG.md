@@ -2,8 +2,9 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
-## v0.49.1 — 2026-10-05
+## v0.49.2 — 2026-10-05
 
+- Mobile : joueurs en ligne, version et menu ☰ à droite du logo
 - Mobile : les drapeaux passent dans le menu ☰, icône ☰ plus nette
 - Fin de combat : nouveau bouton « Menu principal », et « Revanche » relance vraiment le même combat (mêmes équipes, même niveau d'IA)
 
