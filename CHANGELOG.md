@@ -2,6 +2,13 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.51.0 — 2026-10-05
+
+- 3 nouveaux combattants : Jugai (Nanto Kōshūken), Seiji (Hokumon no Ken) et Sanga (dictateur de Last Land)
+- Nouveaux liens : Disciples de Fugen (Jugai + Shin), Père et fils ennemis (Seiji + Sanga)
+- Nouveau terrain : Medicine City (début de tour, ton perso actif regagne 2 PV)
+- Nouvelles illustrations de Shin et Rihaku
+
 ## v0.50.2 — 2026-10-05
 
 - Début de tour : tu as toujours au moins 2 attaques en main (terrains, pièges et spéciales en trop sont échangés), fini les mains bloquées
