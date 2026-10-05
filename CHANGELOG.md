@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.48.5 — 2026-10-05
+
+- Dekai Babaa : nouveau talent « Démasquée » (sous la moitié de ses PV, ses coups font +2), 17 PV
+
 ## v0.48.4 — 2026-10-05
 
 - Mobile : le menu ☰ est un petit déroulant d'icônes (profil, son, musique, plein écran), les modes et pages reviennent sur l'accueil
