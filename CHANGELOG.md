@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.62.6 — 2026-10-05
+
+- Accueil PC : tout tient dans l'écran, mention fan-made comprise
+- Les bords des grandes illustrations sont fondus dans le décor au lieu d'être coupés net
+
 ## v0.62.5 — 2026-10-05
 
 - PC : sur la fiche du perso, le texte passe en bandeau en bas et l'illustration s'arrête au-dessus, plus rien ne cache le perso
