@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.62.7 — 2026-10-05
+
+- L'équipe au hasard utilise toujours les 10 points
+- Mode histoire : les textes des chapitres sont sur un fond sombre, bien lisibles
+
 ## v0.62.6 — 2026-10-05
 
 - Accueil PC : tout tient dans l'écran, mention fan-made comprise
