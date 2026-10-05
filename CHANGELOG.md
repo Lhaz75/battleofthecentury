@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.59.4 — 2026-10-05
+
+- PC : la page Mon compte passe en 2 colonnes (profil et équipes à gauche, statistiques et succès à droite)
+
 ## v0.59.3 — 2026-10-05
 
 - Accueil PC : le mode sélectionné n'est plus coupé à gauche, sans la bande blanche
