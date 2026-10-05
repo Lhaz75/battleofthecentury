@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.48.3 — 2026-10-05
+
+- Quand l'adversaire n'a plus qu'un perso, les pièges de relais (Embuscade, Embuscade du clan Kiba) sont défaussés et remplacés, et tu ne les pioches plus
+
 ## v0.48.2 — 2026-10-05
 
 - Mobile : en combat, les cartes en main prennent la place libre (sur 2 rangées quand ça rentre), la ligne « Ton combo » vide est masquée
