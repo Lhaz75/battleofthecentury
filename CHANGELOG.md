@@ -4,7 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.46.1 — 2026-10-05
 
-- Fiche du perso : texte dans un encadré flouté, plus lisible
+- Fiche du perso : le texte passe sous l'illustration, plus rien ne cache le perso
 
 ## v0.46.0 — 2026-10-05
 
