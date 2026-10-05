@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.62.3 — 2026-10-05
+
+- PC : juste le dé dans la barre d'équipe, avec une bulle « Jouer avec une équipe aléatoire » au survol ; le texte d'aide sous les points est de nouveau lisible en entier
+
 ## v0.62.2 — 2026-10-05
 
 - Écran d'équipe : le texte de la fiche cache moins le perso, et une ombre fond la liste derrière la barre d'équipe
