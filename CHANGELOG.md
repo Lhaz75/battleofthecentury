@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.46.1 — 2026-10-05
+
+- Fiche du perso : plus de bande sombre, dégradé plus doux
+
 ## v0.46.0 — 2026-10-05
 
 - Écran d'équipe : bouton plus clair (« Choisis 2 persos »)
