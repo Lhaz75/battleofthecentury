@@ -2,6 +2,13 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.43.0 — 2026-10-05
+
+- 3 nouveaux combattants : Asura de la Lumière Blanche (Gento Kōken), Bat adulte (Hokuto Shinken) et Borge (Tazu Kyōja Kon)
+- 7 guerriers du clan Kiba (non jouables) : le 2e étage de l'arcade devient « Le clan Kiba », et ils renforcent les vagues 5-6 de la survie
+- 2 nouveaux liens : Armée de Hokuto (Bat + Ein) et Le disciple (Bat + Kenshiro)
+- Nouvelles illustrations pour Boltz, Joker et Taiga
+
 ## v0.42.2 — 2026-10-05
 
 - Nouveau terrain : Cité-prison de Cassandra (Moyens +2)
