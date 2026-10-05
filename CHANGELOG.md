@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.62.2 — 2026-10-05
+
+- Écran d'équipe : le texte de la fiche cache moins le perso, et une ombre fond la liste derrière la barre d'équipe
+
 ## v0.62.1 — 2026-10-05
 
 - Le dé s'appelle « Équipe au hasard » et se trouve dans la barre d'équipe, à côté de tes emplacements
