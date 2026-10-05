@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.58.2 — 2026-10-05
+
+- PC : les boutons du menu passent à la ligne au lieu de déborder, et le panneau de gauche n'est plus coupé
+
 ## v0.58.1 — 2026-10-05
 
 - Mobile : une carte ne reste plus surélevée après l'avoir touchée
