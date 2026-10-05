@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.53.0 — 2026-10-05
+
+- 2 nouveaux combattants : Koryu (Hokuto Shinken) et le Dernier général de Nanto
+- Nouveaux liens : Les Cinq Chars (le général + les Goshasei), Le défi de Raoh (Koryu + Raoh)
+
 ## v0.52.0 — 2026-10-05
 
 - Nouvelle combattante : Lin (Hokuto no Ken 2), arbalétrière de l'Armée de Hokuto
