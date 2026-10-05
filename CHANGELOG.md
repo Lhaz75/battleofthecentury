@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.45.1 — 2026-10-05
+
+- Drapeau japonais : le rond rouge n'est plus déformé
+
 ## v0.45.0 — 2026-10-05
 
 - Nouvelle langue : japonais (日本語), drapeau dans le choix des langues
