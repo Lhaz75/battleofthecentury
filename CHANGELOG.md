@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.63.2 — 2026-10-05
+
+- Admin Cadrages : chaque perso est montré avec sa vignette et son illustration de combat telles qu'en jeu
+
 ## v0.63.1 — 2026-10-05
 
 - Mode histoire : la mention des persos débloqués est retirée en attendant la version 1.0
