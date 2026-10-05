@@ -163,6 +163,9 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
   // statistiques d'équilibrage par combattant (vraies parties) : vg/vw = versus, ag/aw = contre l'IA
   let faces = {};
   Promise.resolve(ready).then(() => store.getSetting("faces")).then(v => { if (v && typeof v === "object") faces = v; }).catch(() => {});
+  // cadrages des illustrations (combat) et vignettes refaites par l'admin
+  let frames = { p: {}, b: {} };
+  Promise.resolve(ready).then(() => store.getSetting("frames")).then(v => { if (v && v.p && v.b) frames = v; }).catch(() => {});
   let fstats = { since: Date.now(), f: {}, n: { v: 0, a: 0 } }, fDirty = false;
   Promise.resolve(ready).then(() => store.getSetting("fstats")).then(v => { if (v && v.f) fstats = v; }).catch(() => {});
   setInterval(() => { if (fDirty) { fDirty = false; store.setSetting("fstats", fstats).catch(() => { fDirty = true; }); } }, 30000);
@@ -479,6 +482,23 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       console.log(`Pastille de ${id} recadrée par ${u.name}`);
       return [200, { faces }];
     },
+    "GET /api/frames": async () => [200, { frames }],
+    "POST /api/admin/frame": async (req, body) => {
+      const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];
+      const id = String(body.id || ""), kind = body.kind === "b" ? "b" : "p"; if (!/^[a-z0-9]{2,12}$/.test(id)) return [400, { error: "bad" }];
+      if (body.reset) { delete frames[kind][id]; if (kind === "b") await store.setSetting("bust:" + id, null); await store.setSetting("frames", frames); return [200, { frames }]; }
+      const c = body.crop || {}, n = v => Math.round(Number(v) || 0), crop = { x: n(c.x), y: n(c.y), w: Math.max(40, Math.min(1200, n(c.w))) };
+      if (kind === "b") {
+        const m = /^data:(image\/(?:webp|png|jpeg));base64,([A-Za-z0-9+/=]+)$/.exec(String(body.image || ""));
+        if (!m) return [400, { error: "image" }];
+        const buf = Buffer.from(m[2], "base64"); if (buf.length > 90 * 1024 || buf.length < 100) return [400, { error: "size" }];
+        await store.setSetting("bust:" + id, { type: m[1], data: m[2] });
+        crop.v = Date.now().toString(36);
+      }
+      frames[kind][id] = crop; await store.setSetting("frames", frames);
+      console.log(`Cadrage ${kind === "b" ? "vignette" : "combat"} de ${id} modifié par ${u.name}`);
+      return [200, { frames }];
+    },
     "GET /api/admin/face": async (req, body, ip, url) => {
       const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];
       const f = await store.getSetting("face:" + (url.searchParams.get("id") || "")); return [200, { crop: f && f.crop || null }];
@@ -536,6 +556,12 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     const fm = /^\/api\/face\/([a-z0-9]{2,12})$/.exec(url.pathname);
     if (req.method === "GET" && fm) {
       try { const f = await store.getSetting("face:" + fm[1]); if (!f || !f.data) { res.writeHead(404); return res.end(); }
+        res.writeHead(200, { "Content-Type": f.type || "image/webp", "Cache-Control": "public, max-age=31536000, immutable", "X-Content-Type-Options": "nosniff" }); return res.end(Buffer.from(f.data, "base64")); }
+      catch (e) { res.writeHead(500); return res.end(); }
+    }
+    const bm = /^\/api\/bust\/([a-z0-9]{2,12})$/.exec(url.pathname);
+    if (req.method === "GET" && bm) {
+      try { const f = await store.getSetting("bust:" + bm[1]); if (!f || !f.data) { res.writeHead(404); return res.end(); }
         res.writeHead(200, { "Content-Type": f.type || "image/webp", "Cache-Control": "public, max-age=31536000, immutable", "X-Content-Type-Options": "nosniff" }); return res.end(Buffer.from(f.data, "base64")); }
       catch (e) { res.writeHead(500); return res.end(); }
     }

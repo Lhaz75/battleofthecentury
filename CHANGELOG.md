@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.61.0 — 2026-10-05
+
+- Admin : nouvelle page Cadrages pour recadrer à la main l'illustration de combat et la vignette de chaque perso
+
 ## v0.60.4 — 2026-10-05
 
 - Combat : les grandes illustrations sont recadrées pour que les têtes aient à peu près la même taille et la même hauteur (Zeed n'a plus l'air d'un nain)
