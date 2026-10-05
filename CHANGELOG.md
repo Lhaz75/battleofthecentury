@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.53.1 — 2026-10-05
+
+- Les cartes Garde, Esquive et Contre ont leurs illustrations
+
 ## v0.53.0 — 2026-10-05
 
 - 2 nouveaux combattants : Koryu (Hokuto Shinken) et le Dernier général de Nanto
