@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.62.0 — 2026-10-05
+
+- PC : écran d'équipe réorganisé, la barre d'équipe (slots, points, bouton pour lancer) est fixée en bas et toujours visible
+- PC : la fiche du perso tient dans l'écran et son texte est plus lisible
+
 ## v0.61.4 — 2026-10-05
 
 - Écran d'équipe : le dé « Au hasard » roule de temps en temps pour attirer l'œil
