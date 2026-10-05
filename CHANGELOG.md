@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.61.3 — 2026-10-05
+
+- Admin : « Retour » depuis les stats d'équilibrage, les pastilles, les cadrages et la gestion des comptes ramène à Mon compte
+
 ## v0.61.2 — 2026-10-05
 
 - Écran d'équipe : le bouton « Au hasard » est en haut, à côté du nom du mode, plus besoin de descendre
