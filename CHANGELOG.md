@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.54.0 — 2026-10-05
+
+- Contre : il renvoie maintenant la moitié des dégâts. Toki et Raoh ont un contre parfait qui renvoie tout
+- Combo complet : le Lourd qui conclut un enchaînement Léger → Moyen → Lourd ne peut plus être esquivé
+- Le nombre de réactions de l'adversaire s'affiche (🛡) et une grande annonce apparaît quand une Garde, une Esquive ou un Contre se déclenche (merci maxGfive et Jerome R.)
+
 ## v0.53.2 — 2026-10-05
 
 - Lien « Le maître et ses élèves » : Jagi compte aussi comme élève de Ryuken, et chaque élève donne +2 rage au départ (avant, impossible d'avoir 2 élèves avec 10 points ; merci Jerome R.)
