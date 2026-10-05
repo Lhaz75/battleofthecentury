@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.60.4 — 2026-10-05
+
+- Combat : les grandes illustrations sont recadrées pour que les têtes aient à peu près la même taille et la même hauteur (Zeed n'a plus l'air d'un nain)
+
 ## v0.60.3 — 2026-10-05
 
 - Rage pleine bien plus visible : la barre passe au jaune-blanc, pulse fort avec un halo, et le compteur 8/8 bat
