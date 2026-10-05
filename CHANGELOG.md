@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.49.0 — 2026-10-05
+
+- Les terrains ont leurs illustrations : sur la carte, dans la zone de combat et en fond d'écran quand ils sont posés (merci Lhaz !)
+
 ## v0.48.5 — 2026-10-05
 
 - Dekai Babaa : nouveau talent « Démasquée » (sous la moitié de ses PV, ses coups font +2), 17 PV
