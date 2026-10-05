@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.63.1 — 2026-10-05
+
+- Mode histoire : la mention des persos débloqués est retirée en attendant la version 1.0
+
 ## v0.63.0 — 2026-10-05
 
 - Le mode Histoire est ouvert à tous : arc 1 « KING », 9 chapitres et 27 étoiles
