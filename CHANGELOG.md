@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.49.1 — 2026-10-05
+
+- Fin de combat : nouveau bouton « Menu principal », et « Revanche » relance vraiment le même combat (mêmes équipes, même niveau d'IA)
+
 ## v0.49.0 — 2026-10-05
 
 - Les terrains ont leurs illustrations : sur la carte, dans la zone de combat et en fond d'écran quand ils sont posés (merci Lhaz !)
