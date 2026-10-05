@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.53.2 — 2026-10-05
+
+- Lien « Le maître et ses élèves » : Jagi compte aussi comme élève de Ryuken, et chaque élève donne +2 rage au départ (avant, impossible d'avoir 2 élèves avec 10 points ; merci Jerome R.)
+
 ## v0.53.1 — 2026-10-05
 
 - Les cartes Garde, Esquive et Contre ont leurs illustrations
