@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.50.0 — 2026-10-05
+
+- Nouveau terrain illustré : Village assiégé
+- Nouvelles illustrations de décors et de personnages (merci Lhaz !)
+
 ## v0.49.2 — 2026-10-05
 
 - Mobile : joueurs en ligne, version et menu ☰ à droite du logo
