@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.48.3 — 2026-10-05
 
+- Mobile : texte des cartes plus petit et plus contrasté quand la main est sur 2 rangées
 - Quand l'adversaire n'a plus qu'un perso, les pièges de relais (Embuscade, Embuscade du clan Kiba) sont défaussés et remplacés, et tu ne les pioches plus
 
 ## v0.48.2 — 2026-10-05
