@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.50.1 — 2026-10-05
+
+- Main triée par coût : à niveau égal, les cartes qui coûtent 0 passent devant (idée de maxGfive)
+
 ## v0.50.0 — 2026-10-05
 
 - Nouveau terrain illustré : Village assiégé
