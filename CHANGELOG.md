@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.49.1 — 2026-10-05
 
+- Mobile : les drapeaux passent dans le menu ☰, icône ☰ plus nette
 - Fin de combat : nouveau bouton « Menu principal », et « Revanche » relance vraiment le même combat (mêmes équipes, même niveau d'IA)
 
 ## v0.49.0 — 2026-10-05
