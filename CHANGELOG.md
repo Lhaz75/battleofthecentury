@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.45.0 — 2026-10-05
+
+- Nouvelle langue : japonais (日本語), drapeau dans le choix des langues
+
 ## v0.44.1 — 2026-10-05
 
 - Préparation d'un nouveau mode de jeu (bientôt)
