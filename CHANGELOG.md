@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.63.3 — 2026-10-06
+
+- Accueil PC : menu et défis plus compacts, la page tient dans l'écran même avec le défi du jour (description au survol)
+
 ## v0.63.2 — 2026-10-05
 
 - Admin Cadrages : chaque perso est montré avec sa vignette et son illustration de combat telles qu'en jeu
