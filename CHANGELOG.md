@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.50.2 — 2026-10-05
+
+- Début de tour : tu as toujours au moins 2 attaques en main (terrains, pièges et spéciales en trop sont échangés), fini les mains bloquées
+
 ## v0.50.1 — 2026-10-05
 
 - Main triée par coût : à niveau égal, les cartes qui coûtent 0 passent devant (idée de maxGfive)
