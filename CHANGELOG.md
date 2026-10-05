@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.44.0 — 2026-10-05
+
+- Nouveau : le mode Histoire ! Arc 1 « KING » : un prologue où tu joues Shin, puis 8 chapitres de Kenshiro contre la bande de Zeed, Spade, Diamond, Club, Heart, Joker et Shin, avec 3 étoiles à gagner par chapitre
+- Les persos battus se débloqueront grâce à l'histoire à partir de la version 1.0
+- 2 nouveaux succès d'histoire
+
 ## v0.43.2 — 2026-10-05
 
 - Mobile : glisse vers le bas depuis le haut d'un menu pour recharger le jeu (désactivé en combat)

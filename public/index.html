@@ -1074,6 +1074,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
   .toprow .modes.top #tour{order:2}.toprow .modes.top #hof{order:2}.toprow .modes.top #roster{order:2}
   .toprow .modes.top #rnd{order:3}.toprow .modes.top #tuto{order:3}.toprow .modes.top #rules{order:3}
   .toprow .modes.top #go,.toprow .modes.top #online,.toprow .modes.top #surv,.toprow .modes.top #arc{padding-block:12px!important;font-size:16px!important}
+  .toprow .modes.top #story{grid-column:span 6!important;order:-1;padding-block:12px!important;font-size:17px!important}
 }
 .tbgo{display:none}
 @media (max-width:600px){
@@ -1155,6 +1156,28 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 .ptr.go{background:#e8b04a;color:#1a0f08}.ptr.spin i{display:block;animation:ptrs .6s linear infinite}
 @keyframes ptrs{to{transform:rotate(360deg)}}
 html,body{overscroll-behavior-y:contain}
+#story{background:linear-gradient(180deg,#3a2a6e,#1d1440)!important;border-color:#a98cff!important;color:#efe7ff!important}
+.stpage{max-width:760px;margin:0 auto}.sttot{font:600 13px var(--f-body,inherit);color:#ffd27a;margin-left:6px;text-transform:none}
+.stlist{display:flex;flex-direction:column;gap:8px;margin:8px 0 12px}
+.stch{display:flex;align-items:center;gap:10px;width:100%;padding:8px 12px;border-radius:12px;border:1px solid rgba(232,176,74,.3);background:rgba(18,10,6,.8);color:var(--sand);cursor:pointer;text-align:left}
+.stch:hover:not([disabled]){border-color:#e8b04a}.stch.done{border-color:rgba(232,176,74,.55)}.stch.boss{border-color:#c0392b;background:linear-gradient(90deg,rgba(90,10,6,.6),rgba(18,10,6,.85))}
+.stch.lock{opacity:.5;cursor:default}
+.stch .stn{font:700 18px var(--f-display);color:#e8b04a;width:22px;text-align:center}
+.stch img{width:42px;height:42px;border-radius:50%;border:2px solid #c98a2e;object-fit:cover;flex:none}
+.stch.lock img{filter:grayscale(1) brightness(.5)}
+.stch .stt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.stch .stt b{color:#fff3dc;font-weight:700}.stch .stt small{font-size:11.5px;color:var(--mute)}
+.ststars{white-space:nowrap}.ststars i{font-style:normal;color:#4a3a2a;font-size:18px;margin-left:1px}.ststars i.on{color:#ffd23a;text-shadow:0 0 8px rgba(255,200,40,.6)}
+.stbig .ststars i{font-size:42px}
+.stchap{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:20px;max-width:960px;margin:0 auto;align-items:start}
+.stchap .start img{width:100%;border-radius:14px;border:2px solid #c98a2e;background:radial-gradient(circle at 50% 40%,#4a2410,#0d0805);box-shadow:0 10px 30px rgba(0,0,0,.6)}
+.stchap.boss .start img{border-color:#c0392b;box-shadow:0 0 40px rgba(200,40,20,.4)}
+.stintro{font-size:15.5px;line-height:1.55;color:#f3e2bf;font-style:italic;max-width:620px;margin:8px auto 12px}
+.stend .stintro{text-align:center}
+.stwarn{color:#ffb07a!important}
+.stvs{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:6px 0}.stvs small{display:block;font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:.1em;text-align:center}
+.stobj{list-style:none;margin:6px 0;padding:0;display:flex;flex-direction:column;gap:4px;font-size:14px;color:var(--mute)}.stobj li.ok{color:#ffd23a}
+.stend .stobj{align-items:center}
+@media (max-width:700px){.stchap{grid-template-columns:1fr}.stchap .start{max-width:200px;margin:0 auto}}
 .chin .askbox{border-color:#e0452c;box-shadow:0 0 0 1px rgba(224,69,44,.4),0 18px 50px rgba(0,0,0,.7)}
 @media (max-width:600px){.onl-ul .ow{font-size:0;gap:0}}
 .fsbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
@@ -2292,6 +2315,7 @@ function hitDamage(k,c){
   if(s.clan==="truands" && c.lvl===1) d+=1;
   if(act(s).id==="narc" && act(S[other(k)]).hp < act(s).hp) d+=3;
   if(act(s).id==="ryuga" && s.team.every((t,i)=>i===s.active||t.ko)) d+=3;
+  if(S.storyRule==="fat" && c.lvl===0 && act(S[other(k)]).id==="ventre") d=0;
   return d;
 }
 function validReacts(defK,c){
@@ -2315,7 +2339,7 @@ async function playCard(k,card){
   if(c.kind==="atk" && !inOrder(s,c)) s.cloudUsed=true;
   else if(isRepeat(s,c)){ s.combo.rep=true; s.combo.repNow=true; }
   s.end-=cardCost(s,c); spend(s,card); if(c.kind!=="atk") SFX.play("card");
-  if(c.kind==="spec"){
+  if(c.kind==="spec"){ S.lastLvl="S";
     S.log=`${who(k)} : ${esc(tr(c.name))}`; S.sub=tr(c.text);
     shout(tr(c.name));
     await SPECS[c.spec].run(k);
@@ -2340,7 +2364,7 @@ async function playCard(k,card){
 }
 
 async function attack(k,c){
-  const s=S[k], defK=other(k), d=S[defK];
+  const s=S[k], defK=other(k), d=S[defK]; S.lastLvl=c.lvl;
   let dmg=hitDamage(k,c); if(s.feiyanUp && act(s).id==="feiyan") s.feiyanUp=false; if(act(s).id==="rima") s.rimaUp=0;
   if(d.trap==="fil" && s.combo.n===2){
     s.combo.trail.push(c.lvl); s.combo.stop=true;
@@ -2392,7 +2416,7 @@ async function attack(k,c){
       journalMiss(L("dodgeFx")); S.log=L("dodgeLog",esc(nm(act(d).id)),whoLow(defK)); S.sub=L("comboBroken"); fx(defK,L("dodgeFx"),"g"); SFX.play("dodge");
       if(act(d).id==="sage") d.sageBonus+=2;
       if(act(d).id==="feiyan") d.feiyanUp=true;
-      if(act(d).id==="joker"){ drawTo(d,d.hand.length+1); fx(defK,"+1","h"); }
+      if(act(d).id==="joker"){ drawTo(d,d.hand.length+1); fx(defK,"+1","h"); if(defK!==ME) S.jokerDraw=(S.jokerDraw||0)+1; }
       if(act(d).id==="fourbe"){ render(); await wait(300); hurt(k,3); S.sub=L("riposte",esc(nm("fourbe"))); }
       if(act(d).id==="garuda" && !S.over){ render(); await wait(300); hurt(k,3); S.sub=L("riposte",esc(nm("garuda"))); }
     } else if(rr==="contre"){
@@ -2438,7 +2462,7 @@ function strikeLine(k,tech){
   return `<span class="strike"><span class="${ca}">${esc(nm(act(s).id))}</span><span class="arr">▶</span><span class="${cd}">${esc(nm(act(d).id))}</span> · ${esc(tech)}</span>`;
 }
 function trapFired(owner){
-  const t=S[owner].trap; if(!t) return;
+  const t=S[owner].trap; if(!t) return; if(owner!==ME) S.trapMe=(S.trapMe||0)+1;
   SFX.play("trap");
   S[owner].trap=null;
   shout(L("trapBang")+"<br>"+tr(TRAPS[t].name)); flash();
@@ -2454,7 +2478,7 @@ function applyFx(k,fxo){
 function gainRage(side,n,why){ const b=side.rage, x=S.terrain==="arene"?2:1; side.rage=Math.min(RAGE_MAX, side.rage + n*x);
   const got=side.rage-b; if(got>0){ const f=act(side); (S.rg=S.rg||[]).push({w:f?f.id:"",n:got,y:why||"fx",x:x>1}); } }
 function hurt(k,dmg){
-  const s=S[k], f=act(s);
+  const s=S[k], f=act(s); if(dmg>0 && k!==ME) S.hits=(S.hits||0)+1;
   if(dmg>0 && f.id==="hyo" && hasLink(s,"kuro")){ const kr=s.team.find(t=>t.id==="kuroyasha"&&!t.ko); if(kr && kr.hp>1){ const ab=Math.min(2,dmg,kr.hp-1); kr.hp-=ab; dmg-=ab; S.sub=(S.sub?S.sub+" ":"")+L("kuroAbsorb",ab); } }
   if(dmg<=0){ fx(k,"0","g"); return; }
   f.hp=Math.max(0,f.hp-dmg);
@@ -2470,7 +2494,7 @@ function hurt(k,dmg){
 }
 function ko(k){
   const s=S[k], f=act(s), hitSub=S.sub||"";
-  f.ko=true;
+  f.ko=true; (S.koLog=S.koLog||[]).push({id:f.id,side:k,by:S.ultBy?"U":(S.lastLvl!=null?S.lastLvl:"S")});
   if(f.id==="mamiya" && hasLink(s,"mamiya") && alive(s,"dans")) gainRage(s,3,"link");
   if(S.ultBy && S.ultBy===other(k) && S.ultBy===ME) S.ultKo=true;
   { const kl=act(S[other(k)]); if(kl && kl.id==="nameless" && !kl.ko && kl.hp>0){ kl.hp=Math.min(kl.max,kl.hp+6); fx(other(k),"+6","h"); S.sub=L("namelessName",esc(nm("nameless"))); } }
@@ -2493,7 +2517,7 @@ async function relais(k,idx){
   if(S.turn!==k || s.relais || s.end<relayCost(s,idx) || idx===s.active || s.team[idx].ko || S.over) return;
   SFX.play("relay");
   S.busy=true;
-  const rc=relayCost(s,idx); s.end-=rc; s.relais=true;
+  const rc=relayCost(s,idx); s.end-=rc; s.relais=true; s.relayN=(s.relayN||0)+1;
   const out=act(s).id; s.active=idx;
   SFX.voice(ENTER_VOICE[act(s).id], 200);
   S.log=L("relayLog",who(k),esc(nm(out)),esc(nm(act(s).id))); S.sub=(rc?"":L(hasLink(s,"reiken")&&(s.nT||0)>1?"relayFreeLink":"relayFreeUsed")+" ")+L("relaySub");
@@ -3065,7 +3089,7 @@ function reactHTML(R){
       <button class="rbtn take" data-react="none"><b>${L("take")}</b><span>${L("takeSub")}</span></button></div>
   </div>`;
 }
-function renderEnd(win){ if(S&&S.dead) return; rpCapture(true); if(SURV.on && MODE==="solo" && S && S.surv) return survAfter(win); if(ARC.on && MODE==="solo" && S && S.arc) return arcAfter(win); if(MODE==="solo" && S && S.weekly) return weeklyAfter(win); MUSIC.want("menu");
+function renderEnd(win){ if(S&&S.dead) return; rpCapture(true); if(SURV.on && MODE==="solo" && S && S.surv) return survAfter(win); if(ARC.on && MODE==="solo" && S && S.arc) return arcAfter(win); if(MODE==="solo" && S && S.weekly) return weeklyAfter(win); if(MODE==="solo" && S && S.story && STORY.on) return storyAfter(win); MUSIC.want("menu");
   SFX.play(win?"win":"lose");
   $("#app").innerHTML=`<div class="screen" style="overflow-y:auto"><div class="center">
     <div class="kicker">${win?L("foeDown"):L("meDown")}</div>
@@ -3188,7 +3212,7 @@ function squareAvatar(file){
 }
 async function renderHof(sel=[], kind="elo"){
   const head=`<div class="hoftabs" role="tablist">${["elo","pts","surv"].map(k=>`<button class="htab ${k===kind?"on":""}" role="tab" aria-selected="${k===kind}" data-k="${k}">${L(k==="elo"?"hofElo":k==="surv"?"hofSurv":"hofPts")}</button>`).join("")}</div>`;
-  pageShell(L("hofBtn"),`${head}<div id="hoflist" class="hoflist"><p class="note">${L("connecting")}</p></div><p class="note">${L("hofHow")} ${L("survHow")} ${L("arcHow")}</p>`,sel,"hof");
+  pageShell(L("hofBtn"),`${head}<div id="hoflist" class="hoflist"><p class="note">${L("connecting")}</p></div><p class="note">${L("hofHow")} ${L("survHow")} ${L("arcHow")} ${L("stHow")}</p>`,sel,"hof");
   document.querySelectorAll(".htab").forEach(b=>b.onclick=()=>{ SFX.play("click"); renderHof(sel,b.dataset.k); });
   bindLang(()=>renderHof(sel,kind));
   let r; try{ r=await api("GET","/api/top?kind="+kind); }catch(e){ r={ok:false}; }
@@ -3350,7 +3374,11 @@ Object.assign(UI.it,{arcBtn:"Arcade",arcTitle:"La Torre",arcFloor:(n,t)=>`Piano 
 Object.assign(UI.fr,{"lk_hokutoarmy":"Armée de Hokuto","lkd_hokutoarmy":"Bat et Ein : chacun +2 PV max.","lk_pupil":"Le disciple","lkd_pupil":"Kenshiro et Bat : les Légers de Bat font +1.","lkTitle":"Liens actifs","relayFreeLink":"Relais gratuit (Fraternité).","rg_link":"lien","lk_brothers":"Frères Hokuto","lkd_brothers":"2 frères ou plus (Kenshiro, Raoh, Toki, Jagi) : leurs ultimes font +1 par frère au-delà du premier.","lk_stars":"Six étoiles du Nanto","lkd_stars":"2 étoiles ou plus (Rei, Shin, Yuda, Shu, Souther) : chaque étoile gagne +1 PV max (+2 à partir de 4 étoiles).","lk_ryuken":"Le maître et ses élèves","lkd_ryuken":"Ryuken avec Raoh, Toki ou Kenshiro : +1 rage au départ par élève présent.","lk_king":"Shin et ses valets","lkd_king":"Shin avec Joker, Club, Spade, Diamond ou Heart : Shin gagne +1 PV max par valet, et les valets font +1 dégât.","lk_reiken":"Fraternité","lkd_reiken":"Rei et Kenshiro : les relais entre eux deux sont gratuits.","lk_mamiya":"Pour Mamiya","lkd_mamiya":"Rei et Mamiya : si Mamiya tombe et que Rei est encore debout, +3 rage.","lk_shinjagi":"La manipulation de Jagi","lkd_shinjagi":"Shin et Jagi : +2 rage au départ.","lk_dagar":"Lieutenant de Yuda","lkd_dagar":"Yuda et Dagar : Dagar fait +2 dégâts tant que Yuda est encore debout.","lk_ogai":"Héritage d'Ogai","lkd_ogai":"Ogai et Souther : les Lourds de Souther font +1.","lk_ryuga":"Loup du roi","lkd_ryuga":"Ryuga et Raoh : les Moyens de Ryuga font +1.","lk_flamewind":"Flamme et Vent","lkd_flamewind":"Shuren et Huey : chacun fait +1 dégât tant que l'autre est debout.","lk_kuro":"Serviteur dévoué","lkd_kuro":"Kuroyasha et Hyō : quand Hyō prend des coups, Kuroyasha (en réserve) encaisse jusqu'à 2 dégâts à sa place.","lk_devil":"Le monstre libéré","lkd_devil":"Jackal et Devil Rebirth : Devil a +3 PV.","lk_foxjackal":"Bande de truands","lkd_foxjackal":"Fox et Jackal : +1 carte piochée au premier tour.","lk_jako":"Fin du chantage","lkd_jako":"Jako et Falco : quand Jako est KO, Falco est libéré et fait +2 dégâts.","lk_shoki":"Amis d'enfance","lkd_shoki":"Shoki et Falco : Shoki fait +1 dégât et ses Gardes le soignent.","lk_colonel":"Vétérans de la guerre","lkd_colonel":"Colonel et Mad Sarge : les Légers de Mad Sarge font +1 de plus.","lk_shachi":"Père et fils","lkd_shachi":"Shachi et Akashachi : le 1er coup d'Akashachi fait +1.","lk_rima":"Partenaires","lkd_rima":"Rima et Frieda : le spécial de Rima donne +3 rage de plus.",kuroAbsorb:n=>`Kuroyasha encaisse ${n} dégâts à la place de Hyō.`});
 Object.assign(UI.en,{"lk_hokutoarmy":"Hokuto Army","lkd_hokutoarmy":"Bat and Ein: each gets +2 max HP.","lk_pupil":"The pupil","lkd_pupil":"Kenshiro and Bat: Bat's Lights deal +1.","lkTitle":"Active links","relayFreeLink":"Free tag (Brotherhood).","rg_link":"link","lk_brothers":"Hokuto brothers","lkd_brothers":"2 or more brothers (Kenshiro, Raoh, Toki, Jagi): their ultimates deal +1 per brother beyond the first.","lk_stars":"Six Stars of Nanto","lkd_stars":"2 or more stars (Rei, Shin, Yuda, Shu, Souther): each star gets +1 max HP (+2 from 4 stars).","lk_ryuken":"The master and his pupils","lkd_ryuken":"Ryuken with Raoh, Toki or Kenshiro: +1 starting rage per pupil present.","lk_king":"Shin and his jacks","lkd_king":"Shin with Joker, Club, Spade, Diamond or Heart: Shin gets +1 max HP per jack, and the jacks deal +1 damage.","lk_reiken":"Brotherhood","lkd_reiken":"Rei and Kenshiro: tags between the two of them are free.","lk_mamiya":"For Mamiya","lkd_mamiya":"Rei and Mamiya: if Mamiya falls while Rei is still standing, +3 rage.","lk_shinjagi":"Jagi's manipulation","lkd_shinjagi":"Shin and Jagi: +2 starting rage.","lk_dagar":"Yuda's lieutenant","lkd_dagar":"Yuda and Dagar: Dagar deals +2 damage while Yuda is still standing.","lk_ogai":"Ogai's legacy","lkd_ogai":"Ogai and Souther: Souther's Heavies deal +1.","lk_ryuga":"The king's wolf","lkd_ryuga":"Ryuga and Raoh: Ryuga's Mediums deal +1.","lk_flamewind":"Flame and Wind","lkd_flamewind":"Shuren and Huey: each deals +1 damage while the other is standing.","lk_kuro":"Devoted servant","lkd_kuro":"Kuroyasha and Hyō: when Hyō takes hits, Kuroyasha (in reserve) absorbs up to 2 damage instead.","lk_devil":"The monster unleashed","lkd_devil":"Jackal and Devil Rebirth: Devil has +3 HP.","lk_foxjackal":"Gang of crooks","lkd_foxjackal":"Fox and Jackal: +1 card drawn on the first turn.","lk_jako":"End of the blackmail","lkd_jako":"Jakoh and Falco: when Jakoh is KO, Falco is freed and deals +2 damage.","lk_shoki":"Childhood friends","lkd_shoki":"Shoki and Falco: Shoki deals +1 damage and his Guards heal him.","lk_colonel":"War veterans","lkd_colonel":"Colonel and Mad Sarge: Mad Sarge's Lights deal +1 more.","lk_shachi":"Father and son","lkd_shachi":"Shachi and Akashachi: Akashachi's 1st hit deals +1.","lk_rima":"Partners","lkd_rima":"Rima and Frieda: Rima's special gives +3 more rage.",kuroAbsorb:n=>`Kuroyasha takes ${n} damage in Hyō's place.`});
 Object.assign(UI.it,{"lk_hokutoarmy":"Esercito di Hokuto","lkd_hokutoarmy":"Bat e Ein: ognuno +2 PV max.","lk_pupil":"Il discepolo","lkd_pupil":"Kenshiro e Bat: i Leggeri di Bat fanno +1.","lkTitle":"Legami attivi","relayFreeLink":"Cambio gratis (Fratellanza).","rg_link":"legame","lk_brothers":"Fratelli Hokuto","lkd_brothers":"2 fratelli o più (Kenshiro, Raoh, Toki, Jagi): le loro ultime fanno +1 per ogni fratello oltre il primo.","lk_stars":"Sei stelle di Nanto","lkd_stars":"2 stelle o più (Rei, Shin, Yuda, Shu, Souther): ogni stella ha +1 PV max (+2 da 4 stelle).","lk_ryuken":"Il maestro e i suoi allievi","lkd_ryuken":"Ryuken con Raoh, Toki o Kenshiro: +1 rabbia iniziale per allievo presente.","lk_king":"Shin e i suoi fanti","lkd_king":"Shin con Joker, Club, Spade, Diamond o Heart: Shin ha +1 PV max per fante, e i fanti fanno +1 danno.","lk_reiken":"Fratellanza","lkd_reiken":"Rei e Kenshiro: i cambi tra loro due sono gratis.","lk_mamiya":"Per Mamiya","lkd_mamiya":"Rei e Mamiya: se Mamiya cade mentre Rei è ancora in piedi, +3 rabbia.","lk_shinjagi":"La manipolazione di Jagi","lkd_shinjagi":"Shin e Jagi: +2 rabbia iniziale.","lk_dagar":"Luogotenente di Yuda","lkd_dagar":"Yuda e Dagar: Dagar fa +2 danni finché Yuda è in piedi.","lk_ogai":"L'eredità di Ogai","lkd_ogai":"Ogai e Souther: i Pesanti di Souther fanno +1.","lk_ryuga":"Il lupo del re","lkd_ryuga":"Ryuga e Raoh: i Medi di Ryuga fanno +1.","lk_flamewind":"Fiamma e Vento","lkd_flamewind":"Shuren e Huey: ognuno fa +1 danno finché l'altro è in piedi.","lk_kuro":"Servitore devoto","lkd_kuro":"Kuroyasha e Hyō: quando Hyō subisce colpi, Kuroyasha (in riserva) assorbe fino a 2 danni al suo posto.","lk_devil":"Il mostro liberato","lkd_devil":"Jackal e Devil Rebirth: Devil ha +3 PV.","lk_foxjackal":"Banda di furfanti","lkd_foxjackal":"Fox e Jackal: +1 carta pescata al primo turno.","lk_jako":"Fine del ricatto","lkd_jako":"Jako e Falco: quando Jako è KO, Falco è libero e fa +2 danni.","lk_shoki":"Amici d'infanzia","lkd_shoki":"Shoki e Falco: Shoki fa +1 danno e le sue Parate lo curano.","lk_colonel":"Veterani di guerra","lkd_colonel":"Colonel e Mad Sarge: i Leggeri di Mad Sarge fanno +1 in più.","lk_shachi":"Padre e figlio","lkd_shachi":"Shachi e Akashachi: il 1° colpo di Akashachi fa +1.","lk_rima":"Partner","lkd_rima":"Rima e Frieda: lo speciale di Rima dà +3 rabbia in più.",kuroAbsorb:n=>`Kuroyasha subisce ${n} danni al posto di Hyō.`});
+Object.assign(UI.fr,{"stBtn": "Histoire", "stTitle": "Mode histoire", "stArc1": "Arc 1 : KING", "stLead": "Suis Kenshiro dans le monde dévasté, chapitre après chapitre. Chaque chapitre a 3 étoiles à gagner.", "stLocked": "Termine le chapitre précédent", "stPlay": "Combattre", "stNext": "Chapitre suivant", "stBackList": "Chapitres", "stRetry": "Réessayer", "stObj": "Objectifs", "stUnlock": "Débloque", "stUnlockNote": "(à la version 1.0)", "stYou": "Tu joues", "stFoe": "Adversaire", "stWave": "Vague {a}/{b}", "stWaveNext": "Vague suivante", "stWin": "Chapitre terminé !", "stLose": "Défaite…", "stStars": "{n} étoile(s)", "stJoined": "Débloqué à la 1.0 : {who}", "stFat": "Ses Légers ne lui font rien.", "stTrap": "Un piège Embuscade est déjà posé contre toi.", "stArcDone": "Arc terminé ! La suite arrive bientôt.", "stHow": "Histoire : 20 pts la première fois qu'un chapitre est terminé, +10 pts par nouvelle étoile.", "w_story": "Mode histoire", "ach_story1": "La légende commence", "achd_story1": "Terminer l'arc 1 du mode histoire", "ach_story27": "Sept étoiles… et plus", "achd_story27": "Obtenir les 27 étoiles de l'arc 1", "st_t_king-0": "Prologue : les sept cicatrices", "st_i_king-0": "Un an avant tout. Shin, du Nanto Koshūken, a juré d'arracher Yuria à Kenshiro. Ce soir, il va prendre sa femme, et lui laisser sept trous dans la poitrine en souvenir.", "st_o_king-0": "« Je suis Shin. Souviens-toi de ce nom. » Kenshiro gît dans la poussière, marqué de sept cicatrices en forme de Grande Ourse. Il survivra. Et il reviendra.", "st_t_king-1": "Le village assiégé", "st_i_king-1": "Un homme s'effondre de faim à l'entrée d'un village. Dans une cellule, il rencontre la petite Lin et un gamin voleur, Bat. Dehors, la bande de Zeed arrive pour tout piller.", "st_o_king-1": "Les pillards ne comprennent pas ce qui leur arrive. « Tu es déjà mort. » Leurs corps éclatent l'un après l'autre. Zeed, lui, va vouloir sa revanche.", "st_t_king-2": "Zeed", "st_i_king-2": "Zeed et sa horde à moto encerclent le village. Il exige l'eau et les femmes. Kenshiro sort seul à leur rencontre, Lin et Bat cachés derrière lui.", "st_o_king-2": "Zeed a voulu frapper le premier. Son crâne n'a pas résisté. Lin retrouve la voix, et Bat décide de suivre cet homme étrange. Le voyage commence.", "st_t_king-3": "Spade, le lancier", "st_i_king-3": "Dans les ruines d'une ville, des hommes portent un insigne : un pique. Ce sont les soldats de KING. Leur chef, Spade, s'amuse à tirer sur les fuyards.", "st_o_king-3": "Spade a avalé son propre carreau. Avant de mourir, un nom : KING. Kenshiro serre le poing. Celui qui porte les sept cicatrices sait déjà qui se cache derrière.", "st_t_king-4": "Diamond et le village captif", "st_i_king-4": "Un village entier est réduit en esclavage par Diamond, un autre carré de KING. Ses gardes d'abord, puis le maître des lieux. Deux combats d'affilée, sans repos.", "st_o_king-4": "Le dernier diamant s'est brisé. Les villageois relèvent la tête. On parle d'une ville au sud, Southern Cross, où KING tient une femme prisonnière.", "st_t_king-5": "Club", "st_i_king-5": "Club a préparé le terrain : des pillards sont cachés partout, prêts à tomber sur quiconque change de combattant. Fox, le renard, rôde avec lui.", "st_o_king-5": "Club croyait tenir Kenshiro dans sa toile. Les fils ont cédé. Fox, lui, a tenté de fuir dans le désert. Il n'est pas allé loin.", "st_t_king-6": "Heart, le colosse", "st_i_king-6": "Heart, le cœur de KING, est une montagne de graisse. Les coups légers s'enfoncent dans sa chair sans lui faire le moindre mal. Et quand il voit son sang, il devient fou.", "st_o_king-6": "La graisse protège de tout… sauf des points vitaux. Heart gonfle, gonfle encore, et éclate. Southern Cross n'est plus très loin.", "st_t_king-7": "Joker, le messager", "st_i_king-7": "Joker, l'homme de confiance de Shin, joue avec ses cartes tranchantes et disparaît avant qu'on puisse le toucher. Il est venu voir de quoi est capable l'homme aux sept cicatrices.", "st_o_king-7": "« Je préfère mourir que te servir de messager. » Joker n'ira pas prévenir Shin. Kenshiro s'en chargera lui-même.", "st_t_king-8": "Southern Cross : Shin", "st_i_king-8": "Au sommet de sa cité, Shin attend. Il a tout bâti pour elle, pour Yuria. Un an après la nuit des sept cicatrices, les deux hommes se font face à nouveau.", "st_o_king-8": "Shin a perdu. Il ne laissera pas Kenshiro lui donner la mort : il se jette du haut de son palais. Yuria n'était plus là. Le voyage de Kenshiro ne fait que commencer…", "sto_win": "Gagner le combat", "sto_rounds": "Gagner en {n} tours max", "sto_hits": "Toucher {n} fois l'adversaire", "sto_lost": "Perdre {n} PV max", "sto_lastUlt": "Finir sur un ultime", "sto_keep": "Garder plus de {n} % de tes PV", "sto_noRelay": "Ne faire aucun relais", "sto_noTrap": "Ne déclencher aucun piège adverse", "sto_noJoker": "Ne jamais laisser Joker piocher", "sto_firstKo": "Mettre {who} KO en premier", "sto_killLvl": "Achever {who} avec {lvl}", "stLvl2": "un Lourd", "stLvlU": "un ultime"});
+Object.assign(UI.en,{"stBtn": "Story", "stTitle": "Story mode", "stArc1": "Arc 1: KING", "stLead": "Follow Kenshiro through the ravaged world, chapter after chapter. Each chapter has 3 stars to earn.", "stLocked": "Clear the previous chapter", "stPlay": "Fight", "stNext": "Next chapter", "stBackList": "Chapters", "stRetry": "Retry", "stObj": "Objectives", "stUnlock": "Unlocks", "stUnlockNote": "(from version 1.0)", "stYou": "You play", "stFoe": "Opponent", "stWave": "Wave {a}/{b}", "stWaveNext": "Next wave", "stWin": "Chapter cleared!", "stLose": "Defeat…", "stStars": "{n} star(s)", "stJoined": "Unlocked at 1.0: {who}", "stFat": "His Lights do nothing to him.", "stTrap": "An Ambush trap is already set against you.", "stArcDone": "Arc complete! More coming soon.", "stHow": "Story: 20 pts the first time a chapter is cleared, +10 pts per new star.", "w_story": "Story mode", "ach_story1": "The legend begins", "achd_story1": "Clear arc 1 of story mode", "ach_story27": "Seven stars… and more", "achd_story27": "Earn all 27 stars of arc 1", "st_t_king-0": "Prologue: the seven scars", "st_i_king-0": "One year before it all. Shin, of Nanto Koshūken, has sworn to tear Yuria away from Kenshiro. Tonight he takes the woman, and leaves him seven holes in his chest to remember.", "st_o_king-0": "\"I am Shin. Remember that name.\" Kenshiro lies in the dust, branded with seven scars shaped like the Big Dipper. He will survive. And he will come back.", "st_t_king-1": "The besieged village", "st_i_king-1": "A man collapses from hunger at the edge of a village. In a cell he meets little Lin and a thieving kid, Bat. Outside, Zeed's gang rides in to loot everything.", "st_o_king-1": "The raiders don't understand what's happening. \"You are already dead.\" Their bodies burst one after another. Zeed will want revenge.", "st_t_king-2": "Zeed", "st_i_king-2": "Zeed and his biker horde surround the village. He demands the water and the women. Kenshiro walks out alone to meet them, Lin and Bat hiding behind him.", "st_o_king-2": "Zeed wanted to strike first. His skull didn't hold. Lin finds her voice again, and Bat decides to follow this strange man. The journey begins.", "st_t_king-3": "Spade, the spearman", "st_i_king-3": "In the ruins of a city, men wear a badge: a spade. They are KING's soldiers. Their leader, Spade, amuses himself shooting at fugitives.", "st_o_king-3": "Spade swallowed his own bolt. Before dying, a name: KING. Kenshiro clenches his fist. The man with seven scars already knows who hides behind it.", "st_t_king-4": "Diamond and the captive village", "st_i_king-4": "A whole village is enslaved by Diamond, another of KING's suits. His guards first, then the master himself. Two fights in a row, no rest.", "st_o_king-4": "The last diamond has shattered. The villagers raise their heads. There is talk of a city to the south, Southern Cross, where KING keeps a woman prisoner.", "st_t_king-5": "Club", "st_i_king-5": "Club has prepared the ground: raiders hide everywhere, ready to fall on anyone who switches fighters. Fox, the sly one, prowls with him.", "st_o_king-5": "Club thought he had Kenshiro caught in his web. The threads snapped. Fox tried to flee into the desert. He didn't get far.", "st_t_king-6": "Heart, the colossus", "st_i_king-6": "Heart, KING's heart, is a mountain of fat. Light blows sink into his flesh without hurting him at all. And when he sees his own blood, he goes mad.", "st_o_king-6": "Fat protects from everything… except pressure points. Heart swells, swells again, and bursts. Southern Cross isn't far now.", "st_t_king-7": "Joker, the messenger", "st_i_king-7": "Joker, Shin's right-hand man, plays with his razor cards and vanishes before anyone can touch him. He has come to see what the man with seven scars can do.", "st_o_king-7": "\"I'd rather die than be your messenger.\" Joker won't go warn Shin. Kenshiro will do it himself.", "st_t_king-8": "Southern Cross: Shin", "st_i_king-8": "At the top of his city, Shin waits. He built it all for her, for Yuria. A year after the night of the seven scars, the two men face each other again.", "st_o_king-8": "Shin has lost. He won't let Kenshiro take his life: he throws himself from the top of his palace. Yuria was already gone. Kenshiro's journey has only just begun…", "sto_win": "Win the fight", "sto_rounds": "Win in {n} turns or fewer", "sto_hits": "Land {n} hits on the opponent", "sto_lost": "Lose {n} HP or fewer", "sto_lastUlt": "Finish with an ultimate", "sto_keep": "Keep more than {n}% of your HP", "sto_noRelay": "Make no tag", "sto_noTrap": "Trigger no enemy trap", "sto_noJoker": "Never let Joker draw", "sto_firstKo": "KO {who} first", "sto_killLvl": "Finish {who} with {lvl}", "stLvl2": "a Heavy", "stLvlU": "an ultimate"});
+Object.assign(UI.it,{"stBtn": "Storia", "stTitle": "Modalità storia", "stArc1": "Arco 1: KING", "stLead": "Segui Kenshiro nel mondo devastato, capitolo dopo capitolo. Ogni capitolo ha 3 stelle da guadagnare.", "stLocked": "Completa il capitolo precedente", "stPlay": "Combatti", "stNext": "Capitolo successivo", "stBackList": "Capitoli", "stRetry": "Riprova", "stObj": "Obiettivi", "stUnlock": "Sblocca", "stUnlockNote": "(dalla versione 1.0)", "stYou": "Giochi", "stFoe": "Avversario", "stWave": "Ondata {a}/{b}", "stWaveNext": "Ondata successiva", "stWin": "Capitolo completato!", "stLose": "Sconfitta…", "stStars": "{n} stella/e", "stJoined": "Sbloccato alla 1.0: {who}", "stFat": "I suoi Leggeri non gli fanno nulla.", "stTrap": "Una trappola Imboscata è già piazzata contro di te.", "stArcDone": "Arco completato! Il seguito arriva presto.", "stHow": "Storia: 20 pt la prima volta che si completa un capitolo, +10 pt per ogni nuova stella.", "w_story": "Modalità storia", "ach_story1": "La leggenda comincia", "achd_story1": "Completa l'arco 1 della modalità storia", "ach_story27": "Sette stelle… e oltre", "achd_story27": "Ottieni le 27 stelle dell'arco 1", "st_t_king-0": "Prologo: le sette cicatrici", "st_i_king-0": "Un anno prima di tutto. Shin, del Nanto Koshūken, ha giurato di strappare Yuria a Kenshiro. Stanotte si prende la donna, e gli lascia sette buchi nel petto come ricordo.", "st_o_king-0": "«Io sono Shin. Ricorda questo nome.» Kenshiro giace nella polvere, marchiato da sette cicatrici a forma di Orsa Maggiore. Sopravvivrà. E tornerà.", "st_t_king-1": "Il villaggio assediato", "st_i_king-1": "Un uomo crolla per la fame all'ingresso di un villaggio. In una cella incontra la piccola Lin e un ragazzino ladro, Bat. Fuori arriva la banda di Zeed per saccheggiare tutto.", "st_o_king-1": "I predoni non capiscono cosa succede. «Sei già morto.» I loro corpi esplodono uno dopo l'altro. Zeed vorrà vendetta.", "st_t_king-2": "Zeed", "st_i_king-2": "Zeed e la sua orda in moto circondano il villaggio. Pretende l'acqua e le donne. Kenshiro esce da solo ad affrontarli, con Lin e Bat nascosti dietro di lui.", "st_o_king-2": "Zeed voleva colpire per primo. Il suo cranio non ha retto. Lin ritrova la voce, e Bat decide di seguire quello strano uomo. Il viaggio comincia.", "st_t_king-3": "Spade, il lanciere", "st_i_king-3": "Tra le rovine di una città, degli uomini portano un'insegna: una picca. Sono i soldati di KING. Il loro capo, Spade, si diverte a tirare sui fuggiaschi.", "st_o_king-3": "Spade ha ingoiato il suo stesso dardo. Prima di morire, un nome: KING. Kenshiro stringe il pugno. L'uomo dalle sette cicatrici sa già chi si nasconde dietro.", "st_t_king-4": "Diamond e il villaggio prigioniero", "st_i_king-4": "Un intero villaggio è ridotto in schiavitù da Diamond, un altro seme di KING. Prima le sue guardie, poi il padrone. Due combattimenti di fila, senza riposo.", "st_o_king-4": "L'ultimo diamante si è spezzato. Gli abitanti rialzano la testa. Si parla di una città a sud, Southern Cross, dove KING tiene prigioniera una donna.", "st_t_king-5": "Club", "st_i_king-5": "Club ha preparato il terreno: predoni nascosti ovunque, pronti a piombare su chiunque cambi combattente. Fox, la volpe, si aggira con lui.", "st_o_king-5": "Club credeva di avere Kenshiro nella sua rete. I fili si sono spezzati. Fox ha cercato di fuggire nel deserto. Non è andato lontano.", "st_t_king-6": "Heart, il colosso", "st_i_king-6": "Heart, il cuore di KING, è una montagna di grasso. I colpi leggeri affondano nella sua carne senza fargli alcun male. E quando vede il suo sangue, impazzisce.", "st_o_king-6": "Il grasso protegge da tutto… tranne che dai punti vitali. Heart si gonfia, si gonfia ancora, ed esplode. Southern Cross non è più lontana.", "st_t_king-7": "Joker, il messaggero", "st_i_king-7": "Joker, l'uomo di fiducia di Shin, gioca con le sue carte taglienti e sparisce prima che lo si possa toccare. È venuto a vedere di cosa è capace l'uomo dalle sette cicatrici.", "st_o_king-7": "«Preferisco morire che farti da messaggero.» Joker non andrà ad avvertire Shin. Ci penserà Kenshiro stesso.", "st_t_king-8": "Southern Cross: Shin", "st_i_king-8": "In cima alla sua città, Shin aspetta. Ha costruito tutto per lei, per Yuria. Un anno dopo la notte delle sette cicatrici, i due uomini si affrontano di nuovo.", "st_o_king-8": "Shin ha perso. Non lascerà che Kenshiro gli dia la morte: si getta dalla cima del suo palazzo. Yuria non c'era più. Il viaggio di Kenshiro è appena cominciato…", "sto_win": "Vinci il combattimento", "sto_rounds": "Vinci in {n} turni o meno", "sto_hits": "Colpisci l'avversario {n} volte", "sto_lost": "Perdi al massimo {n} PV", "sto_lastUlt": "Finisci con una mossa finale", "sto_keep": "Conserva più del {n}% dei tuoi PV", "sto_noRelay": "Non fare nessun cambio", "sto_noTrap": "Non far scattare nessuna trappola nemica", "sto_noJoker": "Non lasciare mai pescare Joker", "sto_firstKo": "Metti KO {who} per primo", "sto_killLvl": "Finisci {who} con {lvl}", "stLvl2": "un Pesante", "stLvlU": "una mossa finale"});
 const CHANGELOG=[
+ {v:"0.44.0",d:"2026-10-05",fr:["Nouveau : le mode Histoire ! Arc 1 « KING » : un prologue où tu joues Shin, puis 8 chapitres de Kenshiro contre la bande de Zeed, Spade, Diamond, Club, Heart, Joker et Shin, avec 3 étoiles à gagner par chapitre","Les persos battus se débloqueront grâce à l'histoire à partir de la version 1.0","2 nouveaux succès d'histoire"],en:["New: Story mode! Arc 1 “KING”: a prologue where you play Shin, then 8 chapters of Kenshiro against Zeed's gang, Spade, Diamond, Club, Heart, Joker and Shin, with 3 stars to earn per chapter","Defeated fighters will be unlocked through the story from version 1.0","2 new story achievements"],it:["Novità: la modalità Storia! Arco 1 «KING»: un prologo in cui giochi Shin, poi 8 capitoli di Kenshiro contro la banda di Zeed, Spade, Diamond, Club, Heart, Joker e Shin, con 3 stelle da guadagnare per capitolo","I personaggi sconfitti saranno sbloccati tramite la storia dalla versione 1.0","2 nuovi trofei della storia"]},
  {v:"0.43.2",d:"2026-10-05",fr:["Mobile : glisse vers le bas depuis le haut d'un menu pour recharger le jeu (désactivé en combat)"],en:["Mobile: pull down from the top of a menu to reload the game (disabled during fights)"],it:["Mobile: trascina verso il basso dall'alto di un menu per ricaricare il gioco (disattivato in combattimento)"]},
  {v:"0.43.1",d:"2026-10-05",fr:["Admin : les pastilles des punks et des Kiba peuvent maintenant être recadrées (erreur « mot de passe incorrect » corrigée)"],en:["Admin: punk and Kiba face tokens can now be reframed (\"wrong password\" error fixed)"],it:["Admin: ora si possono reinquadrare i ritratti dei punk e dei Kiba (errore «password errata» corretto)"]},
  {v:"0.43.0",d:"2026-10-05",fr:["3 nouveaux combattants : Asura de la Lumière Blanche (Gento Kōken), Bat adulte (Hokuto Shinken) et Borge (Tazu Kyōja Kon)","7 guerriers du clan Kiba (non jouables) : le 2e étage de l'arcade devient « Le clan Kiba », et ils renforcent les vagues 5-6 de la survie","2 nouveaux liens : Armée de Hokuto (Bat + Ein) et Le disciple (Bat + Kenshiro)","Nouvelles illustrations pour Boltz, Joker et Taiga"],en:["3 new fighters: Asura of the White Light (Gento Kōken), adult Bat (Hokuto Shinken) and Borge (Tazu Kyōja Kon)","7 Kiba clan warriors (not playable): arcade floor 2 becomes “The Kiba clan”, and they reinforce survival waves 5-6","2 new links: Hokuto Army (Bat + Ein) and The pupil (Bat + Kenshiro)","New artwork for Boltz, Joker and Taiga"],it:["3 nuovi combattenti: Asura della Luce Bianca (Gento Kōken), Bat adulto (Hokuto Shinken) e Borge (Tazu Kyōja Kon)","7 guerrieri del clan Kiba (non giocabili): il 2° piano dell'arcade diventa «Il clan Kiba», e rinforzano le ondate 5-6 della sopravvivenza","2 nuovi legami: Esercito di Hokuto (Bat + Ein) e Il discepolo (Bat + Kenshiro)","Nuove illustrazioni per Boltz, Joker e Taiga"]},
@@ -3669,7 +3697,7 @@ function drawFStats(){
 }
 
 /* ---------- succès ---------- */
-const ACH_LIST=[["first",1],["ai10",1],["ai50",2],["ai200",3],["vs1",1],["vs10",2],["vs50",3],["elo1200",2],["elo1400",3],["streak5",2],["streak10",3],["surv5",1],["surv10",2],["surv20",3],["tour1",2],["tour5",3],["roster15",1],["roster30",2],["flawless",2],["comeback",2],["ultko",1],["combo4",1],["combo5",2],["duo",1],["quintet",1],["clanwin",1],["cheap",2],["daily1",1],["daily10",2],["daily30",3],["weekpod",2],["weekwin",3],["arc1",2],["arc5",3],["arcsecret",2]];
+const ACH_LIST=[["first",1],["ai10",1],["ai50",2],["ai200",3],["vs1",1],["vs10",2],["vs50",3],["elo1200",2],["elo1400",3],["streak5",2],["streak10",3],["surv5",1],["surv10",2],["surv20",3],["tour1",2],["tour5",3],["roster15",1],["roster30",2],["flawless",2],["comeback",2],["ultko",1],["combo4",1],["combo5",2],["duo",1],["quintet",1],["clanwin",1],["cheap",2],["daily1",1],["daily10",2],["daily30",3],["story1",2],["story27",3],["weekpod",2],["weekwin",3],["arc1",2],["arc5",3],["arcsecret",2]];
 const ACH_PROG={arc5:s=>[s.arcClears||0,5],ai10:s=>[s.aiW||0,10],ai50:s=>[s.aiW||0,50],ai200:s=>[s.aiW||0,200],vs10:s=>[s.vsW||0,10],vs50:s=>[s.vsW||0,50],elo1200:s=>[s.elo||1000,1200],elo1400:s=>[s.elo||1000,1400],streak5:s=>[s.best||0,5],streak10:s=>[s.best||0,10],surv5:s=>[s.surv||0,5],surv10:s=>[s.surv||0,10],surv20:s=>[s.surv||0,20],tour5:s=>[s.tW||0,5],daily10:s=>[s.dailyN||0,10],daily30:s=>[s.dailyN||0,30],roster15:s=>[Object.keys(s.fav||{}).length,15],roster30:s=>[Object.keys(s.fav||{}).length,30]};
 const ACH_PTS={1:10,2:25,3:50};
 function featsFor(win){
@@ -3747,7 +3775,7 @@ async function faceEditor(id,done){
 /* ---------- joueurs en ligne ---------- */
 const ONLINE={list:[], timer:0, last:0};
 function presWhere(){
-  if(S && !S.over && !S.dead) return MODE==="vs"?(TOUR.code?"tour":"vs"):SURV.on?"surv":ARC.on?"arc":(MODE==="solo" && !S.daily && !S.weekly && !RP.on && !chDnd())?"ai":"solo";
+  if(S && !S.over && !S.dead) return MODE==="vs"?(TOUR.code?"tour":"vs"):SURV.on?"surv":ARC.on?"arc":(MODE==="solo" && !S.daily && !S.weekly && !S.story && !RP.on && !chDnd())?"ai":S.story?"story":"solo";
   if(QUICK_MM.t) return "queue"; if(TOUR.code) return "tour"; return "menu";
 }
 async function presPing(){
@@ -4045,6 +4073,99 @@ async function weeklyAfter(win){ rpCapture(true);
   addEventListener("touchend",()=>{ if(y0==null) return; const go=el && el.classList.contains("go"); y0=null;
     if(go){ el.classList.add("spin"); setTimeout(()=>location.reload(),150); } else if(el){ el.remove(); el=null; } on=false; },{passive:true});
 })();
+
+/* ---------- mode histoire ---------- */
+const STORY_CH=[{"id": "king-0", "me": ["rival"], "foe": ["maitre"], "foeHp": 0.6, "ai": 0.7, "unlock": [], "stars": [["rounds", 6], ["hits", 7]]}, {"id": "king-1", "me": ["maitre"], "foe": ["punk2", "punk4", "punk8"], "unlock": [], "stars": [["lost", 10], ["lastUlt", 1]], "meHp": 1.8, "ai": 0.6}, {"id": "king-2", "me": ["maitre"], "foe": ["zeed", "punk1", "punk9"], "unlock": ["zeed"], "stars": [["rounds", 8], ["killLvl", ["zeed", 2]]], "meHp": 1.7, "ai": 0.65}, {"id": "king-3", "me": ["maitre"], "foe": ["spade", "punk7", "punk3"], "terr": "ruines", "unlock": ["spade"], "stars": [["firstKo", "spade"], ["keep", 50]], "meHp": 1.6, "ai": 0.7}, {"id": "king-4", "me": ["maitre"], "waves": [["punk5", "punk10"], ["diamond", "punk11"]], "unlock": ["diamond"], "stars": [["noRelay", 1], ["keep", 50]], "meHp": 2.1, "ai": 0.7}, {"id": "king-5", "me": ["maitre"], "foe": ["club", "fox"], "foeTrap": "embuscade", "unlock": ["club", "fox"], "stars": [["noTrap", 1], ["rounds", 7]], "meHp": 1.6, "ai": 0.75}, {"id": "king-6", "me": ["maitre"], "foe": ["ventre"], "foeHp": 2, "rule": "fat", "unlock": ["ventre"], "stars": [["killLvl", ["ventre", "U"]], ["rounds", 9]], "meHp": 1.75, "ai": 0.8}, {"id": "king-7", "me": ["maitre"], "foe": ["joker", "punk6", "punk8"], "ai": 0.85, "unlock": ["joker"], "stars": [["noJoker", 1], ["rounds", 6]], "meHp": 1.6}, {"id": "king-8", "me": ["maitre"], "foe": ["rival"], "foeHp": 1.3, "foeRage": 4, "ai": 1, "unlock": ["rival"], "boss": 1, "stars": [["keep", 50], ["lastUlt", 1]], "meHp": 1.35}];
+const STORY={on:false, i:0, wave:0, hp:null};
+function stProg(){ return (ACC.user&&ACC.user.stats&&ACC.user.stats.story)||{}; }
+function stStarsOf(id){ return +(stProg()[id]||0); }
+function stOpen(i){ return i===0 || stProg()[STORY_CH[i-1].id]!=null; }
+function stObjText(o){ const [k,v]=o; let t=L("sto_"+k);
+  if(k==="firstKo") t=t.replace("{who}",nm(v)); else if(k==="killLvl") t=t.replace("{who}",nm(v[0])).replace("{lvl}",L(v[1]==="U"?"stLvlU":"stLvl2")); else t=t.replace("{n}",v); return t; }
+function stStarRow(n){ return `<span class="ststars">${[0,1,2].map(i=>`<i class="${i<n?"on":""}">★</i>`).join("")}</span>`; }
+function renderStory(sel=TITLE_SEL){
+  STORY.on=false;
+  const rows=STORY_CH.map((c,i)=>{ const open=stOpen(i), st=stStarsOf(c.id), done=stProg()[c.id]!=null, foe=(c.waves?c.waves[c.waves.length-1]:c.foe);
+    return `<button class="stch ${open?"":"lock"} ${done?"done":""} ${c.boss?"boss":""}" data-st="${i}" ${open?"":"disabled"}>
+      <span class="stn">${i}</span><img src="${FACE(foe[0])}" alt=""><span class="stt"><b>${L("st_t_"+c.id)}</b><small>${open?"":"🔒 "+L("stLocked")}${open&&c.unlock.length?`${L("stUnlock")} : ${c.unlock.map(nm).join(", ")}`:""}</small></span>${stStarRow(st)}</button>`; }).join("");
+  const tot=STORY_CH.reduce((a,c)=>a+stStarsOf(c.id),0);
+  pageShell(L("stTitle"),`<div class="stpage"><p class="iplead">${L("stLead")}</p><h3 class="pfh">${L("stArc1")} <small class="sttot">★ ${tot}/${STORY_CH.length*3}</small></h3><div class="stlist">${rows}</div><p class="note">${L("stHow")}</p></div>`,sel);
+  document.querySelectorAll("[data-st]").forEach(b=>b.onclick=()=>{ SFX.play("click"); renderStoryChapter(+b.dataset.st); });
+  bindLang(()=>renderStory(sel));
+}
+function renderStoryChapter(i){
+  const c=STORY_CH[i]; STORY.i=i; STORY.wave=0; STORY.hp=null; STORY.on=true;
+  const foe=c.waves?c.waves.flat():c.foe, art=c.waves?c.waves[c.waves.length-1][0]:c.foe[0];
+  const objs=[["win",0],...c.stars];
+  pageShell(L("stTitle"),`<div class="stchap ${c.boss?"boss":""}">
+    <div class="start"><img src="${CONFIG.imgs[art]}" alt=""></div>
+    <div class="sttext"><div class="kicker">${L("stArc1")} · ${i}</div><h2 class="arcn">${L("st_t_"+c.id)}</h2>
+    <p class="stintro">${L("st_i_"+c.id)}</p>
+    ${c.rule==="fat"?`<p class="note stwarn">⚠ ${L("stFat")}</p>`:""}${c.foeTrap?`<p class="note stwarn">⚠ ${L("stTrap")}</p>`:""}
+    <div class="stvs"><div><small>${L("stYou")}</small>${survFaces(c.me)}</div><div class="svvs">VS</div><div><small>${L("stFoe")}</small>${survFaces(foe)}</div></div>
+    <h3 class="pfh">${L("stObj")}</h3><ul class="stobj">${objs.map((o,k)=>`<li class="${k<=stStarsOf(c.id)-1?"ok":""}">★ ${stObjText(o)}</li>`).join("")}</ul>
+    ${c.unlock.length?`<p class="note">${L("stUnlock")} : <b>${c.unlock.map(nm).join(", ")}</b> ${L("stUnlockNote")}</p>`:""}
+    <div class="row" style="margin-top:10px"><button class="btn" id="stgo">${L("stPlay")}</button><button class="btn ghost" id="stback">${L("stBackList")}</button></div></div></div>`,TITLE_SEL);
+  $("#stgo").onclick=()=>{ SFX.play("event"); storyFight(); };
+  $("#stback").onclick=()=>{ SFX.play("click"); renderStory(); };
+  bindLang(()=>renderStoryChapter(i));
+}
+function storyFight(){
+  const c=STORY_CH[STORY.i], foe=(c.waves?c.waves[STORY.wave]:c.foe).slice();
+  MODE="solo"; ME="p";
+  newGame(c.me.slice(),foe,st=>{ st.story=c.id; st.storyRule=c.rule||null; st.aiSkill=c.ai!=null?c.ai:.8;
+    st.log=L("st_t_"+c.id)+(c.waves?" · "+L("stWave").replace("{a}",STORY.wave+1).replace("{b}",c.waves.length):"")+" · "+L("start");
+    if(c.foeHp) st.a.team.forEach(t=>{ t.max=t.hp=Math.max(4,Math.round(t.max*c.foeHp)); });
+    if(c.meHp) st.p.team.forEach(t=>{ t.max=t.hp=Math.round(t.max*c.meHp); });
+    if(c.foeRage) st.a.rage=c.foeRage;
+    if(c.terr) st.terrain=c.terr;
+    if(c.foeTrap) st.a.trap=c.foeTrap;
+    if(STORY.hp){ st.p.team.forEach((t,i)=>{ t.hp=Math.min(t.max,STORY.hp[i]+(STORY.hp[i]>0?Math.round(t.max*.3):0)); t.ko=t.hp<=0; }); st.p.active=Math.max(0,st.p.team.findIndex(t=>!t.ko)); st.p.relayN=STORY.relayN||0; }
+    st.stAcc=STORY.acc||{rounds:0,hits:0,trap:0,joker:0}; });
+}
+function storyEval(c,win){
+  const p=S.p, A=S.stAcc||{}, rounds=(A.rounds||0)+(S.round||1), hits=(A.hits||0)+(S.hits||0);
+  const max=p.team.reduce((a,t)=>a+t.max,0), cur=p.team.reduce((a,t)=>a+Math.max(0,t.hp),0), lost=max-cur;
+  const kl=S.koLog||[], foeKo=kl.filter(x=>x.side!==ME), last=foeKo[foeKo.length-1];
+  const chk=([k,v])=>{ switch(k){
+    case "rounds": return rounds<=v; case "hits": return hits>=v; case "lost": return lost<=v; case "keep": return cur*100>max*v;
+    case "lastUlt": return !!(last && last.by==="U"); case "noRelay": return !(p.relayN>0); case "noTrap": return !((A.trap||0)+(S.trapMe||0));
+    case "noJoker": return !((A.joker||0)+(S.jokerDraw||0)); case "firstKo": return !!(foeKo[0] && foeKo[0].id===v);
+    case "killLvl": return foeKo.some(x=>x.id===v[0] && x.by===v[1]); } return false; };
+  return win?1+c.stars.filter(chk).length:0;
+}
+async function storyAfter(win){ rpCapture(true);
+  const c=STORY_CH[STORY.i];
+  if(win && c.waves && STORY.wave<c.waves.length-1){
+    const A=S.stAcc||{}; STORY.acc={rounds:(A.rounds||0)+(S.round||1),hits:(A.hits||0)+(S.hits||0),trap:(A.trap||0)+(S.trapMe||0),joker:(A.joker||0)+(S.jokerDraw||0)};
+    STORY.hp=S.p.team.map(t=>t.ko?0:t.hp); STORY.relayN=S.p.relayN||0; STORY.wave++;
+    SFX.play("win");
+    $("#app").innerHTML=`<div class="screen"><div class="center"><div class="kicker">${L("st_t_"+c.id)}</div><h1>${L("win")}</h1><p class="svheal">${L("stWave").replace("{a}",STORY.wave+1).replace("{b}",c.waves.length)}</p><div class="row" style="justify-content:center"><button class="btn" id="stw">${L("stWaveNext")}</button></div></div></div>`;
+    $("#stw").onclick=()=>{ SFX.play("event"); storyFight(); }; return;
+  }
+  MUSIC.want("menu"); SFX.play(win?"win":"lose");
+  const stars=storyEval(c,win), had=stStarsOf(c.id), last=STORY.i>=STORY_CH.length-1;
+  STORY.acc=null; STORY.hp=null; STORY.relayN=0;
+  $("#app").innerHTML=`<div class="screen" style="overflow-y:auto"><div class="center stend">
+    <div class="kicker">${L("stArc1")} · ${STORY.i}</div>
+    <h1>${win?L("stWin"):`<em>${L("stLose")}</em>`}</h1>
+    ${win?`<div class="stbig">${stStarRow(stars)}</div><p class="stintro">${L("st_o_"+c.id)}</p>`:""}
+    <ul class="stobj">${[["win",0],...c.stars].map((o,k)=>`<li class="${win&&k<stars?"ok":""}">★ ${stObjText(o)}</li>`).join("")}</ul>
+    ${win&&c.unlock.length&&had===0?`<p class="note lvlup">${L("stJoined").replace("{who}",c.unlock.map(nm).join(", "))}</p>`:""}
+    ${win&&last?`<p class="svheal">${L("stArcDone")}</p>`:""}
+    <p class="note" id="accline">${ACC.on&&!ACC.user?L("notLogged"):""}</p>
+    ${endJournalHTML()}
+    ${rpAvailable()?`<button class="btn ghost sm" id="rpgo">▶ ${L("rpBtn")}</button>`:""}
+    <div class="row" style="justify-content:center">${win&&!last?`<button class="btn" id="stnext">${L("stNext")}</button>`:""}<button class="btn ${win&&!last?"ghost":""}" id="stretry">${L("stRetry")}</button><button class="btn ghost" id="stlist">${L("stBackList")}</button></div></div></div>`;
+  endJournalScroll();
+  if($("#rpgo")) $("#rpgo").onclick=()=>{ SFX.play("click"); rpStart(()=>renderStory()); };
+  if($("#stnext")) $("#stnext").onclick=()=>{ SFX.play("click"); renderStoryChapter(STORY.i+1); };
+  $("#stretry").onclick=()=>{ SFX.play("click"); renderStoryChapter(STORY.i); };
+  $("#stlist").onclick=()=>{ SFX.play("click"); renderStory(); };
+  if(win && ACC.on && ACC.user && !(S&&S.accDone)){ if(S) S.accDone=true;
+    try{ const r=await api("POST","/api/story",{ch:c.id,idx:STORY.i,stars,feats:featsFor(true)}); if(r.ok){ ACC.user=r.user; achToast(r.ach); const e=$("#accline"); if(e&&r.gain) e.textContent=L("ptsGain",r.gain); } }catch(e){}
+  }
+}
 /* ---------- mode survie ---------- */
 const SURV={on:false};
 const SURV_HEAL=.75, SURV_REVIVE=.5, SURV_REST=5;
@@ -4235,7 +4356,7 @@ function quitPress(b){
     if(!QUIT_ARM){ SFX.play("click"); QUIT_ARM=true; b.classList.add("arm"); clearTimeout(QUIT_T); QUIT_T=setTimeout(()=>{ QUIT_ARM=false; const x=$("#quit"); if(x) x.classList.remove("arm"); },4000); return; }
     QUIT_ARM=false; clearTimeout(QUIT_T);
     SFX.play("click"); const coach=document.querySelector(".coach-wrap,.coach"); if(coach) coach.remove();
-    if(S && !S.over && ACC.user){ if(MODE==="vs") accMatchEnd(true); else if(MODE==="solo"){ if(SURV.on) survReport(SURV.wave,false); else if(ARC.on && S.arc){ if(!S.arcBonus){ arcReport(ARC.floor,false); ARC.on=false; } } else accReportSolo(false); } }
+    if(S && !S.over && ACC.user){ if(MODE==="vs") accMatchEnd(true); else if(MODE==="solo"){ if(S.story||S.weekly){} else if(SURV.on) survReport(SURV.wave,false); else if(ARC.on && S.arc){ if(!S.arcBonus){ arcReport(ARC.floor,false); ARC.on=false; } } else accReportSolo(false); } }
     const tc=MODE==="vs"?TOUR.code:null;
     if(S){ S.over=true; S.dead=true; } if(MODE==="vs") netLeave(); else { MODE="solo"; ME="p"; } if(tc) renderTour(tc); else renderTitle(); }
 // délégué sur le document et au pointerdown : le plateau se redessine souvent (chrono, IA), un clic pouvait se perdre entre l'appui et le relâchement
@@ -4399,7 +4520,7 @@ function renderCodex(sel=[]){
     </div>`,sel);
   bindLang(()=>renderCodex(sel));
 }
-function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; ARC.on=false; quickStop(); MUSIC.want("menu"); tourStop(); TOUR.code=null; if(maintBlocked()) return renderMaintenance(); if(ACC.on && !ACC.user) return renderGate(sel);
+function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; ARC.on=false; STORY.on=false; quickStop(); MUSIC.want("menu"); tourStop(); TOUR.code=null; if(maintBlocked()) return renderMaintenance(); if(ACC.on && !ACC.user) return renderGate(sel);
   const ids=ROSTER();
   focus=focus||sel[sel.length-1]||"maitre";
   const cost=teamCost(sel), left=BUDGET-cost, cb=clanBonus(sel), ready=sel.length>=TEAM_MIN;
@@ -4415,6 +4536,7 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; ARC.on=fa
       <button class="btn ghost" id="online" ${ready?"":"disabled"}>${L("vsOnline")}</button>
       <button class="btn ghost" id="surv" ${ready?"":"disabled"}>${L("survBtn")}</button>
       <button class="btn ghost" id="arc" ${ready?"":"disabled"}>${L("arcBtn")}</button>
+      <button class="btn ghost" id="story">${L("stBtn")}</button>
       <button class="btn ghost" id="rnd">${L("random")}</button>
       <button class="btn ghost" id="tuto">${L("tuto")}</button><button class="btn ghost sm" id="roster">${L("rosterBtn")}</button><button class="btn ghost sm" id="rules">${L("rulesBtn")}</button>${ACC.on?`<button class="btn ghost" id="tour">${L("tourBtn")}</button><button class="btn ghost sm" id="hof">${L("hofBtn")}</button>`:""}</div><div class="row">${presChip()}<button class="vbtn" id="ver" title="${L("newsTitle")}"><i class="betatag">BETA</i> v${APP_VERSION}</button>${accBtnHTML()}${FS_OK?`<button class="tbtn" id="fs" aria-label="${L("fullscreen")}" title="${L("fullscreen")}">${SVG_FS}</button>`:""}<button class="tbtn" id="snd" aria-pressed="${SFX.on}" aria-label="${L("sound")}" title="${L("sound")}">${SFX.on?SVG_ON:SVG_OFF}</button><button class="tbtn" id="mus" aria-pressed="${MUSIC.on}" aria-label="${L("music")}" title="${L("music")}">${MUSIC.on?SVG_MUS:SVG_MUS_OFF}</button>${langBar()}</div></div>
     
@@ -4456,6 +4578,7 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; ARC.on=fa
   $("#online").onclick=()=>{ SFX.play("click"); renderLobby(sel); };
   $("#surv").onclick=()=>{ SFX.play("event"); survStart(sel); };
   $("#arc").onclick=()=>{ SFX.play("event"); arcStart(sel); };
+  $("#story").onclick=()=>{ SFX.play("event"); renderStory(sel); };
   bindDeckChips(sel,redo);
   if($("#dygo")) $("#dygo").onclick=()=>{ SFX.play("event"); dailyStart(sel); };
   if($("#lkon")) $("#lkon").onclick=()=>{ SFX.play("click"); linksPop(sel); };

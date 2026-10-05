@@ -147,7 +147,8 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     for (const [id, p] of presence) { if (now - p.t > ONLINE_MS) presence.delete(id); else out.push(p); }
     return out.sort((x, y) => (y.stats && y.stats.pts || 0) - (x.stats && x.stats.pts || 0)); }
   const lastSurv = new Map();     // uid -> timestamp (survie)
-  const lastArc = new Map();      // uid -> timestamp (arcade)
+  const lastArc = new Map();
+  const lastStory = new Map();      // uid -> timestamp (arcade)
   const tries = new Map();        // ip -> { n, t }
 
   const limited = ip => { const now = Date.now(); const e = tries.get(ip) || { n: 0, t: now }; if (now - e.t > 60000) { e.n = 0; e.t = now; } e.n++; tries.set(ip, e); return e.n > 12; };
@@ -203,6 +204,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     roster15: { t: 1, c: s => Object.keys(s.fav || {}).length >= 15 }, roster30: { t: 2, c: s => Object.keys(s.fav || {}).length >= 30 },
     flawless: { t: 2, f: 1 }, comeback: { t: 2, f: 1 }, ultko: { t: 1, f: 1 }, combo4: { t: 1, f: 1 }, combo5: { t: 2, f: 1 },
     arc1: { t: 2, c: s => (s.arcClears || 0) >= 1 }, arc5: { t: 3, c: s => (s.arcClears || 0) >= 5 }, arcsecret: { t: 2, c: s => (s.arcSecret || 0) >= 1 },
+    story1: { t: 2, c: s => s.story && s.story["king-8"] != null }, story27: { t: 3, c: s => s.story && Object.keys(s.story).filter(k => /^king-/.test(k)).reduce((a, k) => a + s.story[k], 0) >= 27 },
     weekpod: { t: 2, c: s => (s.wkPod || 0) >= 1 }, weekwin: { t: 3, c: s => (s.wkWin || 0) >= 1 },
     daily1: { t: 1, c: s => (s.dailyN || 0) >= 1 }, daily10: { t: 2, c: s => (s.dailyN || 0) >= 10 }, daily30: { t: 3, c: s => (s.dailyN || 0) >= 30 },
     duo: { t: 1, f: 1 }, quintet: { t: 1, f: 1 }, clanwin: { t: 1, f: 1 }, cheap: { t: 2, f: 1 }
@@ -371,6 +373,21 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       await store.saveStats(u.id, st);
       return [200, { user: pubUser(u), ach, gain }];
     },
+    // histoire : un chapitre à la fois, dans l'ordre ; 20 pts au premier passage, +10 par nouvelle étoile
+    "POST /api/story": async (req, body) => {
+      const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      const ch = String(body.ch || ""), m = /^king-(\d)$/.exec(ch), stars = Math.floor(+body.stars), st = u.stats;
+      if (!m || !(stars >= 1 && stars <= 3)) return [400, { error: "bad" }];
+      const idx = +m[1], prog = st.story = st.story || {};
+      if (idx > 0 && prog["king-" + (idx - 1)] == null) return [409, { error: "bad" }];
+      const now = Date.now(); if (now - (lastStory.get(u.id) || 0) < 15000) return [429, { error: "slow" }];
+      lastStory.set(u.id, now);
+      const had = prog[ch] == null ? -1 : prog[ch];
+      let gain = 0; if (had < 0) gain += 20; gain += 10 * Math.max(0, stars - Math.max(0, had));
+      prog[ch] = Math.max(stars, had); st.pts += gain;
+      const ach = achCheck(st, body.feats); await store.saveStats(u.id, st);
+      return [200, { user: pubUser(u), gain, ach }];
+    },
     // arcade : la tour, un étage à la fois dans l'ordre ; le combat secret (bonus) est facultatif, une fois par montée
     "POST /api/arc": async (req, body) => {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
@@ -435,7 +452,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     // présence : chaque client connecté pingue toutes les 30 s
     "POST /api/ping": async (req, body) => {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
-      const where = ["menu", "ai", "solo", "surv", "arc", "vs", "queue", "tour"].includes(body.where) ? body.where : "menu";
+      const where = ["menu", "ai", "solo", "surv", "arc", "story", "vs", "queue", "tour"].includes(body.where) ? body.where : "menu";
       presence.set(u.id, { ...pubUser(u), where, t: Date.now() });
       return [200, { online: onlineList() }];
     },
