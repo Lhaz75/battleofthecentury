@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.55.2 — 2026-10-05
+
+- Raoh s'appelle maintenant Ken-Oh
+
 ## v0.55.1 — 2026-10-05
 
 - Juza joue ses techniques dans l'ordre qu'il veut, à chaque coup (avant : une fois par tour). Un coup hors ordre garde le combo mais n'augmente pas le bonus
