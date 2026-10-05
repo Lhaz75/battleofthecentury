@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.63.0 — 2026-10-05
+
+- Le mode Histoire est ouvert à tous : arc 1 « KING », 9 chapitres et 27 étoiles
+- Menu principal réordonné : Histoire, Arcade, Survie, Entraînement, Versus en ligne, Tournoi, Tutoriel
+- Le Tutoriel revient dans le menu principal
+
 ## v0.62.7 — 2026-10-05
 
 - L'équipe au hasard utilise toujours les 10 points
