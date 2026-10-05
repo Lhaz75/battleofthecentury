@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.47.0 — 2026-10-05
+
+- Nouvelle icône du jeu : la Grande Ourse dans un médaillon doré
+
 ## v0.46.1 — 2026-10-05
 
 - Fiche du perso : texte dans un encadré transparent, plus lisible
