@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.59.5 — 2026-10-05
+
+- Mobile : l'administration passe en bas de Mon compte, avec des boutons plus compacts
+
 ## v0.59.4 — 2026-10-05
 
 - PC : la page Mon compte passe en 2 colonnes (profil et équipes à gauche, statistiques et succès à droite)
