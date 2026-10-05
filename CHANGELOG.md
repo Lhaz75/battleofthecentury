@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.43.2 — 2026-10-05
+
+- Mobile : glisse vers le bas depuis le haut d'un menu pour recharger le jeu (désactivé en combat)
+
 ## v0.43.1 — 2026-10-05
 
 - Admin : les pastilles des punks et des Kiba peuvent maintenant être recadrées (erreur « mot de passe incorrect » corrigée)
