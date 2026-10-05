@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.59.1 — 2026-10-05
+
+- Accueil : nouvelle police pour les modes, titre sur une ligne, illustration fondue dans le décor, bas de page centré
+
 ## v0.59.0 — 2026-10-05
 
 - Nouvel accueil : on choisit d'abord son mode de jeu, puis son équipe sur un écran à part
