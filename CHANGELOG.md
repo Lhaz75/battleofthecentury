@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.60.2 — 2026-10-05
+
+- La bulle d'info d'un piège est violette (elle était verte comme celle des terrains)
+
 ## v0.60.1 — 2026-10-05
 
 - PC : sur les écrans peu hauts, les persos de réserve ne passent plus sous les cartes de la main
