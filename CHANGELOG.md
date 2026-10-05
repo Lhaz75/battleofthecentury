@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.48.4 — 2026-10-05
+
+- Mobile : le menu ☰ est un petit déroulant d'icônes (profil, son, musique, plein écran), les modes et pages reviennent sur l'accueil
+
 ## v0.48.3 — 2026-10-05
 
 - Mobile : texte des cartes plus petit et plus contrasté quand la main est sur 2 rangées
@@ -13,7 +17,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.48.0 — 2026-10-05
 
-- Mobile : nouveau menu ☰ (son, musique, plein écran, langue, combattants, tuto, règles), l'écran d'accueil est moins chargé
+- Mobile : nouveau bouton ☰ qui déroule profil, son, musique et plein écran
 - Combat : les cases de piège et de terrain vides ne s'affichent plus
 
 ## v0.47.1 — 2026-10-05
