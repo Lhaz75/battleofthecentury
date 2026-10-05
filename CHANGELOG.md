@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.56.1 — 2026-10-05
+
+- Les gros plans d'ultime utilisent maintenant l'illustration du perso directement (jeu plus léger, et tous les persos ont leur gros plan, pillards et Kiba compris)
+
 ## v0.56.0 — 2026-10-05
 
 - 5 nouveaux combattants : Kenshiro Kasumi, Tesshin Kasumi et Shūken (Hokuto Shinken), Yuria (Nanto) et Baran
