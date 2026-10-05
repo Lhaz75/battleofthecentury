@@ -2,9 +2,9 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
-## v0.48.1 — 2026-10-05
+## v0.48.2 — 2026-10-05
 
-- Mobile : en combat, les cartes en main prennent la place libre (sur 2 rangées quand ça rentre)
+- Mobile : en combat, les cartes en main prennent la place libre (sur 2 rangées quand ça rentre), la ligne « Ton combo » vide est masquée
 
 ## v0.48.0 — 2026-10-05
 
