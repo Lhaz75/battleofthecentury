@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.48.1 — 2026-10-05
+
+- Mobile : en combat, les cartes en main prennent la place libre (sur 2 rangées quand ça rentre)
+
 ## v0.48.0 — 2026-10-05
 
 - Mobile : nouveau menu ☰ (son, musique, plein écran, langue, combattants, tuto, règles), l'écran d'accueil est moins chargé
