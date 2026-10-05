@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.62.5 — 2026-10-05
+
+- PC : sur la fiche du perso, le texte passe en bandeau en bas et l'illustration s'arrête au-dessus, plus rien ne cache le perso
+
 ## v0.62.4 — 2026-10-05
 
 - Le bouton de l'écran d'équipe dit « Choisis au moins 2 persos » (une équipe va de 2 à 5)
