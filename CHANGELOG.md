@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.58.0 — 2026-10-05
+
+- Nouvelle barre de rage : 8 lames inclinées et un compteur (ex. 5/8), elle s'illumine quand l'ultime est prêt
+
 ## v0.57.0 — 2026-10-05
 
 - Équilibrage : les PV de 25 combattants sont ajustés, tous les persos gagnent maintenant entre 45 et 55 % de leurs combats (testé sur 60 000 parties)
