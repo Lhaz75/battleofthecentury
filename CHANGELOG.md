@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.80.0 — 2026-10-07
+
+- 6 nouveaux adversaires non jouables pour les prochains chapitres : Gallon (Katō Jutsu), Goum et Gyūki & Habu (sbires d'Amiba), Seeker (éclaireur de Ken-Oh), Targel (bourreau de Cassandra) et Sōjin (maître du Fūrai Jukkyoku Ken)
+- Nouveau décor prêt pour l'arc 2 : le QG de la GOLAN
+
 ## v0.79.0 — 2026-10-07
 
 - Les 20 événements ont maintenant leur illustration : sur la carte d'événement en combat et dans la page Cartes & événements
