@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.78.1 — 2026-10-06
+
+- Dante, Zaria, Baron et Junk rejoignent l'école Nanto
+
 ## v0.78.0 — 2026-10-06
 
 - 4 nouveaux combattants : Dante (Nanto Hyakuzan Ken, ancien partenaire de Shin), Zaria (la cloche hypnotique de KING), Baron (le gang du Scorpion) et Junk (le gang du Serpent)
