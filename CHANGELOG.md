@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.66.1 — 2026-10-06
+
+- Mode histoire : les 3 boutons de difficulté tiennent sur une ligne sur mobile, et Lin n'est mentionnée que dans les chapitres où elle est là
+
 ## v0.66.0 — 2026-10-06
 
 - Mode histoire : choix de la difficulté sur la page du chapitre. Facile (max 2 étoiles), Normal, ou Difficile (adversaires +20 % PV, Lin soigne moins)
