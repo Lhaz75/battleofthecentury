@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.70.3 — 2026-10-06
+
+- KO : le perso vaincu vire au rouge foncé et disparaît en fondu, et le mot s'écrit « KO »
+
 ## v0.70.2 — 2026-10-06
 
 - Le dernier KO du combat se joue au ralenti avec un gros « K.O. » avant l'écran de victoire, qui n'arrive plus en coupant l'animation
