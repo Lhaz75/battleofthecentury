@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.64.4 — 2026-10-06
+
+- Mode histoire : sur la page d'un chapitre, les objectifs déjà réussis ont une étoile jaune, tu vois direct ce qu'il te manque
+- Les objectifs réussis se cumulent d'une partie à l'autre : réussis l'un puis l'autre et tu as tes 3 étoiles
+
 ## v0.64.3 — 2026-10-06
 
 - Mode histoire : en fin de chapitre, les objectifs réussis sont bien ceux que tu as remplis (avant, le jeu cochait juste les premiers selon le nombre d'étoiles)

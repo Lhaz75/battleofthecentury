@@ -386,8 +386,11 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       const now = Date.now(); if (now - (lastStory.get(u.id) || 0) < 15000) return [429, { error: "slow" }];
       lastStory.set(u.id, now);
       const had = prog[ch] == null ? -1 : prog[ch];
-      let gain = 0; if (had < 0) gain += 20; gain += 10 * Math.max(0, stars - Math.max(0, had));
-      prog[ch] = Math.max(stars, had); st.pts += gain;
+      // objectifs réussis (bits), cumulés d'une partie à l'autre : 3 étoiles = les deux objectifs, même sur des parties différentes
+      const pc = x => (x & 1) + ((x >> 1) & 1), mk = Math.floor(+body.mask) & 3, M = st.storyM = st.storyM || {};
+      let best = stars; if (pc(mk) === stars - 1) { M[ch] = (M[ch] || 0) | mk; best = Math.max(stars, 1 + pc(M[ch])); }
+      let gain = 0; if (had < 0) gain += 20; gain += 10 * Math.max(0, best - Math.max(0, had));
+      prog[ch] = Math.max(best, had); st.pts += gain;
       const ach = achCheck(st, body.feats); await store.saveStats(u.id, st);
       return [200, { user: pubUser(u), gain, ach }];
     },
