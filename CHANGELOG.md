@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.64.2 — 2026-10-06
+
+- Mode histoire, prologue : l'objectif « Toucher 7 fois » passe à 5 fois (Kenshiro tombait avant)
+
 ## v0.64.1 — 2026-10-06
 
 - Mobile : les liens du site, de Facebook et de Discord tiennent sur une ligne
