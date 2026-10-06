@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.74.0 — 2026-10-06
+
+- PC : le journal de combat se déplace en le tirant par son en-tête et se redimensionne par le coin en bas à droite (double-clic sur l'en-tête pour le remettre en place)
+
 ## v0.73.2 — 2026-10-06
 
 - PC : le portrait s'adapte à la hauteur de l'écran, le côté du combattant ne déborde plus sur la main
