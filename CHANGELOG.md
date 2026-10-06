@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.72.3 — 2026-10-06
+
+- Correctif IA : elle ne reste plus bloquée à passer son tour quand sa main ne contient que des techniques de son perso en réserve, elle fait le relais
+
 ## v0.72.2 — 2026-10-06
 
 - CRITIQUE et les chiffres d'ultime : ombre noire simple au lieu de l'ombre rouge
