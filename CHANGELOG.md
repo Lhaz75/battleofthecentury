@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.76.4 — 2026-10-06
+
+- Correctif : Madara est maintenant bien sélectionnable dans la liste des combattants
+
 ## v0.76.3 — 2026-10-06
 
 - Page Règles mise à jour : échange ⇄, liens entre combattants, Esquive et Contre précisés, chat dans le journal
