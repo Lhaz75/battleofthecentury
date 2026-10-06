@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.81.1 — 2026-10-07
+
+- L'arc 2 du mode histoire est visible mais verrouillé le temps des tests
+
 ## v0.81.0 — 2026-10-07
 
 - Mode histoire : début de l'arc 2, « Les frères de Hokuto ». 5 nouveaux chapitres : le QG de la GOLAN, Jackal et Devil Rebirth, le village de Mamiya (avec Rei), Kiba Daioh et Jagi

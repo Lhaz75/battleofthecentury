@@ -2,6 +2,7 @@
 // Stockage : Postgres si DATABASE_URL est défini (Neon), sinon un fichier JSON local (dev / secours).
 const crypto = require("crypto");
 // ordre des chapitres du mode histoire (king-9 = interlude Barcom, joué avant le combat contre Shin)
+const STORY_TEST = /^arc2-/;   // arcs en test (lecture seule pour les joueurs) : vider la regex (/^$/) pour ouvrir
 const STORY_ORDER = ["king-0", "king-1", "king-2", "king-3", "king-4", "king-5", "king-6", "king-7", "king-9", "king-8", "arc2-1", "arc2-2", "arc2-3", "arc2-4", "arc2-5"];
 const fs = require("fs");
 const path = require("path");
@@ -384,6 +385,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
       const ch = String(body.ch || ""), idx = STORY_ORDER.indexOf(ch), stars = Math.floor(+body.stars), st = u.stats;
       if (idx < 0 || !(stars >= 1 && stars <= 3)) return [400, { error: "bad" }];
+      if (STORY_TEST.test(ch) && !isAdmin(u)) return [403, { error: "test" }];   // arc en test : réservé aux admins
       const prog = st.story = st.story || {};
       if (idx > 0 && prog[STORY_ORDER[idx - 1]] == null && prog[ch] == null) return [409, { error: "bad" }];
       const now = Date.now(); if (now - (lastStory.get(u.id) || 0) < 15000) return [429, { error: "slow" }];
