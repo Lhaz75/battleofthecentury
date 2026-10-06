@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.65.0 — 2026-10-06
+
+- Mode histoire : Lin et Bat t'aident en combat. Lin soigne ton perso de 2 PV à chacun de tes tours, Bat vole une carte à l'adversaire une fois par combat
+
 ## v0.64.5 — 2026-10-06
 
 - Mobile : le bouton profil sort du menu ☰ et s'affiche à côté
