@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.71.0 — 2026-10-06
+
+- Défi de la semaine refait : grande présentation de l'équipe à battre, compte à rebours, règles en 3 étapes et podium pour le top 3
+
 ## v0.70.4 — 2026-10-06
 
 - Barre de vie : une graduation par PV, la barre tombe pile sur un trait
