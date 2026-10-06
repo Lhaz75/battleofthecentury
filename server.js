@@ -79,7 +79,7 @@ const server = http.createServer((req, res) => {
     if (err || !st.isFile()) { res.writeHead(404); return res.end("Not found"); }
     const etag = `"${st.size.toString(36)}-${Math.floor(st.mtimeMs).toString(36)}"`;
     const head = { "Content-Type": TYPES[path.extname(file)] || "application/octet-stream", "Cache-Control": "no-cache", "ETag": etag };
-    if (p === "/changelog.json" || p === "/fighters.json") head["Access-Control-Allow-Origin"] = "*";   // lus par les widgets du site hokutolegacy.com
+    if (p === "/changelog.json" || p === "/fighters.json" || p === "/rules.json") head["Access-Control-Allow-Origin"] = "*";   // lus par les widgets du site hokutolegacy.com
     if (req.headers["if-none-match"] === etag) { res.writeHead(304, head); return res.end(); }
     fs.readFile(file, (e2, buf) => {
       if (e2) { res.writeHead(404); return res.end("Not found"); }
