@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.81.0 — 2026-10-07
+
+- Mode histoire : début de l'arc 2, « Les frères de Hokuto ». 5 nouveaux chapitres : le QG de la GOLAN, Jackal et Devil Rebirth, le village de Mamiya (avec Rei), Kiba Daioh et Jagi
+- Les chapitres sont maintenant rangés par arc, avec les étoiles et couronnes comptées pour chaque arc
+
 ## v0.80.0 — 2026-10-07
 
 - 6 nouveaux adversaires non jouables pour les prochains chapitres : Gallon (Katō Jutsu), Goum (chef des chasseurs de poupées) et Gyūki & Habu (sbires d'Amiba), Seeker (éclaireur de Ken-Oh), Targel (bourreau de Cassandra) et Sōjin (maître du Fūrai Jukkyoku Ken)
