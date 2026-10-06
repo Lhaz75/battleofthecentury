@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.77.0 — 2026-10-06
+
+- Nouveaux fonds illustrés pour les cartes Léger, Moyen, Lourd et Spéciales
+
 ## v0.76.4 — 2026-10-06
 
 - Correctif : Madara est maintenant bien sélectionnable dans la liste des combattants
