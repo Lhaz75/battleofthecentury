@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.73.1 — 2026-10-06
+
+- Mode histoire : le nombre de couronnes gagnées s'affiche à côté du total d'étoiles
+
 ## v0.73.0 — 2026-10-06
 
 - 4 nouveaux combattants : Barcom (généralissime de KING), Bella (Ranzan Kurenai Ken), Dragon (Nanto Ryūjin Ken, avec Patra) et Sabato (le glouton à la lance)
