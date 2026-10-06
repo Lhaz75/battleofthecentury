@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.72.1 — 2026-10-06
+
+- Nouvelle police JunkDog pour les chiffres de dégâts, CRITIQUE, le compteur de combo et le KO
+
 ## v0.72.0 — 2026-10-06
 
 - Nouveau bouton ⇄ : une fois par tour, échange une carte de ta main contre une nouvelle pour 2 rage
