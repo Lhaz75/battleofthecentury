@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.64.5 — 2026-10-06
+
+- Mobile : le bouton profil sort du menu ☰ et s'affiche à côté
+
 ## v0.64.4 — 2026-10-06
 
 - Mode histoire : sur la page d'un chapitre, les objectifs déjà réussis ont une étoile jaune, tu vois direct ce qu'il te manque
