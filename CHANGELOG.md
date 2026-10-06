@@ -2,6 +2,13 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.76.2 — 2026-10-06
+
+- Installation de l'appli : si elle reste bloquée, une astuce s'affiche pour l'ajouter quand même à l'écran d'accueil
+- Mobile portrait : la main s'affiche sur 2 rangées, toutes les cartes sont visibles sans défiler
+- Mobile paysage : les cartes rétrécissent un peu si elles ne tiennent pas sur une ligne
+- Petits écrans : boutons du bas resserrés pour que Ultime et Fin du tour restent lisibles
+
 ## v0.76.0 — 2026-10-06
 
 - Mode histoire : nouveau chapitre avant le combat contre Shin, « Le coup d'État de Barcom ». Tu joues Shin face à la rébellion de son généralissime, et Barcom se débloque
