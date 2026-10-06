@@ -548,6 +548,15 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       await store.setSetting("ipbans", ipBans); console.log(`Admin ${u.name} : IP ${ip} ${body.ban ? "bannie" : "débannie"}`);
       return [200, { ipBans }];
     },
+    // lecture publique pour les widgets du site hokutolegacy.com (aucune donnée privée)
+    "GET /api/public/board": async () => {
+      const slim = u => { const p = pubUser(u); return { id: p.id, name: p.name, avatar: p.avatar || null, elo: p.stats ? p.stats.elo : p.elo, pts: p.stats ? p.stats.pts : p.pts, w: p.stats ? (p.stats.vsW || 0) + (p.stats.aiW || 0) : 0 }; };
+      const [elo, pts] = await Promise.all([store.top("elo", 10), store.top("pts", 10)]);
+      const k = weekKey(), w = await wkGet(k), r = wkRank(w);
+      const prev = wkRank(await wkGet(weekKey(-1))).slice(0, 3).map(e => ({ name: e.name, cost: e.cost, rounds: e.rounds, lost: e.lost, team: e.team }));
+      return [200, { at: Date.now(), online: onlineList().length, elo: elo.map(slim), pts: pts.map(slim),
+        weekly: { week: k, ends: weekKey(1), foe: w.foe || [], n: r.length, top: r.slice(0, 10).map(e => ({ name: e.name, cost: e.cost, rounds: e.rounds, lost: e.lost, team: e.team })), prev, prize: WK_PRIZE } }];
+    },
     "GET /api/top": async (req, body, ip, url) => {
       const k = url.searchParams.get("kind"), kind = k === "pts" || k === "surv" ? k : "elo";
       return [200, { kind, list: (await store.top(kind, 50)).map(pubUser) }];
@@ -592,7 +601,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       if (big) return;
       let body = {}; if (raw) { try { body = JSON.parse(raw); } catch (e) { return send(400, { error: "json" }); } }
       const ip = (req.headers["x-forwarded-for"] || req.socket.remoteAddress || "").split(",")[0].trim();
-      try { const [code, obj] = await fn(req, body, ip, url); send(code, obj); }
+      try { const [code, obj] = await fn(req, body, ip, url); send(code, obj, url.pathname.startsWith("/api/public/") ? { "Access-Control-Allow-Origin": "*", "Cache-Control": "public, max-age=60" } : undefined); }
       catch (e) { console.error("api", url.pathname, e.message); send(500, { error: "server" }); }
     });
   }
