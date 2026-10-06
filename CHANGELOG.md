@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.82.1 — 2026-10-07
+
+- Mode histoire : un onglet par arc en haut de la page, plus besoin de défiler jusqu'en bas pour trouver l'arc 2
+
 ## v0.82.0 — 2026-10-07
 
 - Entraînement : tu peux choisir toi-même l'équipe adverse (bouton « Je choisis »). Combat libre pour tester, sans points ni succès (idée de maxGfive)
