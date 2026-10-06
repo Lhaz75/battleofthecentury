@@ -2,6 +2,13 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.68.0 — 2026-10-06
+
+- Moment KO : l'action ralentit, la carte du vaincu se déchire en deux (coup normal) ou gonfle et éclate (ultime ou Lourd)
+- L'adversaire marque une petite pause entre ses coups pour qu'on suive ce qu'il joue
+- Nouveau bouton ⏩ « Combat rapide » dans le menu pour retrouver l'ancien rythme
+- Les mots japonais à chaque coup sont retirés, place aux chiffres de dégâts
+
 ## v0.67.0 — 2026-10-06
 
 - Combat : gros chiffres de dégâts style BD. Blanc pour les Légers, orange pour les Moyens, rouge pour les Lourds, or géant pour les ultimes
