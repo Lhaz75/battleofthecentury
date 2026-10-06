@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.76.3 — 2026-10-06
+
+- Page Règles mise à jour : échange ⇄, liens entre combattants, Esquive et Contre précisés, chat dans le journal
+
 ## v0.76.2 — 2026-10-06
 
 - Installation de l'appli : si elle reste bloquée, une astuce s'affiche pour l'ajouter quand même à l'écran d'accueil
