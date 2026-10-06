@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.71.1 — 2026-10-06
+
+- Correctif : quand un événement achève un combattant (ex. L'étoile de la mort), la carte de l'événement s'affiche et il est noté dans le journal
+
 ## v0.71.0 — 2026-10-06
 
 - Défi de la semaine refait : grande présentation de l'équipe à battre, compte à rebours, règles en 3 étapes et podium pour le top 3
