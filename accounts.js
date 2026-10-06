@@ -208,6 +208,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     flawless: { t: 2, f: 1 }, comeback: { t: 2, f: 1 }, ultko: { t: 1, f: 1 }, combo4: { t: 1, f: 1 }, combo5: { t: 2, f: 1 },
     arc1: { t: 2, c: s => (s.arcClears || 0) >= 1 }, arc5: { t: 3, c: s => (s.arcClears || 0) >= 5 }, arcsecret: { t: 2, c: s => (s.arcSecret || 0) >= 1 },
     story1: { t: 2, c: s => s.story && s.story["king-8"] != null }, story27: { t: 3, c: s => s.story && Object.keys(s.story).filter(k => /^king-/.test(k)).reduce((a, k) => a + s.story[k], 0) >= 27 },
+    storylegend: { t: 3, c: s => s.storyH && Array.from({ length: 9 }, (_, i) => "king-" + i).every(k => s.storyH[k]) },
     weekpod: { t: 2, c: s => (s.wkPod || 0) >= 1 }, weekwin: { t: 3, c: s => (s.wkWin || 0) >= 1 },
     daily1: { t: 1, c: s => (s.dailyN || 0) >= 1 }, daily10: { t: 2, c: s => (s.dailyN || 0) >= 10 }, daily30: { t: 3, c: s => (s.dailyN || 0) >= 30 },
     duo: { t: 1, f: 1 }, quintet: { t: 1, f: 1 }, clanwin: { t: 1, f: 1 }, cheap: { t: 2, f: 1 }
@@ -388,9 +389,11 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       const had = prog[ch] == null ? -1 : prog[ch];
       // objectifs réussis (bits), cumulés d'une partie à l'autre : 3 étoiles = les deux objectifs, même sur des parties différentes
       const pc = x => (x & 1) + ((x >> 1) & 1), mk = Math.floor(+body.mask) & 3, M = st.storyM = st.storyM || {};
-      let best = stars; if (pc(mk) === stars - 1) { M[ch] = (M[ch] || 0) | mk; best = Math.max(stars, 1 + pc(M[ch])); }
+      const easy = body.diff === "e"; if (easy && stars > 2) return [400, { error: "bad" }];
+      let best = stars; if (!easy && pc(mk) === stars - 1) { M[ch] = (M[ch] || 0) | mk; best = Math.max(stars, 1 + pc(M[ch])); }
       let gain = 0; if (had < 0) gain += 20; gain += 10 * Math.max(0, best - Math.max(0, had));
       prog[ch] = Math.max(best, had); st.pts += gain;
+      if (body.diff === "h" && stars >= 3) { const H = st.storyH = st.storyH || {}; if (!H[ch]) { H[ch] = 1; st.pts += 15; gain += 15; } }
       const ach = achCheck(st, body.feats); await store.saveStats(u.id, st);
       return [200, { user: pubUser(u), gain, ach }];
     },

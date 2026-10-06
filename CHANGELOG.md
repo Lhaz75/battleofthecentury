@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.66.0 — 2026-10-06
+
+- Mode histoire : choix de la difficulté sur la page du chapitre. Facile (max 2 étoiles), Normal, ou Difficile (adversaires +20 % PV, Lin soigne moins)
+- 3 étoiles en Difficile = une couronne 👑 sur le chapitre et +15 pts ; nouveau succès « Légende du Hokuto » pour la couronne sur tout l'arc 1
+
 ## v0.65.3 — 2026-10-06
 
 - Mode histoire, combat final : Kenshiro commence avec 4 de rage contre Shin
