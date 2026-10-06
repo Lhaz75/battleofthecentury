@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.70.1 — 2026-10-06
+
+- PC : nouvelle barre de vie façon arcade avec les PV écrits dedans
+- PC : le passif du perso s'affiche dans un encadré lisible avec son nom en titre
+
 ## v0.70.0 — 2026-10-06
 
 - PC : le centre devient un tapis de jeu avec la dernière carte jouée en grand, le combo et l'action en cours
