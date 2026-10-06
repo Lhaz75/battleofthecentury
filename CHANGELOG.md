@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.69.0 — 2026-10-06
+
+- Chiffres de dégâts beaucoup plus gros, « CRITIQUE ! » dans la même police
+- Nouveau KO : la carte vole en éclats, l'écran tremble et un énorme « K.O. » s'écrase au centre
+
 ## v0.68.1 — 2026-10-06
 
 - Le bandeau « Tour adverse » dure moins longtemps et l'adversaire attend qu'il disparaisse avant de jouer
