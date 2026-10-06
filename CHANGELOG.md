@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.66.3 — 2026-10-06
+
+- Accueil : effet braises sur le menu, le mode sélectionné s'embrase
+
 ## v0.66.2 — 2026-10-06
 
 - Le bandeau « Nouvelle version » ne s'affiche plus pendant un combat (il cachait les PV et la rage de l'adversaire) : il revient dès la fin du combat
