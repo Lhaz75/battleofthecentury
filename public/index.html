@@ -1906,6 +1906,18 @@ body.koslow.kofin .screen.board{animation:koz2 4.3s ease-out}
 .wpod.p1 .wpb{background:#ffd700}
 .wkend{text-align:center}
 @media (max-width:640px){.wkr{flex-direction:column;gap:4px;padding:8px 4px;font-size:12px;text-align:center;line-height:1.2}.wkduel{flex-direction:column;align-items:stretch;text-align:center}.wslots{justify-content:center}.wkbtns{justify-content:center}.wpods{gap:6px}.wpod{padding:10px 4px}.wpn{font-size:13px}.wpod.p1 .wpn{font-size:15px}.wps .wks{font-size:10.5px}.wpod .dkf img{width:22px;height:22px}}
+
+/* v0.72.0 : échange de carte contre de la rage */
+.swapb{position:relative}
+.swapb svg{width:20px;height:20px}
+.swapb b{position:absolute;right:-3px;bottom:-3px;min-width:16px;height:16px;border-radius:8px;background:#e0501a;color:#fff;font:700 11px/16px var(--f-display);text-align:center;box-shadow:0 0 0 2px #120806}
+.swapb.on{background:#e0501a!important;color:#fff!important;box-shadow:0 0 14px #ff6a2a}
+.swapb[disabled]{opacity:.35}
+.hand.swapping .card{filter:none!important;opacity:1!important;cursor:pointer;outline:2px dashed #ff6a2a;outline-offset:2px}
+.hand.swapping .card:hover{transform:translateY(-8px) rotate(-2deg);outline-style:solid;box-shadow:0 0 18px #ff6a2a}
+.swaphint{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--handh,240px) + 70px);z-index:30;background:rgba(20,8,4,.92);border:1px solid #ff6a2a;color:#ffd8c0;font:600 14px var(--f-body);padding:8px 14px;border-radius:999px;pointer-events:none;white-space:nowrap}
+@media (max-width:999px){.swaphint{bottom:auto;top:46%;font-size:12.5px;white-space:normal;width:max-content;max-width:90vw;text-align:center}}
+@media (max-width:440px){.screen.board .bar-actions{gap:3px!important}.screen.board .bar-actions .tbtn{width:30px!important;height:30px!important}.screen.board .bar-actions .tbtn svg{width:15px!important;height:15px!important}.screen.board .bar-actions .btn{padding:9px 5px!important;font-size:10.5px!important;letter-spacing:.02em!important}.swapb b{min-width:14px;height:14px;font-size:10px;line-height:14px}}
 </style>
 <style>html,body{margin:0}*{box-sizing:border-box}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
@@ -2819,7 +2831,7 @@ function startTurn(k){
   S.turn=k;
   s.end = ENDURANCE + s.sageBonus - s.drain - (S.terrain==="desert"?1:0);
   s.end = Math.max(1,s.end); if(k==="p" && S.round===0) s.end=2;
-  s.nT=(s.nT||0)+1; s.sageBonus=0; s.drain=0; s.relais=false; s.empGuard=true; s.freeLight=false; s.unyield=false; s.cloudUsed=false;
+  s.nT=(s.nT||0)+1; s.sageBonus=0; s.drain=0; s.relais=false; s.swapped=false; s.empGuard=true; s.freeLight=false; s.unyield=false; s.cloudUsed=false;
   s.combo={n:0,last:-1,stop:false,trail:[]};
   S[other(k)].empGuard=true;
   S.hitIdx=0; S.turnDmg=0; S.lastLvl=null;
@@ -3184,6 +3196,10 @@ function ko(k){
     if(!canRelayAny(s)){ const bad=o.hand.filter(x=>uselessTrap(o,x)); if(bad.length){ o.hand=o.hand.filter(x=>!bad.includes(x)); o.disc.push(...bad); drawTo(o,o.hand.length+bad.length); } } }
   SFX.voice(ENTER_VOICE[s.team[next].id], 2600);
 }
+function canSwap(k,ai){ const s=S[k]; return S.turn===k && (ai||!S.busy) && !S.over && !s.swapped && s.rage>=SWAP_RAGE && s.hand.length>0; }
+function swapCard(k,card,ai){ const s=S[k]; if(!ai) SWAP_MODE=false; if(!canSwap(k,ai)||!s.hand.includes(card)) { render(); return; }
+  s.rage-=SWAP_RAGE; s.swapped=true; s.hand.splice(s.hand.indexOf(card),1); s.disc.push(card); const n=s.hand.length+1; drawTo(s,n);
+  SFX.play("click"); S.log=k===ME?L("swapLogMe",tr(CARDS[card.k].name),SWAP_RAGE):L("swapLog",who(k),tr(CARDS[card.k].name),SWAP_RAGE); S.sub=""; render(); }
 async function relais(k,idx){
   const s=S[k];
   if(S.turn!==k || s.relais || s.end<relayCost(s,idx) || idx===s.active || s.team[idx].ko || S.over) return;
@@ -3257,9 +3273,17 @@ function aiReact(c,dmg,options,att){
   if(get("garde") && dmg>=4) return get("garde");
   return null;
 }
+function aiSwapPick(k){ const s=S[k];
+  if(!canSwap(k,true) || s.rage>=RAGE_MAX || s.rage>RAGE_MAX-4 && s.rage-SWAP_RAGE<RAGE_MAX-4 && Math.random()<.7) return null;
+  const atk=s.hand.filter(x=>CARDS[x.k].kind==="atk"), max=s.end;
+  const dead=atk.filter(x=>cardCost(s,CARDS[x.k])>max).sort((a,b)=>CARDS[b.k].cost-CARDS[a.k].cost);
+  if(dead.length) return dead[0];
+  if(!atk.some(x=>canPlay(k,x))){ const junk=s.hand.filter(x=>CARDS[x.k].kind!=="react"); if(junk.length) return junk[rnd(junk.length)]; }
+  return null; }
 async function aiTurn(k="a"){
   const s=S[k], o=S[other(k)];
   await wait(FAST?600:1250);
+  { const c=aiSwapPick(k); if(c){ swapCard(k,c,true); await wait(FAST?250:700); } }
   // terrain
   const t=s.hand.find(x=>CARDS[x.k].kind==="terr" && canPlay(k,x));
   if(t && (!S.terrain || Math.random()<.4) && s.end>=3) await playCard(k,t);
@@ -3620,7 +3644,7 @@ function bindTips(){
   });
 }
 document.addEventListener("click",tipHide);
-let LASTPLAY=null;
+let LASTPLAY=null, SWAP_MODE=false; const SWAP_RAGE=2;
 function jdockFit(){ const b=document.body; if(!b||!b.classList||!document.querySelectorAll) return; if(window.innerWidth<1000||!document.querySelector(".screen.board")){ b.classList.remove("jdock"); return; }
   b.classList.remove("jdock"); let mx=0; document.querySelectorAll(".board>.hand .card,.board>.bar-actions>*").forEach(e=>{ const r=e.getBoundingClientRect(); if(r.width) mx=Math.max(mx,r.right); });
   const h=document.querySelector(".board>.hand"), top=h?h.getBoundingClientRect().top:innerHeight-300, w=innerWidth-mx-36;
@@ -3752,7 +3776,7 @@ function render(){
   const _ci=document.getElementById("chatin"), _cv=_ci?_ci.value:"", _cf=_ci&&document.activeElement===_ci;
   const _jl=document.getElementById("jlist"), _jb=_jl?(_jl.scrollHeight-_jl.scrollTop-_jl.clientHeight<30):true, _jt=_jl?_jl.scrollTop:0;
   DEALN=0;
-  const R=currentReact(); const p=S[ME], myTurn=S.turn===ME && !S.busy && !R && !S.pending;
+  const R=currentReact(); const p=S[ME], myTurn=S.turn===ME && !S.busy && !R && !S.pending; if(!myTurn) SWAP_MODE=false;
   document.body.dataset.me=ME; document.body.dataset.terr=(S.terrain&&TERR_ART.has(S.terrain))?S.terrain:(S.storyBg||"");
   const pips=Array.from({length:Math.max(ENDURANCE,p.end)},(_,i)=>`<div class="pip ${i<p.end?"":"off"}"></div>`).join("");
   const T=S.terrain?TERRAINS[S.terrain]:null;
@@ -3767,21 +3791,22 @@ function render(){
       ${journalHTML()}
     </div>
     ${sideHTML(ME)}
-    <div class="hand">${sortHand(p.hand).map(c=>{ const ok=myTurn && canPlay(ME,c); const via=!ok && myTurn ? viaRelay(ME,c) : -1; return cardHTML(c,ok||via>=0,ME,via>=0?p.team[via].id:null); }).join("")}</div>
+    <div class="hand${SWAP_MODE?" swapping":""}">${sortHand(p.hand).map(c=>{ if(SWAP_MODE) return cardHTML(c,true,ME,null); const ok=myTurn && canPlay(ME,c); const via=!ok && myTurn ? viaRelay(ME,c) : -1; return cardHTML(c,ok||via>=0,ME,via>=0?p.team[via].id:null); }).join("")}</div>
     <div class="bar-actions">
       <div class="grow"><div class="pips" aria-label="${L("endurance")} ${p.end}">${pips}</div></div>
       ${FS_OK?`<button class="tbtn" id="fs" aria-label="${L("fullscreen")}" title="${L("fullscreen")}">${SVG_FS}</button>`:""}
       <button class="tbtn" id="snd" aria-pressed="${SFX.on}" aria-label="${L("sound")}" title="${L("sound")}">${SFX.on?`${SVG_ON}`:`${SVG_OFF}`}</button><button class="tbtn" id="mus" aria-pressed="${MUSIC.on}" aria-label="${L("music")}" title="${L("music")}">${MUSIC.on?SVG_MUS:SVG_MUS_OFF}</button><button class="tbtn fastb" id="fastb" aria-pressed="${FAST}" aria-label="${L("fastMode")}" title="${L(FAST?"fastOn":"fastOff")}">${FAST?"⏩":"▶"}</button>
       <button class="tbtn jbtn" id="jbtn" aria-label="${L("journal")}" title="${L("journal")}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11l3 3v13H5z M8 9h8M8 13h8M8 17h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>${MODE==="vs"&&chatUnread()?`<i class="jdot"></i>`:""}</button>
       <button class="tbtn qbtn ${QUIT_ARM?"arm":""}" id="quit" aria-label="${L("quitGame")}" title="${L("quitGame")}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h5v16h-5M10 8l-4 4 4 4M6 12h10" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="qtxt">${L("quitSure")}</span></button>
+      <button class="tbtn swapb${SWAP_MODE?" on":""}" id="swapb" ${myTurn&&canSwap(ME)||SWAP_MODE?"":"disabled"} aria-pressed="${SWAP_MODE}" aria-label="${L("swapBtn",SWAP_RAGE)}" title="${L(p.swapped?"swapUsed":"swapBtn",SWAP_RAGE)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h13l-3-3M20 15H7l3 3" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg><b>${SWAP_RAGE}</b></button>
       <button class="btn ${ultReady&&myTurn?"ult":""}" id="ult" ${ultReady&&myTurn?"":"disabled"}>${L("ultimate")}</button>
       ${MODE==="vs"?`<span class="tmr" id="tmr"></span>`:""}
       <button class="btn ghost" id="end" ${myTurn?"":"disabled"}>${L("endTurn")}</button>
     </div>
   </div>
-  ${R?reactHTML(R):""}`;
+  ${R?reactHTML(R):""}${SWAP_MODE?`<div class="swaphint">${L("swapHint",SWAP_RAGE)}</div>`:""}`;
   document.querySelectorAll(".hand .card").forEach(b=>{
-    b.onclick=()=>{ if(LP_FIRED){ LP_FIRED=false; return; } const card=p.hand.find(x=>x.uid==b.dataset.uid); if(!card) return; if(b.dataset.via) relayAndPlay(ME,card); else playCard(ME,card); };
+    b.onclick=()=>{ if(LP_FIRED){ LP_FIRED=false; return; } const card=p.hand.find(x=>x.uid==b.dataset.uid); if(!card) return; if(SWAP_MODE){ swapCard(ME,card); return; } if(b.dataset.via) relayAndPlay(ME,card); else playCard(ME,card); };
     b.addEventListener("pointerdown",e=>{ clearTimeout(LP_T); LP_FIRED=false; const sx=e.clientX, sy=e.clientY;
       LP_T=setTimeout(()=>{ LP_FIRED=true; const card=p.hand.find(x=>x.uid==b.dataset.uid); if(card) zoomCard(card); },420);
       const cancel=ev=>{ if(ev.type==="pointermove" && Math.hypot(ev.clientX-sx,ev.clientY-sy)<10) return; clearTimeout(LP_T); b.removeEventListener("pointermove",cancel); };
@@ -3793,6 +3818,7 @@ function render(){
   fitCards();
   document.querySelectorAll("[data-relais]").forEach(b=>b.onclick=()=>relais(ME,+b.dataset.relais));
   $("#ult").onclick=()=>ultimate(ME);
+  if($("#swapb")) $("#swapb").onclick=()=>{ SFX.play("click"); SWAP_MODE=!SWAP_MODE&&canSwap(ME); render(); };
   $("#end").onclick=()=>{ SFX.play("click"); if(MODE==="vs") NET.handoff=true; endTurn(ME); };
 
   $("#snd").onclick=()=>{ SFX.toggle(); render(); };
@@ -4134,6 +4160,7 @@ Object.assign(UI.fr,{"stBtn": "Histoire", "stTitle": "Mode histoire", "stArc1": 
 Object.assign(UI.en,{"stBtn": "Story", "stTitle": "Story mode", "stArc1": "Arc 1: KING", "stLead": "Follow Kenshiro through the ravaged world, chapter after chapter. Each chapter has 3 stars to earn.", "stLocked": "Clear the previous chapter", "stPlay": "Fight", "stNext": "Next chapter", "stBackList": "Chapters", "stRetry": "Retry", "stObj": "Objectives", "stUnlock": "Unlocks", "stUnlockNote": "(from version 1.0)", "stYou": "You play", "stFoe": "Opponent", "stWave": "Wave {a}/{b}", "stWaveNext": "Next wave", "stWin": "Chapter cleared!", "stLose": "Defeat…", "stStars": "{n} star(s)", "stJoined": "Unlocked at 1.0: {who}", "stFat": "His Lights do nothing to him.", "stTrap": "An Ambush trap is already set against you.", "stArcDone": "Arc complete! More coming soon.", "stHow": "Story: 20 pts the first time a chapter is cleared, +10 pts per new star.", "w_story": "Story mode", "ach_story1": "The legend begins", "achd_story1": "Clear arc 1 of story mode", "ach_story27": "Seven stars… and more", "achd_story27": "Earn all 27 stars of arc 1", "st_t_king-0": "Prologue: the seven scars", "st_i_king-0": "One year before it all. Shin, of Nanto Koshūken, has sworn to tear Yuria away from Kenshiro. Tonight he takes the woman, and leaves him seven holes in his chest to remember.", "st_o_king-0": "\"I am Shin. Remember that name.\" Kenshiro lies in the dust, branded with seven scars shaped like the Big Dipper. He will survive. And he will come back.", "st_t_king-1": "The besieged village", "st_i_king-1": "A man collapses from hunger at the edge of a village. In a cell he meets little Lin and a thieving kid, Bat. Outside, Zeed's gang rides in to loot everything.", "st_o_king-1": "The raiders don't understand what's happening. \"You are already dead.\" Their bodies burst one after another. Zeed will want revenge.", "st_t_king-2": "Zeed", "st_i_king-2": "Zeed and his biker horde surround the village. He demands the water and the women. Kenshiro walks out alone to meet them, Lin and Bat hiding behind him.", "st_o_king-2": "Zeed wanted to strike first. His skull didn't hold. Lin finds her voice again, and Bat decides to follow this strange man. The journey begins.", "st_t_king-3": "Spade, the spearman", "st_i_king-3": "In the ruins of a city, men wear a badge: a spade. They are KING's soldiers. Their leader, Spade, amuses himself shooting at fugitives.", "st_o_king-3": "Spade swallowed his own bolt. Before dying, a name: KING. Kenshiro clenches his fist. The man with seven scars already knows who hides behind it.", "st_t_king-4": "Diamond and the captive village", "st_i_king-4": "A whole village is enslaved by Diamond, another of KING's suits. His guards first, then the master himself. Two fights in a row, no rest.", "st_o_king-4": "The last diamond has shattered. The villagers raise their heads. There is talk of a city to the south, Southern Cross, where KING keeps a woman prisoner.", "st_t_king-5": "Club", "st_i_king-5": "Club has prepared the ground: raiders hide everywhere, ready to fall on anyone who switches fighters. Fox, the sly one, prowls with him.", "st_o_king-5": "Club thought he had Kenshiro caught in his web. The threads snapped. Fox tried to flee into the desert. He didn't get far.", "st_t_king-6": "Heart, the colossus", "st_i_king-6": "Heart, KING's heart, is a mountain of fat. Light blows sink into his flesh without hurting him at all. And when he sees his own blood, he goes mad.", "st_o_king-6": "Fat protects from everything… except pressure points. Heart swells, swells again, and bursts. Southern Cross isn't far now.", "st_t_king-7": "Joker, the messenger", "st_i_king-7": "Joker, Shin's right-hand man, plays with his razor cards and vanishes before anyone can touch him. He has come to see what the man with seven scars can do.", "st_o_king-7": "\"I'd rather die than be your messenger.\" Joker won't go warn Shin. Kenshiro will do it himself.", "st_t_king-8": "Southern Cross: Shin", "st_i_king-8": "At the top of his city, Shin waits. He built it all for her, for Yuria. A year after the night of the seven scars, the two men face each other again.", "st_o_king-8": "Shin has lost. He won't let Kenshiro take his life: he throws himself from the top of his palace. Yuria was already gone. Kenshiro's journey has only just begun…", "sto_win": "Win the fight", "sto_rounds": "Win in {n} turns or fewer", "sto_hits": "Land {n} hits on the opponent", "sto_lost": "Lose {n} HP or fewer", "sto_lastUlt": "Finish with an ultimate", "sto_keep": "Keep more than {n}% of your HP", "sto_noRelay": "Make no tag", "sto_noTrap": "Trigger no enemy trap", "sto_noJoker": "Never let Joker draw", "sto_firstKo": "KO {who} first", "sto_killLvl": "Finish {who} with {lvl}", "stLvl2": "a Heavy", "stLvlU": "an ultimate"});
 Object.assign(UI.it,{"stBtn": "Storia", "stTitle": "Modalità storia", "stArc1": "Arco 1: KING", "stLead": "Segui Kenshiro nel mondo devastato, capitolo dopo capitolo. Ogni capitolo ha 3 stelle da guadagnare.", "stLocked": "Completa il capitolo precedente", "stPlay": "Combatti", "stNext": "Capitolo successivo", "stBackList": "Capitoli", "stRetry": "Riprova", "stObj": "Obiettivi", "stUnlock": "Sblocca", "stUnlockNote": "(dalla versione 1.0)", "stYou": "Giochi", "stFoe": "Avversario", "stWave": "Ondata {a}/{b}", "stWaveNext": "Ondata successiva", "stWin": "Capitolo completato!", "stLose": "Sconfitta…", "stStars": "{n} stella/e", "stJoined": "Sbloccato alla 1.0: {who}", "stFat": "I suoi Leggeri non gli fanno nulla.", "stTrap": "Una trappola Imboscata è già piazzata contro di te.", "stArcDone": "Arco completato! Il seguito arriva presto.", "stHow": "Storia: 20 pt la prima volta che si completa un capitolo, +10 pt per ogni nuova stella.", "w_story": "Modalità storia", "ach_story1": "La leggenda comincia", "achd_story1": "Completa l'arco 1 della modalità storia", "ach_story27": "Sette stelle… e oltre", "achd_story27": "Ottieni le 27 stelle dell'arco 1", "st_t_king-0": "Prologo: le sette cicatrici", "st_i_king-0": "Un anno prima di tutto. Shin, del Nanto Koshūken, ha giurato di strappare Yuria a Kenshiro. Stanotte si prende la donna, e gli lascia sette buchi nel petto come ricordo.", "st_o_king-0": "«Io sono Shin. Ricorda questo nome.» Kenshiro giace nella polvere, marchiato da sette cicatrici a forma di Orsa Maggiore. Sopravvivrà. E tornerà.", "st_t_king-1": "Il villaggio assediato", "st_i_king-1": "Un uomo crolla per la fame all'ingresso di un villaggio. In una cella incontra la piccola Lin e un ragazzino ladro, Bat. Fuori arriva la banda di Zeed per saccheggiare tutto.", "st_o_king-1": "I predoni non capiscono cosa succede. «Sei già morto.» I loro corpi esplodono uno dopo l'altro. Zeed vorrà vendetta.", "st_t_king-2": "Zeed", "st_i_king-2": "Zeed e la sua orda in moto circondano il villaggio. Pretende l'acqua e le donne. Kenshiro esce da solo ad affrontarli, con Lin e Bat nascosti dietro di lui.", "st_o_king-2": "Zeed voleva colpire per primo. Il suo cranio non ha retto. Lin ritrova la voce, e Bat decide di seguire quello strano uomo. Il viaggio comincia.", "st_t_king-3": "Spade, il lanciere", "st_i_king-3": "Tra le rovine di una città, degli uomini portano un'insegna: una picca. Sono i soldati di KING. Il loro capo, Spade, si diverte a tirare sui fuggiaschi.", "st_o_king-3": "Spade ha ingoiato il suo stesso dardo. Prima di morire, un nome: KING. Kenshiro stringe il pugno. L'uomo dalle sette cicatrici sa già chi si nasconde dietro.", "st_t_king-4": "Diamond e il villaggio prigioniero", "st_i_king-4": "Un intero villaggio è ridotto in schiavitù da Diamond, un altro seme di KING. Prima le sue guardie, poi il padrone. Due combattimenti di fila, senza riposo.", "st_o_king-4": "L'ultimo diamante si è spezzato. Gli abitanti rialzano la testa. Si parla di una città a sud, Southern Cross, dove KING tiene prigioniera una donna.", "st_t_king-5": "Club", "st_i_king-5": "Club ha preparato il terreno: predoni nascosti ovunque, pronti a piombare su chiunque cambi combattente. Fox, la volpe, si aggira con lui.", "st_o_king-5": "Club credeva di avere Kenshiro nella sua rete. I fili si sono spezzati. Fox ha cercato di fuggire nel deserto. Non è andato lontano.", "st_t_king-6": "Heart, il colosso", "st_i_king-6": "Heart, il cuore di KING, è una montagna di grasso. I colpi leggeri affondano nella sua carne senza fargli alcun male. E quando vede il suo sangue, impazzisce.", "st_o_king-6": "Il grasso protegge da tutto… tranne che dai punti vitali. Heart si gonfia, si gonfia ancora, ed esplode. Southern Cross non è più lontana.", "st_t_king-7": "Joker, il messaggero", "st_i_king-7": "Joker, l'uomo di fiducia di Shin, gioca con le sue carte taglienti e sparisce prima che lo si possa toccare. È venuto a vedere di cosa è capace l'uomo dalle sette cicatrici.", "st_o_king-7": "«Preferisco morire che farti da messaggero.» Joker non andrà ad avvertire Shin. Ci penserà Kenshiro stesso.", "st_t_king-8": "Southern Cross: Shin", "st_i_king-8": "In cima alla sua città, Shin aspetta. Ha costruito tutto per lei, per Yuria. Un anno dopo la notte delle sette cicatrici, i due uomini si affrontano di nuovo.", "st_o_king-8": "Shin ha perso. Non lascerà che Kenshiro gli dia la morte: si getta dalla cima del suo palazzo. Yuria non c'era più. Il viaggio di Kenshiro è appena cominciato…", "sto_win": "Vinci il combattimento", "sto_rounds": "Vinci in {n} turni o meno", "sto_hits": "Colpisci l'avversario {n} volte", "sto_lost": "Perdi al massimo {n} PV", "sto_lastUlt": "Finisci con una mossa finale", "sto_keep": "Conserva più del {n}% dei tuoi PV", "sto_noRelay": "Non fare nessun cambio", "sto_noTrap": "Non far scattare nessuna trappola nemica", "sto_noJoker": "Non lasciare mai pescare Joker", "sto_firstKo": "Metti KO {who} per primo", "sto_killLvl": "Finisci {who} con {lvl}", "stLvl2": "un Pesante", "stLvlU": "una mossa finale"});
 const CHANGELOG=[
+ {v:"0.72.0",d:"2026-10-06",fr:["Nouveau bouton ⇄ : une fois par tour, échange une carte de ta main contre une nouvelle pour 2 rage","L'IA s'en sert aussi pour se débarrasser des cartes qu'elle ne peut pas jouer"],en:["New ⇄ button: once per turn, swap a card from your hand for a new one for 2 rage","The AI uses it too to get rid of cards it can't play"],it:["Nuovo pulsante ⇄: una volta per turno, scambia una carta della mano con una nuova per 2 rabbia","Anche l'IA lo usa per liberarsi delle carte che non può giocare"],ja:["新ボタン⇄：1ターンに1回、怒り2で手札1枚を新しいカードと交換","AIも使えないカードを捨てるために使用"]},
  {v:"0.71.1",d:"2026-10-06",fr:["Correctif : quand un événement achève un combattant (ex. L'étoile de la mort), la carte de l'événement s'affiche et il est noté dans le journal"],en:["Fix: when an event finishes off a fighter (e.g. Star of Death), the event card is shown and logged"],it:["Correzione: quando un evento finisce un combattente (es. La stella della morte), la carta evento appare e viene registrata nel registro"],ja:["修正：イベント（例：死兆星）でキャラが倒れた時も、イベントカードを表示しログに記録"]},
  {v:"0.71.0",d:"2026-10-06",fr:["Défi de la semaine refait : grande présentation de l'équipe à battre, compte à rebours, règles en 3 étapes et podium pour le top 3"],en:["Weekly challenge redesigned: big showcase of the team to beat, countdown, 3-step rules and a podium for the top 3"],it:["Sfida della settimana rifatta: grande presentazione della squadra da battere, conto alla rovescia, regole in 3 punti e podio per i primi 3"],ja:["週間チャレンジを刷新：倒すべきチームを大きく表示、カウントダウン、3段階のルール、上位3名の表彰台"]},
  {v:"0.70.4",d:"2026-10-06",fr:["Barre de vie : une graduation par PV, la barre tombe pile sur un trait"],en:["Health bar: one notch per HP, so the bar always ends on a notch"],it:["Barra della vita: una tacca per PV, la barra finisce sempre su una tacca"],ja:["HPバー：HP1ごとに目盛り、バーが常に目盛りぴったりで止まる"]},
@@ -5562,6 +5589,10 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; ARC.on=fa
     if(!window._icoDoc && document.addEventListener){ window._icoDoc=1; document.addEventListener("click",e=>{ if(MOBM && !(e.target.closest&&e.target.closest("#icodrop"))){ MOBM=false; const d2=$("#icodrop"); if(d2) d2.classList.remove("open"); } }); } }
 }
 let MOBM=false;
+Object.assign(UI.fr,{swapLogMe:(c,n)=>`Tu échanges ${c} contre une nouvelle carte (−${n} rage).`,swapBtn:n=>`Échanger une carte (${n} rage)`,swapUsed:"Échange déjà utilisé ce tour",swapHint:n=>`Clique la carte à défausser : tu en pioches une autre (−${n} rage).`,swapLog:(w,c,n)=>`${w} échange ${c} contre une nouvelle carte (−${n} rage).`});
+Object.assign(UI.en,{swapLogMe:(c,n)=>`You swap ${c} for a new card (−${n} rage).`,swapBtn:n=>`Swap a card (${n} rage)`,swapUsed:"Swap already used this turn",swapHint:n=>`Click the card to discard: you draw another one (−${n} rage).`,swapLog:(w,c,n)=>`${w} swaps ${c} for a new card (−${n} rage).`});
+Object.assign(UI.it,{swapLogMe:(c,n)=>`Scambi ${c} con una nuova carta (−${n} rabbia).`,swapBtn:n=>`Scambia una carta (${n} rabbia)`,swapUsed:"Scambio già usato in questo turno",swapHint:n=>`Clicca la carta da scartare: ne peschi un'altra (−${n} rabbia).`,swapLog:(w,c,n)=>`${w} scambia ${c} con una nuova carta (−${n} rabbia).`});
+Object.assign(UI.ja,{swapLogMe:(c,n)=>`${c}を新しいカードと交換（怒り−${n}）。`,swapBtn:n=>`カード交換（怒り${n}）`,swapUsed:"このターンは交換済み",swapHint:n=>`捨てるカードをクリック：新しいカードを1枚引く（怒り−${n}）。`,swapLog:(w,c,n)=>`${w}は${c}を新しいカードと交換（怒り−${n}）。`});
 Object.assign(UI.fr,{wkRageStart:"Rage au départ",wkLeftD:(d,h)=>`Fin dans ${d} j ${h} h`,wkLeftH:(h,m)=>`Fin dans ${h} h ${m} min`,wkC1:"Équipe la moins chère",wkC2:"Le moins de tours",wkC3:"Le moins de PV perdus",wkHow:"Seules les victoires comptent · essais illimités · ton meilleur essai est gardé"});
 Object.assign(UI.en,{wkRageStart:"Starting rage",wkLeftD:(d,h)=>`Ends in ${d}d ${h}h`,wkLeftH:(h,m)=>`Ends in ${h}h ${m}min`,wkC1:"Cheapest team",wkC2:"Fewest turns",wkC3:"Least HP lost",wkHow:"Only wins count · unlimited tries · your best try is kept"});
 Object.assign(UI.it,{wkRageStart:"Rabbia iniziale",wkLeftD:(d,h)=>`Finisce tra ${d} g ${h} h`,wkLeftH:(h,m)=>`Finisce tra ${h} h ${m} min`,wkC1:"Squadra meno cara",wkC2:"Meno turni",wkC3:"Meno PV persi",wkHow:"Contano solo le vittorie · tentativi illimitati · si tiene il tuo miglior tentativo"});
