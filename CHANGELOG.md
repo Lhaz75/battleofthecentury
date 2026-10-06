@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.72.2 — 2026-10-06
+
+- CRITIQUE et les chiffres d'ultime : ombre noire simple au lieu de l'ombre rouge
+
 ## v0.72.1 — 2026-10-06
 
 - Nouvelle police JunkDog pour les chiffres de dégâts, CRITIQUE, le compteur de combo et le KO
