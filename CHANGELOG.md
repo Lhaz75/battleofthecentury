@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.65.2 — 2026-10-06
+
+- Mode histoire, objectifs rééquilibrés : chapitre 1 « Perdre 20 PV max » (au lieu de 10), chapitre 3 et combat final « Garder plus de 40 % de tes PV » (au lieu de 50 %)
+
 ## v0.65.1 — 2026-10-06
 
 - Mode histoire, chapitre 1 : Kenshiro commence avec 4 de rage, pour pouvoir finir sur un ultime avant que les pillards tombent
