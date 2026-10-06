@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.73.0 — 2026-10-06
+
+- 4 nouveaux combattants : Barcom (généralissime de KING), Bella (Ranzan Kurenai Ken), Dragon (Nanto Ryūjin Ken, avec Patra) et Sabato (le glouton à la lance)
+
 ## v0.72.4 — 2026-10-06
 
 - Échange de carte : 2 rage la 1re fois, puis le coût monte de 1 à chaque échange du combat (3, 4, 5…)
