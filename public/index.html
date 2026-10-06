@@ -3542,7 +3542,7 @@ function bindTips(){
 }
 document.addEventListener("click",tipHide);
 let LASTPLAY=null;
-function jdockFit(){ const b=document.body; if(innerWidth<1000||!document.querySelector(".screen.board")){ b.classList.remove("jdock"); return; }
+function jdockFit(){ const b=document.body; if(!b||!b.classList||!document.querySelectorAll) return; if(window.innerWidth<1000||!document.querySelector(".screen.board")){ b.classList.remove("jdock"); return; }
   b.classList.remove("jdock"); let mx=0; document.querySelectorAll(".board>.hand .card,.board>.bar-actions>*").forEach(e=>{ const r=e.getBoundingClientRect(); if(r.width) mx=Math.max(mx,r.right); });
   const h=document.querySelector(".board>.hand"), top=h?h.getBoundingClientRect().top:innerHeight-300, w=innerWidth-mx-36;
   if(w>=280){ b.classList.add("jdock"); b.style.setProperty("--jdw",Math.min(440,w)+"px"); b.style.setProperty("--jdh",Math.max(200,innerHeight-top-12)+"px"); } }
@@ -3710,7 +3710,7 @@ function render(){
     b.addEventListener("contextmenu",e=>{ e.preventDefault(); const card=p.hand.find(x=>x.uid==b.dataset.uid); if(card){ LP_FIRED=true; zoomCard(card); } });
   });
   jdockFit();
-  if(innerWidth>=1000){ const lg=document.querySelector(".board>.ring>.log"); if(lg) lg.classList.add("slog",S.turn===ME?"lme":"lfoe"); }
+  if(window.innerWidth>=1000){ const lg=document.querySelector(".board>.ring>.log"); if(lg&&lg.classList) lg.classList.add("slog",S.turn===ME?"lme":"lfoe"); }
   fitCards();
   document.querySelectorAll("[data-relais]").forEach(b=>b.onclick=()=>relais(ME,+b.dataset.relais));
   $("#ult").onclick=()=>ultimate(ME);
