@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.64.3 — 2026-10-06
+
+- Mode histoire : en fin de chapitre, les objectifs réussis sont bien ceux que tu as remplis (avant, le jeu cochait juste les premiers selon le nombre d'étoiles)
+
 ## v0.64.2 — 2026-10-06
 
 - Mode histoire, prologue : l'objectif « Toucher 7 fois » passe à 5 fois (Kenshiro tombait avant)
