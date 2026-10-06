@@ -3,7 +3,7 @@
 const crypto = require("crypto");
 // ordre des chapitres du mode histoire (king-9 = interlude Barcom, joué avant le combat contre Shin)
 const STORY_TEST = /^arc2-/;   // arcs en test (lecture seule pour les joueurs) : vider la regex (/^$/) pour ouvrir
-const STORY_ORDER = ["king-0", "king-1", "king-2", "king-3", "king-4", "king-5", "king-6", "king-7", "king-9", "king-8", "arc2-1", "arc2-2", "arc2-3", "arc2-4", "arc2-5"];
+const STORY_ORDER = ["king-0", "king-1", "king-2", "king-3", "king-4", "king-5", "king-6", "king-7", "king-9", "king-8", "arc2-1", "arc2-2", "arc2-3", "arc2-4", "arc2-5", "arc2-6", "arc2-7"];
 const fs = require("fs");
 const path = require("path");
 
