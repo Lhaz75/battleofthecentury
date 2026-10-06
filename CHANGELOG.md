@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.70.0 — 2026-10-06
+
+- PC : le centre devient un tapis de jeu avec la dernière carte jouée en grand, le combo et l'action en cours
+- PC : le journal passe en bas à droite (toujours visible sur grand écran, sinon via le bouton 📜)
+- PC : le bandeau de tour glisse du côté de celui qui va jouer
+
 ## v0.69.0 — 2026-10-06
 
 - Chiffres de dégâts beaucoup plus gros, « CRITIQUE ! » dans la même police
