@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.76.0 — 2026-10-06
+
+- Mode histoire : nouveau chapitre avant le combat contre Shin, « Le coup d'État de Barcom ». Tu joues Shin face à la rébellion de son généralissime, et Barcom se débloque
+
 ## v0.75.0 — 2026-10-06
 
 - Nouveau combattant : Madara, la bête du clan Kiba (Kazan Bunretsu Ken)

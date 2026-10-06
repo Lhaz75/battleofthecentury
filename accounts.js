@@ -1,6 +1,8 @@
 // Comptes joueurs, scores et Hall of Fame.
 // Stockage : Postgres si DATABASE_URL est défini (Neon), sinon un fichier JSON local (dev / secours).
 const crypto = require("crypto");
+// ordre des chapitres du mode histoire (king-9 = interlude Barcom, joué avant le combat contre Shin)
+const STORY_ORDER = ["king-0", "king-1", "king-2", "king-3", "king-4", "king-5", "king-6", "king-7", "king-9", "king-8"];
 const fs = require("fs");
 const path = require("path");
 
@@ -208,7 +210,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     flawless: { t: 2, f: 1 }, comeback: { t: 2, f: 1 }, ultko: { t: 1, f: 1 }, combo4: { t: 1, f: 1 }, combo5: { t: 2, f: 1 },
     arc1: { t: 2, c: s => (s.arcClears || 0) >= 1 }, arc5: { t: 3, c: s => (s.arcClears || 0) >= 5 }, arcsecret: { t: 2, c: s => (s.arcSecret || 0) >= 1 },
     story1: { t: 2, c: s => s.story && s.story["king-8"] != null }, story27: { t: 3, c: s => s.story && Object.keys(s.story).filter(k => /^king-/.test(k)).reduce((a, k) => a + s.story[k], 0) >= 27 },
-    storylegend: { t: 3, c: s => s.storyH && Array.from({ length: 9 }, (_, i) => "king-" + i).every(k => s.storyH[k]) },
+    storylegend: { t: 3, c: s => s.storyH && STORY_ORDER.every(k => s.storyH[k]) },
     weekpod: { t: 2, c: s => (s.wkPod || 0) >= 1 }, weekwin: { t: 3, c: s => (s.wkWin || 0) >= 1 },
     daily1: { t: 1, c: s => (s.dailyN || 0) >= 1 }, daily10: { t: 2, c: s => (s.dailyN || 0) >= 10 }, daily30: { t: 3, c: s => (s.dailyN || 0) >= 30 },
     duo: { t: 1, f: 1 }, quintet: { t: 1, f: 1 }, clanwin: { t: 1, f: 1 }, cheap: { t: 2, f: 1 }
@@ -380,10 +382,10 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     // histoire : un chapitre à la fois, dans l'ordre ; 20 pts au premier passage, +10 par nouvelle étoile
     "POST /api/story": async (req, body) => {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
-      const ch = String(body.ch || ""), m = /^king-(\d)$/.exec(ch), stars = Math.floor(+body.stars), st = u.stats;
-      if (!m || !(stars >= 1 && stars <= 3)) return [400, { error: "bad" }];
-      const idx = +m[1], prog = st.story = st.story || {};
-      if (idx > 0 && prog["king-" + (idx - 1)] == null) return [409, { error: "bad" }];
+      const ch = String(body.ch || ""), idx = STORY_ORDER.indexOf(ch), stars = Math.floor(+body.stars), st = u.stats;
+      if (idx < 0 || !(stars >= 1 && stars <= 3)) return [400, { error: "bad" }];
+      const prog = st.story = st.story || {};
+      if (idx > 0 && prog[STORY_ORDER[idx - 1]] == null && prog[ch] == null) return [409, { error: "bad" }];
       const now = Date.now(); if (now - (lastStory.get(u.id) || 0) < 15000) return [429, { error: "slow" }];
       lastStory.set(u.id, now);
       const had = prog[ch] == null ? -1 : prog[ch];
