@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.72.4 — 2026-10-06
+
+- Échange de carte : 2 rage la 1re fois, puis le coût monte de 1 à chaque échange du combat (3, 4, 5…)
+
 ## v0.72.3 — 2026-10-06
 
 - Correctif IA : elle ne reste plus bloquée à passer son tour quand sa main ne contient que des techniques de son perso en réserve, elle fait le relais
