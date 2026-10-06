@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.68.1 — 2026-10-06
+
+- Le bandeau « Tour adverse » dure moins longtemps et l'adversaire attend qu'il disparaisse avant de jouer
+- Mobile : la carte jouée s'affiche du côté de celui qui la joue, plus au milieu du bandeau
+- Liens du site, Facebook et Discord en simples icônes
+
 ## v0.68.0 — 2026-10-06
 
 - Moment KO : l'action ralentit, la carte du vaincu se déchire en deux (coup normal) ou gonfle et éclate (ultime ou Lourd)
