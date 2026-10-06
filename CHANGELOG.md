@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.67.0 — 2026-10-06
+
+- Combat : gros chiffres de dégâts style BD. Blanc pour les Légers, orange pour les Moyens, rouge pour les Lourds, or géant pour les ultimes
+- « CRITIQUE ! » à partir de 10 dégâts, et un compteur « COMBO ×3 · 22 » quand les coups s'enchaînent
+
 ## v0.66.3 — 2026-10-06
 
 - Accueil : effet braises sur le menu, le mode sélectionné s'embrase
