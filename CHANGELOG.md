@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.64.1 — 2026-10-06
+
+- Mobile : les liens du site, de Facebook et de Discord tiennent sur une ligne
+- Mobile : la page d'un chapitre du mode histoire est plus compacte, le perso passe en fond derrière le titre
+
 ## v0.64.0 — 2026-10-06
 
 - Nouveaux liens « Frères de sang » : Toki et Ken-Oh, Kenshiro et Hyō. Si l'un tombe, l'autre gagne +3 rage et ses coups font +1 jusqu'à la fin du combat
