@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.79.0 — 2026-10-07
+
+- Les 20 événements ont maintenant leur illustration : sur la carte d'événement en combat et dans la page Cartes & événements
+
 ## v0.78.1 — 2026-10-06
 
 - Dante, Zaria, Baron et Junk rejoignent l'école Nanto
