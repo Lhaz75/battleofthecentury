@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.66.2 — 2026-10-06
+
+- Le bandeau « Nouvelle version » ne s'affiche plus pendant un combat (il cachait les PV et la rage de l'adversaire) : il revient dès la fin du combat
+
 ## v0.66.1 — 2026-10-06
 
 - Mode histoire : les 3 boutons de difficulté tiennent sur une ligne sur mobile, et Lin n'est mentionnée que dans les chapitres où elle est là
