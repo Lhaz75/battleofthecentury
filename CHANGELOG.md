@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.70.2 — 2026-10-06
+
+- Le dernier KO du combat se joue au ralenti avec un gros « K.O. » avant l'écran de victoire, qui n'arrive plus en coupant l'animation
+
 ## v0.70.1 — 2026-10-06
 
 - PC : nouvelle barre de vie façon arcade avec les PV écrits dedans
