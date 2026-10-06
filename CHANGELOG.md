@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.70.4 — 2026-10-06
+
+- Barre de vie : une graduation par PV, la barre tombe pile sur un trait
+
 ## v0.70.3 — 2026-10-06
 
 - KO : le perso vaincu vire au rouge foncé et disparaît en fondu, et le mot s'écrit « KO »
