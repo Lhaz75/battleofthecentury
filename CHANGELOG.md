@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.73.2 — 2026-10-06
+
+- PC : le portrait s'adapte à la hauteur de l'écran, le côté du combattant ne déborde plus sur la main
+
 ## v0.73.1 — 2026-10-06
 
 - Mode histoire : le nombre de couronnes gagnées s'affiche à côté du total d'étoiles
