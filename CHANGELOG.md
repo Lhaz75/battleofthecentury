@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.94.0 — 2026-10-07
+
+- Histoire, arc 2 : 2 nouveaux chapitres. « Le faux Toki » (Kenshiro et Rei contre les chasseurs de cobayes, Goum, Gyūki & Habu) et « Amiba, le génie » (boss). L'arc 2 compte maintenant 9 chapitres
+- 3 nouveaux succès de l'arc 2 : « Dis mon nom ! » (vaincre Jagi), « Le génie démasqué » (vaincre Amiba) et « Les étoiles des frères » (27 étoiles dans l'arc 2)
+
 ## v0.93.1 — 2026-10-07
 
 - Tutoriel mis à jour : nouvelles bulles sur les liens et écoles, l'Enchaînement et l'échange ⇄ ; les bulles Réactions et Relais décrivent les règles actuelles (Esquive, Contre, relais auto via le badge ↻, relais gratuit au premier tour)
