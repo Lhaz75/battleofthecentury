@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.91.0 — 2026-10-07
+
+- 2 nouveaux combattants jouables (Sōten no Ken) : Wei Ruiying, le fondateur estropié du Kyokujūji Seiken (Lourds +2), et Zhang Dayan, le vieux maître du Hokuto Sōkaken (Moyens +2)
+- 3 nouveaux liens : Maître et disciple (Wei Ruiying + Liu Feiyan, +2 PV max chacun), Match nul (Wei Ruiying + Tesshin Kasumi, +2 rage au départ), Père et fils Zhang (Zhang Dayan + Zhang Taiyan, +3 rage quand Dayan tombe)
+
 ## v0.90.1 — 2026-10-07
 
 - Événement « L'étoile de la mort » : elle vise maintenant le combattant le plus amoché en % de ses PV (et plus en PV bruts), pour ne plus viser un gros perso à moitié plein face à un petit pillard (idée de Jerome R.)
