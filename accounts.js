@@ -4,8 +4,8 @@ const crypto = require("crypto");
 // ordre des chapitres du mode histoire (king-9 = interlude Barcom, joué avant le combat contre Shin)
 const STORY_TEST = /^arc2-/;   // arcs en test (lecture seule pour les joueurs) : vider la regex (/^$/) pour ouvrir
 // magasin de persos : prix selon le coût (fighters.json) ; persos de départ et persos de l'histoire exclus (à garder en phase avec CHAR_START / STORY_CH dans index.html)
-const SHOP_START = new Set(["maitre", "sage", "linh", "bat", "vieux", "dans", "huey", "shuren", "nuage", "shachi", "shoki", "general", "mamiya", "ein", "rima"]);
-const SHOP_STORY = new Set(["zeed", "ventre", "spade", "sarge", "colonel", "rival", "madara", "kiba", "joker", "jackal", "devil", "fourbe", "diamond", "club", "fox", "barcom", "amiba"]);
+const SHOP_START = new Set(["maitre", "sage", "linh", "bat", "vieux", "dans", "huey", "shuren", "nuage", "shachi", "shoki", "general", "mamiya", "ein", "rima", "bella"]);
+const SHOP_STORY = new Set(["zeed", "ventre", "spade", "sarge", "colonel", "rival", "madara", "kiba", "joker", "jackal", "devil", "fourbe", "diamond", "club", "fox", "barcom", "amiba", "demon", "hyo", "boltz", "taiga", "solia", "uighur"]);
 let SHOP_COST = null;
 function SHOP_PRICE(id) {
   if (!SHOP_COST) { SHOP_COST = {}; try { const f = JSON.parse(fs.readFileSync(path.join(__dirname, "public", "fighters.json"), "utf8")); for (const x of f.fighters || []) if (!x.npc) SHOP_COST[x.id] = x.cost; } catch (e) {} }
