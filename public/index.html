@@ -2043,12 +2043,28 @@ body[data-terr="jagi"]{--terrbg:url("assets/story-jagi.webp")}body[data-terr="ja
 .har{position:fixed;z-index:60;width:28px;height:28px;border-radius:50%;border:1px solid #ff6a2a;background:#140b08e6;color:#ffb47a;font:700 20px/24px system-ui;padding:0;box-shadow:0 0 10px #ff6a2a66;animation:harP 1.4s ease-in-out infinite}.har[hidden]{display:none}
 @keyframes harP{50%{box-shadow:0 0 16px #ff6a2acc}}
 .shopbtn{border-color:#ffcf3a!important;color:#ffd27a!important}
-.shtop{display:flex;flex-direction:column;gap:6px}.shryo{font:700 22px var(--f-display);color:#ffd27a;letter-spacing:.03em}.shcount{margin:0;color:#b9a58e;font-size:13px}
-.shgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin:8px 0 16px}
-.shc{display:flex;gap:12px;align-items:center;padding:10px;border:1px solid rgba(232,176,74,.3);border-radius:12px;background:rgba(18,10,6,.75)}
-.shc img{width:72px;height:90px;object-fit:cover;border-radius:8px;flex:none;background:#000}
-.shi{display:flex;flex-direction:column;gap:5px;min-width:0;align-items:flex-start}.shi b{font:700 17px var(--f-display);text-transform:uppercase;letter-spacing:.02em}.shi small{color:#b9a58e;font-size:12px}
-.shc.own{border-color:rgba(127,190,110,.5)}.shok{color:#8fd07a;font-weight:700;font-size:14px}
+.koban{position:static!important;display:block;width:18px;height:24px;flex:none;inset:auto!important;transform:none!important;filter:drop-shadow(0 1px 2px rgba(0,0,0,.6))}.koban.kbig{width:46px;height:62px;filter:drop-shadow(0 0 14px rgba(255,200,60,.55))}
+.shhero{display:flex;gap:22px;align-items:center;flex-wrap:wrap;padding:16px 20px;border:1px solid rgba(255,207,58,.45);border-radius:16px;background:radial-gradient(120% 140% at 0% 0%,rgba(255,190,60,.18),transparent 55%),linear-gradient(180deg,rgba(32,20,10,.92),rgba(16,9,5,.92));box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.shpurse{display:flex;gap:12px;align-items:center}.shpurse>div{display:flex;flex-direction:column;line-height:1}.shpurse small{color:#c9b08a;font-size:12px;text-transform:uppercase;letter-spacing:.08em}.shpurse b{font:800 40px var(--f-display);color:#ffd96a;text-shadow:0 0 18px rgba(255,190,50,.5)}.shpurse span{color:#e8c070;font-size:13px}
+.shtxt{flex:1 1 300px;display:flex;flex-direction:column;gap:7px}.shtxt p{margin:0;font-size:14px;line-height:1.45;color:#e6d6bd}.shtxt small{color:#b9a58e;font-size:12px}.shtxt .err{color:#ff8a6e}
+.shprog{height:7px;border-radius:5px;background:rgba(255,255,255,.08);overflow:hidden}.shprog i{display:block;height:100%;background:linear-gradient(90deg,#c8901e,#ffd96a)}
+.shgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin:4px 0 18px}
+.shc{display:flex;flex-direction:column;border:1px solid rgba(232,176,74,.3);border-radius:14px;overflow:hidden;background:linear-gradient(180deg,#1d130e,#100906);box-shadow:0 8px 22px rgba(0,0,0,.5);transition:transform .15s,box-shadow .15s,border-color .15s}
+.shc.can{border-color:rgba(255,207,58,.7);box-shadow:0 0 0 1px rgba(255,207,58,.25),0 0 22px rgba(255,190,50,.22),0 8px 22px rgba(0,0,0,.5)}
+@media (hover:hover){.shc:hover{transform:translateY(-4px);box-shadow:0 0 26px rgba(255,170,60,.35),0 12px 26px rgba(0,0,0,.6)}}
+.sha{position:relative;height:250px;overflow:hidden}.sha img{width:100%;height:100%;object-fit:cover;object-position:50% 12%;transition:transform .3s}.shc:hover .sha img{transform:scale(1.04)}
+.sha::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(10,6,4,.95) 92%)}
+.shc.poor .sha img{filter:saturate(.75) brightness(.85)}
+.shclan{position:absolute;top:10px;left:10px;z-index:1;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;background:rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.18)}
+.shown{position:absolute;top:10px;right:10px;z-index:1;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:800;background:#2f5a24;color:#c9f5b5}
+.shname{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:0 12px 10px}.shname b{display:block;font:800 22px/1.05 var(--f-display);text-transform:uppercase;letter-spacing:.02em;text-shadow:0 2px 6px #000}
+.shst{display:flex;gap:6px;margin-top:7px;flex-wrap:wrap}.shst span{display:flex;flex-direction:column;align-items:center;min-width:46px;padding:3px 6px;border-radius:7px;background:rgba(0,0,0,.6);border:1px solid rgba(232,176,74,.3);font:800 15px var(--f-display);color:#ffd27a}.shst i{font:600 9px var(--f-body,inherit);font-style:normal;color:#b9a58e;text-transform:uppercase;letter-spacing:.05em}
+.shb{display:flex;flex-direction:column;gap:7px;padding:10px 12px;flex:1}.shx{font-size:12.5px;line-height:1.4;color:#e2d2ba}.shx span{display:inline-block;margin-right:6px;padding:1px 6px;border-radius:4px;background:rgba(232,176,74,.18);color:#f2c27a;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+.shf{padding:0 12px 12px;display:flex;flex-direction:column;gap:4px;align-items:stretch}
+.shbuy{display:flex!important;align-items:center;justify-content:center;gap:8px;width:100%}.shbuy b{font:800 18px var(--f-display)}.shbuy span{opacity:.9}
+.shbuy[disabled]{filter:grayscale(.6);opacity:.6}.shmiss{text-align:center;color:#c99a7a;font-size:12px}
+.shc.own{border-color:rgba(127,190,110,.55)}.shok{text-align:center;color:#8fd07a;font-weight:800;padding:9px 0}
+@media (max-width:520px){.shgrid{grid-template-columns:1fr 1fr;gap:10px}.sha{height:190px}.shname b{font-size:16px}.shst span{min-width:0;flex:1;font-size:12px;padding:2px 2px;white-space:nowrap}.shst{gap:3px}.shst i{font-size:8px}.shx{font-size:11.5px}.shb{padding:8px}.shf{padding:0 8px 10px}.shbuy span{display:none}.shhero{padding:12px 14px;gap:12px}.shpurse b{font-size:32px}}
 </style>
 <style>html,body{margin:0}*{box-sizing:border-box}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
@@ -5947,23 +5963,30 @@ function rosterBody(){
   const arr=ids.slice().sort((a,b)=>RF.sort==="name"?String(nm(a)).localeCompare(String(nm(b))):(key(a)-key(b))||String(nm(a)).localeCompare(String(nm(b))));
   return cnt+`<div class="rgrid">${arr.map(rosterCard).join("")}</div>`;
 }
+const KOBAN=(c="")=>`<svg class="koban ${c}" viewBox="0 0 24 32" aria-hidden="true"><defs><linearGradient id="kbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff1a8"/><stop offset=".45" stop-color="#f2c044"/><stop offset="1" stop-color="#a8701a"/></linearGradient></defs><ellipse cx="12" cy="16" rx="11" ry="15" fill="url(#kbg)" stroke="#6b4310" stroke-width="1.2"/><ellipse cx="12" cy="16" rx="8.2" ry="12.2" fill="none" stroke="#8a5a14" stroke-width=".8" opacity=".7"/>${[9,12,15,18,21,24].map(y=>`<path d="M5.5 ${y}h13" stroke="#9a6416" stroke-width=".7" opacity=".55"/>`).join("")}<rect x="9" y="5.5" width="6" height="4" rx="1" fill="#c8901e" stroke="#7a4c10" stroke-width=".6"/><rect x="9" y="22.5" width="6" height="4" rx="1" fill="#c8901e" stroke="#7a4c10" stroke-width=".6"/><ellipse cx="8" cy="9" rx="2.2" ry="4" fill="#fff" opacity=".35"/></svg>`;
 function renderShop(sel=[]){
   const r=ryoNow(), list=[...CHAR_SHOP].filter(id=>FIGHTERS[id]).sort((a,b)=>charPrice(a)-charPrice(b)||nm(a).localeCompare(nm(b)));
   const own=list.filter(charOwned).length;
-  const card=id=>{ const o=charOwned(id), pr=charPrice(id), can=!o&&r>=pr;
-    return `<div class="shc cl-${CLAN[id]}${o?" own":""}"><img src="${BUST(id)}" alt="" loading="lazy"><div class="shi"><b>${esc(nm(id))}</b><small>${L("clan_"+CLAN[id])} · ${L("shCost",COST[id]||3)} · ${fighterHP(id,3)} ${L("hpShort")}</small>
-      ${o?`<span class="shok">✓ ${L("shOwned")}</span>`:`<button class="btn sm shbuy" data-id="${id}" ${can?"":"disabled"}>${L("buyFor",pr)}</button>`}</div></div>`; };
-  pageShell("🛒 "+L("shopBtn"),`<div class="shtop"><div class="shryo">${L("ryoHave",r)}</div><p class="iplead">${L("shLead")}</p><p class="shcount">${L("shCount",own,list.length)}</p></div>
-    <p class="err" id="sherr"></p><div class="shgrid">${list.map(card).join("")}</div><p class="note">${L("shStory")}</p>`,sel);
-  document.querySelectorAll(".shbuy").forEach(b=>b.onclick=async()=>{ if(b.disabled) return; b.disabled=true; SFX.play("click"); const er=$("#sherr");
+  const card=id=>{ const f=FIGHTERS[id], o=charOwned(id), pr=charPrice(id), can=!o&&r>=pr, sp=SPECS[id], tp=Object.keys(TRAPS).find(k=>TRAPS[k].own===id);
+    const dm=f.techs.map(t=>Array.isArray(t)?t[3]:t.dmg), extra=sp?`<div class="shx"><span>${L("shSpec")}</span>${tr(sp.text)}</div>`:tp?`<div class="shx"><span>${L("ownTrap")}</span>${tr(TRAPS[tp].text)}</div>`:"";
+    return `<article class="shc cl-${CLAN[id]}${o?" own":can?" can":" poor"}">
+      <div class="sha"><img src="assets/${id}.webp" alt="" loading="lazy"><span class="shclan">${L("clan_"+CLAN[id])}</span>${o?`<span class="shown">✓ ${L("shOwned")}</span>`:""}
+        <div class="shname"><b>${esc(nm(id))}</b><div class="shst"><span><i>${L("shHp")}</i>${fighterHP(id,3)}</span><span><i>${L("shCostL")}</i>${COST[id]||3}</span><span><i>${L("shTech")}</i>${Math.min(...dm)}–${Math.max(...dm)}</span><span><i>${L("ultimate")}</i>${f.ult.dmg}</span></div></div></div>
+      <div class="shb"><div class="shx"><span>${L("shPass")}</span>${tr(f.passive)}</div><div class="shx"><span>${L("ultimate")}</span>${tr(f.ult.name)}</div>${extra}</div>
+      <div class="shf">${o?`<span class="shok">✓ ${L("shOwned")}</span>`:`<button class="btn shbuy" data-id="${id}" ${can?"":"disabled"}>${KOBAN()}<b>${pr}</b><span>${L("shUnlock")}</span></button>${can?"":`<small class="shmiss">${L("shMiss",pr-r)}</small>`}`}</div>
+    </article>`; };
+  pageShell("🛒 "+L("shopBtn"),`<section class="shhero"><div class="shpurse">${KOBAN("kbig")}<div><small>${L("shPurse")}</small><b>${r}</b><span>ryō</span></div></div>
+      <div class="shtxt"><p>${L("shLead")}</p><div class="shprog"><i style="width:${Math.round(own/list.length*100)}%"></i></div><small>${L("shCount",own,list.length)} · ${L("shStory")}</small><p class="err" id="sherr" hidden></p></div></section>
+    <div class="shgrid">${list.map(card).join("")}</div>`,sel);
+  document.querySelectorAll(".shbuy").forEach(b=>b.onclick=async()=>{ if(b.disabled) return; b.disabled=true; SFX.play("click"); const er=$("#sherr"); const fail=t=>{ if(er){ er.hidden=false; er.textContent=t; } b.disabled=false; };
     try{ const res=await api("POST","/api/shop",{fighter:b.dataset.id}); if(res.ok&&res.user){ ACC.user=res.user; SFX.play("win"); const y=(document.querySelector(".screen")||{}).scrollTop||0; renderShop(sel); const sc=document.querySelector(".screen"); if(sc) sc.scrollTop=y; try{ refreshAccBtn(); }catch(e){} }
-      else { if(er) er.textContent=L(res.error==="poor"?"mcPoor":"e_net"); b.disabled=false; } }catch(_){ if(er) er.textContent=L("e_net"); b.disabled=false; } });
+      else fail(L(res.error==="poor"?"mcPoor":"e_net")); }catch(_){ fail(L("e_net")); } });
   bindLang(()=>renderShop(sel));
 }
-Object.assign(UI.fr,{shopBtn:"Magasin",shCost:n=>`coût ${n}`,shOwned:"Débloqué",shLead:"Débloque de nouveaux combattants avec tes ryō. Tu gagnes autant de ryō que de points en jouant, et les dépenser ne fait pas baisser tes points.",shCount:(a,b)=>`${a}/${b} débloqués`,shStory:"Les autres combattants se débloquent dans le mode histoire."});
-Object.assign(UI.en,{shopBtn:"Shop",shCost:n=>`cost ${n}`,shOwned:"Unlocked",shLead:"Unlock new fighters with your ryō. You earn as many ryō as points when you play, and spending them doesn't lower your points.",shCount:(a,b)=>`${a}/${b} unlocked`,shStory:"The other fighters are unlocked in story mode."});
-Object.assign(UI.it,{shopBtn:"Negozio",shCost:n=>`costo ${n}`,shOwned:"Sbloccato",shLead:"Sblocca nuovi combattenti con i tuoi ryō. Guadagni tanti ryō quanti punti giocando, e spenderli non abbassa i tuoi punti.",shCount:(a,b)=>`${a}/${b} sbloccati`,shStory:"Gli altri combattenti si sbloccano nella modalità storia."});
-Object.assign(UI.ja,{shopBtn:"ショップ",shCost:n=>`コスト${n}`,shOwned:"解放済み",shLead:"両を使って新しい拳士を解放しよう。プレイで得たポイントと同じだけ両がもらえ、使ってもポイントは減らない。",shCount:(a,b)=>`${a}/${b} 解放`,shStory:"他の拳士はストーリーモードで解放される。"});
+Object.assign(UI.fr,{shopBtn:"Magasin",shPurse:"Ta bourse",shHp:"PV",shCostL:"Coût",shTech:"Coups",shPass:"Passif",shSpec:"Spécial",shUnlock:"Débloquer",shMiss:n=>`Il te manque ${n} ryō`,shCost:n=>`coût ${n}`,shOwned:"Débloqué",shLead:"Débloque de nouveaux combattants avec tes ryō. Tu gagnes autant de ryō que de points en jouant, et les dépenser ne fait pas baisser tes points.",shCount:(a,b)=>`${a}/${b} débloqués`,shStory:"Les autres combattants se débloquent dans le mode histoire."});
+Object.assign(UI.en,{shopBtn:"Shop",shPurse:"Your purse",shHp:"HP",shCostL:"Cost",shTech:"Hits",shPass:"Passive",shSpec:"Special",shUnlock:"Unlock",shMiss:n=>`${n} ryō short`,shCost:n=>`cost ${n}`,shOwned:"Unlocked",shLead:"Unlock new fighters with your ryō. You earn as many ryō as points when you play, and spending them doesn't lower your points.",shCount:(a,b)=>`${a}/${b} unlocked`,shStory:"The other fighters are unlocked in story mode."});
+Object.assign(UI.it,{shopBtn:"Negozio",shPurse:"La tua borsa",shHp:"PV",shCostL:"Costo",shTech:"Colpi",shPass:"Passivo",shSpec:"Speciale",shUnlock:"Sblocca",shMiss:n=>`Ti mancano ${n} ryō`,shCost:n=>`costo ${n}`,shOwned:"Sbloccato",shLead:"Sblocca nuovi combattenti con i tuoi ryō. Guadagni tanti ryō quanti punti giocando, e spenderli non abbassa i tuoi punti.",shCount:(a,b)=>`${a}/${b} sbloccati`,shStory:"Gli altri combattenti si sbloccano nella modalità storia."});
+Object.assign(UI.ja,{shopBtn:"ショップ",shPurse:"所持金",shHp:"HP",shCostL:"コスト",shTech:"技",shPass:"パッシブ",shSpec:"特殊",shUnlock:"解放",shMiss:n=>`あと${n}両`,shCost:n=>`コスト${n}`,shOwned:"解放済み",shLead:"両を使って新しい拳士を解放しよう。プレイで得たポイントと同じだけ両がもらえ、使ってもポイントは減らない。",shCount:(a,b)=>`${a}/${b} 解放`,shStory:"他の拳士はストーリーモードで解放される。"});
 function renderRoster(sel=[]){
   const clans=CLANS.filter(c=>ROSTER().some(id=>CLAN[id]===c));
   const bar=`<div class="rfbar"><input type="search" id="rfq" placeholder="${esc(L("rfSearch"))}" value="${esc(RF.q)}" autocomplete="off">
