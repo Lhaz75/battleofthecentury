@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.85.0 — 2026-10-07
+
+- Mobile : le téléphone vibre quand tu prends un gros coup, sur un KO et sur un ultime (Android ; bouton 📳 pour couper, dans le menu ☰ et en combat)
+- Appui long (ou clic droit sur PC) sur un combattant en réserve, le tien ou celui de l'adversaire : sa fiche s'ouvre avec ses PV actuels, ses coups, son spécial et ses liens
+
 ## v0.84.2 — 2026-10-07
 
 - Mobile : le passif du perso s'affiche dans un encadré avec son nom, comme sur PC
