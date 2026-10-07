@@ -2,6 +2,13 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.84.0 — 2026-10-07
+
+- Correctifs : la carte Esquive retrouve son illustration ; sur tablette et mobile en paysage, le bouton « C'est parti » s'affiche enfin ; le spécial de Sha & Zan ne compte plus deux fois le même KO ; le +1 rage de Shin arrive bien au 3e coup du combo ; « Tempête soudaine » fait bien repiocher 5 cartes ; la fenêtre de Contre affiche les vrais dégâts renvoyés (la moitié, tout pour Toki et Ken-Oh)
+- Textes : Toki et Ken-Oh indiquent leur Contre parfait, le lien KING cite aussi Dante et Zaria, les spéciaux du Colonel et de Yuda sont plus clairs, le tuto et l'attente en ligne ne parlent plus de « 3 combattants », noms japonais pour les nouveaux persos, traductions corrigées
+- Arc 2 (en test) : difficulté des chapitres rééquilibrée après simulations
+- Ménage : code, textes et images inutilisés supprimés (jeu plus léger)
+
 ## v0.83.1 — 2026-10-07
 
 - Correctif mobile : quand la main ne tient que sur une rangée, on peut à nouveau faire défiler les cartes
@@ -29,7 +36,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.80.0 — 2026-10-07
 
-- 6 nouveaux adversaires non jouables pour les prochains chapitres : Gallon (Katō Jutsu), Goum (chef des chasseurs de poupées) et Gyūki & Habu (sbires d'Amiba), Seeker (éclaireur de Ken-Oh), Targel (bourreau de Cassandra) et Sōjin (maître du Fūrai Jukkyoku Ken)
+- 6 nouveaux adversaires non jouables pour les prochains chapitres : Gallon (Katō Jutsu), Goum et Gyūki & Habu (sbires d'Amiba), Seeker (éclaireur de Ken-Oh), Targel (bourreau de Cassandra) et Sōjin (maître du Fūrai Jukkyoku Ken)
 - Nouveau décor prêt pour l'arc 2 : le QG de la GOLAN
 
 ## v0.79.0 — 2026-10-07
