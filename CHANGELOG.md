@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.95.2 — 2026-10-07
+
+- Mobile portrait : avec 3 cartes ou moins en main, elles tiennent toutes en largeur (avant, la dernière dépassait de l'écran). Avec 4 cartes ou plus, la main est toujours sur 2 rangées (merci maxGfive)
+
 ## v0.95.1 — 2026-10-07
 
 - Préparation de la v1.0 : le magasin de persos est prêt (désactivé pendant la bêta, tous les persos restent jouables). À la v1.0, 16 persos seront dispo d'office, 19 se débloqueront au magasin et tous les autres dans le mode histoire, avec les ryō : tu en gagnes autant que de points, les points déjà gagnés comptent, et en dépenser ne baisse pas ton niveau
