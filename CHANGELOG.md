@@ -2,6 +2,13 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.84.2 — 2026-10-07
+
+- Mobile : le passif du perso s'affiche dans un encadré avec son nom, comme sur PC
+- Mobile en paysage : les affiches des modes tiennent dans l'écran au lieu de déborder
+- Le badge de niveau reste collé à ton avatar (il flottait en paysage et disparaissait en portrait)
+- Entraînement « Je choisis » : les numéros des adversaires choisis ne sont plus coupés
+
 ## v0.84.1 — 2026-10-07
 
 - Mobile : la barre de vie passe au style arcade comme sur PC (graduée, PV écrits dedans)
