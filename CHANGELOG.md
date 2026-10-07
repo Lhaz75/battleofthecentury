@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.94.1 — 2026-10-07
+
+- Mobile portrait : avec 7 cartes ou plus en main, la main passe sur 2 ou 3 rangées au lieu d'une seule rangée où on ne voyait que 2 ou 3 cartes
+- Mobile paysage : l'écran de composition d'équipe passe en 2 colonnes (ta fiche à gauche, les combattants à droite), plus besoin de remonter tout en haut à chaque choix
+- Zhang Dayan est rangé dans l'école Hokuto Sōkaken, avec Zhang Taiyan
+
 ## v0.94.0 — 2026-10-07
 
 - Histoire, arc 2 : 2 nouveaux chapitres. « Le faux Toki » (Kenshiro et Rei contre les chasseurs de cobayes, Goum, Gyūki & Habu) et « Amiba, le génie » (boss). L'arc 2 compte maintenant 9 chapitres
