@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.92.3 — 2026-10-07
+
+- Échange auto quand il manque des attaques en main : un terrain gardé de côté n'est plus sacrifié en premier (les pièges et spéciales passent avant), et le message dit quelle carte a été échangée (merci maxGfive)
+
 ## v0.92.2 — 2026-10-07
 
 - Badge de relais sur les cartes : quand deux persos de ton équipe ont le même prénom (Zhang Dayan et Zhang Taiyan, Kenshiro et Kenshiro Kasumi), il affiche l'autre partie du nom pour les distinguer
