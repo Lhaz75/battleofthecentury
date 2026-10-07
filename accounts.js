@@ -530,6 +530,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
         await store.setSetting("bust:" + id, { type: m[1], data: m[2] });
         crop.v = Date.now().toString(36);
       }
+      crop.t = Date.now().toString(36);
       frames[kind][id] = crop; await store.setSetting("frames", frames);
       console.log(`Cadrage ${kind === "b" ? "vignette" : "combat"} de ${id} modifié par ${u.name}`);
       return [200, { frames }];
