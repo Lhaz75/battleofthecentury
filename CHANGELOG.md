@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.85.10 — 2026-10-07
+
+- Correctif : l'animation du dernier KO (et le dernier chiffre de dégâts) ne se jouait pas quand le coup final venait d'une attaque : le jeu figeait puis sautait directement à l'écran de victoire. Merci maxGfive et Jerome R.
+
 ## v0.85.9 — 2026-10-07
 
 - Mobile : quand la main passe sur 2 rangées, les cartes gardent leurs proportions au lieu de devenir presque carrées (texte et chiffres qui se chevauchaient)
