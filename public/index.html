@@ -5996,7 +5996,7 @@ function renderShop(sel=[]){
       <div class="shb"><div class="shx"><span>${L("shPass")}</span>${tr(f.passive)}</div><div class="shx"><span>${L("ultimate")}</span>${tr(f.ult.name)}</div>${extra}</div>
       <div class="shf">${o?`<span class="shok">✓ ${L("shOwned")}</span>`:`<button class="btn shbuy" data-id="${id}" ${can?"":"disabled"}>${KOBAN()}<b>${pr}</b><span>${L("shUnlock")}</span></button>${can?"":`<small class="shmiss">${L("shMiss",pr-r)}</small>`}`}</div>
     </article>`; };
-  pageShell("🛒 "+L("shopBtn"),`<section class="shhero"><div class="shpurse">${KOBAN3D()}<div><small>${L("shPurse")}</small><p class="shamt"><b>${r}</b><span>${L("ryo")}</span></p></div></div>
+  pageShell(L("shopBtn"),`<section class="shhero"><div class="shpurse">${KOBAN3D()}<div><small>${L("shPurse")}</small><p class="shamt"><b>${r}</b><span>${L("ryo")}</span></p></div></div>
       <div class="shtxt"><p>${L("shLead")}</p><div class="shprog"><i style="width:${Math.round(own/list.length*100)}%"></i></div><small>${L("shCount",own,list.length)} · ${L("shStory")}</small><p class="err" id="sherr" hidden></p></div></section>
     <div class="shgrid">${list.map(card).join("")}</div>`,sel);
   document.querySelectorAll(".shbuy").forEach(b=>b.onclick=async()=>{ if(b.disabled) return; b.disabled=true; SFX.play("click"); const er=$("#sherr"); const fail=t=>{ if(er){ er.hidden=false; er.textContent=t; } b.disabled=false; };
@@ -6210,7 +6210,7 @@ function homeHTML(sel){
   return `<div class="hm"><div class="hmL"><div class="hmlist">${ms.map(([m,n],i)=>`<button class="hmi${i===0?" on":""}" data-m="${m}"${m==="online"?' id="online"':""} style="--hc:var(--hm-${m})"><img class="hmp" src="assets/${HM_ART[m]}.webp" alt="" loading="lazy"><span class="hmt"><b>${n}</b><small>${L("hmd_"+m)}</small></span></button>`).join("")}</div>
     <div class="hmch">${hmDailyHTML()}${weeklyBannerHTML(sel)}</div></div>
     <div class="hmstage" style="--hc:var(--hm-${m0})"><img id="hmimg" src="assets/${HM_ART[m0]}.webp" alt=""><div class="hminfo"><div class="k">${L("hmMode")}</div><h1 id="hmh">${ms[0][1]}</h1><p id="hmd">${L("hmd_"+m0)}</p><button class="btn hmplay" id="hmplay" data-m="${m0}">${L("hmPlay")}</button></div></div></div>
-    <div class="hmlinks">${stUnlock()&&ACC.user?`<button class="btn sm shopbtn" id="shop">🛒 ${L("shopBtn")}</button>`:""}<button class="btn ghost sm" id="roster">${L("rosterBtn")}</button><button class="btn ghost sm" id="rules">${L("rulesBtn")}</button>${ACC.on?`<button class="btn ghost sm" id="hof">${L("hofBtn")}</button>`:""}</div>
+    <div class="hmlinks">${stUnlock()&&ACC.user?`<button class="btn sm shopbtn" id="shop">${L("shopBtn")}</button>`:""}<button class="btn ghost sm" id="roster">${L("rosterBtn")}</button><button class="btn ghost sm" id="rules">${L("rulesBtn")}</button>${ACC.on?`<button class="btn ghost sm" id="hof">${L("hofBtn")}</button>`:""}</div>
     ${socialHTML()}<p class="fanmade">${L("fanMade")}</p>`;
 }
 function hmEnter(m,sel){
