@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.83.1 — 2026-10-07
+
+- Correctif mobile : quand la main ne tient que sur une rangée, on peut à nouveau faire défiler les cartes
+
 ## v0.83.0 — 2026-10-07
 
 - Arc 2 (en test) : le clan Kiba se mérite. Kenshiro, Rei et Mamiya repoussent plusieurs vagues de Kiba (« Le village de Mamiya », « La nuit des crocs »), puis affrontent Madara. Kiba Daioh se bat ensuite seul contre Kenshiro
