@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.90.0 — 2026-10-07
+
+- Nouveaux adversaires non jouables : 4 soldats de la GOLAN (Fouet, Matraque, Béret Lame, Béret Rictus) et 2 chasseurs de cobayes d'Amiba. Entre eux (et avec le Colonel, Mad Sarge ou Goum), ils frappent +1
+- Histoire, arc 2 chapitre 1 : les soldats de la GOLAN remplacent les punks au QG
+- Nouvelles illustrations pour Shin et Sōjin
+
 ## v0.89.1 — 2026-10-07
 
 - Rage plus lisible : un « +1 rage » s'envole de la barre à chaque gain, et toucher la barre de rage explique ce qui la fait monter. Le message d'accueil du premier combat l'explique aussi
