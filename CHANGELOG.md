@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.96.0 — 2026-10-08
+
+- 2 nouveaux combattants : Raoh (Hokuto Shinken), l'homme derrière le casque de Ken-Oh, et Asam, le roi de Sava (Daijō Nanken)
+
 ## v0.95.7 — 2026-10-08
 
 - Nouvelles illustrations pour Yuria, Asura, Rofu, Bat, Jagi, Zeed et Frieda
