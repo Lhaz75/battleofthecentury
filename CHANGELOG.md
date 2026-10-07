@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.85.9 — 2026-10-07
+
+- Mobile : quand la main passe sur 2 rangées, les cartes gardent leurs proportions au lieu de devenir presque carrées (texte et chiffres qui se chevauchaient)
+
 ## v0.85.8 — 2026-10-07
 
 - Mobile : journal du combat et combo en cours écrits plus petit pour laisser de la place à la main ; le passif ne laisse plus dépasser un bout de 3e ligne
