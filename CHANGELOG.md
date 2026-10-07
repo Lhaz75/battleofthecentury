@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.96.3 — 2026-10-08
+
+- Noms de techniques vérifiés : les noms japonais inventés sont remplacés par les vraies techniques du perso (Toki, Asura, Falco, Rofu, Liu Zongwu, Tesshin, Koryu, Kenshiro Kasumi, Solia, Hyō, Kaioh, Yasaka, Charles de Guise, Amiba) ou par un nom français quand il n'en existe pas (Jugai, Baran, Barcom, Boltz, Taiga, Shoki, Devil Rebirth, Seiji, Bat)
+
 ## v0.96.2 — 2026-10-08
 
 - Noms de techniques : les vrais noms japonais remplacent les traductions quand la technique existe dans le manga ou les jeux officiels (Rei, Yuda, Shu, Amiba, Ryuga, Fudo, Kiba Daioh, Solia, Raiga & Fūga, Liu Feiyan, Frieda, Kaiser, le Shura sans nom, Ogai, Yasaka, Jugai)
