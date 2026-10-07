@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.94.2 — 2026-10-07
+
+- Mobile, écrans courts (iPhone SE, petits Android, jeu dans le navigateur avec ses barres) : le haut du plateau se compacte (passif sur une ligne, réserves plus petites, journal plus fin) pour que toute la main tienne à l'écran sur 2 rangées, sans défilement
+
 ## v0.94.1 — 2026-10-07
 
 - Mobile portrait : avec 7 cartes ou plus en main, la main passe sur 2 ou 3 rangées au lieu d'une seule rangée où on ne voyait que 2 ou 3 cartes
