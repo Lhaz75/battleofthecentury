@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.92.2 — 2026-10-07
+
+- Badge de relais sur les cartes : quand deux persos de ton équipe ont le même prénom (Zhang Dayan et Zhang Taiyan, Kenshiro et Kenshiro Kasumi), il affiche l'autre partie du nom pour les distinguer
+
 ## v0.92.1 — 2026-10-07
 
 - Barrage de Yuda : les eaux se retirent au bout de 2 tours (terrain posé ou événement), pour ne plus bloquer les réactions jusqu'à la fin du combat quand aucun autre terrain ne sort (merci maxGfive)
