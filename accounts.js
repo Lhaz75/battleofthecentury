@@ -6,10 +6,11 @@ const STORY_TEST = /^arc2-/;   // arcs en test (lecture seule pour les joueurs) 
 // magasin de persos : prix selon le coût (fighters.json) ; persos de départ et persos de l'histoire exclus (à garder en phase avec CHAR_START / STORY_CH dans index.html)
 const SHOP_START = new Set(["maitre", "sage", "linh", "bat", "vieux", "dans", "huey", "shuren", "nuage", "shachi", "shoki", "general", "mamiya", "ein", "rima", "bella"]);
 const SHOP_STORY = new Set(["zeed", "ventre", "spade", "sarge", "colonel", "rival", "madara", "kiba", "joker", "jackal", "devil", "fourbe", "diamond", "club", "fox", "barcom", "amiba", "demon", "hyo", "boltz", "taiga", "solia", "uighur"]);
+const SHOP_LIST = new Set(["kasumi", "shuken", "tesshin", "ogai", "rofu", "wei", "feiyan", "jugai", "garuda", "asura", "mang", "charles", "liu", "yasaka", "taiyan", "dayan", "sanga", "seiji", "frieda"]);   // seuls persos en vente (liste de David) ; les autres s'obtiennent par l'histoire
 let SHOP_COST = null;
 function SHOP_PRICE(id) {
   if (!SHOP_COST) { SHOP_COST = {}; try { const f = JSON.parse(fs.readFileSync(path.join(__dirname, "public", "fighters.json"), "utf8")); for (const x of f.fighters || []) if (!x.npc) SHOP_COST[x.id] = x.cost; } catch (e) {} }
-  if (!(id in SHOP_COST) || SHOP_START.has(id) || SHOP_STORY.has(id)) return 0;
+  if (!(id in SHOP_COST) || !SHOP_LIST.has(id)) return 0;
   return { 1: 100, 2: 150, 3: 250, 4: 400, 5: 600 }[SHOP_COST[id]] || 250;
 }
 const STORY_ORDER = ["king-0", "king-1", "king-2", "king-3", "king-4", "king-5", "king-6", "king-7", "king-9", "king-8", "arc2-1", "arc2-2", "arc2-3", "arc2-4", "arc2-5", "arc2-6", "arc2-7", "arc2-8", "arc2-9"];

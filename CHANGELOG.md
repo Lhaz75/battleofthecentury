@@ -4,7 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.95.1 — 2026-10-07
 
-- Préparation de la v1.0 : le magasin de persos est prêt (désactivé pendant la bêta, tous les persos restent jouables). À la v1.0, 16 persos seront dispo d'office, 23 se débloqueront dans le mode histoire et les autres au magasin, avec les ryō : tu en gagnes autant que de points, les points déjà gagnés comptent, et en dépenser ne baisse pas ton niveau
+- Préparation de la v1.0 : le magasin de persos est prêt (désactivé pendant la bêta, tous les persos restent jouables). À la v1.0, 16 persos seront dispo d'office, 19 se débloqueront au magasin et tous les autres dans le mode histoire, avec les ryō : tu en gagnes autant que de points, les points déjà gagnés comptent, et en dépenser ne baisse pas ton niveau
 - « Mes cartes » : toutes les cartes de terrain et de piège sont disponibles pour tout le monde
 
 ## v0.95.0 — 2026-10-07
