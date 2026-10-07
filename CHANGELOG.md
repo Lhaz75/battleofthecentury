@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.85.7 — 2026-10-07
+
+- Nouveau son de lancement d'ultime, la voix du perso enchaîne juste derrière
+
 ## v0.85.6 — 2026-10-07
 
 - Ultime : un son d'ouverture joue au lancement de l'animation, puis le perso crie son attaque juste après (au lieu des deux en même temps)
