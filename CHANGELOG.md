@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.87.1 — 2026-10-07
+
+- Son : nouveau bruitage quand on passe d'un menu à l'autre
+
 ## v0.87.0 — 2026-10-07
 
 - Annonceur : une voix annonce FIGHT, COMBO (3 coups enchaînés), CRITIQUE, SPÉCIALE, ÉVÉNEMENT, KO, KO final, ton tour, et YOU WIN / YOU LOSE. Toutes les annonces sont au même volume
