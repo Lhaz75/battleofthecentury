@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.85.8 — 2026-10-07
+
+- Mobile : journal du combat et combo en cours écrits plus petit pour laisser de la place à la main ; le passif ne laisse plus dépasser un bout de 3e ligne
+
 ## v0.85.7 — 2026-10-07
 
 - Nouveau son de lancement d'ultime, la voix du perso enchaîne juste derrière
