@@ -3,6 +3,15 @@
 const crypto = require("crypto");
 // ordre des chapitres du mode histoire (king-9 = interlude Barcom, joué avant le combat contre Shin)
 const STORY_TEST = /^arc2-/;   // arcs en test (lecture seule pour les joueurs) : vider la regex (/^$/) pour ouvrir
+// magasin de persos : prix selon le coût (fighters.json) ; persos de départ et persos de l'histoire exclus (à garder en phase avec CHAR_START / STORY_CH dans index.html)
+const SHOP_START = new Set(["maitre", "sage", "linh", "bat", "vieux", "dans", "emp", "narc", "aveugle", "yuria", "dagar", "nuage", "geant", "huey", "jako", "sabato", "han", "hyo", "solia", "general", "mamiya", "ein", "rima", "kaiser", "shazan"]);
+const SHOP_STORY = new Set(["zeed", "ventre", "spade", "sarge", "colonel", "rival", "madara", "kiba", "joker", "jackal", "devil", "fourbe", "diamond", "club", "fox", "barcom", "amiba"]);
+let SHOP_COST = null;
+function SHOP_PRICE(id) {
+  if (!SHOP_COST) { SHOP_COST = {}; try { const f = JSON.parse(fs.readFileSync(path.join(__dirname, "public", "fighters.json"), "utf8")); for (const x of f.fighters || []) if (!x.npc) SHOP_COST[x.id] = x.cost; } catch (e) {} }
+  if (!(id in SHOP_COST) || SHOP_START.has(id) || SHOP_STORY.has(id)) return 0;
+  return { 1: 100, 2: 150, 3: 250, 4: 400, 5: 600 }[SHOP_COST[id]] || 250;
+}
 const STORY_ORDER = ["king-0", "king-1", "king-2", "king-3", "king-4", "king-5", "king-6", "king-7", "king-9", "king-8", "arc2-1", "arc2-2", "arc2-3", "arc2-4", "arc2-5", "arc2-6", "arc2-7", "arc2-8", "arc2-9"];
 const fs = require("fs");
 const path = require("path");
@@ -403,17 +412,16 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       const ach = achCheck(st, body.feats); await store.saveStats(u.id, st);
       return [200, { user: pubUser(u), gain, ach }];
     },
-    // magasin : cartes de deck à débloquer avec les ryō (ryō = points gagnés - ryō déjà dépensés ; les points de niveau ne bougent pas)
+    // magasin (v1.0) : persos à débloquer avec les ryō (ryō = points gagnés - ryō dépensés ; les points de niveau ne bougent pas)
     "POST /api/shop": async (req, body) => {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
-      const SHOP = { t_tempete: 150, t_village: 150, t_medicine: 150, t_barrage: 200, x_kibaclan: 150, x_fil: 150 };
-      const card = String(body.card || ""), price = SHOP[card], st = u.stats;
+      const id = String(body.fighter || ""), price = SHOP_PRICE(id), st = u.stats;
       if (!price) return [400, { error: "bad" }];
-      const own = st.cards = Array.isArray(st.cards) ? st.cards : [];
-      if (own.includes(card)) return [409, { error: "owned" }];
+      const own = st.chars = Array.isArray(st.chars) ? st.chars : [];
+      if (own.includes(id)) return [409, { error: "owned" }];
       const ryo = (st.pts || 0) - (st.ryoSpent || 0);
       if (ryo < price) return [402, { error: "poor" }];
-      own.push(card); st.ryoSpent = (st.ryoSpent || 0) + price;
+      own.push(id); st.ryoSpent = (st.ryoSpent || 0) + price;
       await store.saveStats(u.id, st);
       return [200, { user: pubUser(u) }];
     },

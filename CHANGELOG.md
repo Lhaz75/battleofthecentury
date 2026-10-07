@@ -2,10 +2,14 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.95.1 — 2026-10-07
+
+- Préparation de la v1.0 : le magasin de persos est prêt (désactivé pendant la bêta, tous les persos restent jouables). À la v1.0, 25 persos seront dispo d'office, 17 se débloqueront dans le mode histoire et les autres au magasin, avec les ryō : tu en gagnes autant que de points, les points déjà gagnés comptent, et en dépenser ne baisse pas ton niveau
+- « Mes cartes » : toutes les cartes de terrain et de piège sont disponibles pour tout le monde
+
 ## v0.95.0 — 2026-10-07
 
-- Nouveau : « Mes cartes ». Sur l'écran de composition d'équipe, choisis les 3 terrains et les 3 pièges de ton deck au lieu du hasard (ce que tu ne choisis pas reste tiré au hasard parmi tes cartes)
-- Nouveau : le magasin. Tempête de sable, Village assiégé, Medicine City, Barrage de Yuda, Embuscade du clan Kiba et Encerclé par la horde se débloquent avec des ryō, la nouvelle monnaie. Tu gagnes autant de ryō que de points (les anciens points comptent), et dépenser des ryō ne touche pas à ton niveau
+- Nouveau : « Mes cartes ». Sur l'écran de composition d'équipe, choisis les 3 terrains et les 3 pièges de ton deck au lieu du hasard (ce que tu ne choisis pas reste tiré au hasard)
 - En versus, chaque joueur joue avec ses propres cartes
 
 ## v0.94.2 — 2026-10-07
