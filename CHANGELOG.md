@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.95.6 — 2026-10-07
+
+- Défilement plus fluide dans « Mes cartes » et dans la main sur mobile (l'effet de lueur des cartes ne tourne plus pendant qu'on fait défiler)
+
 ## v0.95.5 — 2026-10-07
 
 - « Mes cartes » : fenêtre plus large, cartes plus grandes où tout le texte tient, et le bouton OK reste visible en bas
