@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.93.1 — 2026-10-07
+
+- Tutoriel mis à jour : nouvelles bulles sur les liens et écoles, l'Enchaînement et l'échange ⇄ ; les bulles Réactions et Relais décrivent les règles actuelles (Esquive, Contre, relais auto via le badge ↻, relais gratuit au premier tour)
+
 ## v0.93.0 — 2026-10-07
 
 - Après la création d'un compte, le jeu propose de faire le tutoriel (on peut passer)
