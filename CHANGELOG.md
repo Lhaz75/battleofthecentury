@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.96.1 — 2026-10-08
+
+- Raoh devient plus fort que Ken-Oh : 22 PV, « Aucun regret » donne +3 rage, et sa carte spéciale aussi
+- Asam rejoint le magasin (250 ryō à la v1.0) ; Raoh se débloquera dans le mode histoire
+
 ## v0.96.0 — 2026-10-08
 
 - 2 nouveaux combattants : Raoh (Hokuto Shinken), l'homme derrière le casque de Ken-Oh, et Asam, le roi de Sava (Daijō Nanken)
