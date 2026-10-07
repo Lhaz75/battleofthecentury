@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.87.0 — 2026-10-07
+
+- Annonceur : une voix annonce FIGHT, COMBO (3 coups enchaînés), CRITIQUE, SPÉCIALE, ÉVÉNEMENT, KO, KO final, ton tour, et YOU WIN / YOU LOSE. Toutes les annonces sont au même volume
+
 ## v0.86.0 — 2026-10-07
 
 - Équilibrage des tailles d'équipe, réglé sur ~45 000 combats simulés : équipe de 2 → +22 % PV (avant +38 %), de 4 → −17 % (avant −20 %), de 5 → −30 % (avant −34 %). Avant, les équipes de 4 et 5 perdaient trop souvent contre celles de 3 (et celles de 2 gagnaient trop) ; maintenant toutes les tailles gagnent entre 49 et 53 % les unes contre les autres
