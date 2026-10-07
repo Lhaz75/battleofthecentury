@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.91.1 — 2026-10-07
+
+- Correctif : le piège perso d'un combattant (Mémoire du combat de Kenshiro, Instinct du vétéran de Ryuken, Faux point vital de Souther, Aiguilles crachées de Jagi) disparaît quand il tombe KO. Avant, il restait posé pour rien et empêchait de poser un autre piège (merci Jerome R.)
+- Histoire, arc 1 chapitre 9 (Shin) : sa carte Possession (vol de rage) ne peut plus être jouée qu'une fois par combat, pour qu'on puisse finir sur un ultime (merci Jerome R. et Mordikar)
+
 ## v0.91.0 — 2026-10-07
 
 - 2 nouveaux combattants jouables (Sōten no Ken) : Wei Ruiying, le fondateur estropié du Kyokujūji Seiken (Lourds +2), et Zhang Dayan, le vieux maître du Hokuto Sōkaken (Moyens +2)
