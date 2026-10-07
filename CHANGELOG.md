@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.95.3 — 2026-10-07
+
+- L'ultime de Juza devient Gekiheki Haisui Shō
+
 ## v0.95.2 — 2026-10-07
 
 - Mobile portrait : avec 3 cartes ou moins en main, elles tiennent toutes en largeur (avant, la dernière dépassait de l'écran). Avec 4 cartes ou plus, la main est toujours sur 2 rangées (merci maxGfive)
