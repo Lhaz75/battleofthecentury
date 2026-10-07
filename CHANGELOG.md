@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.89.1 — 2026-10-07
+
+- Rage plus lisible : un « +1 rage » s'envole de la barre à chaque gain, et toucher la barre de rage explique ce qui la fait monter. Le message d'accueil du premier combat l'explique aussi
+
 ## v0.89.0 — 2026-10-07
 
 - Nouveau terrain « Barrage de Yuda » : le terrain est noyé, plus aucune réaction possible (ni Garde, ni Esquive, ni Contre). Combos à gogo tant qu'il reste en jeu (idée de maxGfive)
