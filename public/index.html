@@ -2042,6 +2042,13 @@ body[data-terr="jagi"]{--terrbg:url("assets/story-jagi.webp")}body[data-terr="ja
 .lockinfo{margin:8px 0;padding:8px 10px;border:1px solid #8a5a2a;border-radius:8px;background:rgba(30,16,8,.85);font-size:13px;line-height:1.4;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}.lockinfo small{opacity:.75}.lockinfo .err{flex-basis:100%;color:#ff8a6a}
 .har{position:fixed;z-index:60;width:28px;height:28px;border-radius:50%;border:1px solid #ff6a2a;background:#140b08e6;color:#ffb47a;font:700 20px/24px system-ui;padding:0;box-shadow:0 0 10px #ff6a2a66;animation:harP 1.4s ease-in-out infinite}.har[hidden]{display:none}
 @keyframes harP{50%{box-shadow:0 0 16px #ff6a2acc}}
+.shopbtn{border-color:#ffcf3a!important;color:#ffd27a!important}
+.shtop{display:flex;flex-direction:column;gap:6px}.shryo{font:700 22px var(--f-display);color:#ffd27a;letter-spacing:.03em}.shcount{margin:0;color:#b9a58e;font-size:13px}
+.shgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin:8px 0 16px}
+.shc{display:flex;gap:12px;align-items:center;padding:10px;border:1px solid rgba(232,176,74,.3);border-radius:12px;background:rgba(18,10,6,.75)}
+.shc img{width:72px;height:90px;object-fit:cover;border-radius:8px;flex:none;background:#000}
+.shi{display:flex;flex-direction:column;gap:5px;min-width:0;align-items:flex-start}.shi b{font:700 17px var(--f-display);text-transform:uppercase;letter-spacing:.02em}.shi small{color:#b9a58e;font-size:12px}
+.shc.own{border-color:rgba(127,190,110,.5)}.shok{color:#8fd07a;font-weight:700;font-size:14px}
 </style>
 <style>html,body{margin:0}*{box-sizing:border-box}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
@@ -5940,6 +5947,23 @@ function rosterBody(){
   const arr=ids.slice().sort((a,b)=>RF.sort==="name"?String(nm(a)).localeCompare(String(nm(b))):(key(a)-key(b))||String(nm(a)).localeCompare(String(nm(b))));
   return cnt+`<div class="rgrid">${arr.map(rosterCard).join("")}</div>`;
 }
+function renderShop(sel=[]){
+  const r=ryoNow(), list=[...CHAR_SHOP].filter(id=>FIGHTERS[id]).sort((a,b)=>charPrice(a)-charPrice(b)||nm(a).localeCompare(nm(b)));
+  const own=list.filter(charOwned).length;
+  const card=id=>{ const o=charOwned(id), pr=charPrice(id), can=!o&&r>=pr;
+    return `<div class="shc cl-${CLAN[id]}${o?" own":""}"><img src="${BUST(id)}" alt="" loading="lazy"><div class="shi"><b>${esc(nm(id))}</b><small>${L("clan_"+CLAN[id])} · ${L("shCost",COST[id]||3)} · ${fighterHP(id,3)} ${L("hpShort")}</small>
+      ${o?`<span class="shok">✓ ${L("shOwned")}</span>`:`<button class="btn sm shbuy" data-id="${id}" ${can?"":"disabled"}>${L("buyFor",pr)}</button>`}</div></div>`; };
+  pageShell("🛒 "+L("shopBtn"),`<div class="shtop"><div class="shryo">${L("ryoHave",r)}</div><p class="iplead">${L("shLead")}</p><p class="shcount">${L("shCount",own,list.length)}</p></div>
+    <p class="err" id="sherr"></p><div class="shgrid">${list.map(card).join("")}</div><p class="note">${L("shStory")}</p>`,sel);
+  document.querySelectorAll(".shbuy").forEach(b=>b.onclick=async()=>{ if(b.disabled) return; b.disabled=true; SFX.play("click"); const er=$("#sherr");
+    try{ const res=await api("POST","/api/shop",{fighter:b.dataset.id}); if(res.ok&&res.user){ ACC.user=res.user; SFX.play("win"); const y=(document.querySelector(".screen")||{}).scrollTop||0; renderShop(sel); const sc=document.querySelector(".screen"); if(sc) sc.scrollTop=y; try{ refreshAccBtn(); }catch(e){} }
+      else { if(er) er.textContent=L(res.error==="poor"?"mcPoor":"e_net"); b.disabled=false; } }catch(_){ if(er) er.textContent=L("e_net"); b.disabled=false; } });
+  bindLang(()=>renderShop(sel));
+}
+Object.assign(UI.fr,{shopBtn:"Magasin",shCost:n=>`coût ${n}`,shOwned:"Débloqué",shLead:"Débloque de nouveaux combattants avec tes ryō. Tu gagnes autant de ryō que de points en jouant, et les dépenser ne fait pas baisser tes points.",shCount:(a,b)=>`${a}/${b} débloqués`,shStory:"Les autres combattants se débloquent dans le mode histoire."});
+Object.assign(UI.en,{shopBtn:"Shop",shCost:n=>`cost ${n}`,shOwned:"Unlocked",shLead:"Unlock new fighters with your ryō. You earn as many ryō as points when you play, and spending them doesn't lower your points.",shCount:(a,b)=>`${a}/${b} unlocked`,shStory:"The other fighters are unlocked in story mode."});
+Object.assign(UI.it,{shopBtn:"Negozio",shCost:n=>`costo ${n}`,shOwned:"Sbloccato",shLead:"Sblocca nuovi combattenti con i tuoi ryō. Guadagni tanti ryō quanti punti giocando, e spenderli non abbassa i tuoi punti.",shCount:(a,b)=>`${a}/${b} sbloccati`,shStory:"Gli altri combattenti si sbloccano nella modalità storia."});
+Object.assign(UI.ja,{shopBtn:"ショップ",shCost:n=>`コスト${n}`,shOwned:"解放済み",shLead:"両を使って新しい拳士を解放しよう。プレイで得たポイントと同じだけ両がもらえ、使ってもポイントは減らない。",shCount:(a,b)=>`${a}/${b} 解放`,shStory:"他の拳士はストーリーモードで解放される。"});
 function renderRoster(sel=[]){
   const clans=CLANS.filter(c=>ROSTER().some(id=>CLAN[id]===c));
   const bar=`<div class="rfbar"><input type="search" id="rfq" placeholder="${esc(L("rfSearch"))}" value="${esc(RF.q)}" autocomplete="off">
@@ -6043,6 +6067,7 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; ARC.on=fa
       else { const e=$("#buyerr"); if(e) e.textContent=L(r.error==="poor"?"mcPoor":"e_net"); b.disabled=false; } }catch(_){ const e=$("#buyerr"); if(e) e.textContent=L("e_net"); b.disabled=false; } };
   if($("#tuto")) $("#tuto").onclick=()=>{ SFX.play("go"); startTuto(); };
   if($("#roster")) $("#roster").onclick=()=>{ SFX.play("click"); renderRoster(sel); };
+  if($("#shop")) $("#shop").onclick=()=>{ SFX.play("click"); renderShop(sel); };
   fitShowName(); requestAnimationFrame(fitShowName); if(document.fonts) document.fonts.ready.then(fitShowName);
   if($("#rules")) $("#rules").onclick=()=>{ SFX.play("click"); renderRules(sel); };
   if($("#hof")) $("#hof").onclick=()=>{ SFX.play("click"); renderHof(sel); };
@@ -6141,7 +6166,7 @@ function homeHTML(sel){
   return `<div class="hm"><div class="hmL"><div class="hmlist">${ms.map(([m,n],i)=>`<button class="hmi${i===0?" on":""}" data-m="${m}"${m==="online"?' id="online"':""} style="--hc:var(--hm-${m})"><img class="hmp" src="assets/${HM_ART[m]}.webp" alt="" loading="lazy"><span class="hmt"><b>${n}</b><small>${L("hmd_"+m)}</small></span></button>`).join("")}</div>
     <div class="hmch">${hmDailyHTML()}${weeklyBannerHTML(sel)}</div></div>
     <div class="hmstage" style="--hc:var(--hm-${m0})"><img id="hmimg" src="assets/${HM_ART[m0]}.webp" alt=""><div class="hminfo"><div class="k">${L("hmMode")}</div><h1 id="hmh">${ms[0][1]}</h1><p id="hmd">${L("hmd_"+m0)}</p><button class="btn hmplay" id="hmplay" data-m="${m0}">${L("hmPlay")}</button></div></div></div>
-    <div class="hmlinks"><button class="btn ghost sm" id="roster">${L("rosterBtn")}</button><button class="btn ghost sm" id="rules">${L("rulesBtn")}</button>${ACC.on?`<button class="btn ghost sm" id="hof">${L("hofBtn")}</button>`:""}</div>
+    <div class="hmlinks">${stUnlock()&&ACC.user?`<button class="btn sm shopbtn" id="shop">🛒 ${L("shopBtn")}</button>`:""}<button class="btn ghost sm" id="roster">${L("rosterBtn")}</button><button class="btn ghost sm" id="rules">${L("rulesBtn")}</button>${ACC.on?`<button class="btn ghost sm" id="hof">${L("hofBtn")}</button>`:""}</div>
     ${socialHTML()}<p class="fanmade">${L("fanMade")}</p>`;
 }
 function hmEnter(m,sel){
