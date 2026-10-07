@@ -5438,7 +5438,7 @@ const ST_TEST=[2]; // arcs en test : visibles mais verrouillés pour les joueurs
 const stTest=c=>ST_TEST.includes(c.arc||1) && !(ACC.user&&ACC.user.admin);
 const ST_UNLOCK=false; // remettre à true pour la version 1.0 (déblocages de persos : histoire + magasin)
 // persos dispo d'office ; les autres se débloquent par l'histoire (STORY_CH[].unlock) ou au magasin (ryō)
-const CHAR_START=new Set(["maitre", "sage", "linh", "bat", "vieux", "dans", "emp", "narc", "aveugle", "yuria", "dagar", "nuage", "geant", "huey", "jako", "sabato", "han", "hyo", "solia", "general", "mamiya", "ein", "rima", "kaiser", "shazan"]);
+const CHAR_START=new Set(["maitre", "sage", "linh", "bat", "vieux", "dans", "huey", "shuren", "nuage", "shachi", "shoki", "general", "mamiya", "ein", "rima"]);
 const CHAR_PRICE={1:100,2:150,3:250,4:400,5:600};
 const storyUnlockOf=id=>{ const c=STORY_CH.find(x=>(x.unlock||[]).includes(id)); return c||null; };
 const charPrice=id=>CHAR_START.has(id)||storyUnlockOf(id)?0:(CHAR_PRICE[COST[id]||3]||250);
