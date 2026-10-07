@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.95.5 — 2026-10-07
+
+- « Mes cartes » : fenêtre plus large, cartes plus grandes où tout le texte tient, et le bouton OK reste visible en bas
+
 ## v0.95.4 — 2026-10-07
 
 - Mobile portrait : retour à une seule rangée de cartes, plus grandes et lisibles. Si elles ne tiennent pas toutes, la main défile et des flèches montrent qu'il y a d'autres cartes à gauche ou à droite (merci maxGfive)
