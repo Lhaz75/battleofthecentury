@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.85.1 — 2026-10-07
+
+- Mobile : en combat, plein écran, son, musique et vibrations sont rangés derrière un seul bouton de réglages, « Ultime » et « Fin du tour » ne sont plus coupés
+- Mobile : le passif tient sur 2 lignes sans morceau de texte coupé en dessous
+
 ## v0.85.0 — 2026-10-07
 
 - Mobile : le téléphone vibre quand tu prends un gros coup, sur un KO et sur un ultime (Android ; bouton 📳 pour couper, dans le menu ☰ et en combat)
