@@ -778,6 +778,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 }
 /* zoom carte (appui long) */
 .hand .card{-webkit-touch-callout:none;user-select:none;-webkit-user-select:none}
+.peekw{width:min(440px,94vw);max-height:80vh;overflow:auto;border-radius:14px;background:#120a07;border:1px solid rgba(232,176,74,.5);box-shadow:0 18px 50px rgba(0,0,0,.7)}.peekw .rcard{margin:0;border:0;box-shadow:none}.peekhp{padding:8px 14px;font:700 15px Oswald,var(--f-display);letter-spacing:.06em;color:#fff3dc;background:linear-gradient(90deg,rgba(224,48,26,.35),transparent)}.peekhp.ko{color:#ff8a6e}
 .zoomov{position:fixed;inset:0;z-index:50;background:rgba(5,3,2,.78);backdrop-filter:blur(3px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;animation:zin .18s ease-out}
 @keyframes zin{from{opacity:0}to{opacity:1}}
 .zoomwrap .card{width:min(250px,70vw)!important;height:auto!important;min-height:340px;flex:none!important;padding:16px 14px!important;transform:none!important;cursor:default;animation:zpop .2s cubic-bezier(.2,.9,.3,1.3)}
@@ -3302,7 +3303,7 @@ function hurt(k,dmg){
   if(f.id==="shachi" && !f.eye && f.hp>0 && f.hp<10){ f.eye=true; gainRage(s,3,"pas"); S.sub=L("shachiEye"); }
   if(f.id==="jako") gainRage(s,1,"pas");
   if(f.id==="fox" && !f.fake && f.hp>0 && f.hp*2<f.max && !S.over){ f.fake=true; S.sub=L("foxFake"); hurt(other(k),5); }
-  dmgPop(k,dmg); shake(k); impact(k,dmg); hitfx(k,dmg); SFX.hit(dmg); if(dmg>=7) splat(k); if(dmg>=7) quake();
+  dmgPop(k,dmg); shake(k); impact(k,dmg); hitfx(k,dmg); SFX.hit(dmg); if(k===ME) buzz(dmg>=10?[70,40,110]:dmg>=6?55:0); if(dmg>=7) splat(k); if(dmg>=7) quake();
   gainRage(s,1,"hit");
   if(f.hp<=0) ko(k);
 }
@@ -3313,7 +3314,7 @@ function ko(k){
   for(const [lk,x,y] of [["bloodtk","sage","colo"],["bloodkh","maitre","hyo"]]) if(hasLink(s,lk) && (f.id===x||f.id===y)){ const sv=f.id===x?y:x; if(alive(s,sv)){ (s.blood=s.blood||[]).push(sv); gainRage(s,3,"link"); S.sub=(hitSub?hitSub+" ":"")+L("bloodVow",esc(nm(sv)),esc(nm(f.id))); } }
   if(S.ultBy && S.ultBy===other(k) && S.ultBy===ME) S.ultKo=true;
   { const kl=act(S[other(k)]); if(kl && kl.id==="nameless" && !kl.ko && kl.hp>0){ kl.hp=Math.min(kl.max,kl.hp+6); fx(other(k),"+6","h"); S.sub=L("namelessName",esc(nm("nameless"))); } }
-  SFX.play("ko");
+  SFX.play("ko"); buzz(k===ME?[160,80,260]:[90,50,90]);
   { const killer=act(S[other(k)]); SFX.voice(killer && killer.id==="maitre" && !killer.ko ? "omaewamo" : DEATH_VOICE[f.id], 250); }
   const last=!s.team.some(t=>!t.ko);
   if(!last) shout(`${esc(nm(f.id))}<br>KO`); flash(); deathFx(k,DEATH_CRIES[rnd(DEATH_CRIES.length)]);
@@ -3354,7 +3355,7 @@ async function ultimate(k,forced){
   const s=S[k], f=act(s), u=FIGHTERS[f.id].ult;
   if(S.turn!==k || s.rage<RAGE_MAX || S.over) return;
   S.busy=true;
-  s.rage=0;
+  s.rage=0; buzz([30,40,30,40,140]);
   let dmg=u.dmg+(s.clan==="hokuto"?3:0)+(s.clan==="taizan"?2:0)+(act(s).id==="jukei"?4:0)+(act(s).id==="shuken"?2:0)+(hasLink(s,"yuriaken")&&act(s).id==="maitre"?2:0)+(hasLink(s,"brothers")?(s.nBro||2)-1:0)+(hasLink(s,"koryu")&&act(s).id==="koryu"?3:0); const chained=s.combo.n>=2 && !s.combo.stop;
   if(chained) dmg=Math.round(dmg*1.5);
   const od=S[other(k)];
@@ -3637,7 +3638,7 @@ function sideHTML(k){
     if(i===s.active) return "";
     const can = me && S.turn===ME && !S.busy && !s.relais && s.end>=relayCost(s,i) && !t.ko;
     const tag = can?"button":"div";
-    return `<${tag} class="rs ${t.ko?"ko":""} ${can?"can":""}" ${can?`data-relais="${i}" aria-label="${L("relayTo",esc(nm(t.id)))}" title="${L("relayTo",esc(nm(t.id)))}"`:`title="${esc(nm(t.id))}"`}>
+    return `<${tag} class="rs ${t.ko?"ko":""} ${can?"can":""}" data-pk="${k}" data-pi="${i}" ${can?`data-relais="${i}" aria-label="${L("relayTo",esc(nm(t.id)))}" title="${L("relayTo",esc(nm(t.id)))}"`:`title="${esc(nm(t.id))}"`}>
       <span class="av"><img src="${FACE(t.id)}" alt="">${t.ko?`<span class="kox"></span>`:""}</span>
       <span class="rhp ${!t.ko&&t.hp<t.max?"hurt":""}"><i style="width:${t.ko?0:t.hp/t.max*100}%"></i></span><span class="rhpn">${t.ko?"":`${t.hp}/${t.max}`}</span></${tag}>`;
   }).join("");
@@ -3719,12 +3720,24 @@ function comboHTML(){
   return `<div class="combo${tr||nb?"":" empty"}"><span class="lbl">${S.turn===ME?L("yourCombo"):L("hisCombo")}</span>${tr||`<span class="arrow">—</span>`}${nb}</div>`;
 }
 let QUIT_T=0, QUIT_ARM=false, LP_T=0, LP_FIRED=false;
+const VIB={on:(()=>{ try{ return localStorage.getItem("boc-vib")!=="0"; }catch(e){ return true; } })(), ok:typeof navigator!=="undefined" && typeof navigator.vibrate==="function" && typeof matchMedia==="function" && matchMedia("(pointer:coarse)").matches};
+function buzz(p){ if(!p || !VIB.ok || !VIB.on || FAST || (typeof RP!=="undefined" && RP && RP.on)) return; try{ navigator.vibrate(p); }catch(e){} }
+function vibToggle(){ VIB.on=!VIB.on; try{ localStorage.setItem("boc-vib",VIB.on?"1":"0"); }catch(e){} if(VIB.on) buzz(60); }
+const SVG_VIB='<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="8" y="3" width="8" height="18" rx="2"/><path d="M4.5 8v8M19.5 8v8M2 10v4M22 10v4"/></svg>', SVG_VIB_OFF='<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" opacity=".55"><rect x="8" y="3" width="8" height="18" rx="2"/><path d="M3 3l18 18"/></svg>';
+const vibBtn=()=>VIB.ok?`<button class="tbtn" id="vib" aria-pressed="${VIB.on}" aria-label="${L("vib")}" title="${L("vib")}">${VIB.on?SVG_VIB:SVG_VIB_OFF}</button>`:"";
+// fiche d'un combattant en jeu (appui long sur un réserviste)
+function peekFighter(k,i){ const t=S&&S[k]&&S[k].team[i]; if(!t) return;
+  document.querySelectorAll(".zoomov").forEach(e=>e.remove());
+  const d=document.createElement("div"); d.className="zoomov";
+  d.innerHTML=`<div class="peekw"><div class="peekhp ${t.ko?"ko":""}">${t.ko?"KO":`♥ ${t.hp} / ${t.max} ${L("hpShort")}`}</div>${rosterCard(t.id)}</div><div class="zhint">${L("tapClose")}</div>`;
+  d.onclick=()=>{ d.remove(); setTimeout(()=>{LP_FIRED=false;},50); };
+  document.body.appendChild(d); buzz(15); }
 function zoomCard(card){
   document.querySelectorAll(".zoomov").forEach(e=>e.remove());
   const d=document.createElement("div"); d.className="zoomov";
   d.innerHTML=`<div class="zoomwrap">${cardHTML({uid:-2,k:card.k,copy:card.copy,inh:card.inh},true,"x")}</div><div class="zhint">${L("tapClose")}</div>`;
   d.onclick=()=>{ d.remove(); setTimeout(()=>{LP_FIRED=false;},50); };
-  document.body.appendChild(d); if(navigator.vibrate) try{navigator.vibrate(15);}catch(e){}
+  document.body.appendChild(d); buzz(15);
 }
 const TURN_SEC=60, REACT_SEC=15;
 let TMR={key:null,end:0,dur:1};
@@ -3929,7 +3942,7 @@ function render(){
     <div class="bar-actions">
       <div class="grow"><div class="pips" aria-label="${L("endurance")} ${p.end}">${pips}</div></div>
       ${FS_OK?`<button class="tbtn" id="fs" aria-label="${L("fullscreen")}" title="${L("fullscreen")}">${SVG_FS}</button>`:""}
-      <button class="tbtn" id="snd" aria-pressed="${SFX.on}" aria-label="${L("sound")}" title="${L("sound")}">${SFX.on?`${SVG_ON}`:`${SVG_OFF}`}</button><button class="tbtn" id="mus" aria-pressed="${MUSIC.on}" aria-label="${L("music")}" title="${L("music")}">${MUSIC.on?SVG_MUS:SVG_MUS_OFF}</button><button class="tbtn fastb" id="fastb" aria-pressed="${FAST}" aria-label="${L("fastMode")}" title="${L(FAST?"fastOn":"fastOff")}">${FAST?"⏩":"▶"}</button>
+      <button class="tbtn" id="snd" aria-pressed="${SFX.on}" aria-label="${L("sound")}" title="${L("sound")}">${SFX.on?`${SVG_ON}`:`${SVG_OFF}`}</button><button class="tbtn" id="mus" aria-pressed="${MUSIC.on}" aria-label="${L("music")}" title="${L("music")}">${MUSIC.on?SVG_MUS:SVG_MUS_OFF}</button>${vibBtn()}<button class="tbtn fastb" id="fastb" aria-pressed="${FAST}" aria-label="${L("fastMode")}" title="${L(FAST?"fastOn":"fastOff")}">${FAST?"⏩":"▶"}</button>
       <button class="tbtn jbtn" id="jbtn" aria-label="${L("journal")}" title="${L("journal")}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11l3 3v13H5z M8 9h8M8 13h8M8 17h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>${MODE==="vs"&&chatUnread()?`<i class="jdot"></i>`:""}</button>
       <button class="tbtn qbtn ${QUIT_ARM?"arm":""}" id="quit" aria-label="${L("quitGame")}" title="${L("quitGame")}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h5v16h-5M10 8l-4 4 4 4M6 12h10" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="qtxt">${L("quitSure")}</span></button>
       <button class="tbtn swapb${SWAP_MODE?" on":""}" id="swapb" ${myTurn&&canSwap(ME)||SWAP_MODE?"":"disabled"} aria-pressed="${SWAP_MODE}" aria-label="${L("swapBtn",swapCost(p))}" title="${L(p.swapped?"swapUsed":"swapBtn",swapCost(p))}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h13l-3-3M20 15H7l3 3" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg><b>${swapCost(p)}</b></button>
@@ -3951,13 +3964,22 @@ function render(){
   jdockFit(); jposApply();
   if(window.innerWidth>=1000){ const lg=document.querySelector(".board>.ring>.log"); if(lg&&lg.classList) lg.classList.add("slog",S.turn===ME?"lme":"lfoe"); }
   fitCards();
-  document.querySelectorAll("[data-relais]").forEach(b=>b.onclick=()=>relais(ME,+b.dataset.relais));
+  document.querySelectorAll("[data-pk]").forEach(b=>{
+    b.addEventListener("pointerdown",e=>{ clearTimeout(LP_T); LP_FIRED=false; const sx=e.clientX, sy=e.clientY;
+      LP_T=setTimeout(()=>{ LP_FIRED=true; peekFighter(b.dataset.pk,+b.dataset.pi); },420);
+      const cancel=ev=>{ if(ev.type==="pointermove" && Math.hypot(ev.clientX-sx,ev.clientY-sy)<10) return; clearTimeout(LP_T); b.removeEventListener("pointermove",cancel); };
+      b.addEventListener("pointermove",cancel); b.addEventListener("pointerup",cancel,{once:true}); b.addEventListener("pointercancel",cancel,{once:true}); });
+    b.addEventListener("contextmenu",e=>{ e.preventDefault(); LP_FIRED=true; peekFighter(b.dataset.pk,+b.dataset.pi); });
+    if(!b.dataset.relais) b.addEventListener("click",()=>{ if(LP_FIRED){ LP_FIRED=false; return; } });
+  });
+  document.querySelectorAll("[data-relais]").forEach(b=>b.onclick=()=>{ if(LP_FIRED){ LP_FIRED=false; return; } relais(ME,+b.dataset.relais); });
   $("#ult").onclick=()=>ultimate(ME);
   if($("#swapb")) $("#swapb").onclick=()=>{ SFX.play("click"); SWAP_MODE=!SWAP_MODE&&canSwap(ME); render(); };
   $("#end").onclick=()=>{ SFX.play("click"); if(MODE==="vs") NET.handoff=true; endTurn(ME); };
 
   $("#snd").onclick=()=>{ SFX.toggle(); render(); };
   if($("#mus")) $("#mus").onclick=()=>{ MUSIC.toggle(); render(); };
+  if($("#vib")) $("#vib").onclick=()=>{ vibToggle(); render(); };
   if($("#fs")) $("#fs").onclick=toggleFS;
   document.querySelectorAll("[data-react]").forEach(b=>b.onclick=()=>{ const uid=b.dataset.react; if(R && R.remote) answerRemote(uid==="none"?null:+uid); else answerReaction(uid==="none"?null:S[ME].hand.find(x=>x.uid==uid)); });
   document.querySelectorAll("[data-jt]").forEach(b=>b.onclick=()=>{ JTAB=b.dataset.jt; if(JTAB==="chat") CHAT_SEEN=Date.now(); render(); });
@@ -5709,7 +5731,7 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; ARC.on=fa
   const lks=linksOf(sel);
   const hint=(cb?`<div class="cbon">★ ${L("clanOn",L("clan_"+cb))} · ${L("cb_"+cb)}</div>`:(lks.length?"":`<div class="bh">${stuck&&!ready?L("noRoom"):L("budgetHelp")}</div>`))+(lks.length?`<button class="lkon" id="lkon">🔗 ${linkNames(lks)}</button>`:"");
   $("#app").innerHTML=`<div class="screen ${HOME_M?"sel":"home"}" style="overflow-y:auto">
-    <div class="toprow">${LOGO_HTML}${HOME_M?pickHeadHTML():""}<div class="row">${presChip()}<button class="vbtn" id="ver" title="${L("newsTitle")}"><i class="betatag">BETA</i> v${APP_VERSION}</button><div class="icodrop${MOBM?" open":""}" id="icodrop"><button class="tbtn mmbtn" id="mmbtn" aria-label="${L("mmMenu")}" title="${L("mmMenu")}" aria-expanded="${MOBM}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6.5h16M4 12h16M4 17.5h16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></button><div class="icol">${accBtnHTML()}${FS_OK?`<button class="tbtn" id="fs" aria-label="${L("fullscreen")}" title="${L("fullscreen")}">${SVG_FS}</button>`:""}<button class="tbtn" id="snd" aria-pressed="${SFX.on}" aria-label="${L("sound")}" title="${L("sound")}">${SFX.on?SVG_ON:SVG_OFF}</button><button class="tbtn" id="mus" aria-pressed="${MUSIC.on}" aria-label="${L("music")}" title="${L("music")}">${MUSIC.on?SVG_MUS:SVG_MUS_OFF}</button><i class="icsep"></i>${langBar()}</div></div>${langBar()}</div></div>
+    <div class="toprow">${LOGO_HTML}${HOME_M?pickHeadHTML():""}<div class="row">${presChip()}<button class="vbtn" id="ver" title="${L("newsTitle")}"><i class="betatag">BETA</i> v${APP_VERSION}</button><div class="icodrop${MOBM?" open":""}" id="icodrop"><button class="tbtn mmbtn" id="mmbtn" aria-label="${L("mmMenu")}" title="${L("mmMenu")}" aria-expanded="${MOBM}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6.5h16M4 12h16M4 17.5h16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></button><div class="icol">${accBtnHTML()}${FS_OK?`<button class="tbtn" id="fs" aria-label="${L("fullscreen")}" title="${L("fullscreen")}">${SVG_FS}</button>`:""}<button class="tbtn" id="snd" aria-pressed="${SFX.on}" aria-label="${L("sound")}" title="${L("sound")}">${SFX.on?SVG_ON:SVG_OFF}</button><button class="tbtn" id="mus" aria-pressed="${MUSIC.on}" aria-label="${L("music")}" title="${L("music")}">${MUSIC.on?SVG_MUS:SVG_MUS_OFF}</button>${vibBtn()}<i class="icsep"></i>${langBar()}</div></div>${langBar()}</div></div>
     ${pwaBarHTML()}
     ${HOME_M?`${HOME_M==="daily"?dailyBannerHTML(sel):""}
     <div class="selwrap"><div class="selL">${deckChipsHTML(sel)}
@@ -5768,6 +5790,7 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; ARC.on=fa
   { const ac=$("#acc"), aw=$("#accw")||ac, dd=$("#icodrop"); if(ac && dd && dd.parentNode && window.innerWidth<1000){ dd.parentNode.insertBefore(aw,dd); ac.classList.add("accout"); } }
   $("#snd").onclick=()=>{ SFX.toggle(); redo(sel,focus); };
   $("#mus").onclick=()=>{ MUSIC.toggle(); redo(sel,focus); };
+  if($("#vib")) $("#vib").onclick=()=>{ vibToggle(); redo(sel,focus); };
   if($("#fastb")) $("#fastb").onclick=()=>{ FAST=!FAST; try{ localStorage.setItem("boc-fast",FAST?"1":"0"); }catch(e){} SFX.play("click"); redo(sel,focus); };
   if($("#fs")) $("#fs").onclick=toggleFS;
   bindLang(()=>renderTitle(sel,focus));
@@ -5819,6 +5842,10 @@ Object.assign(UI.fr,{"harnHit": "Le second frère Harn enchaîne : +2 dégâts !
 Object.assign(UI.en,{"harnHit": "The second Harn brother follows up: +2 damage!", "hpS": "HP", "tCode": "Code"});
 Object.assign(UI.it,{"harnHit": "Il secondo fratello Harn incalza: +2 danni!", "hpS": "PV", "tCode": "Codice"});
 Object.assign(UI.ja,{"harnHit": "ハーン兄弟のもう一人が追撃：+2ダメージ！", "hpS": "HP", "tCode": "コード"});
+Object.assign(UI.fr,{"vib": "Vibrations", "peekHint": "Appui long sur un réserviste : sa fiche"});
+Object.assign(UI.en,{"vib": "Vibration", "peekHint": "Long press a reserve fighter: their sheet"});
+Object.assign(UI.it,{"vib": "Vibrazione", "peekHint": "Pressione lunga su un riservista: la sua scheda"});
+Object.assign(UI.ja,{"vib": "バイブ", "peekHint": "控えを長押し：詳細を表示"});
 Object.assign(UI.fr,{linHeal:n=>`Lin te soigne : +${n} PV.`,batSteal:c=>`Bat a piqué une carte à l'adversaire : ${c} !`,stWithHelp:"Avec toi en combat : Lin soigne ton perso de 2 PV à chacun de tes tours, et Bat vole une carte à l'adversaire une fois par combat."});
 Object.assign(UI.en,{linHeal:n=>`Lin heals you: +${n} HP.`,batSteal:c=>`Bat swiped a card from the opponent: ${c}!`,stWithHelp:"With you in battle: Lin heals your fighter 2 HP each of your turns, and Bat steals a card from the opponent once per fight."});
 Object.assign(UI.it,{linHeal:n=>`Lin ti cura: +${n} PV.`,batSteal:c=>`Bat ha rubato una carta all'avversario: ${c}!`,stWithHelp:"Con te in combattimento: Lin cura il tuo personaggio di 2 PV a ogni tuo turno, e Bat ruba una carta all'avversario una volta per combattimento."});
