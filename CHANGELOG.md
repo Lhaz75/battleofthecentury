@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.93.0 — 2026-10-07
+
+- Après la création d'un compte, le jeu propose de faire le tutoriel (on peut passer)
+
 ## v0.92.3 — 2026-10-07
 
 - Échange auto quand il manque des attaques en main : un terrain gardé de côté n'est plus sacrifié en premier (les pièges et spéciales passent avant), et le message dit quelle carte a été échangée (merci maxGfive)
