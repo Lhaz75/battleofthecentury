@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.85.5 — 2026-10-07
+
+- Mobile : les chiffres de dégâts, « CRITIQUE » et le total de combo sont à la taille du portrait et restent dessus, au lieu de déborder sur le reste de l'écran
+
 ## v0.85.4 — 2026-10-07
 
 - Sons plus sourds et lourds : clic des menus, nouveau son « coup de poing » pour lancer un combat ou un chapitre (il ne ressemble plus au son des événements), ultime en deux impacts graves, victoire et défaite plus profondes
