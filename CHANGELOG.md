@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.85.4 — 2026-10-07
+
+- Sons plus sourds et lourds : clic des menus, nouveau son « coup de poing » pour lancer un combat ou un chapitre (il ne ressemble plus au son des événements), ultime en deux impacts graves, victoire et défaite plus profondes
+
 ## v0.85.3 — 2026-10-07
 
 - Mobile : la zone du milieu est allégée en combat, la ligne « Ton combo » vide et le rappel « 5 endurance, monte Léger → Moyen → Lourd » disparaissent ; seuls les messages utiles restent (événements, effets, premier tour)

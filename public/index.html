@@ -2801,15 +2801,16 @@ const SFX=(()=>{
     guard(){ tone(950,700,.06,{type:"square",gain:.12}); noise(.05,{type:"highpass",f:3500,gain:.3}); tone(1500,1450,.35,{type:"triangle",gain:.08}); tone(2250,2200,.25,{type:"sine",gain:.05}); },
     dodge(){ noise(.22,{type:"bandpass",f:500,f2:4000,q:2,gain:.45}); },
     counter(){ tone(300,1400,.12,{type:"sawtooth",gain:.15}); noise(.06,{type:"highpass",f:4000,gain:.3,delay:.1}); },
-    ult(){ noise(1.1,{f:250,f2:80,gain:.7}); tone(55,28,1.1,{gain:.8,attack:.2}); tone(220,880,.6,{type:"sawtooth",gain:.08,attack:.3}); },
+    ult(){ tone(48,30,.5,{gain:.5,attack:.25}); noise(.5,{f:180,f2:90,gain:.35,attack:.25}); tone(75,24,1.4,{gain:1,delay:.42}); noise(1.2,{f:420,f2:45,gain:.85,delay:.42}); tone(120,38,.8,{type:"square",gain:.1,delay:.42}); tone(62,28,.9,{type:"triangle",gain:.45,delay:.78}); noise(.7,{f:260,f2:50,gain:.45,delay:.78}); },
     ko(){ tone(95,22,.9,{gain:.9}); noise(.7,{f:500,f2:60,gain:.6}); tone(140,70,.5,{type:"triangle",gain:.2,delay:.12}); },
     trap(){ tone(1250,1250,.08,{type:"square",gain:.12}); tone(1650,1600,.18,{type:"square",gain:.12,delay:.08}); noise(.15,{type:"highpass",f:2500,gain:.2,delay:.05}); },
     event(){ tone(110,105,1.6,{type:"triangle",gain:.35,attack:.01}); tone(166,160,1.4,{type:"sine",gain:.2}); tone(277,270,1.0,{type:"sine",gain:.1}); noise(.4,{f:600,gain:.2}); },
     card(){ noise(.08,{type:"highpass",f:2500,f2:6000,gain:.18}); },
-    click(){ tone(700,500,.04,{type:"triangle",gain:.12}); },
+    click(){ tone(150,58,.1,{gain:.55}); noise(.06,{f:420,f2:110,gain:.22}); },
+    go(){ tone(95,32,.5,{gain:.95}); noise(.32,{f:650,f2:70,gain:.6}); tone(58,40,.55,{type:"triangle",gain:.35,delay:.04}); tone(140,70,.12,{type:"square",gain:.06}); },
     heal(){ tone(520,780,.25,{type:"sine",gain:.15}); tone(780,1040,.25,{type:"sine",gain:.1,delay:.08}); },
-    win(){ [262,330,392,523].forEach((f,i)=>tone(f,f,.5,{type:"triangle",gain:.2,delay:i*.12})); },
-    lose(){ [220,196,165,110].forEach((f,i)=>tone(f,f*.98,.6,{type:"triangle",gain:.2,delay:i*.18})); }
+    win(){ [0,.16,.32].forEach((d,i)=>{ tone(110-i*8,40,.35,{gain:.75,delay:d}); noise(.18,{f:500,f2:90,gain:.35,delay:d}); }); [131,165,196,262].forEach((f,i)=>tone(f,f,.9,{type:"triangle",gain:.16,delay:.5+i*.02})); tone(65,60,1.2,{gain:.5,delay:.5}); },
+    lose(){ [147,131,110,82].forEach((f,i)=>tone(f,f*.97,.7,{type:"triangle",gain:.18,delay:i*.22})); tone(60,26,1.6,{gain:.7,delay:.66}); noise(1,{f:300,f2:40,gain:.4,delay:.66}); }
   };
   return {
     play(n){ rec(["sfx",n]); try{ const grp=GROUPS[n]; if(grp && sample(grp[Math.floor(Math.random()*grp.length)])) return; P[n] && P[n](); }catch(e){} },
@@ -4052,16 +4053,16 @@ function renderEnd(win){ if(S&&S.dead) return; rpCapture(true); if(SURV.on && MO
   const dyRetry=S&&S.daily&&!dailyOk(win);
   if($("#tomenu")) $("#tomenu").onclick=()=>{ SFX.play("click"); HOME_M=null; renderTitle(TITLE_SEL); };
   const rmTeam=S&&S.p?S.p.team.map(t=>t.id):null, rmFoe=S&&S.a?S.a.team.map(t=>t.id):null, rmLv=S?(AI_LV.find(x=>x.k===S.aiLv)||aiLvGet()):null, rmFree=!!(S&&S.freePick);
-  $("#again").onclick=()=>{ if(dyRetry && !DAILY.done){ SFX.play("event"); dailyStart(TITLE_SEL); return; }
-    if(MODE==="solo" && !(S&&S.daily) && rmTeam && rmFoe){ SFX.play("event"); ME="p"; newGame(rmTeam,rmFoe,aiPrep(rmLv,rmFree)); return; } const tc=MODE==="vs"?TOUR.code:null; if(MODE==="vs") netLeave(); if(tc) renderTour(tc); else renderTitle(); };
+  $("#again").onclick=()=>{ if(dyRetry && !DAILY.done){ SFX.play("go"); dailyStart(TITLE_SEL); return; }
+    if(MODE==="solo" && !(S&&S.daily) && rmTeam && rmFoe){ SFX.play("go"); ME="p"; newGame(rmTeam,rmFoe,aiPrep(rmLv,rmFree)); return; } const tc=MODE==="vs"?TOUR.code:null; if(MODE==="vs") netLeave(); if(tc) renderTour(tc); else renderTitle(); };
   if(ACC.on && ACC.user && !(S&&S.accDone)){ if(S) S.accDone=true;
     const show=t=>{ const e=$("#accline"); if(e) e.textContent=t; };
     const before=lvlOf(ACC.user.stats&&ACC.user.stats.pts).n;
     const after=()=>{ const v=lvlOf(ACC.user.stats&&ACC.user.stats.pts); return v.n>before?` <span class="lvlup">${L("lvlUp",v.n,esc(lvlTitle(v.n)))}</span>`:""; };
     const showH=h=>{ const e=$("#accline"); if(e) e.innerHTML=h; };
-    if(MODE==="solo") accReportSolo(win).then(n=>{ if(n){ const u=after(); showH(esc(L("ptsGain",n))+u); if(u) SFX.play("event"); } })
-      .then(()=>dailyReport(win)).then(g=>{ const e=$("#accline"); if(!e||!g) return; e.insertAdjacentHTML("beforeend",g==="fail"?`<br><span class="dyfail">${L("dyFail")}</span>`:`<br><span class="lvlup">${L("dyDone",g)}</span>`); if(g!=="fail") SFX.play("event"); });
-    else if(MODE==="vs") accMatchEnd(false).then(ok=>{ if(ok){ const u=after(); showH(esc(L("ptsGain",win?25:5))+u); if(u) SFX.play("event"); } }); }
+    if(MODE==="solo") accReportSolo(win).then(n=>{ if(n){ const u=after(); showH(esc(L("ptsGain",n))+u); if(u) SFX.play("go"); } })
+      .then(()=>dailyReport(win)).then(g=>{ const e=$("#accline"); if(!e||!g) return; e.insertAdjacentHTML("beforeend",g==="fail"?`<br><span class="dyfail">${L("dyFail")}</span>`:`<br><span class="lvlup">${L("dyDone",g)}</span>`); if(g!=="fail") SFX.play("go"); });
+    else if(MODE==="vs") accMatchEnd(false).then(ok=>{ if(ok){ const u=after(); showH(esc(L("ptsGain",win?25:5))+u); if(u) SFX.play("go"); } }); }
 }
 const FLAGS={"ja": '<svg viewBox="0 0 3 2" preserveAspectRatio="xMidYMid slice"><rect width="3" height="2" fill="#fff"/><circle cx="1.5" cy="1" r=".6" fill="#bc002d"/></svg>', "fr": '<svg viewBox="0 0 3 2" preserveAspectRatio="none"><rect width="1" height="2" fill="#0055a4"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ef4135"/></svg>', "it": '<svg viewBox="0 0 3 2" preserveAspectRatio="none"><rect width="1" height="2" fill="#009246"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ce2b37"/></svg>', "en": '<svg viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice"><clipPath id="uk"><path d="M30,15h30v15zv15h-30zh-30v-15zv-15h30z"/></clipPath><path d="M0,0v30h60v-30z" fill="#012169"/><path d="M0,0 60,30M60,0 0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 60,30M60,0 0,30" clip-path="url(#uk)" stroke="#C8102E" stroke-width="4"/><path d="M30,0v30M0,15h60" stroke="#fff" stroke-width="10"/><path d="M30,0v30M0,15h60" stroke="#C8102E" stroke-width="6"/></svg>'};
 function langBar(sel){
@@ -4137,7 +4138,7 @@ function renderAccount(sel=[], tab="login"){
     const pw=String(fd.get("password")||""); if(pw!==String(fd.get("password2")||"")){ er.textContent=L("e_match"); return; }
     const r=await api("POST","/api/password",{old:String(fd.get("old")||""),password:pw}).catch(()=>({ok:false}));
     if(!r.ok){ er.textContent=accErr(r.error); return; }
-    ACC.token=r.token; try{ localStorage.setItem("boc-token",r.token); }catch(x){} f.reset(); er.classList.add("ok"); er.textContent=L("pwDone"); SFX.play("event"); };
+    ACC.token=r.token; try{ localStorage.setItem("boc-token",r.token); }catch(x){} f.reset(); er.classList.add("ok"); er.textContent=L("pwDone"); SFX.play("go"); };
   { const ab=document.querySelector(".adminbox"); if(ab) ab.ontoggle=()=>{ ADMIN_OPEN=ab.open; }; }
   document.querySelectorAll(".pfsec").forEach(d=>d.ontoggle=()=>{ if(d.open) PF_OPEN.add(d.dataset.sec); else PF_OPEN.delete(d.dataset.sec); });
   if($("#tousers")) $("#tousers").onclick=()=>{ SFX.play("click"); renderAdminUsers(sel); };
@@ -4146,11 +4147,11 @@ function renderAccount(sel=[], tab="login"){
   if($("#toframes")) $("#toframes").onclick=()=>{ SFX.play("click"); renderFrameAdmin(sel); };
   if($("#msave")) $("#msave").onclick=async()=>{ const er=$("#merr"); er.textContent="";
     const r=await api("POST","/api/admin/maintenance",{on:$("#mon").checked,msg:$("#mmsg").value}).catch(()=>({ok:false}));
-    if(!r.ok){ er.textContent=accErr(r.error); return; } STATUS.maint=r.maintenance; SFX.play("event"); er.textContent=L(r.maintenance.on?"maintIsOn":"maintIsOff"); };
+    if(!r.ok){ er.textContent=accErr(r.error); return; } STATUS.maint=r.maintenance; SFX.play("go"); er.textContent=L(r.maintenance.on?"maintIsOn":"maintIsOff"); };
   $("#avfile").onchange=async e=>{
     const file=e.target.files&&e.target.files[0]; if(!file) return; const er=$("#averr"); er.textContent="";
     try{ const data=await squareAvatar(file); const r=await api("POST","/api/avatar",{image:data});
-      if(!r.ok){ er.textContent=accErr(r.error); return; } u.avatar=r.avatar; SFX.play("event"); renderAccount(sel); }
+      if(!r.ok){ er.textContent=accErr(r.error); return; } u.avatar=r.avatar; SFX.play("go"); renderAccount(sel); }
     catch(x){ er.textContent=L("e_image"); }
   };
   bindLang(()=>renderAccount(sel));
@@ -4195,7 +4196,7 @@ function aiAsk(sel){ const cur=aiLvGet();
     w.querySelectorAll("[data-fm]").forEach(b=>b.onclick=()=>{ SFX.play("click"); AI_PICK=b.dataset.fm==="pick"; draw(); });
     w.querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>{ const id=b.dataset.add, i=AI_FOE.indexOf(id); if(i>=0) AI_FOE.splice(i,1); else if(AI_FOE.length<TEAM_MAX) AI_FOE.push(id); SFX.play("click"); const g=w.querySelector(".aigrid"), y=g?g.scrollTop:0; draw(); const g2=w.querySelector(".aigrid"); if(g2) g2.scrollTop=y; });
     w.querySelectorAll("[data-rm]").forEach(b=>b.onclick=()=>{ AI_FOE.splice(+b.dataset.rm,1); SFX.play("click"); const g=w.querySelector(".aigrid"), y=g?g.scrollTop:0; draw(); const g2=w.querySelector(".aigrid"); if(g2) g2.scrollTop=y; });
-    w.querySelectorAll("[data-lv]").forEach(b=>b.onclick=()=>{ const lv=AI_LV.find(x=>x.k===b.dataset.lv); try{ localStorage.setItem("boc-ailv",lv.k); }catch(e){} w.remove(); SFX.play("event"); MODE="solo"; ME="p";
+    w.querySelectorAll("[data-lv]").forEach(b=>b.onclick=()=>{ const lv=AI_LV.find(x=>x.k===b.dataset.lv); try{ localStorage.setItem("boc-ailv",lv.k); }catch(e){} w.remove(); SFX.play("go"); MODE="solo"; ME="p";
       const free=AI_PICK&&AI_FOE.length>0; newGame(sel,free?AI_FOE.slice():null,aiPrep(lv,free)); });
   };
   draw(); document.body.appendChild(w);
@@ -4245,7 +4246,7 @@ async function renderTourHome(sel=[]){
   bindLang(()=>renderTourHome(sel));
   $("#tcreate").onsubmit=async e=>{ e.preventDefault(); const f=e.target, er=f.querySelector(".err"); er.textContent="";
     const fd=new FormData(f); const r=await api("POST","/api/tourney",{name:String(fd.get("name")||""),size:+fd.get("size"),team:sel}).catch(()=>({ok:false}));
-    if(!r.ok){ er.textContent=accErr(r.error); return; } SFX.play("event"); renderTour(r.tourney.code,sel); };
+    if(!r.ok){ er.textContent=accErr(r.error); return; } SFX.play("go"); renderTour(r.tourney.code,sel); };
   $("#tjoin").onsubmit=async e=>{ e.preventDefault(); const f=e.target, er=f.querySelector(".err"); er.textContent="";
     const c=String(new FormData(f).get("code")||"").trim().toUpperCase(); if(!/^[A-Z]{5}$/.test(c)){ er.textContent=L("e_notfound"); return; }
     const r=await api("GET","/api/tourney/"+c).catch(()=>({ok:false})); if(!r.ok){ er.textContent=accErr(r.error); return; }
@@ -4260,7 +4261,7 @@ async function renderTour(c,sel=TITLE_SEL){
   tourStop(); TOUR.code=c;
   const t=await tourFetch(c); if(!t){ renderTourHome(sel); return; }
   TOUR.data=t; drawTour(sel);
-  TOUR.poll=setInterval(async()=>{ if(!$("#tourview")||TOUR.code!==c){ tourStop(); return; } const n=await tourFetch(c); if(n && JSON.stringify(n)!==JSON.stringify(TOUR.data)){ const was=TOUR.data; TOUR.data=n; if(myMatch(n)&&!myMatch(was)) SFX.play("event"); drawTour(sel); } },3000);
+  TOUR.poll=setInterval(async()=>{ if(!$("#tourview")||TOUR.code!==c){ tourStop(); return; } const n=await tourFetch(c); if(n && JSON.stringify(n)!==JSON.stringify(TOUR.data)){ const was=TOUR.data; TOUR.data=n; if(myMatch(n)&&!myMatch(was)) SFX.play("go"); drawTour(sel); } },3000);
 }
 function myMatch(t){ const me=ACC.user&&ACC.user.id; return me!=null && t.status==="running" ? t.matches.find(m=>m.code && !m.winner && (m.a===me||m.b===me)) : null; }
 function drawTour(sel){
@@ -4295,7 +4296,7 @@ function drawTour(sel){
   if($("#tstart")) $("#tstart").onclick=()=>act("start");
   document.querySelectorAll("[data-kick]").forEach(b=>b.onclick=()=>act("kick",{uid:+b.dataset.kick}));
   document.querySelectorAll(".baw").forEach(b=>b.onclick=()=>act("award",{round:+b.dataset.r,slot:+b.dataset.s,winner:+b.dataset.w}));
-  if($("#tplay")) $("#tplay").onclick=()=>{ SFX.play("event"); playTourMatch(t,mm); };
+  if($("#tplay")) $("#tplay").onclick=()=>{ SFX.play("go"); playTourMatch(t,mm); };
 }
 async function playTourMatch(t,m){
   tourStop();
@@ -4348,6 +4349,7 @@ Object.assign(UI.fr,{"stBtn": "Histoire", "stTitle": "Mode histoire", "stArc1": 
 Object.assign(UI.en,{"stBtn": "Story", "stTitle": "Story mode", "stArc1": "Arc 1: KING", "stLead": "Follow Kenshiro through the ravaged world, chapter after chapter. Each chapter has 3 stars to earn.", "stLocked": "Clear the previous chapter", "stPlay": "Fight", "stNext": "Next chapter", "stBackList": "Chapters", "stRetry": "Retry", "stObj": "Objectives", "stUnlock": "Unlocks", "stUnlockNote": "(from version 1.0)", "stYou": "You play", "stFoe": "Opponent", "stWave": "Wave {a}/{b}", "stWaveNext": "Next wave", "stWin": "Chapter cleared!", "stLose": "Defeat…",  "stJoined": "Unlocked at 1.0: {who}", "stFat": "His Lights do nothing to him.", "stTrap": "An Ambush trap is already set against you.", "stArcDone": "Arc complete! More coming soon.", "stHow": "Story: 20 pts the first time a chapter is cleared, +10 pts per new star.", "w_story": "Story mode", "ach_story1": "The legend begins", "achd_story1": "Clear arc 1 of story mode", "ach_story27": "Seven stars… and more", "achd_story27": "Earn all 27 stars of arc 1", "st_t_king-0": "Prologue: the seven scars", "st_i_king-0": "One year before it all. Shin, of Nanto Koshūken, has sworn to tear Yuria away from Kenshiro. Tonight he takes the woman, and leaves him seven holes in his chest to remember.", "st_o_king-0": "\"I am Shin. Remember that name.\" Kenshiro lies in the dust, branded with seven scars shaped like the Big Dipper. He will survive. And he will come back.", "st_t_king-1": "The besieged village", "st_i_king-1": "A man collapses from hunger at the edge of a village. In a cell he meets little Lin and a thieving kid, Bat. Outside, Zeed's gang rides in to loot everything.", "st_o_king-1": "The raiders don't understand what's happening. \"You are already dead.\" Their bodies burst one after another. Zeed will want revenge.", "st_t_king-2": "Zeed", "st_i_king-2": "Zeed and his biker horde surround the village. He demands the water and the women. Kenshiro walks out alone to meet them, Lin and Bat hiding behind him.", "st_o_king-2": "Zeed wanted to strike first. His skull didn't hold. Lin finds her voice again, and Bat decides to follow this strange man. The journey begins.", "st_t_king-3": "Spade, the spearman", "st_i_king-3": "In the ruins of a city, men wear a badge: a spade. They are KING's soldiers. Their leader, Spade, amuses himself shooting at fugitives.", "st_o_king-3": "Spade swallowed his own bolt. Before dying, a name: KING. Kenshiro clenches his fist. The man with seven scars already knows who hides behind it.", "st_t_king-4": "Diamond and the captive village", "st_i_king-4": "A whole village is enslaved by Diamond, another of KING's suits. His guards first, then the master himself. Two fights in a row, no rest.", "st_o_king-4": "The last diamond has shattered. The villagers raise their heads. There is talk of a city to the south, Southern Cross, where KING keeps a woman prisoner.", "st_t_king-5": "Club", "st_i_king-5": "Club has prepared the ground: raiders hide everywhere, ready to fall on anyone who switches fighters. Fox, the sly one, prowls with him.", "st_o_king-5": "Club thought he had Kenshiro caught in his web. The threads snapped. Fox tried to flee into the desert. He didn't get far.", "st_t_king-6": "Heart, the colossus", "st_i_king-6": "Heart, KING's heart, is a mountain of fat. Light blows sink into his flesh without hurting him at all. And when he sees his own blood, he goes mad.", "st_o_king-6": "Fat protects from everything… except pressure points. Heart swells, swells again, and bursts. Southern Cross isn't far now.", "st_t_king-7": "Joker, the messenger", "st_i_king-7": "Joker, Shin's right-hand man, plays with his razor cards and vanishes before anyone can touch him. He has come to see what the man with seven scars can do.", "st_o_king-7": "\"I'd rather die than be your messenger.\" Joker won't go warn Shin. Kenshiro will do it himself.", "st_t_king-8": "Southern Cross: Shin", "st_i_king-8": "At the top of his city, Shin waits. He built it all for her, for Yuria. A year after the night of the seven scars, the two men face each other again.", "st_o_king-8": "Shin has lost. He won't let Kenshiro take his life: he throws himself from the top of his palace. Yuria was already gone. Kenshiro's journey has only just begun…", "sto_win": "Win the fight", "sto_rounds": "Win in {n} turns or fewer", "sto_hits": "Land {n} hits on the opponent", "sto_lost": "Lose {n} HP or fewer", "sto_lastUlt": "Finish with an ultimate", "sto_keep": "Keep more than {n}% of your HP", "sto_noRelay": "Make no tag", "sto_noTrap": "Trigger no enemy trap", "sto_noJoker": "Never let Joker draw", "sto_firstKo": "KO {who} first", "sto_killLvl": "Finish {who} with {lvl}", "stLvl2": "a Heavy", "stLvlU": "an ultimate"});
 Object.assign(UI.it,{"stBtn": "Storia", "stTitle": "Modalità storia", "stArc1": "Arco 1: KING", "stLead": "Segui Kenshiro nel mondo devastato, capitolo dopo capitolo. Ogni capitolo ha 3 stelle da guadagnare.", "stLocked": "Completa il capitolo precedente", "stPlay": "Combatti", "stNext": "Capitolo successivo", "stBackList": "Capitoli", "stRetry": "Riprova", "stObj": "Obiettivi", "stUnlock": "Sblocca", "stUnlockNote": "(dalla versione 1.0)", "stYou": "Giochi", "stFoe": "Avversario", "stWave": "Ondata {a}/{b}", "stWaveNext": "Ondata successiva", "stWin": "Capitolo completato!", "stLose": "Sconfitta…",  "stJoined": "Sbloccato alla 1.0: {who}", "stFat": "I suoi Leggeri non gli fanno nulla.", "stTrap": "Una trappola Imboscata è già piazzata contro di te.", "stArcDone": "Arco completato! Il seguito arriva presto.", "stHow": "Storia: 20 pt la prima volta che si completa un capitolo, +10 pt per ogni nuova stella.", "w_story": "Modalità storia", "ach_story1": "La leggenda comincia", "achd_story1": "Completa l'arco 1 della modalità storia", "ach_story27": "Sette stelle… e oltre", "achd_story27": "Ottieni le 27 stelle dell'arco 1", "st_t_king-0": "Prologo: le sette cicatrici", "st_i_king-0": "Un anno prima di tutto. Shin, del Nanto Koshūken, ha giurato di strappare Yuria a Kenshiro. Stanotte si prende la donna, e gli lascia sette buchi nel petto come ricordo.", "st_o_king-0": "«Io sono Shin. Ricorda questo nome.» Kenshiro giace nella polvere, marchiato da sette cicatrici a forma di Orsa Maggiore. Sopravvivrà. E tornerà.", "st_t_king-1": "Il villaggio assediato", "st_i_king-1": "Un uomo crolla per la fame all'ingresso di un villaggio. In una cella incontra la piccola Lin e un ragazzino ladro, Bat. Fuori arriva la banda di Zeed per saccheggiare tutto.", "st_o_king-1": "I predoni non capiscono cosa succede. «Sei già morto.» I loro corpi esplodono uno dopo l'altro. Zeed vorrà vendetta.", "st_t_king-2": "Zeed", "st_i_king-2": "Zeed e la sua orda in moto circondano il villaggio. Pretende l'acqua e le donne. Kenshiro esce da solo ad affrontarli, con Lin e Bat nascosti dietro di lui.", "st_o_king-2": "Zeed voleva colpire per primo. Il suo cranio non ha retto. Lin ritrova la voce, e Bat decide di seguire quello strano uomo. Il viaggio comincia.", "st_t_king-3": "Spade, il lanciere", "st_i_king-3": "Tra le rovine di una città, degli uomini portano un'insegna: una picca. Sono i soldati di KING. Il loro capo, Spade, si diverte a tirare sui fuggiaschi.", "st_o_king-3": "Spade ha ingoiato il suo stesso dardo. Prima di morire, un nome: KING. Kenshiro stringe il pugno. L'uomo dalle sette cicatrici sa già chi si nasconde dietro.", "st_t_king-4": "Diamond e il villaggio prigioniero", "st_i_king-4": "Un intero villaggio è ridotto in schiavitù da Diamond, un altro seme di KING. Prima le sue guardie, poi il padrone. Due combattimenti di fila, senza riposo.", "st_o_king-4": "L'ultimo diamante si è spezzato. Gli abitanti rialzano la testa. Si parla di una città a sud, Southern Cross, dove KING tiene prigioniera una donna.", "st_t_king-5": "Club", "st_i_king-5": "Club ha preparato il terreno: predoni nascosti ovunque, pronti a piombare su chiunque cambi combattente. Fox, la volpe, si aggira con lui.", "st_o_king-5": "Club credeva di avere Kenshiro nella sua rete. I fili si sono spezzati. Fox ha cercato di fuggire nel deserto. Non è andato lontano.", "st_t_king-6": "Heart, il colosso", "st_i_king-6": "Heart, il cuore di KING, è una montagna di grasso. I colpi leggeri affondano nella sua carne senza fargli alcun male. E quando vede il suo sangue, impazzisce.", "st_o_king-6": "Il grasso protegge da tutto… tranne che dai punti vitali. Heart si gonfia, si gonfia ancora, ed esplode. Southern Cross non è più lontana.", "st_t_king-7": "Joker, il messaggero", "st_i_king-7": "Joker, l'uomo di fiducia di Shin, gioca con le sue carte taglienti e sparisce prima che lo si possa toccare. È venuto a vedere di cosa è capace l'uomo dalle sette cicatrici.", "st_o_king-7": "«Preferisco morire che farti da messaggero.» Joker non andrà ad avvertire Shin. Ci penserà Kenshiro stesso.", "st_t_king-8": "Southern Cross: Shin", "st_i_king-8": "In cima alla sua città, Shin aspetta. Ha costruito tutto per lei, per Yuria. Un anno dopo la notte delle sette cicatrici, i due uomini si affrontano di nuovo.", "st_o_king-8": "Shin ha perso. Non lascerà che Kenshiro gli dia la morte: si getta dalla cima del suo palazzo. Yuria non c'era più. Il viaggio di Kenshiro è appena cominciato…", "sto_win": "Vinci il combattimento", "sto_rounds": "Vinci in {n} turni o meno", "sto_hits": "Colpisci l'avversario {n} volte", "sto_lost": "Perdi al massimo {n} PV", "sto_lastUlt": "Finisci con una mossa finale", "sto_keep": "Conserva più del {n}% dei tuoi PV", "sto_noRelay": "Non fare nessun cambio", "sto_noTrap": "Non far scattare nessuna trappola nemica", "sto_noJoker": "Non lasciare mai pescare Joker", "sto_firstKo": "Metti KO {who} per primo", "sto_killLvl": "Finisci {who} con {lvl}", "stLvl2": "un Pesante", "stLvlU": "una mossa finale"});
 const CHANGELOG=[
+ {v:"0.85.4",d:"2026-10-07",fr:["Sons plus sourds et lourds : clic des menus, nouveau son « coup de poing » pour lancer un combat ou un chapitre (il ne ressemble plus au son des événements), ultime en deux impacts graves, victoire et défaite plus profondes"],en:["Deeper, heavier sounds: menu click, a new punch-like sound to launch a fight or chapter (no longer the event sound), a two-impact low ultimate, deeper win and loss"],it:["Suoni più cupi e pesanti: clic dei menu, nuovo suono «pugno» per avviare un combattimento o un capitolo (non è più quello degli eventi), suprema in due impatti gravi, vittoria e sconfitta più profonde"],ja:["効果音をより重く低音に：メニューのクリック、対戦・章の開始に新しい打撃音（イベント音と区別）、奥義は2段の重い衝撃、勝利・敗北もより重厚に"]},
  {v:"0.85.3",d:"2026-10-07",fr:["Mobile : la zone du milieu est allégée en combat, la ligne « Ton combo » vide et le rappel « 5 endurance, monte Léger → Moyen → Lourd » disparaissent ; seuls les messages utiles restent (événements, effets, premier tour)"],en:["Mobile: the middle area is lighter in battle, the empty \"Your combo\" line and the \"5 stamina, go Light → Medium → Heavy\" reminder are gone; only useful messages remain (events, effects, first turn)"],it:["Mobile: la zona centrale è più leggera in combattimento, la riga «La tua combo» vuota e il promemoria «5 resistenza, sali Leggero → Medio → Pesante» spariscono; restano solo i messaggi utili (eventi, effetti, primo turno)"],ja:["スマホ：戦闘中の中央エリアを簡素化、空の「コンボ」行と「気力5、弱→中→強」の案内を非表示に。イベントや効果など必要なメッセージのみ表示"]},
  {v:"0.85.2",d:"2026-10-07",fr:["Mobile : les dégâts s'affichent sur la carte du perso touché (le tien comme celui de l'adversaire), au lieu de flotter au milieu de l'écran"],en:["Mobile: damage numbers show on the card of the fighter who's hit (yours and the opponent's) instead of floating mid-screen"],it:["Mobile: i danni appaiono sulla carta del personaggio colpito (tuo e avversario) invece di fluttuare a metà schermo"],ja:["スマホ：ダメージ数値を画面中央ではなく、攻撃を受けた拳士のカード上に表示（自分も相手も）"]},
  {v:"0.85.1",d:"2026-10-07",fr:["Mobile : en combat, plein écran, son, musique et vibrations sont rangés derrière un seul bouton de réglages, « Ultime » et « Fin du tour » ne sont plus coupés","Mobile : le passif tient sur 2 lignes sans morceau de texte coupé en dessous"],en:["Mobile: in battle, fullscreen, sound, music and vibration sit behind a single settings button, so \"Ultimate\" and \"End turn\" are no longer cut off","Mobile: the passive fits on 2 lines with no cut-off text below"],it:["Mobile: in combattimento, schermo intero, audio, musica e vibrazione sono raccolti dietro un solo pulsante impostazioni, «Suprema» e «Fine turno» non sono più tagliati","Mobile: il passivo sta su 2 righe senza testo tagliato sotto"],ja:["スマホ：戦闘中の全画面・効果音・音楽・バイブを1つの設定ボタンにまとめ、「奥義」「ターン終了」が切れないように","スマホ：パッシブが2行に収まり、下に切れた文字が出なくなった"]},
@@ -4717,7 +4719,7 @@ function bindDeckChips(sel,redo){
   document.querySelectorAll(".dkc[data-deck]").forEach(b=>b.onclick=()=>{ SFX.play("click"); const d=DECKS.list[+b.dataset.deck]; if(d) redo(d.team.slice(),d.team[0]); });
   const sv=$("#dksave"); if(sv) sv.onclick=async()=>{ SFX.play("click");
     const name=(await askName(L("deckName"),sel.map(nm).join(" / ").slice(0,24))||""); if(!name) return;
-    if(await decksSave([...(DECKS.list||[]),{name,team:sel.slice()}])){ SFX.play("event"); redo(sel,sel[sel.length-1]); } };
+    if(await decksSave([...(DECKS.list||[]),{name,team:sel.slice()}])){ SFX.play("go"); redo(sel,sel[sel.length-1]); } };
 }
 function decksProfileHTML(sel){
   const list=DECKS.list||[];
@@ -4729,7 +4731,7 @@ function bindDecksProfile(sel,redraw){
   document.querySelectorAll("[data-dkload]").forEach(b=>b.onclick=()=>{ SFX.play("click"); const d=DECKS.list[+b.dataset.dkload]; if(d) renderTitle(d.team.slice(),d.team[0]); });
   document.querySelectorAll("[data-dkdel]").forEach(b=>b.onclick=async()=>{ SFX.play("click"); const l=DECKS.list.slice(); l.splice(+b.dataset.dkdel,1); if(await decksSave(l)) redraw(); });
   document.querySelectorAll(".dkname").forEach(inp=>inp.onchange=async()=>{ const l=DECKS.list.map(d=>({...d})); const v=inp.value.trim(); if(!v){ inp.value=l[+inp.dataset.i].name; return; } l[+inp.dataset.i].name=v; await decksSave(l); });
-  const a=$("#dkadd"); if(a) a.onclick=async()=>{ SFX.play("click"); const name=(await askName(L("deckName"),sel.map(nm).join(" / ").slice(0,24))||""); if(!name) return; if(await decksSave([...(DECKS.list||[]),{name,team:sel.slice()}])){ SFX.play("event"); redraw(); } };
+  const a=$("#dkadd"); if(a) a.onclick=async()=>{ SFX.play("click"); const name=(await askName(L("deckName"),sel.map(nm).join(" / ").slice(0,24))||""); if(!name) return; if(await decksSave([...(DECKS.list||[]),{name,team:sel.slice()}])){ SFX.play("go"); redraw(); } };
 }
 
 /* ---------- appli installable ---------- */
@@ -4763,7 +4765,7 @@ async function renderFStats(sel=[]){
   bindLang(()=>renderFStats(sel));
   document.querySelectorAll("[data-fm]").forEach(b=>b.onclick=()=>{ SFX.play("click"); FST.mode=b.dataset.fm; renderFStats(sel); });
   $("#fsreset").onclick=async()=>{ const b=$("#fsreset"); if(!FST.arm){ FST.arm=true; b.textContent=L("fsResetSure"); b.classList.add("arm"); setTimeout(()=>{ FST.arm=false; const x=$("#fsreset"); if(x){ x.textContent=L("fsReset"); x.classList.remove("arm"); } },4000); return; }
-    FST.arm=false; const r=await api("POST","/api/admin/fstats/reset").catch(()=>({ok:false})); if(r.ok){ FST.data=r; SFX.play("event"); renderFStats(sel); } };
+    FST.arm=false; const r=await api("POST","/api/admin/fstats/reset").catch(()=>({ok:false})); if(r.ok){ FST.data=r; SFX.play("go"); renderFStats(sel); } };
   const r=await api("GET","/api/admin/fstats").catch(()=>({ok:false})); const box=$("#fsbox"); if(!box) return;
   if(!r.ok){ box.innerHTML=`<p class="note">${accErr(r.error)}</p>`; return; }
   FST.data=r; drawFStats();
@@ -4803,7 +4805,7 @@ function achToast(ids){ ids=(ids||[]).slice(); if(!ids.length) return;
   if(ids.length>3) items.push({t:3, top:L("achUnlocked"), name:L("achMore",ids.length-3)});
   items.forEach((it,i)=>setTimeout(()=>{ document.querySelectorAll(".achtoast").forEach(x=>x.remove());
     const d=document.createElement("div"); d.className="achtoast t"+it.t; d.innerHTML=`<i>${SVG_TROPHY}</i><div><small>${it.top}</small><b>${esc(it.name)}</b></div>`;
-    document.body.appendChild(d); SFX.play("event"); setTimeout(()=>d.classList.add("out"),2300); setTimeout(()=>d.remove(),2800); },400+i*2600)); }
+    document.body.appendChild(d); SFX.play("go"); setTimeout(()=>d.classList.add("out"),2300); setTimeout(()=>d.remove(),2800); },400+i*2600)); }
 function achHTML(st){
   const got=st.ach||{}, n=ACH_LIST.filter(a=>got[a[0]]).length;
   return `<div class="achgrid">${ACH_LIST.map(([id,t])=>{ const on=!!got[id], pr=!on&&ACH_PROG[id]?ACH_PROG[id](st):null;
@@ -4855,11 +4857,11 @@ async function faceEditor(id,done){
   w.querySelectorAll("[data-n]").forEach(b=>b.onclick=()=>{ const d=4; ({u:()=>crop.y-=d,d:()=>crop.y+=d,l:()=>crop.x-=d,r:()=>crop.x+=d})[b.dataset.n](); draw(); });
   const close=()=>{ w.remove(); };
   w.querySelector("[data-x]").onclick=()=>{ SFX.play("click"); close(); };
-  w.querySelector("[data-reset]").onclick=async()=>{ const r=await api("POST","/api/admin/face",{id,reset:true}).catch(()=>({ok:false})); if(!r.ok){ err.textContent=accErr(r.error); return; } FACES=r.faces; SFX.play("event"); close(); done&&done(); };
+  w.querySelector("[data-reset]").onclick=async()=>{ const r=await api("POST","/api/admin/face",{id,reset:true}).catch(()=>({ok:false})); if(!r.ok){ err.textContent=accErr(r.error); return; } FACES=r.faces; SFX.play("go"); close(); done&&done(); };
   w.querySelector("[data-ok]").onclick=async()=>{ draw();
     let data=cv.toDataURL("image/webp",.9); if(!data.startsWith("data:image/webp")) data=cv.toDataURL("image/jpeg",.9);
     const r=await api("POST","/api/admin/face",{id,image:data,crop:{x:Math.round(crop.x),y:Math.round(crop.y),s:Math.round(crop.s)}}).catch(()=>({ok:false}));
-    if(!r.ok){ err.textContent=accErr(r.error); return; } FACES=r.faces; SFX.play("event"); close(); done&&done(); };
+    if(!r.ok){ err.textContent=accErr(r.error); return; } FACES=r.faces; SFX.play("go"); close(); done&&done(); };
 }
 
 /* ---------- cadrages (combat + vignettes) refaits par l'admin ---------- */
@@ -4910,14 +4912,14 @@ function frameEditor(id,done){
   w.querySelectorAll("[data-n]").forEach(b=>b.onclick=()=>{ const d=4, c=cur[kind]; ({u:()=>c.y-=d,d:()=>c.y+=d,l:()=>c.x-=d,r:()=>c.x+=d})[b.dataset.n](); mark(); draw(); });
   const close=()=>w.remove();
   w.querySelector("[data-x]").onclick=()=>{ SFX.play("click"); close(); };
-  w.querySelector("[data-reset]").onclick=async()=>{ const r=await api("POST","/api/admin/frame",{id,kind,reset:true}).catch(()=>({ok:false})); if(!r.ok){ err.textContent=accErr(r.error); return; } FRAMES=r.frames; SFX.play("event"); close(); done&&done(); };
+  w.querySelector("[data-reset]").onclick=async()=>{ const r=await api("POST","/api/admin/frame",{id,kind,reset:true}).catch(()=>({ok:false})); if(!r.ok){ err.textContent=accErr(r.error); return; } FRAMES=r.frames; SFX.play("go"); close(); done&&done(); };
   w.querySelector("[data-ok]").onclick=async()=>{ draw(); err.textContent="";
     if(!dirty.p && !dirty.b){ close(); return; }
     const rnd=c=>({x:Math.round(c.x),y:Math.round(c.y),w:Math.round(c.w)});
     if(dirty.p){ const r=await api("POST","/api/admin/frame",{id,kind:"p",crop:rnd(cur.p)}).catch(()=>({ok:false})); if(!r.ok){ err.textContent=accErr(r.error); return; } FRAMES=r.frames; }
     if(dirty.b){ let data=cv.toDataURL("image/webp",.86); if(!data.startsWith("data:image/webp")) data=cv.toDataURL("image/jpeg",.88);
       const r=await api("POST","/api/admin/frame",{id,kind:"b",crop:rnd(cur.b),image:data}).catch(()=>({ok:false})); if(!r.ok){ err.textContent=accErr(r.error); return; } FRAMES=r.frames; }
-    SFX.play("event"); close(); done&&done(); };
+    SFX.play("go"); close(); done&&done(); };
 }
 Object.assign(UI.fr,{hmd_tuto:"Apprends les bases en un combat guidé.",moreS:n=>`Min. ${n} perso${n>1?"s":""}`,rndHint:"Jouer avec une équipe aléatoire",rndTeam:"Équipe au hasard",lbYou:"Ton équipe",lbQuickT:"Partie rapide",lbQuickD:"Le jeu te trouve un adversaire tout de suite. Pas de code à échanger.",lbFriendT:"Avec un ami",lbOrCode:"ou rejoins avec un code",frReset:"Cadrage auto",frTitle:"Cadrages",frLead:"Pour chaque perso : à gauche la vignette (▣), à droite l'illustration en combat (⚔). Clique pour recadrer. Les changements valent pour tous les joueurs.",frCombat:"Combat",frBust:"Vignette",frHow:"Choisis l'onglet, puis glisse le cadre sur l'image, la molette ou le curseur pour zoomer. « Enregistrer » sauve les deux. « Cadrage auto » remet le cadrage auto de l'onglet ouvert."});
 Object.assign(UI.en,{hmd_tuto:"Learn the basics in a guided fight.",moreS:n=>`Min. ${n} fighter${n>1?"s":""}`,rndHint:"Play with a random team",rndTeam:"Random team",lbYou:"Your team",lbQuickT:"Quick match",lbQuickD:"The game finds you an opponent right away. No code to share.",lbFriendT:"With a friend",lbOrCode:"or join with a code",frReset:"Auto framing",frTitle:"Framing",frLead:"For each fighter: thumbnail on the left (▣), fight artwork on the right (⚔). Click to reframe. Changes apply to all players.",frCombat:"Fight",frBust:"Thumbnail",frHow:"Pick the tab, then drag the frame on the image, use the wheel or slider to zoom. “Save” saves both. “Auto framing” restores the auto framing of the open tab."});
@@ -4952,7 +4954,7 @@ function mmToast(n){ document.querySelectorAll(".mmtoast").forEach(x=>x.remove()
   document.body.appendChild(d);
   d.querySelector(".mmx").onclick=()=>d.remove();
   d.querySelector("#mmgo").onclick=()=>{ d.remove(); HOME_M="online"; if(TITLE_SEL.length>=TEAM_MIN && deckValid(TITLE_SEL)){ renderLobby(TITLE_SEL); setTimeout(()=>{ const q=$("#quick"); if(q) q.classList.add("pulse"); },50); } else { renderTitle(TITLE_SEL); const h=$(".bh"); if(h){ h.textContent=L("mmPickTeam"); h.classList.add("flashh"); } } };
-  setTimeout(()=>d.remove(),12000); SFX.play("event"); }
+  setTimeout(()=>d.remove(),12000); SFX.play("go"); }
 function chDnd(){ try{ return localStorage.getItem("boc-chdnd")==="1"; }catch(e){ return false; } }
 function chSetDnd(v){ try{ localStorage.setItem("boc-chdnd",v?"1":"0"); }catch(e){} presPing(); }
 function presStart(){ if(ONLINE.timer) return; presPing(); ONLINE.timer=setInterval(presPing,30000); }
@@ -4966,7 +4968,7 @@ function renderOnline(sel=[]){
   pageShell(L("onlineTitle"),`<div class="onlist"></div><p class="note" style="text-align:center">${L("chHow")}</p><label class="chdnd"><input type="checkbox" id="chdnd" ${chDnd()?"":"checked"}> ${L("chDndLbl")}</label>`,sel);
   $("#chdnd").onchange=e=>{ SFX.play("click"); chSetDnd(!e.target.checked); };
   drawOnline(); presPing(); bindLang(()=>renderOnline(sel));
-  $(".onlist").onclick=e=>{ const b=e.target.closest("[data-ch]"); if(!b || b.disabled) return; const u=ONLINE.list.find(x=>x.id===+b.dataset.ch); if(u){ SFX.play("event"); chSend(u); } };
+  $(".onlist").onclick=e=>{ const b=e.target.closest("[data-ch]"); if(!b || b.disabled) return; const u=ONLINE.list.find(x=>x.id===+b.dataset.ch); if(u){ SFX.play("go"); chSend(u); } };
 }
 
 /* ---------- défis directs ---------- */
@@ -5013,7 +5015,7 @@ async function chSend(u){
     let st; try{ st=await api("GET","/api/ch/status?id="+CH.out); }catch(e){ return; }
     if(!CH.out || st.status==="pending") return;
     clearInterval(CH.timer); CH.timer=0; CH.out=null;
-    if(st.status==="accepted" && st.code){ SFX.play("event"); scr(`<p class="lead">${L("chAccepted",esc(u.name))}</p><div class="code">${esc(st.code)}</div>`); chJoinDuel(st.code,"host"); return; }
+    if(st.status==="accepted" && st.code){ SFX.play("go"); scr(`<p class="lead">${L("chAccepted",esc(u.name))}</p><div class="code">${esc(st.code)}</div>`); chJoinDuel(st.code,"host"); return; }
     scr(`<p class="lead">${L(st.status==="declined"?"chDeclined":"chExpired",esc(u.name))}</p>`);
   },1500);
 }
@@ -5023,7 +5025,7 @@ async function chInbox(){
   const where=presWhere(); if((where!=="menu" && where!=="ai") || document.querySelector(".askw")) return;
   let r; try{ r=await api("GET","/api/ch/inbox"); }catch(e){ return; }
   const c=r.ok && (r.list||[]).find(x=>!CH.seen.has(x.id)); if(!c || CH.shown) return;
-  CH.shown=c.id; CH.seen.add(c.id); SFX.play("event");
+  CH.shown=c.id; CH.seen.add(c.id); SFX.play("go");
   await decksLoad(); const u=c.from, list=chChoices(), st={i:list.length?0:-1, team:list.length?list[0].team.slice():chTeam()};
   const fight=presWhere()==="ai"; if(fight){ SFX.play("ult"); flash(); }
   const w=document.createElement("div"); w.className="askw chin"+(fight?" newch":"");
@@ -5035,7 +5037,7 @@ async function chInbox(){
   let left=c.left||60; const tick=setInterval(()=>{ left--; const e=w.querySelector(".chleft2"); if(e) e.textContent=L("chExpiresIn",Math.max(0,left)); if(left<=0) close(); },1000);
   const close=()=>{ clearInterval(tick); w.remove(); CH.shown=null; };
   w.querySelector("[data-no]").onclick=()=>{ SFX.play("click"); api("POST","/api/ch/decline",{id:c.id}).catch(()=>{}); close(); };
-  w.querySelector("[data-yes]").onclick=async()=>{ SFX.play("event"); close();
+  w.querySelector("[data-yes]").onclick=async()=>{ SFX.play("go"); close();
     const ingame=fight && S && !S.over && !S.dead; if(S && !S.over){ S.over=true; S.dead=true; } if(ingame){ MODE="solo"; ME="p"; document.querySelectorAll(".evwrap,.banner,.cutin").forEach(x=>x.remove()); }
     $("#app").innerHTML=`<div class="screen"><div class="center quickmm"><div class="kicker">${L("chTitle")}</div><div class="qspin"></div><p class="lead">${L("connecting")}</p></div></div>`;
     if(!await netInit()){ renderTitle(TITLE_SEL); return; }
@@ -5198,7 +5200,7 @@ function renderWeekly(sel=TITLE_SEL){
 }
 function weeklyStart(sel){
   if(!WEEK.foe || !(sel.length>=TEAM_MIN && deckValid(sel))) return;
-  SFX.play("event"); MODE="solo"; ME="p";
+  SFX.play("go"); MODE="solo"; ME="p";
   newGame(sel.slice(),WEEK.foe.slice(),st=>{ st.weekly=WEEK.k; st.log=L("wkTitle")+" · "+L("start");
     st.a.team.forEach(t=>{ t.max=t.hp=Math.round(t.max*WK_HP); }); st.a.rage=WK_RAGE; });
 }
@@ -5286,7 +5288,7 @@ function renderStoryChapter(i){
     ${(ST_UNLOCK&&c.unlock.length)?`<p class="note">${L("stUnlock")} : <b>${c.unlock.map(nm).join(", ")}</b> ${L("stUnlockNote")}</p>`:""}
     <div class="stdiff"><small>${L("stDiff")}</small>${["e","n","h"].map(d=>`<button class="sdb ${STORY.diff===d?"on":""} sd-${d}" data-sd="${d}">${L("stDiff_"+d)}</button>`).join("")}<p class="note">${L("stDiffN_"+STORY.diff)}${(c.with||[]).includes("lin")?" "+L("stDiffL_"+STORY.diff):""}</p></div><div class="row" style="margin-top:10px"><button class="btn" id="stgo">${L("stPlay")}</button><button class="btn ghost" id="stback">${L("stBackList")}</button></div></div></div>`,TITLE_SEL);
   document.body.dataset.terr=bgKey(c.bg);
-  $("#stgo").onclick=()=>{ SFX.play("event"); storyFight(); };
+  $("#stgo").onclick=()=>{ SFX.play("go"); storyFight(); };
   document.querySelectorAll("[data-sd]").forEach(b=>b.onclick=()=>{ STORY.diff=b.dataset.sd; try{ localStorage.setItem("boc-stdiff",STORY.diff); }catch(e){} SFX.play("click"); renderStoryChapter(i); });
   $("#stback").onclick=()=>{ SFX.play("click"); renderStory(); };
   bindLang(()=>renderStoryChapter(i));
@@ -5325,7 +5327,7 @@ async function storyAfter(win){ rpCapture(true);
     STORY.hp=S.p.team.map(t=>t.ko?0:t.hp); STORY.relayN=S.p.relayN||0; STORY.wave++;
     SFX.play("win");
     $("#app").innerHTML=`<div class="screen"><div class="center"><div class="kicker">${L("st_t_"+c.id)}</div><h1>${L("win")}</h1><p class="svheal">${L("stWave").replace("{a}",STORY.wave+1).replace("{b}",c.waves.length)}</p><div class="row" style="justify-content:center"><button class="btn" id="stw">${L("stWaveNext")}</button></div></div></div>`;
-    $("#stw").onclick=()=>{ SFX.play("event"); storyFight(); }; return;
+    $("#stw").onclick=()=>{ SFX.play("go"); storyFight(); }; return;
   }
   MUSIC.want("menu"); SFX.play(win?"win":"lose");
   const stars=storyEval(c,win), had=stStarsOf(c.id), last=STORY.i>=STORY_CH.length-1, arcEnd=last||stArcOf(STORY.i+1)!==stArc(c);
@@ -5397,7 +5399,7 @@ function renderSurvWave(){
     ${n>7?`<p class="note">${L("survHard")}</p>`:""}
     ${SURV.best?`<p class="note">${L("survRecord",SURV.best)}</p>`:""}
     <div class="row" style="justify-content:center;margin-top:14px"><button class="btn" id="svgo">${L("survFight")}</button><button class="btn ghost" id="svquit">${L("survGiveUp")}</button></div></div>`,SURV.team);
-  $("#svgo").onclick=()=>{ SFX.play("event"); MODE="solo"; ME="p"; newGame(SURV.team,SURV.foe,survPrep); };
+  $("#svgo").onclick=()=>{ SFX.play("go"); MODE="solo"; ME="p"; newGame(SURV.team,SURV.foe,survPrep); };
   $("#svquit").onclick=()=>{ SFX.play("click"); renderTitle(SURV.team); };
   bindLang(renderSurvWave);
 }
@@ -5444,7 +5446,7 @@ function renderArcFloor(){
     ${foe}
     ${ARC.best?`<p class="note">${L("arcRecord",ARC.best)}</p>`:""}
     <div class="row" style="justify-content:center;margin-top:14px"><button class="btn" id="arcgo">${L("survFight")}</button><button class="btn ghost" id="arcquit">${L("survGiveUp")}</button></div></div>`,ARC.team);
-  $("#arcgo").onclick=()=>{ SFX.play("event"); MODE="solo"; ME="p"; newGame(ARC.team,f.foe.slice(),arcPrep); };
+  $("#arcgo").onclick=()=>{ SFX.play("go"); MODE="solo"; ME="p"; newGame(ARC.team,f.foe.slice(),arcPrep); };
   $("#arcquit").onclick=()=>{ SFX.play("click"); arcReport(ARC.floor,false); ARC.on=false; renderTitle(ARC.team); };
   bindLang(renderArcFloor);
 }
@@ -5456,7 +5458,7 @@ function renderArcInvite(){
     <div class="arcsil"><img src="${CONFIG.imgs[id]}" alt=""></div>
     <h2 class="arcn">${L("arcSecretName")}</h2><p class="iplead arcd">${L("arcSecretD")}</p>
     <div class="row" style="justify-content:center;margin-top:14px"><button class="btn" id="arcyes">${L("chAccept")}</button><button class="btn ghost" id="arcno">${L("chDecline")}</button></div></div>`,ARC.team);
-  $("#arcyes").onclick=()=>{ SFX.play("event"); ARC.cur=f; ARC.pending=null; MODE="solo"; ME="p"; newGame(ARC.team,f.foe.slice(),arcPrep); };
+  $("#arcyes").onclick=()=>{ SFX.play("go"); ARC.cur=f; ARC.pending=null; MODE="solo"; ME="p"; newGame(ARC.team,f.foe.slice(),arcPrep); };
   $("#arcno").onclick=()=>{ SFX.play("click"); ARC.pending=null; renderArcFloor(); };
   bindLang(renderArcInvite);
 }
@@ -5493,7 +5495,7 @@ function arcAfter(win){ rpCapture(true);
   if(ACC.on && ACC.user && !(S&&S.accDone)){ if(S) S.accDone=true;
     const before=lvlOf(ACC.user.stats&&ACC.user.stats.pts).n;
     arcReport(n,win,bonus).then(g=>{ if(!g) return; const v=lvlOf(ACC.user.stats&&ACC.user.stats.pts), e=$("#accline"); if(!e) return;
-      e.innerHTML=esc(L("ptsGain",g))+(v.n>before?` <span class="lvlup">${L("lvlUp",v.n,esc(lvlTitle(v.n)))}</span>`:""); if(v.n>before) SFX.play("event"); });
+      e.innerHTML=esc(L("ptsGain",g))+(v.n>before?` <span class="lvlup">${L("lvlUp",v.n,esc(lvlTitle(v.n)))}</span>`:""); if(v.n>before) SFX.play("go"); });
   }
 }
 async function survReport(wave,win){
@@ -5531,7 +5533,7 @@ function survAfter(win){ rpCapture(true);
   if(ACC.on && ACC.user && !(S&&S.accDone)){ if(S) S.accDone=true;
     const before=lvlOf(ACC.user.stats&&ACC.user.stats.pts).n;
     survReport(n,win).then(g=>{ if(!g) return; const v=lvlOf(ACC.user.stats&&ACC.user.stats.pts), e=$("#accline"); if(!e) return;
-      e.innerHTML=esc(L("ptsGain",g))+(v.n>before?` <span class="lvlup">${L("lvlUp",v.n,esc(lvlTitle(v.n)))}</span>`:""); if(v.n>before) SFX.play("event"); });
+      e.innerHTML=esc(L("ptsGain",g))+(v.n>before?` <span class="lvlup">${L("lvlUp",v.n,esc(lvlTitle(v.n)))}</span>`:""); if(v.n>before) SFX.play("go"); });
   }
 }
 
@@ -5639,7 +5641,7 @@ function bindAccForms(done){
     try{ const r=await api("POST",reg?"/api/register":"/api/login",{name,password:pw});
       if(!r.ok){ err.textContent=accErr(r.error); btn.disabled=false; return; }
       ACC.token=r.token; ACC.user=r.user; ACC.ready=true; try{ localStorage.setItem("boc-token",r.token); localStorage.setItem("doom-nick",r.user.name); }catch(e){}
-      SFX.play("event"); await accInit(); done();
+      SFX.play("go"); await accInit(); done();
     }catch(e){ err.textContent=L("e_net"); btn.disabled=false; }
   };
   $("#flogin").onsubmit=e=>{ e.preventDefault(); go(e.target,false); };
@@ -5788,17 +5790,17 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; ARC.on=fa
     redo([...sel,id],id);
   });
   document.querySelectorAll(".slot[data-rm]").forEach(b=>b.onclick=()=>{SFX.play("click");redo(sel.filter(x=>x!==b.dataset.rm),focus);});
-  if($("#go2")) $("#go2").onclick=()=>{ SFX.play("event"); pickLaunch(sel); };
+  if($("#go2")) $("#go2").onclick=()=>{ SFX.play("go"); pickLaunch(sel); };
   if($("#hmback")) $("#hmback").onclick=()=>{ SFX.play("click"); HOME_M=null; renderTitle(sel); };
   if(!HOME_M) bindHome(sel);
   bindDeckChips(sel,redo);
-  if($("#dygo")) $("#dygo").onclick=()=>{ SFX.play("event"); const d=dailyDef(DAILY.day); if(HOME_M || d.kind==="team") dailyStart(sel); else { HOME_M="daily"; renderTitle(sel); } };
+  if($("#dygo")) $("#dygo").onclick=()=>{ SFX.play("go"); const d=dailyDef(DAILY.day); if(HOME_M || d.kind==="team") dailyStart(sel); else { HOME_M="daily"; renderTitle(sel); } };
   if($("#lkon")) $("#lkon").onclick=()=>{ SFX.play("click"); linksPop(sel); };
   if(!HOME_M) bindWeeklyBanner(sel); if(ACC.user) weeklyLoad();
   if(ACC.user && (!DAILY.day || DAILY.day!==new Date().toLocaleDateString("sv-SE",{timeZone:"Europe/Brussels"}))) dailyLoad();
   if(ACC.user && !DECKS.list && !DECKS.loading) decksLoad().then(()=>{ if(document.querySelector(".selwrap") && TITLE_SEL===sel) redo(sel,focus); });
   if($("#rnd")) $("#rnd").onclick=()=>{ SFX.play("click"); const t=randomTeam(); redo(t,t[0]); };
-  if($("#tuto")) $("#tuto").onclick=()=>{ SFX.play("event"); startTuto(); };
+  if($("#tuto")) $("#tuto").onclick=()=>{ SFX.play("go"); startTuto(); };
   if($("#roster")) $("#roster").onclick=()=>{ SFX.play("click"); renderRoster(sel); };
   fitShowName(); requestAnimationFrame(fitShowName); if(document.fonts) document.fonts.ready.then(fitShowName);
   if($("#rules")) $("#rules").onclick=()=>{ SFX.play("click"); renderRules(sel); };
@@ -5913,8 +5915,8 @@ function bindHome(sel){
     st.style.setProperty("--hc",`var(--hm-${m})`); $("#hmimg").src=`assets/${HM_ART[m]}.webp`;
     $("#hmh").textContent=b.querySelector("b").textContent; $("#hmd").textContent=L("hmd_"+m); $("#hmplay").dataset.m=m; };
   document.querySelectorAll(".hmi").forEach(b=>{ b.onmouseenter=()=>show(b); b.onfocus=()=>show(b);
-    b.onclick=()=>{ SFX.play("event"); hmEnter(b.dataset.m,sel); }; });
-  if($("#hmplay")) $("#hmplay").onclick=()=>{ SFX.play("event"); hmEnter($("#hmplay").dataset.m,sel); };
+    b.onclick=()=>{ SFX.play("go"); hmEnter(b.dataset.m,sel); }; });
+  if($("#hmplay")) $("#hmplay").onclick=()=>{ SFX.play("go"); hmEnter($("#hmplay").dataset.m,sel); };
 }
 function pickLaunch(sel){
   if(!(sel.length>=TEAM_MIN)) return;
@@ -6028,7 +6030,7 @@ async function renderQuick(team,nick){
     if(p.status==="waiting"){ draw(p.n); return; }
     if(p.status==="gone"){ quickStop(); renderQuick(team,nick); return; }
     if(p.status==="matched"){
-      clearInterval(QUICK_MM.timer); QUICK_MM.timer=0; QUICK_MM.t=null; SFX.play("event");
+      clearInterval(QUICK_MM.timer); QUICK_MM.timer=0; QUICK_MM.t=null; SFX.play("go");
       scr(`<p class="lead">${L("quickFound",esc(p.opp))}</p><div class="code">${esc(p.code)}</div>`);
       NET.ref=NET.db.doc("duels/"+p.code); NET.role=p.role; NET.started=false;
       NET.unsub=NET.ref.onSnapshot(onDuel,()=>{});
@@ -6057,7 +6059,7 @@ async function renderLobby(team){ MUSIC.want("menu");
     </div></div>`,team);
   const getNick=(host)=>{ const v=($("#nick").value||"").trim().slice(0,16); if(v){ try{ localStorage.setItem("doom-nick",v); }catch(e){} } return v||L(host?"player1":"player2"); };
   { const c=$("#code"); if(c){ c.oninput=()=>{ const v=c.value.toUpperCase().replace(/[^A-Z]/g,""); if(v!==c.value) c.value=v; }; c.onkeydown=e=>{ if(e.key==="Enter") $("#join").click(); }; } }
-  if($("#quick")){ $("#quick").onclick=()=>{ SFX.play("event"); renderQuick(team,getNick(true)); };
+  if($("#quick")){ $("#quick").onclick=()=>{ SFX.play("go"); renderQuick(team,getNick(true)); };
     fetch("/api/mm/count",{cache:"no-store"}).then(x=>x.json()).then(r=>{ const e=$("#qcount"); if(e && r.n){ e.textContent=L("quickQueue",r.n); $("#quick").classList.add("pulse"); } }).catch(()=>{}); }
   $("#create").onclick=async()=>{
     const name=getNick(true); const code=makeCode();
