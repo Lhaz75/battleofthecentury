@@ -2061,7 +2061,7 @@ body[data-terr="jagi"]{--terrbg:url("assets/story-jagi.webp")}body[data-terr="ja
 @keyframes kbbtn{0%,70%{transform:translateX(-120%) skewX(-15deg)}88%,100%{transform:translateX(320%) skewX(-15deg)}}
 @media (prefers-reduced-motion:reduce){.kbspin,.kbshine::before,.kbsp,.shc.can .shbuy::after{animation:none}}
 .shhero{display:flex;gap:22px;align-items:center;flex-wrap:wrap;padding:16px 20px;border:1px solid rgba(255,207,58,.45);border-radius:16px;background:radial-gradient(120% 140% at 0% 0%,rgba(255,190,60,.18),transparent 55%),linear-gradient(180deg,rgba(32,20,10,.92),rgba(16,9,5,.92));box-shadow:0 10px 30px rgba(0,0,0,.5)}
-.shpurse{display:flex;gap:12px;align-items:center}.shpurse>div{display:flex;flex-direction:column;line-height:1}.shpurse small{color:#c9b08a;font-size:12px;text-transform:uppercase;letter-spacing:.08em}.shpurse b{font:800 40px var(--f-display);color:#ffd96a;text-shadow:0 0 18px rgba(255,190,50,.5)}.shpurse span{color:#e8c070;font-size:13px}
+.shpurse{display:flex;gap:12px;align-items:center}.shpurse>div{display:flex;flex-direction:column;line-height:1}.shpurse small{color:#c9b08a;font-size:12px;text-transform:uppercase;letter-spacing:.08em}.shamt{margin:2px 0 0;display:flex;align-items:baseline;gap:6px}.shpurse b{font:800 40px/1 var(--f-display);color:#ffd96a;text-shadow:0 0 18px rgba(255,190,50,.5)}.shamt span{font:700 16px var(--f-display);color:#e8b04a;text-transform:uppercase;letter-spacing:.06em}
 .shtxt{flex:1 1 300px;display:flex;flex-direction:column;gap:7px}.shtxt p{margin:0;font-size:14px;line-height:1.45;color:#e6d6bd}.shtxt small{color:#b9a58e;font-size:12px}.shtxt .err{color:#ff8a6e}
 .shprog{height:7px;border-radius:5px;background:rgba(255,255,255,.08);overflow:hidden}.shprog i{display:block;height:100%;background:linear-gradient(90deg,#c8901e,#ffd96a)}
 .shgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin:4px 0 18px}
@@ -5996,7 +5996,7 @@ function renderShop(sel=[]){
       <div class="shb"><div class="shx"><span>${L("shPass")}</span>${tr(f.passive)}</div><div class="shx"><span>${L("ultimate")}</span>${tr(f.ult.name)}</div>${extra}</div>
       <div class="shf">${o?`<span class="shok">✓ ${L("shOwned")}</span>`:`<button class="btn shbuy" data-id="${id}" ${can?"":"disabled"}>${KOBAN()}<b>${pr}</b><span>${L("shUnlock")}</span></button>${can?"":`<small class="shmiss">${L("shMiss",pr-r)}</small>`}`}</div>
     </article>`; };
-  pageShell("🛒 "+L("shopBtn"),`<section class="shhero"><div class="shpurse">${KOBAN3D()}<div><small>${L("shPurse")}</small><b>${r}</b><span>ryō</span></div></div>
+  pageShell("🛒 "+L("shopBtn"),`<section class="shhero"><div class="shpurse">${KOBAN3D()}<div><small>${L("shPurse")}</small><p class="shamt"><b>${r}</b><span>${L("ryo")}</span></p></div></div>
       <div class="shtxt"><p>${L("shLead")}</p><div class="shprog"><i style="width:${Math.round(own/list.length*100)}%"></i></div><small>${L("shCount",own,list.length)} · ${L("shStory")}</small><p class="err" id="sherr" hidden></p></div></section>
     <div class="shgrid">${list.map(card).join("")}</div>`,sel);
   document.querySelectorAll(".shbuy").forEach(b=>b.onclick=async()=>{ if(b.disabled) return; b.disabled=true; SFX.play("click"); const er=$("#sherr"); const fail=t=>{ if(er){ er.hidden=false; er.textContent=t; } b.disabled=false; };
