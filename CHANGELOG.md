@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.85.3 — 2026-10-07
+
+- Mobile : la zone du milieu est allégée en combat, la ligne « Ton combo » vide et le rappel « 5 endurance, monte Léger → Moyen → Lourd » disparaissent ; seuls les messages utiles restent (événements, effets, premier tour)
+
 ## v0.85.2 — 2026-10-07
 
 - Mobile : les dégâts s'affichent sur la carte du perso touché (le tien comme celui de l'adversaire), au lieu de flotter au milieu de l'écran
