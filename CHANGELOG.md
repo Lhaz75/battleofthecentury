@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.92.0 — 2026-10-07
+
+- Le terrain Barrage de Yuda a son illustration (carte et fond de combat)
+- Nouvel événement « Le barrage cède » : le terrain devient Barrage de Yuda, plus aucune réaction possible
+
 ## v0.91.1 — 2026-10-07
 
 - Correctif : le piège perso d'un combattant (Mémoire du combat de Kenshiro, Instinct du vétéran de Ryuken, Faux point vital de Souther, Aiguilles crachées de Jagi) disparaît quand il tombe KO. Avant, il restait posé pour rien et empêchait de poser un autre piège (merci Jerome R.)
