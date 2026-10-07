@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.96.2 — 2026-10-08
+
+- Noms de techniques : les vrais noms japonais remplacent les traductions quand la technique existe dans le manga ou les jeux officiels (Rei, Yuda, Shu, Amiba, Ryuga, Fudo, Kiba Daioh, Solia, Raiga & Fūga, Liu Feiyan, Frieda, Kaiser, le Shura sans nom, Ogai, Yasaka, Jugai)
+
 ## v0.96.1 — 2026-10-08
 
 - Raoh devient plus fort que Ken-Oh : 22 PV, « Aucun regret » donne +3 rage, et sa carte spéciale aussi
