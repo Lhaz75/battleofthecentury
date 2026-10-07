@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.89.0 — 2026-10-07
+
+- Nouveau terrain « Barrage de Yuda » : le terrain est noyé, plus aucune réaction possible (ni Garde, ni Esquive, ni Contre). Combos à gogo tant qu'il reste en jeu (idée de maxGfive)
+
 ## v0.88.0 — 2026-10-07
 
 - Équilibrage des persos, réglé sur ~200 000 combats d'équipe simulés. Moins forts : Tesshin (PV 24→23), Heart (23→21), Sabato (25→23), Borge (23→22), Rima (24→23), Souther (22→21, et son premier coup encaissé fait 2 de moins au lieu de 3), Linh (20→19), Kaiser (bonus plafonné à +2), Madara (Légers +1 au lieu de +2). Plus forts : Colonel (PV 23→25), Barcom (24→26), Juza (24→26), Jukei (24→26 et Ultime +6), Solia (23→24, anneau à 3 dégâts), Shazan (2e coup à 3 dégâts), Shin (+2 rage au 3e coup), Amiba (PV 22→23, Moyens +3 ou -1), Kaioh (ses Lourds ne lui coûtent plus que 1 PV), +1 PV pour Han, Club, Alf, Frieda, le dernier général, et +2 pour Bask. L'écart entre le perso le plus fort et le plus faible passe de 45–55 % à 46–53 %
