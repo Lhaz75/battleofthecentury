@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.85.2 — 2026-10-07
+
+- Mobile : les dégâts s'affichent sur la carte du perso touché (le tien comme celui de l'adversaire), au lieu de flotter au milieu de l'écran
+
 ## v0.85.1 — 2026-10-07
 
 - Mobile : en combat, plein écran, son, musique et vibrations sont rangés derrière un seul bouton de réglages, « Ultime » et « Fin du tour » ne sont plus coupés
