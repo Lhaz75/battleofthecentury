@@ -403,6 +403,20 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       const ach = achCheck(st, body.feats); await store.saveStats(u.id, st);
       return [200, { user: pubUser(u), gain, ach }];
     },
+    // magasin : cartes de deck à débloquer avec les ryō (ryō = points gagnés - ryō déjà dépensés ; les points de niveau ne bougent pas)
+    "POST /api/shop": async (req, body) => {
+      const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      const SHOP = { t_tempete: 150, t_village: 150, t_medicine: 150, t_barrage: 200, x_kibaclan: 150, x_fil: 150 };
+      const card = String(body.card || ""), price = SHOP[card], st = u.stats;
+      if (!price) return [400, { error: "bad" }];
+      const own = st.cards = Array.isArray(st.cards) ? st.cards : [];
+      if (own.includes(card)) return [409, { error: "owned" }];
+      const ryo = (st.pts || 0) - (st.ryoSpent || 0);
+      if (ryo < price) return [402, { error: "poor" }];
+      own.push(card); st.ryoSpent = (st.ryoSpent || 0) + price;
+      await store.saveStats(u.id, st);
+      return [200, { user: pubUser(u) }];
+    },
     // arcade : la tour, un étage à la fois dans l'ordre ; le combat secret (bonus) est facultatif, une fois par montée
     "POST /api/arc": async (req, body) => {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];

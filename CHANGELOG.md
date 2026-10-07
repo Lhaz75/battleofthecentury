@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.95.0 — 2026-10-07
+
+- Nouveau : « Mes cartes ». Sur l'écran de composition d'équipe, choisis les 3 terrains et les 3 pièges de ton deck au lieu du hasard (ce que tu ne choisis pas reste tiré au hasard parmi tes cartes)
+- Nouveau : le magasin. Tempête de sable, Village assiégé, Medicine City, Barrage de Yuda, Embuscade du clan Kiba et Encerclé par la horde se débloquent avec des ryō, la nouvelle monnaie. Tu gagnes autant de ryō que de points (les anciens points comptent), et dépenser des ryō ne touche pas à ton niveau
+- En versus, chaque joueur joue avec ses propres cartes
+
 ## v0.94.2 — 2026-10-07
 
 - Mobile, écrans courts (iPhone SE, petits Android, jeu dans le navigateur avec ses barres) : le haut du plateau se compacte (passif sur une ligne, réserves plus petites, journal plus fin) pour que toute la main tienne à l'écran sur 2 rangées, sans défilement
