@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.84.1 — 2026-10-07
+
+- Mobile : la barre de vie passe au style arcade comme sur PC (graduée, PV écrits dedans)
+
 ## v0.84.0 — 2026-10-07
 
 - Correctifs : la carte Esquive retrouve son illustration ; sur tablette et mobile en paysage, le bouton « C'est parti » s'affiche enfin ; le spécial de Sha & Zan ne compte plus deux fois le même KO ; le +1 rage de Shin arrive bien au 3e coup du combo ; « Tempête soudaine » fait bien repiocher 5 cartes ; la fenêtre de Contre affiche les vrais dégâts renvoyés (la moitié, tout pour Toki et Ken-Oh)
