@@ -5458,7 +5458,8 @@ async function weeklyAfter(win){ rpCapture(true);
 /* ---------- mode histoire ---------- */
 const ST_TEST=[2]; // arcs en test : visibles mais verrouillés pour les joueurs (admins seulement) — vider pour ouvrir
 const stTest=c=>ST_TEST.includes(c.arc||1) && !(ACC.user&&ACC.user.admin);
-const ST_UNLOCK=false; // remettre à true pour la version 1.0 (déblocages de persos : histoire + magasin)
+const ST_UNLOCK_ALL=false; // remettre à true pour la version 1.0 (déblocages de persos : histoire + magasin)
+const stUnlock=()=>ST_UNLOCK_ALL || !!(ACC.on&&ACC.user&&ACC.user.admin); // en attendant : actif pour les admins seulement (test)
 // persos dispo d'office ; les autres se débloquent par l'histoire (STORY_CH[].unlock) ou au magasin (ryō)
 const CHAR_START=new Set(["maitre", "sage", "linh", "bat", "vieux", "dans", "huey", "shuren", "nuage", "shachi", "shoki", "general", "mamiya", "ein", "rima","bella"]);
 const CHAR_PRICE={1:100,2:150,3:250,4:400,5:600};
@@ -5467,7 +5468,7 @@ const CHAR_SHOP=new Set(["kasumi", "shuken", "tesshin", "ogai", "rofu", "wei", "
 const CHAR_STORY_LATER={has:id=>!CHAR_START.has(id)&&!CHAR_SHOP.has(id)};
 const storyUnlockOf=id=>{ const c=STORY_CH.find(x=>(x.unlock||[]).includes(id)); return c||null; };
 const charPrice=id=>!CHAR_SHOP.has(id)||storyUnlockOf(id)?0:(CHAR_PRICE[COST[id]||3]||250);
-function charOwned(id){ if(!ST_UNLOCK || !ACC.on) return true; if(CHAR_START.has(id)) return true; const st=ACC.user&&ACC.user.stats||{};
+function charOwned(id){ if(!stUnlock() || !ACC.on) return true; if(CHAR_START.has(id)) return true; const st=ACC.user&&ACC.user.stats||{};
   const c=storyUnlockOf(id); if(c) return !!(st.story && st.story[c.id]!=null); return Array.isArray(st.chars) && st.chars.includes(id); }
 const ryoNow=()=>{ const st=ACC.user&&ACC.user.stats||{}; return Math.max(0,(st.pts||0)-(st.ryoSpent||0)); };
 function charLockHTML(id){ if(charOwned(id)) return ""; const c=storyUnlockOf(id);
@@ -5491,7 +5492,7 @@ function renderStory(sel=TITLE_SEL){
   STORY.on=false;
   const rows=STORY_CH.map((c,i)=>{ const open=stOpen(i)&&!stTest(c), st=stStarsOf(c.id), done=stProg()[c.id]!=null, foe=(c.waves?c.waves[c.waves.length-1]:c.foe);
     return `<button class="stch ${open?"":"lock"} ${done?"done":""} ${c.boss?"boss":""}" data-st="${i}" ${open?"":"disabled"}>
-      <span class="stn">${stNum(i)}</span><img src="${FACE(foe[0])}" alt=""><span class="stt"><b>${L("st_t_"+c.id)}</b><small>${open?"":"🔒 "+L(stTest(c)?"stTesting":"stLocked")}${open&&(ST_UNLOCK&&c.unlock.length)?`${L("stUnlock")} : ${c.unlock.map(nm).join(", ")}`:""}</small></span>${stStarRow(st)+stCrown(c.id)}</button>`; });
+      <span class="stn">${stNum(i)}</span><img src="${FACE(foe[0])}" alt=""><span class="stt"><b>${L("st_t_"+c.id)}</b><small>${open?"":"🔒 "+L(stTest(c)?"stTesting":"stLocked")}${open&&(stUnlock()&&c.unlock.length)?`${L("stUnlock")} : ${c.unlock.map(nm).join(", ")}`:""}</small></span>${stStarRow(st)+stCrown(c.id)}</button>`; });
   const u=ACC.user&&ACC.user.stats||{}, arcs=[...new Set(STORY_CH.map(stArc))];
   if(!arcs.includes(ST_ARC)){ // arc par défaut : celui du dernier chapitre ouvert
     let k=0; STORY_CH.forEach((c,i)=>{ if(stOpen(i)&&!stTest(c)) k=i; }); ST_ARC=stArcOf(k); }
@@ -5516,7 +5517,7 @@ function renderStoryChapter(i){
     <div class="stvs"><div><small>${L("stYou")}</small>${survFaces(c.me)}</div><div class="svvs">VS</div><div><small>${L("stFoe")}</small>${survFaces(foe)}</div></div>
     <h3 class="pfh">${L("stObj")} ${stStarsOf(c.id)?stStarRow(stStarsOf(c.id)):""}${stCrown(c.id)}</h3><ul class="stobj">${objs.map((o,k)=>`<li class="${(k===0?stStarsOf(c.id)>0:stObjDone(c.id,k-1))?"ok":""}">★ ${stObjText(o)}</li>`).join("")}</ul>
     ${c.with?`<div class="stwith"><small>${L("stWith")}</small>${c.with.map(id=>`<span class="stw"><img src="assets/bust-${id}.webp" alt=""><b>${L("stn_"+id)}</b></span>`).join("")}<p class="note stwh">${L("stWithHelp")}</p></div>`:""}
-    ${(ST_UNLOCK&&c.unlock.length)?`<p class="note">${L("stUnlock")} : <b>${c.unlock.map(nm).join(", ")}</b> ${L("stUnlockNote")}</p>`:""}
+    ${(stUnlock()&&c.unlock.length)?`<p class="note">${L("stUnlock")} : <b>${c.unlock.map(nm).join(", ")}</b> ${L("stUnlockNote")}</p>`:""}
     <div class="stdiff"><small>${L("stDiff")}</small>${["e","n","h"].map(d=>`<button class="sdb ${STORY.diff===d?"on":""} sd-${d}" data-sd="${d}">${L("stDiff_"+d)}</button>`).join("")}<p class="note">${L("stDiffN_"+STORY.diff)}${(c.with||[]).includes("lin")?" "+L("stDiffL_"+STORY.diff):""}</p></div><div class="row" style="margin-top:10px"><button class="btn" id="stgo">${L("stPlay")}</button><button class="btn ghost" id="stback">${L("stBackList")}</button></div></div></div>`,TITLE_SEL);
   document.body.dataset.terr=bgKey(c.bg);
   $("#stgo").onclick=()=>{ SFX.play("go"); storyFight(); };
@@ -5568,7 +5569,7 @@ async function storyAfter(win){ rpCapture(true);
     <h1>${win?L("stWin"):`<em>${L("stLose")}</em>`}</h1>
     ${win?`<div class="stbig">${stStarRow(stars)}</div><p class="stintro">${L("st_o_"+c.id)}</p>`:""}
     <ul class="stobj">${[["win",0],...c.stars].map((o,k)=>`<li class="${win&&(k===0||(S.stOk&&S.stOk[k-1]))?"ok":""}">${win&&k>0&&!(S.stOk&&S.stOk[k-1])?"✗":"★"} ${stObjText(o)}</li>`).join("")}</ul>
-    ${win&&(ST_UNLOCK&&c.unlock.length)&&had===0?`<p class="note lvlup">${L("stJoined").replace("{who}",c.unlock.map(nm).join(", "))}</p>`:""}
+    ${win&&(stUnlock()&&c.unlock.length)&&had===0?`<p class="note lvlup">${L("stJoined").replace("{who}",c.unlock.map(nm).join(", "))}</p>`:""}
     ${win&&arcEnd?`<p class="svheal">${L(last?"stArcDone"+(stArc(c)>1?stArc(c):""):"stArcNext")}</p>`:""}
     <p class="note" id="accline">${ACC.on&&!ACC.user?L("notLogged"):""}</p>
     ${endJournalHTML()}
