@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.90.1 — 2026-10-07
+
+- Événement « L'étoile de la mort » : elle vise maintenant le combattant le plus amoché en % de ses PV (et plus en PV bruts), pour ne plus viser un gros perso à moitié plein face à un petit pillard (idée de Jerome R.)
+- Message d'accueil du premier combat : « à gauche / à droite » quand les persos sont côte à côte (PC, paysage), « en bas / en haut » sinon
+- Voix d'ultime : Rei crie maintenant « Hien Ryūbu », et Juza a le cri de Rei (merci maxGfive)
+
 ## v0.90.0 — 2026-10-07
 
 - Nouveaux adversaires non jouables : 4 soldats de la GOLAN (Fouet, Matraque, Béret Lame, Béret Rictus) et 2 chasseurs de cobayes d'Amiba. Entre eux (et avec le Colonel, Mad Sarge ou Goum), ils frappent +1
