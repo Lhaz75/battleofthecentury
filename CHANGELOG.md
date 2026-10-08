@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.98.4 — 2026-10-09
+
+- Choix de l'équipe : l'encart « version bêta », les liens et la mention fan game ne s'affichent plus sous la liste des combattants. Ils restent sur la page d'accueil
+
 ## v0.98.3 — 2026-10-09
 
 - Lisibilité : tous les petits textes gris-brun (notes, explications, sous-titres, bonus de clan, « Ton combo », chapitres verrouillés…) sont éclaircis sur tous les écrans, avec une ombre quand ils sont posés sur le décor
