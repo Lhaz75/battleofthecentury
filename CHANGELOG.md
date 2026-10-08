@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.97.2 — 2026-10-08
+
+- Boss mondial : bouton et barre de vie aux couleurs du reste du jeu
+
 ## v0.97.1 — 2026-10-08
 
 - Ultimes : le compteur affiche 1 hit par point de dégât (15 dégâts = 15 HITS)
