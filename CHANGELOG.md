@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.97.14 — 2026-10-08
+
+- Journal du combat : les dégâts du coup restent affichés quand un effet se déclenche en plus (KO de Shura sans nom, œil de Shachi, ruse de Fox, survie de Jackal et de Ken-Oh)
+
 ## v0.97.13 — 2026-10-08
 
 - Boss mondial : après le 10e tour, le boss lâche un ultime final qui balaie toute ton équipe, réserves comprises (idée de Jérôme R.). Tes dégâts sont déjà comptés, ça ne change pas ton score
