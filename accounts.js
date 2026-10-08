@@ -53,8 +53,8 @@ function jsonStore(file) {
     async avatar(uid) { const u = db.users.find(u => u.id === uid); return u && u.avatar ? { buf: Buffer.from(u.avatar, "base64"), type: u.avatar_type, v: u.avatar_v } : null; },
     async saveStats(uid, stats) { const u = db.users.find(u => u.id === uid); if (u) { u.stats = stats; save(); } },
     async top(kind, n) {
-      const list = db.users.filter(u => !u.banned).filter(u => kind === "elo" ? u.stats.vsW + u.stats.vsL > 0 : kind === "surv" ? (u.stats.surv || 0) > 0 : u.stats.pts > 0)
-        .sort((a, b) => kind === "elo" ? b.stats.elo - a.stats.elo : kind === "surv" ? (b.stats.surv || 0) - (a.stats.surv || 0) : b.stats.pts - a.stats.pts).slice(0, n);
+      const list = db.users.filter(u => !u.banned).filter(u => kind === "elo" ? u.stats.vsW + u.stats.vsL > 0 : kind === "surv" ? (u.stats.surv || 0) > 0 : kind === "dojo" ? (u.stats.dojo || 0) > 0 : u.stats.pts > 0)
+        .sort((a, b) => kind === "elo" ? b.stats.elo - a.stats.elo : kind === "surv" ? (b.stats.surv || 0) - (a.stats.surv || 0) : kind === "dojo" ? (b.stats.dojo || 0) - (a.stats.dojo || 0) : b.stats.pts - a.stats.pts).slice(0, n);
       return list.map(pub);
     },
     async getSetting(k) { return (db.settings || {})[k] ?? null; },
@@ -112,8 +112,8 @@ function pgStore(url, PgPool) {
     async avatar(uid) { const r = await q(`SELECT avatar,avatar_type,avatar_v FROM boc_users WHERE id=$1`, [uid]); const a = r.rows[0]; return a && a.avatar ? { buf: Buffer.from(a.avatar, "base64"), type: a.avatar_type, v: a.avatar_v } : null; },
     async saveStats(uid, stats) { await q(`UPDATE boc_users SET stats=$2 WHERE id=$1`, [uid, JSON.stringify(stats)]); },
     async top(kind, n) {
-      const where = kind === "elo" ? `((stats->>'vsW')::int + (stats->>'vsL')::int) > 0` : kind === "surv" ? `COALESCE((stats->>'surv')::int,0) > 0` : `(stats->>'pts')::int > 0`;
-      const ord = kind === "elo" ? `(stats->>'elo')::int` : kind === "surv" ? `COALESCE((stats->>'surv')::int,0)` : `(stats->>'pts')::int`;
+      const where = kind === "elo" ? `((stats->>'vsW')::int + (stats->>'vsL')::int) > 0` : kind === "surv" ? `COALESCE((stats->>'surv')::int,0) > 0` : kind === "dojo" ? `COALESCE((stats->>'dojo')::int,0) > 0` : `(stats->>'pts')::int > 0`;
+      const ord = kind === "elo" ? `(stats->>'elo')::int` : kind === "surv" ? `COALESCE((stats->>'surv')::int,0)` : kind === "dojo" ? `COALESCE((stats->>'dojo')::int,0)` : `(stats->>'pts')::int`;
       const r = await q(`SELECT ${COLS} FROM boc_users WHERE NOT banned AND ${where} ORDER BY ${ord} DESC, id ASC LIMIT $1`, [n]); return r.rows.map(row);
     },
     async getSetting(k) { const r = await q(`SELECT v FROM boc_settings WHERE k=$1`, [k]); return r.rows[0] ? r.rows[0].v : null; },
@@ -167,6 +167,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     return out.sort((x, y) => (y.stats && y.stats.pts || 0) - (x.stats && x.stats.pts || 0)); }
   const lastSurv = new Map();     // uid -> timestamp (survie)
   const lastArc = new Map();
+  const lastDojo = new Map();     // uid -> timestamp (dojo)
   const lastStory = new Map();      // uid -> timestamp (arcade)
   const tries = new Map();        // ip -> { n, t }
 
@@ -269,6 +270,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     bosshit: { t: 1, c: s => (s.bossN || 0) >= 1 }, bosskill: { t: 2, c: s => (s.bossKill || 0) >= 1 },
     weekpod: { t: 2, c: s => (s.wkPod || 0) >= 1 }, weekwin: { t: 3, c: s => (s.wkWin || 0) >= 1 },
     daily1: { t: 1, c: s => (s.dailyN || 0) >= 1 }, daily10: { t: 2, c: s => (s.dailyN || 0) >= 10 }, daily30: { t: 3, c: s => (s.dailyN || 0) >= 30 },
+    dojokyu: { t: 1, c: s => (s.dojoBest || 0) >= 6 }, dojodan: { t: 2, c: s => (s.dojoBest || 0) >= 11 }, dojomaster: { t: 3, c: s => (s.dojoBest || 0) >= 20 },
     duo: { t: 1, f: 1 }, quintet: { t: 1, f: 1 }, clanwin: { t: 1, f: 1 }, cheap: { t: 2, f: 1 }
   };
   // débloque ce qui est atteint ; renvoie les nouveaux succès (les points sont ajoutés aux stats)
@@ -545,6 +547,22 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       await store.saveStats(u.id, st);
       return [200, { user: pubUser(u), gain, ach }];
     },
+    // dojo : combats sans fin contre des disciples ; 4 points par grade (0 novice … 20 Maître), +1/+2/+3 selon l'adversaire, -1 à la défaite
+    "POST /api/dojo": async (req, body) => {
+      const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      const tier = Math.floor(+body.tier), won = !!body.win, st = u.stats;
+      if (!(tier >= 0 && tier <= 2)) return [400, { error: "bad" }];
+      const now = Date.now(); if (now - (lastDojo.get(u.id) || 0) < 20000) return [429, { error: "slow" }];
+      lastDojo.set(u.id, now);
+      const rank = p => Math.max(0, Math.min(20, Math.floor(p / 4))), before = st.dojo || 0;
+      const gain = won ? [6, 10, 15][tier] + Math.floor(rank(before) / 2) : 1;
+      st.dojo = Math.max(0, before + (won ? tier + 1 : -1)); st.dojoBest = Math.max(st.dojoBest || 0, rank(st.dojo));
+      if (won) st.dojoW = (st.dojoW || 0) + 1;
+      st.pts += gain; bumpFav(st, body.team);
+      const ach = achCheck(st, won ? body.feats : []);
+      await store.saveStats(u.id, st);
+      return [200, { user: pubUser(u), gain, ach }];
+    },
     // survie : une vague à la fois, dans l'ordre (la vague 1 lance une nouvelle série)
     "POST /api/surv": async (req, body) => {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
@@ -586,7 +604,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     // présence : chaque client connecté pingue toutes les 30 s
     "POST /api/ping": async (req, body) => {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
-      const where = ["menu", "ai", "solo", "surv", "arc", "story", "vs", "queue", "tour"].includes(body.where) ? body.where : "menu";
+      const where = ["menu", "ai", "solo", "surv", "dojo", "arc", "story", "vs", "queue", "tour"].includes(body.where) ? body.where : "menu";
       presence.set(u.id, { ...pubUser(u), where, t: Date.now() });
       return [200, { online: onlineList() }];
     },
@@ -683,7 +701,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
         weekly: { week: k, ends: weekKey(1), foe: w.foe || [], n: r.length, top: r.slice(0, 10).map(e => ({ name: e.name, cost: e.cost, rounds: e.rounds, lost: e.lost, team: e.team })), prev, prize: WK_PRIZE } }];
     },
     "GET /api/top": async (req, body, ip, url) => {
-      const k = url.searchParams.get("kind"), kind = k === "pts" || k === "surv" ? k : "elo";
+      const k = url.searchParams.get("kind"), kind = k === "pts" || k === "surv" || k === "dojo" ? k : "elo";
       return [200, { kind, list: (await store.top(kind, 50)).map(pubUser) }];
     }
   };

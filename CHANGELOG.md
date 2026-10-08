@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.98.0 — 2026-10-09
+
+- Nouveau mode : le Dojo (idée de maxGfive). Trois disciples te défient à chaque fois : facile, moyen ou costaud. Plus l'adversaire est gradé, plus le combat est dur et plus il rapporte
+- Ton grade monte à chaque victoire, de novice à Maître en passant par les kyu et les dan, et redescend un peu à chaque défaite
+- Classement du Dojo, grade affiché sur le profil et 3 nouveaux succès
+
 ## v0.97.16 — 2026-10-08
 
 - Équilibrage : Shura sans nom coûte maintenant 2 points d'équipe au lieu de 1 (idée de maxGfive)

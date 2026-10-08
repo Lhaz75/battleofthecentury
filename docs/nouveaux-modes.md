@@ -1,6 +1,6 @@
 # Battle of the Century — nouveaux modes (notes du 8 oct.)
 
-Idées sorties du Discord (maxGfive, Jérôme R.) et discutées avec David. Rien n'est codé pour l'instant.
+Idées sorties du Discord (maxGfive, Jérôme R.) et discutées avec David. Le Dojo est codé (v0.98.0), le reste non.
 
 ## Ordre prévu
 1. **Dojo** (petit chantier, PvE sans fin tout de suite)
@@ -15,7 +15,11 @@ David prépare les icônes d'objets en parallèle (voir « Objets » plus bas).
 - Plus l'adversaire est gradé, plus il est dur et plus il rapporte de ryō (branché sur le magasin de persos existant).
 - Victoire : ryō + le grade monte. Défaite : le grade baisse un peu, on relance quand on veut.
 - Grades : novice → 10e kyu … 1er kyu → 1er dan … 9e dan → Maître. Affiché sur le profil + classement.
-- Réutilise : combats IA, ryō, magasin. À faire : écran de choix des 3 adversaires, système de grades, classement.
+- **Fait en v0.98.0** (ouvert à tous les joueurs). Réglages, tous à ajuster après les retours :
+  - 4 points par grade, 21 grades (0 novice … 20 Maître ; au-delà les points continuent pour le classement). Victoire +1 / +2 / +3 points (facile / moyen / costaud), défaite ou abandon −1.
+  - L'adversaire facile a 2 grades de moins que toi, le costaud 2 de plus. Son grade règle le budget d'équipe (5 à 10), le nombre de persos, les réactions de l'IA, ses PV (×0,78 à ×1,3) et sa rage de départ à haut grade (`dojoTeam`, `dojoPrep` dans index.html).
+  - Récompense : 6 / 10 / 15 pts (donc ryō) + la moitié de ton grade ; 1 pt en cas de défaite (`/api/dojo` dans accounts.js, 20 s mini entre deux combats).
+  - Les disciples s'appellent « Disciple de <premier perso de l'équipe> ». Stats : `dojo` (points), `dojoBest`, `dojoW`. Onglet Dojo dans le classement, grade sur le profil, succès dojokyu / dojodan / dojomaster.
 
 ## 2. Survie v2 (idée de Jérôme R.)
 Évolution du mode Survie existant (SURV dans index.html : vagues, PV partiellement rendus, repos tous les SURV_REST, KO ranimés à SURV_REVIVE).

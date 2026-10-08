@@ -1444,7 +1444,22 @@ body[data-terr="medicine"]{--terrbg:url("assets/terrain-medicine.webp")}body[dat
 .screen.sel{overflow-x:hidden}
 
 /* v0.59 : accueil (B sur PC, affiches sur mobile) */
-:root{--hm-ai:#c0392b;--hm-online:#2f6fd6;--hm-tour:#d4a017;--hm-surv:#2e8b57;--hm-arc:#8e44ad;--hm-story:#7a3cff;--hm-tuto:#5f8a9e}
+:root{--hm-ai:#c0392b;--hm-online:#2f6fd6;--hm-tour:#d4a017;--hm-surv:#2e8b57;--hm-arc:#8e44ad;--hm-dojo:#c96a1e;--hm-story:#7a3cff;--hm-tuto:#5f8a9e}
+.djhead{display:flex;flex-direction:column;align-items:center;gap:6px;margin:2px 0 8px}
+.djg{font:700 34px/1 var(--f-display);color:#ffd27a;text-transform:uppercase;letter-spacing:.04em;text-shadow:0 2px 6px #000}
+.djbar{display:flex;gap:5px}
+.djbar i{width:34px;height:7px;border-radius:4px;background:#2c1410;border:1px solid rgba(240,178,74,.35)}
+.djbar i.on{background:linear-gradient(90deg,#c98a2e,#ffd27a)}
+.djgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;width:100%;max-width:900px;margin:6px auto 0}
+.djc{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 10px 14px;border-radius:14px;background:rgba(20,13,10,.8);border:1px solid rgba(240,178,74,.22);border-top:4px solid var(--dc)}
+.djc.t0{--dc:#3fae72}.djc.t1{--dc:#e0aa1c}.djc.t2{--dc:#e0503c}
+.djc .djk{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dc);font-weight:700}
+.djc h3{margin:0;font:700 17px/1.15 Oswald,var(--f-display);color:#f3e7d3;text-align:center}
+.djc .djr{font-size:13px;color:#e8b04a}
+.djc .svteam{gap:6px;margin:4px 0}.djc .svf{width:46px}.djc .svf img{width:42px;height:42px}
+.djc .djrew{font-size:13px;color:var(--sand);text-align:center}
+.djc .btn{margin-top:auto}
+@media (max-width:640px){.djgrid{grid-template-columns:1fr;max-width:420px}.djg{font-size:28px}}
 .hm{display:flex;flex-direction:column;gap:16px;margin-top:6px}
 .hmL{display:flex;flex-direction:column;gap:14px;min-width:0}
 .hmlist{display:flex;gap:10px}
@@ -4480,7 +4495,7 @@ function reactHTML(R){
       <button class="rbtn take" data-react="none"><b>${L("take")}</b><span>${L("takeSub")}</span></button></div>
   </div>`;
 }
-function renderEnd(win){ if(S&&S.dead) return; if(S && !S.annEnd){ S.annEnd=true; SFX.ann(win?"win":"lose",{local:true}); } rpCapture(true); if(SURV.on && MODE==="solo" && S && S.surv) return survAfter(win); if(ARC.on && MODE==="solo" && S && S.arc) return arcAfter(win); if(MODE==="solo" && S && S.weekly) return weeklyAfter(win); if(MODE==="solo" && S && S.boss) return bossAfter(win); if(MODE==="solo" && S && S.story && STORY.on) return storyAfter(win); MUSIC.want("menu");
+function renderEnd(win){ if(S&&S.dead) return; if(S && !S.annEnd){ S.annEnd=true; SFX.ann(win?"win":"lose",{local:true}); } rpCapture(true); if(SURV.on && MODE==="solo" && S && S.surv) return survAfter(win); if(ARC.on && MODE==="solo" && S && S.arc) return arcAfter(win); if(DOJO.on && MODE==="solo" && S && S.dojo) return dojoAfter(win); if(MODE==="solo" && S && S.weekly) return weeklyAfter(win); if(MODE==="solo" && S && S.boss) return bossAfter(win); if(MODE==="solo" && S && S.story && STORY.on) return storyAfter(win); MUSIC.want("menu");
   SFX.play(win?"win":"lose");
   $("#app").innerHTML=`<div class="screen" style="overflow-y:auto"><div class="center">
     <div class="kicker">${win?L("foeDown"):L("meDown")}</div>
@@ -4558,7 +4573,7 @@ function renderAccount(sel=[], tab="login"){
       ${STATUS.maint.forced?`<p class="note">${L("maintForced")}</p>`:""}
       <div class="row"><button class="btn sm" id="msave">${L("save")}</button><span class="err" id="merr"></span></div>
       <div class="row"><button class="btn sm" id="tousers">${L("admUsers")}</button><button class="btn sm" id="tofst">${L("fsTitle")}</button><button class="btn sm" id="tofaces">${L("faTitle")}</button><button class="btn sm" id="toframes">${L("frTitle")}</button></div></details>`:""}
-    ${pfSec("stats",L("pfStats"),`<div class="stgrid">${cell("st_elo",st.elo??1000,rk.elo?"#"+rk.elo:"")}${cell("st_pts",st.pts||0,rk.pts?"#"+rk.pts:"")}${cell("st_aiW",st.aiW||0)}${cell("st_aiL",st.aiL||0)}${cell("st_vsW",st.vsW||0)}${cell("st_vsL",st.vsL||0)}${cell("st_streak",st.streak||0)}${cell("st_best",st.best||0)}${cell("st_tW",st.tW||0)}${cell("st_surv",st.surv||0)}${cell("st_arc",(st.arc||0)+"/"+ARC_N)}</div>
+    ${pfSec("stats",L("pfStats"),`<div class="stgrid">${cell("st_elo",st.elo??1000,rk.elo?"#"+rk.elo:"")}${cell("st_pts",st.pts||0,rk.pts?"#"+rk.pts:"")}${cell("st_aiW",st.aiW||0)}${cell("st_aiL",st.aiL||0)}${cell("st_vsW",st.vsW||0)}${cell("st_vsL",st.vsL||0)}${cell("st_streak",st.streak||0)}${cell("st_best",st.best||0)}${cell("st_tW",st.tW||0)}${cell("st_surv",st.surv||0)}${cell("st_arc",(st.arc||0)+"/"+ARC_N)}${cell("st_dojo",esc(dojoGrade(dojoRank(st.dojo))))}</div>
       ${favs.length?`<h3 class="pfh">${L("favs")}</h3><div class="favs">${favs.map(([id,n])=>`<div class="fav cl-${CLAN[id]}"><img src="${FACE(id)}" alt=""><b>${esc(nm(id))}</b><span>×${n}</span></div>`).join("")}</div>`:""}`)}
     ${pfSec("ach",`${L("achTitle")} <small class="achn">${ACH_LIST.filter(a=>(st.ach||{})[a[0]]).length}/${ACH_LIST.length}</small>`,achHTML(st))}</div><div class="pfcolL">
     <div class="pfcard"><div class="pfhead"><label class="avpick" title="${L("changeAv")}">${avatarHTML(u,"uavbig")}<input type="file" id="avfile" accept="image/png,image/jpeg,image/webp" hidden><span class="avedit">${L("changeAv")}</span></label>
@@ -4606,8 +4621,8 @@ function squareAvatar(file){
     im.onerror=()=>{ URL.revokeObjectURL(url); ko(); }; im.src=url; });
 }
 async function renderHof(sel=[], kind="elo"){
-  const head=`<div class="hoftabs" role="tablist">${["elo","pts","surv"].map(k=>`<button class="htab ${k===kind?"on":""}" role="tab" aria-selected="${k===kind}" data-k="${k}">${L(k==="elo"?"hofElo":k==="surv"?"hofSurv":"hofPts")}</button>`).join("")}</div>`;
-  pageShell(L("hofBtn"),`${head}<div id="hoflist" class="hoflist"><p class="note">${L("connecting")}</p></div><p class="note">${L("hofHow")} ${L("survHow")} ${L("arcHow")} ${L("stHow")}</p>`,sel,"hof");
+  const head=`<div class="hoftabs" role="tablist">${["elo","pts","surv","dojo"].map(k=>`<button class="htab ${k===kind?"on":""}" role="tab" aria-selected="${k===kind}" data-k="${k}">${L(k==="elo"?"hofElo":k==="surv"?"hofSurv":k==="dojo"?"hofDojo":"hofPts")}</button>`).join("")}</div>`;
+  pageShell(L("hofBtn"),`${head}<div id="hoflist" class="hoflist"><p class="note">${L("connecting")}</p></div><p class="note">${L("hofHow")} ${L("survHow")} ${L("dojoHow")} ${L("arcHow")} ${L("stHow")}</p>`,sel,"hof");
   document.querySelectorAll(".htab").forEach(b=>b.onclick=()=>{ SFX.play("click"); renderHof(sel,b.dataset.k); });
   bindLang(()=>renderHof(sel,kind));
   let r; try{ r=await api("GET","/api/top?kind="+kind); }catch(e){ r={ok:false}; }
@@ -4616,7 +4631,7 @@ async function renderHof(sel=[], kind="elo"){
   if(!r.list.length){ box.innerHTML=`<p class="note">${L("hofEmpty")}</p>`; return; }
   box.innerHTML=`<ol class="hof">${r.list.map((u,i)=>{ const st=u.stats||{}, fav=Object.entries(st.fav||{}).filter(([id])=>FIGHTERS[id]).sort((a,b)=>b[1]-a[1])[0];
     const wl=kind==="elo"?`${st.vsW||0}-${st.vsL||0}`:`${(st.aiW||0)+(st.vsW||0)}-${(st.aiL||0)+(st.vsL||0)}`;
-    return `<li class="${ACC.user&&ACC.user.id===u.id?"me":""} ${i<3?"p"+(i+1):""}"><span class="hr">${i+1}</span>${avatarHTML(u)}<span class="hn">${lvlBadge(st.pts)}${esc(u.name)}${st.tW?`<span class="tw" title="${L("st_tW")}">🏆${st.tW>1?st.tW:""}</span>`:""}${fav?`<img class="hf" src="${FACE(fav[0])}" alt="" title="${esc(nm(fav[0]))}">`:""}</span><span class="hs">${kind==="elo"?(st.elo??1000):kind==="surv"?(st.surv||0):(st.pts||0)}<small>${L(kind==="elo"?"eloShort":kind==="surv"?"survShort":"ptsShort")}</small></span><span class="hw">${wl}<small>${L("wlShort")}</small></span><span class="hb">${st.best||0}<small>${L("bestShort")}</small></span></li>`; }).join("")}</ol>`;
+    return `<li class="${ACC.user&&ACC.user.id===u.id?"me":""} ${i<3?"p"+(i+1):""}"><span class="hr">${i+1}</span>${avatarHTML(u)}<span class="hn">${lvlBadge(st.pts)}${esc(u.name)}${st.tW?`<span class="tw" title="${L("st_tW")}">🏆${st.tW>1?st.tW:""}</span>`:""}${fav?`<img class="hf" src="${FACE(fav[0])}" alt="" title="${esc(nm(fav[0]))}">`:""}</span><span class="hs">${kind==="dojo"?esc(dojoGrade(dojoRank(st.dojo))):kind==="elo"?(st.elo??1000):kind==="surv"?(st.surv||0):(st.pts||0)}<small>${kind==="dojo"?(st.dojo||0)+" "+L("ptsShort"):L(kind==="elo"?"eloShort":kind==="surv"?"survShort":"ptsShort")}</small></span><span class="hw">${wl}<small>${L("wlShort")}</small></span><span class="hb">${st.best||0}<small>${L("bestShort")}</small></span></li>`; }).join("")}</ol>`;
 }
 // niveaux de l'IA (combat simple) : réactions, PV et rage de départ adverses, multiplicateur de points
 const AI_LV=[{k:"easy",ai:.45,hp:.85,rage:0,win:5,lose:1},{k:"norm",ai:null,hp:1,rage:0,win:10,lose:2},{k:"hard",ai:null,hp:1.15,rage:2,win:15,lose:3},{k:"hokuto",ai:null,hp:1.3,rage:4,win:20,lose:4}];
@@ -4821,6 +4836,7 @@ Object.assign(UI.fr,{"stBtn": "Histoire", "stTitle": "Mode histoire", "stArc1": 
 Object.assign(UI.en,{"stBtn": "Story", "stTitle": "Story mode", "stArc1": "Arc 1: KING", "stLead": "Follow Kenshiro through the ravaged world, chapter after chapter. Each chapter has 3 stars to earn.", "stLocked": "Clear the previous chapter", "stPlay": "Fight", "stNext": "Next chapter", "stBackList": "Chapters", "stRetry": "Retry", "stObj": "Objectives", "stUnlock": "Unlocks", "stUnlockNote": "(from version 1.0)", "stYou": "You play", "stFoe": "Opponent", "stWave": "Wave {a}/{b}", "stWaveNext": "Next wave", "stWin": "Chapter cleared!", "stLose": "Defeat…",  "stJoined": "Unlocked at 1.0: {who}", "stFat": "His Lights do nothing to him.", "stTrap": "An Ambush trap is already set against you.", "stArcDone": "Arc complete! More coming soon.", "stHow": "Story: 20 pts the first time a chapter is cleared, +10 pts per new star.", "w_story": "Story mode", "ach_story1": "The legend begins", "achd_story1": "Clear arc 1 of story mode", "ach_story27": "Seven stars… and more", "achd_story27": "Earn all 27 stars of arc 1", "st_t_king-0": "Prologue: the seven scars", "st_i_king-0": "One year before it all. Shin, of Nanto Koshūken, has sworn to tear Yuria away from Kenshiro. Tonight he takes the woman, and leaves him seven holes in his chest to remember.", "st_o_king-0": "\"I am Shin. Remember that name.\" Kenshiro lies in the dust, branded with seven scars shaped like the Big Dipper. He will survive. And he will come back.", "st_t_king-1": "The besieged village", "st_i_king-1": "A man collapses from hunger at the edge of a village. In a cell he meets little Lin and a thieving kid, Bat. Outside, Zeed's gang rides in to loot everything.", "st_o_king-1": "The raiders don't understand what's happening. \"You are already dead.\" Their bodies burst one after another. Zeed will want revenge.", "st_t_king-2": "Zeed", "st_i_king-2": "Zeed and his biker horde surround the village. He demands the water and the women. Kenshiro walks out alone to meet them, Lin and Bat hiding behind him.", "st_o_king-2": "Zeed wanted to strike first. His skull didn't hold. Lin finds her voice again, and Bat decides to follow this strange man. The journey begins.", "st_t_king-3": "Spade, the spearman", "st_i_king-3": "In the ruins of a city, men wear a badge: a spade. They are KING's soldiers. Their leader, Spade, amuses himself shooting at fugitives.", "st_o_king-3": "Spade swallowed his own bolt. Before dying, a name: KING. Kenshiro clenches his fist. The man with seven scars already knows who hides behind it.", "st_t_king-4": "Diamond and the captive village", "st_i_king-4": "A whole village is enslaved by Diamond, another of KING's suits. His guards first, then the master himself. Two fights in a row, no rest.", "st_o_king-4": "The last diamond has shattered. The villagers raise their heads. There is talk of a city to the south, Southern Cross, where KING keeps a woman prisoner.", "st_t_king-5": "Club", "st_i_king-5": "Club has prepared the ground: raiders hide everywhere, ready to fall on anyone who switches fighters. Fox, the sly one, prowls with him.", "st_o_king-5": "Club thought he had Kenshiro caught in his web. The threads snapped. Fox tried to flee into the desert. He didn't get far.", "st_t_king-6": "Heart, the colossus", "st_i_king-6": "Heart, KING's heart, is a mountain of fat. Light blows sink into his flesh without hurting him at all. And when he sees his own blood, he goes mad.", "st_o_king-6": "Fat protects from everything… except pressure points. Heart swells, swells again, and bursts. Southern Cross isn't far now.", "st_t_king-7": "Joker, the messenger", "st_i_king-7": "Joker, Shin's right-hand man, plays with his razor cards and vanishes before anyone can touch him. He has come to see what the man with seven scars can do.", "st_o_king-7": "\"I'd rather die than be your messenger.\" Joker won't go warn Shin. Kenshiro will do it himself.", "st_t_king-8": "Southern Cross: Shin", "st_i_king-8": "At the top of his city, Shin waits. He built it all for her, for Yuria. A year after the night of the seven scars, the two men face each other again.", "st_o_king-8": "Shin has lost. He won't let Kenshiro take his life: he throws himself from the top of his palace. Yuria was already gone. Kenshiro's journey has only just begun…", "sto_win": "Win the fight", "sto_rounds": "Win in {n} turns or fewer", "sto_hits": "Land {n} hits on the opponent", "sto_lost": "Lose {n} HP or fewer", "sto_lastUlt": "Finish with an ultimate", "sto_keep": "Keep more than {n}% of your HP", "sto_noRelay": "Make no tag", "sto_noTrap": "Trigger no enemy trap", "sto_noJoker": "Never let Joker draw", "sto_firstKo": "KO {who} first", "sto_killLvl": "Finish {who} with {lvl}", "stLvl2": "a Heavy", "stLvlU": "an ultimate"});
 Object.assign(UI.it,{"stBtn": "Storia", "stTitle": "Modalità storia", "stArc1": "Arco 1: KING", "stLead": "Segui Kenshiro nel mondo devastato, capitolo dopo capitolo. Ogni capitolo ha 3 stelle da guadagnare.", "stLocked": "Completa il capitolo precedente", "stPlay": "Combatti", "stNext": "Capitolo successivo", "stBackList": "Capitoli", "stRetry": "Riprova", "stObj": "Obiettivi", "stUnlock": "Sblocca", "stUnlockNote": "(dalla versione 1.0)", "stYou": "Giochi", "stFoe": "Avversario", "stWave": "Ondata {a}/{b}", "stWaveNext": "Ondata successiva", "stWin": "Capitolo completato!", "stLose": "Sconfitta…",  "stJoined": "Sbloccato alla 1.0: {who}", "stFat": "I suoi Leggeri non gli fanno nulla.", "stTrap": "Una trappola Imboscata è già piazzata contro di te.", "stArcDone": "Arco completato! Il seguito arriva presto.", "stHow": "Storia: 20 pt la prima volta che si completa un capitolo, +10 pt per ogni nuova stella.", "w_story": "Modalità storia", "ach_story1": "La leggenda comincia", "achd_story1": "Completa l'arco 1 della modalità storia", "ach_story27": "Sette stelle… e oltre", "achd_story27": "Ottieni le 27 stelle dell'arco 1", "st_t_king-0": "Prologo: le sette cicatrici", "st_i_king-0": "Un anno prima di tutto. Shin, del Nanto Koshūken, ha giurato di strappare Yuria a Kenshiro. Stanotte si prende la donna, e gli lascia sette buchi nel petto come ricordo.", "st_o_king-0": "«Io sono Shin. Ricorda questo nome.» Kenshiro giace nella polvere, marchiato da sette cicatrici a forma di Orsa Maggiore. Sopravvivrà. E tornerà.", "st_t_king-1": "Il villaggio assediato", "st_i_king-1": "Un uomo crolla per la fame all'ingresso di un villaggio. In una cella incontra la piccola Lin e un ragazzino ladro, Bat. Fuori arriva la banda di Zeed per saccheggiare tutto.", "st_o_king-1": "I predoni non capiscono cosa succede. «Sei già morto.» I loro corpi esplodono uno dopo l'altro. Zeed vorrà vendetta.", "st_t_king-2": "Zeed", "st_i_king-2": "Zeed e la sua orda in moto circondano il villaggio. Pretende l'acqua e le donne. Kenshiro esce da solo ad affrontarli, con Lin e Bat nascosti dietro di lui.", "st_o_king-2": "Zeed voleva colpire per primo. Il suo cranio non ha retto. Lin ritrova la voce, e Bat decide di seguire quello strano uomo. Il viaggio comincia.", "st_t_king-3": "Spade, il lanciere", "st_i_king-3": "Tra le rovine di una città, degli uomini portano un'insegna: una picca. Sono i soldati di KING. Il loro capo, Spade, si diverte a tirare sui fuggiaschi.", "st_o_king-3": "Spade ha ingoiato il suo stesso dardo. Prima di morire, un nome: KING. Kenshiro stringe il pugno. L'uomo dalle sette cicatrici sa già chi si nasconde dietro.", "st_t_king-4": "Diamond e il villaggio prigioniero", "st_i_king-4": "Un intero villaggio è ridotto in schiavitù da Diamond, un altro seme di KING. Prima le sue guardie, poi il padrone. Due combattimenti di fila, senza riposo.", "st_o_king-4": "L'ultimo diamante si è spezzato. Gli abitanti rialzano la testa. Si parla di una città a sud, Southern Cross, dove KING tiene prigioniera una donna.", "st_t_king-5": "Club", "st_i_king-5": "Club ha preparato il terreno: predoni nascosti ovunque, pronti a piombare su chiunque cambi combattente. Fox, la volpe, si aggira con lui.", "st_o_king-5": "Club credeva di avere Kenshiro nella sua rete. I fili si sono spezzati. Fox ha cercato di fuggire nel deserto. Non è andato lontano.", "st_t_king-6": "Heart, il colosso", "st_i_king-6": "Heart, il cuore di KING, è una montagna di grasso. I colpi leggeri affondano nella sua carne senza fargli alcun male. E quando vede il suo sangue, impazzisce.", "st_o_king-6": "Il grasso protegge da tutto… tranne che dai punti vitali. Heart si gonfia, si gonfia ancora, ed esplode. Southern Cross non è più lontana.", "st_t_king-7": "Joker, il messaggero", "st_i_king-7": "Joker, l'uomo di fiducia di Shin, gioca con le sue carte taglienti e sparisce prima che lo si possa toccare. È venuto a vedere di cosa è capace l'uomo dalle sette cicatrici.", "st_o_king-7": "«Preferisco morire che farti da messaggero.» Joker non andrà ad avvertire Shin. Ci penserà Kenshiro stesso.", "st_t_king-8": "Southern Cross: Shin", "st_i_king-8": "In cima alla sua città, Shin aspetta. Ha costruito tutto per lei, per Yuria. Un anno dopo la notte delle sette cicatrici, i due uomini si affrontano di nuovo.", "st_o_king-8": "Shin ha perso. Non lascerà che Kenshiro gli dia la morte: si getta dalla cima del suo palazzo. Yuria non c'era più. Il viaggio di Kenshiro è appena cominciato…", "sto_win": "Vinci il combattimento", "sto_rounds": "Vinci in {n} turni o meno", "sto_hits": "Colpisci l'avversario {n} volte", "sto_lost": "Perdi al massimo {n} PV", "sto_lastUlt": "Finisci con una mossa finale", "sto_keep": "Conserva più del {n}% dei tuoi PV", "sto_noRelay": "Non fare nessun cambio", "sto_noTrap": "Non far scattare nessuna trappola nemica", "sto_noJoker": "Non lasciare mai pescare Joker", "sto_firstKo": "Metti KO {who} per primo", "sto_killLvl": "Finisci {who} con {lvl}", "stLvl2": "un Pesante", "stLvlU": "una mossa finale"});
 const CHANGELOG=[
+ {v:"0.98.0",d:"2026-10-09",fr:["Nouveau mode : le Dojo (idée de maxGfive). Trois disciples te défient à chaque fois : facile, moyen ou costaud. Plus l'adversaire est gradé, plus le combat est dur et plus il rapporte","Ton grade monte à chaque victoire, de novice à Maître en passant par les kyu et les dan, et redescend un peu à chaque défaite","Classement du Dojo, grade affiché sur le profil et 3 nouveaux succès"],en:["New mode: the Dojo (maxGfive's idea). Three disciples challenge you each time: easy, medium or tough. The higher the opponent's rank, the harder the fight and the bigger the reward","Your rank rises with every win, from novice to Master through the kyu and dan ranks, and drops a little with every defeat","Dojo leaderboard, rank shown on your profile and 3 new achievements"],it:["Nuova modalità: il Dojo (idea di maxGfive). Ogni volta ti sfidano tre discepoli: facile, medio o tosto. Più alto è il grado dell'avversario, più duro è lo scontro e più rende","Il tuo grado sale a ogni vittoria, da novizio a Maestro passando per kyu e dan, e scende un po' a ogni sconfitta","Classifica del Dojo, grado mostrato nel profilo e 3 nuovi obiettivi"],ja:["新モード：道場（maxGfiveの案）。毎回三人の弟子が挑んでくる：易しい・普通・手強い。相手の段位が高いほど手強く、報酬も大きい","勝つたびに段位が上がり（入門から級・段を経て師範へ）、負けると少し下がる","道場ランキング、プロフィールに段位表示、新しい実績3つ"]},
  {v:"0.97.16",d:"2026-10-08",fr:["Équilibrage : Shura sans nom coûte maintenant 2 points d'équipe au lieu de 1 (idée de maxGfive)"],en:["Balance: Nameless Shura now costs 2 team points instead of 1 (maxGfive's idea)"],it:["Bilanciamento: Shura senza nome ora costa 2 punti squadra invece di 1 (idea di maxGfive)"],ja:["バランス調整：名無しの修羅のチームコストを1から2に（maxGfiveの案）"]},
  {v:"0.97.15",d:"2026-10-08",fr:["Équilibrage : Senju Maha (Shura sans nom) passe de 8 à 6 dégâts. Pour 1 point d'équipe, il pouvait mettre KO un combattant presque plein en un seul tour"],en:["Balance: Senju Maha (Nameless Shura) goes from 8 to 6 damage. For 1 team point, he could KO an almost full-health fighter in a single turn"],it:["Bilanciamento: Senju Maha (Shura senza nome) passa da 8 a 6 danni. Per 1 punto squadra poteva mettere KO un combattente quasi integro in un solo turno"],ja:["バランス調整：千手魔破（名無しの修羅）のダメージを8から6に。チームコスト1でほぼ満タンの相手を1ターンで倒せていました"]},
  {v:"0.97.14",d:"2026-10-08",fr:["Journal du combat : les dégâts du coup restent affichés quand un effet se déclenche en plus (KO de Shura sans nom, œil de Shachi, ruse de Fox, survie de Jackal et de Ken-Oh)"],en:["Battle log: the hit's damage stays shown when an extra effect triggers (Nameless Shura's KO, Shachi's eye, Fox's trick)"],it:["Registro: i danni del colpo restano visibili quando scatta un effetto in più (KO di Shura senza nome, occhio di Shachi, inganno di Fox)"],ja:["バトルログ：追加効果（名無しの修羅のKO、シャチの眼、フォックスの策）が発動しても攻撃のダメージが表示されるように"]},
@@ -5349,7 +5365,7 @@ function drawFStats(){
 }
 
 /* ---------- succès ---------- */
-const ACH_LIST=[["first",1],["ai10",1],["ai50",2],["ai200",3],["vs1",1],["vs10",2],["vs50",3],["elo1200",2],["elo1400",3],["streak5",2],["streak10",3],["surv5",1],["surv10",2],["surv20",3],["tour1",2],["tour5",3],["roster15",1],["roster30",2],["flawless",2],["comeback",2],["ultko",1],["combo4",1],["combo5",2],["duo",1],["quintet",1],["clanwin",1],["cheap",2],["daily1",1],["daily10",2],["daily30",3],["story1",2],["story27",3],["storylegend",3],["story2a",2],["story2b",2],["story2s",3],["weekpod",2],["weekwin",3],["arc1",2],["arc5",3],["arcsecret",2],["bosshit",1],["bosskill",2]];
+const ACH_LIST=[["first",1],["ai10",1],["ai50",2],["ai200",3],["vs1",1],["vs10",2],["vs50",3],["elo1200",2],["elo1400",3],["streak5",2],["streak10",3],["surv5",1],["surv10",2],["surv20",3],["tour1",2],["tour5",3],["roster15",1],["roster30",2],["flawless",2],["comeback",2],["ultko",1],["combo4",1],["combo5",2],["duo",1],["quintet",1],["clanwin",1],["cheap",2],["daily1",1],["daily10",2],["daily30",3],["story1",2],["story27",3],["storylegend",3],["story2a",2],["story2b",2],["story2s",3],["weekpod",2],["weekwin",3],["arc1",2],["arc5",3],["arcsecret",2],["bosshit",1],["bosskill",2],["dojokyu",1],["dojodan",2],["dojomaster",3]];
 const ACH_PROG={arc5:s=>[s.arcClears||0,5],ai10:s=>[s.aiW||0,10],ai50:s=>[s.aiW||0,50],ai200:s=>[s.aiW||0,200],vs10:s=>[s.vsW||0,10],vs50:s=>[s.vsW||0,50],elo1200:s=>[s.elo||1000,1200],elo1400:s=>[s.elo||1000,1400],streak5:s=>[s.best||0,5],streak10:s=>[s.best||0,10],surv5:s=>[s.surv||0,5],surv10:s=>[s.surv||0,10],surv20:s=>[s.surv||0,20],tour5:s=>[s.tW||0,5],daily10:s=>[s.dailyN||0,10],daily30:s=>[s.dailyN||0,30],roster15:s=>[Object.keys(s.fav||{}).length,15],roster30:s=>[Object.keys(s.fav||{}).length,30]};
 const ACH_PTS={1:10,2:25,3:50};
 function featsFor(win){
@@ -5520,7 +5536,7 @@ Object.assign(UI.ja,{hmd_tuto:"ガイド付きの戦いで基本を学ぶ。",mo
 /* ---------- joueurs en ligne ---------- */
 const ONLINE={list:[], timer:0, last:0};
 function presWhere(){
-  if(S && !S.over && !S.dead) return MODE==="vs"?(TOUR.code?"tour":"vs"):SURV.on?"surv":ARC.on?"arc":(MODE==="solo" && !S.daily && !S.weekly && !S.boss && !S.story && !RP.on && !chDnd())?"ai":S.story?"story":"solo";
+  if(S && !S.over && !S.dead) return MODE==="vs"?(TOUR.code?"tour":"vs"):SURV.on?"surv":DOJO.on?"dojo":ARC.on?"arc":(MODE==="solo" && !S.daily && !S.weekly && !S.boss && !S.story && !RP.on && !chDnd())?"ai":S.story?"story":"solo";
   if(QUICK_MM.t) return "queue"; if(TOUR.code) return "tour"; return "menu";
 }
 async function presPing(){
@@ -6143,6 +6159,103 @@ function renderSurvWave(){
   bindLang(renderSurvWave);
 }
 
+/* ---------- dojo : combats sans fin contre des disciples, le grade monte et descend (idée de maxGfive) ---------- */
+const DOJO={on:false};
+const DOJO_STEP=4, DOJO_TOP=20;   // 4 points par grade : 0 novice, 1-10 = 10e à 1er kyu, 11-19 = 1er à 9e dan, 20 = Maître
+const DOJO_T=[{k:"e",d:-2,pts:6},{k:"m",d:0,pts:10},{k:"h",d:2,pts:15}];   // écart de grade de l'adversaire et points de base (à garder en phase avec /api/dojo)
+const dojoRank=p=>Math.max(0,Math.min(DOJO_TOP,Math.floor((+p||0)/DOJO_STEP)));
+function dojoGrade(r){ return r<=0?L("djNovice"):r>=DOJO_TOP?L("djMaster"):r<=10?L("djKyu",11-r):L("djDan",r-10); }
+const dojoPts=()=>ACC.user&&ACC.user.stats?(ACC.user.stats.dojo||0):(DOJO.gp||0);
+function dojoTeam(d,mine,used){
+  const b=Math.max(5,Math.min(BUDGET,6+Math.floor(d/3))), mx=Math.max(TEAM_MIN,Math.min(TEAM_MAX,2+Math.floor((d+2)/4)));
+  let pool=ROSTER().filter(f=>!mine.includes(f)&&!used.includes(f)); if(pool.length<6) pool=ROSTER();
+  for(let k=0;k<300;k++){ const t=[]; let c=0;
+    for(const f of shuffle(pool.slice())){ if(t.length>=mx) break; if(c+(COST[f]||3)<=b){ t.push(f); c+=COST[f]||3; } }
+    if(t.length>=TEAM_MIN && c>=b-1) return t; }
+  return randomTeam(mine);
+}
+function dojoOffers(){ const r=dojoRank(dojoPts()), used=[];
+  DOJO.offers=DOJO_T.map((t,i)=>{ const d=r+t.d, foe=dojoTeam(d,DOJO.team,used); used.push(...foe);
+    return {i,d,foe,rank:Math.max(0,Math.min(DOJO_TOP,d)),gain:t.pts+Math.floor(r/2)}; }); }
+function dojoStart(team){ Object.assign(DOJO,{on:true,team:team.slice(),cur:null}); dojoOffers(); renderDojo(); }
+function dojoPrep(st){
+  const o=DOJO.cur, d=o.d; st.dojo=o.i+1; st.log=L("dojoTitle")+" · "+L("start");
+  st.aiSkill=Math.max(.35,Math.min(1,.42+.028*d));
+  const m=Math.max(.78,Math.min(1.3,.82+.02*d)); st.a.team.forEach(t=>{ t.max=t.hp=Math.max(4,Math.round(t.max*m)); });
+  if(d>=14) st.a.rage=Math.min(3,Math.floor((d-11)/3));
+}
+function dojoHead(pts){ const r=dojoRank(pts), n=r>=DOJO_TOP?DOJO_STEP:pts-r*DOJO_STEP;
+  return `<div class="djhead"><div class="djg">${esc(dojoGrade(r))}</div><div class="djbar">${Array.from({length:DOJO_STEP},(_,i)=>`<i class="${i<n?"on":""}"></i>`).join("")}</div></div>`; }
+function renderDojo(){
+  pageShell(L("dojoTitle"),`<div class="center svwave">
+    <div class="kicker">${L("djYou")}</div>${dojoHead(dojoPts())}
+    <p class="iplead">${L("djLead")}</p>
+    <div class="djgrid">${DOJO.offers.map(o=>`<div class="djc t${o.i}"><span class="djk">${L("djT_"+DOJO_T[o.i].k)}</span><h3>${esc(L("djDisc",nm(o.foe[0])))}</h3><span class="djr">${esc(dojoGrade(o.rank))}</span>${survFaces(o.foe)}<span class="djrew">${L("djRew",o.gain,o.i+1)}</span><button class="btn sm djgo" data-i="${o.i}">${L("djFight")}</button></div>`).join("")}</div>
+    <h3 class="pfh" style="margin-top:14px">${L("survYou")}</h3>${survFaces(DOJO.team)}
+    <div class="row" style="justify-content:center;margin-top:10px"><button class="btn ghost" id="djquit">${L("djQuit")}</button></div></div>`,DOJO.team);
+  document.querySelectorAll(".djgo").forEach(b=>b.onclick=()=>{ SFX.play("go"); DOJO.cur=DOJO.offers[+b.dataset.i]; MODE="solo"; ME="p"; newGame(DOJO.team,DOJO.cur.foe.slice(),dojoPrep); });
+  $("#djquit").onclick=()=>{ SFX.play("click"); renderTitle(DOJO.team); };
+  bindLang(renderDojo);
+}
+async function dojoReport(tier,win){
+  if(!ACC.on || !ACC.user){ DOJO.gp=Math.max(0,(DOJO.gp||0)+(win?tier+1:-1)); return null; }
+  try{ const r=await api("POST","/api/dojo",{tier,win,team:DOJO.team,feats:featsFor(win)}); if(r.ok&&r.user){ ACC.user=r.user; achToast(r.ach); return r.gain||0; } }catch(e){}
+  return null;
+}
+function dojoAfter(win){ rpCapture(true);
+  MUSIC.want("menu"); SFX.play(win?"win":"lose");
+  const o=DOJO.cur, before=dojoPts(), after=Math.max(0,before+(win?o.i+1:-1)), r0=dojoRank(before), r1=dojoRank(after);
+  const note=r1>r0?L("djUp",dojoGrade(r1)):r1<r0?L("djDown",dojoGrade(r1)):after!==before?L("djPts",after-before):"";
+  $("#app").innerHTML=`<div class="screen" style="overflow-y:auto"><div class="center">
+    <div class="kicker">${L("dojoTitle")} · ${esc(L("djDisc",nm(o.foe[0])))}</div>
+    <h1>${win?L("djWin"):`<em>${L("djLose")}</em>`}</h1>
+    ${dojoHead(after)}
+    ${note?`<p class="svheal">${esc(note)}</p>`:""}
+    <p class="note" id="accline">${ACC.on&&!ACC.user?L("notLogged"):""}</p>
+    ${endJournalHTML()}
+    ${rpAvailable()?`<button class="btn ghost sm" id="rpgo">▶ ${L("rpBtn")}</button>`:""}
+    <div class="row" style="justify-content:center"><button class="btn" id="djnext">${L("djNext")}</button><button class="btn ghost" id="djquit">${L("djQuit")}</button></div></div></div>`;
+  endJournalScroll();
+  let rep=null;
+  if(!(S&&S.accDone)){ if(S) S.accDone=true;
+    const lv=lvlOf(ACC.user&&ACC.user.stats&&ACC.user.stats.pts).n;
+    rep=dojoReport(o.i,win); rep.then(g=>{ if(!g) return; const v=lvlOf(ACC.user.stats&&ACC.user.stats.pts), e=$("#accline"); if(!e) return;
+      e.innerHTML=esc(L("ptsGain",g))+(v.n>lv?` <span class="lvlup">${L("lvlUp",v.n,esc(lvlTitle(v.n)))}</span>`:""); if(v.n>lv) SFX.play("go"); });
+  }
+  const cont=async()=>{ await rep; if(!DOJO.on) return; dojoOffers(); renderDojo(); };
+  if($("#rpgo")) $("#rpgo").onclick=()=>{ SFX.play("click"); rpStart(cont); };
+  $("#djnext").onclick=()=>{ SFX.play("click"); cont(); };
+  $("#djquit").onclick=()=>{ SFX.play("click"); renderTitle(DOJO.team); };
+}
+Object.assign(UI.fr,{dojoBtn:"Dojo",dojoTitle:"Le Dojo",hmd_dojo:"Défie des disciples sans fin et monte en grade, de novice à Maître.",hmsGrade:"grade",hofDojo:"Dojo",st_dojo:"Grade au dojo",
+  djYou:"Ton grade",djLead:"Trois disciples te défient. Plus leur grade est haut, plus le combat est dur et plus il rapporte. Une défaite te coûte un point de grade.",
+  djNovice:"Novice",djMaster:"Maître",djKyu:n=>n===1?"1er kyu":`${n}e kyu`,djDan:n=>n===1?"1er dan":`${n}e dan`,
+  djT_e:"Facile",djT_m:"Moyen",djT_h:"Costaud",djDisc:n=>/^[AEIOUÉ]/i.test(n)?`Disciple d'${n}`:`Disciple de ${n}`,djRew:(p,g)=>`+${p} pts · grade +${g}`,djFight:"Affronter",djQuit:"Quitter le dojo",
+  djWin:"Disciple vaincu",djLose:"Tu t'inclines",djUp:g=>`Nouveau grade : ${g} !`,djDown:g=>`Tu redescends : ${g}`,djPts:n=>`Grade ${n>0?"+":""}${n}`,djNext:"Adversaires suivants",
+  dojoHow:"Dojo : une victoire rapporte 6, 10 ou 15 pts selon l'adversaire, plus un bonus de grade.",
+  ach_dojokyu:"Élève appliqué",achd_dojokyu:"Atteindre le 5e kyu au dojo",ach_dojodan:"Ceinture noire",achd_dojodan:"Atteindre le 1er dan au dojo",ach_dojomaster:"Maître du dojo",achd_dojomaster:"Atteindre le grade de Maître au dojo"});
+Object.assign(UI.en,{dojoBtn:"Dojo",dojoTitle:"The Dojo",hmd_dojo:"Challenge an endless line of disciples and rise from novice to Master.",hmsGrade:"rank",hofDojo:"Dojo",st_dojo:"Dojo rank",
+  djYou:"Your rank",djLead:"Three disciples challenge you. The higher their rank, the harder the fight and the bigger the reward. A defeat costs you one rank point.",
+  djNovice:"Novice",djMaster:"Master",djKyu:n=>`${n}${["th","st","nd","rd"][n<4?n:0]} kyu`,djDan:n=>`${n}${["th","st","nd","rd"][n<4?n:0]} dan`,
+  djT_e:"Easy",djT_m:"Medium",djT_h:"Tough",djDisc:n=>`${n}'s disciple`,djRew:(p,g)=>`+${p} pts · rank +${g}`,djFight:"Fight",djQuit:"Leave the dojo",
+  djWin:"Disciple defeated",djLose:"You bow out",djUp:g=>`New rank: ${g}!`,djDown:g=>`You drop back to ${g}`,djPts:n=>`Rank ${n>0?"+":""}${n}`,djNext:"Next opponents",
+  dojoHow:"Dojo: a win gives 6, 10 or 15 pts depending on the opponent, plus a rank bonus.",
+  ach_dojokyu:"Diligent student",achd_dojokyu:"Reach 5th kyu in the dojo",ach_dojodan:"Black belt",achd_dojodan:"Reach 1st dan in the dojo",ach_dojomaster:"Dojo master",achd_dojomaster:"Reach the rank of Master in the dojo"});
+Object.assign(UI.it,{dojoBtn:"Dojo",dojoTitle:"Il Dojo",hmd_dojo:"Sfida discepoli senza fine e sali di grado, da novizio a Maestro.",hmsGrade:"grado",hofDojo:"Dojo",st_dojo:"Grado al dojo",
+  djYou:"Il tuo grado",djLead:"Tre discepoli ti sfidano. Più alto è il loro grado, più duro è lo scontro e più rende. Una sconfitta ti costa un punto di grado.",
+  djNovice:"Novizio",djMaster:"Maestro",djKyu:n=>`${n}º kyu`,djDan:n=>`${n}º dan`,
+  djT_e:"Facile",djT_m:"Medio",djT_h:"Tosto",djDisc:n=>`Discepolo di ${n}`,djRew:(p,g)=>`+${p} pt · grado +${g}`,djFight:"Affronta",djQuit:"Lascia il dojo",
+  djWin:"Discepolo sconfitto",djLose:"Ti inchini",djUp:g=>`Nuovo grado: ${g}!`,djDown:g=>`Scendi a ${g}`,djPts:n=>`Grado ${n>0?"+":""}${n}`,djNext:"Prossimi avversari",
+  dojoHow:"Dojo: una vittoria dà 6, 10 o 15 pt secondo l'avversario, più un bonus di grado.",
+  ach_dojokyu:"Allievo diligente",achd_dojokyu:"Raggiungi il 5º kyu nel dojo",ach_dojodan:"Cintura nera",achd_dojodan:"Raggiungi il 1º dan nel dojo",ach_dojomaster:"Maestro del dojo",achd_dojomaster:"Raggiungi il grado di Maestro nel dojo"});
+Object.assign(UI.ja,{dojoBtn:"道場",dojoTitle:"道場",hmd_dojo:"次々と現れる弟子に挑み、入門から師範まで昇り詰めろ。",hmsGrade:"段位",hofDojo:"道場",st_dojo:"道場の段位",
+  djYou:"あなたの段位",djLead:"三人の弟子が挑んでくる。段位が高い相手ほど手強く、報酬も大きい。負けると段位ポイントを1失う。",
+  djNovice:"入門",djMaster:"師範",djKyu:n=>`${n}級`,djDan:n=>`${["初","二","三","四","五","六","七","八","九"][n-1]}段`,
+  djT_e:"易しい",djT_m:"普通",djT_h:"手強い",djDisc:n=>`${n}の弟子`,djRew:(p,g)=>`+${p}pt・段位+${g}`,djFight:"挑む",djQuit:"道場を出る",
+  djWin:"弟子を撃破",djLose:"敗北",djUp:g=>`昇段：${g}！`,djDown:g=>`降格：${g}`,djPts:n=>`段位 ${n>0?"+":""}${n}`,djNext:"次の相手",
+  dojoHow:"道場：勝利で相手に応じて6・10・15pt、さらに段位ボーナス。",
+  ach_dojokyu:"熱心な門下生",achd_dojokyu:"道場で5級に到達する",ach_dojodan:"黒帯",achd_dojodan:"道場で初段に到達する",ach_dojomaster:"道場の師範",achd_dojomaster:"道場で師範に到達する"});
+
 /* ---------- mode arcade : la tour (8 étages à thème, PV remis à fond, challenger secret possible) ---------- */
 const ARC={on:false};
 const ARC_N=8, ARC_BOSS=["colo","demon","emp","hyo","kaiser","liu"], ARC_SECRET=["ryuga","rofu","garuda","ogai","shuren","han","raiga","boltz","borge","asura"];
@@ -6281,7 +6394,7 @@ function quitPress(b){
     if(!QUIT_ARM){ SFX.play("click"); QUIT_ARM=true; b.classList.add("arm"); clearTimeout(QUIT_T); QUIT_T=setTimeout(()=>{ QUIT_ARM=false; const x=$("#quit"); if(x) x.classList.remove("arm"); },4000); return; }
     QUIT_ARM=false; clearTimeout(QUIT_T);
     SFX.play("click"); const coach=document.querySelector(".coachwrap,.coach-wrap,.coach"); if(coach) coach.remove();
-    if(S && !S.over && ACC.user){ if(MODE==="vs") accMatchEnd(true); else if(MODE==="solo"){ if(S.story||S.weekly){} else if(S.boss) bossSubmit(); else if(SURV.on) survReport(SURV.wave,false); else if(ARC.on && S.arc){ if(!S.arcBonus){ arcReport(ARC.floor,false); ARC.on=false; } } else accReportSolo(false); } }
+    if(S && !S.over && ACC.user){ if(MODE==="vs") accMatchEnd(true); else if(MODE==="solo"){ if(S.story||S.weekly){} else if(S.boss) bossSubmit(); else if(SURV.on) survReport(SURV.wave,false); else if(DOJO.on && S.dojo) dojoReport(S.dojo-1,false); else if(ARC.on && S.arc){ if(!S.arcBonus){ arcReport(ARC.floor,false); ARC.on=false; } } else accReportSolo(false); } }
     const tc=MODE==="vs"?TOUR.code:null;
     if(S){ S.over=true; S.dead=true; } if(MODE==="vs") netLeave(); else { MODE="solo"; ME="p"; } if(tc) renderTour(tc); else renderTitle(); }
 // délégué sur le document et au pointerdown : le plateau se redessine souvent (chrono, IA), un clic pouvait se perdre entre l'appui et le relâchement
@@ -6518,7 +6631,7 @@ function renderCodex(sel=[]){
     </div>`,sel);
   bindLang(()=>renderCodex(sel));
 }
-function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; ARC.on=false; STORY.on=false; quickStop(); MUSIC.want("menu"); tourStop(); TOUR.code=null; if(maintBlocked()) return renderMaintenance(); if(ACC.on && !ACC.user) return renderGate(sel);
+function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; ARC.on=false; DOJO.on=false; STORY.on=false; quickStop(); MUSIC.want("menu"); tourStop(); TOUR.code=null; if(maintBlocked()) return renderMaintenance(); if(ACC.on && !ACC.user) return renderGate(sel);
   const ids=ROSTER();
   focus=focus||sel[sel.length-1]||"maitre";
   const cost=teamCost(sel), left=BUDGET-cost, cb=clanBonus(sel), ready=sel.length>=TEAM_MIN;
@@ -6668,9 +6781,9 @@ Object.assign(UI.ja,{lk_sava:"サヴァ王家",lkd_sava:"アサムと息子が1�
 
 /* ---------- accueil : choix du mode, puis écran d'équipe ---------- */
 let HOME_M=null;
-const HM_ART={tuto:"vieux",ai:"dans",online:"colo",tour:"emp",surv:"fourbe",arc:"sage",story:"maitre"};
-function hmModes(){ const m=[["story",L("stBtn")],["arc",L("arcBtn")],["surv",L("survBtn")],["ai",L("vsAi")],["online",L("vsOnline")]]; if(ACC.on) m.push(["tour",L("tourBtn")]); m.push(["tuto",L("tuto")]); return m; }
-function hmName(m){ return {ai:L("vsAi"),online:L("vsOnline"),surv:L("survBtn"),arc:L("arcBtn"),daily:L("dyTitle"),weekly:L("wkTitle"),boss:L("bossTitle")}[m]||""; }
+const HM_ART={tuto:"vieux",ai:"dans",online:"colo",tour:"emp",surv:"fourbe",dojo:"koryu",arc:"sage",story:"maitre"};
+function hmModes(){ const m=[["story",L("stBtn")],["arc",L("arcBtn")],["surv",L("survBtn")],["dojo",L("dojoBtn")],["ai",L("vsAi")],["online",L("vsOnline")]]; if(ACC.on) m.push(["tour",L("tourBtn")]); m.push(["tuto",L("tuto")]); return m; }
+function hmName(m){ return {ai:L("vsAi"),online:L("vsOnline"),surv:L("survBtn"),dojo:L("dojoBtn"),arc:L("arcBtn"),daily:L("dyTitle"),weekly:L("wkTitle"),boss:L("bossTitle")}[m]||""; }
 function pickHeadHTML(){ return `<div class="pickhead"><button class="backbtn" id="hmback" aria-label="${L("hmBack")}"><i class="bk-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></i><span class="blabel">${L("hmBack")}</span></button><div class="pkmode"><small>${L("hmPick")}</small><b>${esc(hmName(HOME_M))}</b></div></div>`; }
 function hmDailyHTML(){
   if(!ACC.on || !ACC.user || !DAILY.day || DAILY.done) return "";
@@ -6686,6 +6799,7 @@ function hmStatsHTML(m){
     return it(`${done}/${STORY_CH.length}`,L("hmsChap"))+it(`★ ${stars}`,L("hmsStars"))+(nx?it(`<span class="hmsn">${esc(L("st_t_"+nx.id))}</span>`,L("hmsNext")):""); }
   if(m==="arc") return it(st.arc||0,L("hmsFloor"))+it(st.arcClears||0,L("hmsClears"))+it(st.arcSecret||0,L("hmsSecret"));
   if(m==="surv") return it(st.surv||0,L("hmsWave"));
+  if(m==="dojo") return it(esc(dojoGrade(dojoRank(st.dojo))),L("hmsGrade"))+it(st.dojoW||0,L("hmsWins"));
   if(m==="ai") return it(`${st.aiW||0}`,L("hmsWins"))+it(`${st.aiL||0}`,L("hmsLosses"))+it(`${st.best||0}`,L("hmsBest"));
   if(m==="online") return it(st.elo??1000,"Elo")+it(`${st.vsW||0}–${st.vsL||0}`,L("hmsVs"))+it(`${Math.max(1,(ONLINE.list||[]).length)}`,L("hmsOnline"));
   if(m==="tour") return it(st.tW||0,L("hmsTour"));
@@ -6721,7 +6835,7 @@ function bindHome(sel){
 function pickLaunch(sel){
   if(sel.some(id=>!charOwned(id))) return;
   if(!(sel.length>=TEAM_MIN)) return;
-  ({ai:()=>aiAsk(sel),online:()=>renderLobby(sel),surv:()=>survStart(sel),arc:()=>arcStart(sel),daily:()=>dailyStart(sel),weekly:()=>weeklyStart(sel),boss:()=>renderBoss(sel)}[HOME_M]||(()=>aiAsk(sel)))();
+  ({ai:()=>aiAsk(sel),online:()=>renderLobby(sel),surv:()=>survStart(sel),dojo:()=>dojoStart(sel),arc:()=>arcStart(sel),daily:()=>dailyStart(sel),weekly:()=>weeklyStart(sel),boss:()=>renderBoss(sel)}[HOME_M]||(()=>aiAsk(sel)))();
 }
 Object.assign(UI.fr,{hmMode:"Mode",hmPlay:"Jouer",hmGo:"C'est parti",hmBack:"Modes",hmPick:"Choisis ton équipe",hmTeamBtn:"Choisir mon équipe",hmd_ai:"Monte ton équipe et affronte l'IA. 4 niveaux de difficulté.",hmd_online:"Affronte un vrai joueur, en partie rapide ou avec un code.",hmd_tour:"Un tournoi entre joueurs, un seul vainqueur.",hmd_surv:"Enchaîne les vagues sans récupérer tes PV. Tiens le plus longtemps.",hmd_arc:"Monte les étages de la Tour jusqu'au boss final.",hmd_story:"Suis Kenshiro chapitre après chapitre, arc après arc."});
 Object.assign(UI.en,{hmMode:"Mode",hmPlay:"Play",hmGo:"Let's go",hmBack:"Modes",hmPick:"Pick your team",hmTeamBtn:"Pick my team",hmd_ai:"Build your team and fight the AI. 4 difficulty levels.",hmd_online:"Fight a real player, in quick match or with a code.",hmd_tour:"A tournament between players, only one winner.",hmd_surv:"Fight wave after wave without healing. Last as long as you can.",hmd_arc:"Climb the floors of the Tower up to the final boss.",hmd_story:"Follow Kenshiro chapter after chapter, arc after arc."});
