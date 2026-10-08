@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.97.7 — 2026-10-08
+
+- Bords des boutons inclinés adoucis
+
 ## v0.97.6 — 2026-10-08
 
 - Chat Discord : panneau plus étroit et texte plus petit sur ordinateur
