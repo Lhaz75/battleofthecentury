@@ -520,7 +520,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     "GET /api/frames": async () => [200, { frames }],
     "POST /api/admin/frame": async (req, body) => {
       const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];
-      const id = String(body.id || ""), kind = body.kind === "b" ? "b" : "p"; if (!/^[a-z0-9]{2,12}$/.test(id)) return [400, { error: "bad" }];
+      const id = String(body.id || ""), kind = body.kind === "b" ? "b" : body.kind === "u" ? "u" : "p"; frames.u = frames.u || {}; if (!/^[a-z0-9]{2,12}$/.test(id)) return [400, { error: "bad" }];
       if (body.reset) { delete frames[kind][id]; if (kind === "b") await store.setSetting("bust:" + id, null); await store.setSetting("frames", frames); return [200, { frames }]; }
       const c = body.crop || {}, n = v => Math.round(Number(v) || 0), crop = { x: n(c.x), y: n(c.y), w: Math.max(40, Math.min(1200, n(c.w))) };
       if (kind === "b") {
