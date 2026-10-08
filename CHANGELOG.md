@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.97.12 — 2026-10-08
+
+- Boss mondial : un essai en cours n'est plus perdu si le serveur redémarre pendant le combat (mise à jour du jeu)
+- Admin : bouton pour rendre un essai du jour à un testeur
+
 ## v0.97.11 — 2026-10-08
 
 - Boss mondial : le boss ne lâche plus qu'un seul ultime, au tour 5 comme annoncé (il pouvait en placer jusqu'à trois)

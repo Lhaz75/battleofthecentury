@@ -383,16 +383,16 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       let t = b.tries[u.id]; if (!t || t.d !== d) t = { d, n: 0 };
       if (t.n >= BOSS_TRIES) return [429, { error: "tries" }];
       t.n++; b.tries[u.id] = t;
-      const tok = crypto.randomBytes(12).toString("hex"); bossRuns.set(u.id, { tok, k: b.k, t: Date.now() });
+      const tok = crypto.randomBytes(12).toString("hex"); bossRuns.set(u.id, { tok, k: b.k, t: Date.now() }); (b.runs = b.runs || {})[u.id] = { tok, t: Date.now() };
       await bossSave(b);
       return [200, { tok, ...bossPub(b, u, BOSS_TEST) }];
     },
     "POST /api/boss/result": async (req, body) => {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
-      const run = bossRuns.get(u.id);
-      if (!run || run.tok !== String(body.tok || "")) return [409, { error: "run" }];
-      bossRuns.delete(u.id);
       const b = await bossGet(BOSS_TEST);
+      const pr = (b.runs || {})[u.id], run = bossRuns.get(u.id) || (pr ? { tok: pr.tok, k: b.k, t: pr.t } : null);
+      if (!run || run.tok !== String(body.tok || "")) return [409, { error: "run" }];
+      bossRuns.delete(u.id); if (b.runs) delete b.runs[u.id];
       if (run.k !== b.k) return [409, { error: "week" }];
       const raw = Math.floor(+body.dmg);
       if (!(raw >= 0 && raw <= BOSS_RUN_MAX) || (raw > 0 && Date.now() - run.t < 15000)) return [400, { error: "bad" }];
@@ -414,6 +414,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];
       const b = await bossGet(BOSS_TEST);
       if (body.action === "tries") { b.tries = {}; await bossSave(b); }
+      else if (body.action === "untry" && body.id) { const t = b.tries[+body.id]; if (t && t.d === dayKey() && t.n > 0) { t.n--; await bossSave(b); } }
       else if (body.action === "reset") { bossCache.delete(b.k); await store.setSetting(b.k, null); }
       else if (body.action === "hp" && +body.hp > 0) { b.hp = Math.min(b.max, Math.floor(+body.hp)); b.dead = false; b.killer = null; await bossSave(b); }
       return [200, bossPub(await bossGet(BOSS_TEST), u, BOSS_TEST)];
