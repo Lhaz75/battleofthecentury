@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.97.10 — 2026-10-08
+
+- Bouton Magasin : les étincelles restent à l'intérieur du bouton
+
 ## v0.97.9 — 2026-10-08
 
 - Ton pseudo s'affiche à côté de ton avatar (clic = ton compte)
