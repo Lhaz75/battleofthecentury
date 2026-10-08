@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.96.4 — 2026-10-08
+
+- 69 vraies techniques ajoutées (celles des persos dans le jeu officiel LEGENDS ReVIVE) à la place de coups au nom inventé, pour 29 combattants : Kenshiro, Rei, Ken-Oh, Toki, Souther, Shin, Shu, Juza, Fudo, Hyō, Han, Shachi, Jūkei, Ryuga, Amiba, Kaioh, Ryuken, Falco… Les effets des cartes ne changent pas
+
 ## v0.96.3 — 2026-10-08
 
 - Noms de techniques vérifiés : les noms japonais inventés sont remplacés par les vraies techniques du perso (Toki, Asura, Falco, Rofu, Liu Zongwu, Tesshin, Koryu, Kenshiro Kasumi, Solia, Hyō, Kaioh, Yasaka, Charles de Guise, Amiba) ou par un nom français quand il n'en existe pas (Jugai, Baran, Barcom, Boltz, Taiga, Shoki, Devil Rebirth, Seiji, Bat)
