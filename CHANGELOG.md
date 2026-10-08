@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.98.3 — 2026-10-09
+
+- Lisibilité : tous les petits textes gris-brun (notes, explications, sous-titres, bonus de clan, « Ton combo », chapitres verrouillés…) sont éclaircis sur tous les écrans, avec une ombre quand ils sont posés sur le décor
+- Dojo : bouton Classement sur l'écran du Dojo, qui ouvre directement le classement du Dojo
+
 ## v0.98.2 — 2026-10-09
 
 - Combat : le bandeau « Ton combo » affiche la même icône de niveau (les 3 barres) que sur les cartes
