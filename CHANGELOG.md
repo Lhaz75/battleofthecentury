@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.97.5 — 2026-10-08
+
+- Chat Discord intégré : bouton Discord en bas à droite, le salon du jeu s'ouvre dans un panneau sur le côté, on peut lire et écrire sans quitter le jeu
+- La tuile Discord de l'accueil est retirée
+
 ## v0.97.4 — 2026-10-08
 
 - Accueil : tuile Discord avec le nombre de membres connectés et un bouton pour rejoindre la communauté

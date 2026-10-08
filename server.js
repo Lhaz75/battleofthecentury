@@ -87,36 +87,12 @@ function voiceApi(req, res, url) {
   });
 }
 
-// ---------- Discord : infos du serveur communautaire (nom, icône, connectés, membres), en cache 5 min ----------
-const DISCORD_INVITE = process.env.DISCORD_INVITE || "TfZEBzT9vg";
-const discord = { d: null, t: 0, p: null };
-async function discordInfo() {
-  if (discord.d && Date.now() - discord.t < 300000) return discord.d;
-  if (discord.p) return discord.p;
-  discord.p = (async () => {
-    try {
-      const r = await fetch(`https://discord.com/api/v10/invites/${DISCORD_INVITE}?with_counts=true`, { signal: AbortSignal.timeout(6000) });
-      if (r.ok) {
-        const j = await r.json(), g = j.guild || {};
-        discord.d = { ok: true, invite: `https://discord.gg/${DISCORD_INVITE}`, name: g.name || "Discord",
-          icon: g.icon ? `https://cdn.discordapp.com/icons/${g.id}/${g.icon}.png?size=128` : null,
-          online: j.approximate_presence_count || 0, members: j.approximate_member_count || 0 };
-        discord.t = Date.now();
-      } else if (!discord.d) discord.t = Date.now() - 240000;   // échec : on réessaie dans 1 min
-    } catch (e) { if (!discord.d) discord.t = Date.now() - 240000; }
-    discord.p = null;
-    return discord.d || { ok: false, invite: `https://discord.gg/${DISCORD_INVITE}` };
-  })();
-  return discord.p;
-}
-
 // ---------- HTTP : fichiers du jeu ----------
 const server = http.createServer((req, res) => {
   const rip = (req.headers["x-forwarded-for"] || req.socket.remoteAddress || "").split(",")[0].trim();
   if (accounts.ipBanned(rip)) { res.writeHead(403, { "Content-Type": "text/html; charset=utf-8" }); return res.end("<!doctype html><meta charset=utf-8><body style='background:#120e0c;color:#f3e2bf;font:18px sans-serif;display:grid;place-items:center;height:100vh;margin:0'><p>Accès refusé · Access denied · Accesso negato</p>"); }
   if ((req.url || "").startsWith("/api/mm/") || (req.url || "").startsWith("/api/ch/")) return mm.handle(req, res, new URL(req.url, "http://x"));
   if ((req.url || "").startsWith("/api/voice")) return voiceApi(req, res, new URL(req.url, "http://x"));
-  if ((req.url || "").split("?")[0] === "/api/discord") return discordInfo().then(d => { res.writeHead(200, { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-cache", "Access-Control-Allow-Origin": "*" }); res.end(JSON.stringify(d)); });
   if ((req.url || "").startsWith("/api/")) return accounts.handle(req, res);
   let p = decodeURIComponent((req.url || "/").split("?")[0]);
   if (p === "/") p = "/index.html";
