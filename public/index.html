@@ -2148,6 +2148,85 @@ body[data-terr="jagi"]{--terrbg:url("assets/story-jagi.webp")}body[data-terr="ja
 .uflash{position:fixed;inset:0;z-index:11;pointer-events:none}
 .uring{position:fixed;z-index:12;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;pointer-events:none;border:6px solid rgba(255,240,210,.95);box-shadow:0 0 30px #fff,inset 0 0 20px #ffd27a;animation:uring .55s cubic-bezier(.1,.7,.3,1) forwards}
 @keyframes uring{from{transform:scale(.2);opacity:1}to{transform:scale(28);opacity:0}}
+/* boss mondial */
+.bstile{display:flex;gap:12px;align-items:center;width:100%;text-align:left;background:linear-gradient(90deg,#3a120c,rgba(26,19,16,.92) 70%);border:1px solid #6a2a1c;border-radius:12px;padding:10px 12px;cursor:pointer;position:relative;overflow:hidden;color:#f2e6d8;font:inherit;margin-top:8px}
+.bstile:hover{border-color:#d63a2a;box-shadow:0 0 18px #d63a2a55}
+.bstile img{width:54px;height:54px;border-radius:9px;border:2px solid #d63a2a;flex:none;object-fit:cover}
+.bstile .bst{flex:1;min-width:0;display:block}.bstile .bst b{display:block;font-family:var(--f-destroy);font-weight:400;font-size:15px;color:#fff;line-height:1.2;padding-right:58px}
+.bstile .bst small{display:block;color:#a8927f;font-size:12px}
+.bsmini{display:block;height:7px;border-radius:4px;background:#2a0b07;margin-top:5px;overflow:hidden}.bsmini i{display:block;height:100%;background:linear-gradient(90deg,#7d150c,#e2412f)}
+.bscnt{font-weight:700;color:#ffcdb8;font-size:12px;text-align:center;line-height:1.1}.bscnt b{display:block;font-size:22px;color:#fff}
+.bslive{position:absolute;top:6px;right:10px;font-size:10px;letter-spacing:.15em;color:#ff7a5a}.bstile:not(.dead) .bslive::before{content:"● ";animation:bsbl 1.2s infinite}@keyframes bsbl{50%{opacity:.2}}
+.bstile.dead img{filter:grayscale(1)}.bstile.dead .bslive{color:#e8b23a}
+.bosspg{max-width:980px;margin:0 auto;padding:4px 0 30px;color:#f2e6d8}
+.bshd{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.bshd h2{font-family:var(--f-destroy);font-weight:400;font-size:clamp(22px,3.4vw,34px);margin:0;line-height:1.1;text-shadow:0 3px 0 #000,0 0 24px #d63a2a88}
+.bskick{color:#e8b23a;font-weight:700;letter-spacing:.25em;font-size:12px;text-transform:uppercase}
+.bstest{background:#8a4fe0;color:#fff;border-radius:4px;padding:0 6px;letter-spacing:.1em}
+.bstimer{margin-left:auto;text-align:right;color:#a8927f;font-size:13px}.bstimer b{display:block;color:#f2e6d8;font-size:20px;letter-spacing:.04em}
+.bsmain{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px}
+@media(max-width:760px){.bsmain{grid-template-columns:1fr}.bstimer{text-align:left;margin-left:0}}
+.bsart{position:relative;border-radius:14px;overflow:hidden;border:1px solid #5a2418;background:#000;aspect-ratio:4/5;max-height:640px}
+.bsart>img{width:100%;height:100%;object-fit:cover;object-position:50% 18%;display:block;animation:bsbr 5s ease-in-out infinite}
+@keyframes bsbr{50%{transform:scale(1.025)}}
+.bsart::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 42%,#000e 92%),radial-gradient(ellipse at 50% 120%,#d63a2a55,transparent 60%);pointer-events:none}
+.bsinfo{position:absolute;left:0;right:0;bottom:0;padding:14px;z-index:2}
+.bsname{font-family:var(--f-destroy);font-size:26px;display:flex;align-items:center;gap:10px;text-shadow:0 2px 0 #000}
+.bssig{font:900 21px serif;color:#000;background:#e8b23a;border-radius:6px;width:34px;height:34px;display:grid;place-items:center;flex:none}
+.bshp{position:relative;height:20px;margin-top:10px;border-radius:5px;background:#2a0b07;border:1px solid #000;overflow:hidden;box-shadow:inset 0 2px 6px #000}
+.bsfill{position:absolute;inset:0 auto 0 0;background:linear-gradient(#ff5a3c,#c62d1f 55%,#7d150c);animation:bsfillin 1.4s cubic-bezier(.2,.8,.2,1)}
+@keyframes bsfillin{from{width:100%!important}}
+.bshp i{position:absolute;top:0;bottom:0;width:1px;background:#0006}
+.bshpn{display:flex;justify-content:space-between;font-size:13px;color:#a8927f;margin-top:5px}.bshpn b{color:#fff;font-size:16px}
+.bstags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.bstags span{font-size:12px;background:#000b;border:1px solid #5a2418;border-radius:14px;padding:2px 9px;color:#ffcdb8;line-height:1.35}
+.bsko{position:absolute;inset:0;display:none;place-items:center;z-index:3;font-family:var(--f-destroy);font-size:clamp(60px,14vw,120px);color:#d63a2a;text-shadow:0 4px 0 #000,0 0 40px #000;transform:rotate(-12deg)}
+.bosspg.dead .bsart>img{filter:grayscale(1) brightness(.55);animation:none}.bosspg.dead .bsko{display:grid}
+.bscol{display:flex;flex-direction:column;gap:14px}
+.bspan{background:#1a1310;border:1px solid #3a2a22;border-radius:12px;padding:14px}
+.bspan h3{margin:0 0 10px;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#e8b23a}
+.bstries{display:flex;align-items:center;gap:10px}.bstries small{color:#a8927f;font-size:13px}
+.bspips{display:flex;gap:7px}
+.bspip{width:30px;height:38px;border-radius:5px;background:linear-gradient(#ff6a4a,#a31c10);border:2px solid #000;box-shadow:0 0 10px #d63a2a77;display:grid;place-items:center;font:900 15px serif;color:#000a;font-style:normal}
+.bspip.used{background:#2a2420;box-shadow:none;color:#5a4a40}
+.bsteam{display:flex;align-items:center;gap:6px;margin-top:10px}.bsteam img{width:34px;height:34px;border-radius:7px;border:1px solid #5a4a40}.bsteam .btn{margin-left:auto}
+.bsgo{width:100%;margin:14px 0 10px;border:0;border-radius:12px;padding:14px 14px 12px;font-family:var(--f-destroy);font-size:22px;color:#fff6e8;cursor:pointer;letter-spacing:.03em;position:relative;overflow:hidden;
+ background:linear-gradient(180deg,#ff7a55 0,#e8402c 18%,#c1210f 55%,#8a1207 100%);text-shadow:0 2px 0 #5a0802;
+ box-shadow:inset 0 2px 0 #ffb59a,inset 0 -3px 0 #6e0d04,0 1px 0 #7a0e05,0 2px 0 #6e0c04,0 3px 0 #620b04,0 4px 0 #560a03,0 5px 0 #4a0803,0 6px 0 #3e0702,0 7px 0 #320502,0 14px 18px #000c,0 0 30px #d63a2a66;
+ transition:transform .08s,box-shadow .08s;animation:bsp3d 2.4s ease-in-out infinite}
+.bsgo::before{content:"";position:absolute;left:8px;right:8px;top:3px;height:42%;border-radius:9px 9px 40% 40%/9px 9px 14px 14px;background:linear-gradient(#fff8,#fff0);pointer-events:none}
+.bsgo::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,#fff5 50%,transparent 70%);transform:translateX(-100%);animation:bssh 2.6s infinite}
+@keyframes bssh{60%,100%{transform:translateX(100%)}}
+@keyframes bsp3d{50%{box-shadow:inset 0 2px 0 #ffb59a,inset 0 -3px 0 #6e0d04,0 1px 0 #7a0e05,0 2px 0 #6e0c04,0 3px 0 #620b04,0 4px 0 #560a03,0 5px 0 #4a0803,0 6px 0 #3e0702,0 7px 0 #320502,0 14px 18px #000c,0 0 46px #ff4a2aaa}}
+.bsgo:hover{filter:brightness(1.08)}
+.bsgo:active{transform:translateY(6px);animation:none;box-shadow:inset 0 2px 0 #ffb59a,inset 0 -3px 0 #6e0d04,0 1px 0 #7a0e05,0 3px 6px #000c}
+.bsgo small{display:block;position:relative;font:600 12px Oswald,var(--f-display);letter-spacing:.08em;opacity:.9;text-shadow:0 1px 0 #5a0802}
+.bsgo:disabled{background:linear-gradient(#4a3c34,#2e241f);text-shadow:0 2px 0 #000;color:#8a7a6e;cursor:default;animation:none;transform:translateY(4px);box-shadow:inset 0 2px 0 #6a5a50,0 1px 0 #1a1310,0 2px 0 #160f0c,0 3px 0 #120c09,0 8px 12px #000a}
+.bsgo:disabled::after,.bsgo:disabled::before{display:none}
+.bsmy{display:grid;grid-template-columns:1fr 1fr;gap:8px}.bsmy div{background:#241a15;border-radius:8px;padding:8px 10px}.bsmy span{display:block;font-size:11px;color:#a8927f;letter-spacing:.1em;text-transform:uppercase}.bsmy b{font-size:20px}
+.bscap{margin-top:10px;font-size:12px;color:#a8927f}.bscapb{height:7px;border-radius:4px;background:#2a2420;margin-top:4px;overflow:hidden}.bscapb i{display:block;height:100%;background:#e8b23a}
+.bslb{list-style:none;margin:0;padding:0}
+.bslb li{display:grid;grid-template-columns:26px 1fr auto;gap:8px;align-items:center;padding:6px 4px;border-bottom:1px solid #2a1e18;font-size:14px}.bslb li:last-child{border:0}
+.bslb .r{font-weight:700;color:#a8927f;text-align:center}.bslb li:nth-child(1) .r{color:#ffd24a}.bslb li:nth-child(2) .r{color:#d8dde2}.bslb li:nth-child(3) .r{color:#d48a4a}
+.bslb .me{background:#3a1510;border-radius:6px}.bslb .d{font-weight:700}.bslb small{color:#a8927f;font-weight:400}
+.bsn{font-size:12px;color:#a8927f;margin:6px 0 0;text-align:center}
+.bssec{font-family:var(--f-destroy);font-weight:400;font-size:18px;color:#a8927f;margin:26px 0 10px}
+.bstestn{font-size:13px;color:#c9a8ff;margin:0 0 8px}
+.bsrw{display:flex;flex-direction:column;gap:7px;font-size:14px}.bsrw div{display:flex;justify-content:space-between;gap:10px;background:#1a1310;border-radius:7px;padding:7px 10px}.bsrw b{color:#e8b23a;text-align:right}
+.bsrules{margin-top:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.bsrules div{background:#1a1310;border:1px solid #3a2a22;border-radius:10px;padding:10px 12px;font-size:13px;color:#a8927f}.bsrules b{display:block;color:#f2e6d8;font-size:15px;margin-bottom:2px}
+.bsres{max-width:460px;margin:0 auto;width:100%}
+.bswhy{color:#a8927f;margin:6px 0 2px}
+.bsbig{font-family:var(--f-destroy);font-size:68px;color:#e8b23a;text-shadow:0 4px 0 #000,0 0 30px #e8b23a66;line-height:1}
+.bsdl{color:#a8927f;margin-bottom:8px}
+.bsturns{display:flex;gap:4px;justify-content:center;margin:10px 0}
+.bsturns i{width:28px;height:62px;border-radius:4px;background:#241a15;position:relative;display:flex;flex-direction:column;justify-content:flex-end;font-style:normal}
+.bsturns i.off{opacity:.3}
+.bsturns u{display:block;margin:0 3px;border-radius:2px;background:linear-gradient(#e8b23a,#a86a10);animation:bsup .8s cubic-bezier(.2,.8,.2,1) backwards}
+@keyframes bsup{from{height:0}}
+.bsturns s{text-decoration:none;font-size:11px;color:#a8927f;text-align:center;line-height:16px}
+.bslines{display:flex;flex-direction:column;gap:6px;margin:12px 0;text-align:left;width:100%}
+.bslines>div{display:flex;justify-content:space-between;gap:10px;background:#241a15;border-radius:7px;padding:7px 12px;font-size:14px}
+.bslines .bskill{background:#3a2a08;color:#ffd24a;justify-content:center}.bslines .bswarn{background:#3a1510;color:#ffcdb8}
 </style>
 <style>html,body{margin:0}*{box-sizing:border-box}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
@@ -3170,6 +3249,7 @@ function ensureAttack(s){
 }
 function startTurn(k){
   if(S.over) return;
+  if(S.boss && k==="p" && S.round>=BOSS_TURNS){ S.over=true; S.busy=true; render(); setTimeout(()=>{ if(S && S.boss && !S.dead) renderEnd(false); },FAST||reduced?600:1400); return; }
   const s=S[k];
   S.turn=k;
   s.end = ENDURANCE + s.sageBonus - s.drain - (S.terrain==="desert"?1:0);
@@ -3188,11 +3268,13 @@ function startTurn(k){
       if(pool.length){ const c=pool[rnd(pool.length)]; o.hand.splice(o.hand.indexOf(c),1); s.hand.push(c); s.batUsed=true; comp+=" "+L("batSteal",tr(CARDS[c.k].name)); } } }
   drawTo(s,HAND + (act(s).id==="vieux"?1:0) + (act(s).id==="sanga"?1:0) + (act(s).id==="rihaku" && s.trap?1:0) + (s.nT===1 && hasLink(s,"foxjackal")?1:0));
   if(s.clan==="shura") gainRage(s,1,"clan");
+  if(S.boss && k==="a" && S.round>=BOSS_ULT_TURN && !S.boss.ult){ S.boss.ult=true; s.rage=RAGE_MAX; }
   const swapped=ensureAttack(s);
   const op=S[other(k)];
   if(op.trap==="provoc"){ s.end=Math.max(1,s.end-2); trapFired(other(k)); S.sub=L("poisonWell"); }
   let ev=null;
   if(k==="p"){ S.round++; if(S.terrain==="barrage" && S.barrageEnd && S.round>=S.barrageEnd){ S.terrain=null; S.barrageEnd=0; comp+=" "+L("barrageGone"); }
+    if(S.boss) comp=" "+L("bossTurnSub",S.round,BOSS_TURNS,bossRage())+comp;
     if(S.round%(S.evEvery||3)===0){ ev=EVENTS[rnd(EVENTS.length)]; ev.run(); } }
   if(ev && S.over){ S.evName=ev.name; SFX.play("event"); SFX.ann("event",{delay:250}); eventCard(tr(ev.name),tr(ev.text),EV_TONE[ev.name],EV_IMG[ev.name]); S.log=`${L("event")} : ${tr(ev.name)}`; S.sub=tr(ev.text); render(); return; }
   if(S.over) { render(); return; }
@@ -3349,6 +3431,7 @@ function hitDamage(k,c){
   if(hasLink(s,"lastland") && ((act(s).id==="seiji"&&s.team.some(t=>t.id==="sanga"&&t.ko))||(act(s).id==="sanga"&&s.team.some(t=>t.id==="seiji"&&t.ko)))) d+=2;
   if(act(s).id==="ryuga" && s.team.every((t,i)=>i===s.active||t.ko)) d+=3;
   if(S.storyRule==="fat" && c.lvl===0 && act(S[other(k)]).id==="ventre") d=0;
+  if(S.boss && k==="a") d+=bossRage();
   return d;
 }
 const PERFECT_CTR=["sage","colo"];
@@ -3538,6 +3621,7 @@ function hurt(k,dmg){
   const s=S[k], f=act(s); if(dmg>0 && k!==ME) S.hits=(S.hits||0)+1;
   if(dmg>0 && f.id==="hyo" && hasLink(s,"kuro")){ const kr=s.team.find(t=>t.id==="kuroyasha"&&!t.ko); if(kr && kr.hp>1){ const ab=Math.min(2,dmg,kr.hp-1); kr.hp-=ab; dmg-=ab; S.sub=(S.sub?S.sub+" ":"")+L("kuroAbsorb",ab); } }
   if(dmg<=0){ fx(k,"0","g"); return; }
+  bossHit(k,dmg,f);
   f.hp=Math.max(0,f.hp-dmg);
   if(f.hp<=0 && s.unyield && f.id==="colo"){ f.hp=1; S.sub=L("unyield",esc(nm(f.id))); }
   if(f.id==="baran" && !f.miracle && f.hp>0 && f.hp*2<f.max){ f.miracle=true; f.hp=Math.min(f.max,f.hp+5); S.sub=(S.sub?S.sub+" ":"")+L("baranMiracle"); }
@@ -3603,7 +3687,7 @@ async function ultimate(k,forced){
   if(S.turn!==k || s.rage<RAGE_MAX || S.over) return;
   S.busy=true;
   s.rage=0; buzz([30,40,30,40,140]);
-  let dmg=u.dmg+(s.clan==="hokuto"?3:0)+(s.clan==="taizan"?2:0)+(act(s).id==="jukei"?6:0)+(act(s).id==="shuken"?2:0)+(hasLink(s,"yuriaken")&&act(s).id==="maitre"?2:0)+(hasLink(s,"brothers")?(s.nBro||2)-1:0)+(hasLink(s,"koryu")&&act(s).id==="koryu"?3:0); const chained=s.combo.n>=2 && !s.combo.stop;
+  let dmg=u.dmg+(s.clan==="hokuto"?3:0)+(s.clan==="taizan"?2:0)+(act(s).id==="jukei"?6:0)+(act(s).id==="shuken"?2:0)+(hasLink(s,"yuriaken")&&act(s).id==="maitre"?2:0)+(hasLink(s,"brothers")?(s.nBro||2)-1:0)+(hasLink(s,"koryu")&&act(s).id==="koryu"?3:0)+(S.boss&&k==="a"?bossRage():0); const chained=s.combo.n>=2 && !s.combo.stop;
   if(chained) dmg=Math.round(dmg*1.5);
   const od=S[other(k)];
   if(od.trap==="aiguilles" && act(od).id==="fourbe"){
@@ -4327,7 +4411,7 @@ function reactHTML(R){
       <button class="rbtn take" data-react="none"><b>${L("take")}</b><span>${L("takeSub")}</span></button></div>
   </div>`;
 }
-function renderEnd(win){ if(S&&S.dead) return; if(S && !S.annEnd){ S.annEnd=true; SFX.ann(win?"win":"lose",{local:true}); } rpCapture(true); if(SURV.on && MODE==="solo" && S && S.surv) return survAfter(win); if(ARC.on && MODE==="solo" && S && S.arc) return arcAfter(win); if(MODE==="solo" && S && S.weekly) return weeklyAfter(win); if(MODE==="solo" && S && S.story && STORY.on) return storyAfter(win); MUSIC.want("menu");
+function renderEnd(win){ if(S&&S.dead) return; if(S && !S.annEnd){ S.annEnd=true; SFX.ann(win?"win":"lose",{local:true}); } rpCapture(true); if(SURV.on && MODE==="solo" && S && S.surv) return survAfter(win); if(ARC.on && MODE==="solo" && S && S.arc) return arcAfter(win); if(MODE==="solo" && S && S.weekly) return weeklyAfter(win); if(MODE==="solo" && S && S.boss) return bossAfter(win); if(MODE==="solo" && S && S.story && STORY.on) return storyAfter(win); MUSIC.want("menu");
   SFX.play(win?"win":"lose");
   $("#app").innerHTML=`<div class="screen" style="overflow-y:auto"><div class="center">
     <div class="kicker">${win?L("foeDown"):L("meDown")}</div>
@@ -4668,6 +4752,7 @@ Object.assign(UI.fr,{"stBtn": "Histoire", "stTitle": "Mode histoire", "stArc1": 
 Object.assign(UI.en,{"stBtn": "Story", "stTitle": "Story mode", "stArc1": "Arc 1: KING", "stLead": "Follow Kenshiro through the ravaged world, chapter after chapter. Each chapter has 3 stars to earn.", "stLocked": "Clear the previous chapter", "stPlay": "Fight", "stNext": "Next chapter", "stBackList": "Chapters", "stRetry": "Retry", "stObj": "Objectives", "stUnlock": "Unlocks", "stUnlockNote": "(from version 1.0)", "stYou": "You play", "stFoe": "Opponent", "stWave": "Wave {a}/{b}", "stWaveNext": "Next wave", "stWin": "Chapter cleared!", "stLose": "Defeat…",  "stJoined": "Unlocked at 1.0: {who}", "stFat": "His Lights do nothing to him.", "stTrap": "An Ambush trap is already set against you.", "stArcDone": "Arc complete! More coming soon.", "stHow": "Story: 20 pts the first time a chapter is cleared, +10 pts per new star.", "w_story": "Story mode", "ach_story1": "The legend begins", "achd_story1": "Clear arc 1 of story mode", "ach_story27": "Seven stars… and more", "achd_story27": "Earn all 27 stars of arc 1", "st_t_king-0": "Prologue: the seven scars", "st_i_king-0": "One year before it all. Shin, of Nanto Koshūken, has sworn to tear Yuria away from Kenshiro. Tonight he takes the woman, and leaves him seven holes in his chest to remember.", "st_o_king-0": "\"I am Shin. Remember that name.\" Kenshiro lies in the dust, branded with seven scars shaped like the Big Dipper. He will survive. And he will come back.", "st_t_king-1": "The besieged village", "st_i_king-1": "A man collapses from hunger at the edge of a village. In a cell he meets little Lin and a thieving kid, Bat. Outside, Zeed's gang rides in to loot everything.", "st_o_king-1": "The raiders don't understand what's happening. \"You are already dead.\" Their bodies burst one after another. Zeed will want revenge.", "st_t_king-2": "Zeed", "st_i_king-2": "Zeed and his biker horde surround the village. He demands the water and the women. Kenshiro walks out alone to meet them, Lin and Bat hiding behind him.", "st_o_king-2": "Zeed wanted to strike first. His skull didn't hold. Lin finds her voice again, and Bat decides to follow this strange man. The journey begins.", "st_t_king-3": "Spade, the spearman", "st_i_king-3": "In the ruins of a city, men wear a badge: a spade. They are KING's soldiers. Their leader, Spade, amuses himself shooting at fugitives.", "st_o_king-3": "Spade swallowed his own bolt. Before dying, a name: KING. Kenshiro clenches his fist. The man with seven scars already knows who hides behind it.", "st_t_king-4": "Diamond and the captive village", "st_i_king-4": "A whole village is enslaved by Diamond, another of KING's suits. His guards first, then the master himself. Two fights in a row, no rest.", "st_o_king-4": "The last diamond has shattered. The villagers raise their heads. There is talk of a city to the south, Southern Cross, where KING keeps a woman prisoner.", "st_t_king-5": "Club", "st_i_king-5": "Club has prepared the ground: raiders hide everywhere, ready to fall on anyone who switches fighters. Fox, the sly one, prowls with him.", "st_o_king-5": "Club thought he had Kenshiro caught in his web. The threads snapped. Fox tried to flee into the desert. He didn't get far.", "st_t_king-6": "Heart, the colossus", "st_i_king-6": "Heart, KING's heart, is a mountain of fat. Light blows sink into his flesh without hurting him at all. And when he sees his own blood, he goes mad.", "st_o_king-6": "Fat protects from everything… except pressure points. Heart swells, swells again, and bursts. Southern Cross isn't far now.", "st_t_king-7": "Joker, the messenger", "st_i_king-7": "Joker, Shin's right-hand man, plays with his razor cards and vanishes before anyone can touch him. He has come to see what the man with seven scars can do.", "st_o_king-7": "\"I'd rather die than be your messenger.\" Joker won't go warn Shin. Kenshiro will do it himself.", "st_t_king-8": "Southern Cross: Shin", "st_i_king-8": "At the top of his city, Shin waits. He built it all for her, for Yuria. A year after the night of the seven scars, the two men face each other again.", "st_o_king-8": "Shin has lost. He won't let Kenshiro take his life: he throws himself from the top of his palace. Yuria was already gone. Kenshiro's journey has only just begun…", "sto_win": "Win the fight", "sto_rounds": "Win in {n} turns or fewer", "sto_hits": "Land {n} hits on the opponent", "sto_lost": "Lose {n} HP or fewer", "sto_lastUlt": "Finish with an ultimate", "sto_keep": "Keep more than {n}% of your HP", "sto_noRelay": "Make no tag", "sto_noTrap": "Trigger no enemy trap", "sto_noJoker": "Never let Joker draw", "sto_firstKo": "KO {who} first", "sto_killLvl": "Finish {who} with {lvl}", "stLvl2": "a Heavy", "stLvlU": "an ultimate"});
 Object.assign(UI.it,{"stBtn": "Storia", "stTitle": "Modalità storia", "stArc1": "Arco 1: KING", "stLead": "Segui Kenshiro nel mondo devastato, capitolo dopo capitolo. Ogni capitolo ha 3 stelle da guadagnare.", "stLocked": "Completa il capitolo precedente", "stPlay": "Combatti", "stNext": "Capitolo successivo", "stBackList": "Capitoli", "stRetry": "Riprova", "stObj": "Obiettivi", "stUnlock": "Sblocca", "stUnlockNote": "(dalla versione 1.0)", "stYou": "Giochi", "stFoe": "Avversario", "stWave": "Ondata {a}/{b}", "stWaveNext": "Ondata successiva", "stWin": "Capitolo completato!", "stLose": "Sconfitta…",  "stJoined": "Sbloccato alla 1.0: {who}", "stFat": "I suoi Leggeri non gli fanno nulla.", "stTrap": "Una trappola Imboscata è già piazzata contro di te.", "stArcDone": "Arco completato! Il seguito arriva presto.", "stHow": "Storia: 20 pt la prima volta che si completa un capitolo, +10 pt per ogni nuova stella.", "w_story": "Modalità storia", "ach_story1": "La leggenda comincia", "achd_story1": "Completa l'arco 1 della modalità storia", "ach_story27": "Sette stelle… e oltre", "achd_story27": "Ottieni le 27 stelle dell'arco 1", "st_t_king-0": "Prologo: le sette cicatrici", "st_i_king-0": "Un anno prima di tutto. Shin, del Nanto Koshūken, ha giurato di strappare Yuria a Kenshiro. Stanotte si prende la donna, e gli lascia sette buchi nel petto come ricordo.", "st_o_king-0": "«Io sono Shin. Ricorda questo nome.» Kenshiro giace nella polvere, marchiato da sette cicatrici a forma di Orsa Maggiore. Sopravvivrà. E tornerà.", "st_t_king-1": "Il villaggio assediato", "st_i_king-1": "Un uomo crolla per la fame all'ingresso di un villaggio. In una cella incontra la piccola Lin e un ragazzino ladro, Bat. Fuori arriva la banda di Zeed per saccheggiare tutto.", "st_o_king-1": "I predoni non capiscono cosa succede. «Sei già morto.» I loro corpi esplodono uno dopo l'altro. Zeed vorrà vendetta.", "st_t_king-2": "Zeed", "st_i_king-2": "Zeed e la sua orda in moto circondano il villaggio. Pretende l'acqua e le donne. Kenshiro esce da solo ad affrontarli, con Lin e Bat nascosti dietro di lui.", "st_o_king-2": "Zeed voleva colpire per primo. Il suo cranio non ha retto. Lin ritrova la voce, e Bat decide di seguire quello strano uomo. Il viaggio comincia.", "st_t_king-3": "Spade, il lanciere", "st_i_king-3": "Tra le rovine di una città, degli uomini portano un'insegna: una picca. Sono i soldati di KING. Il loro capo, Spade, si diverte a tirare sui fuggiaschi.", "st_o_king-3": "Spade ha ingoiato il suo stesso dardo. Prima di morire, un nome: KING. Kenshiro stringe il pugno. L'uomo dalle sette cicatrici sa già chi si nasconde dietro.", "st_t_king-4": "Diamond e il villaggio prigioniero", "st_i_king-4": "Un intero villaggio è ridotto in schiavitù da Diamond, un altro seme di KING. Prima le sue guardie, poi il padrone. Due combattimenti di fila, senza riposo.", "st_o_king-4": "L'ultimo diamante si è spezzato. Gli abitanti rialzano la testa. Si parla di una città a sud, Southern Cross, dove KING tiene prigioniera una donna.", "st_t_king-5": "Club", "st_i_king-5": "Club ha preparato il terreno: predoni nascosti ovunque, pronti a piombare su chiunque cambi combattente. Fox, la volpe, si aggira con lui.", "st_o_king-5": "Club credeva di avere Kenshiro nella sua rete. I fili si sono spezzati. Fox ha cercato di fuggire nel deserto. Non è andato lontano.", "st_t_king-6": "Heart, il colosso", "st_i_king-6": "Heart, il cuore di KING, è una montagna di grasso. I colpi leggeri affondano nella sua carne senza fargli alcun male. E quando vede il suo sangue, impazzisce.", "st_o_king-6": "Il grasso protegge da tutto… tranne che dai punti vitali. Heart si gonfia, si gonfia ancora, ed esplode. Southern Cross non è più lontana.", "st_t_king-7": "Joker, il messaggero", "st_i_king-7": "Joker, l'uomo di fiducia di Shin, gioca con le sue carte taglienti e sparisce prima che lo si possa toccare. È venuto a vedere di cosa è capace l'uomo dalle sette cicatrici.", "st_o_king-7": "«Preferisco morire che farti da messaggero.» Joker non andrà ad avvertire Shin. Ci penserà Kenshiro stesso.", "st_t_king-8": "Southern Cross: Shin", "st_i_king-8": "In cima alla sua città, Shin aspetta. Ha costruito tutto per lei, per Yuria. Un anno dopo la notte delle sette cicatrici, i due uomini si affrontano di nuovo.", "st_o_king-8": "Shin ha perso. Non lascerà che Kenshiro gli dia la morte: si getta dalla cima del suo palazzo. Yuria non c'era più. Il viaggio di Kenshiro è appena cominciato…", "sto_win": "Vinci il combattimento", "sto_rounds": "Vinci in {n} turni o meno", "sto_hits": "Colpisci l'avversario {n} volte", "sto_lost": "Perdi al massimo {n} PV", "sto_lastUlt": "Finisci con una mossa finale", "sto_keep": "Conserva più del {n}% dei tuoi PV", "sto_noRelay": "Non fare nessun cambio", "sto_noTrap": "Non far scattare nessuna trappola nemica", "sto_noJoker": "Non lasciare mai pescare Joker", "sto_firstKo": "Metti KO {who} per primo", "sto_killLvl": "Finisci {who} con {lvl}", "stLvl2": "un Pesante", "stLvlU": "una mossa finale"});
 const CHANGELOG=[
+ {v:"0.97.0",d:"2026-10-08",fr:["Boss mondial (en test, réservé aux testeurs) : Devil Rebirth et ses PV communs à toute la communauté, 3 essais par jour, 10 tours pour lui faire un max de dégâts","Nouveaux trophées : Chasseur de boss et Coup de grâce"],en:["World boss (in testing, testers only): Devil Rebirth with HP shared by the whole community, 3 tries a day, 10 turns to deal as much damage as you can","New trophies: Boss hunter and Finishing blow"],it:["Boss mondiale (in test, solo per i tester): Devil Rebirth con PV condivisi da tutta la community, 3 tentativi al giorno, 10 turni per fargli più danni possibile","Nuovi trofei: Cacciatore di boss e Colpo di grazia"],ja:["ワールドボス（テスト中・テスター専用）：コミュニティ全体でHPを削るデビルリバース、1日3回、10ターンで最大ダメージを狙え","新トロフィー：ボスハンター、とどめ"]},
  {v:"0.96.9",d:"2026-10-08",fr:["Devil Rebirth vient bien de Villainy Prison, pas de Cassandra (textes corrigés)"],en:["Devil Rebirth comes from Villainy Prison, not Cassandra (texts fixed)"],it:["Devil Rebirth viene da Villainy Prison, non da Cassandra (testi corretti)"],ja:["デビルリバースの出身をカサンドラからヴィレニィプリズンに修正"]},
  {v:"0.96.8",d:"2026-10-08",fr:["Impact de l'ultime : les flashs ne touchent plus que la carte de l'adversaire, avec une onde « goutte d'eau » qui la déforme"],en:["Ultimate impact: the flashes now only hit the opponent's card, with a \"water drop\" ripple distorting it"],it:["Impatto della suprema: i lampi colpiscono solo la carta dell'avversario, con un'onda « goccia d'acqua » che la deforma"],ja:["奥義のインパクト：フラッシュは相手のカードのみに。水滴のような波紋でカードが歪む"]},
  {v:"0.96.7",d:"2026-10-08",fr:["Ultimes plus spectaculaires : la rafale de coups est comptée sur l'adversaire (« 50 HITS ! »), puis flashs d'impact et onde de choc sur le coup final"],en:["More spectacular ultimates: the flurry of hits is counted on the opponent (\"50 HITS!\"), then impact flashes and a shockwave on the final blow"],it:["Suprema più spettacolari: la raffica di colpi viene contata sull'avversario (« 50 HITS! »), poi lampi d'impatto e onda d'urto sul colpo finale"],ja:["奥義をより派手に：連打のヒット数を相手に表示（「50 HITS!」）、最後の一撃でインパクトフラッシュと衝撃波"]},
@@ -5178,7 +5263,7 @@ function drawFStats(){
 }
 
 /* ---------- succès ---------- */
-const ACH_LIST=[["first",1],["ai10",1],["ai50",2],["ai200",3],["vs1",1],["vs10",2],["vs50",3],["elo1200",2],["elo1400",3],["streak5",2],["streak10",3],["surv5",1],["surv10",2],["surv20",3],["tour1",2],["tour5",3],["roster15",1],["roster30",2],["flawless",2],["comeback",2],["ultko",1],["combo4",1],["combo5",2],["duo",1],["quintet",1],["clanwin",1],["cheap",2],["daily1",1],["daily10",2],["daily30",3],["story1",2],["story27",3],["storylegend",3],["story2a",2],["story2b",2],["story2s",3],["weekpod",2],["weekwin",3],["arc1",2],["arc5",3],["arcsecret",2]];
+const ACH_LIST=[["first",1],["ai10",1],["ai50",2],["ai200",3],["vs1",1],["vs10",2],["vs50",3],["elo1200",2],["elo1400",3],["streak5",2],["streak10",3],["surv5",1],["surv10",2],["surv20",3],["tour1",2],["tour5",3],["roster15",1],["roster30",2],["flawless",2],["comeback",2],["ultko",1],["combo4",1],["combo5",2],["duo",1],["quintet",1],["clanwin",1],["cheap",2],["daily1",1],["daily10",2],["daily30",3],["story1",2],["story27",3],["storylegend",3],["story2a",2],["story2b",2],["story2s",3],["weekpod",2],["weekwin",3],["arc1",2],["arc5",3],["arcsecret",2],["bosshit",1],["bosskill",2]];
 const ACH_PROG={arc5:s=>[s.arcClears||0,5],ai10:s=>[s.aiW||0,10],ai50:s=>[s.aiW||0,50],ai200:s=>[s.aiW||0,200],vs10:s=>[s.vsW||0,10],vs50:s=>[s.vsW||0,50],elo1200:s=>[s.elo||1000,1200],elo1400:s=>[s.elo||1000,1400],streak5:s=>[s.best||0,5],streak10:s=>[s.best||0,10],surv5:s=>[s.surv||0,5],surv10:s=>[s.surv||0,10],surv20:s=>[s.surv||0,20],tour5:s=>[s.tW||0,5],daily10:s=>[s.dailyN||0,10],daily30:s=>[s.dailyN||0,30],roster15:s=>[Object.keys(s.fav||{}).length,15],roster30:s=>[Object.keys(s.fav||{}).length,30]};
 const ACH_PTS={1:10,2:25,3:50};
 function featsFor(win){
@@ -5349,7 +5434,7 @@ Object.assign(UI.ja,{hmd_tuto:"ガイド付きの戦いで基本を学ぶ。",mo
 /* ---------- joueurs en ligne ---------- */
 const ONLINE={list:[], timer:0, last:0};
 function presWhere(){
-  if(S && !S.over && !S.dead) return MODE==="vs"?(TOUR.code?"tour":"vs"):SURV.on?"surv":ARC.on?"arc":(MODE==="solo" && !S.daily && !S.weekly && !S.story && !RP.on && !chDnd())?"ai":S.story?"story":"solo";
+  if(S && !S.over && !S.dead) return MODE==="vs"?(TOUR.code?"tour":"vs"):SURV.on?"surv":ARC.on?"arc":(MODE==="solo" && !S.daily && !S.weekly && !S.boss && !S.story && !RP.on && !chDnd())?"ai":S.story?"story":"solo";
   if(QUICK_MM.t) return "queue"; if(TOUR.code) return "tour"; return "menu";
 }
 async function presPing(){
@@ -5646,6 +5731,122 @@ async function weeklyAfter(win){ rpCapture(true);
       if(r.ok) WEEK.t=0; }catch(e){ const x=$("#wkres"); if(x) x.textContent=L("netErr"); }
   }
 }
+
+/* ---------- boss mondial : PV communs pour toute la communauté, 3 essais par jour, course aux dégâts en 10 tours ---------- */
+const BOSS={ok:false, d:null, loading:false, t:0, err:null};
+const BOSS_TURNS=10, BOSS_ULT_TURN=5;
+const bossRage=()=>S&&S.boss?Math.max(0,(S.round||1)-1):0;
+async function bossLoad(force){
+  if(!ACC.on || !ACC.user || BOSS.loading) return; if(!force && Date.now()-BOSS.t<60000 && BOSS.d) return;
+  BOSS.loading=true;
+  try{ const r=await api("GET","/api/boss");
+    if(r.ok){ BOSS.ok=true; BOSS.d=r; BOSS.t=Date.now();
+      const b=$("#bsban"); if(b){ b.outerHTML=bossTileHTML(); bindBossTile(TITLE_SEL); }
+      if(document.querySelector(".bosspg")) renderBoss(TITLE_SEL);
+    } else { BOSS.ok=false; BOSS.t=Date.now(); } }catch(e){}
+  BOSS.loading=false;
+}
+function bossEndTxt(){ try{ const nb=new Date(new Date().toLocaleString("en-US",{timeZone:"Europe/Brussels"})), e=new Date(nb); e.setHours(24,0,0,0); while(e.getDay()!==1) e.setDate(e.getDate()+1); const ms=e-nb; return L("bossEnd",Math.floor(ms/864e5),Math.floor(ms%864e5/36e5),Math.floor(ms%36e5/6e4)); }catch(e){ return ""; } }
+function bossLeftTxt(){ try{ const nb=new Date(new Date().toLocaleString("en-US",{timeZone:"Europe/Brussels"})), e=new Date(nb); e.setHours(24,0,0,0); const ms=e-nb; return L("bossReset",Math.floor(ms/36e5),Math.floor(ms%36e5/6e4)); }catch(e){ return ""; } }
+const bossPct=d=>d&&d.max?Math.max(0,Math.ceil(d.hp/d.max*100)):0;
+const fmtN=n=>Number(n||0).toLocaleString(LANG==="fr"?"fr-BE":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"en-US");
+function bossTileHTML(){
+  const d=BOSS.d; if(!BOSS.ok || !d || !FIGHTERS[d.id]) return `<div id="bsban"></div>`;
+  return `<button class="bstile ${d.dead?"dead":""}" id="bsban" type="button"><span class="bslive">${d.dead?L("bossDead"):L("bossLive")}</span><img src="${FACE(d.id)}" alt="">
+    <span class="bst"><b>${L("bossTitle")} · ${esc(nm(d.id))}</b><small>${d.dead?esc(L("bossDeadBy",d.killer||"?")):L("bossTile",bossPct(d))+" · "+bossEndTxt()}</small><span class="bsmini"><i style="width:${bossPct(d)}%"></i></span></span>
+    ${d.dead?"":`<span class="bscnt"><b>${d.left}</b>${L("bossTriesShort")}</span>`}</button>`;
+}
+function bindBossTile(sel){ if($("#bsban") && $("#bsban").tagName==="BUTTON") $("#bsban").onclick=()=>{ SFX.play("click"); renderBoss(sel); }; }
+function renderBoss(sel=TITLE_SEL){
+  const d=BOSS.d; if(!d || !FIGHTERS[d.id]){ bossLoad(true); return; }
+  const f=FIGHTERS[d.id], pct=bossPct(d), ok=sel.length>=TEAM_MIN && deckValid(sel) && sel.every(id=>charOwned(id)), isMe=e=>ACC.user&&e.id===ACC.user.id;
+  const me=d.me||{dmg:0,n:0,best:0,rank:null}, capP=Math.round(d.cap/d.max*100);
+  const pips=Array.from({length:d.tries},(_,i)=>`<i class="bspip ${i<d.tries-d.left?"used":""}">拳</i>`).join("");
+  const can=!d.dead && d.left>0 && ok;
+  const btn=d.dead?`${L("bossDead")}<small>${esc(L("bossNext"))}</small>`:d.left<=0?`${L("bossNoTries")}<small>${bossLeftTxt()}</small>`:!ok?`${L("bossFight",esc(nm(d.id)))}<small>${L("bossNeedTeam")}</small>`:`${L("bossFight",esc(nm(d.id)))}<small>${L("bossFightSub",BOSS_TURNS)}</small>`;
+  const row=(e,i)=>`<li class="${isMe(e)?"me":""}"><span class="r">${i+1}</span><span class="n">${esc(e.name)}${isMe(e)?` <small>(${L("bossYou")})</small>`:""}</span><span class="d">${fmtN(e.dmg)} <small>/ ${e.n}</small></span></li>`;
+  const slots=ok?sel.map(id=>`<img src="${FACE(id)}" alt="" title="${esc(nm(id))}">`).join(""):"";
+  pageShell(L("bossTitle"),`<div class="bosspg ${d.dead?"dead":""}">
+    <div class="bshd"><div><div class="bskick">${L("bossTitle")}${d.test?` · <span class="bstest">TEST</span>`:""}</div><h2>${d.dead?L("bossFallen"):esc(L("boss_t_"+d.id)||nm(d.id))}</h2></div>
+      <div class="bstimer">${d.dead?`${L("bossRewKill")}<b>${esc(d.killer||"?")}</b>${L("bossNext")}`:`${L("bossFlees")}<b>${bossEndTxt()}</b>${bossLeftTxt()}`}</div></div>
+    <div class="bsmain">
+      <div class="bsart"><img src="${CONFIG.imgs[d.id]}" alt=""><div class="bsko">K.O.</div>
+        <div class="bsinfo"><div class="bsname"><span class="bssig">${f.sigil||"鬼"}</span>${esc(nm(d.id))}</div>
+          <div class="bshp"><div class="bsfill" style="width:${pct}%"></div>${Array.from({length:9},(_,i)=>`<i style="left:${(i+1)*10}%"></i>`).join("")}</div>
+          <div class="bshpn"><span><b>${fmtN(d.hp)}</b> / ${fmtN(d.max)} ${L("hpShort")}</span><span>${pct} %</span></div>
+          <div class="bstags"><span>${esc(tr(f.passive))}</span><span>${L("bossTagRage")}</span><span>${esc(L("bossTagUlt",tr(f.ult.name),BOSS_ULT_TURN))}</span></div></div></div>
+      <div class="bscol">
+        <div class="bspan"><h3>${L("bossTries")}</h3><div class="bstries"><span class="bspips">${pips}</span><small>${d.dead?"":L("bossLeft",d.left)}</small></div>
+          ${ok&&can?`<div class="bsteam">${slots}<button class="btn ghost sm" id="bsteam">${L("hmTeamBtn")}</button></div>`:""}
+          <button class="bsgo" id="bsgo" ${can?"":"disabled"}>${btn}</button>
+          ${!ok&&!d.dead&&d.left>0?`<button class="btn sm" id="bsteam" style="width:100%">${L("hmTeamBtn")}</button>`:""}</div>
+        <div class="bspan"><h3>${L("bossWeek")}</h3>
+          <div class="bsmy"><div><span>${L("bossDmg")}</span><b>${fmtN(me.dmg)}</b></div><div><span>${L("bossRank")}</span><b>${me.rank?"#"+me.rank:"—"}</b></div><div><span>${L("bossRecord")}</span><b>${fmtN(me.best)}</b></div><div><span>${L("bossRuns")}</span><b>${me.n}</b></div></div>
+          <div class="bscap">${L("bossCap",fmtN(me.dmg),fmtN(d.cap),capP)}<div class="bscapb"><i style="width:${Math.min(100,me.dmg/d.cap*100)}%"></i></div></div></div>
+        <div class="bspan"><h3>${L("bossTop")}</h3>${d.top.length?`<ol class="bslb">${d.top.map(row).join("")}</ol><div class="bsn">${L("bossHitters",d.n)}</div>`:`<p class="bsn">${L("bossEmpty")}</p>`}</div>
+      </div></div>
+    <h3 class="bssec">${L("bossRew")}</h3>
+    ${d.test?`<p class="bstestn">${L("bossTestNote")}</p>`:""}
+    <div class="bsrw"><div><span>${L("bossRewAll")}</span><b>${d.rew.all} ${L("ryo")}</b></div><div><span>${L("bossRewTop")}</span><b>+${d.rew.top} ${L("ryo")}</b></div><div><span>${L("bossRewKill")}</span><b>${L("bossRewKillV")}</b></div></div>
+    <div class="bsrules"><div><b>${L("bossR1t",d.tries)}</b>${L("bossR1")}</div><div><b>${L("bossR2t")}</b>${L("bossR2",BOSS_TURNS)}</div><div><b>${L("bossR3t")}</b>${L("bossR3",capP)}</div><div><b>${L("bossR4t")}</b>${L("bossR4",BOSS_ULT_TURN)}</div></div>
+  </div>`,sel);
+  if($("#bsgo")) $("#bsgo").onclick=()=>bossStart(sel);
+  document.querySelectorAll("#bsteam").forEach(b=>b.onclick=()=>{ SFX.play("click"); HOME_M="boss"; renderTitle(sel); });
+  bindLang(()=>renderBoss(sel));
+  if(Date.now()-BOSS.t>30000) bossLoad(true);
+}
+async function bossStart(sel){
+  const d=BOSS.d; if(!d || d.dead || d.left<=0 || !(sel.length>=TEAM_MIN && deckValid(sel))) return;
+  const b=$("#bsgo"); if(b){ if(b.disabled) return; b.disabled=true; }
+  SFX.play("go");
+  let r; try{ r=await api("POST","/api/boss/start"); }catch(e){ r={ok:false}; }
+  if(!r.ok){ if(r.id) BOSS.d=r; BOSS.t=0; if(b){ b.disabled=false; b.innerHTML=r.error==="tries"?L("bossNoTries"):r.error==="dead"?L("bossDead"):L("netErr"); } bossLoad(true); return; }
+  BOSS.d=r; const tok=r.tok;
+  MODE="solo"; ME="p";
+  newGame(sel.slice(),[r.id],st=>bossPrep(st,r,tok));
+}
+function bossPrep(st,d,tok){
+  st.boss={tok, id:d.id, hp0:d.hp, max:d.max, dmg:0, turns:[], best:{d:0,id:null}, sent:false};
+  const f=st.a.team[0]; f.max=d.max; f.hp=Math.max(1,d.hp);
+  st.evEvery=1e9; st.log=L("bossTitle")+" · "+L("start");
+}
+function bossHit(k,dmg,f){ if(!S||!S.boss||k!=="a"||dmg<=0) return; const x=Math.min(dmg,f.hp); S.boss.dmg+=x; const i=Math.max(0,(S.round||1)-1); S.boss.turns[i]=(S.boss.turns[i]||0)+x; if(x>S.boss.best.d) S.boss.best={d:x,id:act(S.p).id}; }
+async function bossSubmit(){
+  if(!S||!S.boss||S.boss.sent||!ACC.user) return null; S.boss.sent=true;
+  try{ const r=await api("POST","/api/boss/result",{tok:S.boss.tok,dmg:S.boss.dmg,team:S.p.team.map(t=>t.id)});
+    if(r.ok){ BOSS.d=r; BOSS.t=Date.now(); if(r.user && ACC.user){ ACC.user=r.user; } } return r; }catch(e){ return {ok:false}; }
+}
+async function bossAfter(win){ rpCapture(true);
+  MUSIC.want("menu"); SFX.play(win?"win":"lose");
+  const B=S.boss, team=S.p.team.map(t=>t.id), sel=team, n=Math.max(1,Math.min(BOSS_TURNS,S.round||1));
+  const why=win?L("bossKO"):S.p.team.every(t=>t.ko)?L("bossFell",n):L("bossTime",BOSS_TURNS);
+  const mx=Math.max(1,...B.turns.map(x=>x||0));
+  const bars=Array.from({length:BOSS_TURNS},(_,i)=>`<i class="${i<n?"":"off"}"><u style="height:${Math.round((B.turns[i]||0)/mx*44)}px"></u><s>${i+1}</s></i>`).join("");
+  $("#app").innerHTML=`<div class="screen" style="overflow-y:auto"><div class="center bsres">
+    <div class="kicker">${L("bossTitle")} · ${esc(nm(B.id))}</div>
+    <p class="bswhy">${why}</p>
+    <div class="bsbig" id="bscount">0</div><div class="bsdl">${L("bossDealt",esc(nm(B.id)))}</div>
+    <div class="bsturns">${bars}</div>
+    <div class="bslines">${B.best.id?`<div><span>${L("bossBest")}</span><b>${esc(nm(B.best.id))} · ${B.best.d}</b></div>`:""}<div id="bsrs"><span>${L("connecting")}</span></div></div>
+    ${endJournalHTML()}
+    ${rpAvailable()?`<button class="btn ghost sm" id="rpgo">▶ ${L("rpBtn")}</button>`:""}
+    <div class="row" style="justify-content:center"><button class="btn" id="bsback">${L("bossBack")}</button></div></div></div>`;
+  endJournalScroll();
+  { const el=$("#bscount"), tot=B.dmg, t0=performance.now(); const step=t=>{ const k=Math.min(1,(t-t0)/1100); if(el) el.textContent=Math.round(tot*(1-Math.pow(1-k,3))); if(k<1) requestAnimationFrame(step); }; requestAnimationFrame(step); }
+  if($("#rpgo")) $("#rpgo").onclick=()=>{ SFX.play("click"); rpStart(()=>renderBoss(sel)); };
+  $("#bsback").onclick=()=>{ SFX.play("click"); renderBoss(sel); };
+  const r=await bossSubmit(), x=$("#bsrs"); if(!x) return;
+  if(!r || !r.ok){ x.innerHTML=`<span>${r&&r.error==="week"?L("bossWeekOver"):L("netErr")}</span>`; return; }
+  const me=r.me||{dmg:0,rank:null};
+  x.outerHTML=`<div><span>${L("bossTotal")}</span><b>${fmtN(me.dmg)} / ${fmtN(r.cap)}</b></div><div><span>${L("bossRankL")}</span><b>${me.rank?"#"+me.rank:"—"}</b></div>`
+    +(r.killed?`<div class="bskill"><b>${L("bossKilled")}</b></div>`:r.dead&&!r.counted&&r.raw>0?`<div class="bswarn"><span>${L("bossAlready")}</span></div>`:r.capped?`<div class="bswarn"><span>${L("bossCapped",r.counted)}</span></div>`:"");
+  if(r.killed) SFX.ann("finalko",{delay:200});
+}
+
+Object.assign(UI.fr,{bossEnd:(d,h,m)=>d?`${d}j ${h}h`:`${h}h ${m}m`,bossNeedTeam:"Choisis d'abord ton équipe",bossTitle:"Boss mondial",boss_t_devil:"Le démon de Villainy Prison",bossLive:"EN COURS",bossDead:"Vaincu !",bossFallen:"Le boss est tombé",bossDeadBy:n=>`Coup de grâce : ${n}`,bossNext:"Prochain boss lundi",bossTile:p=>`${p} % de PV restants`,bossTriesShort:"essais",bossFlees:"Fuit dans",bossReset:(h,m)=>`Essais remis à zéro dans ${h}h ${m}m`,bossTries:"Tes essais du jour",bossLeft:n=>n>0?`Il t'en reste ${n}`:"Reviens demain",bossFight:n=>`Affronter ${n}`,bossFightSub:n=>`${n} tours max · fais un max de dégâts`,bossNoTries:"Plus d'essais",bossWeek:"Ta semaine",bossDmg:"Dégâts",bossRank:"Rang",bossRecord:"Record",bossRuns:"Essais",bossCap:(a,b,p)=>`Plafond comptabilisé : ${a} / ${b} (${p} % des PV du boss)`,bossTop:"Les plus gros cogneurs",bossYou:"toi",bossHitters:n=>`${n} combattant${n>1?"s ont":" a"} frappé cette semaine`,bossEmpty:"Personne ne l'a encore touché. À toi l'honneur.",bossRew:"Récompenses quand il tombe",bossRewAll:"Tous les participants",bossRewTop:"Top 3 des dégâts",bossRewKill:"Coup de grâce",bossRewKillV:"Trophée « Coup de grâce »",bossTestNote:"Phase de test : boss réservé aux testeurs, avec moins de PV et sans récompenses.",bossR1t:n=>`${n} essais par jour`,bossR1:"Remis à zéro à minuit (heure belge). Un essai abandonné compte quand même.",bossR2t:"Course aux dégâts",bossR2:n=>`${n} tours max. Le boss gagne +1 dégât à chaque tour : jouer la défense ne sert à rien.`,bossR3t:"Personne ne le tue seul",bossR3:p=>`Tes dégâts comptent jusqu'à ${p} % de ses PV par semaine.`,bossR4t:"Sa colère",bossR4:n=>`Au tour ${n}, il déchaîne son ultime.`,bossTagRage:"Rage : +1 dégât par tour",bossTagUlt:(u,n)=>`${u} au tour ${n}`,bossTurnSub:(r,n,x)=>`Tour ${r}/${n}${x?` · rage du boss +${x}`:""}.`,bossKO:"Tu l'as mis K.O. !",bossFell:r=>`Ton équipe est tombée au tour ${r}`,bossTime:n=>`Les ${n} tours sont écoulés`,bossDealt:n=>`dégâts infligés à ${n}`,bossBest:"Meilleur coup",bossTotal:"Ton total cette semaine",bossRankL:"Ton classement",bossCapped:c=>`Plafond atteint : seuls ${c} dégâts comptent cette fois.`,bossKilled:"Coup de grâce ! Le boss est tombé.",bossAlready:"Le boss est tombé pendant ton combat : dégâts non comptés.",bossBack:"Retour au boss",bossWeekOver:"La semaine est finie : ce boss a fui.",ach_bosshit:"Chasseur de boss",achd_bosshit:"Participer à la chute d'un boss mondial",ach_bosskill:"Coup de grâce",achd_bosskill:"Porter le dernier coup à un boss mondial"});
+Object.assign(UI.en,{bossEnd:(d,h,m)=>d?`${d}d ${h}h`:`${h}h ${m}m`,bossNeedTeam:"Pick your team first",bossTitle:"World boss",boss_t_devil:"The demon of Villainy Prison",bossLive:"LIVE",bossDead:"Defeated!",bossFallen:"The boss has fallen",bossDeadBy:n=>`Finishing blow: ${n}`,bossNext:"Next boss on Monday",bossTile:p=>`${p}% HP left`,bossTriesShort:"tries",bossFlees:"Flees in",bossReset:(h,m)=>`Tries reset in ${h}h ${m}m`,bossTries:"Your tries today",bossLeft:n=>n>0?`${n} left`:"Come back tomorrow",bossFight:n=>`Fight ${n}`,bossFightSub:n=>`${n} turns max · deal as much damage as you can`,bossNoTries:"No tries left",bossWeek:"Your week",bossDmg:"Damage",bossRank:"Rank",bossRecord:"Best",bossRuns:"Tries",bossCap:(a,b,p)=>`Counted cap: ${a} / ${b} (${p}% of the boss's HP)`,bossTop:"Hardest hitters",bossYou:"you",bossHitters:n=>`${n} fighter${n>1?"s":""} hit him this week`,bossEmpty:"Nobody has touched him yet. You go first.",bossRew:"Rewards when he falls",bossRewAll:"All participants",bossRewTop:"Top 3 damage",bossRewKill:"Finishing blow",bossRewKillV:"\"Finishing blow\" trophy",bossTestNote:"Test phase: boss reserved for testers, with less HP and no rewards.",bossR1t:n=>`${n} tries a day`,bossR1:"Reset at midnight (Belgian time). An abandoned try still counts.",bossR2t:"Damage race",bossR2:n=>`${n} turns max. The boss deals +1 damage every turn: playing defense is pointless.`,bossR3t:"Nobody kills him alone",bossR3:p=>`Your damage counts up to ${p}% of his HP per week.`,bossR4t:"His wrath",bossR4:n=>`On turn ${n}, he unleashes his ultimate.`,bossTagRage:"Rage: +1 damage per turn",bossTagUlt:(u,n)=>`${u} on turn ${n}`,bossTurnSub:(r,n,x)=>`Turn ${r}/${n}${x?` · boss rage +${x}`:""}.`,bossKO:"You knocked him out!",bossFell:r=>`Your team fell on turn ${r}`,bossTime:n=>`The ${n} turns are over`,bossDealt:n=>`damage dealt to ${n}`,bossBest:"Best hit",bossTotal:"Your total this week",bossRankL:"Your rank",bossCapped:c=>`Cap reached: only ${c} damage counts this time.`,bossKilled:"Finishing blow! The boss has fallen.",bossAlready:"The boss fell during your fight: damage not counted.",bossBack:"Back to the boss",bossWeekOver:"The week is over: this boss fled.",ach_bosshit:"Boss hunter",achd_bosshit:"Take part in bringing down a world boss",ach_bosskill:"Finishing blow",achd_bosskill:"Land the last hit on a world boss"});
+Object.assign(UI.it,{bossEnd:(d,h,m)=>d?`${d}g ${h}h`:`${h}h ${m}m`,bossNeedTeam:"Scegli prima la tua squadra",bossTitle:"Boss mondiale",boss_t_devil:"Il demone di Villainy Prison",bossLive:"IN CORSO",bossDead:"Sconfitto!",bossFallen:"Il boss è caduto",bossDeadBy:n=>`Colpo di grazia: ${n}`,bossNext:"Prossimo boss lunedì",bossTile:p=>`${p}% di PV rimasti`,bossTriesShort:"tentativi",bossFlees:"Fugge tra",bossReset:(h,m)=>`Tentativi azzerati tra ${h}h ${m}m`,bossTries:"I tuoi tentativi di oggi",bossLeft:n=>n>0?`Te ne restano ${n}`:"Torna domani",bossFight:n=>`Affronta ${n}`,bossFightSub:n=>`${n} turni max · fai più danni possibile`,bossNoTries:"Niente più tentativi",bossWeek:"La tua settimana",bossDmg:"Danni",bossRank:"Posto",bossRecord:"Record",bossRuns:"Tentativi",bossCap:(a,b,p)=>`Tetto conteggiato: ${a} / ${b} (${p}% dei PV del boss)`,bossTop:"Chi picchia più forte",bossYou:"tu",bossHitters:n=>`${n} combattent${n>1?"i hanno":"e ha"} colpito questa settimana`,bossEmpty:"Nessuno l'ha ancora toccato. A te l'onore.",bossRew:"Ricompense quando cade",bossRewAll:"Tutti i partecipanti",bossRewTop:"Top 3 dei danni",bossRewKill:"Colpo di grazia",bossRewKillV:"Trofeo «Colpo di grazia»",bossTestNote:"Fase di test: boss riservato ai tester, con meno PV e senza ricompense.",bossR1t:n=>`${n} tentativi al giorno`,bossR1:"Azzerati a mezzanotte (ora belga). Un tentativo abbandonato conta lo stesso.",bossR2t:"Corsa ai danni",bossR2:n=>`${n} turni max. Il boss guadagna +1 danno a ogni turno: giocare in difesa non serve.`,bossR3t:"Nessuno lo uccide da solo",bossR3:p=>`I tuoi danni contano fino al ${p}% dei suoi PV a settimana.`,bossR4t:"La sua ira",bossR4:n=>`Al turno ${n}, scatena la sua mossa finale.`,bossTagRage:"Rabbia: +1 danno per turno",bossTagUlt:(u,n)=>`${u} al turno ${n}`,bossTurnSub:(r,n,x)=>`Turno ${r}/${n}${x?` · rabbia del boss +${x}`:""}.`,bossKO:"L'hai mandato K.O.!",bossFell:r=>`La tua squadra è caduta al turno ${r}`,bossTime:n=>`I ${n} turni sono finiti`,bossDealt:n=>`danni inflitti a ${n}`,bossBest:"Colpo migliore",bossTotal:"Il tuo totale della settimana",bossRankL:"La tua posizione",bossCapped:c=>`Tetto raggiunto: stavolta contano solo ${c} danni.`,bossKilled:"Colpo di grazia! Il boss è caduto.",bossAlready:"Il boss è caduto durante il tuo combattimento: danni non conteggiati.",bossBack:"Torna al boss",bossWeekOver:"La settimana è finita: questo boss è fuggito.",ach_bosshit:"Cacciatore di boss",achd_bosshit:"Partecipa alla caduta di un boss mondiale",ach_bosskill:"Colpo di grazia",achd_bosskill:"Infliggi l'ultimo colpo a un boss mondiale"});
+Object.assign(UI.ja,{bossEnd:(d,h,m)=>d?`${d}日${h}時間`:`${h}時間${m}分`,bossNeedTeam:"まずチームを選ぼう",bossTitle:"ワールドボス",boss_t_devil:"ヴィレニィプリズンの悪魔",bossLive:"開催中",bossDead:"撃破！",bossFallen:"ボスは倒れた",bossDeadBy:n=>`とどめ：${n}`,bossNext:"次のボスは月曜日",bossTile:p=>`残りHP ${p}%`,bossTriesShort:"回",bossFlees:"逃走まで",bossReset:(h,m)=>`挑戦回数のリセットまで ${h}時間${m}分`,bossTries:"今日の挑戦",bossLeft:n=>n>0?`残り${n}回`:"また明日",bossFight:n=>`${n}に挑む`,bossFightSub:n=>`最大${n}ターン・できるだけ多くのダメージを`,bossNoTries:"挑戦回数なし",bossWeek:"今週の記録",bossDmg:"ダメージ",bossRank:"順位",bossRecord:"最高",bossRuns:"挑戦",bossCap:(a,b,p)=>`計上上限：${a} / ${b}（ボスHPの${p}%）`,bossTop:"ダメージランキング",bossYou:"あなた",bossHitters:n=>`今週${n}人が攻撃`,bossEmpty:"まだ誰も攻撃していない。一番手はあなただ。",bossRew:"撃破時の報酬",bossRewAll:"参加者全員",bossRewTop:"ダメージ上位3名",bossRewKill:"とどめ",bossRewKillV:"トロフィー「とどめ」",bossTestNote:"テスト期間：テスター専用、HP少なめ、報酬なし。",bossR1t:n=>`1日${n}回まで`,bossR1:"深夜0時（ベルギー時間）にリセット。途中でやめても1回と数える。",bossR2t:"ダメージ勝負",bossR2:n=>`最大${n}ターン。ボスは毎ターン攻撃+1：守りに入っても無駄だ。`,bossR3t:"一人では倒せない",bossR3:p=>`週あたりボスHPの${p}%までがあなたのダメージとして計上される。`,bossR4t:"怒り",bossR4:n=>`${n}ターン目に奥義を放つ。`,bossTagRage:"怒り：毎ターン攻撃+1",bossTagUlt:(u,n)=>`${n}ターン目に${u}`,bossTurnSub:(r,n,x)=>`ターン ${r}/${n}${x?`・ボスの怒り +${x}`:""}。`,bossKO:"ボスをKOした！",bossFell:r=>`${r}ターン目にチーム全滅`,bossTime:n=>`${n}ターン終了`,bossDealt:n=>`${n}に与えたダメージ`,bossBest:"最大の一撃",bossTotal:"今週の合計",bossRankL:"あなたの順位",bossCapped:c=>`上限到達：今回計上されたのは${c}ダメージ。`,bossKilled:"とどめ！ボスは倒れた。",bossAlready:"戦闘中にボスが倒された：ダメージは計上されない。",bossBack:"ボスへ戻る",bossWeekOver:"週が終わった：ボスは逃げた。",ach_bosshit:"ボスハンター",achd_bosshit:"ワールドボスの撃破に参加する",ach_bosskill:"とどめ",achd_bosskill:"ワールドボスにとどめを刺す"});
 
 /* ---------- tirer vers le bas pour recharger (menus seulement, pas en combat) ---------- */
 (function(){ if(typeof document==="undefined" || !document.addEventListener) return;
@@ -5979,7 +6180,7 @@ function quitPress(b){
     if(!QUIT_ARM){ SFX.play("click"); QUIT_ARM=true; b.classList.add("arm"); clearTimeout(QUIT_T); QUIT_T=setTimeout(()=>{ QUIT_ARM=false; const x=$("#quit"); if(x) x.classList.remove("arm"); },4000); return; }
     QUIT_ARM=false; clearTimeout(QUIT_T);
     SFX.play("click"); const coach=document.querySelector(".coachwrap,.coach-wrap,.coach"); if(coach) coach.remove();
-    if(S && !S.over && ACC.user){ if(MODE==="vs") accMatchEnd(true); else if(MODE==="solo"){ if(S.story||S.weekly){} else if(SURV.on) survReport(SURV.wave,false); else if(ARC.on && S.arc){ if(!S.arcBonus){ arcReport(ARC.floor,false); ARC.on=false; } } else accReportSolo(false); } }
+    if(S && !S.over && ACC.user){ if(MODE==="vs") accMatchEnd(true); else if(MODE==="solo"){ if(S.story||S.weekly){} else if(S.boss) bossSubmit(); else if(SURV.on) survReport(SURV.wave,false); else if(ARC.on && S.arc){ if(!S.arcBonus){ arcReport(ARC.floor,false); ARC.on=false; } } else accReportSolo(false); } }
     const tc=MODE==="vs"?TOUR.code:null;
     if(S){ S.over=true; S.dead=true; } if(MODE==="vs") netLeave(); else { MODE="solo"; ME="p"; } if(tc) renderTour(tc); else renderTitle(); }
 // délégué sur le document et au pointerdown : le plateau se redessine souvent (chrono, IA), un clic pouvait se perdre entre l'appui et le relâchement
@@ -6268,7 +6469,7 @@ function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; ARC.on=fa
   bindDeckChips(sel,redo); if($("#mycards")) $("#mycards").onclick=()=>{ SFX.play("click"); myCardsOpen(); };
   if($("#dygo")) $("#dygo").onclick=()=>{ SFX.play("go"); const d=dailyDef(DAILY.day); if(HOME_M || d.kind==="team") dailyStart(sel); else { HOME_M="daily"; renderTitle(sel); } };
   if($("#lkon")) $("#lkon").onclick=()=>{ SFX.play("click"); linksPop(sel); };
-  if(!HOME_M) bindWeeklyBanner(sel); if(ACC.user) weeklyLoad();
+  if(!HOME_M){ bindWeeklyBanner(sel); bindBossTile(sel); } if(ACC.user){ weeklyLoad(); bossLoad(); }
   if(ACC.user && (!DAILY.day || DAILY.day!==new Date().toLocaleDateString("sv-SE",{timeZone:"Europe/Brussels"}))) dailyLoad();
   if(ACC.user && !DECKS.list && !DECKS.loading) decksLoad().then(()=>{ if(document.querySelector(".selwrap") && TITLE_SEL===sel) redo(sel,focus); });
   if($("#rnd")) $("#rnd").onclick=()=>{ SFX.play("click"); const t=randomTeam(ROSTER().filter(id=>!charOwned(id))); redo(t,t[0]); };
@@ -6365,7 +6566,7 @@ Object.assign(UI.ja,{lk_bloodtk:"血を分けた兄弟",lk_bloodkh:"血を分け
 let HOME_M=null;
 const HM_ART={tuto:"vieux",ai:"dans",online:"colo",tour:"emp",surv:"fourbe",arc:"sage",story:"maitre"};
 function hmModes(){ const m=[["story",L("stBtn")],["arc",L("arcBtn")],["surv",L("survBtn")],["ai",L("vsAi")],["online",L("vsOnline")]]; if(ACC.on) m.push(["tour",L("tourBtn")]); m.push(["tuto",L("tuto")]); return m; }
-function hmName(m){ return {ai:L("vsAi"),online:L("vsOnline"),surv:L("survBtn"),arc:L("arcBtn"),daily:L("dyTitle"),weekly:L("wkTitle")}[m]||""; }
+function hmName(m){ return {ai:L("vsAi"),online:L("vsOnline"),surv:L("survBtn"),arc:L("arcBtn"),daily:L("dyTitle"),weekly:L("wkTitle"),boss:L("bossTitle")}[m]||""; }
 function pickHeadHTML(){ return `<div class="pickhead"><button class="backbtn" id="hmback" aria-label="${L("hmBack")}"><i class="bk-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></i><span class="blabel">${L("hmBack")}</span></button><div class="pkmode"><small>${L("hmPick")}</small><b>${esc(hmName(HOME_M))}</b></div></div>`; }
 function hmDailyHTML(){
   if(!ACC.on || !ACC.user || !DAILY.day || DAILY.done) return "";
@@ -6392,7 +6593,7 @@ function ryoPillHTML(){ if(!ACC.on||!ACC.user||!stUnlock()) return ""; return `<
 function homeHTML(sel){
   const ms=hmModes(), m0=ms[0][0];
   return `<div class="hm"><div class="hmL"><div class="hmlist">${ms.map(([m,n],i)=>`<button class="hmi${i===0?" on":""}" data-m="${m}"${m==="online"?' id="online"':""} style="--hc:var(--hm-${m})"><img class="hmp" src="assets/${HM_ART[m]}.webp" alt="" loading="lazy"><span class="hmt"><b>${n}</b><small>${L("hmd_"+m)}</small></span></button>`).join("")}</div>
-    <div class="hmch">${hmDailyHTML()}${weeklyBannerHTML(sel)}</div></div>
+    <div class="hmch">${hmDailyHTML()}${weeklyBannerHTML(sel)}${bossTileHTML()}</div></div>
     <div class="hmstage" style="--hc:var(--hm-${m0})"><img id="hmimg" src="assets/${HM_ART[m0]}.webp" alt=""><div class="hminfo"><div class="k">${L("hmMode")}</div><h1 id="hmh">${ms[0][1]}</h1><p id="hmd">${L("hmd_"+m0)}</p><button class="btn hmplay" id="hmplay" data-m="${m0}">${L("hmPlay")}</button><div class="hmstats" id="hmstats">${hmStatsHTML(m0)}</div></div>${hmNewsHTML()}</div></div>
     <div class="hmlinks">${stUnlock()&&ACC.user?`<button class="btn sm shopbtn" id="shop">${KOBAN()}${L("shopBtn")}${[1,2,3,4,5,6].map(i=>`<i class="spk k${i}" aria-hidden="true"></i>`).join("")}</button>`:""}<button class="btn ghost sm" id="roster">${L("rosterBtn")}</button><button class="btn ghost sm" id="rules">${L("rulesBtn")}</button>${ACC.on?`<button class="btn ghost sm" id="hof">${L("hofBtn")}</button>`:""}</div>
     ${socialHTML()}<p class="fanmade">${L("fanMade")}</p>`;
@@ -6416,7 +6617,7 @@ function bindHome(sel){
 function pickLaunch(sel){
   if(sel.some(id=>!charOwned(id))) return;
   if(!(sel.length>=TEAM_MIN)) return;
-  ({ai:()=>aiAsk(sel),online:()=>renderLobby(sel),surv:()=>survStart(sel),arc:()=>arcStart(sel),daily:()=>dailyStart(sel),weekly:()=>weeklyStart(sel)}[HOME_M]||(()=>aiAsk(sel)))();
+  ({ai:()=>aiAsk(sel),online:()=>renderLobby(sel),surv:()=>survStart(sel),arc:()=>arcStart(sel),daily:()=>dailyStart(sel),weekly:()=>weeklyStart(sel),boss:()=>renderBoss(sel)}[HOME_M]||(()=>aiAsk(sel)))();
 }
 Object.assign(UI.fr,{hmMode:"Mode",hmPlay:"Jouer",hmGo:"C'est parti",hmBack:"Modes",hmPick:"Choisis ton équipe",hmTeamBtn:"Choisir mon équipe",hmd_ai:"Monte ton équipe et affronte l'IA. 4 niveaux de difficulté.",hmd_online:"Affronte un vrai joueur, en partie rapide ou avec un code.",hmd_tour:"Un tournoi entre joueurs, un seul vainqueur.",hmd_surv:"Enchaîne les vagues sans récupérer tes PV. Tiens le plus longtemps.",hmd_arc:"Monte les étages de la Tour jusqu'au boss final.",hmd_story:"Suis Kenshiro chapitre après chapitre, arc après arc."});
 Object.assign(UI.en,{hmMode:"Mode",hmPlay:"Play",hmGo:"Let's go",hmBack:"Modes",hmPick:"Pick your team",hmTeamBtn:"Pick my team",hmd_ai:"Build your team and fight the AI. 4 difficulty levels.",hmd_online:"Fight a real player, in quick match or with a code.",hmd_tour:"A tournament between players, only one winner.",hmd_surv:"Fight wave after wave without healing. Last as long as you can.",hmd_arc:"Climb the floors of the Tower up to the final boss.",hmd_story:"Follow Kenshiro chapter after chapter, arc after arc."});

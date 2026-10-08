@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.97.0 — 2026-10-08
+
+- Boss mondial (en test, réservé aux testeurs) : Devil Rebirth et ses PV communs à toute la communauté, 3 essais par jour, 10 tours pour lui faire un max de dégâts
+- Nouveaux trophées : Chasseur de boss et Coup de grâce
+
 ## v0.96.9 — 2026-10-08
 
 - Devil Rebirth vient bien de Villainy Prison, pas de Cassandra (textes corrigés)

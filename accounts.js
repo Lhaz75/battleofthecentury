@@ -216,6 +216,42 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       achCheck(u.stats); await store.saveStats(u.id, u.stats); }
   }
   const lastWk = new Map();
+  // ---- boss mondial : un boss par semaine, PV communs, 3 essais par jour, dégâts comptés jusqu'à un plafond par joueur ----
+  const BOSS_LIST = ["devil"];          // rotation, un par semaine
+  const BOSS_TEST = true;               // phase test : réservé aux testeurs, sans récompenses (boss séparé)
+  const BOSS_TRIES = 3, BOSS_RUN_MAX = 600, BOSS_HP_PER = 180, BOSS_HP_MIN = 1500;
+  const BOSS_CAP = test => test ? .35 : .15;
+  const BOSS_REW = { all: 100, top: 150 };
+  const bossCache = new Map(), bossRuns = new Map();
+  const bossKey = test => (test ? "bossT:" : "boss:") + weekKey();
+  async function bossGet(test) {
+    const k = bossKey(test); if (bossCache.has(k)) return bossCache.get(k);
+    let b = await store.getSetting(k);
+    if (!b) {
+      const wi = Math.floor(Date.parse(weekKey() + "T12:00:00Z") / (7 * 864e5));
+      let max = 800;
+      if (!test) { const act = (await store.listUsers()).filter(x => !x.banned && x.last_seen && Date.now() - x.last_seen < 14 * 864e5).length; max = Math.max(BOSS_HP_MIN, Math.round(act * BOSS_HP_PER / 100) * 100); }
+      b = { k, id: BOSS_LIST[wi % BOSS_LIST.length], max, hp: max, entries: {}, tries: {}, dead: false, killer: null, killedAt: 0, created: Date.now() };
+      await store.setSetting(k, b);
+    }
+    bossCache.set(k, b); return b;
+  }
+  async function bossSave(b) { bossCache.set(b.k, b); await store.setSetting(b.k, b); }
+  const bossRank = b => Object.entries(b.entries || {}).map(([id, e]) => ({ id: +id, ...e })).filter(e => e.dmg > 0).sort((x, y) => (y.dmg - x.dmg) || (x.t - y.t));
+  function bossPub(b, u, test) {
+    const r = bossRank(b), mi = r.findIndex(e => e.id === u.id), e = (b.entries || {})[u.id], tr = b.tries[u.id], d = dayKey();
+    return { week: weekKey(), ends: weekKey(1), id: b.id, max: b.max, hp: b.hp, dead: b.dead, killer: b.killer && b.killer.name, killedAt: b.killedAt,
+      left: b.dead ? 0 : BOSS_TRIES - (tr && tr.d === d ? tr.n : 0), tries: BOSS_TRIES, cap: Math.ceil(b.max * BOSS_CAP(test)),
+      me: e ? { dmg: e.dmg, n: e.n, best: e.best, rank: mi >= 0 ? mi + 1 : null } : null,
+      top: r.slice(0, 10).map(x => ({ id: x.id, name: x.name, dmg: x.dmg, n: x.n, team: x.team })), n: r.length, players: Object.keys(b.entries || {}).length, test, rew: BOSS_REW };
+  }
+  async function bossAward(b) {
+    const top = new Set(bossRank(b).slice(0, 3).map(e => e.id));
+    for (const id of Object.keys(b.entries || {})) { const u = await store.byId(+id); if (!u) continue;
+      u.stats.pts += BOSS_REW.all + (top.has(+id) ? BOSS_REW.top : 0); u.stats.bossN = (u.stats.bossN || 0) + 1;
+      if (b.killer && b.killer.id === +id) u.stats.bossKill = (u.stats.bossKill || 0) + 1;
+      achCheck(u.stats); await store.saveStats(u.id, u.stats); }
+  }
   const ACH = {
     first: { t: 1, c: s => s.aiW >= 1 }, ai10: { t: 1, c: s => s.aiW >= 10 }, ai50: { t: 2, c: s => s.aiW >= 50 }, ai200: { t: 3, c: s => s.aiW >= 200 },
     vs1: { t: 1, c: s => s.vsW >= 1 }, vs10: { t: 2, c: s => s.vsW >= 10 }, vs50: { t: 3, c: s => s.vsW >= 50 },
@@ -230,6 +266,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     storylegend: { t: 3, c: s => s.storyH && STORY_ORDER.filter(k => /^king-/.test(k)).every(k => s.storyH[k]) },
     story2a: { t: 2, c: s => s.story && s.story["arc2-7"] != null }, story2b: { t: 2, c: s => s.story && s.story["arc2-9"] != null },
     story2s: { t: 3, c: s => s.story && Object.keys(s.story).filter(k => /^arc2-/.test(k)).reduce((a, k) => a + s.story[k], 0) >= 27 },
+    bosshit: { t: 1, c: s => (s.bossN || 0) >= 1 }, bosskill: { t: 2, c: s => (s.bossKill || 0) >= 1 },
     weekpod: { t: 2, c: s => (s.wkPod || 0) >= 1 }, weekwin: { t: 3, c: s => (s.wkWin || 0) >= 1 },
     daily1: { t: 1, c: s => (s.dailyN || 0) >= 1 }, daily10: { t: 2, c: s => (s.dailyN || 0) >= 10 }, daily30: { t: 3, c: s => (s.dailyN || 0) >= 30 },
     duo: { t: 1, f: 1 }, quintet: { t: 1, f: 1 }, clanwin: { t: 1, f: 1 }, cheap: { t: 2, f: 1 }
@@ -332,6 +369,54 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       if (better) { w.entries[u.id] = e; await wkSave(k, w); }
       const r = wkRank(w), mi = r.findIndex(x => x.id === u.id);
       return [200, { better, rank: mi + 1, n: r.length, best: w.entries[u.id] }];
+    },
+    "GET /api/boss": async req => {
+      const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      if (BOSS_TEST && !isTester(u)) return [403, { error: "test" }];
+      return [200, bossPub(await bossGet(BOSS_TEST), u, BOSS_TEST)];
+    },
+    "POST /api/boss/start": async req => {
+      const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      if (BOSS_TEST && !isTester(u)) return [403, { error: "test" }];
+      const b = await bossGet(BOSS_TEST), d = dayKey();
+      if (b.dead) return [409, { error: "dead" }];
+      let t = b.tries[u.id]; if (!t || t.d !== d) t = { d, n: 0 };
+      if (t.n >= BOSS_TRIES) return [429, { error: "tries" }];
+      t.n++; b.tries[u.id] = t;
+      const tok = crypto.randomBytes(12).toString("hex"); bossRuns.set(u.id, { tok, k: b.k, t: Date.now() });
+      await bossSave(b);
+      return [200, { tok, ...bossPub(b, u, BOSS_TEST) }];
+    },
+    "POST /api/boss/result": async (req, body) => {
+      const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      const run = bossRuns.get(u.id);
+      if (!run || run.tok !== String(body.tok || "")) return [409, { error: "run" }];
+      bossRuns.delete(u.id);
+      const b = await bossGet(BOSS_TEST);
+      if (run.k !== b.k) return [409, { error: "week" }];
+      const raw = Math.floor(+body.dmg);
+      if (!(raw >= 0 && raw <= BOSS_RUN_MAX) || (raw > 0 && Date.now() - run.t < 15000)) return [400, { error: "bad" }];
+      const team = Array.isArray(body.team) ? body.team.filter(x => typeof x === "string" && /^[a-z0-9]{2,12}$/.test(x)).slice(0, 5) : [];
+      const e = b.entries[u.id] = b.entries[u.id] || { name: u.name, dmg: 0, n: 0, best: 0, team: [], t: Date.now() };
+      const cap = Math.ceil(b.max * BOSS_CAP(BOSS_TEST)), hp0 = b.hp;
+      const counted = b.dead ? 0 : Math.max(0, Math.min(raw, cap - e.dmg, b.hp));
+      e.name = u.name; e.n++; if (counted > 0) { e.dmg += counted; e.t = Date.now(); }
+      if (raw >= e.best) { e.best = raw; if (team.length) e.team = team; }
+      b.hp -= counted;
+      let killed = false;
+      if (b.hp <= 0 && !b.dead) { b.hp = 0; b.dead = true; b.killer = { id: u.id, name: u.name }; b.killedAt = Date.now(); killed = true; }
+      await bossSave(b);
+      if (killed && !BOSS_TEST) await bossAward(b).catch(er => console.error("boss award", er.message));
+      const me = killed && !BOSS_TEST ? await store.byId(u.id) : null;
+      return [200, { raw, counted, capped: !b.dead && counted < Math.min(raw, hp0), killed, ...(me ? { user: pubUser(me) } : {}), ...bossPub(b, u, BOSS_TEST) }];
+    },
+    "POST /api/admin/boss": async (req, body) => {
+      const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];
+      const b = await bossGet(BOSS_TEST);
+      if (body.action === "tries") { b.tries = {}; await bossSave(b); }
+      else if (body.action === "reset") { bossCache.delete(b.k); await store.setSetting(b.k, null); }
+      else if (body.action === "hp" && +body.hp > 0) { b.hp = Math.min(b.max, Math.floor(+body.hp)); b.dead = false; b.killer = null; await bossSave(b); }
+      return [200, bossPub(await bossGet(BOSS_TEST), u, BOSS_TEST)];
     },
     "GET /api/daily": async req => {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
