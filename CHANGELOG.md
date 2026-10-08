@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.97.16 — 2026-10-08
+
+- Équilibrage : Shura sans nom coûte maintenant 2 points d'équipe au lieu de 1 (idée de maxGfive)
+
 ## v0.97.15 — 2026-10-08
 
 - Équilibrage : Senju Maha (Shura sans nom) passe de 8 à 6 dégâts. Pour 1 point d'équipe, il pouvait mettre KO un combattant presque plein en un seul tour
