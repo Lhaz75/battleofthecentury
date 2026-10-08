@@ -146,7 +146,9 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
   // testeurs : voient les arcs en test comme les admins (liste d'ids gérée depuis l'admin, stockée en base)
   let testers = new Set();
   Promise.resolve(ready).then(() => store.getSetting("testers")).then(v => { if (Array.isArray(v)) testers = new Set(v); }).catch(() => {});
-  const isTester = u => !!u && (isAdmin(u) || testers.has(u.id));
+  const TESTER_NAMES = new Set(["mordikar"]);   // testeurs ajoutés par pseudo (en plus de ceux nommés depuis l'admin)
+  const isTesterOnly = u => !!u && (testers.has(u.id) || TESTER_NAMES.has(String(u.name).toLowerCase()));
+  const isTester = u => !!u && (isAdmin(u) || isTesterOnly(u));
   // maintenance : MAINTENANCE=1 la force, sinon réglage stocké en base (modifiable par un admin depuis le jeu)
   let maint = { on: false, msg: "" };
   const maintOn = () => process.env.MAINTENANCE === "1" || maint.on;
@@ -169,7 +171,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
   const tries = new Map();        // ip -> { n, t }
 
   const limited = ip => { const now = Date.now(); const e = tries.get(ip) || { n: 0, t: now }; if (now - e.t > 60000) { e.n = 0; e.t = now; } e.n++; tries.set(ip, e); return e.n > 12; };
-  const pubUser = u => ({ id: u.id, name: u.name, avatar: u.avatar_v ? `/api/avatar/${u.id}?v=${u.avatar_v}` : null, stats: (({ decks, survRun, arcRun, arcBonusRun, ...r }) => r)(u.stats || {}), created: u.created, ...(isAdmin(u) ? { admin: true } : {}), ...(testers.has(u.id) ? { tester: true } : {}) });
+  const pubUser = u => ({ id: u.id, name: u.name, avatar: u.avatar_v ? `/api/avatar/${u.id}?v=${u.avatar_v}` : null, stats: (({ decks, survRun, arcRun, arcBonusRun, ...r }) => r)(u.stats || {}), created: u.created, ...(isAdmin(u) ? { admin: true } : {}), ...(isTesterOnly(u) ? { tester: true } : {}) });
   async function newSession(u) { const tok = crypto.randomBytes(32).toString("hex"); await store.addSession(sha(tok), u.id); return tok; }
   const seen = new Map();
   async function auth(req) { const h = req.headers.authorization || ""; const tok = h.startsWith("Bearer ") ? h.slice(7) : ""; if (!/^[0-9a-f]{64}$/.test(tok)) return null;
@@ -558,7 +560,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     },
     "GET /api/admin/users": async req => {
       const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];
-      const list = (await store.listUsers()).map(x => ({ ...x, admin: isAdmin(x), tester: testers.has(x.id), avatar: x.avatar_v ? `/api/avatar/${x.id}?v=${x.avatar_v}` : null, ipBanned: ipBanned(x.last_ip) }));
+      const list = (await store.listUsers()).map(x => ({ ...x, admin: isAdmin(x), tester: isTesterOnly(x), avatar: x.avatar_v ? `/api/avatar/${x.id}?v=${x.avatar_v}` : null, ipBanned: ipBanned(x.last_ip) }));
       return [200, { users: list, ipBans }];
     },
     "POST /api/admin/user": async (req, body) => {
