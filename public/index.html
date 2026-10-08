@@ -2083,6 +2083,20 @@ body[data-terr="jagi"]{--terrbg:url("assets/story-jagi.webp")}body[data-terr="ja
 @media (max-width:520px){.shgrid{grid-template-columns:1fr 1fr;gap:10px}.sha{height:190px}.shname b{font-size:16px}.shst span{min-width:0;flex:1;font-size:12px;padding:2px 2px;white-space:nowrap}.shst{gap:3px}.shst i{font-size:8px}.shx{font-size:11.5px}.shb{padding:8px}.shf{padding:0 8px 10px}.shbuy span{display:none}.shhero{padding:12px 14px;gap:12px}.shpurse b{font-size:32px}}
 .frult{position:relative;width:200px;height:88px;overflow:hidden;border-radius:6px;background:linear-gradient(180deg,#5a0f07,#c2331a 50%,#5a0f07)}.frult .cu{position:absolute;inset:0;background-repeat:no-repeat}.frtest{margin-top:4px}
 .atag.tst{background:#3a5a8a;color:#dbe8ff}
+@media (min-width:1000px){
+  .hminfo{top:50%;bottom:auto;transform:translateY(-58%);left:32px}
+  .hmstats{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap;max-width:520px}
+  .hms{display:flex;flex-direction:column;gap:2px;min-width:92px;max-width:260px;padding:10px 14px;border-radius:12px;background:rgba(10,6,4,.62);border:1px solid color-mix(in srgb,var(--hc) 45%,transparent);box-shadow:inset 0 0 18px color-mix(in srgb,var(--hc) 14%,transparent)}
+  .hms b{font:800 24px/1.05 var(--f-display);color:#fff;letter-spacing:.02em}.hms .hmsn{font-size:16px;line-height:1.15;display:block}
+  .hms small{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:color-mix(in srgb,var(--hc) 50%,#e8d9c2)}
+  .hmnews{position:absolute;left:32px;bottom:22px;z-index:2;max-width:430px;display:flex;flex-direction:column;gap:5px;text-align:left;padding:12px 16px;border-radius:12px;background:rgba(10,6,4,.7);border:1px solid rgba(232,176,74,.3);color:#e8d9c2;cursor:pointer;transition:border-color .15s}
+  .hmnews:hover{border-color:#e8b04a}
+  .hmnk{font:700 12px var(--f-display);letter-spacing:.14em;text-transform:uppercase;color:#f2c27a}
+  .hmni{font-size:13px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .hmnm{font-size:12px;color:#c9a46a}
+}
+@media (min-width:1000px) and (max-height:760px){.hmnews{display:none}.hminfo{transform:translateY(-50%)}}
+@media (max-width:999px){.hmstats{display:none}}
 </style>
 <style>html,body{margin:0}*{box-sizing:border-box}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
@@ -5220,18 +5234,22 @@ function frameEditor(id,done){
       const r=await api("POST","/api/admin/frame",{id,kind:"b",crop:rnd(cur.b),image:data}).catch(()=>({ok:false})); if(!r.ok){ err.textContent=accErr(r.error); return; } FRAMES=r.frames; }
     SFX.play("go"); close(); done&&done(); };
 }
+Object.assign(UI.fr,{"hmsTuto": "pour apprendre", "hmsLogin": "connecte-toi", "hmsChap": "chapitres", "hmsStars": "étoiles", "hmsNext": "prochain chapitre", "hmsFloor": "meilleur étage", "hmsClears": "tours finies", "hmsSecret": "combats secrets", "hmsWave": "meilleure vague", "hmsWins": "victoires", "hmsLosses": "défaites", "hmsBest": "meilleure série", "hmsVs": "victoires–défaites", "hmsOnline": "en ligne", "hmsTour": "tournois gagnés", "hmsNews": "Nouveautés", "hmsMore": "tout voir"});
 Object.assign(UI.fr,{stNoRew:"sans récompenses"});
 Object.assign(UI.fr,{admTester:"testeur",admMkTester:"Testeur",admUntester:"Retirer testeur"});
 Object.assign(UI.fr,{frUlt:"Ultime",frUltTest:"Tester l'ultime"});
 Object.assign(UI.fr,{hmd_tuto:"Apprends les bases en un combat guidé.",moreS:n=>`Min. ${n} perso${n>1?"s":""}`,rndHint:"Jouer avec une équipe aléatoire",rndTeam:"Équipe au hasard",lbYou:"Ton équipe",lbQuickT:"Partie rapide",lbQuickD:"Le jeu te trouve un adversaire tout de suite. Pas de code à échanger.",lbFriendT:"Avec un ami",lbOrCode:"ou rejoins avec un code",frReset:"Cadrage auto",frTitle:"Cadrages",frLead:"Pour chaque perso : à gauche la vignette (▣), à droite l'illustration en combat (⚔). Clique pour recadrer. Les changements valent pour tous les joueurs.",frCombat:"Combat",frBust:"Vignette",frHow:"Choisis l'onglet, puis glisse le cadre sur l'image, la molette ou le curseur pour zoomer. « Enregistrer » sauve les deux. « Cadrage auto » remet le cadrage auto de l'onglet ouvert."});
+Object.assign(UI.en,{"hmsTuto": "to learn", "hmsLogin": "log in", "hmsChap": "chapters", "hmsStars": "stars", "hmsNext": "next chapter", "hmsFloor": "best floor", "hmsClears": "towers cleared", "hmsSecret": "secret fights", "hmsWave": "best wave", "hmsWins": "wins", "hmsLosses": "losses", "hmsBest": "best streak", "hmsVs": "wins–losses", "hmsOnline": "online", "hmsTour": "tournaments won", "hmsNews": "What's new", "hmsMore": "see all"});
 Object.assign(UI.en,{stNoRew:"no rewards"});
 Object.assign(UI.en,{admTester:"tester",admMkTester:"Tester",admUntester:"Remove tester"});
 Object.assign(UI.en,{frUlt:"Ultimate",frUltTest:"Test the ultimate"});
 Object.assign(UI.en,{hmd_tuto:"Learn the basics in a guided fight.",moreS:n=>`Min. ${n} fighter${n>1?"s":""}`,rndHint:"Play with a random team",rndTeam:"Random team",lbYou:"Your team",lbQuickT:"Quick match",lbQuickD:"The game finds you an opponent right away. No code to share.",lbFriendT:"With a friend",lbOrCode:"or join with a code",frReset:"Auto framing",frTitle:"Framing",frLead:"For each fighter: thumbnail on the left (▣), fight artwork on the right (⚔). Click to reframe. Changes apply to all players.",frCombat:"Fight",frBust:"Thumbnail",frHow:"Pick the tab, then drag the frame on the image, use the wheel or slider to zoom. “Save” saves both. “Auto framing” restores the auto framing of the open tab."});
+Object.assign(UI.it,{"hmsTuto": "per imparare", "hmsLogin": "accedi", "hmsChap": "capitoli", "hmsStars": "stelle", "hmsNext": "prossimo capitolo", "hmsFloor": "miglior piano", "hmsClears": "torri finite", "hmsSecret": "lotte segrete", "hmsWave": "miglior ondata", "hmsWins": "vittorie", "hmsLosses": "sconfitte", "hmsBest": "miglior serie", "hmsVs": "vittorie–sconfitte", "hmsOnline": "online", "hmsTour": "tornei vinti", "hmsNews": "Novità", "hmsMore": "vedi tutto"});
 Object.assign(UI.it,{stNoRew:"senza ricompense"});
 Object.assign(UI.it,{admTester:"tester",admMkTester:"Tester",admUntester:"Togli tester"});
 Object.assign(UI.it,{frUlt:"Suprema",frUltTest:"Prova la suprema"});
 Object.assign(UI.it,{hmd_tuto:"Impara le basi in un combattimento guidato.",moreS:n=>`Min. ${n} combatt.`,rndHint:"Gioca con una squadra a caso",rndTeam:"Squadra a caso",lbYou:"La tua squadra",lbQuickT:"Partita rapida",lbQuickD:"Il gioco ti trova subito un avversario. Nessun codice da scambiare.",lbFriendT:"Con un amico",lbOrCode:"o entra con un codice",frReset:"Inquadratura auto",frTitle:"Inquadrature",frLead:"Per ogni personaggio: a sinistra la miniatura (▣), a destra l'illustrazione di combattimento (⚔). Clicca per reinquadrare. Le modifiche valgono per tutti.",frCombat:"Combattimento",frBust:"Miniatura",frHow:"Scegli la scheda, poi trascina il riquadro sull'immagine, rotellina o cursore per lo zoom. « Salva » salva entrambi. « Inquadratura auto » rimette l'inquadratura automatica della scheda aperta."});
+Object.assign(UI.ja,{"hmsTuto": "で覚える", "hmsLogin": "ログイン", "hmsChap": "章", "hmsStars": "星", "hmsNext": "次の章", "hmsFloor": "最高階層", "hmsClears": "制覇回数", "hmsSecret": "隠し戦", "hmsWave": "最高ウェーブ", "hmsWins": "勝利", "hmsLosses": "敗北", "hmsBest": "最高連勝", "hmsVs": "勝–敗", "hmsOnline": "オンライン", "hmsTour": "大会優勝", "hmsNews": "新着", "hmsMore": "すべて見る"});
 Object.assign(UI.ja,{stNoRew:"報酬なし"});
 Object.assign(UI.ja,{admTester:"テスター",admMkTester:"テスターにする",admUntester:"テスター解除"});
 Object.assign(UI.ja,{frUlt:"奥義",frUltTest:"奥義を試す"});
@@ -6262,11 +6280,27 @@ function hmDailyHTML(){
   const d=dailyDef(DAILY.day), desc=d.kind==="team"?L("dyTeam"):d.kind==="boss"?L("dyBoss",d.foe.map(nm).join(", ")):L("dyFlawless");
   return `<div class="daily hmc" title="${esc(desc)}"><div class="dyhead"><span class="dytag">${L("dyTitle")}</span><b>+40 pts</b></div><p>${desc}</p><div class="dyvs">${d.kind==="team"?`<span>${deckFaces(d.team)}</span><em>VS</em>`:""}<span>${deckFaces(d.foe)}</span><button class="btn sm" id="dygo">${L("dyGo")}</button></div></div>`;
 }
+// accueil (grand écran) : chiffres du mode survolé + dernières nouveautés, pour remplir le centre
+function hmStatsHTML(m){
+  const st=(ACC.user&&ACC.user.stats)||null, it=(v,l)=>`<div class="hms"><b>${v}</b><small>${l}</small></div>`;
+  if(m==="tuto") return it("~5 min",L("hmsTuto"));
+  if(!st) return ACC.on?"":it("—",L("hmsLogin"));
+  if(m==="story"){ const P=stProg(), done=STORY_CH.filter(c=>P[c.id]!=null).length, stars=STORY_CH.reduce((a,c)=>a+(+P[c.id]||0),0), nx=STORY_CH.find((c,i)=>P[c.id]==null&&!stTest(c));
+    return it(`${done}/${STORY_CH.length}`,L("hmsChap"))+it(`★ ${stars}`,L("hmsStars"))+(nx?it(`<span class="hmsn">${esc(L("st_t_"+nx.id))}</span>`,L("hmsNext")):""); }
+  if(m==="arc") return it(st.arc||0,L("hmsFloor"))+it(st.arcClears||0,L("hmsClears"))+it(st.arcSecret||0,L("hmsSecret"));
+  if(m==="surv") return it(st.surv||0,L("hmsWave"));
+  if(m==="ai") return it(`${st.aiW||0}`,L("hmsWins"))+it(`${st.aiL||0}`,L("hmsLosses"))+it(`${st.best||0}`,L("hmsBest"));
+  if(m==="online") return it(st.elo??1000,"Elo")+it(`${st.vsW||0}–${st.vsL||0}`,L("hmsVs"))+it(`${Math.max(1,(ONLINE.list||[]).length)}`,L("hmsOnline"));
+  if(m==="tour") return it(st.tW||0,L("hmsTour"));
+  return "";
+}
+function hmNewsHTML(){ const c=CHANGELOG[0]; if(!c) return ""; const lg=(typeof LANG!=="undefined"&&c[LANG])?LANG:"fr", items=(c[lg]||c.fr||[]).slice(0,2);
+  return `<button class="hmnews" id="hmnews" type="button"><span class="hmnk">${L("hmsNews")} · v${c.v}</span>${items.map(x=>`<span class="hmni">${esc(x.length>120?x.slice(0,117)+"…":x)}</span>`).join("")}<span class="hmnm">${L("hmsMore")} →</span></button>`; }
 function homeHTML(sel){
   const ms=hmModes(), m0=ms[0][0];
   return `<div class="hm"><div class="hmL"><div class="hmlist">${ms.map(([m,n],i)=>`<button class="hmi${i===0?" on":""}" data-m="${m}"${m==="online"?' id="online"':""} style="--hc:var(--hm-${m})"><img class="hmp" src="assets/${HM_ART[m]}.webp" alt="" loading="lazy"><span class="hmt"><b>${n}</b><small>${L("hmd_"+m)}</small></span></button>`).join("")}</div>
     <div class="hmch">${hmDailyHTML()}${weeklyBannerHTML(sel)}</div></div>
-    <div class="hmstage" style="--hc:var(--hm-${m0})"><img id="hmimg" src="assets/${HM_ART[m0]}.webp" alt=""><div class="hminfo"><div class="k">${L("hmMode")}</div><h1 id="hmh">${ms[0][1]}</h1><p id="hmd">${L("hmd_"+m0)}</p><button class="btn hmplay" id="hmplay" data-m="${m0}">${L("hmPlay")}</button></div></div></div>
+    <div class="hmstage" style="--hc:var(--hm-${m0})"><img id="hmimg" src="assets/${HM_ART[m0]}.webp" alt=""><div class="hminfo"><div class="k">${L("hmMode")}</div><h1 id="hmh">${ms[0][1]}</h1><p id="hmd">${L("hmd_"+m0)}</p><button class="btn hmplay" id="hmplay" data-m="${m0}">${L("hmPlay")}</button><div class="hmstats" id="hmstats">${hmStatsHTML(m0)}</div></div>${hmNewsHTML()}</div></div>
     <div class="hmlinks">${stUnlock()&&ACC.user?`<button class="btn sm shopbtn" id="shop">${L("shopBtn")}</button>`:""}<button class="btn ghost sm" id="roster">${L("rosterBtn")}</button><button class="btn ghost sm" id="rules">${L("rulesBtn")}</button>${ACC.on?`<button class="btn ghost sm" id="hof">${L("hofBtn")}</button>`:""}</div>
     ${socialHTML()}<p class="fanmade">${L("fanMade")}</p>`;
 }
@@ -6280,10 +6314,11 @@ function bindHome(sel){
   const show=b=>{ const m=b.dataset.m, st=$(".hmstage"); if(!st||!st.style) return;
     document.querySelectorAll(".hmi").forEach(x=>x.classList.toggle("on",x===b));
     st.style.setProperty("--hc",`var(--hm-${m})`); $("#hmimg").src=`assets/${HM_ART[m]}.webp`;
-    $("#hmh").textContent=b.querySelector("b").textContent; $("#hmd").textContent=L("hmd_"+m); $("#hmplay").dataset.m=m; };
+    $("#hmh").textContent=b.querySelector("b").textContent; $("#hmd").textContent=L("hmd_"+m); $("#hmplay").dataset.m=m; const hs=$("#hmstats"); if(hs) hs.innerHTML=hmStatsHTML(m); };
   document.querySelectorAll(".hmi").forEach(b=>{ b.onmouseenter=()=>show(b); b.onfocus=()=>show(b);
     b.onclick=()=>{ SFX.play("go"); hmEnter(b.dataset.m,sel); }; });
   if($("#hmplay")) $("#hmplay").onclick=()=>{ SFX.play("go"); hmEnter($("#hmplay").dataset.m,sel); };
+  if($("#hmnews")) $("#hmnews").onclick=()=>{ SFX.play("click"); renderChangelog(sel); };
 }
 function pickLaunch(sel){
   if(sel.some(id=>!charOwned(id))) return;
