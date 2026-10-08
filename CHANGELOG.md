@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.97.1 — 2026-10-08
+
+- Ultimes : le compteur affiche 1 hit par point de dégât (15 dégâts = 15 HITS)
+
 ## v0.97.0 — 2026-10-08
 
 - Boss mondial (en test, réservé aux testeurs) : Devil Rebirth et ses PV communs à toute la communauté, 3 essais par jour, 10 tours pour lui faire un max de dégâts
