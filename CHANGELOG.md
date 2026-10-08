@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.96.8 — 2026-10-08
+
+- Impact de l'ultime : les flashs ne touchent plus que la carte de l'adversaire, avec une onde « goutte d'eau » qui la déforme
+
 ## v0.96.7 — 2026-10-08
 
 - Ultimes plus spectaculaires : la rafale de coups est comptée sur l'adversaire (« 50 HITS ! »), puis flashs d'impact et onde de choc sur le coup final
