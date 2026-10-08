@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.97.4 — 2026-10-08
+
+- Accueil : tuile Discord avec le nombre de membres connectés et un bouton pour rejoindre la communauté
+
 ## v0.97.3 — 2026-10-08
 
 - Nouveaux combattants : Kai, Bukoh et Satora, les trois fils d'Asam (Daijō Nanken), avec leurs vraies techniques du manga (Ginryūjin, Hōha Samangoku, Gōyū Kōsha Ken, Sōdōi Dachi)
