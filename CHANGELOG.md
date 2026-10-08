@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.96.9 — 2026-10-08
+
+- Devil Rebirth vient bien de Villainy Prison, pas de Cassandra (textes corrigés)
+
 ## v0.96.8 — 2026-10-08
 
 - Impact de l'ultime : les flashs ne touchent plus que la carte de l'adversaire, avec une onde « goutte d'eau » qui la déforme
