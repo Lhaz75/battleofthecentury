@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.97.9 — 2026-10-08
+
+- Ton pseudo s'affiche à côté de ton avatar (clic = ton compte)
+- Quand d'autres joueurs sont en ligne, le compteur propose de les défier
+- Plus d'icône Discord en double sur l'accueil : le bouton flottant suffit
+
 ## v0.97.8 — 2026-10-08
 
 - Accueil plus compact : nouveautés juste sous les stats du mode, liens et réseaux sur une seule rangée, menu resserré sur les petits écrans
