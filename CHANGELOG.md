@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.96.6 — 2026-10-08
+
+- Le bouton Magasin scintille
+
 ## v0.96.5 — 2026-10-08
 
 - Accueil sur grand écran : le centre affiche tes chiffres du mode choisi et les dernières nouveautés
