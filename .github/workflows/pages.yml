@@ -24,7 +24,7 @@ jobs:
         run: |
           mkdir -p _site
           cp -r public/assets public/sfx public/music _site/
-          echo "${GITHUB_SHA}" > _site/cdn-version.txt
+          (cd public && find assets sfx music -type f -printf '%p:%s\n' | LC_ALL=C sort | sha1sum | cut -c1-40) > _site/cdn-version.txt
           touch _site/.nojekyll
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

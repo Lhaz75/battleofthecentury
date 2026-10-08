@@ -15,13 +15,21 @@ const PATH_OK = /^duels\/[A-Z]{4}$/;           // seuls les documents de partie 
 // La redirection ne s'active que si Pages sert exactement la même version que ce serveur
 // (fichier cdn-version.txt écrit par .github/workflows/pages.yml) ; sinon tout est servi ici, comme avant.
 const CDN = (process.env.ASSET_CDN || "https://lhaz75.github.io/battleofthecentury").replace(/\/$/, "");
-const COMMIT = process.env.RENDER_GIT_COMMIT || "";
+// Empreinte des fichiers (chemin:taille), calculée comme dans le workflow : si Pages a la même, on redirige.
+const STAMP = (() => {
+  const lines = [];
+  const walk = d => { for (const n of fs.readdirSync(path.join(PUBLIC, d), { withFileTypes: true })) {
+    const r = d + "/" + n.name; if (n.isDirectory()) walk(r); else lines.push(r + ":" + fs.statSync(path.join(PUBLIC, r)).size); } };
+  try { ["assets", "sfx", "music"].forEach(walk); } catch (e) { return ""; }
+  lines.sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
+  return require("crypto").createHash("sha1").update(lines.join("\n") + "\n").digest("hex");
+})();
 let CDN_OK = false;
 function checkCdn() {
-  if (!COMMIT || process.env.ASSET_CDN === "off") return;
+  if (!STAMP || process.env.ASSET_CDN === "off") return;
   require("https").get(CDN + "/cdn-version.txt?t=" + Date.now(), r => {
     let b = ""; r.on("data", d => { b += d; if (b.length > 200) r.destroy(); });
-    r.on("end", () => { const ok = r.statusCode === 200 && b.trim() === COMMIT; if (ok !== CDN_OK) console.log("CDN images :", ok ? "actif" : "inactif"); CDN_OK = ok; if (!ok) setTimeout(checkCdn, 60000); });
+    r.on("end", () => { const ok = r.statusCode === 200 && b.trim() === STAMP; if (ok !== CDN_OK) console.log("CDN images :", ok ? "actif" : "inactif", "(" + STAMP.slice(0, 7) + ")"); CDN_OK = ok; if (!ok) setTimeout(checkCdn, 60000); });
   }).on("error", () => setTimeout(checkCdn, 60000));
 }
 checkCdn();
@@ -124,7 +132,7 @@ const server = http.createServer((req, res) => {
   fs.stat(file, (err, st) => {
     if (err || !st.isFile()) { res.writeHead(404); return res.end("Not found"); }
     const etag = `"${st.size.toString(36)}-${Math.floor(st.mtimeMs).toString(36)}"`;
-    const head = { "Content-Type": TYPES[path.extname(file)] || "application/octet-stream", "Cache-Control": "no-cache", "ETag": etag };
+    const head = { "Content-Type": TYPES[path.extname(file)] || "application/octet-stream", "Cache-Control": "no-cache", "ETag": etag, "X-Asset-Cdn": CDN_OK ? "on" : "off" };
     if (p === "/changelog.json" || p === "/fighters.json" || p === "/rules.json") head["Access-Control-Allow-Origin"] = "*";   // lus par les widgets du site hokutolegacy.com
     if (req.headers["if-none-match"] === etag) { res.writeHead(304, head); return res.end(); }
     fs.readFile(file, (e2, buf) => {
