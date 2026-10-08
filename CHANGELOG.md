@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.96.5 — 2026-10-08
+
+- Accueil sur grand écran : le centre affiche tes chiffres du mode choisi et les dernières nouveautés
+- Barre du haut plus propre : son, musique, plein écran et langues rangés dans un menu ⚙
+
 ## v0.96.4 — 2026-10-08
 
 - 69 vraies techniques ajoutées (celles des persos dans le jeu officiel LEGENDS ReVIVE) à la place de coups au nom inventé, pour 29 combattants : Kenshiro, Rei, Ken-Oh, Toki, Souther, Shin, Shu, Juza, Fudo, Hyō, Han, Shachi, Jūkei, Ryuga, Amiba, Kaioh, Ryuken, Falco… Les effets des cartes ne changent pas
