@@ -402,10 +402,14 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       const ch = String(body.ch || ""), idx = STORY_ORDER.indexOf(ch), stars = Math.floor(+body.stars), st = u.stats;
       if (idx < 0 || !(stars >= 1 && stars <= 3)) return [400, { error: "bad" }];
       if (STORY_TEST.test(ch) && !isTester(u)) return [403, { error: "test" }];   // arc en test : réservé aux admins
-      const prog = st.story = st.story || {};
-      if (idx > 0 && prog[STORY_ORDER[idx - 1]] == null && prog[ch] == null) return [409, { error: "bad" }];
+      // arc en test : progression à part (storyTest), sans points, succès ni déblocages ; à la sortie de l'arc, les testeurs le rejouent pour de vrai
+      const inTest = STORY_TEST.test(ch);
+      const real = st.story = st.story || {}, prog = inTest ? (st.storyTest = st.storyTest || {}) : real;
+      const prev = idx > 0 ? STORY_ORDER[idx - 1] : null;
+      if (prev && real[prev] == null && (st.storyTest || {})[prev] == null && prog[ch] == null) return [409, { error: "bad" }];
       const now = Date.now(); if (now - (lastStory.get(u.id) || 0) < 15000) return [429, { error: "slow" }];
       lastStory.set(u.id, now);
+      if (inTest) { const s = Math.min(3, stars); prog[ch] = Math.max(s, prog[ch] == null ? 0 : prog[ch]); await store.saveStats(u.id, st); return [200, { user: pubUser(u), gain: 0, ach: [], test: true }]; }
       const had = prog[ch] == null ? -1 : prog[ch];
       // objectifs réussis (bits), cumulés d'une partie à l'autre : 3 étoiles = les deux objectifs, même sur des parties différentes
       const pc = x => (x & 1) + ((x >> 1) & 1), mk = Math.floor(+body.mask) & 3, M = st.storyM = st.storyM || {};
