@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.97.13 — 2026-10-08
+
+- Boss mondial : après le 10e tour, le boss lâche un ultime final qui balaie toute ton équipe, réserves comprises (idée de Jérôme R.). Tes dégâts sont déjà comptés, ça ne change pas ton score
+
 ## v0.97.12 — 2026-10-08
 
 - Boss mondial : un essai en cours n'est plus perdu si le serveur redémarre pendant le combat (mise à jour du jeu)
