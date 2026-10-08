@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.97.8 — 2026-10-08
+
+- Accueil plus compact : nouveautés juste sous les stats du mode, liens et réseaux sur une seule rangée, menu resserré sur les petits écrans
+
 ## v0.97.7 — 2026-10-08
 
 - Bords des boutons inclinés adoucis
