@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.97.11 — 2026-10-08
+
+- Boss mondial : le boss ne lâche plus qu'un seul ultime, au tour 5 comme annoncé (il pouvait en placer jusqu'à trois)
+- Mes cartes (mobile) : choisir une carte ne fait plus remonter la liste tout en haut
+
 ## v0.97.10 — 2026-10-08
 
 - Bouton Magasin : les étincelles restent à l'intérieur du bouton
