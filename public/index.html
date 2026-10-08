@@ -5346,7 +5346,7 @@ async function faceEditor(id,done){
     <div class="row"><button class="btn ghost sm" data-reset>${L("faReset")}</button><button class="btn ghost sm" data-x>${L("cancel")}</button><button class="btn sm" data-ok>${L("save")}</button></div></div>`;
   document.body.appendChild(w);
   const src=w.querySelector(".fasrc"), img=w.querySelector(".fasrc img"), circ=w.querySelector(".facirc"), cv=w.querySelector(".faprev"), zoom=w.querySelector(".fazoom"), err=w.querySelector(".err");
-  const full=new Image(); full.src=`assets/${id}.webp`;
+  const full=new Image(); full.crossOrigin="anonymous"; full.src=`assets/${id}.webp`;
   const clamp=()=>{ crop.s=Math.max(60,Math.min(420,crop.s)); crop.x=Math.max(-crop.s/2,Math.min(540-crop.s/2,crop.x)); crop.y=Math.max(-crop.s/2,Math.min(810-crop.s/2,crop.y)); };
   const draw=()=>{ clamp(); zoom.value=crop.s;
     Object.assign(circ.style,{left:crop.x*K+"px",top:crop.y*K+"px",width:crop.s*K+"px",height:crop.s*K+"px"});
@@ -5395,7 +5395,7 @@ function frameEditor(id,done){
     <div class="row"><button class="btn ghost sm" data-reset>${L("frReset")}</button><button class="btn ghost sm" data-x>${L("cancel")}</button><button class="btn sm" data-ok>${L("save")}</button></div></div>`;
   document.body.appendChild(w);
   const src=w.querySelector(".fasrc"), rect=w.querySelector(".frrect"), zoom=w.querySelector(".fazoom"), err=w.querySelector(".err"), pimg=w.querySelector(".frp img"), cv=w.querySelector(".frb");
-  const full=new Image(); full.src=`assets/${id}.webp`;
+  const full=new Image(); full.crossOrigin="anonymous"; full.src=`assets/${id}.webp`;
   const clamp=k=>{ const c=cur[k], r=R[k]; c.w=Math.max(LIM[k][0],Math.min(LIM[k][1],c.w));
     if(k==="p"||k==="u"){ c.x=Math.max(0,Math.min(540-c.w,c.x)); c.y=Math.max(0,Math.min(810-c.w*r,c.y)); }
     else { c.x=Math.max(-c.w/3,Math.min(540-c.w*2/3,c.x)); c.y=Math.max(-c.w/3,Math.min(810-c.w*r*.6,c.y)); } };

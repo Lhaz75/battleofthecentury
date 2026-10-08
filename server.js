@@ -11,6 +11,22 @@ const DATA = process.env.DATA_FILE || path.join(__dirname, "data", "duels.json")
 const MAX_AGE = 24 * 3600 * 1000;            // une partie est oubliée après 24 h
 const PATH_OK = /^duels\/[A-Z]{4}$/;           // seuls les documents de partie sont acceptés
 
+// ---------- images / sons via GitHub Pages ----------
+// La redirection ne s'active que si Pages sert exactement la même version que ce serveur
+// (fichier cdn-version.txt écrit par .github/workflows/pages.yml) ; sinon tout est servi ici, comme avant.
+const CDN = (process.env.ASSET_CDN || "https://lhaz75.github.io/battleofthecentury").replace(/\/$/, "");
+const COMMIT = process.env.RENDER_GIT_COMMIT || "";
+let CDN_OK = false;
+function checkCdn() {
+  if (!COMMIT || process.env.ASSET_CDN === "off") return;
+  require("https").get(CDN + "/cdn-version.txt?t=" + Date.now(), r => {
+    let b = ""; r.on("data", d => { b += d; if (b.length > 200) r.destroy(); });
+    r.on("end", () => { const ok = r.statusCode === 200 && b.trim() === COMMIT; if (ok !== CDN_OK) console.log("CDN images :", ok ? "actif" : "inactif"); CDN_OK = ok; if (!ok) setTimeout(checkCdn, 60000); });
+  }).on("error", () => setTimeout(checkCdn, 60000));
+}
+checkCdn();
+setInterval(() => { if (CDN_OK) { CDN_OK = false; checkCdn(); } }, 6 * 3600 * 1000);   // revérifie de temps en temps
+
 const TYPES = { ".html":"text/html; charset=utf-8", ".js":"text/javascript", ".css":"text/css",
   ".webp":"image/webp", ".png":"image/png", ".jpg":"image/jpeg", ".woff2":"font/woff2", ".json":"application/json", ".ico":"image/x-icon", ".svg":"image/svg+xml", ".mp3":"audio/mpeg", ".webmanifest":"application/manifest+json", ".css":"text/css; charset=utf-8" };
 
@@ -96,6 +112,12 @@ const server = http.createServer((req, res) => {
   if ((req.url || "").startsWith("/api/")) return accounts.handle(req, res);
   let p = decodeURIComponent((req.url || "/").split("?")[0]);
   if (p === "/") p = "/index.html";
+  // images, sons et musiques : servis par GitHub Pages (gratuit) pour ne pas consommer la bande passante Render
+  if (CDN_OK && req.method === "GET" && /^\/(assets|sfx|music)\//.test(p)) {
+    const q = (req.url || "").indexOf("?");
+    res.writeHead(302, { "Location": CDN + p + (q >= 0 ? req.url.slice(q) : ""), "Cache-Control": "public, max-age=600" });
+    return res.end();
+  }
   const file = path.normalize(path.join(PUBLIC, p));
   if (!file.startsWith(PUBLIC)) { res.writeHead(403); return res.end(); }
   // les images et sons sont revalidés à chaque chargement (ETag) : une illustration mise à jour s'affiche tout de suite
