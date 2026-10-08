@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.97.6 — 2026-10-08
+
+- Chat Discord : panneau plus étroit et texte plus petit sur ordinateur
+
 ## v0.97.5 — 2026-10-08
 
 - Chat Discord intégré : bouton Discord en bas à droite, le salon du jeu s'ouvre dans un panneau sur le côté, on peut lire et écrire sans quitter le jeu
