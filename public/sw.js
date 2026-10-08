@@ -1,5 +1,5 @@
 // Battle of the Century : cache hors ligne des images, sons et polices (la page et l'API restent toujours à jour)
-const VERSION = "0.98.0";
+const VERSION = "0.98.1";
 const CACHE = "boc2-" + VERSION;   // boc2 : on repart de zéro (anciennes images restées dans le cache du navigateur)
 const PRECACHE = ["./", "assets/icon-192.png", "assets/bg-city.webp", "assets/bg-ruins.webp"];
 
