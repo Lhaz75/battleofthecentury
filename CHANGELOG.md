@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.97.3 — 2026-10-08
+
+- Nouveaux combattants : Kai, Bukoh et Satora, les trois fils d'Asam (Daijō Nanken), avec leurs vraies techniques du manga (Ginryūjin, Hōha Samangoku, Gōyū Kōsha Ken, Sōdōi Dachi)
+- Nouveaux liens : Famille de Sava (Asam + un fils) et Les trois frères
+
 ## v0.97.2 — 2026-10-08
 
 - Boss mondial : bouton et barre de vie aux couleurs du reste du jeu
