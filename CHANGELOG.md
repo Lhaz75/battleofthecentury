@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.97.15 — 2026-10-08
+
+- Équilibrage : Senju Maha (Shura sans nom) passe de 8 à 6 dégâts. Pour 1 point d'équipe, il pouvait mettre KO un combattant presque plein en un seul tour
+
 ## v0.97.14 — 2026-10-08
 
 - Journal du combat : les dégâts du coup restent affichés quand un effet se déclenche en plus (KO de Shura sans nom, œil de Shachi, ruse de Fox, survie de Jackal et de Ken-Oh)
