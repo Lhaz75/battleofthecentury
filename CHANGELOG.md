@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.96.7 — 2026-10-08
+
+- Ultimes plus spectaculaires : la rafale de coups est comptée sur l'adversaire (« 50 HITS ! »), puis flashs d'impact et onde de choc sur le coup final
+
 ## v0.96.6 — 2026-10-08
 
 - Le bouton Magasin scintille
