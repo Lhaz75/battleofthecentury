@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.98.2 — 2026-10-09
+
+- Combat : le bandeau « Ton combo » affiche la même icône de niveau (les 3 barres) que sur les cartes
+
 ## v0.98.1 — 2026-10-09
 
 - Dojo, Survie et Arcade : textes d'explication plus clairs et plus gros, lisibles sur le décor
