@@ -168,6 +168,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
   const lastSurv = new Map();     // uid -> timestamp (survie)
   const lastArc = new Map();
   const lastDojo = new Map();     // uid -> timestamp (dojo)
+  const lastRpg = new Map();      // uid -> timestamp (voyage)
   const lastStory = new Map();      // uid -> timestamp (arcade)
   const tries = new Map();        // ip -> { n, t }
 
@@ -560,6 +561,38 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       if (won) st.dojoW = (st.dojoW || 0) + 1;
       st.pts += gain; bumpFav(st, body.team);
       const ach = achCheck(st, won ? body.feats : []);
+      await store.saveStats(u.id, st);
+      return [200, { user: pubUser(u), gain, ach }];
+    },
+    // voyage (mode RPG, zone 1 en test : admins et testeurs) : sac et équipement gardés dans stats.rpg, points par combat gagné, achats au bazar en ryō
+    // à garder en phase avec RPG_ITEMS / RPG_PTS / RPG_PRICE dans index.html
+    "POST /api/rpg": async (req, body) => {
+      const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      if (!isTester(u)) return [403, { error: "test" }];
+      const st = u.stats, act = String(body.act || "save"), ID = /^[a-z][a-z-]{1,23}$/;
+      const clean = inv => {
+        const bag = (Array.isArray(inv && inv.bag) ? inv.bag : []).filter(x => typeof x === "string" && ID.test(x)).slice(0, 24), eq = {};
+        for (const [f, o] of Object.entries(inv && typeof inv.eq === "object" && inv.eq || {}).slice(0, 150)) {
+          if (!/^[a-z0-9]{1,16}$/.test(f) || !o || typeof o !== "object") continue;
+          const e = {}; for (const k of ["head", "waist", "hands"]) if (typeof o[k] === "string" && ID.test(o[k])) e[k] = o[k];
+          if (Object.keys(e).length) eq[f] = e;
+        }
+        return { bag, eq };
+      };
+      let gain = 0, ach = [];
+      if (act === "win") {
+        const pts = { fight: 6, event: 8, elite: 10, boss: 25 }[body.kind]; if (!pts) return [400, { error: "bad" }];
+        const now = Date.now(); if (now - (lastRpg.get(u.id) || 0) < 20000) return [429, { error: "slow" }];
+        lastRpg.set(u.id, now); gain = pts; st.pts += gain; bumpFav(st, body.team);
+        if (body.kind === "boss") st.rpgClears = (st.rpgClears || 0) + 1;
+        ach = achCheck(st, body.feats);
+      } else if (act === "buy") {
+        const price = { "bottes-desert": 20, "bandages": 20, "gourde": 20, "gants-cloutes": 40, "epaulettes": 40, "talisman-yuria": 80, "carte-puits": 80 }[body.item];
+        if (!price) return [400, { error: "bad" }];
+        if ((st.pts || 0) - (st.ryoSpent || 0) < price) return [402, { error: "poor" }];
+        st.ryoSpent = (st.ryoSpent || 0) + price;
+      } else if (act !== "save") return [400, { error: "bad" }];
+      if (body.inv) st.rpg = clean(body.inv);
       await store.saveStats(u.id, st);
       return [200, { user: pubUser(u), gain, ach }];
     },

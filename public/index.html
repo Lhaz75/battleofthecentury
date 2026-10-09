@@ -1448,7 +1448,7 @@ body[data-terr="medicine"]{--terrbg:url("assets/terrain-medicine.webp")}body[dat
 .screen.sel{overflow-x:hidden}
 
 /* v0.59 : accueil (B sur PC, affiches sur mobile) */
-:root{--hm-ai:#c0392b;--hm-online:#2f6fd6;--hm-tour:#d4a017;--hm-surv:#2e8b57;--hm-arc:#8e44ad;--hm-dojo:#c96a1e;--hm-story:#7a3cff;--hm-tuto:#5f8a9e}
+:root{--hm-ai:#c0392b;--hm-online:#2f6fd6;--hm-tour:#d4a017;--hm-surv:#2e8b57;--hm-arc:#8e44ad;--hm-dojo:#c96a1e;--hm-rpg:#1f8a8a;--hm-story:#7a3cff;--hm-tuto:#5f8a9e}
 .djhead{display:flex;flex-direction:column;align-items:center;gap:6px;margin:2px 0 8px}
 .djg{font:700 34px/1 var(--f-display);color:#ffd27a;text-transform:uppercase;letter-spacing:.04em;text-shadow:0 2px 6px #000}
 .djbar{display:flex;gap:5px}
@@ -1467,6 +1467,115 @@ body[data-terr="medicine"]{--terrbg:url("assets/terrain-medicine.webp")}body[dat
 .djc .djrew{font-size:14px;color:#f1e4cb;text-align:center}
 .djc .btn{margin-top:auto}
 @media (max-width:640px){.djgrid{grid-template-columns:1fr;max-width:420px}.djg{font-size:28px}}
+/* v0.99 : voyage (mode RPG), zone 1 en test */
+.rgwrap{display:grid;grid-template-columns:minmax(0,1.9fr) minmax(280px,1fr);gap:14px;width:100%;max-width:1180px;margin:0 auto;padding:0 12px 18px;box-sizing:border-box;align-items:start}
+.rgtop{grid-column:1/-1;display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.rgtop h3{margin:2px 0 0;font:700 28px/1 var(--f-display);color:#fff2d6;text-shadow:0 2px 0 #3a0a00}
+.rgpills{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.rgpill{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 13px;border-radius:17px;border:1px solid rgba(232,176,74,.45);background:rgba(18,10,6,.8);font:600 15px/1 Oswald,var(--f-display);color:#efe5d2}
+.rgpill.ryo{border-color:#e8b04a;color:#ffd27a}.rgpill .koban{width:15px;height:19px}
+.rgpill.test{border-color:#e0503c;color:#ffb7a8;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.rgmap{position:relative;aspect-ratio:840/600;border-radius:16px;border:1px solid rgba(232,176,74,.3);overflow:hidden;background:linear-gradient(180deg,rgba(13,9,7,.62),rgba(13,9,7,.86)),url(assets/terrain-desert.webp) center/cover #120c08}
+.rgroads{position:absolute;inset:0;width:100%;height:100%}
+.rgroads line{stroke:#4a3a2c;stroke-width:3;stroke-dasharray:8 10;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.rgroads line.on{stroke:#d08a2c;stroke-width:4;stroke-dasharray:none}
+.rgroads line.go{stroke:#e8b04a;stroke-width:4;stroke-dasharray:2 11}
+.rgn{position:absolute;transform:translate(-50%,-27px);width:118px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:0;border:0;background:none;color:#cdb79a;font:600 13px/1.15 Oswald,var(--f-display);text-align:center;cursor:default;opacity:1}
+.rgn i{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:#1a120d;border:2px dashed #6b5640;color:#d8c19b;overflow:hidden;box-sizing:border-box}
+.rgn i img{width:100%;height:100%;object-fit:cover}
+.rgn b{text-shadow:0 1px 3px #000,0 0 8px #000}
+.rgn small{font-size:11px;color:#e8b04a;text-shadow:0 1px 3px #000}
+.rgn.fut{opacity:.55}
+.rgn.done i{background:#2a1d14;border:2px solid #8a6a44;color:#8fd19e}
+.rgn.done.cur i{border-color:#e8b04a;box-shadow:0 0 16px rgba(232,176,74,.55)}.rgn.done.cur b{color:#fff2d6}
+.rgn.open{cursor:pointer;color:#fff2d6}
+.rgn.open i{background:#3a2412;border:2px solid #e8b04a;color:#ffd27a}
+.rgn.open.sel i{box-shadow:0 0 0 4px rgba(232,176,74,.25),0 0 22px rgba(232,176,74,.6)}
+.rgn.t-boss:not(.done) i{width:70px;height:70px;border:3px solid #e0402f;background:#2a0b07}
+.rgn.t-boss:not(.done){transform:translate(-50%,-35px);color:#ffb7a8;text-transform:uppercase}
+.rgn.t-boss.open.sel i{box-shadow:0 0 0 4px rgba(224,64,47,.25),0 0 26px rgba(224,64,47,.6)}
+.rgn.t-elite.open i{border-color:#e0503c;color:#ff9a85}
+.rgn.lock{opacity:.5}.rgn.lock i{border:2px solid #4a3a2c;background:#15100c;color:#8a7a66}
+.rglegend{display:flex;flex-wrap:wrap;gap:6px 14px;margin:8px 2px 0;font-size:13px;color:#cdb79a}
+.rglegend span{display:inline-flex;align-items:center;gap:5px}
+.rgside{display:flex;flex-direction:column;gap:12px;min-width:0}
+.rgbox{padding:14px;border-radius:14px;background:rgba(18,10,6,.88);border:1px solid rgba(232,176,74,.35)}
+.rgbox .pfh{margin:0 0 6px}.rgbox .note{margin:6px 0 0}
+.rgsel{display:flex;flex-direction:column;gap:9px;--tc:#e8b04a}
+.rgsel.t-boss,.rgsel.t-elite{--tc:#e0503c;background:linear-gradient(180deg,rgba(58,18,12,.92),rgba(18,10,6,.92));border-color:#a3301f}
+.rgtag{align-self:flex-start;font:600 12px/1 Oswald,var(--f-display);letter-spacing:.16em;text-transform:uppercase;padding:4px 9px;border-radius:10px;border:1px solid var(--tc,#e8b04a);color:var(--tc,#e8b04a)}
+.rgsel h3{margin:0;font:700 23px/1.1 var(--f-display);color:#fff2d6}
+.rgsel p{margin:0;font-size:15px;line-height:1.4;color:#e8d9c2}
+.rgsel .svteam{justify-content:flex-start;margin:0}
+.rgloot{display:flex;flex-direction:column;gap:4px;padding:9px 11px;border-radius:10px;background:rgba(10,6,4,.55);font-size:14px;color:#efe5d2}
+.rgloot small{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#d8c19b}
+.rgloot b{color:#ffd27a}
+.rgbtns{display:flex;gap:8px;flex-wrap:wrap}.rgbtns .btn{flex:1 1 auto}
+#rgquit.arm{border-color:#e0503c;color:#ffb7a8}
+/* objets */
+.rr0{--rc:#b8b2a8}.rr1{--rc:#4fbf6a}.rr2{--rc:#4a8ee8}.rr3{--rc:#a46be0}.rr4{--rc:#e8902a}.rr5{--rc:#e0402f}
+.rggrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;width:100%;max-width:760px;margin:10px auto}
+.rggrid.n1{grid-template-columns:minmax(0,250px);justify-content:center}.rggrid.n2{grid-template-columns:repeat(2,minmax(0,250px));justify-content:center}
+.rgit{display:flex;flex-direction:column;align-items:flex-start;gap:7px;padding:14px;border-radius:14px;text-align:left;border:2px solid var(--rc);background:linear-gradient(180deg,color-mix(in srgb,var(--rc) 20%,transparent),rgba(18,10,6,.92))}
+.rgit.rr5{box-shadow:0 0 22px rgba(224,64,47,.45)}
+.rgrar{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:10px;background:color-mix(in srgb,var(--rc) 70%,#000);color:#fff}
+.rgico{width:76px;height:76px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--rc) 18%,transparent);color:color-mix(in srgb,var(--rc) 70%,#fff)}
+.rgico img,.rgcell img{width:92%;height:92%;object-fit:contain;filter:drop-shadow(0 2px 3px rgba(0,0,0,.7))}
+.rgit>b{font:700 18px/1.15 Oswald,var(--f-display);color:color-mix(in srgb,var(--rc) 45%,#fff)}
+.rgit .rgfx{font-size:14px;line-height:1.35;color:#e8d9c2}
+.rgit small{font-size:12px;color:#a8927f}
+.rgit .btn{margin-top:auto;align-self:stretch}
+/* équipement */
+.rgeq{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:14px;width:100%;max-width:1040px;margin:0 auto;padding:0 12px 18px;box-sizing:border-box;align-items:start}
+.rgtabs{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}
+.rgtab{display:flex;align-items:center;gap:8px;height:44px;padding:0 14px 0 5px;border-radius:22px;border:1px solid rgba(232,176,74,.3);background:rgba(18,10,6,.7);color:#cdb79a;font:600 15px/1 Oswald,var(--f-display);cursor:pointer}
+.rgtab img{width:34px;height:34px;border-radius:50%;object-fit:cover}
+.rgtab.on{border:2px solid #e8b04a;background:rgba(232,176,74,.14);color:#fff2d6}
+.rgtab.ko img{filter:grayscale(1)}
+.rgchar{display:flex;flex-direction:column;gap:9px}
+.rgwho{display:flex;gap:12px;align-items:center}
+.rgwho img{width:84px;height:84px;border-radius:12px;border:2px solid #c9973f;object-fit:cover;background:#1a110c;flex:none}
+.rgwho div{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.rgwho b{font:700 21px/1 Oswald,var(--f-display);color:#efe5d2}
+.rgwho small{font-size:13px;color:#cdb79a;font-variant-numeric:tabular-nums}
+.rghp{height:8px;border-radius:4px;background:#2a1d14;overflow:hidden}.rghp i{display:block;height:100%;background:linear-gradient(90deg,#3f9a55,#7bd88f)}
+.rgslot{display:flex;align-items:center;gap:12px;min-height:54px;padding:8px 12px;border-radius:10px;border:1px solid var(--rc,#6b5640);background:color-mix(in srgb,var(--rc,#6b5640) 12%,transparent);color:#efe5d2;text-align:left;font:inherit;cursor:pointer;opacity:1}
+.rgslot small{flex:none;width:58px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:color-mix(in srgb,var(--rc,#8a7a66) 60%,#fff)}
+.rgslot span{display:flex;flex-direction:column;gap:2px;min-width:0}
+.rgslot b{font:700 16px/1.1 Oswald,var(--f-display);color:color-mix(in srgb,var(--rc) 45%,#fff)}
+.rgslot em{font-style:normal;font-size:13px;color:#cdb79a}
+.rgslot.free{border-style:dashed;cursor:default;color:#8a7a66}
+.rgslot.sel,.rgcell.sel{outline:2px solid #fff2d6;outline-offset:1px}
+.rgbagh{font:600 13px/1 Oswald,var(--f-display);letter-spacing:.18em;text-transform:uppercase;color:#d8c19b;margin-bottom:10px}
+.rgbag{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.rgcell{aspect-ratio:1;border-radius:10px;border:2px solid var(--rc);background:color-mix(in srgb,var(--rc) 14%,transparent);color:color-mix(in srgb,var(--rc) 70%,#fff);display:grid;place-items:center;padding:0;cursor:pointer}
+.rgcell.empty{border:1px dashed #4a3a2c;background:none;cursor:default}
+.rgdet{display:flex;gap:12px;align-items:center;margin-top:12px;padding:12px 14px;border-radius:12px;border:1px solid var(--rc);background:color-mix(in srgb,var(--rc) 10%,transparent)}
+.rgdet div{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.rgdet small{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:color-mix(in srgb,var(--rc) 60%,#fff)}
+.rgdet b{font:700 19px/1.1 Oswald,var(--f-display);color:color-mix(in srgb,var(--rc) 40%,#fff)}
+.rgdet span{font-size:14px;color:#e8d9c2}
+/* événement, repos, bazar */
+.rgpage{display:flex;flex-direction:column;align-items:center;gap:12px;width:100%;max-width:760px;margin:0 auto;padding:0 12px 18px;box-sizing:border-box;text-align:center}
+.rgpage h3.rgh{margin:0;font:700 30px/1.05 var(--f-display);color:#fff2d6;text-shadow:0 2px 0 #3a0a00}
+.rgpage>p{margin:0;font-size:17px;line-height:1.45;color:#e8d9c2}
+.rgpage blockquote{margin:0;padding:2px 0 2px 14px;border-left:3px solid #8a6a44;font-style:italic;font-size:17px;line-height:1.45;color:#f3e7d3;text-align:left}
+.rgch{display:flex;flex-direction:column;align-items:flex-start;gap:5px;width:100%;padding:14px 16px;border-radius:12px;border:1px solid rgba(232,176,74,.4);background:rgba(18,10,6,.75);color:#efe5d2;text-align:left;font:inherit;cursor:pointer}
+.rgch:hover,.rgch:focus-visible{border-color:#e8b04a;background:rgba(232,176,74,.1)}
+.rgch b{font:700 18px/1.1 Oswald,var(--f-display)}.rgch span{font-size:14px;color:#cdb79a}.rgch em{font-style:normal;font-size:13px;color:#9cc3f5}
+@media (max-width:860px){
+  .rgwrap,.rgeq{grid-template-columns:minmax(0,1fr)}
+  .rgtop h3{font-size:22px}
+  .rgn{width:76px;font-size:11px;transform:translate(-50%,-20px)}.rgn i{width:40px;height:40px}.rgn i svg{width:18px;height:18px}.rgn small{font-size:10px}
+  .rgn.t-boss:not(.done){transform:translate(-50%,-25px)}.rgn.t-boss:not(.done) i{width:50px;height:50px}
+  .rggrid{grid-template-columns:minmax(0,1fr);max-width:420px}.rggrid.n2{grid-template-columns:minmax(0,1fr)}
+  .rgit{flex-direction:row;flex-wrap:wrap;align-items:center}.rgit .rgfx{flex-basis:100%}
+}
+@media (max-width:860px) and (orientation:portrait){.rgmap{aspect-ratio:5/6}}
+@media (max-width:860px) and (orientation:landscape){
+  .rgwrap{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}.rgeq{grid-template-columns:minmax(0,1fr) minmax(0,1.2fr)}
+  .rggrid{grid-template-columns:repeat(3,minmax(0,1fr));max-width:760px}.rgit{flex-direction:column;align-items:flex-start}
+}
 .hm{display:flex;flex-direction:column;gap:16px;margin-top:6px}
 .hmL{display:flex;flex-direction:column;gap:14px;min-width:0}
 .hmlist{display:flex;gap:10px}
@@ -3320,7 +3429,7 @@ function startTurn(k){
   const s=S[k];
   S.turn=k;
   s.end = ENDURANCE + s.sageBonus - s.drain - (S.terrain==="desert"?1:0);
-  s.end = Math.max(1,s.end); if(k==="p" && S.round===0) s.end=2;
+  s.end = Math.max(1,s.end); if(k==="p" && S.round===0) s.end=2; else if(S.rpg && k==="p") s.end+=rpgStat(act(s).id,"end");
   s.nT=(s.nT||0)+1; if(s.nT===1 && act(s).id==="wei") s.end=Math.max(1,s.end-1); s.sageBonus=0; s.drain=0; s.relais=false; s.swapped=false; s.empGuard=true; s.freeLight=false; s.unyield=false; s.cloudUsed=false;
   s.combo={n:0,last:-1,stop:false,trail:[]};
   S[other(k)].empGuard=true;
@@ -3426,6 +3535,7 @@ function cardCost(s,c){
 function hitDamage(k,c){
   const s=S[k];
   let d = c.dmg + COMBO_BONUS[Math.min(cbIdx(s),COMBO_BONUS.length-1)];
+  if(S.rpg && k==="p") d+=rpgStat(act(s).id,"dmg",c.lvl);
   if(S.terrain==="desert" && c.lvl===2) d+=2;
   if(S.terrain==="ruines" && c.lvl===0) d+=2;
   if(S.terrain==="cassandra" && c.lvl===1) d+=2;
@@ -4502,7 +4612,7 @@ function reactHTML(R){
       <button class="rbtn take" data-react="none"><b>${L("take")}</b><span>${L("takeSub")}</span></button></div>
   </div>`;
 }
-function renderEnd(win){ if(S&&S.dead) return; if(S && !S.annEnd){ S.annEnd=true; SFX.ann(win?"win":"lose",{local:true}); } rpCapture(true); if(SURV.on && MODE==="solo" && S && S.surv) return survAfter(win); if(ARC.on && MODE==="solo" && S && S.arc) return arcAfter(win); if(DOJO.on && MODE==="solo" && S && S.dojo) return dojoAfter(win); if(MODE==="solo" && S && S.weekly) return weeklyAfter(win); if(MODE==="solo" && S && S.boss) return bossAfter(win); if(MODE==="solo" && S && S.story && STORY.on) return storyAfter(win); MUSIC.want("menu");
+function renderEnd(win){ if(S&&S.dead) return; if(S && !S.annEnd){ S.annEnd=true; SFX.ann(win?"win":"lose",{local:true}); } rpCapture(true); if(SURV.on && MODE==="solo" && S && S.surv) return survAfter(win); if(ARC.on && MODE==="solo" && S && S.arc) return arcAfter(win); if(DOJO.on && MODE==="solo" && S && S.dojo) return dojoAfter(win); if(RPG.on && MODE==="solo" && S && S.rpg) return rpgAfter(win); if(MODE==="solo" && S && S.weekly) return weeklyAfter(win); if(MODE==="solo" && S && S.boss) return bossAfter(win); if(MODE==="solo" && S && S.story && STORY.on) return storyAfter(win); MUSIC.want("menu");
   SFX.play(win?"win":"lose");
   $("#app").innerHTML=`<div class="screen" style="overflow-y:auto"><div class="center">
     <div class="kicker">${win?L("foeDown"):L("meDown")}</div>
@@ -4843,6 +4953,7 @@ Object.assign(UI.fr,{"stBtn": "Histoire", "stTitle": "Mode histoire", "stArc1": 
 Object.assign(UI.en,{"stBtn": "Story", "stTitle": "Story mode", "stArc1": "Arc 1: KING", "stLead": "Follow Kenshiro through the ravaged world, chapter after chapter. Each chapter has 3 stars to earn.", "stLocked": "Clear the previous chapter", "stPlay": "Fight", "stNext": "Next chapter", "stBackList": "Chapters", "stRetry": "Retry", "stObj": "Objectives", "stUnlock": "Unlocks", "stUnlockNote": "(from version 1.0)", "stYou": "You play", "stFoe": "Opponent", "stWave": "Wave {a}/{b}", "stWaveNext": "Next wave", "stWin": "Chapter cleared!", "stLose": "Defeat…",  "stJoined": "Unlocked at 1.0: {who}", "stFat": "His Lights do nothing to him.", "stTrap": "An Ambush trap is already set against you.", "stArcDone": "Arc complete! More coming soon.", "stHow": "Story: 20 pts the first time a chapter is cleared, +10 pts per new star.", "w_story": "Story mode", "ach_story1": "The legend begins", "achd_story1": "Clear arc 1 of story mode", "ach_story27": "Seven stars… and more", "achd_story27": "Earn all 27 stars of arc 1", "st_t_king-0": "Prologue: the seven scars", "st_i_king-0": "One year before it all. Shin, of Nanto Koshūken, has sworn to tear Yuria away from Kenshiro. Tonight he takes the woman, and leaves him seven holes in his chest to remember.", "st_o_king-0": "\"I am Shin. Remember that name.\" Kenshiro lies in the dust, branded with seven scars shaped like the Big Dipper. He will survive. And he will come back.", "st_t_king-1": "The besieged village", "st_i_king-1": "A man collapses from hunger at the edge of a village. In a cell he meets little Lin and a thieving kid, Bat. Outside, Zeed's gang rides in to loot everything.", "st_o_king-1": "The raiders don't understand what's happening. \"You are already dead.\" Their bodies burst one after another. Zeed will want revenge.", "st_t_king-2": "Zeed", "st_i_king-2": "Zeed and his biker horde surround the village. He demands the water and the women. Kenshiro walks out alone to meet them, Lin and Bat hiding behind him.", "st_o_king-2": "Zeed wanted to strike first. His skull didn't hold. Lin finds her voice again, and Bat decides to follow this strange man. The journey begins.", "st_t_king-3": "Spade, the spearman", "st_i_king-3": "In the ruins of a city, men wear a badge: a spade. They are KING's soldiers. Their leader, Spade, amuses himself shooting at fugitives.", "st_o_king-3": "Spade swallowed his own bolt. Before dying, a name: KING. Kenshiro clenches his fist. The man with seven scars already knows who hides behind it.", "st_t_king-4": "Diamond and the captive village", "st_i_king-4": "A whole village is enslaved by Diamond, another of KING's suits. His guards first, then the master himself. Two fights in a row, no rest.", "st_o_king-4": "The last diamond has shattered. The villagers raise their heads. There is talk of a city to the south, Southern Cross, where KING keeps a woman prisoner.", "st_t_king-5": "Club", "st_i_king-5": "Club has prepared the ground: raiders hide everywhere, ready to fall on anyone who switches fighters. Fox, the sly one, prowls with him.", "st_o_king-5": "Club thought he had Kenshiro caught in his web. The threads snapped. Fox tried to flee into the desert. He didn't get far.", "st_t_king-6": "Heart, the colossus", "st_i_king-6": "Heart, KING's heart, is a mountain of fat. Light blows sink into his flesh without hurting him at all. And when he sees his own blood, he goes mad.", "st_o_king-6": "Fat protects from everything… except pressure points. Heart swells, swells again, and bursts. Southern Cross isn't far now.", "st_t_king-7": "Joker, the messenger", "st_i_king-7": "Joker, Shin's right-hand man, plays with his razor cards and vanishes before anyone can touch him. He has come to see what the man with seven scars can do.", "st_o_king-7": "\"I'd rather die than be your messenger.\" Joker won't go warn Shin. Kenshiro will do it himself.", "st_t_king-8": "Southern Cross: Shin", "st_i_king-8": "At the top of his city, Shin waits. He built it all for her, for Yuria. A year after the night of the seven scars, the two men face each other again.", "st_o_king-8": "Shin has lost. He won't let Kenshiro take his life: he throws himself from the top of his palace. Yuria was already gone. Kenshiro's journey has only just begun…", "sto_win": "Win the fight", "sto_rounds": "Win in {n} turns or fewer", "sto_hits": "Land {n} hits on the opponent", "sto_lost": "Lose {n} HP or fewer", "sto_lastUlt": "Finish with an ultimate", "sto_keep": "Keep more than {n}% of your HP", "sto_noRelay": "Make no tag", "sto_noTrap": "Trigger no enemy trap", "sto_noJoker": "Never let Joker draw", "sto_firstKo": "KO {who} first", "sto_killLvl": "Finish {who} with {lvl}", "stLvl2": "a Heavy", "stLvlU": "an ultimate"});
 Object.assign(UI.it,{"stBtn": "Storia", "stTitle": "Modalità storia", "stArc1": "Arco 1: KING", "stLead": "Segui Kenshiro nel mondo devastato, capitolo dopo capitolo. Ogni capitolo ha 3 stelle da guadagnare.", "stLocked": "Completa il capitolo precedente", "stPlay": "Combatti", "stNext": "Capitolo successivo", "stBackList": "Capitoli", "stRetry": "Riprova", "stObj": "Obiettivi", "stUnlock": "Sblocca", "stUnlockNote": "(dalla versione 1.0)", "stYou": "Giochi", "stFoe": "Avversario", "stWave": "Ondata {a}/{b}", "stWaveNext": "Ondata successiva", "stWin": "Capitolo completato!", "stLose": "Sconfitta…",  "stJoined": "Sbloccato alla 1.0: {who}", "stFat": "I suoi Leggeri non gli fanno nulla.", "stTrap": "Una trappola Imboscata è già piazzata contro di te.", "stArcDone": "Arco completato! Il seguito arriva presto.", "stHow": "Storia: 20 pt la prima volta che si completa un capitolo, +10 pt per ogni nuova stella.", "w_story": "Modalità storia", "ach_story1": "La leggenda comincia", "achd_story1": "Completa l'arco 1 della modalità storia", "ach_story27": "Sette stelle… e oltre", "achd_story27": "Ottieni le 27 stelle dell'arco 1", "st_t_king-0": "Prologo: le sette cicatrici", "st_i_king-0": "Un anno prima di tutto. Shin, del Nanto Koshūken, ha giurato di strappare Yuria a Kenshiro. Stanotte si prende la donna, e gli lascia sette buchi nel petto come ricordo.", "st_o_king-0": "«Io sono Shin. Ricorda questo nome.» Kenshiro giace nella polvere, marchiato da sette cicatrici a forma di Orsa Maggiore. Sopravvivrà. E tornerà.", "st_t_king-1": "Il villaggio assediato", "st_i_king-1": "Un uomo crolla per la fame all'ingresso di un villaggio. In una cella incontra la piccola Lin e un ragazzino ladro, Bat. Fuori arriva la banda di Zeed per saccheggiare tutto.", "st_o_king-1": "I predoni non capiscono cosa succede. «Sei già morto.» I loro corpi esplodono uno dopo l'altro. Zeed vorrà vendetta.", "st_t_king-2": "Zeed", "st_i_king-2": "Zeed e la sua orda in moto circondano il villaggio. Pretende l'acqua e le donne. Kenshiro esce da solo ad affrontarli, con Lin e Bat nascosti dietro di lui.", "st_o_king-2": "Zeed voleva colpire per primo. Il suo cranio non ha retto. Lin ritrova la voce, e Bat decide di seguire quello strano uomo. Il viaggio comincia.", "st_t_king-3": "Spade, il lanciere", "st_i_king-3": "Tra le rovine di una città, degli uomini portano un'insegna: una picca. Sono i soldati di KING. Il loro capo, Spade, si diverte a tirare sui fuggiaschi.", "st_o_king-3": "Spade ha ingoiato il suo stesso dardo. Prima di morire, un nome: KING. Kenshiro stringe il pugno. L'uomo dalle sette cicatrici sa già chi si nasconde dietro.", "st_t_king-4": "Diamond e il villaggio prigioniero", "st_i_king-4": "Un intero villaggio è ridotto in schiavitù da Diamond, un altro seme di KING. Prima le sue guardie, poi il padrone. Due combattimenti di fila, senza riposo.", "st_o_king-4": "L'ultimo diamante si è spezzato. Gli abitanti rialzano la testa. Si parla di una città a sud, Southern Cross, dove KING tiene prigioniera una donna.", "st_t_king-5": "Club", "st_i_king-5": "Club ha preparato il terreno: predoni nascosti ovunque, pronti a piombare su chiunque cambi combattente. Fox, la volpe, si aggira con lui.", "st_o_king-5": "Club credeva di avere Kenshiro nella sua rete. I fili si sono spezzati. Fox ha cercato di fuggire nel deserto. Non è andato lontano.", "st_t_king-6": "Heart, il colosso", "st_i_king-6": "Heart, il cuore di KING, è una montagna di grasso. I colpi leggeri affondano nella sua carne senza fargli alcun male. E quando vede il suo sangue, impazzisce.", "st_o_king-6": "Il grasso protegge da tutto… tranne che dai punti vitali. Heart si gonfia, si gonfia ancora, ed esplode. Southern Cross non è più lontana.", "st_t_king-7": "Joker, il messaggero", "st_i_king-7": "Joker, l'uomo di fiducia di Shin, gioca con le sue carte taglienti e sparisce prima che lo si possa toccare. È venuto a vedere di cosa è capace l'uomo dalle sette cicatrici.", "st_o_king-7": "«Preferisco morire che farti da messaggero.» Joker non andrà ad avvertire Shin. Ci penserà Kenshiro stesso.", "st_t_king-8": "Southern Cross: Shin", "st_i_king-8": "In cima alla sua città, Shin aspetta. Ha costruito tutto per lei, per Yuria. Un anno dopo la notte delle sette cicatrici, i due uomini si affrontano di nuovo.", "st_o_king-8": "Shin ha perso. Non lascerà che Kenshiro gli dia la morte: si getta dalla cima del suo palazzo. Yuria non c'era più. Il viaggio di Kenshiro è appena cominciato…", "sto_win": "Vinci il combattimento", "sto_rounds": "Vinci in {n} turni o meno", "sto_hits": "Colpisci l'avversario {n} volte", "sto_lost": "Perdi al massimo {n} PV", "sto_lastUlt": "Finisci con una mossa finale", "sto_keep": "Conserva più del {n}% dei tuoi PV", "sto_noRelay": "Non fare nessun cambio", "sto_noTrap": "Non far scattare nessuna trappola nemica", "sto_noJoker": "Non lasciare mai pescare Joker", "sto_firstKo": "Metti KO {who} per primo", "sto_killLvl": "Finisci {who} con {lvl}", "stLvl2": "un Pesante", "stLvlU": "una mossa finale"});
 const CHANGELOG=[
+ {v:"0.99.0",d:"2026-10-09",fr:["Nouveau mode en test : le Voyage (idée de maxGfive), réservé aux testeurs pour l'instant. Une carte des terres désolées avec des routes à choisir : combats, élite, marchand, oasis, événement et Jagi en boss de zone","Les PV restent d'un combat à l'autre, et chaque victoire lâche du butin, de commun à légendaire","Équipement : 3 places par perso (tête, taille, mains) et un sac de 24 objets. Les objets ne marchent que dans ce mode, jamais en versus"],en:["New mode in testing: the Journey (maxGfive's idea), testers only for now. A map of the wasteland with roads to choose: fights, elite, merchant, oasis, event and Jagi as the zone boss","HP carries over from one fight to the next, and every win drops loot, from common to legendary","Equipment: 3 slots per fighter (head, waist, hands) and a 24-item bag. Items only work in this mode, never in versus"],it:["Nuova modalità in prova: il Viaggio (idea di maxGfive), per ora riservato ai tester. Una mappa delle terre desolate con strade da scegliere: scontri, élite, mercante, oasi, evento e Jagi come boss di zona","I PV restano da uno scontro all'altro, e ogni vittoria lascia un bottino, da comune a leggendario","Equipaggiamento: 3 slot per personaggio (testa, vita, mani) e una sacca da 24 oggetti. Gli oggetti funzionano solo in questa modalità, mai in versus"],ja:["テスト中の新モード：旅（maxGfiveのアイデア）。現在はテスター限定。荒野のマップで道を選ぶ：戦闘、エリート、商人、オアシス、イベント、ゾーンボスはジャギ","HPは次の戦いに引き継がれ、勝利するたびにコモンからレジェンドまでの戦利品を入手","装備：1人につき3枠（頭・腰・手）と24個入る袋。アイテムはこのモードでのみ有効、対戦では使えない"]},
  {v:"0.98.4",d:"2026-10-09",fr:["Choix de l'équipe : l'encart « version bêta », les liens et la mention fan game ne s'affichent plus sous la liste des combattants. Ils restent sur la page d'accueil"],en:["Team selection: the \"beta version\" box, the links and the fan game notice no longer show under the fighter list. They stay on the home page"],it:["Scelta della squadra: il riquadro «versione beta», i link e la nota fan game non compaiono più sotto la lista dei combattenti. Restano nella pagina iniziale"],ja:["チーム選択：ベータ版の注意書き・リンク・ファンゲーム表記を拳士一覧の下から削除（ホーム画面には残ります）"]},
  {v:"0.98.3",d:"2026-10-09",fr:["Lisibilité : tous les petits textes gris-brun (notes, explications, sous-titres, bonus de clan, « Ton combo », chapitres verrouillés…) sont éclaircis sur tous les écrans, avec une ombre quand ils sont posés sur le décor","Dojo : bouton Classement sur l'écran du Dojo, qui ouvre directement le classement du Dojo"],en:["Readability: all the small grey-brown texts (notes, explanations, subtitles, clan bonuses, \"Your combo\", locked chapters…) are brighter on every screen, with a shadow when they sit on the background","Dojo: Leaderboard button on the Dojo screen, opening the Dojo leaderboard directly"],it:["Leggibilità: tutti i piccoli testi grigio-marroni (note, spiegazioni, sottotitoli, bonus di clan, «La tua combo», capitoli bloccati…) sono più chiari in ogni schermata, con un'ombra quando sono sullo sfondo","Dojo: pulsante Classifica nella schermata del Dojo, che apre direttamente la classifica del Dojo"],ja:["読みやすさ：小さな灰茶色の文字（注記・説明・サブタイトル・流派ボーナス・コンボ表示・未解放の章など）を全画面で明るくし、背景の上では影を追加","道場：道場画面にランキングボタンを追加（道場ランキングを直接開く）"]},
  {v:"0.98.2",d:"2026-10-09",fr:["Combat : le bandeau « Ton combo » affiche la même icône de niveau (les 3 barres) que sur les cartes"],en:["Battle: the \"Your combo\" strip shows the same level icon (the 3 bars) as on the cards"],it:["Combattimento: la barra «La tua combo» mostra la stessa icona di livello (le 3 barre) delle carte"],ja:["バトル：「コンボ」表示にカードと同じレベルアイコン（3本バー）を表示"]},
@@ -6401,12 +6512,295 @@ function survAfter(win){ rpCapture(true);
   }
 }
 
+/* ---------- voyage (mode RPG) : zone 1 en test, admins et testeurs seulement (idée de maxGfive) ---------- */
+const RPG={on:false,run:null};
+const RPG_BAG=24, RPG_SLOTS=["head","waist","hands"];
+// objets : s = place (head / waist / hands) ou "use" (consommable), r = rareté 0 à 5. Ils ne marchent QUE dans ce mode, jamais en versus.
+// hp = PV max, dmg = bonus par niveau de coup [Léger, Moyen, Lourd], rage = rage au départ, end = endurance par tour ; heal / healAll / well = soins des consommables
+const RPG_ITEMS={
+  "bottes-desert":{s:"waist",r:0,hp:2}, "bandages":{s:"use",r:0,heal:6}, "gourde":{s:"use",r:0,healAll:3},
+  "gants-cloutes":{s:"hands",r:1,dmg:[1,0,0]}, "epaulettes":{s:"waist",r:1,hp:4},
+  "talisman-yuria":{s:"hands",r:2,rage:2}, "carte-puits":{s:"use",r:2,well:.5},
+  "ceinture-ermite":{s:"waist",r:3,end:1}, "brassard-nanto":{s:"hands",r:3,dmg:[0,2,0]},
+  "casque-jagi":{s:"head",r:5,dmg:[0,0,2]}
+};
+const RPG_ART=new Set(["bandages","bottes-desert","brassard-nanto","carte-puits","casque-jagi","ceinture-ermite","epaulettes","gants-cloutes","gourde","talisman-yuria"]);   // objets qui ont leur icône assets/item-<id>.webp (illustrations de David) ; les autres montrent le pictogramme de leur place
+const RPG_PRICE=[20,40,80], RPG_PTS={fight:6,event:8,elite:10,boss:25};   // à garder en phase avec /api/rpg
+const RPG_DROP={fight:[60,30,10],event:[0,0,100],elite:[0,50,35,15],boss:[0,0,0,100]};   // poids par rareté
+const RPG_REST=.5, RPG_REVIVE=.3, RPG_JAGI=.1, RPG_EV_HP=4, RPG_EV_RAGE=2;
+// carte : x / y en % ; ai = niveau de l'IA, hp = PV des adversaires, boss = PV du boss
+const RPG_ZONE={id:"mamiya",len:5,nodes:{
+  start:{t:"start",x:11,y:83,next:["zeed"]},
+  zeed:{t:"fight",x:23,y:66,next:["bazar","oasis"],ai:.45,foe:p=>["zeed",p[0],p[1]]},
+  bazar:{t:"shop",x:37,y:44,next:["old"]},
+  oasis:{t:"rest",x:42,y:82,next:["old"]},
+  old:{t:"event",x:55,y:60,next:["kiba","ruines"],ai:.5,foe:p=>p.slice(0,3)},
+  kiba:{t:"elite",x:67,y:36,next:["jagi"],ai:.7,hp:1.1,foe:(p,k)=>k.slice(0,3)},
+  ruines:{t:"fight",x:76,y:78,next:["jagi"],ai:.5,foe:p=>p.slice(0,3)},
+  jagi:{t:"boss",x:86,y:44,next:[],ai:.8,boss:1.35,foe:p=>["fourbe",p[0],p[1]]}
+ },locked:[{k:"sc",x:68,y:12},{k:"cas",x:88,y:14}]};
+const RPG_IC={
+  head:'<path d="M4 14a8 8 0 0 1 16 0v4H4z"/><path d="M12 6v8M8 18v2M16 18v2"/>',
+  waist:'<rect x="3" y="9" width="18" height="6" rx="1"/><rect x="10" y="8" width="4" height="8" rx="1"/>',
+  hands:'<path d="M7 12V7a2 2 0 0 1 4 0M11 11V6a2 2 0 0 1 4 0v5M15 11V8a2 2 0 0 1 4 0v6a6 6 0 0 1-6 6h-1a5 5 0 0 1-5-5v-3a2 2 0 0 1 3-1"/>',
+  use:'<rect x="6" y="5" width="12" height="15" rx="3"/><path d="M9 5V2h6v3M9 12h6"/>',
+  start:'<path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-6h4v6"/>',
+  fight:'<path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6M16 16l4 4M19 21l2-2"/>',
+  elite:'<path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6M16 16l4 4M19 21l2-2"/><path d="M19 3v5M16.5 5.5h5"/>',
+  boss:'<path d="M4 18l2-10 6 5 6-5 2 10z"/>',
+  shop:'<path d="M6 8h12l-1 12H7z"/><path d="M9 8a3 3 0 0 1 6 0"/>',
+  rest:'<path d="M3 20L12 4l9 16z"/><path d="M12 20v-6"/>',
+  event:'<path d="M9 9a3 3 0 1 1 4.5 2.6c-.9.5-1.5 1.2-1.5 2.4"/><path d="M12 18h.01"/>',
+  lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+  ok:'<path d="M5 12l5 5L19 7"/>'
+};
+const rpgSvg=(k,sz=24)=>`<svg width="${sz}" height="${sz}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${RPG_IC[k]}</svg>`;
+const rpgIcon=(id,sz)=>RPG_ART.has(id)?`<img src="assets/item-${id}.webp" alt="">`:rpgSvg(RPG_ITEMS[id].s,sz);
+const rpgOpen=()=>!!(ACC.user&&(ACC.user.admin||ACC.user.tester));
+const rpgName=id=>L("rpgItems")[id]||id;
+function rpgFx(id){ const it=RPG_ITEMS[id], o=[];
+  if(it.hp) o.push(L("rpgFxHp",it.hp));
+  if(it.dmg) it.dmg.forEach((n,l)=>{ if(n) o.push(L("rpgFxDmg",L("rpgLv")[l],n)); });
+  if(it.rage) o.push(L("rpgFxRage",it.rage));
+  if(it.end) o.push(L("rpgFxEnd",it.end));
+  if(it.heal) o.push(L("rpgFxHeal",it.heal));
+  if(it.healAll) o.push(L("rpgFxHealAll",it.healAll));
+  if(it.well) o.push(L("rpgFxWell",Math.round(it.well*100)));
+  return o.join(" · "); }
+const rpgCard=(id,extra="")=>{ const it=RPG_ITEMS[id]; return `<div class="rgit rr${it.r}"><span class="rgrar">${L("rpgRar")[it.r]}</span><i class="rgico">${rpgIcon(id,32)}</i><b>${esc(rpgName(id))}</b><span class="rgfx">${esc(rpgFx(id))}</span><small>${L("rpgSlot_"+it.s)}</small>${extra}</div>`; };
+// sac et équipement : gardés sur le compte (stats.rpg), d'un voyage à l'autre
+function rpgInv(){ const st=ACC.user&&ACC.user.stats, v=st?(st.rpg||(st.rpg={})):(RPG.inv||(RPG.inv={}));
+  v.bag=(Array.isArray(v.bag)?v.bag:[]).filter(id=>RPG_ITEMS[id]); if(!v.eq||typeof v.eq!=="object") v.eq={}; return v; }
+function rpgAdd(id){ const b=rpgInv().bag; if(b.length>=RPG_BAG) return false; b.push(id); b.sort((x,y)=>RPG_ITEMS[y].r-RPG_ITEMS[x].r); return true; }
+function rpgStat(fid,key,lvl){ const e=rpgInv().eq[fid]||{}; let n=0;
+  for(const s of RPG_SLOTS){ const it=RPG_ITEMS[e[s]]; if(it&&it[key]) n+=key==="dmg"?(it.dmg[lvl]||0):it[key]; } return n; }
+const rpgMax=i=>RPG.run.base[i]+rpgStat(RPG.run.team[i],"hp");
+const rpgMaxes=()=>RPG.run.team.map((_,i)=>rpgMax(i));
+const rpgHp=()=>RPG.run.hp.map((h,i)=>Math.min(h,rpgMax(i)));
+async function rpgSync(extra){ if(!ACC.on||!ACC.user) return null; const inv=rpgInv();
+  try{ const r=await api("POST","/api/rpg",{...extra,inv:{bag:inv.bag,eq:inv.eq}}); if(r.ok&&r.user){ ACC.user=r.user; ACC.user.stats.rpg=inv; achToast(r.ach); } return r; }catch(e){ return null; } }
+// voyage en cours : gardé sur l'appareil (on peut quitter et reprendre)
+function rpgSave(){ try{ if(RPG.run) localStorage.setItem("boc-rpg-run",JSON.stringify(RPG.run)); else localStorage.removeItem("boc-rpg-run"); }catch(e){} }
+function rpgLoad(){ try{ const r=JSON.parse(localStorage.getItem("boc-rpg-run")||"null");
+  if(r && r.zone===RPG_ZONE.id && r.uid===(ACC.user&&ACC.user.id||0) && Array.isArray(r.team) && r.team.length>=TEAM_MIN && r.team.every(f=>FIGHTERS[f]) && RPG_ZONE.nodes[r.at]
+    && Array.isArray(r.hp) && r.hp.length===r.team.length && Array.isArray(r.base) && r.base.length===r.team.length && Array.isArray(r.done) && Array.isArray(r.shop) && Array.isArray(r.sold)) return r; }catch(e){} return null; }
+function rpgStart(team){ const pick=i=>{ const ids=Object.keys(RPG_ITEMS).filter(id=>RPG_ITEMS[id].r===i); return ids[rnd(ids.length)]; };
+  RPG.run={zone:RPG_ZONE.id,uid:ACC.user&&ACC.user.id||0,team:team.slice(),base:makeSide(team).team.map(t=>t.max),hp:[],at:"start",done:["start"],rage:0,ev:0,shop:[pick(0),pick(1),pick(2)],sold:[]};
+  RPG.run.hp=rpgMaxes(); RPG.sel=null; RPG.foes={}; rpgSave(); renderRpg(); }
+function rpgEnd(sel){ RPG.run=null; rpgSave(); renderTitle(sel); }
+function rpgFoe(n){ const F=RPG.foes||(RPG.foes={}); return F[n]||(F[n]=RPG_ZONE.nodes[n].foe(shuffle(PUNKS()),shuffle(KIBAS()))); }
+function rpgRoll(kind){ const w=RPG_DROP[kind], pick=r=>{ const ids=Object.keys(RPG_ITEMS).filter(id=>RPG_ITEMS[id].r===r); return ids[rnd(ids.length)]; };
+  let x=Math.random()*w.reduce((a,b)=>a+b,0), r=0; while(r<w.length-1 && x>=w[r]){ x-=w[r]; r++; }
+  const out=[pick(r)]; if(kind==="boss"){ out.push(...rpgRoll("fight")); if(Math.random()<RPG_JAGI) out.unshift("casque-jagi"); } return out; }
+function rpgPrep(st){
+  const r=RPG.run, n=RPG.cur, N=RPG_ZONE.nodes[n], s=st.p; st.rpg=n; st.log=L("rpgNodes")[n]+" · "+L("start");
+  st.aiSkill=N.ai;
+  s.team.forEach((t,i)=>{ t.max=rpgMax(i); t.hp=Math.min(t.max,r.hp[i]); t.ko=t.hp<=0; });
+  const dead=new Set(s.team.filter(t=>t.ko).map(t=>t.id)); s.draw=s.draw.filter(x=>!dead.has(CARDS[x.k].owner)); s.active=Math.max(0,s.team.findIndex(t=>!t.ko));
+  s.rage=Math.min(RAGE_MAX-1,s.rage+(r.rage||0)+s.team.reduce((a,t)=>a+(t.ko?0:rpgStat(t.id,"rage")),0));
+  st.a.team.forEach((t,i)=>{ const m=N.t==="boss"&&i===0?N.boss:N.hp||1; t.max=t.hp=Math.max(4,Math.round(t.max*m)); });
+  if(N.t==="boss") st.a.rage=2;
+}
+function rpgFight(n){ const r=RPG.run; if(!r || !r.hp.some(h=>h>0)) return; RPG.cur=n; const foe=rpgFoe(n).slice(); delete RPG.foes[n];
+  SFX.play("go"); MODE="solo"; ME="p"; newGame(r.team,foe,rpgPrep); }
+function rpgEnter(n){ const r=RPG.run, N=RPG_ZONE.nodes[n]; if(!r || r.clear || !RPG_ZONE.nodes[r.at].next.includes(n)) return;
+  if(N.t==="fight"||N.t==="elite"||N.t==="boss") return rpgFight(n);
+  SFX.play("click"); r.at=n; r.done.push(n); RPG.sel=null;
+  if(N.t==="event"){ r.ev=1; rpgSave(); return renderRpgEvent(); }
+  if(N.t==="rest"){ const prev=rpgHp(); r.hp=prev.map((h,i)=>{ const m=rpgMax(i); return h>0?Math.min(m,h+Math.ceil(m*RPG_REST)):Math.ceil(m*RPG_REVIVE); }); rpgSave(); return renderRpgRest(prev); }
+  rpgSave(); renderRpgShop(); }
+function renderRpg(){
+  const r=RPG.run; if(!r) return renderTitle(TITLE_SEL); RPG.on=true; if(r.ev) return renderRpgEvent();
+  const Z=RPG_ZONE.nodes, nx=r.clear?[]:Z[r.at].next; if(!nx.includes(RPG.sel)) RPG.sel=nx[0]||null;
+  const sel=RPG.sel, N=sel&&Z[sel], kind=N&&N.t, fights=kind==="fight"||kind==="elite"||kind==="boss";
+  const cls=n=>r.done.includes(n)?(n===r.at&&!r.clear?"done cur":"done"):nx.includes(n)?"open"+(n===sel?" sel":""):"fut";
+  const roads=Object.entries(Z).flatMap(([a,A])=>A.next.map(b=>`<line x1="${A.x}" y1="${A.y}" x2="${Z[b].x}" y2="${Z[b].y}" class="${r.done.includes(a)&&r.done.includes(b)?"on":a===r.at&&!r.clear?"go":""}"/>`)).join("")
+    +RPG_ZONE.locked.map(k=>`<line x1="${Z.jagi.x}" y1="${Z.jagi.y}" x2="${k.x}" y2="${k.y}"/>`).join("");
+  const nodes=Object.entries(Z).map(([n,A])=>{ const c=cls(n), done=c.startsWith("done");
+    return `<button class="rgn ${c} t-${A.t}" data-n="${n}" style="left:${A.x}%;top:${A.y}%" ${c.startsWith("open")?"":"disabled"}><i>${A.t==="boss"&&!done?`<img src="${FACE("fourbe")}" alt="">`:rpgSvg(done?"ok":A.t,22)}</i><b>${esc(L("rpgNodes")[n])}</b>${c==="done cur"?`<small>${L("rpgHere")}</small>`:""}</button>`; }).join("")
+    +RPG_ZONE.locked.map(k=>`<div class="rgn lock" style="left:${k.x}%;top:${k.y}%"><i>${rpgSvg("lock",20)}</i><b>${esc(L("rpgNodes")[k.k])}</b><small>${L("rpgSoon")}</small></div>`).join("");
+  const side=r.clear?`<div class="rgbox rgsel"><span class="rgtag">${L("rpgClearK")}</span><h3>${L("rpgClearT")}</h3><p>${L("rpgClearD")}</p><div class="rgbtns"><button class="btn" id="rgnew">${L("rpgNew")}</button><button class="btn ghost" id="rgeq">${L("rpgEqBtn")}</button></div></div>`
+    :`<div class="rgbox rgsel t-${kind}"><span class="rgtag">${L("rpgT_"+kind)}</span><h3>${esc(L("rpgNodes")[sel])}</h3><p>${esc(L("rpgDesc")[sel])}</p>
+      ${fights?`${survFaces(rpgFoe(sel))}<div class="rgloot"><small>${L("rpgLootK")}</small><span>${L("rpgLoot_"+kind)}</span><b>${L("rpgPts",RPG_PTS[kind])}</b></div>`:""}
+      <div class="rgbtns"><button class="btn" id="rggo">${L("rpgGo_"+kind)}</button><button class="btn ghost" id="rgeq">${L("rpgEqBtn")}</button></div>
+      <div class="rgbtns">${Z[r.at].t==="shop"?`<button class="btn ghost sm" id="rgshop">${L("rpgShopBtn")}</button>`:""}<button class="btn ghost sm" id="rgquit">${L("rpgQuit")}</button></div></div>`;
+  pageShell(L("rpgTitle"),`<div class="rgwrap">
+    <div class="rgtop"><div><div class="kicker">${L("rpgZoneK")}</div><h3>${L("rpgZoneT")}</h3></div>
+      <div class="rgpills"><span class="rgpill test">${L("rpgTest")}</span><span class="rgpill">${L("rpgStep",Math.min(RPG_ZONE.len,r.done.length-1),RPG_ZONE.len)}</span><span class="rgpill ryo">${KOBAN()}<b>${ryoNow()}</b></span></div></div>
+    <div><div class="rgmap"><svg class="rgroads" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${roads}</svg>${nodes}</div>
+      <div class="rglegend">${["fight","elite","boss","shop","rest","event"].map(k=>`<span>${rpgSvg(k,15)}${L("rpgT_"+k)}</span>`).join("")}</div></div>
+    <div class="rgside"><div class="rgbox"><h3 class="pfh">${L("rpgTeam")}</h3>${survFaces(r.team,rpgHp(),rpgMaxes())}<p class="note">${L("rpgHpNote")}</p></div>${side}</div></div>`,r.team);
+  document.querySelectorAll(".rgn.open").forEach(b=>b.onclick=()=>{ SFX.play("click"); RPG.sel=b.dataset.n; renderRpg(); });
+  if($("#rggo")) $("#rggo").onclick=()=>rpgEnter(sel);
+  $("#rgeq").onclick=()=>{ SFX.play("click"); RPG.eqSel=null; renderRpgEq(); };
+  if($("#rgshop")) $("#rgshop").onclick=()=>{ SFX.play("click"); renderRpgShop(); };
+  if($("#rgnew")) $("#rgnew").onclick=()=>{ SFX.play("click"); HOME_M="rpg"; rpgEnd(r.team); };
+  if($("#rgquit")) $("#rgquit").onclick=e=>{ const b=e.currentTarget; SFX.play("click"); if(!b.classList.contains("arm")){ b.classList.add("arm"); b.textContent=L("rpgSure"); return; } rpgEnd(r.team); };
+  bindLang(renderRpg);
+}
+function renderRpgEvent(){
+  const r=RPG.run; RPG.on=true;
+  const ch=(k,gain)=>`<button class="rgch" data-c="${k}"><b>${L("rpgEv"+k)}</b><span>${L("rpgEv"+k+"1")}</span>${gain?`<em>${L("rpgEv"+k+"2")}</em>`:""}</button>`;
+  pageShell(L("rpgTitle"),`<div class="rgpage"><span class="rgtag">${L("rpgT_event")}</span><h3 class="rgh">${esc(L("rpgNodes")[r.at])}</h3>
+    <p>${L("rpgEvP")}</p><blockquote>${L("rpgEvQ")}</blockquote>${ch("A",1)}${ch("B",1)}${ch("C",0)}
+    <h3 class="pfh">${L("rpgTeam")}</h3>${survFaces(r.team,rpgHp(),rpgMaxes())}</div>`,r.team);
+  document.querySelectorAll(".rgch").forEach(b=>b.onclick=()=>{ const c=b.dataset.c;
+    if(c==="A") return rpgFight(r.at);
+    SFX.play("click"); if(c==="B"){ r.hp=rpgHp().map(h=>h>0?Math.max(1,h-RPG_EV_HP):0); r.rage=RPG_EV_RAGE; }
+    r.ev=0; rpgSave(); renderRpg(); });
+  bindLang(renderRpgEvent);
+}
+function renderRpgRest(prev){
+  const r=RPG.run; RPG.on=true;
+  pageShell(L("rpgTitle"),`<div class="rgpage"><span class="rgtag">${L("rpgT_rest")}</span><h3 class="rgh">${esc(L("rpgNodes")[r.at])}</h3><p>${L("rpgRestD")}</p>
+    ${survFaces(r.team,rpgHp(),rpgMaxes(),prev)}<button class="btn" id="rgback">${L("rpgRoad")}</button></div>`,r.team,"menu",renderRpg);
+  setTimeout(()=>{ document.querySelectorAll(".svfill").forEach(e=>e.style.width=e.dataset.to+"%"); if(document.querySelector(".svfill")) SFX.play("heal"); },450);
+  $("#rgback").onclick=()=>{ SFX.play("click"); renderRpg(); };
+  bindLang(()=>renderRpgRest(prev));
+}
+function renderRpgShop(msg){
+  const r=RPG.run; RPG.on=true; const inv=rpgInv(), ryo=ryoNow(), full=inv.bag.length>=RPG_BAG;
+  pageShell(L("rpgTitle"),`<div class="rgpage"><span class="rgtag">${L("rpgT_shop")}</span><h3 class="rgh">${esc(L("rpgNodes").bazar)}</h3><p>${L("rpgShopP")}</p>
+    <div class="rgpills"><span class="rgpill ryo">${KOBAN()}<b>${ryo}</b></span><span class="rgpill">${L("rpgBag",inv.bag.length,RPG_BAG)}</span></div>
+    <div class="rggrid">${r.shop.map((id,i)=>{ const pr=RPG_PRICE[RPG_ITEMS[id].r], sold=r.sold.includes(i);
+      return rpgCard(id,`<button class="btn sm rgbuy" data-i="${i}" ${sold||ryo<pr||full?"disabled":""}>${sold?L("rpgSold"):L("rpgBuy",pr)}</button>`); }).join("")}</div>
+    <p class="err" id="rgerr">${msg||""}</p>
+    <div class="row" style="justify-content:center"><button class="btn" id="rgback">${L("rpgRoad")}</button><button class="btn ghost" id="rgeq">${L("rpgEqBtn")}</button></div></div>`,r.team,"menu",renderRpg);
+  document.querySelectorAll(".rgbuy").forEach(b=>b.onclick=async()=>{ const i=+b.dataset.i, id=r.shop[i]; if(r.sold.includes(i) || !rpgAdd(id)) return;
+    document.querySelectorAll(".rgbuy").forEach(x=>x.disabled=true); SFX.play("click");
+    const res=await rpgSync({act:"buy",item:id});
+    if(res&&res.ok){ r.sold.push(i); rpgSave(); SFX.play("go"); renderRpgShop(); }
+    else { const bag=rpgInv().bag; bag.splice(bag.indexOf(id),1); renderRpgShop(L("rpgBuyErr")); } });
+  $("#rgback").onclick=()=>{ SFX.play("click"); renderRpg(); };
+  $("#rgeq").onclick=()=>{ SFX.play("click"); RPG.eqSel=null; renderRpgEq(); };
+  bindLang(()=>renderRpgShop());
+}
+function renderRpgEq(){
+  const r=RPG.run; if(!r) return renderTitle(TITLE_SEL); RPG.on=true;
+  const inv=rpgInv(), ti=Math.min(RPG.eqTab||0,r.team.length-1), fid=r.team[ti], e=inv.eq[fid]||{}, hp=rpgHp(), mx=rpgMaxes(), sel=RPG.eqSel;
+  const selId=sel?(sel.slot?e[sel.slot]:inv.bag[sel.i]):null, it=selId&&RPG_ITEMS[selId], full=inv.bag.length>=RPG_BAG;
+  const hurt=i=>hp[i]>0&&hp[i]<mx[i];
+  const can=!it?false:sel.slot?!full:it.s!=="use"?true:it.heal?hurt(ti):r.team.some((_,i)=>hurt(i));
+  pageShell(L("rpgEqTitle"),`<div class="rgeq">
+    <div class="rgtabs">${r.team.map((f,i)=>`<button class="rgtab ${i===ti?"on":""} ${hp[i]<=0?"ko":""}" data-i="${i}"><img src="${FACE(f)}" alt=""><span>${esc(nm(f))}</span></button>`).join("")}</div>
+    <div class="rgbox rgchar"><div class="rgwho"><img src="${FACE(fid)}" alt=""><div><b>${esc(nm(fid))}</b><span class="rghp"><i style="width:${hp[ti]/mx[ti]*100}%"></i></span><small>${L("rpgHpOf",hp[ti],mx[ti])}</small></div></div>
+      ${RPG_SLOTS.map(s=>{ const id=e[s]; return `<button class="rgslot ${id?"rr"+RPG_ITEMS[id].r:"free"} ${sel&&sel.slot===s?"sel":""}" data-s="${s}" ${id?"":"disabled"}><small>${L("rpgSlot_"+s)}</small><span>${id?`<b>${esc(rpgName(id))}</b><em>${esc(rpgFx(id))}</em>`:L("rpgFree")}</span></button>`; }).join("")}</div>
+    <div class="rgbox"><div class="rgbagh">${L("rpgBag",inv.bag.length,RPG_BAG)}</div>
+      <div class="rgbag">${Array.from({length:RPG_BAG},(_,i)=>{ const id=inv.bag[i]; return id?`<button class="rgcell rr${RPG_ITEMS[id].r} ${sel&&sel.i===i?"sel":""}" data-i="${i}" title="${esc(rpgName(id))}" aria-label="${esc(rpgName(id))}">${rpgIcon(id,26)}</button>`:`<i class="rgcell empty"></i>`; }).join("")}</div>
+      ${it?`<div class="rgdet rr${it.r}"><div><small>${L("rpgRar")[it.r]} · ${L("rpgSlot_"+it.s)}</small><b>${esc(rpgName(selId))}</b><span>${esc(rpgFx(selId))}</span></div><button class="btn sm" id="rgact" ${can?"":"disabled"}>${sel.slot?L("rpgUnequip"):it.s==="use"?L("rpgUse"):L("rpgEquip")}</button></div>`:`<p class="note">${L("rpgBagHint")}</p>`}</div></div>`,r.team,"menu",renderRpg);
+  document.querySelectorAll(".rgtab").forEach(b=>b.onclick=()=>{ SFX.play("click"); RPG.eqTab=+b.dataset.i; if(sel&&sel.slot) RPG.eqSel=null; renderRpgEq(); });
+  document.querySelectorAll(".rgslot:not(.free)").forEach(b=>b.onclick=()=>{ SFX.play("click"); RPG.eqSel={slot:b.dataset.s}; renderRpgEq(); });
+  document.querySelectorAll("button.rgcell").forEach(b=>b.onclick=()=>{ SFX.play("click"); RPG.eqSel={i:+b.dataset.i}; renderRpgEq(); });
+  if($("#rgact")) $("#rgact").onclick=()=>{ if(!can) return;
+    if(sel.slot){ delete e[sel.slot]; if(!Object.keys(e).length) delete inv.eq[fid]; rpgAdd(selId); }
+    else if(it.s==="use"){ inv.bag.splice(sel.i,1);
+      r.hp=hp.map((h,i)=>h<=0?0:it.heal?(i===ti?Math.min(mx[i],h+it.heal):h):Math.min(mx[i],h+(it.healAll||Math.ceil(mx[i]*it.well)))); SFX.play("heal"); }
+    else { inv.bag.splice(sel.i,1); const old=e[it.s]; inv.eq[fid]={...e,[it.s]:selId}; if(old) rpgAdd(old); SFX.play("go"); }
+    r.hp=rpgHp(); RPG.eqSel=null; rpgSave(); rpgSync(); renderRpgEq(); };
+  bindLang(renderRpgEq);
+}
+function rpgAfter(win){ rpCapture(true);
+  MUSIC.want("menu"); SFX.play(win?"win":"lose");
+  const n=S.rpg, kind=RPG_ZONE.nodes[n].t; let rep=null;
+  if(!S.rpgRes){ const r=RPG.run, res=S.rpgRes={loot:[],lost:0,team:r?r.team:TITLE_SEL};
+    if(win && r){ r.hp=S.p.team.map(t=>t.ko?0:t.hp); if(!r.done.includes(n)) r.done.push(n); r.at=n; r.ev=0; if(kind==="boss") r.clear=1;
+      for(const id of rpgRoll(kind)){ if(rpgAdd(id)) res.loot.push(id); else res.lost++; }
+      rpgSave(); rep=rpgSync({act:"win",kind,team:r.team,feats:featsFor(true)}); }
+    else { RPG.run=null; rpgSave(); } }
+  const res=S.rpgRes, r=RPG.run, ok=win&&r;
+  $("#app").innerHTML=`<div class="screen" style="overflow-y:auto"><div class="center">
+    <div class="kicker">${L("rpgTitle")} · ${esc(L("rpgNodes")[n])}</div>
+    <h1>${ok?(kind==="boss"?L("rpgBossWin"):L("rpgLootT")):`<em>${L("rpgLose")}</em>`}</h1>
+    ${ok?`<div class="rggrid n${res.loot.length}">${res.loot.map(id=>rpgCard(id)).join("")}</div>${res.lost?`<p class="note">${L("rpgBagFull")}</p>`:""}${survFaces(r.team,rpgHp(),rpgMaxes())}`:`<p class="svheal">${L("rpgLoseD")}</p>`}
+    <p class="note" id="accline">${ACC.on&&!ACC.user?L("notLogged"):""}</p>
+    ${endJournalHTML()}
+    ${rpAvailable()?`<button class="btn ghost sm" id="rpgo">▶ ${L("rpBtn")}</button>`:""}
+    <div class="row" style="justify-content:center"><button class="btn" id="rgnext">${ok?L("rpgRoad"):L("back")}</button></div></div></div>`;
+  endJournalScroll();
+  if(rep) rep.then(x=>{ const e=$("#accline"); if(e&&x&&x.gain) e.textContent=L("ptsGain",x.gain); });
+  const cont=async()=>{ await rep; if(ok&&RPG.run) renderRpg(); else renderTitle(res.team); };
+  if($("#rpgo")) $("#rpgo").onclick=()=>{ SFX.play("click"); rpStart(cont); };
+  $("#rgnext").onclick=()=>{ SFX.play("click"); cont(); };
+}
+Object.assign(UI.fr,{rpgBtn:"Voyage",rpgTitle:"Voyage",hmd_rpg:"Traverse les terres désolées : routes à choisir, butin, équipement. Zone 1 en test.",hmsZones:"zones finies",hmsItems:"objets",
+  rpgZoneK:"Voyage · Zone 1",rpgZoneT:"Les terres désolées",rpgTest:"En test",rpgStep:(a,b)=>`Étape ${a} / ${b}`,rpgHere:"Tu es ici",rpgSoon:"Bientôt",rpgTeam:"Ton équipe",
+  rpgHpNote:"Les PV restent d'un combat à l'autre. Les objets ne servent que dans ce mode.",
+  rpgNodes:{start:"Village de Mamiya",zeed:"Les pillards de Zeed",bazar:"Bazar du désert",oasis:"Oasis",old:"Le vieil homme",kiba:"La meute des Kiba",ruines:"Route des ruines",jagi:"Jagi",sc:"Southern Cross",cas:"Cassandra"},
+  rpgDesc:{zeed:"La bande de Zeed rôde autour du village. Un premier combat pour prendre la route.",bazar:"Un marchand ambulant. Il prend les ryō, pas les promesses.",oasis:"De l'eau et de l'ombre : toute l'équipe récupère 50 % de ses PV, les KO se relèvent à 30 %.",old:"Un vieillard t'attend à l'entrée d'un village sans nom.",kiba:"Le clan Kiba chasse en meute. Combat difficile, meilleur butin.",ruines:"Un détour plus calme, tenu par quelques pillards.",jagi:"Il terrorise la région en se faisant passer pour Kenshiro. Il ne vient pas seul."},
+  rpgT_fight:"Combat",rpgT_elite:"Élite",rpgT_boss:"Boss",rpgT_shop:"Marchand",rpgT_rest:"Repos",rpgT_event:"Événement",
+  rpgGo_fight:"Combattre",rpgGo_elite:"Combattre",rpgGo_boss:"Combattre",rpgGo_shop:"Entrer",rpgGo_rest:"Se reposer",rpgGo_event:"Approcher",
+  rpgLootK:"Butin possible",rpgLoot_fight:"1 objet, de commun à rare",rpgLoot_elite:"1 objet, de peu commun à épique",rpgLoot_boss:"1 objet épique garanti, 1 autre objet · Casque de Jagi : 1 chance sur 10",rpgPts:n=>`+${n} pts`,
+  rpgEqBtn:"Équipement",rpgQuit:"Abandonner le voyage",rpgSure:"Sûr ? Clique encore",rpgShopBtn:"Retour au bazar",
+  rpgClearK:"Zone terminée",rpgClearT:"Jagi est tombé",rpgClearD:"La suite du voyage arrive : Southern Cross, Cassandra… Tu gardes tes objets, et tu peux refaire la zone pour en trouver d'autres.",rpgNew:"Nouveau voyage",
+  rpgRar:["Commun","Peu commun","Rare","Épique","Mythique","Légendaire"],rpgSlot_head:"Tête",rpgSlot_waist:"Taille",rpgSlot_hands:"Mains",rpgSlot_use:"Consommable",
+  rpgItems:{"bottes-desert":"Bottes du désert","bandages":"Bandages","gourde":"Gourde","gants-cloutes":"Gants cloutés","epaulettes":"Épaulettes à pointes","talisman-yuria":"Talisman de Yuria","carte-puits":"Carte du puits","ceinture-ermite":"Ceinture de l'ermite","brassard-nanto":"Brassard du Nanto","casque-jagi":"Casque de Jagi"},
+  rpgLv:["Légers","Moyens","Lourds"],rpgFxHp:n=>`+${n} PV max`,rpgFxDmg:(l,n)=>`${l} +${n}`,rpgFxRage:n=>`Rage +${n} au départ`,rpgFxEnd:n=>`+${n} d'endurance par tour`,rpgFxHeal:n=>`Rend ${n} PV à un perso`,rpgFxHealAll:n=>`Rend ${n} PV à toute l'équipe`,rpgFxWell:n=>`Toute l'équipe récupère ${n} % de ses PV`,
+  rpgEqTitle:"Équipement",rpgFree:"Libre",rpgBag:(n,m)=>`Sac · ${n} / ${m}`,rpgBagHint:"Choisis un objet du sac pour l'équiper ou l'utiliser.",rpgEquip:"Équiper",rpgUnequip:"Retirer",rpgUse:"Utiliser",rpgHpOf:(h,m)=>`${h} / ${m} PV`,
+  rpgLootT:"Butin",rpgBossWin:"Boss vaincu",rpgBagFull:"Sac plein : un objet est resté sur place.",rpgLose:"Le voyage s'arrête ici",rpgLoseD:"Ton équipe est à terre. Tu gardes les objets trouvés.",rpgRoad:"Reprendre la route",
+  rpgRestD:"Ton équipe reprend des forces.",rpgShopP:"Trois objets sur l'étal. Ce qui est vendu ne revient pas.",rpgBuy:n=>`Acheter (${n} ryō)`,rpgSold:"Vendu",rpgBuyErr:"Achat impossible.",
+  rpgEvP:"Un vieillard t'arrête à l'entrée du village, les mains tremblantes.",rpgEvQ:"« Les pillards de Zeed ont volé notre réserve d'eau. Ils campent derrière la colline. Sans elle, les enfants ne passeront pas la semaine… »",
+  rpgEvA:"Récupérer l'eau",rpgEvA1:"Combat contre 3 pillards.",rpgEvA2:"Récompense : un objet rare garanti",rpgEvB:"Partager ta gourde",rpgEvB1:"Toute ton équipe perd 4 PV.",rpgEvB2:"Récompense : +2 de rage au début de chaque combat de la zone",rpgEvC:"Passer ton chemin",rpgEvC1:"Rien ne se passe."});
+Object.assign(UI.en,{rpgBtn:"Journey",rpgTitle:"Journey",hmd_rpg:"Cross the wasteland: pick your road, find loot, gear up. Zone 1 in testing.",hmsZones:"zones cleared",hmsItems:"items",
+  rpgZoneK:"Journey · Zone 1",rpgZoneT:"The wasteland",rpgTest:"Testing",rpgStep:(a,b)=>`Step ${a} / ${b}`,rpgHere:"You are here",rpgSoon:"Soon",rpgTeam:"Your team",
+  rpgHpNote:"HP carries over from one fight to the next. Items only work in this mode.",
+  rpgNodes:{start:"Mamiya's village",zeed:"Zeed's raiders",bazar:"Desert bazaar",oasis:"Oasis",old:"The old man",kiba:"The Kiba pack",ruines:"Road through the ruins",jagi:"Jagi",sc:"Southern Cross",cas:"Cassandra"},
+  rpgDesc:{zeed:"Zeed's gang prowls around the village. A first fight to get on the road.",bazar:"A travelling merchant. He takes ryō, not promises.",oasis:"Water and shade: the whole team recovers 50% of its HP, and KO'd fighters get back up at 30%.",old:"An old man is waiting at the gates of a nameless village.",kiba:"The Kiba clan hunts as a pack. A hard fight, better loot.",ruines:"A quieter detour, held by a few raiders.",jagi:"He terrorises the region while posing as Kenshiro. He does not come alone."},
+  rpgT_fight:"Fight",rpgT_elite:"Elite",rpgT_boss:"Boss",rpgT_shop:"Merchant",rpgT_rest:"Rest",rpgT_event:"Event",
+  rpgGo_fight:"Fight",rpgGo_elite:"Fight",rpgGo_boss:"Fight",rpgGo_shop:"Enter",rpgGo_rest:"Rest",rpgGo_event:"Approach",
+  rpgLootK:"Possible loot",rpgLoot_fight:"1 item, common to rare",rpgLoot_elite:"1 item, uncommon to epic",rpgLoot_boss:"1 guaranteed epic item, 1 more item · Jagi's helmet: 1 chance in 10",rpgPts:n=>`+${n} pts`,
+  rpgEqBtn:"Equipment",rpgQuit:"Abandon the journey",rpgSure:"Sure? Click again",rpgShopBtn:"Back to the bazaar",
+  rpgClearK:"Zone cleared",rpgClearT:"Jagi has fallen",rpgClearD:"The rest of the journey is coming: Southern Cross, Cassandra… You keep your items, and you can replay the zone to find more.",rpgNew:"New journey",
+  rpgRar:["Common","Uncommon","Rare","Epic","Mythic","Legendary"],rpgSlot_head:"Head",rpgSlot_waist:"Waist",rpgSlot_hands:"Hands",rpgSlot_use:"Consumable",
+  rpgItems:{"bottes-desert":"Desert boots","bandages":"Bandages","gourde":"Canteen","gants-cloutes":"Studded gloves","epaulettes":"Spiked pauldrons","talisman-yuria":"Yuria's talisman","carte-puits":"Map to the well","ceinture-ermite":"Hermit's belt","brassard-nanto":"Nanto armband","casque-jagi":"Jagi's helmet"},
+  rpgLv:["Lights","Mediums","Heavies"],rpgFxHp:n=>`+${n} max HP`,rpgFxDmg:(l,n)=>`${l} +${n}`,rpgFxRage:n=>`Rage +${n} at the start`,rpgFxEnd:n=>`+${n} stamina each turn`,rpgFxHeal:n=>`Restores ${n} HP to one fighter`,rpgFxHealAll:n=>`Restores ${n} HP to the whole team`,rpgFxWell:n=>`The whole team recovers ${n}% of its HP`,
+  rpgEqTitle:"Equipment",rpgFree:"Empty",rpgBag:(n,m)=>`Bag · ${n} / ${m}`,rpgBagHint:"Pick an item from the bag to equip or use it.",rpgEquip:"Equip",rpgUnequip:"Remove",rpgUse:"Use",rpgHpOf:(h,m)=>`${h} / ${m} HP`,
+  rpgLootT:"Loot",rpgBossWin:"Boss defeated",rpgBagFull:"Bag full: one item was left behind.",rpgLose:"The journey ends here",rpgLoseD:"Your team is down. You keep the items you found.",rpgRoad:"Back on the road",
+  rpgRestD:"Your team gets its strength back.",rpgShopP:"Three items on the stall. What is sold does not come back.",rpgBuy:n=>`Buy (${n} ryō)`,rpgSold:"Sold",rpgBuyErr:"Purchase failed.",
+  rpgEvP:"An old man stops you at the village gates, his hands shaking.",rpgEvQ:"\"Zeed's raiders stole our water supply. They are camped behind the hill. Without it, the children won't last the week…\"",
+  rpgEvA:"Take the water back",rpgEvA1:"Fight against 3 raiders.",rpgEvA2:"Reward: one guaranteed rare item",rpgEvB:"Share your canteen",rpgEvB1:"Your whole team loses 4 HP.",rpgEvB2:"Reward: +2 rage at the start of every fight in the zone",rpgEvC:"Walk on",rpgEvC1:"Nothing happens."});
+Object.assign(UI.it,{rpgBtn:"Viaggio",rpgTitle:"Viaggio",hmd_rpg:"Attraversa le terre desolate: strade da scegliere, bottino, equipaggiamento. Zona 1 in prova.",hmsZones:"zone finite",hmsItems:"oggetti",
+  rpgZoneK:"Viaggio · Zona 1",rpgZoneT:"Le terre desolate",rpgTest:"In prova",rpgStep:(a,b)=>`Tappa ${a} / ${b}`,rpgHere:"Sei qui",rpgSoon:"Presto",rpgTeam:"La tua squadra",
+  rpgHpNote:"I PV restano da un combattimento all'altro. Gli oggetti funzionano solo in questa modalità.",
+  rpgNodes:{start:"Villaggio di Mamiya",zeed:"I predoni di Zeed",bazar:"Bazar del deserto",oasis:"Oasi",old:"Il vecchio",kiba:"Il branco dei Kiba",ruines:"Strada delle rovine",jagi:"Jagi",sc:"Southern Cross",cas:"Cassandra"},
+  rpgDesc:{zeed:"La banda di Zeed si aggira intorno al villaggio. Un primo scontro per mettersi in strada.",bazar:"Un mercante ambulante. Accetta ryō, non promesse.",oasis:"Acqua e ombra: tutta la squadra recupera il 50% dei PV, i KO si rialzano al 30%.",old:"Un vecchio ti aspetta all'ingresso di un villaggio senza nome.",kiba:"Il clan Kiba caccia in branco. Scontro difficile, bottino migliore.",ruines:"Una deviazione più tranquilla, tenuta da qualche predone.",jagi:"Terrorizza la regione spacciandosi per Kenshiro. Non viene da solo."},
+  rpgT_fight:"Scontro",rpgT_elite:"Élite",rpgT_boss:"Boss",rpgT_shop:"Mercante",rpgT_rest:"Riposo",rpgT_event:"Evento",
+  rpgGo_fight:"Combatti",rpgGo_elite:"Combatti",rpgGo_boss:"Combatti",rpgGo_shop:"Entra",rpgGo_rest:"Riposa",rpgGo_event:"Avvicinati",
+  rpgLootK:"Bottino possibile",rpgLoot_fight:"1 oggetto, da comune a raro",rpgLoot_elite:"1 oggetto, da non comune a epico",rpgLoot_boss:"1 oggetto epico garantito, 1 altro oggetto · Elmo di Jagi: 1 possibilità su 10",rpgPts:n=>`+${n} pt`,
+  rpgEqBtn:"Equipaggiamento",rpgQuit:"Abbandona il viaggio",rpgSure:"Sicuro? Clicca ancora",rpgShopBtn:"Torna al bazar",
+  rpgClearK:"Zona finita",rpgClearT:"Jagi è caduto",rpgClearD:"Il seguito del viaggio sta arrivando: Southern Cross, Cassandra… Tieni i tuoi oggetti e puoi rifare la zona per trovarne altri.",rpgNew:"Nuovo viaggio",
+  rpgRar:["Comune","Non comune","Raro","Epico","Mitico","Leggendario"],rpgSlot_head:"Testa",rpgSlot_waist:"Vita",rpgSlot_hands:"Mani",rpgSlot_use:"Consumabile",
+  rpgItems:{"bottes-desert":"Stivali del deserto","bandages":"Bende","gourde":"Borraccia","gants-cloutes":"Guanti borchiati","epaulettes":"Spalline chiodate","talisman-yuria":"Talismano di Yuria","carte-puits":"Mappa del pozzo","ceinture-ermite":"Cintura dell'eremita","brassard-nanto":"Bracciale del Nanto","casque-jagi":"Elmo di Jagi"},
+  rpgLv:["Leggeri","Medi","Pesanti"],rpgFxHp:n=>`+${n} PV max`,rpgFxDmg:(l,n)=>`${l} +${n}`,rpgFxRage:n=>`Rabbia +${n} all'inizio`,rpgFxEnd:n=>`+${n} resistenza a ogni turno`,rpgFxHeal:n=>`Restituisce ${n} PV a un personaggio`,rpgFxHealAll:n=>`Restituisce ${n} PV a tutta la squadra`,rpgFxWell:n=>`Tutta la squadra recupera il ${n}% dei PV`,
+  rpgEqTitle:"Equipaggiamento",rpgFree:"Libero",rpgBag:(n,m)=>`Sacca · ${n} / ${m}`,rpgBagHint:"Scegli un oggetto dalla sacca per equipaggiarlo o usarlo.",rpgEquip:"Equipaggia",rpgUnequip:"Togli",rpgUse:"Usa",rpgHpOf:(h,m)=>`${h} / ${m} PV`,
+  rpgLootT:"Bottino",rpgBossWin:"Boss sconfitto",rpgBagFull:"Sacca piena: un oggetto è rimasto a terra.",rpgLose:"Il viaggio finisce qui",rpgLoseD:"La tua squadra è a terra. Tieni gli oggetti trovati.",rpgRoad:"Riprendi la strada",
+  rpgRestD:"La tua squadra riprende le forze.",rpgShopP:"Tre oggetti sul banco. Ciò che è venduto non torna.",rpgBuy:n=>`Compra (${n} ryō)`,rpgSold:"Venduto",rpgBuyErr:"Acquisto non riuscito.",
+  rpgEvP:"Un vecchio ti ferma all'ingresso del villaggio, con le mani tremanti.",rpgEvQ:"«I predoni di Zeed hanno rubato la nostra riserva d'acqua. Sono accampati dietro la collina. Senza, i bambini non supereranno la settimana…»",
+  rpgEvA:"Riprendere l'acqua",rpgEvA1:"Scontro contro 3 predoni.",rpgEvA2:"Ricompensa: un oggetto raro garantito",rpgEvB:"Dividere la tua borraccia",rpgEvB1:"Tutta la squadra perde 4 PV.",rpgEvB2:"Ricompensa: +2 rabbia all'inizio di ogni scontro della zona",rpgEvC:"Tirare dritto",rpgEvC1:"Non succede nulla."});
+Object.assign(UI.ja,{rpgBtn:"旅",rpgTitle:"旅",hmd_rpg:"荒野を進め。道を選び、戦利品を集め、装備を整えろ。ゾーン1はテスト中。",hmsZones:"クリアしたゾーン",hmsItems:"アイテム",
+  rpgZoneK:"旅・ゾーン1",rpgZoneT:"荒野",rpgTest:"テスト中",rpgStep:(a,b)=>`ステップ ${a} / ${b}`,rpgHere:"現在地",rpgSoon:"近日公開",rpgTeam:"あなたのチーム",
+  rpgHpNote:"HPは次の戦いに引き継がれる。アイテムはこのモードでのみ有効。",
+  rpgNodes:{start:"マミヤの村",zeed:"ジードの略奪者",bazar:"砂漠のバザール",oasis:"オアシス",old:"老人",kiba:"牙一族の群れ",ruines:"廃墟の道",jagi:"ジャギ",sc:"サザンクロス",cas:"カサンドラ"},
+  rpgDesc:{zeed:"ジードの一味が村の周りをうろついている。旅立ちの最初の戦い。",bazar:"旅の商人。受け取るのは両だけ、約束は受け取らない。",oasis:"水と日陰。チーム全員がHPの50%を回復し、KOの仲間はHP30%で立ち上がる。",old:"名もない村の入口で、老人があなたを待っている。",kiba:"牙一族は群れで狩る。厳しい戦いだが、戦利品は良い。",ruines:"略奪者が数人いるだけの、静かな回り道。",jagi:"ケンシロウの名を騙り、この地を恐怖に陥れている。一人では来ない。"},
+  rpgT_fight:"戦闘",rpgT_elite:"エリート",rpgT_boss:"ボス",rpgT_shop:"商人",rpgT_rest:"休息",rpgT_event:"イベント",
+  rpgGo_fight:"戦う",rpgGo_elite:"戦う",rpgGo_boss:"戦う",rpgGo_shop:"入る",rpgGo_rest:"休む",rpgGo_event:"近づく",
+  rpgLootK:"入手できる戦利品",rpgLoot_fight:"アイテム1個（コモン〜レア）",rpgLoot_elite:"アイテム1個（アンコモン〜エピック）",rpgLoot_boss:"エピック1個確定＋アイテム1個・ジャギのヘルメット：10分の1",rpgPts:n=>`+${n} pt`,
+  rpgEqBtn:"装備",rpgQuit:"旅をやめる",rpgSure:"本当に？もう一度クリック",rpgShopBtn:"バザールに戻る",
+  rpgClearK:"ゾーンクリア",rpgClearT:"ジャギは倒れた",rpgClearD:"旅の続きは近日公開：サザンクロス、カサンドラ… アイテムは手元に残り、このゾーンに再挑戦してさらに集められる。",rpgNew:"新しい旅",
+  rpgRar:["コモン","アンコモン","レア","エピック","ミシック","レジェンド"],rpgSlot_head:"頭",rpgSlot_waist:"腰",rpgSlot_hands:"手",rpgSlot_use:"消耗品",
+  rpgItems:{"bottes-desert":"砂漠のブーツ","bandages":"包帯","gourde":"水筒","gants-cloutes":"鋲付きグローブ","epaulettes":"棘付き肩当て","talisman-yuria":"ユリアのお守り","carte-puits":"井戸の地図","ceinture-ermite":"隠者の帯","brassard-nanto":"南斗の腕章","casque-jagi":"ジャギのヘルメット"},
+  rpgLv:["弱攻撃","中攻撃","強攻撃"],rpgFxHp:n=>`最大HP +${n}`,rpgFxDmg:(l,n)=>`${l} +${n}`,rpgFxRage:n=>`開始時の怒り +${n}`,rpgFxEnd:n=>`毎ターン 気力 +${n}`,rpgFxHeal:n=>`1人のHPを${n}回復`,rpgFxHealAll:n=>`チーム全員のHPを${n}回復`,rpgFxWell:n=>`チーム全員がHPの${n}%を回復`,
+  rpgEqTitle:"装備",rpgFree:"空き",rpgBag:(n,m)=>`袋・${n} / ${m}`,rpgBagHint:"袋のアイテムを選んで、装備または使用する。",rpgEquip:"装備する",rpgUnequip:"外す",rpgUse:"使う",rpgHpOf:(h,m)=>`HP ${h} / ${m}`,
+  rpgLootT:"戦利品",rpgBossWin:"ボス撃破",rpgBagFull:"袋がいっぱい：アイテム1個を置いてきた。",rpgLose:"旅はここまで",rpgLoseD:"チームは全滅した。見つけたアイテムは手元に残る。",rpgRoad:"旅を続ける",
+  rpgRestD:"チームが力を取り戻す。",rpgShopP:"店先にアイテムが3つ。売れた物は戻らない。",rpgBuy:n=>`買う（${n}両）`,rpgSold:"売切れ",rpgBuyErr:"購入できませんでした。",
+  rpgEvP:"村の入口で、手を震わせた老人があなたを呼び止める。",rpgEvQ:"「ジードの略奪者どもが村の水を奪っていった。丘の向こうに陣取っておる。水がなければ、子供たちは今週を越せん…」",
+  rpgEvA:"水を取り返す",rpgEvA1:"略奪者3人との戦闘。",rpgEvA2:"報酬：レアアイテム1個確定",rpgEvB:"水筒を分け与える",rpgEvB1:"チーム全員がHPを4失う。",rpgEvB2:"報酬：このゾーンの各戦闘開始時に怒り +2",rpgEvC:"通り過ぎる",rpgEvC1:"何も起こらない。"});
+
 function quitPress(b){
     if(RP.on){ SFX.play("click"); rpStop(); return; }
     if(!QUIT_ARM){ SFX.play("click"); QUIT_ARM=true; b.classList.add("arm"); clearTimeout(QUIT_T); QUIT_T=setTimeout(()=>{ QUIT_ARM=false; const x=$("#quit"); if(x) x.classList.remove("arm"); },4000); return; }
     QUIT_ARM=false; clearTimeout(QUIT_T);
     SFX.play("click"); const coach=document.querySelector(".coachwrap,.coach-wrap,.coach"); if(coach) coach.remove();
-    if(S && !S.over && ACC.user){ if(MODE==="vs") accMatchEnd(true); else if(MODE==="solo"){ if(S.story||S.weekly){} else if(S.boss) bossSubmit(); else if(SURV.on) survReport(SURV.wave,false); else if(DOJO.on && S.dojo) dojoReport(S.dojo-1,false); else if(ARC.on && S.arc){ if(!S.arcBonus){ arcReport(ARC.floor,false); ARC.on=false; } } else accReportSolo(false); } }
+    if(S && !S.over && ACC.user){ if(MODE==="vs") accMatchEnd(true); else if(MODE==="solo"){ if(S.story||S.weekly){} else if(S.boss) bossSubmit(); else if(SURV.on) survReport(SURV.wave,false); else if(DOJO.on && S.dojo) dojoReport(S.dojo-1,false); else if(RPG.on && S.rpg){ RPG.run=null; rpgSave(); } else if(ARC.on && S.arc){ if(!S.arcBonus){ arcReport(ARC.floor,false); ARC.on=false; } } else accReportSolo(false); } }
     const tc=MODE==="vs"?TOUR.code:null;
     if(S){ S.over=true; S.dead=true; } if(MODE==="vs") netLeave(); else { MODE="solo"; ME="p"; } if(tc) renderTour(tc); else renderTitle(); }
 // délégué sur le document et au pointerdown : le plateau se redessine souvent (chrono, IA), un clic pouvait se perdre entre l'appui et le relâchement
@@ -6643,7 +7037,7 @@ function renderCodex(sel=[]){
     </div>`,sel);
   bindLang(()=>renderCodex(sel));
 }
-function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; ARC.on=false; DOJO.on=false; STORY.on=false; quickStop(); MUSIC.want("menu"); tourStop(); TOUR.code=null; if(maintBlocked()) return renderMaintenance(); if(ACC.on && !ACC.user) return renderGate(sel);
+function renderTitle(sel=[],focus=null){ TITLE_SEL=sel; SURV.on=false; ARC.on=false; DOJO.on=false; RPG.on=false; STORY.on=false; quickStop(); MUSIC.want("menu"); tourStop(); TOUR.code=null; if(maintBlocked()) return renderMaintenance(); if(ACC.on && !ACC.user) return renderGate(sel);
   const ids=ROSTER();
   focus=focus||sel[sel.length-1]||"maitre";
   const cost=teamCost(sel), left=BUDGET-cost, cb=clanBonus(sel), ready=sel.length>=TEAM_MIN;
@@ -6793,9 +7187,9 @@ Object.assign(UI.ja,{lk_sava:"サヴァ王家",lkd_sava:"アサムと息子が1�
 
 /* ---------- accueil : choix du mode, puis écran d'équipe ---------- */
 let HOME_M=null;
-const HM_ART={tuto:"vieux",ai:"dans",online:"colo",tour:"emp",surv:"fourbe",dojo:"koryu",arc:"sage",story:"maitre"};
-function hmModes(){ const m=[["story",L("stBtn")],["arc",L("arcBtn")],["surv",L("survBtn")],["dojo",L("dojoBtn")],["ai",L("vsAi")],["online",L("vsOnline")]]; if(ACC.on) m.push(["tour",L("tourBtn")]); m.push(["tuto",L("tuto")]); return m; }
-function hmName(m){ return {ai:L("vsAi"),online:L("vsOnline"),surv:L("survBtn"),dojo:L("dojoBtn"),arc:L("arcBtn"),daily:L("dyTitle"),weekly:L("wkTitle"),boss:L("bossTitle")}[m]||""; }
+const HM_ART={tuto:"vieux",ai:"dans",online:"colo",tour:"emp",surv:"fourbe",dojo:"koryu",rpg:"mamiya",arc:"sage",story:"maitre"};
+function hmModes(){ const m=[["story",L("stBtn")],["arc",L("arcBtn")],["surv",L("survBtn")],["dojo",L("dojoBtn")],["ai",L("vsAi")],["online",L("vsOnline")]]; if(rpgOpen()) m.splice(4,0,["rpg",L("rpgBtn")]); if(ACC.on) m.push(["tour",L("tourBtn")]); m.push(["tuto",L("tuto")]); return m; }
+function hmName(m){ return {ai:L("vsAi"),online:L("vsOnline"),surv:L("survBtn"),dojo:L("dojoBtn"),rpg:L("rpgBtn"),arc:L("arcBtn"),daily:L("dyTitle"),weekly:L("wkTitle"),boss:L("bossTitle")}[m]||""; }
 function pickHeadHTML(){ return `<div class="pickhead"><button class="backbtn" id="hmback" aria-label="${L("hmBack")}"><i class="bk-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></i><span class="blabel">${L("hmBack")}</span></button><div class="pkmode"><small>${L("hmPick")}</small><b>${esc(hmName(HOME_M))}</b></div></div>`; }
 function hmDailyHTML(){
   if(!ACC.on || !ACC.user || !DAILY.day || DAILY.done) return "";
@@ -6812,6 +7206,7 @@ function hmStatsHTML(m){
   if(m==="arc") return it(st.arc||0,L("hmsFloor"))+it(st.arcClears||0,L("hmsClears"))+it(st.arcSecret||0,L("hmsSecret"));
   if(m==="surv") return it(st.surv||0,L("hmsWave"));
   if(m==="dojo") return it(esc(dojoGrade(dojoRank(st.dojo))),L("hmsGrade"))+it(st.dojoW||0,L("hmsWins"));
+  if(m==="rpg") return it(st.rpgClears||0,L("hmsZones"))+it(((st.rpg&&st.rpg.bag)||[]).length,L("hmsItems"));
   if(m==="ai") return it(`${st.aiW||0}`,L("hmsWins"))+it(`${st.aiL||0}`,L("hmsLosses"))+it(`${st.best||0}`,L("hmsBest"));
   if(m==="online") return it(st.elo??1000,"Elo")+it(`${st.vsW||0}–${st.vsL||0}`,L("hmsVs"))+it(`${Math.max(1,(ONLINE.list||[]).length)}`,L("hmsOnline"));
   if(m==="tour") return it(st.tW||0,L("hmsTour"));
@@ -6832,6 +7227,7 @@ function hmEnter(m,sel){
   if(m==="tour") return renderTourHome(sel);
   if(m==="story") return renderStory(sel);
   if(m==="tuto") return startTuto();
+  if(m==="rpg"){ const r=rpgLoad(); if(r){ RPG.run=r; return renderRpg(); } }
   HOME_M=m; renderTitle(sel);
 }
 function bindHome(sel){
@@ -6847,7 +7243,7 @@ function bindHome(sel){
 function pickLaunch(sel){
   if(sel.some(id=>!charOwned(id))) return;
   if(!(sel.length>=TEAM_MIN)) return;
-  ({ai:()=>aiAsk(sel),online:()=>renderLobby(sel),surv:()=>survStart(sel),dojo:()=>dojoStart(sel),arc:()=>arcStart(sel),daily:()=>dailyStart(sel),weekly:()=>weeklyStart(sel),boss:()=>renderBoss(sel)}[HOME_M]||(()=>aiAsk(sel)))();
+  ({ai:()=>aiAsk(sel),online:()=>renderLobby(sel),surv:()=>survStart(sel),dojo:()=>dojoStart(sel),rpg:()=>rpgStart(sel),arc:()=>arcStart(sel),daily:()=>dailyStart(sel),weekly:()=>weeklyStart(sel),boss:()=>renderBoss(sel)}[HOME_M]||(()=>aiAsk(sel)))();
 }
 Object.assign(UI.fr,{hmMode:"Mode",hmPlay:"Jouer",hmGo:"C'est parti",hmBack:"Modes",hmPick:"Choisis ton équipe",hmTeamBtn:"Choisir mon équipe",hmd_ai:"Monte ton équipe et affronte l'IA. 4 niveaux de difficulté.",hmd_online:"Affronte un vrai joueur, en partie rapide ou avec un code.",hmd_tour:"Un tournoi entre joueurs, un seul vainqueur.",hmd_surv:"Enchaîne les vagues sans récupérer tes PV. Tiens le plus longtemps.",hmd_arc:"Monte les étages de la Tour jusqu'au boss final.",hmd_story:"Suis Kenshiro chapitre après chapitre, arc après arc."});
 Object.assign(UI.en,{hmMode:"Mode",hmPlay:"Play",hmGo:"Let's go",hmBack:"Modes",hmPick:"Pick your team",hmTeamBtn:"Pick my team",hmd_ai:"Build your team and fight the AI. 4 difficulty levels.",hmd_online:"Fight a real player, in quick match or with a code.",hmd_tour:"A tournament between players, only one winner.",hmd_surv:"Fight wave after wave without healing. Last as long as you can.",hmd_arc:"Climb the floors of the Tower up to the final boss.",hmd_story:"Follow Kenshiro chapter after chapter, arc after arc."});

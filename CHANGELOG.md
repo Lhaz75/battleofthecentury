@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.0 — 2026-10-09
+
+- Nouveau mode en test : le Voyage (idée de maxGfive), réservé aux testeurs pour l'instant. Une carte des terres désolées avec des routes à choisir : combats, élite, marchand, oasis, événement et Jagi en boss de zone
+- Les PV restent d'un combat à l'autre, et chaque victoire lâche du butin, de commun à légendaire
+- Équipement : 3 places par perso (tête, taille, mains) et un sac de 24 objets. Les objets ne marchent que dans ce mode, jamais en versus
+
 ## v0.98.4 — 2026-10-09
 
 - Choix de l'équipe : l'encart « version bêta », les liens et la mention fan game ne s'affichent plus sous la liste des combattants. Ils restent sur la page d'accueil

@@ -2,11 +2,11 @@
 
 Fan game gratuit et non monétisé de **Hokuto no Ken / Soten no Ken** : jeu de baston en cartes dans le navigateur, versus en ligne, comptes joueurs. Créé par David (alias **Lhaz** / **Dave**, admin de hokutolegacy.com) avec Claude. Nom de travail historique : **Doomstar**.
 
-Version actuelle : **v0.98.4** (9 oct. 2026). Bêta de test (0.x), la 1.0 = sortie officielle.
+Version actuelle : **v0.99.0** (9 oct. 2026). Bêta de test (0.x), la 1.0 = sortie officielle.
 
 Les idées en cours et le backlog sont dans :
 - `docs/idees-en-attente.md` — état du mode histoire, magasin, testeurs, boss mondial, déjà-faits à ne plus proposer
-- `docs/nouveaux-modes.md` — Dojo (fait en v0.98.0), Survie v2, mode RPG/Voyage, objets, Raid du soir, 2V2 (pas encore codés)
+- `docs/nouveaux-modes.md` — Dojo (fait en v0.98.0), mode RPG/Voyage (zone 1 en test depuis v0.99.0), Survie v2, objets, Raid du soir, 2V2 (pas encore codés)
 
 ---
 
@@ -61,6 +61,7 @@ Repères dans `public/index.html` (numéros de ligne approximatifs, v0.97.16) :
 - `DC_CHAT` (~5846) — chat Discord WidgetBot
 - `ST_TEST` (arcs en test), `ST_UNLOCK_ALL` (false en bêta, true pour la 1.0), `CHAR_START`, `CHAR_SHOP`, `STORY_CH` (~5966-5986)
 - `SURV` (~6110) — mode Survie ; `DOJO` juste après (`DOJO_T`, `dojoPrep`, `/api/dojo` côté serveur)
+- `RPG` — mode Voyage, juste avant `quitPress` (`RPG_ITEMS`, `RPG_ZONE`, `rpgPrep`, `/api/rpg` côté serveur) ; visible des admins et testeurs seulement (`rpgOpen()`)
 
 Côté serveur (`accounts.js`) : `STORY_TEST` (regex `/^arc2-/`), `SHOP_START`, `SHOP_LIST`, `SHOP_COST`, `STORY_ORDER` (ajouter chaque nouveau chapitre ici, dans l'ordre).
 

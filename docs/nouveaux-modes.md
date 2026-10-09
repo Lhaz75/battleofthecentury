@@ -43,6 +43,14 @@ David prépare les icônes d'objets en parallèle (voir « Objets » plus bas).
 - « Terres sans fin » procédurales : étages, choix combat / élite / coffre maudit, malédictions tous les 5 étages, boss tous les 10, classement de la semaine.
 - **Règle d'or : les objets ne marchent QUE dans ce mode**, jamais en versus.
 - Plan : d'abord une seule zone jouable (carte de Mamiya + combats + butin + inventaire) pour tester la boucle, puis le reste.
+- **Zone 1 codée (v0.99.0)**, mode « Voyage » visible des admins et testeurs seulement (`rpgOpen()`). Réglages, tous à ajuster :
+  - Carte (`RPG_ZONE` dans index.html) : village de Mamiya → pillards de Zeed → bazar **ou** oasis → le vieil homme (événement à 3 choix) → meute des Kiba (élite) **ou** route des ruines → Jagi (boss, avec 2 punks). Southern Cross et Cassandra affichés verrouillés.
+  - Équipe libre (budget normal), PV gardés d'un combat à l'autre, KO jusqu'à l'oasis (+50 % PV, KO relevés à 30 %). Défaite ou abandon = fin du voyage, on garde les objets. Voyage en cours gardé sur l'appareil (localStorage `boc-rpg-run`), on peut quitter et reprendre.
+  - 10 objets (`RPG_ITEMS`) : bottes +2 PV max, épaulettes +4 PV max, gants Légers +1, brassard Moyens +2, casque de Jagi Lourds +2, talisman rage +2 au départ, ceinture +1 endurance par tour ; consommables bandages (6 PV à un perso), gourde (3 PV à tous), carte du puits (50 % PV à tous). Étoile du Chariot et fouet de Cassandra attendent leur zone.
+  - Butin : combat 60/30/10 (commun / peu commun / rare), événement rare garanti, élite 50/35/15 (jusqu'à épique), boss épique garanti + 1 objet + casque de Jagi 1 chance sur 10. Sac de 24, équipement par perso gardé sur le compte (`stats.rpg`).
+  - Points : 6 / 8 / 10 / 25 (combat / événement / élite / boss). Bazar : 3 objets tirés au départ, 20 / 40 / 80 ryō (`/api/rpg` dans accounts.js, à garder en phase).
+  - Icônes : les 12 illustrations de David (D:\Doomstar\RPG\images) sont dans `assets/item-<id>.webp` (256 px, rognées). `RPG_ART` liste celles qui sont branchées ; sans icône, un objet montre le pictogramme de sa place.
+  - Pas fait : succès, classement, règles de zone, objets vus par le marchand selon la zone, serveur testé en vrai (pas de Node sur le PC de David).
 - **Maquette** (8 écrans : carte, butin, événement, marchand, boss Cassandra, inventaire, Southern Cross, terres sans fin) : https://claude.ai/artifact/5JY3irQFoKDXN3Yk3yXRzX — David et maxGfive emballés. Tous les objets, effets et noms de la maquette sont des exemples.
 
 ## Objets (David les génère avec ChatGPT)
