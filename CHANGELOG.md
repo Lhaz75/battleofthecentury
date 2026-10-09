@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.10 — 2026-10-09
+
+- Voyage (en test) : nouveau « Guide de la zone », accessible depuis la carte. Il liste les étapes, les adversaires, les choix de l'événement, les objets et leurs taux d'obtention
+
 ## v0.99.9 — 2026-10-09
 
 - Voyage (en test, idées de maxGfive) : chaque étape donne un objet la première fois, puis seulement quelques points ; le boss de zone, lui, lâche des objets à chaque victoire
