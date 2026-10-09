@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.5 — 2026-10-09
+
+- Voyage (en test) : bouton « Jeter » pour faire de la place dans le sac (merci maxGfive)
+- Dojo : l'écran de victoire précise que les points gagnés vont au classement général, et le classement du Dojo affiche des « pts de grade » (merci Jérôme R.)
+
 ## v0.99.4 — 2026-10-09
 
 - Nouvelles illustrations pour six punks, avec de nouveaux noms et de nouveaux coups : Le Marteau, Double Lame, Crête verte, Le Borgne, Crinière rouge
