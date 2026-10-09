@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.4 — 2026-10-09
+
+- Nouvelles illustrations pour six punks, avec de nouveaux noms et de nouveaux coups : Le Marteau, Double Lame, Crête verte, Le Borgne, Crinière rouge
+- Cinq nouveaux punks pour varier les bandes : Le Masque, Crête rouge, Le Surineur, La Faucille, Le Balafré
+- Nouveaux adversaires : trois soldats de Ken-Oh, deux hommes de Galf et deux geôliers de Cassandra. Ils peuvent déjà apparaître en Survie
+
 ## v0.99.3 — 2026-10-09
 
 - Voyage (en test) : 6 nouveaux objets, dont trois pour la tête et l'Épaulette de Shin (mythique), un vrai fond de carte et des décors pour l'événement, le bazar et l'oasis
