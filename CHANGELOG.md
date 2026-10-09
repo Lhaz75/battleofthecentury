@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.6 — 2026-10-09
+
+- Mode histoire, arc 2 (en test) : sept nouveaux chapitres, de la piste de Toki à Ken-Oh, en passant par les portes de Cassandra, Uighur et l'escouade de Gallon
+- Chapitres à débloquer : Raiga & Fūga, Uighur et Ken-Oh
+
 ## v0.99.5 — 2026-10-09
 
 - Voyage (en test) : bouton « Jeter » pour faire de la place dans le sac (merci maxGfive)

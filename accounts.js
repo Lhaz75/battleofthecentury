@@ -13,7 +13,7 @@ function SHOP_PRICE(id) {
   if (!(id in SHOP_COST) || !SHOP_LIST.has(id)) return 0;
   return { 1: 100, 2: 150, 3: 250, 4: 400, 5: 600 }[SHOP_COST[id]] || 250;
 }
-const STORY_ORDER = ["king-0", "king-1", "king-2", "king-3", "king-4", "king-5", "king-6", "king-7", "king-9", "king-8", "arc2-1", "arc2-2", "arc2-3", "arc2-4", "arc2-5", "arc2-6", "arc2-7", "arc2-8", "arc2-9"];
+const STORY_ORDER = ["king-0", "king-1", "king-2", "king-3", "king-4", "king-5", "king-6", "king-7", "king-9", "king-8", "arc2-1", "arc2-2", "arc2-3", "arc2-4", "arc2-5", "arc2-6", "arc2-7", "arc2-8", "arc2-9", "arc2-10", "arc2-11", "arc2-12", "arc2-13", "arc2-14", "arc2-15", "arc2-16"];
 const fs = require("fs");
 const path = require("path");
 
