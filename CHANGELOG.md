@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.9 — 2026-10-09
+
+- Voyage (en test, idées de maxGfive) : chaque étape donne un objet la première fois, puis seulement quelques points ; le boss de zone, lui, lâche des objets à chaque victoire
+- Les objets ont maintenant une qualité : un objet ★ ou ★★ a un petit bonus en plus (PV, dégâts ou rage)
+- Le butin est tiré et gardé par le serveur
+
 ## v0.99.8 — 2026-10-09
 
 - Kai, Bukoh et Satora, les fils d'Asam, rejoignent leur père au magasin (250 ryō chacun à la v1.0)

@@ -13,6 +13,41 @@ function SHOP_PRICE(id) {
   if (!(id in SHOP_COST) || !SHOP_LIST.has(id)) return 0;
   return { 1: 100, 2: 150, 3: 250, 4: 400, 5: 600 }[SHOP_COST[id]] || 250;
 }
+// voyage (mode RPG) : à garder en phase avec RPG_ITEMS, RPG_ZONE, RPG_DROP, RPG_PTS et RPG_PRICE dans index.html
+const RPG_IT = { "bottes-desert": [0, 1], "bandages": [0, 0], "gourde": [0, 0], "bandana": [0, 1], "gants-cloutes": [1, 1], "epaulettes": [1, 1], "casque-punk": [1, 1], "viande-sechee": [1, 0],
+  "talisman-yuria": [2, 1], "carte-puits": [2, 0], "masque-fer": [2, 1], "ceinturon-clous": [2, 1], "ceinture-ermite": [3, 1], "brassard-nanto": [3, 1], "epaulette-shin": [4, 1], "casque-jagi": [5, 1] };   // id : [rareté, équipable]
+const RPG_NODES = { zeed: "fight", old: "event", kiba: "elite", ruines: "fight", jagi: "boss" };
+const RPG_PTS = { fight: 6, event: 8, elite: 10, boss: 25 }, RPG_PTS_AGAIN = { fight: 1, event: 1, elite: 2, boss: 5 };   // première fois / étape déjà faite
+const RPG_DROP = { fight: [60, 30, 10], event: [0, 0, 100], elite: [0, 48, 35, 15, 2], boss: [0, 0, 0, 92, 8] };   // poids par rareté
+const RPG_SHOP = { "bottes-desert": 20, "bandages": 20, "gourde": 20, "bandana": 20, "gants-cloutes": 40, "epaulettes": 40, "casque-punk": 40, "viande-sechee": 40, "talisman-yuria": 80, "carte-puits": 80, "masque-fer": 80, "ceinturon-clous": 80 };
+const RPG_ID = /^[a-z][a-z-]{1,23}(~(hp[123]|lg1|my1|ld1|rg1))?$/;   // objet, avec ou sans bonus de qualité
+const rpgOk = x => typeof x === "string" && RPG_ID.test(x) && !!RPG_IT[x.split("~")[0]];
+function rpgRoll(kind) {
+  const w = RPG_DROP[kind], rnd = n => Math.floor(Math.random() * n);
+  let x = Math.random() * w.reduce((s, v) => s + v, 0), r = 0; while (r < w.length - 1 && x >= w[r]) { x -= w[r]; r++; }
+  const ids = Object.keys(RPG_IT).filter(id => RPG_IT[id][0] === r); let it = ids[rnd(ids.length)];
+  // qualité (objets équipables) : 6 % parfait, 24 % renforcé
+  if (RPG_IT[it][1]) { const q = Math.random(); if (q < 0.06) it += "~" + ["hp3", "lg1", "my1", "ld1", "rg1"][rnd(5)]; else if (q < 0.30) it += "~" + ["hp1", "hp2"][rnd(2)]; }
+  const out = [it];
+  if (kind === "boss") { out.push(...rpgRoll("fight")); if (Math.random() < 0.1) out.unshift("casque-jagi"); }
+  return out;
+}
+function rpgClean(inv) {
+  const bag = (Array.isArray(inv && inv.bag) ? inv.bag : []).filter(rpgOk).slice(0, 24), eq = {};
+  for (const [f, o] of Object.entries(inv && typeof inv.eq === "object" && inv.eq || {}).slice(0, 150)) {
+    if (!/^[a-z0-9]{1,16}$/.test(f) || !o || typeof o !== "object") continue;
+    const e = {}; for (const k of ["head", "waist", "hands"]) if (rpgOk(o[k])) e[k] = o[k];
+    if (Object.keys(e).length) eq[f] = e;
+  }
+  return { bag, eq };
+}
+// le nouvel inventaire ne contient que des objets déjà possédés (on peut déplacer, utiliser, jeter ; jamais ajouter)
+function rpgWithin(n, cur) {
+  const all = v => [...v.bag, ...Object.values(v.eq).flatMap(e => Object.values(e))], have = new Map();
+  for (const x of all(cur)) have.set(x, (have.get(x) || 0) + 1);
+  for (const x of all(n)) { const c = have.get(x) || 0; if (!c) return false; have.set(x, c - 1); }
+  return true;
+}
 const STORY_ORDER = ["king-0", "king-1", "king-2", "king-3", "king-4", "king-5", "king-6", "king-7", "king-9", "king-8", "arc2-1", "arc2-2", "arc2-3", "arc2-4", "arc2-5", "arc2-6", "arc2-7", "arc2-8", "arc2-9", "arc2-10", "arc2-11", "arc2-12", "arc2-13", "arc2-14", "arc2-15", "arc2-16"];
 const fs = require("fs");
 const path = require("path");
@@ -564,37 +599,34 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       await store.saveStats(u.id, st);
       return [200, { user: pubUser(u), gain, ach }];
     },
-    // voyage (mode RPG, zone 1 en test : admins et testeurs) : sac et équipement gardés dans stats.rpg, points par combat gagné, achats au bazar en ryō
-    // à garder en phase avec RPG_ITEMS / RPG_PTS / RPG_PRICE dans index.html
+    // voyage (mode RPG, zone 1 en test : admins et testeurs). Le serveur tire le butin et garde le sac : le client ne peut que déplacer ou retirer des objets.
     "POST /api/rpg": async (req, body) => {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
       if (!isTester(u)) return [403, { error: "test" }];
-      const st = u.stats, act = String(body.act || "save"), ID = /^[a-z][a-z-]{1,23}$/;
-      const clean = inv => {
-        const bag = (Array.isArray(inv && inv.bag) ? inv.bag : []).filter(x => typeof x === "string" && ID.test(x)).slice(0, 24), eq = {};
-        for (const [f, o] of Object.entries(inv && typeof inv.eq === "object" && inv.eq || {}).slice(0, 150)) {
-          if (!/^[a-z0-9]{1,16}$/.test(f) || !o || typeof o !== "object") continue;
-          const e = {}; for (const k of ["head", "waist", "hands"]) if (typeof o[k] === "string" && ID.test(o[k])) e[k] = o[k];
-          if (Object.keys(e).length) eq[f] = e;
-        }
-        return { bag, eq };
-      };
-      let gain = 0, ach = [];
+      const st = u.stats, act = String(body.act || "save"), inv = st.rpg = rpgClean(st.rpg);
+      let gain = 0, ach = [], loot = [], lost = 0, first = false, saved = "ok";
       if (act === "win") {
-        const pts = { fight: 6, event: 8, elite: 10, boss: 25 }[body.kind]; if (!pts) return [400, { error: "bad" }];
+        const node = String(body.node || ""), kind = RPG_NODES[node]; if (!kind) return [400, { error: "bad" }];
         const now = Date.now(); if (now - (lastRpg.get(u.id) || 0) < 20000) return [429, { error: "slow" }];
-        lastRpg.set(u.id, now); gain = pts; st.pts += gain; bumpFav(st, body.team);
-        if (body.kind === "boss") st.rpgClears = (st.rpgClears || 0) + 1;
+        lastRpg.set(u.id, now);
+        const seen = st.rpgSeen = st.rpgSeen || {}, key = "mamiya:" + node; first = !seen[key]; seen[key] = 1;
+        gain = (first ? RPG_PTS : RPG_PTS_AGAIN)[kind]; st.pts += gain; bumpFav(st, body.team);
+        if (kind === "boss") st.rpgClears = (st.rpgClears || 0) + 1;
+        // un objet la première fois sur chaque étape ; le boss en lâche à chaque fois
+        if (first || kind === "boss") for (const it of rpgRoll(kind)) { if (inv.bag.length < 24) { inv.bag.push(it); loot.push(it); } else lost++; }
         ach = achCheck(st, body.feats);
       } else if (act === "buy") {
-        const price = { "bottes-desert": 20, "bandages": 20, "gourde": 20, "gants-cloutes": 40, "epaulettes": 40, "talisman-yuria": 80, "carte-puits": 80, "bandana": 20, "casque-punk": 40, "viande-sechee": 40, "masque-fer": 80, "ceinturon-clous": 80 }[body.item];
+        const item = String(body.item || ""), price = RPG_SHOP[item];
         if (!price) return [400, { error: "bad" }];
+        if (inv.bag.length >= 24) return [409, { error: "full" }];
         if ((st.pts || 0) - (st.ryoSpent || 0) < price) return [402, { error: "poor" }];
-        st.ryoSpent = (st.ryoSpent || 0) + price;
-      } else if (act !== "save") return [400, { error: "bad" }];
-      if (body.inv) st.rpg = clean(body.inv);
+        st.ryoSpent = (st.ryoSpent || 0) + price; inv.bag.push(item);
+      } else if (act === "save") {
+        if (body.inv) { const n = rpgClean(body.inv); if (rpgWithin(n, inv)) st.rpg = n; else saved = "rejected"; }
+      } else return [400, { error: "bad" }];
+      st.rpg.bag.sort((x, y) => RPG_IT[y.split("~")[0]][0] - RPG_IT[x.split("~")[0]][0]);
       await store.saveStats(u.id, st);
-      return [200, { user: pubUser(u), gain, ach }];
+      return [200, { user: pubUser(u), gain, ach, loot, lost, first, saved }];
     },
     // survie : une vague à la fois, dans l'ordre (la vague 1 lance une nouvelle série)
     "POST /api/surv": async (req, body) => {
