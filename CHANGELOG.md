@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.8 — 2026-10-09
+
+- Kai, Bukoh et Satora, les fils d'Asam, rejoignent leur père au magasin (250 ryō chacun à la v1.0)
+
 ## v0.99.7 — 2026-10-09
 
 - Mode histoire, arc 2 (en test) : Airi vient aider son frère Rei contre l'escouade de Ken-Oh. Elle tire un carreau d'arbalète à chacun de tes tours
