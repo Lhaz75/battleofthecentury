@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.2 — 2026-10-09
+
+- Trois punks changent de nom et de coups pour coller à leur nouvelle illustration : Le Boucher, La Massue et Le Corbeau
+
 ## v0.99.1 — 2026-10-09
 
 - Nouvelles illustrations pour quatre punks
