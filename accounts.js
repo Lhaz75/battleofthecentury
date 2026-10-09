@@ -587,7 +587,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
         if (body.kind === "boss") st.rpgClears = (st.rpgClears || 0) + 1;
         ach = achCheck(st, body.feats);
       } else if (act === "buy") {
-        const price = { "bottes-desert": 20, "bandages": 20, "gourde": 20, "gants-cloutes": 40, "epaulettes": 40, "talisman-yuria": 80, "carte-puits": 80 }[body.item];
+        const price = { "bottes-desert": 20, "bandages": 20, "gourde": 20, "gants-cloutes": 40, "epaulettes": 40, "talisman-yuria": 80, "carte-puits": 80, "bandana": 20, "casque-punk": 40, "viande-sechee": 40, "masque-fer": 80, "ceinturon-clous": 80 }[body.item];
         if (!price) return [400, { error: "bad" }];
         if ((st.pts || 0) - (st.ryoSpent || 0) < price) return [402, { error: "poor" }];
         st.ryoSpent = (st.ryoSpent || 0) + price;

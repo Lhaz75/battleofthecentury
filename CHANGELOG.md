@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.3 — 2026-10-09
+
+- Voyage (en test) : 6 nouveaux objets, dont trois pour la tête et l'Épaulette de Shin (mythique), un vrai fond de carte et des décors pour l'événement, le bazar et l'oasis
+- Nouvelles illustrations pour Rima et Jackal
+
 ## v0.99.2 — 2026-10-09
 
 - Trois punks changent de nom et de coups pour coller à leur nouvelle illustration : Le Boucher, La Massue et Le Corbeau
