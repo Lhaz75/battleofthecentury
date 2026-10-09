@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.1 — 2026-10-09
+
+- Nouvelles illustrations pour quatre punks
+
 ## v0.99.0 — 2026-10-09
 
 - Nouveau mode en test : le Voyage (idée de maxGfive), réservé aux testeurs pour l'instant. Une carte des terres désolées avec des routes à choisir : combats, élite, marchand, oasis, événement et Jagi en boss de zone
