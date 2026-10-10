@@ -188,6 +188,8 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 
 - v0.99.34 : jambières (place pieds, famille « blindage » : PV et Lourds, pas de Légers ; les bottes restent « mobilité ») : `jambieres-rouille` peu commun (PV +4), `jambieres-pointes` épique (PV +5, Lourds +1), `jambieres-sang` mythique (PV +4, Moyens +1, Lourds +1). Rangée : `jambieres-soleil` (légendaire or aux flammes et au soleil). David : « on verra ensuite » pour le doublon bottes / jambières. 47 objets en jeu.
 
+- **Légendaires rangés (icônes prêtes, pas en jeu), à donner aux boss des zones futures** : `couronne-empereur` Couronne de l'Empereur → **Souther** (tête, idée : Lourds +2 ou rage +2) ; `ceinture-nanto` → Souther aussi possible ; `epaulette-rei` → **Yuda** ; `fouet-cassandra` → Uighur ; set du Lion (`bottes-lion`, `gantelets-lion`, `bandes-lion`… non, `bandes-azur`, `epauliere-lion`, `cuirasse-fauve`) → idée Ken-Oh ; `jambieres-soleil` ; `etoile-chariot`. Ajouter un objet = entrée dans `RPG_ITEMS` + `RPG_ART` + noms FR/EN/IT/JA (`rpgItems`) + `RPG_IT` dans accounts.js, puis `leg:` de la zone.
+
 ## Ce qui n'a jamais été vérifié en vrai
 
 - Aucun combat du Voyage ni des nouveaux chapitres n'a été joué en entier : les tests lancent les combats puis forcent la victoire ou la défaite. L'équilibrage est à tester par des humains.
