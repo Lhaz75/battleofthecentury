@@ -152,6 +152,17 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 
 - v0.99.20 : objet **Bandes de poing** (`bandes-poing`, commun, mains, PV max +2 ; effet choisi par Claude, à ajuster), icône fournie par David le 10 oct. Ajouté dans `RPG_ITEMS`, `RPG_ART`, les noms FR/EN/IT/JA, et côté serveur dans `RPG_IT` et `RPG_SHOP` (20 ryō). Il y a maintenant 17 objets.
 
+## Voyage, zone 2 Southern Cross (v0.99.21)
+
+- Le Voyage est multi-zones : `RPG_ZONES` (client) remplace `RPG_ZONE`, `RZ()` donne la zone du voyage en cours, `rpgZoneOk(z)` dit si elle est ouverte (`need` = étape à avoir battue, lue dans `stats.rpgSeen`). Côté serveur, `RPG_ZONES` dans `accounts.js` (étapes qui donnent du butin, `need`, légendaire `leg` du boss) ; `/api/rpg` reçoit `zone` et refuse une zone fermée (403). Clés `rpgSeen` = `zone:étape`.
+- Au départ d'un voyage, `rpgZones(sel)` affiche le choix de la zone (« Où partir ? ») dès que la zone 2 est ouverte ; sinon on part direct en zone 1.
+- **Zone 2 `sc`, Southern Cross** (boss **Shin**, décision de David : Souther n'est pas là) : départ → Spade (combat, Spade + 2 punks) → le village du tribut (événement, mêmes choix que le vieil homme avec d'autres textes, clés `rpgEv*_sc`) → Diamond (élite) **ou** Club (combat, le pont) → bazar **ou** oasis → Heart (élite) → Shin (boss, avec Joker et un punk, PV ×1,5, IA 0,9). PV des adversaires ×1,1 à ×1,2. Cassandra affichée verrouillée.
+- Textes propres à une zone : suffixe `ev` de la zone (`_sc`), lus avec `zk(clé)`. Nœud qui s'affiche sous un autre nom : `nm` (le départ de la zone 2 = `sc_start`).
+- Légendaire du boss : `leg` (Casque de Jagi en zone 1, **Ceinture de KING** en zone 2, 10 %). Le guide n'affiche que le légendaire de la zone.
+- Fond de carte `rpg-carte-sc.webp` (dessiné par David), décalé à droite (`background-position:72%`) pour garder la ville sur mobile.
+- Choix de Claude à valider : le parcours, les noms d'étapes, les textes, la difficulté. L'événement réutilise l'image du vieil homme : il manque une image `rpg-village-king` (paysage 16:9). Pas encore de règle propre à la zone (idées : Yuria, les 7 cicatrices).
+- Testé avec le vrai serveur (Node) : zone 2 refusée avant Jagi, butin OK, Ceinture de KING ~10 % sur Shin. Parcours complet de la zone 2 en Playwright sur PC, mobile portrait et paysage.
+
 ## Ce qui n'a jamais été vérifié en vrai
 
 - Aucun combat du Voyage ni des nouveaux chapitres n'a été joué en entier : les tests lancent les combats puis forcent la victoire ou la défaite. L'équilibrage est à tester par des humains.

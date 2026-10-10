@@ -15,21 +15,23 @@ function SHOP_PRICE(id) {
 }
 // voyage (mode RPG) : à garder en phase avec RPG_ITEMS, RPG_ZONE, RPG_DROP, RPG_PTS et RPG_PRICE dans index.html
 const RPG_IT = { "bottes-desert": [0, 1], "bandes-poing": [0, 1], "bandages": [0, 0], "gourde": [0, 0], "bandana": [0, 1], "gants-cloutes": [1, 1], "epaulettes": [1, 1], "casque-punk": [1, 1], "viande-sechee": [1, 0],
-  "talisman-yuria": [2, 1], "carte-puits": [2, 0], "masque-fer": [2, 1], "ceinturon-clous": [2, 1], "ceinture-ermite": [3, 1], "brassard-nanto": [3, 1], "epaulette-shin": [4, 1], "casque-jagi": [5, 1] };   // id : [rareté, équipable]
-const RPG_NODES = { zeed: "fight", old: "event", kiba: "elite", ruines: "fight", jagi: "boss" };
+  "talisman-yuria": [2, 1], "carte-puits": [2, 0], "masque-fer": [2, 1], "ceinturon-clous": [2, 1], "ceinture-ermite": [3, 1], "brassard-nanto": [3, 1], "epaulette-shin": [4, 1], "casque-jagi": [5, 1], "ceinture-king": [5, 1] };   // id : [rareté, équipable]
+// zones : étapes qui donnent du butin, étape à avoir battue pour ouvrir la zone, légendaire du boss (10 %)
+const RPG_ZONES = { mamiya: { nodes: { zeed: "fight", old: "event", kiba: "elite", ruines: "fight", jagi: "boss" }, leg: "casque-jagi" },
+  sc: { need: "mamiya:jagi", nodes: { sc_spade: "fight", sc_village: "event", sc_diamond: "elite", sc_club: "fight", sc_heart: "elite", sc_shin: "boss" }, leg: "ceinture-king" } };
 const RPG_PTS = { fight: 6, event: 8, elite: 10, boss: 25 }, RPG_PTS_AGAIN = { fight: 1, event: 1, elite: 2, boss: 5 };   // première fois / étape déjà faite
 const RPG_DROP = { fight: [60, 30, 10], event: [0, 0, 100], elite: [0, 48, 35, 15, 2], boss: [0, 0, 0, 92, 8] };   // poids par rareté
 const RPG_SHOP = { "bottes-desert": 20, "bandes-poing": 20, "bandages": 20, "gourde": 20, "bandana": 20, "gants-cloutes": 40, "epaulettes": 40, "casque-punk": 40, "viande-sechee": 40, "talisman-yuria": 80, "carte-puits": 80, "masque-fer": 80, "ceinturon-clous": 80 };
 const RPG_ID = /^[a-z][a-z-]{1,23}(~(hp[123]|lg1|my1|ld1|rg1))?$/;   // objet, avec ou sans bonus de qualité
 const rpgOk = x => typeof x === "string" && RPG_ID.test(x) && !!RPG_IT[x.split("~")[0]];
-function rpgRoll(kind) {
+function rpgRoll(kind, leg) {
   const w = RPG_DROP[kind], rnd = n => Math.floor(Math.random() * n);
   let x = Math.random() * w.reduce((s, v) => s + v, 0), r = 0; while (r < w.length - 1 && x >= w[r]) { x -= w[r]; r++; }
   const ids = Object.keys(RPG_IT).filter(id => RPG_IT[id][0] === r); let it = ids[rnd(ids.length)];
   // qualité (objets équipables) : 6 % parfait, 24 % renforcé
   if (RPG_IT[it][1]) { const q = Math.random(); if (q < 0.06) it += "~" + ["hp3", "lg1", "my1", "ld1", "rg1"][rnd(5)]; else if (q < 0.30) it += "~" + ["hp1", "hp2"][rnd(2)]; }
   const out = [it];
-  if (kind === "boss") { out.push(...rpgRoll("fight")); if (Math.random() < 0.1) out.unshift("casque-jagi"); }
+  if (kind === "boss") { out.push(...rpgRoll("fight")); if (leg && Math.random() < 0.1) out.unshift(leg); }
   return out;
 }
 function rpgClean(inv) {
@@ -606,14 +608,15 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       const st = u.stats, act = String(body.act || "save"), inv = st.rpg = rpgClean(st.rpg);
       let gain = 0, ach = [], loot = [], lost = 0, first = false, saved = "ok";
       if (act === "win") {
-        const node = String(body.node || ""), kind = RPG_NODES[node]; if (!kind) return [400, { error: "bad" }];
+        const zone = String(body.zone || "mamiya"), Z = RPG_ZONES[zone], node = String(body.node || ""), kind = Z && Z.nodes[node]; if (!kind) return [400, { error: "bad" }];
+        if (Z.need && !(st.rpgSeen || {})[Z.need]) return [403, { error: "locked" }];
         const now = Date.now(); if (now - (lastRpg.get(u.id) || 0) < 20000) return [429, { error: "slow" }];
         lastRpg.set(u.id, now);
-        const seen = st.rpgSeen = st.rpgSeen || {}, key = "mamiya:" + node; first = !seen[key]; seen[key] = 1;
+        const seen = st.rpgSeen = st.rpgSeen || {}, key = zone + ":" + node; first = !seen[key]; seen[key] = 1;
         gain = (first ? RPG_PTS : RPG_PTS_AGAIN)[kind]; st.pts += gain; bumpFav(st, body.team);
         if (kind === "boss") st.rpgClears = (st.rpgClears || 0) + 1;
         // un objet la première fois sur chaque étape ; le boss en lâche à chaque fois
-        if (first || kind === "boss") for (const it of rpgRoll(kind)) { if (inv.bag.length < 24) { inv.bag.push(it); loot.push(it); } else lost++; }
+        if (first || kind === "boss") for (const it of rpgRoll(kind, Z.leg)) { if (inv.bag.length < 24) { inv.bag.push(it); loot.push(it); } else lost++; }
         ach = achCheck(st, body.feats);
       } else if (act === "buy") {
         const item = String(body.item || ""), price = RPG_SHOP[item];

@@ -2,6 +2,13 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.21 — 2026-10-10
+
+- Voyage (en test) : zone 2, Southern Cross ! Elle s'ouvre quand tu as battu Jagi. Au départ d'un voyage, tu choisis maintenant ta zone
+- Southern Cross : Spade, le village du tribut, Diamond ou Club, le bazar ou l'oasis, Heart, puis Shin et Joker en boss. Adversaires plus coriaces que dans la zone 1
+- Nouveau légendaire : la Ceinture de KING (taille, Légers +2), 1 chance sur 10 sur Shin
+- Nouvelle carte de la zone, dessinée par Lhaz
+
 ## v0.99.20 — 2026-10-10
 
 - Voyage (en test) : nouvel objet commun, les Bandes de poing (mains, PV max +2). On peut les trouver en combat ou les acheter au bazar
