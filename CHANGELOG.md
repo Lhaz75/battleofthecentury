@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.26 — 2026-10-11
+
+- Les terres désolées (en test) : 7 nouveaux objets. Bottes de cuir, Bottes ferrées, Bottes de sang, Casque à pointes, Heaume noir, Heaume de sang, et le Heaume du Grand Roi, légendaire de Kiba Daioh (1 chance sur 10). Illustrations de Lhaz
+
 ## v0.99.25 — 2026-10-10
 
 - Nouvelles illustrations pour Souther, Ken-Oh, Shu, Falco et Amiba

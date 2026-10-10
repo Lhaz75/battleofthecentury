@@ -170,6 +170,8 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 
 - v0.99.24 : le mode « Voyage » est renommé **« Les terres désolées »** (choix de David ; EN The Wasteland, IT Le terre desolate, JA 荒野). Seuls les libellés changent (`rpgBtn`, `rpgTitle`, `rpgZoneK*`, `hmd_rpg`) : dans le code et les docs, c'est toujours `rpg` / « Voyage ». Le mot « voyage » reste pour une partie (« Nouveau voyage », « Abandonner le voyage »).
 
+- v0.99.26 : 2 planches de David (bottes et casques en 4 versions : normale, élite, mythique, légendaire), choix de David « 4 objets différents ». Bottes (place taille, comme les Bottes du désert) : `bottes-cuir` peu commun (PV max +3), `bottes-ferrees` épique (PV +3, Légers +1), `bottes-sang` mythique (PV +2, Légers +1, Lourds +1), `bottes-lion` légendaire = **icône rangée, pas en jeu** (pour un boss futur). Casques (tête) : `casque-pointes` peu commun (PV +1, rage +1), `heaume-noir` épique (PV +4, Lourds +1), `heaume-sang` mythique (rage +2, Lourds +1), `heaume-daioh` **Heaume du Grand Roi**, légendaire de Kiba Daioh (Moyens +2, 10 %, `leg` de la zone 2). Effets choisis par Claude. Bottes de cuir et Casque à pointes vendus au bazar (40 ryō). Il y a 24 objets en jeu.
+
 ## Ce qui n'a jamais été vérifié en vrai
 
 - Aucun combat du Voyage ni des nouveaux chapitres n'a été joué en entier : les tests lancent les combats puis forcent la victoire ou la défaite. L'équilibrage est à tester par des humains.
