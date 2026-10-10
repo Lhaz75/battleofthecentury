@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.18 — 2026-10-10
+
+- Dojo : les ceintures sont remplacées par la Grande Ourse. 7 étoiles qui s'allument chacune en 3 temps : la 1re luit à peine pour le novice, les 7 flambent pour le Maître (merci Jérôme R. et maxGfive)
+
 ## v0.99.17 — 2026-10-10
 
 - Voyage (en test) : textes des objets harmonisés, par exemple « PV max (+7) » ou « Endurance par tour (+1) - Moyens (+1) ». L'effet de base est toujours affiché en premier, le bonus ★ ensuite (merci Jérôme R.)

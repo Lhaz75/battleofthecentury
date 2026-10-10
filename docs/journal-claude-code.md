@@ -146,8 +146,9 @@ Le Discord se lit sans compte via le widget public : `https://e.widgetbot.io/cha
 - v0.99.17 : textes des objets (Jérôme R.) : `rpgFx` affiche l'effet de base en premier (le bonus de qualité s'y ajoute s'il est du même type, ex. Masque de fer ★ → « PV max (+7) »), puis le bonus ★ s'il est différent, séparés par « - ».
 
 Retours Discord du 10 oct. (après-midi), pas encore traités :
-- Jérôme R. trouve que les ceintures du Dojo ne collent pas à l'univers ; maxGfive pense que si (kyu / dan). Alternative proposée à David : les 7 étoiles de la Grande Ourse. David doit trancher.
 - Finishers (maxGfive + Jérôme R.) : plusieurs ultimes par perso, rage qui continue en orange puis rouge, choix de l'ultime en construisant le deck. Gros chantier, en discussion.
+
+- v0.99.18 : Dojo, les ceintures sont remplacées par la Grande Ourse (Jérôme R. trouvait que la ceinture ne collait pas à l'univers) : `starsSVG(r,largeur)`, 7 étoiles × 3 niveaux d'éclat = 21 grades, les 7 flambent pour le Maître. Les noms kyu / dan ne changent pas. **Retour arrière possible** : `const DOJO_ICON="belt"` remet les ceintures (`beltSVG` gardé), choix de David « si c'est moche ».
 
 ## Ce qui n'a jamais été vérifié en vrai
 
