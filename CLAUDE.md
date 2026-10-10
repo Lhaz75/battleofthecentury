@@ -2,7 +2,7 @@
 
 Fan game gratuit et non monétisé de **Hokuto no Ken / Soten no Ken** : jeu de baston en cartes dans le navigateur, versus en ligne, comptes joueurs. Créé par David (alias **Lhaz** / **Dave**, admin de hokutolegacy.com) avec Claude. Nom de travail historique : **Doomstar**.
 
-Version actuelle : **v0.99.23** (10 oct. 2026). Bêta de test (0.x), la 1.0 = sortie officielle.
+Version actuelle : **v0.99.24** (10 oct. 2026). Bêta de test (0.x), la 1.0 = sortie officielle.
 
 Les idées en cours et le backlog sont dans :
 - `docs/idees-en-attente.md` — état du mode histoire, magasin, testeurs, boss mondial, déjà-faits à ne plus proposer
@@ -84,7 +84,7 @@ cd public && python3 -m http.server 8811 &   # le client tourne sans le serveur 
 ## Ce que contient le jeu (résumé)
 
 - **Combat** : équipes de 2 à 5 persos en relais, budget de 10 points (coût 1 à 5 par perso). Cartes Légère/Moyenne/Lourde propres à chaque perso, combos (Enchaînement) avec bonus, barre de rage à 8 segments → ultime, cartes terrain et pièges liés au lore, passifs, spéciales et **liens** entre persos (ex. Frères de sang Toki/Ken-Oh, Kenshiro/Hyō). Relais gratuit au premier tour.
-- **Modes** : Entraînement contre l'IA (4 niveaux, choix de l'adversaire), Versus en ligne (matchmaking + code d'invitation, « Here comes a new challenger »), Tournoi, Survie, **Dojo** (combats sans fin, grades novice → Maître), **Voyage** (mode RPG, zone 1 en test : carte, butin, équipement), Arcade (tour), Défi du jour, Défi de la semaine, **Boss mondial** hebdo (PV partagés, essais limités, Devil Rebirth en premier), **Mode histoire** (arc 1 « KING » 9 chapitres avec 3 étoiles, arc 2 « Les frères de Hokuto », 16 chapitres jusqu'à Ken-Oh, en test réservé admins/testeurs).
+- **Modes** : Entraînement contre l'IA (4 niveaux, choix de l'adversaire), Versus en ligne (matchmaking + code d'invitation, « Here comes a new challenger »), Tournoi, Survie, **Dojo** (combats sans fin, grades novice → Maître), **Les terres désolées** (ex-« Voyage », mode RPG, en test : carte, butin, équipement), Arcade (tour), Défi du jour, Défi de la semaine, **Boss mondial** hebdo (PV partagés, essais limités, Devil Rebirth en premier), **Mode histoire** (arc 1 « KING » 9 chapitres avec 3 étoiles, arc 2 « Les frères de Hokuto », 16 chapitres jusqu'à Ken-Oh, en test réservé admins/testeurs).
 - **Comptes** : profil, avatar, decks sauvegardés, points/Elo/rang, succès, Hall of Fame, ryō + magasin de persos (prêt, coupé pour les joueurs en bêta), « Mes cartes » (3 terrains + 3 pièges).
 - **Admin** : gestion des comptes, rôle testeur, maintenance, outil de cadrage des illus (miniature + combat + ultime), « Boss : +1 essai ».
 - **Divers** : ~90+ persos (dont Soten no Ken), voix d'ultime par perso, sons, vibrations mobile, appui long pour inspecter un réserviste, chat Discord intégré, tutoriel, pages Nouveautés/Codex, interface FR/EN/IT/JA.

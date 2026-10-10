@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.24 — 2026-10-10
+
+- Le mode Voyage s'appelle maintenant « Les terres désolées »
+
 ## v0.99.23 — 2026-10-10
 
 - Voyage (en test) : Kiba Daioh devient le boss de la zone 2, les terres de Mamiya. Jagi aura sa propre zone, la 3, avant Cassandra
