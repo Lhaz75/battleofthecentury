@@ -148,7 +148,7 @@ Le Discord se lit sans compte via le widget public : `https://e.widgetbot.io/cha
 Retours Discord du 10 oct. (après-midi), pas encore traités :
 - Finishers (maxGfive + Jérôme R.) : plusieurs ultimes par perso, rage qui continue en orange puis rouge, choix de l'ultime en construisant le deck. Gros chantier, en discussion.
 
-- v0.99.18 : Dojo, les ceintures sont remplacées par la Grande Ourse (Jérôme R. trouvait que la ceinture ne collait pas à l'univers) : `starsSVG(r,largeur)`, 7 étoiles × 3 niveaux d'éclat = 21 grades, les 7 flambent pour le Maître. Les noms kyu / dan ne changent pas. **Retour arrière possible** : `const DOJO_ICON="belt"` remet les ceintures (`beltSVG` gardé), choix de David « si c'est moche ».
+- v0.99.18 : Dojo, les ceintures sont remplacées par la Grande Ourse (Jérôme R. trouvait que la ceinture ne collait pas à l'univers) : `starsSVG(r,largeur,{anim,nw})`. Version finale (v0.99.19, la v0.99.18 a été remplacée avant d'être vue) : 3 tours de 7 étoiles = 21 grades, les étoiles s'allument une à une en bronze, puis passent en argent, puis en or ; au Maître la constellation se trace en or. David ne voulait pas de rouge. Animation (`anim`) seulement sur les grandes versions (tête du Dojo, accueil, écran de victoire) : scintillement, poussière d'étoiles ; `nw` = flash de l'étoile gagnée à la montée de grade. Coupée si « réduire les animations ». Les noms kyu / dan ne changent pas. **Retour arrière possible** : `const DOJO_ICON="belt"` remet les ceintures (`beltSVG` gardé), choix de David « si c'est moche ».
 
 ## Ce qui n'a jamais été vérifié en vrai
 

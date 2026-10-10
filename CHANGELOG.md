@@ -2,9 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
-## v0.99.18 — 2026-10-10
+## v0.99.19 — 2026-10-10
 
-- Dojo : les ceintures sont remplacées par la Grande Ourse. 7 étoiles qui s'allument chacune en 3 temps : la 1re luit à peine pour le novice, les 7 flambent pour le Maître (merci Jérôme R. et maxGfive)
+- Dojo : les ceintures sont remplacées par la Grande Ourse. Les 7 étoiles s'allument une à une en bronze, puis passent en argent, puis en or : chaque grade fait changer une étoile, et au Maître la constellation entière brille en or
+- Les étoiles débloquées scintillent, et celle que tu viens de gagner apparaît avec un éclat quand tu montes de grade (merci Jérôme R. et maxGfive)
 
 ## v0.99.17 — 2026-10-10
 
