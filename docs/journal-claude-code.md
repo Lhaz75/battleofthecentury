@@ -165,6 +165,8 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 
 - v0.99.22 : **ordre des zones décidé par David** (ordre du manga) : zone 1 Southern Cross (Shin), zone 2 les terres de Mamiya, zone 3 Cassandra, zone 4 Yuda, zone 5 Ken-Oh. Difficulté échangée (Southern Cross devient la plus facile). La zone 2 s'ouvre en battant Shin ; `need` accepte une liste, et `mamiya:jagi` y est gardé pour que les testeurs qui avaient battu Jagi gardent l'accès. David voudrait idéalement **Kiba Daioh** en boss de la zone 2 (question posée sur la place de Jagi).
 
+- v0.99.23 : décision de David : **Kiba Daioh** est le boss de la zone 2 (« Les terres de Mamiya », nœud `daioh`, Kiba Daioh + 2 Kiba) et **Jagi aura sa propre zone, la 3**, avant Cassandra. Ordre final : 1 Southern Cross (Shin), 2 terres de Mamiya (Kiba Daioh), 3 Jagi, 4 Cassandra, 5 Yuda, 6 Ken-Oh. En attendant la zone 3, la zone 2 n'a pas de légendaire (`leg:null`) et le Casque de Jagi ne tombe plus ; il reviendra avec la zone de Jagi (carte à faire, hommes de Jagi `homme-jagi1-4` à intégrer). Il faudra un légendaire pour Kiba Daioh.
+
 ## Ce qui n'a jamais été vérifié en vrai
 
 - Aucun combat du Voyage ni des nouveaux chapitres n'a été joué en entier : les tests lancent les combats puis forcent la victoire ou la défaite. L'équilibrage est à tester par des humains.

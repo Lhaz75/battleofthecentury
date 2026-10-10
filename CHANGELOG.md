@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.23 — 2026-10-10
+
+- Voyage (en test) : Kiba Daioh devient le boss de la zone 2, les terres de Mamiya. Jagi aura sa propre zone, la 3, avant Cassandra
+
 ## v0.99.22 — 2026-10-10
 
 - Voyage (en test) : les zones suivent maintenant l'ordre du manga. Zone 1 : Southern Cross (Shin), zone 2 : les terres de Mamiya (Jagi). Viendront ensuite Cassandra, Yuda et Ken-Oh
