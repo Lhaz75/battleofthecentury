@@ -104,7 +104,7 @@ Décisions de David : **Raoh** sera la récompense d'un chapitre plus tard dans 
 
 **Formats** : perso 1024×1536 en portrait, fond transparent. Carte terrain en portrait 2:3 (900×1350 en jeu). Décors du Voyage en paysage 16:9 ou 16:10. Icône d'objet carrée, fond transparent.
 
-**Liste d'images à cocher** (objets et décors du Voyage) : https://claude.ai/artifact/3YmbDm4hBzf7A1iecizJsX. Il manque encore `item-bandes-poing`, les fonds de carte Southern Cross et Cassandra, un légendaire pour le boss de Southern Cross, une affiche « Voyage » pour l'accueil, et quatre fonds d'histoire (`story-cassandra`, `story-cassandra2`, `story-mamiya2`, `story-kenoh`).
+**Liste d'images à cocher** (objets et décors du Voyage) : https://claude.ai/artifact/3YmbDm4hBzf7A1iecizJsX. Il manque encore les fonds de carte Southern Cross et Cassandra, un légendaire pour le boss de Southern Cross, une affiche « Voyage » pour l'accueil, et quatre fonds d'histoire (`story-cassandra`, `story-cassandra2`, `story-mamiya2`, `story-kenoh`).
 
 ## Retours des testeurs (Discord)
 
@@ -149,6 +149,8 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - Finishers (maxGfive + Jérôme R.) : plusieurs ultimes par perso, rage qui continue en orange puis rouge, choix de l'ultime en construisant le deck. Gros chantier, en discussion.
 
 - v0.99.18 : Dojo, les ceintures sont remplacées par la Grande Ourse (Jérôme R. trouvait que la ceinture ne collait pas à l'univers) : `starsSVG(r,largeur,{anim,nw})`. Version finale (v0.99.19, la v0.99.18 a été remplacée avant d'être vue) : 3 tours de 7 étoiles = 21 grades, les étoiles s'allument une à une en bronze, puis passent en argent, puis en or ; au Maître la constellation se trace en or. David ne voulait pas de rouge. Animation (`anim`) seulement sur les grandes versions (tête du Dojo, accueil, écran de victoire) : scintillement, poussière d'étoiles ; `nw` = flash de l'étoile gagnée à la montée de grade. Coupée si « réduire les animations ». Les noms kyu / dan ne changent pas. **Retour arrière possible** : `const DOJO_ICON="belt"` remet les ceintures (`beltSVG` gardé), choix de David « si c'est moche ».
+
+- v0.99.20 : objet **Bandes de poing** (`bandes-poing`, commun, mains, PV max +2 ; effet choisi par Claude, à ajuster), icône fournie par David le 10 oct. Ajouté dans `RPG_ITEMS`, `RPG_ART`, les noms FR/EN/IT/JA, et côté serveur dans `RPG_IT` et `RPG_SHOP` (20 ryō). Il y a maintenant 17 objets.
 
 ## Ce qui n'a jamais été vérifié en vrai
 

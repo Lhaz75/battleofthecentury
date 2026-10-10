@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.20 — 2026-10-10
+
+- Voyage (en test) : nouvel objet commun, les Bandes de poing (mains, PV max +2). On peut les trouver en combat ou les acheter au bazar
+
 ## v0.99.19 — 2026-10-10
 
 - Dojo : les ceintures sont remplacées par la Grande Ourse. Les 7 étoiles s'allument une à une en bronze, puis passent en argent, puis en or : chaque grade fait changer une étoile, et au Maître la constellation entière brille en or
