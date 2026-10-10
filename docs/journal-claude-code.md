@@ -207,5 +207,5 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - Les cadrages des bustes et visages ont été faits à l'œil : à retoucher dans l'outil de cadrage admin si besoin.
 
 ### v0.99.39 — Collier de crocs du Grand Roi
-- Illustration de David : collier de crocs = **légendaire de Kiba Daioh** (`collier-crocs`, relique, `leg` de la zone mamiya côté client et serveur). Effets choisis par Claude : Légers +1, Moyens +1, `fang` : chaque adversaire mis KO par ce perso lui rend 4 PV et 2 de rage (crochet en tête de `ko()`, terres désolées seulement).
+- Illustration de David : collier de crocs = **légendaire de Kiba Daioh** (`collier-crocs`, relique, `leg` de la zone mamiya côté client et serveur). Effet **défensif** demandé par David, d'après la technique de Kiba Daioh (Kazan Kōgai Kōhō, corps d'acier) : PV max +3, `steel` : chaque coup encaissé par le porteur est réduit de 1 (dans `attack()`, à côté du passif de Kiba, terres désolées seulement). Une 1re version offensive (KO = +4 PV, +2 rage) a été abandonnée avant toute partie.
 - L'ancien légendaire `heaume-daioh` reste en jeu (ceux qui l'ont le gardent) mais ne tombe plus nulle part ; renommé **Heaume d'or** (4 langues), à attribuer à un futur boss.
