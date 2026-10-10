@@ -178,6 +178,8 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 
 - v0.99.29 : épaulières (place corps) : `epauliere-cloutee` peu commun (PV +2, rage +1), `epauliere-ferree` épique (PV +3, Lourds +1), `epauliere-sang` mythique (PV +2, Moyens +1, rage +1). Rangés, pas en jeu : `epauliere-lion` (set du Lion avec bottes, gantelets, bandes du lion et la cuirasse aux fauves → idée : panoplie de Ken-Oh) et **`epaulette-rei`, l'Épaulette de Rei** : légendaire de **Yuda** (décision de David), à mettre en `leg` de la zone de Yuda quand elle existera (effet à décider, idée : Légers +1, Moyens +1). 35 objets en jeu.
 
+- v0.99.30 : consommables `remede-medicine` rare (18 PV à un perso, bazar 80 ryō) et `eau-pure` épique (nouvelle mécanique `revive:.4` : relève le perso choisi à 40 % s'il est KO, sinon `heal` 8 PV). Seul objet qui relève un KO hors de l'oasis. 37 objets en jeu. Prompts des prochains objets (consommables, ceintures, jambières, légendaires d'Amiba / Souther / Raoh, bandana de Bat, ruban de Lin, masque de Jagi) donnés à David le 11 oct.
+
 ## Ce qui n'a jamais été vérifié en vrai
 
 - Aucun combat du Voyage ni des nouveaux chapitres n'a été joué en entier : les tests lancent les combats puis forcent la victoire ou la défaite. L'équilibrage est à tester par des humains.

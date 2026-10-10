@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.30 — 2026-10-11
+
+- Les terres désolées (en test) : 2 nouveaux consommables. Le Remède de Medicine City rend 18 PV à un perso, et l'Eau pure relève un perso KO à 40 % de ses PV (ou rend 8 PV s'il est debout). Illustrations de Lhaz
+
 ## v0.99.29 — 2026-10-11
 
 - Les terres désolées (en test) : 3 nouvelles épaulières pour le corps. Épaulière cloutée, Épaulière ferrée et Épaulière de sang. Illustrations de Lhaz
