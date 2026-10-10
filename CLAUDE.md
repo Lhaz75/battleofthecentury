@@ -6,6 +6,7 @@ Version actuelle : **v0.99.11** (10 oct. 2026). Bêta de test (0.x), la 1.0 = so
 
 Les idées en cours et le backlog sont dans :
 - `docs/idees-en-attente.md` — état du mode histoire, magasin, testeurs, boss mondial, déjà-faits à ne plus proposer
+- `docs/journal-claude-code.md` — journal complet de la session Claude Code des 9 et 10 oct. (v0.99.0 à v0.99.11) : à lire pour reprendre
 - `docs/nouveaux-modes.md` — Dojo (fait en v0.98.0), mode RPG/Voyage (zone 1 en test depuis v0.99.0), Survie v2, objets, Raid du soir, 2V2 (pas encore codés)
 
 ---
@@ -52,6 +53,7 @@ public/music, public/sfx   sons
 public/fighters.json, rules.json, changelog.json   générés, lus par hokutolegacy.com (CORS ouvert)
 public/sw.js     service worker (version du cache générée)
 tools/export_public.py   régénère package.json, CHANGELOG.md, sw.js et les JSON publics (Playwright + Chromium)
+tools/atelier/   scripts de la session Claude Code (nettoyage des images, cadrage, banc de test du serveur) : chemins à adapter, voir docs/journal-claude-code.md
 ```
 
 Repères dans `public/index.html` (numéros de ligne approximatifs, v0.97.16) :
@@ -82,11 +84,13 @@ cd public && python3 -m http.server 8811 &   # le client tourne sans le serveur 
 ## Ce que contient le jeu (résumé)
 
 - **Combat** : équipes de 2 à 5 persos en relais, budget de 10 points (coût 1 à 5 par perso). Cartes Légère/Moyenne/Lourde propres à chaque perso, combos (Enchaînement) avec bonus, barre de rage à 8 segments → ultime, cartes terrain et pièges liés au lore, passifs, spéciales et **liens** entre persos (ex. Frères de sang Toki/Ken-Oh, Kenshiro/Hyō). Relais gratuit au premier tour.
-- **Modes** : Entraînement contre l'IA (4 niveaux, choix de l'adversaire), Versus en ligne (matchmaking + code d'invitation, « Here comes a new challenger »), Tournoi, Survie, **Dojo** (combats sans fin, grades novice → Maître), Arcade (tour), Défi du jour, Défi de la semaine, **Boss mondial** hebdo (PV partagés, essais limités, Devil Rebirth en premier), **Mode histoire** (arc 1 « KING » 9 chapitres avec 3 étoiles, arc 2 « Les frères de Hokuto » en test réservé admins/testeurs).
+- **Modes** : Entraînement contre l'IA (4 niveaux, choix de l'adversaire), Versus en ligne (matchmaking + code d'invitation, « Here comes a new challenger »), Tournoi, Survie, **Dojo** (combats sans fin, grades novice → Maître), **Voyage** (mode RPG, zone 1 en test : carte, butin, équipement), Arcade (tour), Défi du jour, Défi de la semaine, **Boss mondial** hebdo (PV partagés, essais limités, Devil Rebirth en premier), **Mode histoire** (arc 1 « KING » 9 chapitres avec 3 étoiles, arc 2 « Les frères de Hokuto », 16 chapitres jusqu'à Ken-Oh, en test réservé admins/testeurs).
 - **Comptes** : profil, avatar, decks sauvegardés, points/Elo/rang, succès, Hall of Fame, ryō + magasin de persos (prêt, coupé pour les joueurs en bêta), « Mes cartes » (3 terrains + 3 pièges).
 - **Admin** : gestion des comptes, rôle testeur, maintenance, outil de cadrage des illus (miniature + combat + ultime), « Boss : +1 essai ».
 - **Divers** : ~90+ persos (dont Soten no Ken), voix d'ultime par perso, sons, vibrations mobile, appui long pour inspecter un réserviste, chat Discord intégré, tutoriel, pages Nouveautés/Codex, interface FR/EN/IT/JA.
 
 ## Prochaines étapes probables
 
-Voir `docs/nouveaux-modes.md` pour l'ordre : Dojo (fait) → **Survie v2 → mode RPG/Voyage**. En parallèle : suite de l'arc 2 (Sōjin, Raiga & Fūga, Cassandra, Gallon, Ken-Oh), placer Raoh et Asam (histoire ou magasin), couronne de l'arc 2, intégrer Airi, icônes d'objets de David à valider.
+Lire d'abord `docs/journal-claude-code.md` : tout ce qui a été fait du 9 au 10 oct. (v0.99.0 à v0.99.11), les décisions de David, ce qui n'a pas été vérifié et les retours de testeurs en attente.
+
+Fait depuis : mode Voyage zone 1 (butin côté serveur, qualité des objets, guide de la zone), arc 2 chapitres 10 à 16 (Cassandra puis Ken-Oh), Airi, 16 punks, soldats de Ken-Oh / Galf / Cassandra. À venir : retours Discord en attente (fourche bazar / oasis avant Jagi, ceintures du Dojo, Jagi qui annule l'ultime du boss mondial), autres zones du Voyage, Survie v2, placer Galf, couronne de l'arc 2, Raoh en récompense d'un chapitre futur, illustrations fournies mais pas intégrées.
