@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.39 — 2026-10-11
+
+- Les terres désolées (en test) : le légendaire de Kiba Daioh devient le Collier de crocs du Grand Roi (relique : Légers +1, Moyens +1, et chaque adversaire mis KO par ce perso lui rend 4 PV et 2 de rage). Illustration de Lhaz. L'ancien heaume s'appelle maintenant Heaume d'or et attend son boss
+
 ## v0.99.38 — 2026-10-11
 
 - Les terres désolées (en test) : le bazar ne propose plus que des objets qu'on peut vraiment acheter (certains nouveaux objets s'affichaient et l'achat échouait)
