@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.28 — 2026-10-11
+
+- Les terres désolées (en test) : chaque perso a maintenant 5 places d'équipement, avec Corps et Pieds en plus de Tête, Taille et Mains. Les bottes vont aux pieds, les épaulettes et plastrons au corps. Ce que tu portais déjà est rangé à la bonne place tout seul
+- 3 nouveaux plastrons : Plastron rouillé, Plastron ferré et Plastron de sang. Illustrations de Lhaz
+
 ## v0.99.27 — 2026-10-11
 
 - Les terres désolées (en test) : 5 nouveaux objets pour les mains. Bandes cloutées, Bandes rouges, Bandes du Lion, Gantelets à pointes et Gantelets de sang. Illustrations de Lhaz

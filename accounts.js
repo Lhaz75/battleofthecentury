@@ -17,13 +17,14 @@ function SHOP_PRICE(id) {
 const RPG_IT = { "bottes-desert": [0, 1], "bandes-poing": [0, 1], "bandages": [0, 0], "gourde": [0, 0], "bandana": [0, 1], "gants-cloutes": [1, 1], "epaulettes": [1, 1], "casque-punk": [1, 1], "viande-sechee": [1, 0],
   "talisman-yuria": [2, 1], "carte-puits": [2, 0], "masque-fer": [2, 1], "ceinturon-clous": [2, 1], "ceinture-ermite": [3, 1], "brassard-nanto": [3, 1], "epaulette-shin": [4, 1], "casque-jagi": [5, 1], "ceinture-king": [5, 1],
   "bottes-cuir": [1, 1], "bottes-ferrees": [3, 1], "bottes-sang": [4, 1], "casque-pointes": [1, 1], "heaume-noir": [3, 1], "heaume-sang": [4, 1], "heaume-daioh": [5, 1],
-  "bandes-cloutees": [1, 1], "bandes-rouges": [3, 1], "bandes-lion": [4, 1], "gantelets-pointes": [3, 1], "gantelets-sang": [4, 1] };   // id : [rareté, équipable]
+  "bandes-cloutees": [1, 1], "bandes-rouges": [3, 1], "bandes-lion": [4, 1], "gantelets-pointes": [3, 1], "gantelets-sang": [4, 1],
+  "plastron-rouille": [1, 1], "plastron-ferre": [3, 1], "plastron-sang": [4, 1] };   // id : [rareté, équipable]
 // zones : étapes qui donnent du butin, étape à avoir battue pour ouvrir la zone, légendaire du boss (10 %)
 const RPG_ZONES = { mamiya: { need: ["sc:sc_shin", "mamiya:jagi"], nodes: { zeed: "fight", old: "event", kiba: "elite", ruines: "fight", daioh: "boss" }, leg: "heaume-daioh" },   // Jagi aura sa zone (3), avec le Casque de Jagi
   sc: { nodes: { sc_spade: "fight", sc_village: "event", sc_diamond: "elite", sc_club: "fight", sc_heart: "elite", sc_shin: "boss" }, leg: "ceinture-king" } };
 const RPG_PTS = { fight: 6, event: 8, elite: 10, boss: 25 }, RPG_PTS_AGAIN = { fight: 1, event: 1, elite: 2, boss: 5 };   // première fois / étape déjà faite
 const RPG_DROP = { fight: [60, 30, 10], event: [0, 0, 100], elite: [0, 48, 35, 15, 2], boss: [0, 0, 0, 92, 8] };   // poids par rareté
-const RPG_SHOP = { "bottes-desert": 20, "bandes-poing": 20, "bandages": 20, "gourde": 20, "bandana": 20, "gants-cloutes": 40, "epaulettes": 40, "casque-punk": 40, "bottes-cuir": 40, "casque-pointes": 40, "bandes-cloutees": 40, "viande-sechee": 40, "talisman-yuria": 80, "carte-puits": 80, "masque-fer": 80, "ceinturon-clous": 80 };
+const RPG_SHOP = { "bottes-desert": 20, "bandes-poing": 20, "bandages": 20, "gourde": 20, "bandana": 20, "gants-cloutes": 40, "epaulettes": 40, "casque-punk": 40, "bottes-cuir": 40, "casque-pointes": 40, "bandes-cloutees": 40, "plastron-rouille": 40, "viande-sechee": 40, "talisman-yuria": 80, "carte-puits": 80, "masque-fer": 80, "ceinturon-clous": 80 };
 const RPG_ID = /^[a-z][a-z-]{1,23}(~(hp[123]|lg1|my1|ld1|rg1))?$/;   // objet, avec ou sans bonus de qualité
 const rpgOk = x => typeof x === "string" && RPG_ID.test(x) && !!RPG_IT[x.split("~")[0]];
 function rpgRoll(kind, leg) {
@@ -40,7 +41,7 @@ function rpgClean(inv) {
   const bag = (Array.isArray(inv && inv.bag) ? inv.bag : []).filter(rpgOk).slice(0, 24), eq = {};
   for (const [f, o] of Object.entries(inv && typeof inv.eq === "object" && inv.eq || {}).slice(0, 150)) {
     if (!/^[a-z0-9]{1,16}$/.test(f) || !o || typeof o !== "object") continue;
-    const e = {}; for (const k of ["head", "waist", "hands"]) if (rpgOk(o[k])) e[k] = o[k];
+    const e = {}; for (const k of ["head", "body", "waist", "hands", "feet"]) if (rpgOk(o[k])) e[k] = o[k];
     if (Object.keys(e).length) eq[f] = e;
   }
   return { bag, eq };
