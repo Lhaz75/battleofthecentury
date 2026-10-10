@@ -196,6 +196,8 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 
 - v0.99.37 : 6e place **`relic` (Relique)** (décision de David) : objets fétiches et objets à pouvoir, un seul par perso. `talisman-yuria`, `bandana-bat`, `ruban-lin` y passent. Migration : `rpgFixSlots` relancé une fois (`v.fixed=3`). Prévu en Relique : le livre d'Amiba (vieux traité chinois des points de pression, que David dessine ; idée : Lourds +3 mais 1 PV perdu par Lourd joué), l'Étoile du Grand Chariot.
 
+- **Traité d'Amiba** (`livre-amiba`, relique, légendaire, Lourds +3, `backlash` : chaque Lourd joué coûte 1 PV au frappeur, jamais sous 1 ; code dans `attack`). Défini et testable, mais **ne tombe nulle part** tant que la zone d'Amiba n'existe pas (les légendaires ne sortent que via `leg` d'une zone). Illustration de David : vieux traité chinois « 經絡要訣 ».
+
 ## Ce qui n'a jamais été vérifié en vrai
 
 - Aucun combat du Voyage ni des nouveaux chapitres n'a été joué en entier : les tests lancent les combats puis forcent la victoire ou la défaite. L'équilibrage est à tester par des humains.
