@@ -198,6 +198,8 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 
 - **Traité d'Amiba** (`livre-amiba`, relique, légendaire, Lourds +3, `backlash` : chaque Lourd joué coûte 1 PV au frappeur, jamais sous 1 ; code dans `attack`). Défini et testable, mais **ne tombe nulle part** tant que la zone d'Amiba n'existe pas (les légendaires ne sortent que via `leg` d'une zone). Illustration de David : vieux traité chinois « 經絡要訣 ».
 
+- v0.99.38 : **page admin « Terres désolées »** (`renderRpgAdmin`, bouton dans l'encadré admin du compte) : onglets Objets (toutes les icônes, effets, taux par type d'étape, bazar, légendaire de quelle zone, + `RPG_STORED` = icônes rangées pas en jeu avec le boss prévu), Zones (étapes, adversaires, IA, PV, points, ouverture), Règles. Tout est calculé depuis le code. **À tenir à jour** : `RPG_STORED` quand un objet rangé entre en jeu. Bug corrigé : le bazar tirait parmi tous les objets communs à rares, alors que le serveur n'accepte que `RPG_SHOP` ; ajout de `RPG_SHOPLIST` côté client (copie de `RPG_SHOP`, à garder en phase).
+
 ## Ce qui n'a jamais été vérifié en vrai
 
 - Aucun combat du Voyage ni des nouveaux chapitres n'a été joué en entier : les tests lancent les combats puis forcent la victoire ou la défaite. L'équilibrage est à tester par des humains.
