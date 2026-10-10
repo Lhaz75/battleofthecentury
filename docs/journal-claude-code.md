@@ -192,6 +192,8 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 
 - v0.99.35 : **Bandana de Bat** (`bandana-bat`, tête, épique, PV +2, `steal:1`) : premier objet à pouvoir en combat. Dans `startTurn`, si `S.rpg` et qu'un perso debout le porte : une fois par combat, au début du 2e tour du joueur, vole une carte commune (ni perso, ni réaction) dans la main adverse, sinon dans sa pioche. Même texte que Bat dans l'histoire (`batSteal`). `cape-raoh` (Cape de Raoh) rangée pour Ken-Oh. Amiba n'utilise PAS d'aiguilles (correction de David) : son légendaire sera plutôt le déguisement du faux Toki. 48 objets en jeu.
 
+- v0.99.36 : **Ruban de Lin** (`ruban-lin`, tête, épique, PV +1, `mend:1`) : dans `rpgAfter`, après une victoire, si un perso debout le porte, toute l'équipe debout récupère 3 PV (message `rpgLinHeal` sur l'écran de fin). Si le porteur est KO, rien. Halo rouge de l'image de David retiré (érosion de l'alpha + pixels rouge vif). Le « masque de Jagi » proposé par Claude faisait doublon avec le Casque de Jagi existant : abandonné. 49 objets en jeu.
+
 ## Ce qui n'a jamais été vérifié en vrai
 
 - Aucun combat du Voyage ni des nouveaux chapitres n'a été joué en entier : les tests lancent les combats puis forcent la victoire ou la défaite. L'équilibrage est à tester par des humains.
