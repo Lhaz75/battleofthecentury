@@ -128,14 +128,14 @@ Repères anime : 1re série découpée en parties 1 (ép. 1-22), 2 (23-57), 3 (5
 - Ses hommes, rendus surhumains par ses hikō, se retournent contre lui une fois l'imposture révélée (et libèrent Lin selon le wiki).
 
 **Déroulé**
-1. Ken croise des hommes à qui « Toki » a laissé 3 jours à vivre. Un géant meurt bouche explosée. [anime ép. 33 : combat contre 3 mutants créés par « Toki » — **[A], sans noms**]
+1. Ken croise des hommes à qui « Toki » a laissé 3 jours à vivre. Un géant meurt bouche explosée. [anime ép. 33 : Ken affronte **The Beasts** (« Les Trois Bêtes »), trio de cobayes d'Amiba rendus fous et dotés de capacités animales — **[A]**, avant Gyūki & Habu]
 2. Bar, Habu, bras de fer (ép. 34). Ken entre au village (ép. 35) : le « Toki » soigne Yū puis réclame la vie du père ; Ken sauve Yū (anime) / le trouve mort (manga). Le faux Toki explique qu'il a « choisi de tuer ».
 3. Combat : Ken lui perce les mains ; Amiba le paralyse. **Rei arrive et le démasque** (cheveux noirs, maladresse de style). Amiba tente un hikō de renforcement musculaire qui détruit ses mains.
 4. Ken le frappe au **Zankai Sekiho Ken** (残悔積歩拳) : Amiba recule malgré lui hors du balcon, tombe et explose en criant **« Uwaraba ! »** (anime : « Kenō-sama ! »). Première mention de Ken-Oh.
 
 **Différences anime** : **Nevada** [A nommé] (chef de la garde, condisciple de Rei ; anonyme dans le manga) ; **Goum** [A] et son unité ; Lin, Bat, Mamiya et Rei voyagent et combattent les gardes [A] ; Yū survit ; le faux Toki a les cheveux blancs (blonds en flashback).
 
-**Mantis Man / Snake Man / Goda** : voir la section « Points incertains ».
+**The Beasts (anime) — cobayes d'Amiba** : **Goda** (l'homme-ours), **Snake Man** (l'homme-serpent), **Mantis Man** (*Kamakiri Otoko*, l'homme-mante, vieillard maladif à qui Amiba a donné un saut extraordinaire). Survivants des expériences d'Amiba sur les points de pression. Propres à l'anime, ils arrivent **avant Habu**. Source : wiki Hokuto Renkitōza, page « The Beasts » (signalé par David, le 11 oct. ; page non lisible par l'outil, détail des combats à vérifier).
 
 ---
 
@@ -359,8 +359,8 @@ Repères anime : 1re série découpée en parties 1 (ép. 1-22), 2 (23-57), 3 (5
 
 ## Points incertains
 
-- **Mantis Man / Snake Man** : **aucune trace** de personnages ainsi nommés, ni dans le manga ni dans l'anime, dans aucune des sources consultées (wikis, guides d'épisodes, Pixiv). Le seul lien avec l'Amiba : son sbire **Habu** (ハブ = nom japonais d'une vipère d'Okinawa), canon manga, et les **3 mutants de l'ép. 33** créés par « Toki », propres à l'anime et **non nommés** dans le guide. Ces noms viennent peut-être d'un jeu vidéo ou d'une source non officielle : non vérifié.
-- **Goda** : existe bien, mais dans le **one-shot pilote d'avril 1983** (tueur du Taizanji Kenpō, tué par Kenshirō Kasumi). L'ép. 33 réutilise ce combat avec un géant **sans nom**. Ce n'est pas un cobaye d'Amiba.
+- **Mantis Man / Snake Man / Goda** : ✅ **confirmés** (correction du 11 oct.) — ce sont **The Beasts**, trio de l'anime (ép. 33 environ), cobayes d'Amiba. Première recherche ratée : les guides d'épisodes consultés ne les nommaient pas.
+- **Goda** : le nom apparaît aussi dans le **one-shot pilote d'avril 1983** (tueur du Taizanji Kenpō, tué par Kenshirō Kasumi) ; le Goda des Beasts de l'anime reprend ce personnage. Liens exacts à vérifier.
 - **Gyuki** (bras de fer, ép. 34) : nom donné par le guide d'épisode ; présence du nom dans le manga non vérifiée.
 - **Chapitres** : plages reconstruites d'après les titres (≈). Galf : ch. 73 sûr (« Savage! Dog Master!! »), début possible au ch. 72.
 - **Raiga et Fūga (manga)** : le guide de l'ép. 43 dit que dans le manga ils sont tués par **Zarqa et Qasim** ; d'autres résumés parlent d'une mort en retenant un mur. À vérifier dans le tome 7.
