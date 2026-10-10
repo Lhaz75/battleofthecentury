@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.13 — 2026-10-10
+
+- Boss mondial : les Aiguilles crachées de Jagi n'annulent plus l'ultime du boss, elles divisent ses dégâts par deux (le boss prend quand même ses 2 dégâts). Vu par Jérôme R., merci
+
 ## v0.99.12 — 2026-10-10
 
 - Voyage (en test) : le bazar et l'oasis arrivent maintenant juste avant Jagi, pour se soigner ou s'équiper avant le boss (merci Jérôme R.)

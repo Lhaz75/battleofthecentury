@@ -114,10 +114,10 @@ Traités :
 - maxGfive : rendre le Voyage farmable → fait en v0.99.9.
 - Jérôme R. : bouton rouge qui traîne sur mobile → corrigé en v0.99.11.
 - Jérôme R. : fourche bazar / oasis trop tôt → placée juste avant Jagi en v0.99.12.
+- Jérôme R. : Jagi annulait l'ultime du boss mondial au tour 5 → décision de David (v0.99.13) : contre le boss mondial, les Aiguilles crachées divisent l'ultime par deux au lieu de l'annuler (2 dégâts au boss quand même). En versus et ailleurs, rien ne change.
 
 En attente (salon `suggestions` et `tests`, lus le 10 oct.) :
 - maxGfive : grades du Dojo avec les couleurs des ceintures et une icône. Petit chantier visuel.
-- Jérôme R. : au boss mondial, **Jagi annule l'ultime de Devil Rebirth au tour 5**. David doit trancher : astuce voulue, ou ultime de boss impossible à annuler.
 - maxGfive : tsubos sur les cartes (bonus critique) ; cartes « finisher » au moment de l'ultime, avec une rage qui monte en orange puis rouge. Gros chantiers, gardés en idées.
 
 Le Discord se lit sans compte via le widget public : `https://e.widgetbot.io/channels/619101513754869780/<salon>` (tests `1555879664407285801`, suggestions `1555897701189820466`, chat-du-jeu `1557770296080076871`). Il ne montre que les derniers messages.
