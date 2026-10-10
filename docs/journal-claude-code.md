@@ -138,7 +138,7 @@ Le Discord se lit sans compte via le widget public : `https://e.widgetbot.io/cha
 
 - v0.99.12 : Voyage, fourche bazar / oasis placée juste avant Jagi (Jérôme R.).
 - v0.99.13 : boss mondial, les Aiguilles crachées de Jagi divisent l'ultime du boss par deux au lieu de l'annuler.
-- v0.99.14 : nouveau terrain **Brasier de Jagi** (`brasier` dans `TERRAINS`) : début de tour, le perso actif perd 1 PV, jamais sous 1, Jagi immunisé (code dans `startTurn`, juste après `let comp=""`). **Pas encore d'illustration** : David la fait (`terrain-brasier.png`, portrait 2:3). Quand elle arrive : `terrain-brasier.webp` 900×1350 + `terrain-brasier-c.webp` 270×405 dans `public/assets`, ajouter `brasier` à `TERR_ART` et la règle CSS `body[data-terr="brasier"]` à côté des autres.
+- v0.99.14 : nouveau terrain **Brasier de Jagi** (`brasier` dans `TERRAINS`) : début de tour, le perso actif perd 1 PV, jamais sous 1, Jagi immunisé (code dans `startTurn`, juste après `let comp=""`). Illustration de David intégrée dans la même version (`terrain-brasier.webp` 900×1350 + `terrain-brasier-c.webp` 270×405, `TERR_ART`, règle CSS `body[data-terr="brasier"]`). Pour un futur terrain : même recette.
 
 ## Ce qui n'a jamais été vérifié en vrai
 
