@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.32 — 2026-10-11
+
+- Les terres désolées (en test) : nouveau consommable, le Jerrican d'essence. Utilise-le sur la carte et ton prochain combat commence avec le Brasier de Jagi posé. Pratique si Jagi est dans ton équipe ! Illustration de Lhaz
+
 ## v0.99.31 — 2026-10-11
 
 - Les terres désolées (en test) : 2 consommables à pouvoir. La Grenade de pillard fait perdre 6 PV au prochain adversaire dès le début du combat. Le Tsubo de Toki rend 40 % des PV à toute l'équipe et relève les KO à 25 %, une seule fois par voyage. Illustrations de Lhaz

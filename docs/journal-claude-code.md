@@ -182,6 +182,8 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 
 - v0.99.31 : consommables à pouvoir. `grenade` rare (`bomb:6` : `r.bomb` gardé dans le voyage, appliqué dans `rpgPrep` au 1er adversaire, jamais sous 1 PV, message au 1er tour via `S.bombMsg` ; une seule grenade armée à la fois). `tsubo-toki` mythique (`tsubo:.4, revive:.25` : toute l'équipe +40 %, KO relevés à 25 %, une fois par voyage grâce à `r.tsubo`). 39 objets en jeu.
 
+- v0.99.32 : consommable `essence` (Jerrican d'essence) peu commun (`fuel` : `r.fuel`, le prochain combat commence avec `st.terrain="brasier"`, message au 1er tour, se cumule avec la grenade), bazar 40 ryō. 40 objets en jeu.
+
 ## Ce qui n'a jamais été vérifié en vrai
 
 - Aucun combat du Voyage ni des nouveaux chapitres n'a été joué en entier : les tests lancent les combats puis forcent la victoire ou la défaite. L'équilibrage est à tester par des humains.
