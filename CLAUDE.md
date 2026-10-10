@@ -7,6 +7,7 @@ Version actuelle : **v0.99.25** (10 oct. 2026). Bêta de test (0.x), la 1.0 = so
 Les idées en cours et le backlog sont dans :
 - `docs/idees-en-attente.md` — état du mode histoire, magasin, testeurs, boss mondial, déjà-faits à ne plus proposer
 - `docs/journal-claude-code.md` — journal complet de la session Claude Code des 9 et 10 oct. (v0.99.0 à v0.99.11) : à lire pour reprendre
+- `docs/lore-hokuto.md` — référence de lore Hokuto no Ken (manga + anime) arc par arc, chapitres / épisodes, sbires, techniques canon, différences manga / anime, sources. **À lire avant d'écrire un chapitre d'histoire ou une zone.**
 - `docs/nouveaux-modes.md` — Dojo (fait en v0.98.0), mode RPG/Voyage (zone 1 en test depuis v0.99.0), Survie v2, objets, Raid du soir, 2V2 (pas encore codés)
 
 ---
