@@ -90,7 +90,7 @@ Repères anime : 1re série découpée en parties 1 (ép. 1-22), 2 (23-57), 3 (5
 
 **Lieux** : village fortifié de **Mamiya** (sosie de Yuria, cheffe, yoyos tranchants, arbalète), repaire du clan dans la montagne.
 **Alliés** : Mamiya, son petit frère **Kō** (tué), l'Ancien du village, **Rei** (Nanto Suichō Ken), **Airi** (sœur de Rei).
-**Ennemis** : clan **Kiba** (牙一族, « le clan des Crocs ») de **Kiba Daiō** (牙大王, « Fang King ») — style **Kazan Gunrō Ken** (華山群狼拳) ; il durcit son corps comme l'acier.
+**Ennemis** : clan **Kiba** (牙一族, « le clan des Crocs ») de **Kiba Daiō** (牙大王, « Fang King ») — style **Kazan Kakuteigi** (華山角抵戯, « une des sources du sumo » selon Ken), dont l'arcane **Kazan Kōgai Kohō** (華山鋼鎧呼法) ; *Kazan Gunrō Ken* (華山群狼拳) n'existe que dans le jeu *Hokuto no Ken 7* ; il durcit son corps comme l'acier.
 
 **Déroulé**
 1. Rei arrive, se met d'abord au service du clan Kiba pour obtenir de quoi chercher sa sœur ; il démasque Mamiya (femme) en la surprenant au bain.
@@ -343,7 +343,7 @@ Repères anime : 1re série découpée en parties 1 (ép. 1-22), 2 (23-57), 3 (5
 **Amiba** — « Amiba-ryū Hokuto Shinken » (imitation) ; Gekishin-kō (激振孔).
 **Nanto Roku Seiken** — Shin : Nanto Koshū Ken (南斗孤鷲拳, étoile Junsei) · Rei : Nanto Suichō Ken (南斗水鳥拳, Gisei ; Hishō Hakurei, Danko Sōsai Ken) · Yuda : Nanto Kōkaku Ken (南斗紅鶴拳, Yōsei ; Denshō Reppa) · Shu : Nanto Hakurō Ken (南斗白鷺拳, Jinsei ; Rekkyaku Zanjin) · Souther : Nanto Hōō Ken (南斗鳳凰拳, Shōsei ; Tenshō Jūji Hō) · Yuria : Dernier général (Jibosei).
 **Goshasei** — Hyui : Gosha Fūretsu Ken · Shuren : Gosha Enjō Ken · Rihaku : Gosha Hasui Ken · Fudō : Gosha Sanga Zan · Jūza : Garyū no Ken.
-**Autres** — Ryūga : Taizan Tenrō Ken (泰山天狼拳) · Uighur : Taizan-ryū Sōjō Ben, Mōko Hakyoku Dō · Raiga et Fūga : Nishin Fūrai Ken · Kiba Daiō : Kazan Gunrō Ken · Jackal : Nanto Bakusatsu Ken · Devil's Rebirth : Rakan Niō Ken · Colonel : Nanto Muon Ken · Falco / Solia : Gento Kōken (元斗皇拳 ; Ōkō Setsuzan, Ryūrin Kōzan) · Buzz et Gill : Nanto Sōyō Ken · Ein : Kenka Kenpō · Kaiō, Hyō, Han, Shachi, Jūkei : Hokuto Ryūken (北斗琉拳 ; Matōki ; Kaiō : Anryū Tenha ; Han : Mabu Kōsō, Hakura Messei) · Asam : Daijō Nanken (大乗南拳) · Bolge : Tazu Kyōja Kon.
+**Autres** — Ryūga : Taizan Tenrō Ken (泰山天狼拳) · Uighur : Taizan-ryū Sōjō Ben, Mōko Hakyoku Dō · Raiga et Fūga : Nishin Fūrai Ken · Kiba Daiō : Kazan Kakuteigi, Kazan Kōgai Kohō (Kazan Gunrō Ken : jeu *Hokuto no Ken 7* seulement) · Jackal : Nanto Bakusatsu Ken · Devil's Rebirth : Rakan Niō Ken · Colonel : Nanto Muon Ken · Falco / Solia : Gento Kōken (元斗皇拳 ; Ōkō Setsuzan, Ryūrin Kōzan) · Buzz et Gill : Nanto Sōyō Ken · Ein : Kenka Kenpō · Kaiō, Hyō, Han, Shachi, Jūkei : Hokuto Ryūken (北斗琉拳 ; Matōki ; Kaiō : Anryū Tenha ; Han : Mabu Kōsō, Hakura Messei) · Asam : Daijō Nanken (大乗南拳) · Bolge : Tazu Kyōja Kon.
 
 ---
 

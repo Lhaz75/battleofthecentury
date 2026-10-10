@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.40 — 2026-10-11
+
+- Kiba Daioh : nom de technique corrigé, Kazan Kōgai Kohō (華山鋼鎧呼法, lecture officielle « kohō »)
+
 ## v0.99.39 — 2026-10-11
 
 - Les terres désolées (en test) : le légendaire de Kiba Daioh devient le Collier de crocs du Grand Roi (relique : PV max +3 et corps d'acier comme Kiba Daioh, chaque coup encaissé est réduit de 1). Illustration de Lhaz. L'ancien heaume s'appelle maintenant Heaume d'or et attend son boss
