@@ -45,7 +45,7 @@ function rpgClean(inv) {
   const bag = (Array.isArray(inv && inv.bag) ? inv.bag : []).filter(rpgOk).slice(0, 24), eq = {};
   for (const [f, o] of Object.entries(inv && typeof inv.eq === "object" && inv.eq || {}).slice(0, 150)) {
     if (!/^[a-z0-9]{1,16}$/.test(f) || !o || typeof o !== "object") continue;
-    const e = {}; for (const k of ["head", "body", "waist", "hands", "feet"]) if (rpgOk(o[k])) e[k] = o[k];
+    const e = {}; for (const k of ["head", "body", "waist", "hands", "feet", "relic"]) if (rpgOk(o[k])) e[k] = o[k];
     if (Object.keys(e).length) eq[f] = e;
   }
   return { bag, eq };

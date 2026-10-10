@@ -194,6 +194,8 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 
 - v0.99.36 : **Ruban de Lin** (`ruban-lin`, tête, épique, PV +1, `mend:1`) : dans `rpgAfter`, après une victoire, si un perso debout le porte, toute l'équipe debout récupère 3 PV (message `rpgLinHeal` sur l'écran de fin). Si le porteur est KO, rien. Halo rouge de l'image de David retiré (érosion de l'alpha + pixels rouge vif). Le « masque de Jagi » proposé par Claude faisait doublon avec le Casque de Jagi existant : abandonné. 49 objets en jeu.
 
+- v0.99.37 : 6e place **`relic` (Relique)** (décision de David) : objets fétiches et objets à pouvoir, un seul par perso. `talisman-yuria`, `bandana-bat`, `ruban-lin` y passent. Migration : `rpgFixSlots` relancé une fois (`v.fixed=3`). Prévu en Relique : le livre d'Amiba (vieux traité chinois des points de pression, que David dessine ; idée : Lourds +3 mais 1 PV perdu par Lourd joué), l'Étoile du Grand Chariot.
+
 ## Ce qui n'a jamais été vérifié en vrai
 
 - Aucun combat du Voyage ni des nouveaux chapitres n'a été joué en entier : les tests lancent les combats puis forcent la victoire ou la défaite. L'équilibrage est à tester par des humains.

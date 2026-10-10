@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.37 — 2026-10-11
+
+- Les terres désolées (en test) : 6e place d'équipement, la Relique, pour les objets fétiches qu'on garde sur soi. Le Talisman de Yuria, le Bandana de Bat et le Ruban de Lin y passent : un seul objet à pouvoir par perso. Ce que tu portais est rangé tout seul
+
 ## v0.99.36 — 2026-10-11
 
 - Les terres désolées (en test) : le Ruban de Lin (tête, épique). Après chaque combat gagné, ton équipe debout récupère 3 PV. Illustration de Lhaz
