@@ -134,6 +134,12 @@ Le Discord se lit sans compte via le widget public : `https://e.widgetbot.io/cha
   - `test_rpg.py`, `test_loot.py`, `test_arc2.py` : parcours Playwright du Voyage et de l'arc 2 sur PC, mobile portrait et paysage.
 - Chaque version : entrée en tête de `CHANGELOG` (FR / EN / IT / JA), `python tools/export_public.py`, commit, push sur `main`.
 
+## Suite du 10 oct. (autre conversation)
+
+- v0.99.12 : Voyage, fourche bazar / oasis placée juste avant Jagi (Jérôme R.).
+- v0.99.13 : boss mondial, les Aiguilles crachées de Jagi divisent l'ultime du boss par deux au lieu de l'annuler.
+- v0.99.14 : nouveau terrain **Brasier de Jagi** (`brasier` dans `TERRAINS`) : début de tour, le perso actif perd 1 PV, jamais sous 1, Jagi immunisé (code dans `startTurn`, juste après `let comp=""`). **Pas encore d'illustration** : David la fait (`terrain-brasier.png`, portrait 2:3). Quand elle arrive : `terrain-brasier.webp` 900×1350 + `terrain-brasier-c.webp` 270×405 dans `public/assets`, ajouter `brasier` à `TERR_ART` et la règle CSS `body[data-terr="brasier"]` à côté des autres.
+
 ## Ce qui n'a jamais été vérifié en vrai
 
 - Aucun combat du Voyage ni des nouveaux chapitres n'a été joué en entier : les tests lancent les combats puis forcent la victoire ou la défaite. L'équilibrage est à tester par des humains.

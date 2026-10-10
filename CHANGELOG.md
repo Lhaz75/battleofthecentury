@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.14 — 2026-10-10
+
+- Nouveau terrain « Brasier de Jagi » : au début de chaque tour, le perso actif perd 1 PV (jamais en dessous de 1). Jagi ne craint pas les flammes. Illustration à venir
+
 ## v0.99.13 — 2026-10-10
 
 - Boss mondial : les Aiguilles crachées de Jagi n'annulent plus l'ultime du boss, elles divisent ses dégâts par deux (le boss prend quand même ses 2 dégâts). Vu par Jérôme R., merci
