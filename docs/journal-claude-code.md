@@ -186,6 +186,8 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 
 - v0.99.33 : ceintures (planche 3 choisie par Claude, validée par David, + la ceinture à cartouchières de la planche 2) : `ceinture-munitions` commun (PV +2, bazar 20), `ceinture-cuir` peu commun (PV +3, bazar 40), `ceinture-lion` épique (PV +3, Moyens +1), `ceinture-crane` mythique (Légers +1, Lourds +1, rage +1). Rangée : `ceinture-nanto` (légendaire or à l'étoile du Nanto, idée : boss Souther). 44 objets en jeu.
 
+- v0.99.34 : jambières (place pieds, famille « blindage » : PV et Lourds, pas de Légers ; les bottes restent « mobilité ») : `jambieres-rouille` peu commun (PV +4), `jambieres-pointes` épique (PV +5, Lourds +1), `jambieres-sang` mythique (PV +4, Moyens +1, Lourds +1). Rangée : `jambieres-soleil` (légendaire or aux flammes et au soleil). David : « on verra ensuite » pour le doublon bottes / jambières. 47 objets en jeu.
+
 ## Ce qui n'a jamais été vérifié en vrai
 
 - Aucun combat du Voyage ni des nouveaux chapitres n'a été joué en entier : les tests lancent les combats puis forcent la victoire ou la défaite. L'équilibrage est à tester par des humains.
