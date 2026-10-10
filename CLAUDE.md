@@ -2,7 +2,7 @@
 
 Fan game gratuit et non monétisé de **Hokuto no Ken / Soten no Ken** : jeu de baston en cartes dans le navigateur, versus en ligne, comptes joueurs. Créé par David (alias **Lhaz** / **Dave**, admin de hokutolegacy.com) avec Claude. Nom de travail historique : **Doomstar**.
 
-Version actuelle : **v0.99.21** (10 oct. 2026). Bêta de test (0.x), la 1.0 = sortie officielle.
+Version actuelle : **v0.99.22** (10 oct. 2026). Bêta de test (0.x), la 1.0 = sortie officielle.
 
 Les idées en cours et le backlog sont dans :
 - `docs/idees-en-attente.md` — état du mode histoire, magasin, testeurs, boss mondial, déjà-faits à ne plus proposer

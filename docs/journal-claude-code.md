@@ -163,6 +163,8 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - Choix de Claude à valider : le parcours, les noms d'étapes, les textes, la difficulté. L'événement réutilise l'image du vieil homme : il manque une image `rpg-village-king` (paysage 16:9). Pas encore de règle propre à la zone (idées : Yuria, les 7 cicatrices).
 - Testé avec le vrai serveur (Node) : zone 2 refusée avant Jagi, butin OK, Ceinture de KING ~10 % sur Shin. Parcours complet de la zone 2 en Playwright sur PC, mobile portrait et paysage.
 
+- v0.99.22 : **ordre des zones décidé par David** (ordre du manga) : zone 1 Southern Cross (Shin), zone 2 les terres de Mamiya, zone 3 Cassandra, zone 4 Yuda, zone 5 Ken-Oh. Difficulté échangée (Southern Cross devient la plus facile). La zone 2 s'ouvre en battant Shin ; `need` accepte une liste, et `mamiya:jagi` y est gardé pour que les testeurs qui avaient battu Jagi gardent l'accès. David voudrait idéalement **Kiba Daioh** en boss de la zone 2 (question posée sur la place de Jagi).
+
 ## Ce qui n'a jamais été vérifié en vrai
 
 - Aucun combat du Voyage ni des nouveaux chapitres n'a été joué en entier : les tests lancent les combats puis forcent la victoire ou la défaite. L'équilibrage est à tester par des humains.

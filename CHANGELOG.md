@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.22 — 2026-10-10
+
+- Voyage (en test) : les zones suivent maintenant l'ordre du manga. Zone 1 : Southern Cross (Shin), zone 2 : les terres de Mamiya (Jagi). Viendront ensuite Cassandra, Yuda et Ken-Oh
+- Southern Cross devient la zone la plus facile, et celle de Jagi la plus dure. Si tu avais déjà battu Jagi, sa zone reste ouverte pour toi
+
 ## v0.99.21 — 2026-10-10
 
 - Voyage (en test) : zone 2, Southern Cross ! Elle s'ouvre quand tu as battu Jagi. Au départ d'un voyage, tu choisis maintenant ta zone

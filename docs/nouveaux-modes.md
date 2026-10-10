@@ -39,6 +39,7 @@ David prépare les icônes d'objets en parallèle (voir « Objets » plus bas).
 - Butin aléatoire après les victoires, par rareté : ⚪ commun, 🟢 peu commun, 🔵 rare, 🟣 épique, 🟠 mythique, 🔴 légendaire (lâché seulement par les boss, ne s'achète jamais).
 - 3 places d'équipement par perso (tête, taille, mains). PV qui restent d'un combat à l'autre.
 - Farm des boss pour les objets rares.
+- **Ordre des zones (David, 10 oct.)** : 1 Southern Cross (Shin), 2 terres de Mamiya (idéalement Kiba Daioh en boss), 3 Cassandra, 4 Yuda, 5 Ken-Oh.
 - Chaque zone a sa propre règle (ex. Cassandra : un perso KO reste enfermé pour le chapitre ; Southern Cross : la ville de Shin et de KING, boss Shin, légendaire Ceinture de KING ; règle de zone à définir. Souther n'est PAS à Southern Cross : il aura sa propre zone plus tard (la pyramide, la Croix sainte, Shu), et c'est là que va « le secret de Souther »).
 - « Terres sans fin » procédurales : étages, choix combat / élite / coffre maudit, malédictions tous les 5 étages, boss tous les 10, classement de la semaine.
 - **Règle d'or : les objets ne marchent QUE dans ce mode**, jamais en versus.
