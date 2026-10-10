@@ -180,6 +180,8 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 
 - v0.99.30 : consommables `remede-medicine` rare (18 PV à un perso, bazar 80 ryō) et `eau-pure` épique (nouvelle mécanique `revive:.4` : relève le perso choisi à 40 % s'il est KO, sinon `heal` 8 PV). Seul objet qui relève un KO hors de l'oasis. 37 objets en jeu. Prompts des prochains objets (consommables, ceintures, jambières, légendaires d'Amiba / Souther / Raoh, bandana de Bat, ruban de Lin, masque de Jagi) donnés à David le 11 oct.
 
+- v0.99.31 : consommables à pouvoir. `grenade` rare (`bomb:6` : `r.bomb` gardé dans le voyage, appliqué dans `rpgPrep` au 1er adversaire, jamais sous 1 PV, message au 1er tour via `S.bombMsg` ; une seule grenade armée à la fois). `tsubo-toki` mythique (`tsubo:.4, revive:.25` : toute l'équipe +40 %, KO relevés à 25 %, une fois par voyage grâce à `r.tsubo`). 39 objets en jeu.
+
 ## Ce qui n'a jamais été vérifié en vrai
 
 - Aucun combat du Voyage ni des nouveaux chapitres n'a été joué en entier : les tests lancent les combats puis forcent la victoire ou la défaite. L'équilibrage est à tester par des humains.

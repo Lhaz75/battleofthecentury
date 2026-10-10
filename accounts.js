@@ -20,7 +20,7 @@ const RPG_IT = { "bottes-desert": [0, 1], "bandes-poing": [0, 1], "bandages": [0
   "bandes-cloutees": [1, 1], "bandes-rouges": [3, 1], "bandes-lion": [4, 1], "gantelets-pointes": [3, 1], "gantelets-sang": [4, 1],
   "plastron-rouille": [1, 1], "plastron-ferre": [3, 1], "plastron-sang": [4, 1],
   "epauliere-cloutee": [1, 1], "epauliere-ferree": [3, 1], "epauliere-sang": [4, 1],
-  "remede-medicine": [2, 0], "eau-pure": [3, 0] };   // id : [rareté, équipable]
+  "remede-medicine": [2, 0], "eau-pure": [3, 0], "grenade": [2, 0], "tsubo-toki": [4, 0] };   // id : [rareté, équipable]
 // zones : étapes qui donnent du butin, étape à avoir battue pour ouvrir la zone, légendaire du boss (10 %)
 const RPG_ZONES = { mamiya: { need: ["sc:sc_shin", "mamiya:jagi"], nodes: { zeed: "fight", old: "event", kiba: "elite", ruines: "fight", daioh: "boss" }, leg: "heaume-daioh" },   // Jagi aura sa zone (3), avec le Casque de Jagi
   sc: { nodes: { sc_spade: "fight", sc_village: "event", sc_diamond: "elite", sc_club: "fight", sc_heart: "elite", sc_shin: "boss" }, leg: "ceinture-king" } };
