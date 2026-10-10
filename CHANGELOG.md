@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.11 — 2026-10-10
+
+- Mobile : la flèche ronde de la main de cartes ne reste plus affichée sur les menus après un combat (merci Jérôme R.)
+
 ## v0.99.10 — 2026-10-09
 
 - Voyage (en test) : nouveau « Guide de la zone », accessible depuis la carte. Il liste les étapes, les adversaires, les choix de l'événement, les objets et leurs taux d'obtention
