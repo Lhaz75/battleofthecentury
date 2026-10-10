@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.33 — 2026-10-11
+
+- Les terres désolées (en test) : 4 nouvelles ceintures. Ceinture de munitions, Ceinture de cuir, Ceinture du Lion de fer et Ceinture du crâne. Illustrations de Lhaz
+
 ## v0.99.32 — 2026-10-11
 
 - Les terres désolées (en test) : nouveau consommable, le Jerrican d'essence. Utilise-le sur la carte et ton prochain combat commence avec le Brasier de Jagi posé. Pratique si Jagi est dans ton équipe ! Illustration de Lhaz

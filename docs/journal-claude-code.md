@@ -184,6 +184,8 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 
 - v0.99.32 : consommable `essence` (Jerrican d'essence) peu commun (`fuel` : `r.fuel`, le prochain combat commence avec `st.terrain="brasier"`, message au 1er tour, se cumule avec la grenade), bazar 40 ryō. 40 objets en jeu.
 
+- v0.99.33 : ceintures (planche 3 choisie par Claude, validée par David, + la ceinture à cartouchières de la planche 2) : `ceinture-munitions` commun (PV +2, bazar 20), `ceinture-cuir` peu commun (PV +3, bazar 40), `ceinture-lion` épique (PV +3, Moyens +1), `ceinture-crane` mythique (Légers +1, Lourds +1, rage +1). Rangée : `ceinture-nanto` (légendaire or à l'étoile du Nanto, idée : boss Souther). 44 objets en jeu.
+
 ## Ce qui n'a jamais été vérifié en vrai
 
 - Aucun combat du Voyage ni des nouveaux chapitres n'a été joué en entier : les tests lancent les combats puis forcent la victoire ou la défaite. L'équilibrage est à tester par des humains.
