@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.12 — 2026-10-10
+
+- Voyage (en test) : le bazar et l'oasis arrivent maintenant juste avant Jagi, pour se soigner ou s'équiper avant le boss (merci Jérôme R.)
+
 ## v0.99.11 — 2026-10-10
 
 - Mobile : la flèche ronde de la main de cartes ne reste plus affichée sur les menus après un combat (merci Jérôme R.)

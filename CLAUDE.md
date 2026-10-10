@@ -2,7 +2,7 @@
 
 Fan game gratuit et non monétisé de **Hokuto no Ken / Soten no Ken** : jeu de baston en cartes dans le navigateur, versus en ligne, comptes joueurs. Créé par David (alias **Lhaz** / **Dave**, admin de hokutolegacy.com) avec Claude. Nom de travail historique : **Doomstar**.
 
-Version actuelle : **v0.99.11** (10 oct. 2026). Bêta de test (0.x), la 1.0 = sortie officielle.
+Version actuelle : **v0.99.12** (10 oct. 2026). Bêta de test (0.x), la 1.0 = sortie officielle.
 
 Les idées en cours et le backlog sont dans :
 - `docs/idees-en-attente.md` — état du mode histoire, magasin, testeurs, boss mondial, déjà-faits à ne plus proposer
@@ -93,4 +93,4 @@ cd public && python3 -m http.server 8811 &   # le client tourne sans le serveur 
 
 Lire d'abord `docs/journal-claude-code.md` : tout ce qui a été fait du 9 au 10 oct. (v0.99.0 à v0.99.11), les décisions de David, ce qui n'a pas été vérifié et les retours de testeurs en attente.
 
-Fait depuis : mode Voyage zone 1 (butin côté serveur, qualité des objets, guide de la zone), arc 2 chapitres 10 à 16 (Cassandra puis Ken-Oh), Airi, 16 punks, soldats de Ken-Oh / Galf / Cassandra. À venir : retours Discord en attente (fourche bazar / oasis avant Jagi, ceintures du Dojo, Jagi qui annule l'ultime du boss mondial), autres zones du Voyage, Survie v2, placer Galf, couronne de l'arc 2, Raoh en récompense d'un chapitre futur, illustrations fournies mais pas intégrées.
+Fait depuis : mode Voyage zone 1 (butin côté serveur, qualité des objets, guide de la zone), arc 2 chapitres 10 à 16 (Cassandra puis Ken-Oh), Airi, 16 punks, soldats de Ken-Oh / Galf / Cassandra. À venir : retours Discord en attente (ceintures du Dojo, Jagi qui annule l'ultime du boss mondial), autres zones du Voyage, Survie v2, placer Galf, couronne de l'arc 2, Raoh en récompense d'un chapitre futur, illustrations fournies mais pas intégrées.

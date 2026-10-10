@@ -25,7 +25,7 @@ Les v0.98.3 et v0.98.4 ont été faites en parallèle par une autre conversation
 
 Nom en jeu : « Voyage » (EN Journey, IT Viaggio, JA 旅). Idée de maxGfive. Visible seulement si `rpgOpen()` (admin ou testeur). Tout le code est dans `public/index.html`, bloc « voyage (mode RPG) » juste avant `quitPress`, et dans `accounts.js` (constantes `RPG_*` en haut, route `POST /api/rpg`).
 
-**Zone 1, « Les terres désolées »** (`RPG_ZONE`) : village de Mamiya → pillards de Zeed (combat) → bazar **ou** oasis → le vieil homme (événement) → meute des Kiba (élite) **ou** route des ruines (combat) → Jagi (boss, avec 2 punks). Southern Cross et Cassandra sont affichés verrouillés, rien derrière.
+**Zone 1, « Les terres désolées »** (`RPG_ZONE`) : village de Mamiya → pillards de Zeed (combat) → le vieil homme (événement) → meute des Kiba (élite) **ou** route des ruines (combat) → bazar **ou** oasis (depuis v0.99.12) → Jagi (boss, avec 2 punks). Southern Cross et Cassandra sont affichés verrouillés, rien derrière.
 
 **Règles**
 - Équipe libre (2 à 5 persos, 10 points). Les PV restent d'un combat à l'autre. Un KO le reste jusqu'à l'oasis (+50 % PV, KO relevés à 30 %).
@@ -113,9 +113,9 @@ Traités :
 - Jérôme R. : « bug » des points au Dojo → ce sont deux compteurs (points généraux et points de grade), libellés clarifiés.
 - maxGfive : rendre le Voyage farmable → fait en v0.99.9.
 - Jérôme R. : bouton rouge qui traîne sur mobile → corrigé en v0.99.11.
+- Jérôme R. : fourche bazar / oasis trop tôt → placée juste avant Jagi en v0.99.12.
 
 En attente (salon `suggestions` et `tests`, lus le 10 oct.) :
-- Jérôme R. : la fourche bazar / oasis arrive trop tôt, il la verrait juste avant Jagi. Avis de Claude : il a raison, petit changement dans `RPG_ZONE`.
 - maxGfive : grades du Dojo avec les couleurs des ceintures et une icône. Petit chantier visuel.
 - Jérôme R. : au boss mondial, **Jagi annule l'ultime de Devil Rebirth au tour 5**. David doit trancher : astuce voulue, ou ultime de boss impossible à annuler.
 - maxGfive : tsubos sur les cartes (bonus critique) ; cartes « finisher » au moment de l'ultime, avec une rage qui monte en orange puis rouge. Gros chantiers, gardés en idées.
