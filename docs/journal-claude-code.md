@@ -56,7 +56,7 @@ Nom en jeu : « Voyage » (EN Journey, IT Viaggio, JA 旅). Idée de maxGfive. V
 | Casque de Jagi | tête | légendaire | Lourds +2 |
 
 - 3 places par perso (tête, taille, mains), sac de 24, bouton « Jeter ». Les objets ne marchent que dans ce mode.
-- L'Étoile du Grand Chariot et le fouet de Cassandra ont leur icône mais ne sont pas en jeu : ils attendent leur zone.
+- L'Étoile du Grand Chariot, le fouet de Cassandra et la **Ceinture de KING** (`item-ceinture-king.webp`, icône de David du 10 oct.) ont leur icône mais ne sont pas en jeu : ils attendent leur zone. Ceinture de KING = légendaire du boss de Southern Cross (**Shin**, décision de David), place taille, effet prévu Légers +2 (pendant du Casque de Jagi, Lourds +2), à lâcher comme le Casque de Jagi sur le boss de zone.
 - **Qualité** : un objet est noté `id~bonus`. 24 % des équipables sortent ★ (`hp1` / `hp2` : +1 ou +2 PV max), 6 % sortent ★★ (`hp3`, ou `lg1` / `my1` / `ld1` : +1 sur un niveau de coup, ou `rg1` : rage +1). Pas de chiffres à virgule : idée de maxGfive écartée d'un commun accord, le combat est en petits entiers.
 
 **Butin et points** (tirés par le serveur depuis la v0.99.9)
@@ -104,7 +104,7 @@ Décisions de David : **Raoh** sera la récompense d'un chapitre plus tard dans 
 
 **Formats** : perso 1024×1536 en portrait, fond transparent. Carte terrain en portrait 2:3 (900×1350 en jeu). Décors du Voyage en paysage 16:9 ou 16:10. Icône d'objet carrée, fond transparent.
 
-**Liste d'images à cocher** (objets et décors du Voyage) : https://claude.ai/artifact/3YmbDm4hBzf7A1iecizJsX. Il manque encore les fonds de carte Southern Cross et Cassandra, un légendaire pour le boss de Southern Cross, une affiche « Voyage » pour l'accueil, et quatre fonds d'histoire (`story-cassandra`, `story-cassandra2`, `story-mamiya2`, `story-kenoh`).
+**Liste d'images à cocher** (objets et décors du Voyage) : https://claude.ai/artifact/3YmbDm4hBzf7A1iecizJsX. Il manque encore les fonds de carte Southern Cross et Cassandra, une affiche « Voyage » pour l'accueil, et quatre fonds d'histoire (`story-cassandra`, `story-cassandra2`, `story-mamiya2`, `story-kenoh`).
 
 ## Retours des testeurs (Discord)
 
