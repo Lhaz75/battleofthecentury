@@ -140,6 +140,8 @@ Le Discord se lit sans compte via le widget public : `https://e.widgetbot.io/cha
 - v0.99.13 : boss mondial, les Aiguilles crachées de Jagi divisent l'ultime du boss par deux au lieu de l'annuler.
 - v0.99.14 : nouveau terrain **Brasier de Jagi** (`brasier` dans `TERRAINS`) : début de tour, le perso actif perd 1 PV, jamais sous 1, Jagi immunisé (code dans `startTurn`, juste après `let comp=""`). Illustration de David intégrée dans la même version (`terrain-brasier.webp` 900×1350 + `terrain-brasier-c.webp` 270×405, `TERR_ART`, règle CSS `body[data-terr="brasier"]`). Pour un futur terrain : même recette.
 
+- v0.99.15 : hommes de Yuda (`npc:"yuda"`, dans `SOLDIERS()`, bonus de meute aussi avec `narc` (Yuda) et `dagar`) : `yudasol1` Le Chapelet, `yudasol2` La Hallebarde, `yudasol3` L'Étoile du matin, `yudasol4` Le Rieur, `yudasol5` Le Grand Couperet (le « guerrier balafré » : David pense qu'il a un nom officiel, à vérifier). `doubleyuda` Double de Yuda (le leurre de l'histoire) : 1er coup reçu divisé par deux (`f.lure` dans `hurt`). Noms et coups inventés par Claude. Fond d'histoire `story-yuda` (illustration `terrain-yuda.png` de David) : `bg:"yuda"` dans un chapitre. Images source chez David : `sbire-yuda1/2`, `sbire-yuria3/4` (ce sont aussi des hommes de Yuda), `Guerrier balafré à l'épée colossale.png`, `double-yuda.png`. Pas encore utilisés dans un chapitre ni une zone du Voyage.
+
 ## Ce qui n'a jamais été vérifié en vrai
 
 - Aucun combat du Voyage ni des nouveaux chapitres n'a été joué en entier : les tests lancent les combats puis forcent la victoire ou la défaite. L'équilibrage est à tester par des humains.

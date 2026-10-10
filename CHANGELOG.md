@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.15 — 2026-10-10
+
+- Nouveaux adversaires (non jouables, pour l'histoire et le Voyage) : les hommes de Yuda, Le Chapelet, La Hallebarde, L'Étoile du matin, Le Rieur et Le Grand Couperet, avec un bonus de meute avec Yuda et Dagar
+- Le Double de Yuda, son leurre : le premier coup qui le touche ne fait que la moitié des dégâts
+- Nouveau décor d'histoire : le palais de Yuda
+
 ## v0.99.14 — 2026-10-10
 
 - Nouveau terrain « Brasier de Jagi » : au début de chaque tour, le perso actif perd 1 PV (jamais en dessous de 1). Jagi ne craint pas les flammes. Avec son illustration
