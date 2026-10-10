@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.41 — 2026-10-11
+
+- Kiba Daioh : son ultime devient le Kazan Kōgai Kohō, sa vraie technique secrète (Kazan Kakuteigi est le nom de son style, pas une technique). Son Lourd s'appelle maintenant Étreinte du Grand Roi
+
 ## v0.99.40 — 2026-10-11
 
 - Kiba Daioh : nom de technique corrigé, Kazan Kōgai Kohō (華山鋼鎧呼法, lecture officielle « kohō »)

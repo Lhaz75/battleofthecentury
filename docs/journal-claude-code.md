@@ -212,3 +212,6 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 
 ### v0.99.40 — Kazan Kōgai Kohō
 - Vérifié (pixiv百科, hokuto.fandom, Yahoo知恵袋) : 華山鋼鎧呼法 se lit かざんこうがいこほう → **Kohō** ; le passif et le collier écrivaient « Kōhō », corrigé partout. Ultime **Kazan Kakuteigi** (華山角抵戯) = canon manga : c'est le style de Kiba Daioh (Ken le cite comme une des sources du sumo), Kōgai Kohō en est l'arcane. **Kazan Gunrō Ken** (sa technique Moyenne en jeu) vient du jeu officiel *Hokuto no Ken 7* (lancer ses fils) : autorisé par la règle (jeux officiels). Lore corrigé.
+
+### v0.99.41 — ultime de Kiba Daioh
+- Règle de David : un ultime = une technique ultime, jamais le nom d'une école ou d'un style. Kazan Kakuteigi (style) retiré ; ultime = **Kazan Kōgai Kohō** (seule technique nommée de Kiba Daioh dans le manga) ; son Lourd devient « Étreinte du Grand Roi » (français, coup sans nom canon). Passif inchangé.

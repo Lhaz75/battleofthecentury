@@ -2,7 +2,7 @@
 
 Fan game gratuit et non monétisé de **Hokuto no Ken / Soten no Ken** : jeu de baston en cartes dans le navigateur, versus en ligne, comptes joueurs. Créé par David (alias **Lhaz** / **Dave**, admin de hokutolegacy.com) avec Claude. Nom de travail historique : **Doomstar**.
 
-Version actuelle : **v0.99.40** (10 oct. 2026). Bêta de test (0.x), la 1.0 = sortie officielle.
+Version actuelle : **v0.99.41** (10 oct. 2026). Bêta de test (0.x), la 1.0 = sortie officielle.
 
 Les idées en cours et le backlog sont dans :
 - `docs/idees-en-attente.md` — état du mode histoire, magasin, testeurs, boss mondial, déjà-faits à ne plus proposer
@@ -25,6 +25,7 @@ Les idées en cours et le backlog sont dans :
 
 - Vrais noms des persos (fan game, pas d'écran de renommage). Macrons, pas d'accents circonflexes (Ryūken, Kōken…). « Ken-Oh » et pas Raoh dans les textes.
 - Noms de techniques/ultimes : **nom japonais d'origine seulement s'il existe dans le canon** (manga, anime, jeux officiels). Jamais de japonais inventé ; les coups génériques/inventés restent en français.
+- **Un ultime = une vraie technique**, jamais le nom d'une école ou d'un style (ex. Kazan Kakuteigi = style de Kiba Daioh, interdit comme ultime).
 - Disclaimers obligatoires : non monétisé, illustrations générées par IA, version de test.
 - Navigateur uniquement (pas d'exe). Compte obligatoire pour jouer.
 - Pas de sons ripés de Ken's Rage dans le jeu public.
