@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.17 — 2026-10-10
+
+- Voyage (en test) : textes des objets harmonisés, par exemple « PV max (+7) » ou « Endurance par tour (+1) - Moyens (+1) ». L'effet de base est toujours affiché en premier, le bonus ★ ensuite (merci Jérôme R.)
+
 ## v0.99.16 — 2026-10-10
 
 - Dojo : chaque grade a sa ceinture, de la blanche (novice) à la noire avec des barrettes dorées pour les dan, puis la rouge pour le Maître. Elle s'affiche sur l'écran du Dojo, les adversaires proposés, l'accueil et le classement (idée de maxGfive)

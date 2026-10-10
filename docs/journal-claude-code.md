@@ -143,6 +143,12 @@ Le Discord se lit sans compte via le widget public : `https://e.widgetbot.io/cha
 
 - v0.99.16 : ceintures du Dojo (idée de maxGfive) : `dojoBelt(r)` / `beltSVG(r,largeur)`, blanche (novice), jaune, orange, verte, bleue, marron (2 kyu chacune), noire + barrettes dorées (1 par dan), rouge (Maître). Affichées en tête du Dojo, sur les 3 adversaires, sur l'accueil (onglet Dojo) et dans le classement du Dojo.
 
+- v0.99.17 : textes des objets (Jérôme R.) : `rpgFx` affiche l'effet de base en premier (le bonus de qualité s'y ajoute s'il est du même type, ex. Masque de fer ★ → « PV max (+7) »), puis le bonus ★ s'il est différent, séparés par « - ».
+
+Retours Discord du 10 oct. (après-midi), pas encore traités :
+- Jérôme R. trouve que les ceintures du Dojo ne collent pas à l'univers ; maxGfive pense que si (kyu / dan). Alternative proposée à David : les 7 étoiles de la Grande Ourse. David doit trancher.
+- Finishers (maxGfive + Jérôme R.) : plusieurs ultimes par perso, rage qui continue en orange puis rouge, choix de l'ultime en construisant le deck. Gros chantier, en discussion.
+
 ## Ce qui n'a jamais été vérifié en vrai
 
 - Aucun combat du Voyage ni des nouveaux chapitres n'a été joué en entier : les tests lancent les combats puis forcent la victoire ou la défaite. L'équilibrage est à tester par des humains.
