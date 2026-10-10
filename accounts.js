@@ -18,7 +18,8 @@ const RPG_IT = { "bottes-desert": [0, 1], "bandes-poing": [0, 1], "bandages": [0
   "talisman-yuria": [2, 1], "carte-puits": [2, 0], "masque-fer": [2, 1], "ceinturon-clous": [2, 1], "ceinture-ermite": [3, 1], "brassard-nanto": [3, 1], "epaulette-shin": [4, 1], "casque-jagi": [5, 1], "ceinture-king": [5, 1],
   "bottes-cuir": [1, 1], "bottes-ferrees": [3, 1], "bottes-sang": [4, 1], "casque-pointes": [1, 1], "heaume-noir": [3, 1], "heaume-sang": [4, 1], "heaume-daioh": [5, 1],
   "bandes-cloutees": [1, 1], "bandes-rouges": [3, 1], "bandes-lion": [4, 1], "gantelets-pointes": [3, 1], "gantelets-sang": [4, 1],
-  "plastron-rouille": [1, 1], "plastron-ferre": [3, 1], "plastron-sang": [4, 1] };   // id : [rareté, équipable]
+  "plastron-rouille": [1, 1], "plastron-ferre": [3, 1], "plastron-sang": [4, 1],
+  "epauliere-cloutee": [1, 1], "epauliere-ferree": [3, 1], "epauliere-sang": [4, 1] };   // id : [rareté, équipable]
 // zones : étapes qui donnent du butin, étape à avoir battue pour ouvrir la zone, légendaire du boss (10 %)
 const RPG_ZONES = { mamiya: { need: ["sc:sc_shin", "mamiya:jagi"], nodes: { zeed: "fight", old: "event", kiba: "elite", ruines: "fight", daioh: "boss" }, leg: "heaume-daioh" },   // Jagi aura sa zone (3), avec le Casque de Jagi
   sc: { nodes: { sc_spade: "fight", sc_village: "event", sc_diamond: "elite", sc_club: "fight", sc_heart: "elite", sc_shin: "boss" }, leg: "ceinture-king" } };

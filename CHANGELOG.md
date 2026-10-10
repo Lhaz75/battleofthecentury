@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.29 — 2026-10-11
+
+- Les terres désolées (en test) : 3 nouvelles épaulières pour le corps. Épaulière cloutée, Épaulière ferrée et Épaulière de sang. Illustrations de Lhaz
+
 ## v0.99.28 — 2026-10-11
 
 - Les terres désolées (en test) : chaque perso a maintenant 5 places d'équipement, avec Corps et Pieds en plus de Tête, Taille et Mains. Les bottes vont aux pieds, les épaulettes et plastrons au corps. Ce que tu portais déjà est rangé à la bonne place tout seul

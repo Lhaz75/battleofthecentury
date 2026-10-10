@@ -176,6 +176,8 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 
 - v0.99.28 : **5 places d'équipement** (décision de David) : `RPG_SLOTS=["head","body","waist","hands","feet"]`. Bottes → `feet`, épaulettes (dont celle de Shin) et plastrons → `body`, ceintures restent `waist`. `rpgFixSlots` range tout seul un objet équipé à une ancienne place (ou le remet au sac si la place est prise). Côté serveur, `rpgClean` accepte les 5 places. Nouveaux plastrons : `plastron-rouille` peu commun (PV +4, bazar 40 ryō), `plastron-ferre` épique (PV +5, Moyens +1), `plastron-sang` mythique (PV +4, Moyens +1, Lourds +1). Légendaire rangé : `cuirasse-fauve` (fauves dorés et chaînes). 32 objets en jeu.
 
+- v0.99.29 : épaulières (place corps) : `epauliere-cloutee` peu commun (PV +2, rage +1), `epauliere-ferree` épique (PV +3, Lourds +1), `epauliere-sang` mythique (PV +2, Moyens +1, rage +1). Rangés, pas en jeu : `epauliere-lion` (set du Lion avec bottes, gantelets, bandes du lion et la cuirasse aux fauves → idée : panoplie de Ken-Oh) et **`epaulette-rei`, l'Épaulette de Rei** : légendaire de **Yuda** (décision de David), à mettre en `leg` de la zone de Yuda quand elle existera (effet à décider, idée : Légers +1, Moyens +1). 35 objets en jeu.
+
 ## Ce qui n'a jamais été vérifié en vrai
 
 - Aucun combat du Voyage ni des nouveaux chapitres n'a été joué en entier : les tests lancent les combats puis forcent la victoire ou la défaite. L'équilibrage est à tester par des humains.
