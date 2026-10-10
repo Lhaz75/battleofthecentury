@@ -190,6 +190,8 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 
 - **Légendaires rangés (icônes prêtes, pas en jeu), à donner aux boss des zones futures** : `couronne-empereur` Couronne de l'Empereur → **Souther** (tête, idée : Lourds +2 ou rage +2) ; `ceinture-nanto` → Souther aussi possible ; `epaulette-rei` → **Yuda** ; `fouet-cassandra` → Uighur ; `cape-raoh` **Cape de Raoh** → **Ken-Oh** (place corps, idée : rage +2 et Lourds +1, ou un pouvoir) ; set du Lion (`bottes-lion`, `gantelets-lion`, `epauliere-lion`, `cuirasse-fauve`) → idée Ken-Oh aussi ; `bandes-azur` à attribuer ; `jambieres-soleil` ; `etoile-chariot`. Ajouter un objet = entrée dans `RPG_ITEMS` + `RPG_ART` + noms FR/EN/IT/JA (`rpgItems`) + `RPG_IT` dans accounts.js, puis `leg:` de la zone.
 
+- v0.99.35 : **Bandana de Bat** (`bandana-bat`, tête, épique, PV +2, `steal:1`) : premier objet à pouvoir en combat. Dans `startTurn`, si `S.rpg` et qu'un perso debout le porte : une fois par combat, au début du 2e tour du joueur, vole une carte commune (ni perso, ni réaction) dans la main adverse, sinon dans sa pioche. Même texte que Bat dans l'histoire (`batSteal`). `cape-raoh` (Cape de Raoh) rangée pour Ken-Oh. Amiba n'utilise PAS d'aiguilles (correction de David) : son légendaire sera plutôt le déguisement du faux Toki. 48 objets en jeu.
+
 ## Ce qui n'a jamais été vérifié en vrai
 
 - Aucun combat du Voyage ni des nouveaux chapitres n'a été joué en entier : les tests lancent les combats puis forcent la victoire ou la défaite. L'équilibrage est à tester par des humains.

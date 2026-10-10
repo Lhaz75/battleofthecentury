@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.35 — 2026-10-11
+
+- Les terres désolées (en test) : le Bandana de Bat (tête, épique) ! Une fois par combat, au début de ton 2e tour, il vole une carte commune à l'adversaire. Illustration de Lhaz
+
 ## v0.99.34 — 2026-10-11
 
 - Les terres désolées (en test) : 3 paires de jambières pour les pieds, plus lourdes que les bottes. Jambières rouillées, Jambières à pointes et Jambières de sang. Illustrations de Lhaz
