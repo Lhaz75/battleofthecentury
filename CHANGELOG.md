@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.25 — 2026-10-10
+
+- Nouvelles illustrations pour Souther, Ken-Oh, Shu, Falco et Amiba
+
 ## v0.99.24 — 2026-10-10
 
 - Le mode Voyage s'appelle maintenant « Les terres désolées »
