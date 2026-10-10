@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.16 — 2026-10-10
+
+- Dojo : chaque grade a sa ceinture, de la blanche (novice) à la noire avec des barrettes dorées pour les dan, puis la rouge pour le Maître. Elle s'affiche sur l'écran du Dojo, les adversaires proposés, l'accueil et le classement (idée de maxGfive)
+
 ## v0.99.15 — 2026-10-10
 
 - Nouveaux adversaires (non jouables, pour l'histoire et le Voyage) : les hommes de Yuda, Le Chapelet, La Hallebarde, L'Étoile du matin, Le Rieur et Le Grand Couperet, avec un bonus de meute avec Yuda et Dagar

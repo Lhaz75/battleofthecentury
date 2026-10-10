@@ -117,7 +117,6 @@ Traités :
 - Jérôme R. : Jagi annulait l'ultime du boss mondial au tour 5 → décision de David (v0.99.13) : contre le boss mondial, les Aiguilles crachées divisent l'ultime par deux au lieu de l'annuler (2 dégâts au boss quand même). En versus et ailleurs, rien ne change.
 
 En attente (salon `suggestions` et `tests`, lus le 10 oct.) :
-- maxGfive : grades du Dojo avec les couleurs des ceintures et une icône. Petit chantier visuel.
 - maxGfive : tsubos sur les cartes (bonus critique) ; cartes « finisher » au moment de l'ultime, avec une rage qui monte en orange puis rouge. Gros chantiers, gardés en idées.
 
 Le Discord se lit sans compte via le widget public : `https://e.widgetbot.io/channels/619101513754869780/<salon>` (tests `1555879664407285801`, suggestions `1555897701189820466`, chat-du-jeu `1557770296080076871`). Il ne montre que les derniers messages.
@@ -141,6 +140,8 @@ Le Discord se lit sans compte via le widget public : `https://e.widgetbot.io/cha
 - v0.99.14 : nouveau terrain **Brasier de Jagi** (`brasier` dans `TERRAINS`) : début de tour, le perso actif perd 1 PV, jamais sous 1, Jagi immunisé (code dans `startTurn`, juste après `let comp=""`). Illustration de David intégrée dans la même version (`terrain-brasier.webp` 900×1350 + `terrain-brasier-c.webp` 270×405, `TERR_ART`, règle CSS `body[data-terr="brasier"]`). Pour un futur terrain : même recette.
 
 - v0.99.15 : hommes de Yuda (`npc:"yuda"`, dans `SOLDIERS()`, bonus de meute aussi avec `narc` (Yuda) et `dagar`) : `yudasol1` Le Chapelet, `yudasol2` La Hallebarde, `yudasol3` L'Étoile du matin, `yudasol4` Le Rieur, `yudasol5` Le Grand Couperet (le « guerrier balafré » : David pense qu'il a un nom officiel, à vérifier). `doubleyuda` Double de Yuda (le leurre de l'histoire) : 1er coup reçu divisé par deux (`f.lure` dans `hurt`). Noms et coups inventés par Claude. Fond d'histoire `story-yuda` (illustration `terrain-yuda.png` de David) : `bg:"yuda"` dans un chapitre. Images source chez David : `sbire-yuda1/2`, `sbire-yuria3/4` (ce sont aussi des hommes de Yuda), `Guerrier balafré à l'épée colossale.png`, `double-yuda.png`. Pas encore utilisés dans un chapitre ni une zone du Voyage.
+
+- v0.99.16 : ceintures du Dojo (idée de maxGfive) : `dojoBelt(r)` / `beltSVG(r,largeur)`, blanche (novice), jaune, orange, verte, bleue, marron (2 kyu chacune), noire + barrettes dorées (1 par dan), rouge (Maître). Affichées en tête du Dojo, sur les 3 adversaires, sur l'accueil (onglet Dojo) et dans le classement du Dojo.
 
 ## Ce qui n'a jamais été vérifié en vrai
 
