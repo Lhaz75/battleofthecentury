@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.52 — 2026-10-11
+
+- Les terres désolées (en test) : la rage au début du combat est plafonnée à 7 (pour ne pas lancer l'ultime dès le 1er tour). C'est maintenant écrit sur les objets, et à l'événement, l'offrande de PV contre de la rage est grisée quand ton équipement te donne déjà 7 de rage. Merci Jérôme R.
+
 ## v0.99.51 — 2026-10-11
 
 - Mode histoire, arc 2, dernier chapitre : Ken-Oh un peu moins écrasant face à Kenshiro (PV ×2,8 au lieu de ×3,2, plus de rage au départ, IA un cran en dessous). Le combat de Rei ne change pas. Merci maxGfive
