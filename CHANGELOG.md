@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.55 — 2026-10-11
+
+- Mode histoire : chaque arc a son succès de couronne. Arc 1 : « La chute de KING » (ex-« Légende du Hokuto »). Arc 2 : nouveau succès « Digne des frères de Hokuto », la couronne sur ses 16 chapitres (3 étoiles en Difficile)
+
 ## v0.99.54 — 2026-10-11
 
 - Les terres désolées (en test) : l'endurance en plus de l'équipement (Ceinture de l'ermite) s'affiche à côté de ta jauge (« +1 équipement ») et les cartes adverses ou le désert ne la retirent jamais. Le texte précise qu'elle ne compte que pour le perso au combat
