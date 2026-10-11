@@ -312,6 +312,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     story1: { t: 2, c: s => s.story && s.story["king-8"] != null }, story27: { t: 3, c: s => s.story && Object.keys(s.story).filter(k => /^king-/.test(k)).reduce((a, k) => a + s.story[k], 0) >= 27 },
     storylegend: { t: 3, c: s => s.storyH && STORY_ORDER.filter(k => /^king-/.test(k)).every(k => s.storyH[k]) },
     story2a: { t: 2, c: s => s.story && s.story["arc2-7"] != null }, story2b: { t: 2, c: s => s.story && s.story["arc2-9"] != null },
+    rpgz1: { t: 2, c: s => !!(s.rpgSeen && s.rpgSeen["sc:sc_shin"]) }, rpgz2: { t: 2, c: s => !!(s.rpgSeen && s.rpgSeen["mamiya:daioh"]) },
     storylegend2: { t: 3, c: s => s.storyH && STORY_ORDER.filter(k => /^arc2-/.test(k)).every(k => s.storyH[k]) },
     story2s: { t: 3, c: s => s.story && Object.keys(s.story).filter(k => /^arc2-/.test(k)).reduce((a, k) => a + s.story[k], 0) >= 27 },
     bosshit: { t: 1, c: s => (s.bossN || 0) >= 1 }, bosskill: { t: 2, c: s => (s.bossKill || 0) >= 1 },

@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.56 — 2026-10-11
+
+- Combat : à côté de la jauge d'endurance, le détail du calcul quand il y a un bonus ou un malus (ex. « = 5 +1 équipement −1 adversaire »). Idée de maxGfive
+- Succès : la couronne de l'arc 1 s'appelle « Régicide ». Les terres désolées (en test) : 2 nouveaux succès, « Les sept cicatrices » (battre Shin) et « Briseur de crocs » (battre Kiba Daioh). Noms de Lhaz
+
 ## v0.99.55 — 2026-10-11
 
 - Mode histoire : chaque arc a son succès de couronne. Arc 1 : « La chute de KING » (ex-« Légende du Hokuto »). Arc 2 : nouveau succès « Digne des frères de Hokuto », la couronne sur ses 16 chapitres (3 étoiles en Difficile)
