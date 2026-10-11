@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.51 — 2026-10-11
+
+- Mode histoire, arc 2, dernier chapitre : Ken-Oh un peu moins écrasant face à Kenshiro (PV ×2,8 au lieu de ×3,2, plus de rage au départ, IA un cran en dessous). Le combat de Rei ne change pas. Merci maxGfive
+
 ## v0.99.50 — 2026-10-11
 
 - Les terres désolées (en test) : le set de sang draine la vie. Chaque pièce de sang portée rend 1 PV au début de chaque tour du perso, et avec 4 pièces (tête, corps, mains, pieds) c'est 6 PV par tour. En échange, leurs autres bonus baissent. Les pièces sont réparties : heaume, gantelets et épaulière en zone 1, plastron, bottes et jambières en zone 2. Idée de Lhaz
