@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.85 — 2026-10-12
+
+- Admin, pages Cadrages et Pastilles : boutons − et + pour zoomer à la place de la réglette (maintenir pour aller vite). Sur téléphone, la page Cadrages est refaite : grande image, pince à deux doigts pour zoomer, flèches et zoom juste dessous, aperçu de l'onglet ouvert et boutons d'enregistrement toujours visibles en bas
+
 ## v0.99.84 — 2026-10-12
 
 - Frieda : son ultime s'affichait en anglais, il s'appelle maintenant Danse de la Valkyrie. Signalé par Lhaz
