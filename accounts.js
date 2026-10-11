@@ -31,14 +31,15 @@ const RPG_DROP = { fight: [60, 30, 10], event: [0, 0, 100], elite: [0, 48, 35, 1
 const RPG_SHOP = { "bottes-desert": 20, "bandes-poing": 20, "ceinture-munitions": 20, "ceinture-cuir": 40, "bandages": 20, "gourde": 20, "bandana": 20, "gants-cloutes": 40, "epaulettes": 40, "casque-punk": 40, "bottes-cuir": 40, "casque-pointes": 40, "bandes-cloutees": 40, "plastron-rouille": 40, "essence": 40, "viande-sechee": 40, "talisman-yuria": 80, "carte-puits": 80, "remede-medicine": 80, "masque-fer": 80, "ceinturon-clous": 80 };
 const RPG_ID = /^[a-z][a-z-]{1,23}(~(hp[123]|lg1|my1|ld1|rg1))?$/;   // objet, avec ou sans bonus de qualité
 const rpgOk = x => typeof x === "string" && RPG_ID.test(x) && !!RPG_IT[x.split("~")[0]];
-function rpgRoll(kind, leg) {
+const RPG_ZONEONLY = { "heaume-sang": "sc", "gantelets-sang": "sc", "epauliere-sang": "sc", "plastron-sang": "mamiya", "bottes-sang": "mamiya", "jambieres-sang": "mamiya" };   // set de sang : chaque pièce ne tombe que dans sa zone
+function rpgRoll(kind, leg, zone) {
   const w = RPG_DROP[kind], rnd = n => Math.floor(Math.random() * n);
   let x = Math.random() * w.reduce((s, v) => s + v, 0), r = 0; while (r < w.length - 1 && x >= w[r]) { x -= w[r]; r++; }
-  const ids = Object.keys(RPG_IT).filter(id => RPG_IT[id][0] === r); let it = ids[rnd(ids.length)];
+  const ids = Object.keys(RPG_IT).filter(id => RPG_IT[id][0] === r && (!RPG_ZONEONLY[id] || RPG_ZONEONLY[id] === zone)); let it = ids[rnd(ids.length)];
   // qualité (objets équipables) : 6 % parfait, 24 % renforcé
   if (RPG_IT[it][1]) { const q = Math.random(); if (q < 0.06) it += "~" + ["hp3", "lg1", "my1", "ld1", "rg1"][rnd(5)]; else if (q < 0.30) it += "~" + ["hp1", "hp2"][rnd(2)]; }
   const out = [it];
-  if (kind === "boss") { out.push(...rpgRoll("fight")); if (leg && Math.random() < 0.1) out.unshift(leg); }
+  if (kind === "boss") { out.push(...rpgRoll("fight", null, zone)); if (leg && Math.random() < 0.1) out.unshift(leg); }
   return out;
 }
 function rpgClean(inv) {
@@ -623,7 +624,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
         gain = (first ? RPG_PTS : RPG_PTS_AGAIN)[kind]; st.pts += gain; bumpFav(st, body.team);
         if (kind === "boss") st.rpgClears = (st.rpgClears || 0) + 1;
         // un objet la première fois sur chaque étape ; le boss en lâche à chaque fois
-        if (first || kind === "boss") for (const it of rpgRoll(kind, Z.leg)) { if (inv.bag.length < 24) { inv.bag.push(it); loot.push(it); } else lost++; }
+        if (first || kind === "boss") for (const it of rpgRoll(kind, Z.leg, zone)) { if (inv.bag.length < 24) { inv.bag.push(it); loot.push(it); } else lost++; }
         ach = achCheck(st, body.feats);
       } else if (act === "buy") {
         const item = String(body.item || ""), price = RPG_SHOP[item];

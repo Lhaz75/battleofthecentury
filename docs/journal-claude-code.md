@@ -234,3 +234,7 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - v0.99.47 : Mamiya n'a pas d'arbalète (David) : Moyen « Carreau d'arbalète » → « Piques d'Emei jumelles » (峨嵋刺 = gabishi). Sigil 弓 → 糸 en v0.99.48.
 - v0.99.49 : Yuda (`narc`) nouvelle illu, PZ [304,82,70].
 - 11 oct. : décision de David, **finishers et Tsubo éclair mis de côté** (pas à proposer pour l'instant). Le tsubo « coup critique » aussi mis de côté (avantagerait trop Hokuto).
+
+### v0.99.50 — set de sang (idée de David)
+- Les 6 pièces de sang ont `blood:1` : au début de chaque tour du joueur (`startTurn`, terres désolées), le perso actif récupère 1 PV par pièce, +2 avec 4 pièces (max 4 portables : tête, corps, mains, pieds) → 6 PV/tour. Message `rpgBloodHeal` via `S.bloodMsg`. Stats baissées : heaume rage +1, plastron PV +2, épaulière rage +1, gantelets Lourds +1, bottes Légers +1, jambières PV +2.
+- `RPG_ZONEONLY` (client + accounts.js) : heaume, gantelets, épaulière ne tombent qu'en zone 1 (sc), plastron, bottes, jambières qu'en zone 2 (mamiya). `rpgRoll(kind, leg, zone)`. Simulé : OK. La page admin affiche « Zone N seulement » et des taux par zone.
