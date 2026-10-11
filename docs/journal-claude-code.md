@@ -231,3 +231,4 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 ### v0.99.45
 - Nouvelles illus de David : Kenshiro (`maitre`), Mamiya, Toki (`sage`). Nettoyées avec clean.py, installées avec art.py. Cadrage PZ : maitre [240,113,80], mamiya [272,132,72], sage [269,92,75]. Vérifié en combat (PC + mobile).
 - v0.99.46 : Mamiya refaite avec ses yo-yos (PZ [300,133,72]).
+- v0.99.47 : Mamiya n'a pas d'arbalète (David) : Moyen « Carreau d'arbalète » → « Piques d'Emei jumelles » (峨嵋刺 = gabishi). Son sigil reste 弓.

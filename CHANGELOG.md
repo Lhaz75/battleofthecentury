@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.47 — 2026-10-11
+
+- Mamiya : « Carreau d'arbalète » remplacé par « Piques d'Emei jumelles » (elle n'a pas d'arbalète, merci Lhaz)
+
 ## v0.99.46 — 2026-10-11
 
 - Mamiya : nouvelle illustration avec ses yo-yos, par Lhaz
