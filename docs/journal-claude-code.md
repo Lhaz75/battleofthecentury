@@ -218,5 +218,9 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 
 ### v0.99.42 — revue des ultimes + carte zone 2
 - Revue de tous les ultimes au nom japonais (sous-agent, sources pixiv / fandom / altema ReVIVE). Corrigés : Amiba → Hikō Gekishinkō (son Moyen devient « Piqûre du génie »), Ryuga → Tenrō Tōga Ken (son Léger devient « Morsure du loup céleste »), Jūkei → Shungeki no Hakō (ReVIVE), Solia → Gento Ryūrin Kōzan (son Moyen devient « Anneau tranchant »), et en français faute de technique canon : Raiga & Fūga « Colère du vent et de la foudre », Frères Harn « Serres des faucons jumeaux », Wei « Héritage du fondateur », Dagar « Déchirure des ailes jumelles », Shura sans nom « Morsure de l'araignée des sables ». JA : Ryuken 北斗仙気雷弾 (était en katakana), Liu Feiyan 流飛燕 (pas 劉).
-- En attente : **Satora et Bukoh** (ni perso ni ultime trouvés en ligne, demander à David d'où ils viennent). Des techniques (pas ultimes) portent encore un nom de style : Ryuga « Taizan Tenrō Ken » (Lourd), Dagar « Nanto Hiyoku Ken », Feiyan « Kyokujūji Seiken ».
+- Satora et Bukoh = fils d'Asam (avec Kai), Daijō Nanken : Sō Dōi Dachi et Gōyū Kōsha Ken sont canon (hokuto.fandom Daijō Nan Ken). OK.
 - Carte de la zone 2 (illustration de David) : `assets/rpg-carte-mamiya.webp` remplacée (1280×720), `.rgmap.z-mamiya` cadrée à 80 %. Kiba Daioh déplacé sur le volcan (81, 27), le bazar (66, 44), le verrou de Jagi (90, 60).
+
+### v0.99.43
+- Shura sans nom : Hama Sunagumo (破魔砂蜘蛛) est bien canon (technique du Shura Nindō, d'où son surnom Sunagumo — lien de David hokuto.fandom Shura_Nindō) : ultime rétabli. Le sous-agent s'était trompé, toujours revérifier ses « introuvable ».
+- Coups (pas ultimes) qui portaient un nom de style renommés en français : Ryuga Lourd → Crocs de glace, Dagar → Frappe du Nanto, Colonel → Mort silencieuse, Feiyan → Croix de l'hirondelle, Kaiser → Bec de l'oiseau démon. Gardés : Jagi « Nanto Seiken » (il le crie comme une attaque dans le manga), Jackal « Nanto Bakusatsu Ken », Shuren « Gosha Enjō Ken » (style et ōgi à la fois).

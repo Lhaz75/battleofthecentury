@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.43 — 2026-10-11
+
+- Shura sans nom : son ultime redevient le Hama Sunagumo, une vraie technique du Shura Nindō (merci Lhaz pour la source)
+- Coups qui portaient le nom d'un style renommés : Ryuga (Crocs de glace), Dagar (Frappe du Nanto), Colonel (Mort silencieuse), Liu Feiyan (Croix de l'hirondelle), Kaiser (Bec de l'oiseau démon)
+
 ## v0.99.42 — 2026-10-11
 
 - Ultimes vérifiés un par un (manga, anime, Sōten no Ken, jeux officiels) : un ultime doit être une vraie technique, pas le nom d'un style. Nouveaux ultimes : Amiba (Hikō Gekishinkō), Ryuga (Tenrō Tōga Ken), Jūkei (Shungeki no Hakō), Solia (Gento Ryūrin Kōzan), Raiga & Fūga, Frères Harn, Wei, Dagar et Shura sans nom (noms en français, pas de technique canon). Quelques coups renommés pour éviter les doublons
