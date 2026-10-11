@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.74 — 2026-10-11
+
+- 2e homme de Heart : Le Rieur de Heart, batte cloutée sur l'épaule. Avec Le Fumeur, il forme la garde de Heart en zone 1 des terres désolées. Illustration de Lhaz
+
 ## v0.99.73 — 2026-10-11
 
 - Homme de Heart : Le Fumeur, bras croisés et clope au bec. Il accompagne Heart dans son combat en zone 1 des terres désolées. Correctif : le bonus de meute des hommes de KING compte enfin Heart. Illustration de Lhaz
