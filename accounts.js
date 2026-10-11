@@ -32,14 +32,42 @@ const RPG_SHOP = { "bottes-desert": 20, "bandes-poing": 20, "ceinture-munitions"
 const RPG_ID = /^[a-z][a-z-]{1,23}(~(hp[123]|lg1|my1|ld1|rg1))?$/;   // objet, avec ou sans bonus de qualité
 const rpgOk = x => typeof x === "string" && RPG_ID.test(x) && !!RPG_IT[x.split("~")[0]];
 const RPG_ZONEONLY = { "heaume-sang": "sc", "gantelets-sang": "sc", "epauliere-sang": "sc", "plastron-sang": "mamiya", "bottes-sang": "mamiya", "jambieres-sang": "mamiya" };   // set de sang : chaque pièce ne tombe que dans sa zone
-function rpgRoll(kind, leg, zone) {
-  const w = RPG_DROP[kind], rnd = n => Math.floor(Math.random() * n);
+// réglages des terres désolées modifiables depuis l'admin (stockés en base, "rpgcfg") : rareté, prix, zone, retrait du butin, poids de butin, légendaire et taux du boss
+let RPG_CFG = {};
+const cfgIt = id => (RPG_CFG.items && RPG_CFG.items[id]) || {};
+const rpgRar = id => cfgIt(id).r != null ? cfgIt(id).r : RPG_IT[id][0];
+const rpgZoneOf = id => cfgIt(id).zone !== undefined ? (cfgIt(id).zone || null) : (RPG_ZONEONLY[id] || null);
+const rpgDropW = kind => (RPG_CFG.drop && RPG_CFG.drop[kind]) || RPG_DROP[kind];
+const rpgPrice = id => cfgIt(id).price != null ? cfgIt(id).price : RPG_SHOP[id];
+const rpgLeg = zone => { const c = RPG_CFG.zones && RPG_CFG.zones[zone] || {}, Z = RPG_ZONES[zone] || {}; return { leg: c.leg !== undefined ? (c.leg || null) : Z.leg, rate: c.legRate != null ? c.legRate : 0.1 }; };
+function rpgCfgClean(c) {   // ne garde que des valeurs sûres
+  const o = {}, num = (v, a, b) => { v = Number(v); return Number.isFinite(v) ? Math.min(b, Math.max(a, Math.round(v * 100) / 100)) : undefined; }, idOk = s => typeof s === "string" && /^[a-z0-9][a-z0-9_-]{0,23}$/.test(s);
+  if (c && c.items && typeof c.items === "object") { o.items = {}; for (const [id, v] of Object.entries(c.items).slice(0, 300)) { if (!RPG_IT[id] || !v || typeof v !== "object") continue; const x = {};
+    if (v.r != null) x.r = num(v.r, 0, 5); if (v.price != null) x.price = num(v.price, 0, 9999); if (v.zone !== undefined) x.zone = RPG_ZONES[v.zone] ? v.zone : ""; if (v.off) x.off = true;
+    for (const k of ["hp", "rage", "end", "heal", "healAll", "bomb", "steal", "mend", "backlash", "steel", "blood", "fuel"]) if (v[k] != null && num(v[k], -50, 100) !== undefined) x[k] = num(v[k], -50, 100);
+    for (const k of ["well", "revive", "tsubo"]) if (v[k] != null && num(v[k], 0, 1) !== undefined) x[k] = num(v[k], 0, 1);
+    if (Array.isArray(v.dmg)) x.dmg = [0, 1, 2].map(i => num(v.dmg[i] || 0, -20, 40) || 0);
+    for (const k of Object.keys(x)) if (x[k] === undefined) delete x[k]; if (Object.keys(x).length) o.items[id] = x; } }
+  if (c && c.drop && typeof c.drop === "object") { o.drop = {}; for (const k of Object.keys(RPG_DROP)) if (Array.isArray(c.drop[k])) { const w = c.drop[k].slice(0, 6).map(v => num(v, 0, 10000) || 0); if (w.some(v => v > 0)) o.drop[k] = w; } }
+  if (c && c.zones && typeof c.zones === "object") { o.zones = {}; for (const [z, v] of Object.entries(c.zones)) { if (!RPG_ZONES[z] || !v || typeof v !== "object") continue; const x = {};
+    if (v.leg !== undefined) x.leg = RPG_IT[v.leg] ? v.leg : ""; if (v.legRate != null) x.legRate = num(v.legRate, 0, 1);
+    if (v.nodes && typeof v.nodes === "object") { x.nodes = {}; for (const [n, p] of Object.entries(v.nodes).slice(0, 30)) { if (!/^[a-z_]{1,20}$/.test(n) || !p || typeof p !== "object") continue; const y = {};
+      if (p.ai != null) y.ai = num(p.ai, 0, 1); if (p.hp != null) y.hp = num(p.hp, 0.2, 8); if (p.boss != null) y.boss = num(p.boss, 0.2, 10); if (Array.isArray(p.foe)) { const f = p.foe.filter(idOk).slice(0, 6); if (f.length) y.foe = f; }
+      for (const k of Object.keys(y)) if (y[k] === undefined) delete y[k]; if (Object.keys(y).length) x.nodes[n] = y; } }
+    if (Object.keys(x).length) o.zones[z] = x; } }
+  if (c && c.fighters && typeof c.fighters === "object") { o.fighters = {}; for (const [id, v] of Object.entries(c.fighters).slice(0, 400)) { if (!idOk(id) || !v || typeof v !== "object") continue; const x = {};
+    if (v.hp != null) x.hp = num(v.hp, 1, 300); if (v.ult != null) x.ult = num(v.ult, 0, 99); if (Array.isArray(v.t)) x.t = v.t.slice(0, 8).map(d => d == null || d === "" ? null : num(d, 0, 60));
+    for (const k of Object.keys(x)) if (x[k] === undefined) delete x[k]; if (Object.keys(x).length) o.fighters[id] = x; } }
+  return o;
+}
+function rpgRoll(kind, leg, zone, legRate) {
+  const w = rpgDropW(kind), rnd = n => Math.floor(Math.random() * n);
   let x = Math.random() * w.reduce((s, v) => s + v, 0), r = 0; while (r < w.length - 1 && x >= w[r]) { x -= w[r]; r++; }
-  const ids = Object.keys(RPG_IT).filter(id => RPG_IT[id][0] === r && (!RPG_ZONEONLY[id] || RPG_ZONEONLY[id] === zone)); let it = ids[rnd(ids.length)];
+  const ids = Object.keys(RPG_IT).filter(id => rpgRar(id) === r && !cfgIt(id).off && (!rpgZoneOf(id) || rpgZoneOf(id) === zone)); if (!ids.length) return []; let it = ids[rnd(ids.length)];
   // qualité (objets équipables) : 6 % parfait, 24 % renforcé
   if (RPG_IT[it][1]) { const q = Math.random(); if (q < 0.06) it += "~" + ["hp3", "lg1", "my1", "ld1", "rg1"][rnd(5)]; else if (q < 0.30) it += "~" + ["hp1", "hp2"][rnd(2)]; }
   const out = [it];
-  if (kind === "boss") { out.push(...rpgRoll("fight", null, zone)); if (leg && Math.random() < 0.1) out.unshift(leg); }
+  if (kind === "boss") { out.push(...rpgRoll("fight", null, zone)); if (leg && Math.random() < (legRate == null ? 0.1 : legRate)) out.unshift(leg); }
   return out;
 }
 function rpgClean(inv) {
@@ -191,6 +219,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
   // testeurs : voient les arcs en test comme les admins (liste d'ids gérée depuis l'admin, stockée en base)
   let testers = new Set();
   Promise.resolve(ready).then(() => store.getSetting("testers")).then(v => { if (Array.isArray(v)) testers = new Set(v); }).catch(() => {});
+  Promise.resolve(ready).then(() => store.getSetting("rpgcfg")).then(v => { if (v && typeof v === "object") RPG_CFG = rpgCfgClean(v); }).catch(() => {});
   const TESTER_NAMES = new Set(["mordikar"]);   // testeurs ajoutés par pseudo (en plus de ceux nommés depuis l'admin)
   const isTesterOnly = u => !!u && (testers.has(u.id) || TESTER_NAMES.has(String(u.name).toLowerCase()));
   const isTester = u => !!u && (isAdmin(u) || isTesterOnly(u));
@@ -626,10 +655,10 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
         gain = (first ? RPG_PTS : RPG_PTS_AGAIN)[kind]; st.pts += gain; bumpFav(st, body.team);
         if (kind === "boss") st.rpgClears = (st.rpgClears || 0) + 1;
         // un objet la première fois sur chaque étape ; le boss en lâche à chaque fois
-        if (first || kind === "boss") for (const it of rpgRoll(kind, Z.leg, zone)) { if (inv.bag.length < 24) { inv.bag.push(it); loot.push(it); } else lost++; }
+        if (first || kind === "boss") for (const it of rpgRoll(kind, rpgLeg(zone).leg, zone, rpgLeg(zone).rate)) { if (inv.bag.length < 24) { inv.bag.push(it); loot.push(it); } else lost++; }
         ach = achCheck(st, body.feats);
       } else if (act === "buy") {
-        const item = String(body.item || ""), price = RPG_SHOP[item];
+        const item = String(body.item || ""), price = rpgPrice(item);
         if (!price) return [400, { error: "bad" }];
         if (inv.bag.length >= 24) return [409, { error: "full" }];
         if ((st.pts || 0) - (st.ryoSpent || 0) < price) return [402, { error: "poor" }];
@@ -688,6 +717,14 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
     },
     "GET /api/online": async () => [200, { online: onlineList() }],
     "GET /api/status": async () => [200, { version, maintenance: { on: maintOn(), msg: maint.msg, forced: process.env.MAINTENANCE === "1" } }],
+    "GET /api/rpgcfg": async () => [200, { ok: true, cfg: RPG_CFG }],
+    "POST /api/admin/rpgcfg": async (req, body) => {
+      const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];
+      RPG_CFG = body.reset ? {} : rpgCfgClean(body.cfg || {});
+      await store.setSetting("rpgcfg", RPG_CFG);
+      console.log(`Réglages des terres désolées ${body.reset ? "remis à zéro" : "modifiés"} par ${u.name}`);
+      return [200, { ok: true, cfg: RPG_CFG }];
+    },
     "POST /api/admin/maintenance": async (req, body) => {
       const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];
       maint = { on: !!body.on, msg: String(body.msg || "").slice(0, 400) };

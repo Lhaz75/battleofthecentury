@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.61 — 2026-10-11
+
+- Admin : la page « Terres désolées » devient modifiable. Objets (stats, rareté, prix au bazar, zone, retrait du butin), poids du butin, légendaire et taux de chaque boss, adversaires / PV / IA de chaque étape, et un onglet Persos (PV, dégâts des coups et de l'ultime, seulement dans les terres désolées). Les réglages sont enregistrés sur le serveur et s'appliquent tout de suite, avec un bouton pour revenir aux valeurs du code
+
 ## v0.99.60 — 2026-10-11
 
 - Mode histoire, arc 2, chapitre « Toki » : la 1re vague, c'est maintenant Zarqa et Qasim de la garde royale de Ken-Oh, avec un geôlier, comme dans le manga

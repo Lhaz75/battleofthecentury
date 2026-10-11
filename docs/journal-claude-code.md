@@ -253,3 +253,9 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - `item-masque-souther.webp` : légendaire rangé (tête) pour le boss Souther, dans `RPG_STORED`. Icône sans retrait des poches (métal blanc trop proche du damier).
 - v0.99.59 : David : Souther n'a **jamais** porté de couronne → `couronne-empereur` retirée de `RPG_STORED` (icône laissée dans assets, inutilisée). Légendaire de Souther = `masque-souther` uniquement.
 - v0.99.60 : arc2-13 « Toki », vague 1 = Zarqa + Qasim + casssol1 (avant : casssol1 + 2 punks), intro mise à jour en 4 langues. Testé.
+
+### v0.99.61 — réglages des terres désolées modifiables depuis l'admin
+- Serveur (`accounts.js`) : réglage en base `rpgcfg`, nettoyé par `rpgCfgClean` ; `GET /api/rpgcfg` (public), `POST /api/admin/rpgcfg` ({cfg} ou {reset:true}, admin). Utilisé par le butin (`rpgRoll` : rareté `rpgRar`, retrait `off`, zone `rpgZoneOf`, poids `rpgDropW`, légendaire + taux `rpgLeg`) et le bazar (`rpgPrice`, 0 = pas vendu).
+- Client : `RPG_BASE` (copie des valeurs du code), `rpgApplyCfg(cfg)` remet à zéro puis applique (objets, zone, bazar, poids, légendaire / taux `Z.legRate`, nœuds ai / hp / boss / foe fixe), chargé par `rpgLoadCfg()` dans `accInit`. Persos (terres désolées seulement) : `rpgFOv(id)` → PV de base (ratio `rpgHpK`, équipe et adversaires), dégâts par coup (`CARDS[..].idx` + `hitDamage`), ultime (`ultimate`).
+- UI admin : « Modifier les réglages » → formulaires (Objets, Zones, Règles = poids, Persos avec recherche), barre « Enregistrer / Annuler », badge « modifié », « Revenir aux valeurs du code (N réglages) » à double clic. Le brouillon ne garde que les écarts (`radmSet`). Testé de bout en bout avec le vrai serveur.
+- Coût d'équipe non modifiable (écran de choix partagé avec les autres modes).
