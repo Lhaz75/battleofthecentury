@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.65 — 2026-10-11
+
+- Le Fléau accompagne Spade : dans le chapitre de Spade (arc 1) et dans le combat de Spade en zone 1 des terres désolées, il remplace un des pillards
+
 ## v0.99.64 — 2026-10-11
 
 - Nouvel adversaire : Le Fléau, un des hommes de Spade (armée de KING), boulet hérissé et chaîne. Bonus de meute avec Spade, Club, Diamond, Heart et Shin. Illustration de Lhaz

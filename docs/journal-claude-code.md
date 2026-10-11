@@ -265,3 +265,4 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - `sbire-yuda6.png` (cheveux blancs, bandeau rouge, dague, « D » tatoué) : en attente, David ne sait plus qui c'est.
 - v0.99.63 : `yudasol6` Le Rabatteur (sbire-yuda6.png) : chef de la patrouille qui enlève les femmes pour le harem de Yuda (David). npc "yuda", PZ [325,98,56]. Nom et coups inventés par Claude.
 - v0.99.64 : `kingsol1` Le Fléau (homme de Spade, boulet + chaîne, illustration de David). Nouveau pack npc "king" : bonus de meute avec spade/club/diamond/heart/rival (Shin), dans `SOLDIERS()`. PZ [250,72,50]. Nom et coups inventés par Claude.
+- v0.99.65 : kingsol1 dans king-3 (à la place de punk7) et dans sc_spade (spade + kingsol1 + 1 punk). David prépare un 2e homme de Spade (kingsol2 à venir).
