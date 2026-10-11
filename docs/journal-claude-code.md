@@ -273,3 +273,4 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - v0.99.70 : `kingsol3` Le Cogneur (homme de Diamond, massue), PZ [260,128,56]. king-4 vague 2 = diamond + kingsol3 ; sc_diamond = diamond + kingsol3 + 1 punk.
 - v0.99.71 : `kingsol4` Le Patriarche (homme de Club, gourdin ; damier entre bras et torse retiré à la main), PZ [318,95,58]. sc_club = club + kingsol4 + 1 punk. king-5 (Club + Fox, piège) inchangé.
 - v0.99.72 : lore (David) : Fox = bras droit de Jackal. king-5 = Club + kingsol4 (unlock club seul), arc2-2 vague 1 = Jackal + Fox + punk5 (unlock jackal, fox, devil). Textes des 2 chapitres corrigés en 4 langues.
+- v0.99.73 : `kingsol5` Le Fumeur (homme de Heart), PZ [278,128,60]. sc_heart = ventre + kingsol5 + 1 punk. Bug corrigé : le pack king listait "heart" au lieu de l'id `ventre`. king-6 (duel contre Heart, règle fat) inchangé.

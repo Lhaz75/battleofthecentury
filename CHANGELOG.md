@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.73 — 2026-10-11
+
+- Homme de Heart : Le Fumeur, bras croisés et clope au bec. Il accompagne Heart dans son combat en zone 1 des terres désolées. Correctif : le bonus de meute des hommes de KING compte enfin Heart. Illustration de Lhaz
+
 ## v0.99.72 — 2026-10-11
 
 - Mode histoire, lore corrigé : Fox est le bras droit de Jackal, pas un homme de Club. Il quitte le chapitre de Club (remplacé par Le Patriarche) et rejoint Jackal dans l'arc 2, où il se débloque désormais. Merci Lhaz
