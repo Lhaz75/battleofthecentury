@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.86 — 2026-10-12
+
+- Admin, page Cadrages sur téléphone : tout tient dans l'écran sans défiler. L'aperçu de l'onglet est à gauche du zoom et des flèches, sous l'image
+
 ## v0.99.85 — 2026-10-12
 
 - Admin, pages Cadrages et Pastilles : boutons − et + pour zoomer à la place de la réglette (maintenir pour aller vite). Sur téléphone, la page Cadrages est refaite : grande image, pince à deux doigts pour zoomer, flèches et zoom juste dessous, aperçu de l'onglet ouvert et boutons d'enregistrement toujours visibles en bas

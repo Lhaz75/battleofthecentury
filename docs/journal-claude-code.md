@@ -288,3 +288,4 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - v0.99.83 : zone 1 : sc_zeed (Zeed + 2 pillards, ai .4) avant sc_spade (ai .5), len 8, village (34,24), Diamond (55,22), verrou Mamiya (10,16) ; zone 2 : nœud zeed = 3 pillards « Les pillards du désert » ; accounts.js sc_zeed:fight.
 - v0.99.84 : ultimes renommés : Frieda « Danse de la Valkyrie » (fr, était en anglais), Diamond « Retour de bâton » (demande de David), clés TX/TXJA mises à jour.
 - v0.99.85 : zoomBtns(range) remplace la réglette par − / + (maintenir = répétition) dans faceEditor et frameEditor ; frameEditor mobile (≤640px) : image pleine largeur, pincer (pointers Map), zoom + flèches en ligne sous l'image, seul l'aperçu de l'onglet (.fred[data-kind]), barre de boutons sticky.
+- v0.99.86 : frameEditor mobile : W=(innerHeight-330)*2/3, .faside en grille (aperçu zoom:.6 à gauche, − / + et flèches à droite), aide masquée : tout tient sans défiler (412x915 et 375x667 vérifiés).
