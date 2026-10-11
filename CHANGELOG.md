@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.64 — 2026-10-11
+
+- Nouvel adversaire : Le Fléau, un des hommes de Spade (armée de KING), boulet hérissé et chaîne. Bonus de meute avec Spade, Club, Diamond, Heart et Shin. Illustration de Lhaz
+
 ## v0.99.63 — 2026-10-11
 
 - Nouvel homme de Yuda pour l'histoire : Le Rabatteur, chef de la patrouille qui enlève les femmes pour le harem de Yuda. Illustration de Lhaz

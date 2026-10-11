@@ -264,3 +264,4 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - `punk17` Le Bûcheron (brigand1.png, pillard aléatoire npc:1), `southsol1` Le Cyclope d'or et `southsol2` Le Cracheur de feu (soldat-souther1/2.png, npc "souther", bonus de meute aussi avec Souther `emp`, dans `SOLDIERS()`). Noms et coups inventés par Claude. PZ punk17 [290,108,62], southsol1 [308,95,58], southsol2 [252,98,60].
 - `sbire-yuda6.png` (cheveux blancs, bandeau rouge, dague, « D » tatoué) : en attente, David ne sait plus qui c'est.
 - v0.99.63 : `yudasol6` Le Rabatteur (sbire-yuda6.png) : chef de la patrouille qui enlève les femmes pour le harem de Yuda (David). npc "yuda", PZ [325,98,56]. Nom et coups inventés par Claude.
+- v0.99.64 : `kingsol1` Le Fléau (homme de Spade, boulet + chaîne, illustration de David). Nouveau pack npc "king" : bonus de meute avec spade/club/diamond/heart/rival (Shin), dans `SOLDIERS()`. PZ [250,72,50]. Nom et coups inventés par Claude.
