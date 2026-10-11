@@ -224,3 +224,6 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 ### v0.99.43
 - Shura sans nom : Hama Sunagumo (破魔砂蜘蛛) est bien canon (technique du Shura Nindō, d'où son surnom Sunagumo — lien de David hokuto.fandom Shura_Nindō) : ultime rétabli. Le sous-agent s'était trompé, toujours revérifier ses « introuvable ».
 - Coups (pas ultimes) qui portaient un nom de style renommés en français : Ryuga Lourd → Crocs de glace, Dagar → Frappe du Nanto, Colonel → Mort silencieuse, Feiyan → Croix de l'hirondelle, Kaiser → Bec de l'oiseau démon. Gardés : Jagi « Nanto Seiken » (il le crie comme une attaque dans le manga), Jackal « Nanto Bakusatsu Ken », Shuren « Gosha Enjō Ken » (style et ōgi à la fois).
+
+### v0.99.44
+- Demande de David : plus aucun coup ne porte un nom de style. Jagi « Nanto Seiken » → Doigts du Nanto volé, Jackal « Nanto Bakusatsu Ken » → Ceinture de dynamite, Shuren « Gosha Enjō Ken » → Flammes du Gosha. Règle ajoutée au CLAUDE.md pour toutes les techniques.

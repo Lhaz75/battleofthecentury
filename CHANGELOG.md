@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.44 — 2026-10-11
+
+- Derniers coups qui portaient le nom d'un style renommés : Jagi (Doigts du Nanto volé), Jackal (Ceinture de dynamite), Shuren (Flammes du Gosha)
+
 ## v0.99.43 — 2026-10-11
 
 - Shura sans nom : son ultime redevient le Hama Sunagumo, une vraie technique du Shura Nindō (merci Lhaz pour la source)
