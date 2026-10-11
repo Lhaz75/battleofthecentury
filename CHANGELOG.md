@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.78 — 2026-10-11
+
+- Les terres désolées (en test) : les légendaires de la zone 1 ont un pouvoir. Ceinture de KING : les Légers du perso ne peuvent plus être Esquivés. Casque de Jagi : ses Lourds ne peuvent plus être Contrés. Idée de Jérôme R.
+- Combat : la tête des adversaires n'est plus coupée en haut du portrait (pillards et hommes de main en pied). Merci maxGfive
+
 ## v0.99.77 — 2026-10-11
 
 - Les terres désolées (en test) : le guide de la zone n'affiche plus que les objets qui tombent vraiment dans cette zone (les pièces du set de sang apparaissaient dans les deux zones). Merci Jérôme R.
