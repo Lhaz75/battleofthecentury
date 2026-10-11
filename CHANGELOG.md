@@ -4,7 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.67 — 2026-10-11
 
-- 4e soldat de Ken-Oh : Le Cobra, masque grillagé et cobra doré sur le casque. Illustration de Lhaz
+- 4e soldat de Ken-Oh : La Crinière, masque grillagé et cobra doré de Ken-Oh sur le casque. Illustration de Lhaz
 
 ## v0.99.66 — 2026-10-11
 
