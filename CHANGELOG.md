@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.79 — 2026-10-11
+
+- Le pillard « Le Bide » est retiré du jeu : il n'apparaît plus dans les bandes de pillards, et Le Boucher le remplace dans les deux combats d'histoire où il était
+
 ## v0.99.78 — 2026-10-11
 
 - Les terres désolées (en test) : les légendaires de la zone 1 ont un pouvoir. Ceinture de KING : les Légers du perso ne peuvent plus être Esquivés. Casque de Jagi : ses Lourds ne peuvent plus être Contrés. Idée de Jérôme R.
