@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.48 — 2026-10-11
+
+- Mamiya : son symbole devient 糸 (le fil de ses yo-yos) au lieu de 弓 (l'arc)
+
 ## v0.99.47 — 2026-10-11
 
 - Mamiya : « Carreau d'arbalète » remplacé par « Piques d'Emei jumelles » (elle n'a pas d'arbalète, merci Lhaz)
