@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.76 — 2026-10-11
+
+- Admin : bouton « WIN » en combat pour gagner tout de suite (tests). Combats solo seulement, pas en versus ni contre le boss mondial
+
 ## v0.99.75 — 2026-10-11
 
 - Le Masque de pique (homme de Spade) : nouvelle illustration, par Lhaz

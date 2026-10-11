@@ -276,3 +276,4 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - v0.99.73 : `kingsol5` Le Fumeur (homme de Heart), PZ [278,128,60]. sc_heart = ventre + kingsol5 + 1 punk. Bug corrigé : le pack king listait "heart" au lieu de l'id `ventre`. king-6 (duel contre Heart, règle fat) inchangé.
 - v0.99.74 : `kingsol6` Le Rieur de Heart (2e homme de Heart, batte), PZ [272,90,52]. sc_heart = ventre + kingsol5 + kingsol6.
 - v0.99.75 : kingsol2 nouvelle illustration, PZ [305,112,54].
+- v0.99.76 : bouton admin « WIN » en combat (`adminWin`, `adminWinOk` : admin + MODE solo + pas boss mondial) : met KO toute l'équipe adverse via `ko()` donc victoire normale (vagues, butin, étoiles). Sur mobile il est dans le menu des options. Absent en versus.
