@@ -286,3 +286,4 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - v0.99.81 : replayEv evcard lisait e[4] (le ton) au lieu de e[5] (l'image) → event-pos.webp en 404 chez l'adversaire en versus et en replay. Trouvé par un robot de test (scratchpad/bot : human() patché, BOT joue les deux camps, service workers bloqués) sur tous les modes.
 - v0.99.82 : kingsol7 « Le Croissant » (2e homme de Club, art Lhaz, PZ 272,150,64), sc_club = club + kingsol4 + kingsol7. Attention : art.py/ed.py réécrit index.html en CRLF, le dépôt est en LF → reconvertir avant commit.
 - v0.99.83 : zone 1 : sc_zeed (Zeed + 2 pillards, ai .4) avant sc_spade (ai .5), len 8, village (34,24), Diamond (55,22), verrou Mamiya (10,16) ; zone 2 : nœud zeed = 3 pillards « Les pillards du désert » ; accounts.js sc_zeed:fight.
+- v0.99.84 : ultimes renommés : Frieda « Danse de la Valkyrie » (fr, était en anglais), Diamond « Retour de bâton » (demande de David), clés TX/TXJA mises à jour.

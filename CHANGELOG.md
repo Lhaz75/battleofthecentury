@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.84 — 2026-10-12
+
+- Frieda : son ultime s'affichait en anglais, il s'appelle maintenant Danse de la Valkyrie. Signalé par Lhaz
+- Diamond : son ultime s'appelle maintenant Retour de bâton
+
 ## v0.99.83 — 2026-10-11
 
 - Les terres désolées (en test) : Les pillards de Zeed passent en zone 1, juste avant les arbalètes de Spade, comme dans l'anime. En zone 2, la première étape devient « Les pillards du désert ». Signalé par Lhaz
