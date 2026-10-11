@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.66 — 2026-10-11
+
+- 18e pillard tiré au hasard : La Crête violette, hache sanglante. Illustration de Lhaz
+
 ## v0.99.65 — 2026-10-11
 
 - Le Fléau accompagne Spade : dans le chapitre de Spade (arc 1) et dans le combat de Spade en zone 1 des terres désolées, il remplace un des pillards
