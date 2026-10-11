@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.71 — 2026-10-11
+
+- Homme de Club : Le Patriarche, vieux colosse au gourdin hérissé. Il accompagne Club dans son combat en zone 1 des terres désolées. Illustration de Lhaz
+
 ## v0.99.70 — 2026-10-11
 
 - Homme de Diamond : Le Cogneur, massue rouillée. Il accompagne Diamond dans son chapitre (arc 1) et dans son combat en zone 1 des terres désolées. Illustration de Lhaz

@@ -271,3 +271,4 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - v0.99.68 : kenohsol4 illustration moins saturée, PZ [296,90,58].
 - v0.99.69 : `kingsol2` Le Masque de pique (2e homme de Spade), PZ [282,105,52]. king-3 = spade + kingsol1 + kingsol2 ; sc_spade idem (plus de punk).
 - v0.99.70 : `kingsol3` Le Cogneur (homme de Diamond, massue), PZ [260,128,56]. king-4 vague 2 = diamond + kingsol3 ; sc_diamond = diamond + kingsol3 + 1 punk.
+- v0.99.71 : `kingsol4` Le Patriarche (homme de Club, gourdin ; damier entre bras et torse retiré à la main), PZ [318,95,58]. sc_club = club + kingsol4 + 1 punk. king-5 (Club + Fox, piège) inchangé.
