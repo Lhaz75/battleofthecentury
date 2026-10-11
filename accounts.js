@@ -570,12 +570,13 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       if (idx < 0 || !(stars >= 1 && stars <= 3)) return [400, { error: "bad" }];
       if (STORY_TEST.test(ch) && !isTester(u)) return [403, { error: "test" }];   // arc en test : réservé aux admins
       // arc en test : progression à part (storyTest), sans points, succès ni déblocages ; à la sortie de l'arc, les testeurs le rejouent pour de vrai
-      const inTest = STORY_TEST.test(ch);
+      const aw = !!body.adminWin && isAdmin(u);   // victoire admin (bouton WIN) : progression de test, sans points ni succès
+      const inTest = STORY_TEST.test(ch) || aw;
       const real = st.story = st.story || {}, prog = inTest ? (st.storyTest = st.storyTest || {}) : real;
       const prev = idx > 0 ? STORY_ORDER[idx - 1] : null;
       if (prev && real[prev] == null && (st.storyTest || {})[prev] == null && prog[ch] == null) return [409, { error: "bad" }];
-      const now = Date.now(); if (now - (lastStory.get(u.id) || 0) < 15000) return [429, { error: "slow" }];
-      lastStory.set(u.id, now);
+      const now = Date.now(); if (!aw && now - (lastStory.get(u.id) || 0) < 15000) return [429, { error: "slow" }];
+      if (!aw) lastStory.set(u.id, now);
       if (inTest) { const s = Math.min(3, stars); prog[ch] = Math.max(s, prog[ch] == null ? 0 : prog[ch]); await store.saveStats(u.id, st); return [200, { user: pubUser(u), gain: 0, ach: [], test: true }]; }
       const had = prog[ch] == null ? -1 : prog[ch];
       // objectifs réussis (bits), cumulés d'une partie à l'autre : 3 étoiles = les deux objectifs, même sur des parties différentes
@@ -649,14 +650,14 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       if (act === "win") {
         const zone = String(body.zone || "mamiya"), Z = RPG_ZONES[zone], node = String(body.node || ""), kind = Z && Z.nodes[node]; if (!kind) return [400, { error: "bad" }];
         if (Z.need && ![].concat(Z.need).some(k => (st.rpgSeen || {})[k])) return [403, { error: "locked" }];
-        const now = Date.now(); if (now - (lastRpg.get(u.id) || 0) < 20000) return [429, { error: "slow" }];
-        lastRpg.set(u.id, now);
+        const aw = !!body.adminWin && isAdmin(u);   // victoire admin (bouton WIN) : avance et butin pour tester, sans points ni succès
+        const now = Date.now(); if (!aw && now - (lastRpg.get(u.id) || 0) < 20000) return [429, { error: "slow" }];
+        if (!aw) lastRpg.set(u.id, now);
         const seen = st.rpgSeen = st.rpgSeen || {}, key = zone + ":" + node; first = !seen[key]; seen[key] = 1;
-        gain = (first ? RPG_PTS : RPG_PTS_AGAIN)[kind]; st.pts += gain; bumpFav(st, body.team);
-        if (kind === "boss") st.rpgClears = (st.rpgClears || 0) + 1;
+        if (!aw) { gain = (first ? RPG_PTS : RPG_PTS_AGAIN)[kind]; st.pts += gain; bumpFav(st, body.team); if (kind === "boss") st.rpgClears = (st.rpgClears || 0) + 1; }
         // un objet la première fois sur chaque étape ; le boss en lâche à chaque fois
         if (first || kind === "boss") for (const it of rpgRoll(kind, rpgLeg(zone).leg, zone, rpgLeg(zone).rate)) { if (inv.bag.length < 24) { inv.bag.push(it); loot.push(it); } else lost++; }
-        ach = achCheck(st, body.feats);
+        if (!aw) ach = achCheck(st, body.feats);
       } else if (act === "buy") {
         const item = String(body.item || ""), price = rpgPrice(item);
         if (!price) return [400, { error: "bad" }];

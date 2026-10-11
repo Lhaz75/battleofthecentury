@@ -277,3 +277,4 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - v0.99.74 : `kingsol6` Le Rieur de Heart (2e homme de Heart, batte), PZ [272,90,52]. sc_heart = ventre + kingsol5 + kingsol6.
 - v0.99.75 : kingsol2 nouvelle illustration, PZ [305,112,54].
 - v0.99.76 : bouton admin « WIN » en combat (`adminWin`, `adminWinOk` : admin + MODE solo + pas boss mondial) : met KO toute l'équipe adverse via `ko()` donc victoire normale (vagues, butin, étoiles). Sur mobile il est dans le menu des options. Absent en versus.
+- v0.99.76 (suite) : victoires WIN non comptées : `S.adminWin` ; `api()` saute /api/result, dojo, arc, surv, daily, weekly ; ajoute `adminWin:true` à /api/story (→ progression storyTest, sans points, sans délai anti-triche) et /api/rpg win (étape + butin gardés, 0 point, pas de succès, pas de rpgClears, pas de délai). Testé avec le vrai serveur.

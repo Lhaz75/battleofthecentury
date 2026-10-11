@@ -4,7 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.76 — 2026-10-11
 
-- Admin : bouton « WIN » en combat pour gagner tout de suite (tests). Combats solo seulement, pas en versus ni contre le boss mondial
+- Admin : bouton « WIN » en combat pour gagner tout de suite (tests). Combats solo seulement, pas en versus ni contre le boss mondial. Ces victoires ne comptent pas : ni points, ni succès, ni stats ; l'histoire avance en progression de test et les terres désolées donnent l'étape et le butin
 
 ## v0.99.75 — 2026-10-11
 
