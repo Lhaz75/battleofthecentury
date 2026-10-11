@@ -25,7 +25,7 @@ const RPG_IT = { "bottes-desert": [0, 1], "bandes-poing": [0, 1], "bandages": [0
   "jambieres-rouille": [1, 1], "jambieres-pointes": [3, 1], "jambieres-sang": [4, 1], "bandana-bat": [3, 1], "ruban-lin": [3, 1], "livre-amiba": [5, 1] };   // id : [rareté, équipable]
 // zones : étapes qui donnent du butin, étape à avoir battue pour ouvrir la zone, légendaire du boss (10 %)
 const RPG_ZONES = { mamiya: { need: ["sc:sc_shin", "mamiya:jagi"], nodes: { zeed: "fight", old: "event", kiba: "elite", ruines: "fight", daioh: "boss" }, leg: "collier-crocs" },   // Jagi aura sa zone (3), avec le Casque de Jagi
-  sc: { nodes: { sc_spade: "fight", sc_village: "event", sc_diamond: "elite", sc_club: "fight", sc_chateau: "fight", sc_heart: "elite", sc_shin: "boss" }, leg: "ceinture-king" } };
+  sc: { nodes: { sc_zeed: "fight", sc_spade: "fight", sc_village: "event", sc_diamond: "elite", sc_club: "fight", sc_chateau: "fight", sc_heart: "elite", sc_shin: "boss" }, leg: "ceinture-king" } };
 const RPG_PTS = { fight: 6, event: 8, elite: 10, boss: 25 }, RPG_PTS_AGAIN = { fight: 1, event: 1, elite: 2, boss: 5 };   // première fois / étape déjà faite
 const RPG_DROP = { fight: [60, 30, 10], event: [0, 0, 100], elite: [0, 48, 35, 15, 2], boss: [0, 0, 0, 92, 8] };   // poids par rareté
 const RPG_SHOP = { "bottes-desert": 20, "bandes-poing": 20, "ceinture-munitions": 20, "ceinture-cuir": 40, "bandages": 20, "gourde": 20, "bandana": 20, "gants-cloutes": 40, "epaulettes": 40, "casque-punk": 40, "bottes-cuir": 40, "casque-pointes": 40, "bandes-cloutees": 40, "plastron-rouille": 40, "essence": 40, "viande-sechee": 40, "talisman-yuria": 80, "carte-puits": 80, "remede-medicine": 80, "masque-fer": 80, "ceinturon-clous": 80 };
