@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.77 — 2026-10-11
+
+- Les terres désolées (en test) : le guide de la zone n'affiche plus que les objets qui tombent vraiment dans cette zone (les pièces du set de sang apparaissaient dans les deux zones). Merci Jérôme R.
+
 ## v0.99.76 — 2026-10-11
 
 - Admin : bouton « WIN » en combat pour gagner tout de suite (tests). Combats solo seulement, pas en versus ni contre le boss mondial. Ces victoires ne comptent pas : ni points, ni succès, ni stats ; l'histoire avance en progression de test et les terres désolées donnent l'étape et le butin
