@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.60 — 2026-10-11
+
+- Mode histoire, arc 2, chapitre « Toki » : la 1re vague, c'est maintenant Zarqa et Qasim de la garde royale de Ken-Oh, avec un geôlier, comme dans le manga
+
 ## v0.99.59 — 2026-10-11
 
 - Les terres désolées : la Couronne de l'Empereur est retirée des objets prévus (Souther n'a jamais porté de couronne). Son légendaire sera le Masque de Souther
