@@ -215,3 +215,8 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 
 ### v0.99.41 — ultime de Kiba Daioh
 - Règle de David : un ultime = une technique ultime, jamais le nom d'une école ou d'un style. Kazan Kakuteigi (style) retiré ; ultime = **Kazan Kōgai Kohō** (seule technique nommée de Kiba Daioh dans le manga) ; son Lourd devient « Étreinte du Grand Roi » (français, coup sans nom canon). Passif inchangé.
+
+### v0.99.42 — revue des ultimes + carte zone 2
+- Revue de tous les ultimes au nom japonais (sous-agent, sources pixiv / fandom / altema ReVIVE). Corrigés : Amiba → Hikō Gekishinkō (son Moyen devient « Piqûre du génie »), Ryuga → Tenrō Tōga Ken (son Léger devient « Morsure du loup céleste »), Jūkei → Shungeki no Hakō (ReVIVE), Solia → Gento Ryūrin Kōzan (son Moyen devient « Anneau tranchant »), et en français faute de technique canon : Raiga & Fūga « Colère du vent et de la foudre », Frères Harn « Serres des faucons jumeaux », Wei « Héritage du fondateur », Dagar « Déchirure des ailes jumelles », Shura sans nom « Morsure de l'araignée des sables ». JA : Ryuken 北斗仙気雷弾 (était en katakana), Liu Feiyan 流飛燕 (pas 劉).
+- En attente : **Satora et Bukoh** (ni perso ni ultime trouvés en ligne, demander à David d'où ils viennent). Des techniques (pas ultimes) portent encore un nom de style : Ryuga « Taizan Tenrō Ken » (Lourd), Dagar « Nanto Hiyoku Ken », Feiyan « Kyokujūji Seiken ».
+- Carte de la zone 2 (illustration de David) : `assets/rpg-carte-mamiya.webp` remplacée (1280×720), `.rgmap.z-mamiya` cadrée à 80 %. Kiba Daioh déplacé sur le volcan (81, 27), le bazar (66, 44), le verrou de Jagi (90, 60).

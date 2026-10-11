@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.42 — 2026-10-11
+
+- Ultimes vérifiés un par un (manga, anime, Sōten no Ken, jeux officiels) : un ultime doit être une vraie technique, pas le nom d'un style. Nouveaux ultimes : Amiba (Hikō Gekishinkō), Ryuga (Tenrō Tōga Ken), Jūkei (Shungeki no Hakō), Solia (Gento Ryūrin Kōzan), Raiga & Fūga, Frères Harn, Wei, Dagar et Shura sans nom (noms en français, pas de technique canon). Quelques coups renommés pour éviter les doublons
+- Japonais : Ryuken (北斗仙気雷弾) et Liu Feiyan (流飛燕) écrits correctement
+- Les terres désolées (en test) : nouvelle carte de la zone 2, Kiba Daioh attend au pied du volcan. Illustration de Lhaz
+
 ## v0.99.41 — 2026-10-11
 
 - Kiba Daioh : son ultime devient le Kazan Kōgai Kohō, sa vraie technique secrète (Kazan Kakuteigi est le nom de son style, pas une technique). Son Lourd s'appelle maintenant Étreinte du Grand Roi
