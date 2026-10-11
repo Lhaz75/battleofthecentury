@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.57 — 2026-10-11
+
+- Les terres désolées (en test) : la rage au début du combat est plafonnée selon la zone. 4 au plus en zones 1 et 2, puis +1 par zone (5 chez Jagi, 6 à Cassandra, 7 au maximum). L'équipement rend plus fort à mesure qu'on avance, sans ultime au 2e tour dès le début. Idée de maxGfive
+
 ## v0.99.56 — 2026-10-11
 
 - Combat : à côté de la jauge d'endurance, le détail du calcul quand il y a un bonus ou un malus (ex. « = 5 +1 équipement −1 adversaire »). Idée de maxGfive
