@@ -233,3 +233,4 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - v0.99.46 : Mamiya refaite avec ses yo-yos (PZ [300,133,72]).
 - v0.99.47 : Mamiya n'a pas d'arbalète (David) : Moyen « Carreau d'arbalète » → « Piques d'Emei jumelles » (峨嵋刺 = gabishi). Sigil 弓 → 糸 en v0.99.48.
 - v0.99.49 : Yuda (`narc`) nouvelle illu, PZ [304,82,70].
+- 11 oct. : décision de David, **finishers et Tsubo éclair mis de côté** (pas à proposer pour l'instant). Le tsubo « coup critique » sur les cartes reste une idée ouverte.
