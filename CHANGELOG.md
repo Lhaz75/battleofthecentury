@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.81 — 2026-10-11
+
+- Correctif : l'illustration des événements s'affiche de nouveau chez l'adversaire en versus et dans « Revoir le combat » (l'image ne chargeait pas)
+
 ## v0.99.80 — 2026-10-11
 
 - Les terres désolées (en test) : nouvelles cartes pour les zones 1 et 2, par Lhaz. Les étapes sont posées sur les ruines de la carte ; sur téléphone, la carte défile de gauche à droite
