@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.59 — 2026-10-11
+
+- Les terres désolées : la Couronne de l'Empereur est retirée des objets prévus (Souther n'a jamais porté de couronne). Son légendaire sera le Masque de Souther
+
 ## v0.99.58 — 2026-10-11
 
 - 2 nouveaux adversaires pour l'histoire : Zarqa et Qasim, capitaine et lieutenant de la garde royale de Ken-Oh à Cassandra. Ils comptent comme soldats de Ken-Oh. Illustrations de Lhaz
