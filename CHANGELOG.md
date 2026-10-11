@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.80 — 2026-10-11
+
+- Les terres désolées (en test) : nouvelles cartes pour les zones 1 et 2, par Lhaz. Les étapes sont posées sur les ruines de la carte ; sur téléphone, la carte défile de gauche à droite
+- Zone 1 : nouvelle étape « Le château de Shin », entre Diamond ou Club et Heart. Ken croit y trouver Shin, mais il n'y a que des pillards et Joker, qui s'enfuit en mettant le feu au château
+
 ## v0.99.79 — 2026-10-11
 
 - Le pillard « Le Bide » est retiré du jeu : il n'apparaît plus dans les bandes de pillards, et Le Boucher le remplace dans les deux combats d'histoire où il était
