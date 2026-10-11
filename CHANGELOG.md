@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.53 — 2026-10-11
+
+- Les terres désolées (en test) : le set de sang vole maintenant la vie. Au début de chaque tour du perso, 1 PV par pièce de sang portée est pris à l'adversaire en jeu et rendu au perso (4 PV avec 4 pièces). Jamais si l'adversaire a 3 PV ou moins. Idée de Jérôme R.
+
 ## v0.99.52 — 2026-10-11
 
 - Les terres désolées (en test) : la rage au début du combat est plafonnée à 7 (pour ne pas lancer l'ultime dès le 1er tour). C'est maintenant écrit sur les objets, et à l'événement, l'offrande de PV contre de la rage est grisée quand ton équipement te donne déjà 7 de rage. Merci Jérôme R.
