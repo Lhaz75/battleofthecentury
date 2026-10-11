@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.62 — 2026-10-11
+
+- Nouveaux adversaires : 2 soldats de Souther, Le Cyclope d'or et Le Cracheur de feu (bonus de meute avec Souther), et un 17e pillard, Le Bûcheron, tiré au hasard comme les autres. Illustrations de Lhaz
+
 ## v0.99.61 — 2026-10-11
 
 - Admin : la page « Terres désolées » devient modifiable. Objets (stats, rareté, prix au bazar, zone, retrait du butin), poids du butin, légendaire et taux de chaque boss, adversaires / PV / IA de chaque étape, et un onglet Persos (PV, dégâts des coups et de l'ultime, seulement dans les terres désolées). Les réglages sont enregistrés sur le serveur et s'appliquent tout de suite, avec un bouton pour revenir aux valeurs du code

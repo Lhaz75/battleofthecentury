@@ -259,3 +259,7 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - Client : `RPG_BASE` (copie des valeurs du code), `rpgApplyCfg(cfg)` remet à zéro puis applique (objets, zone, bazar, poids, légendaire / taux `Z.legRate`, nœuds ai / hp / boss / foe fixe), chargé par `rpgLoadCfg()` dans `accInit`. Persos (terres désolées seulement) : `rpgFOv(id)` → PV de base (ratio `rpgHpK`, équipe et adversaires), dégâts par coup (`CARDS[..].idx` + `hitDamage`), ultime (`ultimate`).
 - UI admin : « Modifier les réglages » → formulaires (Objets, Zones, Règles = poids, Persos avec recherche), barre « Enregistrer / Annuler », badge « modifié », « Revenir aux valeurs du code (N réglages) » à double clic. Le brouillon ne garde que les écarts (`radmSet`). Testé de bout en bout avec le vrai serveur.
 - Coût d'équipe non modifiable (écran de choix partagé avec les autres modes).
+
+### v0.99.62
+- `punk17` Le Bûcheron (brigand1.png, pillard aléatoire npc:1), `southsol1` Le Cyclope d'or et `southsol2` Le Cracheur de feu (soldat-souther1/2.png, npc "souther", bonus de meute aussi avec Souther `emp`, dans `SOLDIERS()`). Noms et coups inventés par Claude. PZ punk17 [290,108,62], southsol1 [308,95,58], southsol2 [252,98,60].
+- `sbire-yuda6.png` (cheveux blancs, bandeau rouge, dague, « D » tatoué) : en attente, David ne sait plus qui c'est.
