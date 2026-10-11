@@ -227,3 +227,6 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 
 ### v0.99.44
 - Demande de David : plus aucun coup ne porte un nom de style. Jagi « Nanto Seiken » → Doigts du Nanto volé, Jackal « Nanto Bakusatsu Ken » → Ceinture de dynamite, Shuren « Gosha Enjō Ken » → Flammes du Gosha. Règle ajoutée au CLAUDE.md pour toutes les techniques.
+
+### v0.99.45
+- Nouvelles illus de David : Kenshiro (`maitre`), Mamiya, Toki (`sage`). Nettoyées avec clean.py, installées avec art.py. Cadrage PZ : maitre [240,113,80], mamiya [272,132,72], sage [269,92,75]. Vérifié en combat (PC + mobile).
