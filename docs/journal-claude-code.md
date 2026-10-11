@@ -275,3 +275,4 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - v0.99.72 : lore (David) : Fox = bras droit de Jackal. king-5 = Club + kingsol4 (unlock club seul), arc2-2 vague 1 = Jackal + Fox + punk5 (unlock jackal, fox, devil). Textes des 2 chapitres corrigés en 4 langues.
 - v0.99.73 : `kingsol5` Le Fumeur (homme de Heart), PZ [278,128,60]. sc_heart = ventre + kingsol5 + 1 punk. Bug corrigé : le pack king listait "heart" au lieu de l'id `ventre`. king-6 (duel contre Heart, règle fat) inchangé.
 - v0.99.74 : `kingsol6` Le Rieur de Heart (2e homme de Heart, batte), PZ [272,90,52]. sc_heart = ventre + kingsol5 + kingsol6.
+- v0.99.75 : kingsol2 nouvelle illustration, PZ [305,112,54].
