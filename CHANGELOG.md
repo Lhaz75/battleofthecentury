@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.68 — 2026-10-11
+
+- La Crinière (soldat de Ken-Oh) : illustration moins saturée, par Lhaz
+
 ## v0.99.67 — 2026-10-11
 
 - 4e soldat de Ken-Oh : La Crinière, masque grillagé et cobra doré de Ken-Oh sur le casque. Illustration de Lhaz

@@ -268,3 +268,4 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - v0.99.65 : kingsol1 dans king-3 (à la place de punk7) et dans sc_spade (spade + kingsol1 + 1 punk). David prépare un 2e homme de Spade (kingsol2 à venir).
 - v0.99.66 : `punk18` La Crête violette (pillard aléatoire, hache), PZ [335,140,58]. 18 pillards.
 - v0.99.67 : `kenohsol4` La Crinière (soldat de Ken-Oh ; le cobra doré est l'emblème de Ken-Oh, pas un nom), PZ [296,100,58].
+- v0.99.68 : kenohsol4 illustration moins saturée, PZ [296,90,58].
