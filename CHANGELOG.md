@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.49 — 2026-10-11
+
+- Nouvelle illustration de Yuda, par Lhaz
+
 ## v0.99.48 — 2026-10-11
 
 - Mamiya : son symbole devient 糸 (le fil de ses yo-yos) au lieu de 弓 (l'arc)
