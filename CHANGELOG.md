@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.89 — 2026-10-12
+
+- Combat : l'endurance de l'adversaire s'affiche (⚡) à côté de ses réactions, pour voir ce qu'il peut encore jouer. Idée de Jérôme R. et maxGfive
+- Défi du jour : quand c'est un défi contre des boss, les bonus de l'équipe adverse s'affichent (PV +25 %, rage au départ 3), comme pour le défi de la semaine. Merci Jérôme R.
+
 ## v0.99.88 — 2026-10-12
 
 - Beji et Giji, les jumeaux aux lames de l'armée de Souther, prêts pour l'arc de Souther. Illustrations de Lhaz
