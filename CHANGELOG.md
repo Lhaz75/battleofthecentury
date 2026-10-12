@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.90 — 2026-10-12
+
+- Les terres désolées (en test) : après un combat gagné (hors boss), 3 chances sur 10 de trouver une gourde et des bandages, qui rendent 3 PV à toute l'équipe. Idée de Jérôme R.
+- Quand le mode ouvrira à tous, il faudra au moins 8 persos débloqués pour partir
+
 ## v0.99.89 — 2026-10-12
 
 - Combat : l'endurance de l'adversaire s'affiche (⚡) à côté de ses réactions, pour voir ce qu'il peut encore jouer. Idée de Jérôme R. et maxGfive
