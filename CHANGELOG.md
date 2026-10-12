@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.92 — 2026-10-12
+
+- Terres désolées (en test), zone 2 plus corsée : on commence par le QG de la GOLAN (le Colonel et ses soldats), et Madara attend en sous-boss dans sa tanière juste avant Kiba Daioh. Idées de Jérôme R.
+- Village du vieil homme : une fois l'objet rare gagné, refaire le combat rapporte maintenant un objet commun ou peu commun
+- Ruban de Lin : le texte précise que l'effet ne se cumule pas. Signalé par Jérôme R.
+
 ## v0.99.91 — 2026-10-12
 
 - Terres désolées (en test) : les trouvailles de soin dépendent de la zone, plus généreuses au début pour se faire la main (Shin : 45 %, Mamiya : 35 %, ensuite 25 %). Idée de maxgfive
