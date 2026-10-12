@@ -293,3 +293,4 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - v0.99.88 : beji / giji (npc souther, clan nanto, art Lhaz).
 - v0.99.89 : chip ⚡ endurance adverse dans .res (s.endT posé avant banner() dans startTurn ; pendant son tour « reste/total », sinon total du dernier tour) ; bandeau du défi du jour (page défi) : bonus boss PV +25 % et rage 3 via .wkmods. Kaioh (Discord) : pas de triche, ses Lourds coûtent 1 de moins (passif) → 1+2+2+0 = 5.
 - v0.99.90 : terres désolées : RPG_FIND (30 %, +3 PV équipe, hors boss) dans rpgAfter ; RPG_PUBLIC=false + RPG_MIN_CHARS=8 (rpgReady, message dans hmEnter) pour l'ouverture à tous en v1.0 (accord de David, idée de Jérôme).
+- v0.99.91 : RPG_FIND_Z par zone (sc .45, mamiya .35, sinon RPG_FIND_DEF .25 ; idée maxgfive) ; .screen.board .res .rcnt nowrap/inline-flex + paysage bas : .res overflow visible, pastilles 11px (bug d'affichage paysage signalé par Jérôme)

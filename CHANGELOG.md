@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.91 — 2026-10-12
+
+- Terres désolées (en test) : les trouvailles de soin dépendent de la zone, plus généreuses au début pour se faire la main (Shin : 45 %, Mamiya : 35 %, ensuite 25 %). Idée de maxgfive
+- Combat sur mobile en paysage : les pastilles réactions et endurance de l'adversaire ne s'écrasent plus en hauteur. Signalé par Jérôme R.
+
 ## v0.99.90 — 2026-10-12
 
 - Les terres désolées (en test) : après un combat gagné (hors boss), 3 chances sur 10 de trouver une gourde et des bandages, qui rendent 3 PV à toute l'équipe. Idée de Jérôme R.
