@@ -26,4 +26,4 @@
 ## Arc de Souther (histoire + terres désolées) — à faire, persos prêts (v0.99.87)
 - **Shiba** (fils de Shu, `shiba`, pas jouable, `npc:"shu"` : +1 aux coups tant que Shu est debout) : à placer dans l'histoire et les terres désolées **après le premier combat Kenshiro contre Souther** (demande de David, 12 oct.).
 - **Galzus** (`galzus`, lieutenant de Souther, épisode 61 de l'anime : recrute, ment sur sa « sœur prisonnière de Souther », attaque le village de Suwannee) et son homme de main **La Lame de Galzus** (`galzsol`).
-- Soldats de Souther prêts : `southsol1` à `southsol7`. Gardes de Ken-Oh : `kenohsol5`, `kenohsol6` (pour l'arc / la zone de Ken-Oh).
+- Soldats de Souther prêts : `southsol1` à `southsol7`, et les jumeaux **Beji et Giji** (`beji`, `giji`, Nanto Sōzan Ken, chapitre 87 / épisode 62 : Souther les envoie tester Kenshiro AVANT leur premier combat ; Kenshiro touche leurs points Jikyūkyō, ils perdent la vue en relief et s'entretuent avec leurs lames). Gardes de Ken-Oh : `kenohsol5`, `kenohsol6` (pour l'arc / la zone de Ken-Oh).

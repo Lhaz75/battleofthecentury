@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.88 — 2026-10-12
+
+- Beji et Giji, les jumeaux aux lames de l'armée de Souther, prêts pour l'arc de Souther. Illustrations de Lhaz
+
 ## v0.99.87 — 2026-10-12
 
 - Nouveaux soldats de Souther : La Hache blanche, Le Coupe-coupe, Crête de sang, Le Juge et Le Canonnier
