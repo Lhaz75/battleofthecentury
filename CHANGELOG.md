@@ -2,6 +2,14 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.87 — 2026-10-12
+
+- Nouveaux soldats de Souther : La Hache blanche, Le Coupe-coupe, Crête de sang, Le Juge et Le Canonnier
+- Galzus, lieutenant de Souther, et son homme de main La Lame de Galzus
+- Nouveaux gardes de Ken-Oh : Le Bouclier du cobra et Le Lancier masqué
+- Nouveau pillard : La Fourrure
+- Shiba, le fils de Shu, est prêt pour l'arc de Souther (pas jouable). Illustrations de Lhaz
+
 ## v0.99.86 — 2026-10-12
 
 - Admin, page Cadrages sur téléphone : tout tient dans l'écran sans défiler. L'aperçu de l'onglet est à gauche du zoom et des flèches, sous l'image

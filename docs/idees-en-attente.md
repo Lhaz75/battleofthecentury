@@ -22,3 +22,8 @@
 - **Déjà faits (ne plus proposer)** : « Here comes a new challenger » (v0.37.0), combos souples (Enchaînement), relais gratuit au premier tour, image du Barrage de Yuda (v0.92.0), tutoriel proposé à la création de compte (v0.93.0), tutoriel mis à jour (v0.93.1), choix des cartes du deck (v0.95.0), magasin de persos préparé (v0.95.1), nouvelles illus Yuria/Asura/Rofu/Bat/Jagi/Zeed/Frieda (v0.95.7), Raoh et Asam jouables (v0.96.0), noms de techniques originaux + 69 techniques LEGENDS ReVIVE (v0.96.2-4), cadrage de l'ultime dans l'admin + images HD de l'ultime (assets/hd, liste HD) en attente des upscales de David, installeur Chatterbox fourni, chat Discord intégré (v0.97.5), accueil compacté + pseudo à côté de l'avatar + « Défier › » sur le compteur en ligne (v0.97.8-9), journal qui garde les dégâts quand un passif se déclenche (v0.97.14).
 
 - **Mis de côté (David, 11 oct.)** : finishers (plusieurs ultimes / rage orange-rouge), « Tsubo éclair » et tsubo « coup critique » sur les cartes (réservé à Hokuto = tout le monde jouerait Hokuto). Ne pas reproposer sauf si David relance.
+
+## Arc de Souther (histoire + terres désolées) — à faire, persos prêts (v0.99.87)
+- **Shiba** (fils de Shu, `shiba`, pas jouable, `npc:"shu"` : +1 aux coups tant que Shu est debout) : à placer dans l'histoire et les terres désolées **après le premier combat Kenshiro contre Souther** (demande de David, 12 oct.).
+- **Galzus** (`galzus`, lieutenant de Souther, épisode 61 de l'anime : recrute, ment sur sa « sœur prisonnière de Souther », attaque le village de Suwannee) et son homme de main **La Lame de Galzus** (`galzsol`).
+- Soldats de Souther prêts : `southsol1` à `southsol7`. Gardes de Ken-Oh : `kenohsol5`, `kenohsol6` (pour l'arc / la zone de Ken-Oh).
