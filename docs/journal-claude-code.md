@@ -302,3 +302,4 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - v0.99.94 (suite) : aiguilles de Jagi sans effet contre le boss mondial (Lourds et ultime), texte de la carte fr/en/it/ja
 - v0.99.94 (suite) : pickEvent() pondéré par EV_TONE et le tour (neg 1.5→0.5, pos 0.5→1.5 entre les tours 3 et 12) ; événement « Le barman » (solo:true, exclu du versus) : barmanOpen (fenêtre de choix), barmanAI, barmanGive ; image provisoire event-contrebande en attendant event-barman.webp de David
 - v0.99.94 (suite) : illustration du barman (event-barman.webp 920×460 + -t 240×120, recadrée au centre)
+- v0.99.94 (suite) : 7 PNJ (art Lhaz) : hueysol1-3 (npc:"huey", brigade du vent) et shurensol1-4 (npc:"shuren", brigade pourpre), coût 2, clan truands, bonus de meute avec huey/shuren, ajoutés à SOLDIERS(). Art de biao (Biao Bai-Feng) déjà posé (PZ/EYES/assets) mais perso pas encore défini.

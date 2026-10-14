@@ -14,6 +14,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 - Boss mondial : les aiguilles de Jagi n'ont plus aucun effet contre lui (avant, elles divisaient son ultime par deux). La carte le précise
 - Événements : au début du combat, ceux qui font mal sortent plus souvent ; vers la fin, ce sont ceux qui soignent ou aident. Idée de maxGfive
 - Nouvel événement (hors versus) : le barman. Tu lui donnes une carte de ta main : une attaque te rend autant de PV que ses dégâts, une autre carte te donne +1 rage. L'adversaire passe commande aussi. Idée de Jérôme R.
+- Nouveaux adversaires (illustrations de Lhaz) : la brigade du vent de Huey (Lance d'azur, Rafale, Le Zéphyr) et la brigade pourpre de Shuren (L'Archer ardent, La Lame pourpre, Le Bouclier de feu, La Pique écarlate). Leurs coups font +1 tant qu'un autre homme de la brigade ou leur chef est debout
 
 ## v0.99.93 — 2026-10-14
 
