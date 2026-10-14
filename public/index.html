@@ -3231,7 +3231,7 @@ const EVENTS = [
   {name:"Le barman",solo:true,text:"Un barman installe son comptoir au milieu des ruines. Donne-lui une carte : une attaque te rend autant de PV que ses dégâts, une autre carte te donne +1 rage. L'adversaire passe commande aussi.",run(){ S.barman=1; barmanAI("a"); }},   // idée de Jérôme R. : en solo seulement (choix du joueur dans une fenêtre)
   {name:"Tempête soudaine",text:"Le vent arrache tout : les deux camps défaussent leur main et repiochent 5.",run(){ ["p","a"].forEach(k=>{ const s=S[k]; s.disc.push(...s.hand); s.hand=[]; drawTo(s,5); }); }}
 ];
-const EV_IMG={"Le barrage cède": "barrage", "La horde à moto": "horde", "L'étoile de la mort": "etoile", "Effondrement des ruines": "effondrement", "Les soldats du tyran": "soldats", "Gourde d'eau": "gourde", "Puits asséché": "puits", "Retombées toxiques": "pluie", "Caravane de marchands": "caravane", "Vent de mort": "ventmort", "Village en flammes": "flammes", "Mur de sable": "mursable", "Sanctuaire oublié": "sanctuaire", "Tristesse": "tristesse", "Source cachée": "source", "Contrebandiers": "contrebande", "Les vautours": "vautours", "Pillards voleurs d'eau": "pillards", "L'ombre du conquérant": "conquerant", "Bandits en déroute": "bandits", "Tempête soudaine": "tempete", "Le barman": "contrebande"};
+const EV_IMG={"Le barrage cède": "barrage", "La horde à moto": "horde", "L'étoile de la mort": "etoile", "Effondrement des ruines": "effondrement", "Les soldats du tyran": "soldats", "Gourde d'eau": "gourde", "Puits asséché": "puits", "Retombées toxiques": "pluie", "Caravane de marchands": "caravane", "Vent de mort": "ventmort", "Village en flammes": "flammes", "Mur de sable": "mursable", "Sanctuaire oublié": "sanctuaire", "Tristesse": "tristesse", "Source cachée": "source", "Contrebandiers": "contrebande", "Les vautours": "vautours", "Pillards voleurs d'eau": "pillards", "L'ombre du conquérant": "conquerant", "Bandits en déroute": "bandits", "Tempête soudaine": "tempete", "Le barman": "barman"};
 const EV_TONE={"Le barrage cède":"neu","La horde à moto":"neg","L'étoile de la mort":"neg","Effondrement des ruines":"neu","Les soldats du tyran":"neg","Gourde d'eau":"pos","Puits asséché":"neg","Retombées toxiques":"neg","Caravane de marchands":"pos","Vent de mort":"pos","Village en flammes":"neu","Mur de sable":"neu","Sanctuaire oublié":"neu","Tristesse":"pos","Source cachée":"pos","Contrebandiers":"pos","Les vautours":"neg","Pillards voleurs d'eau":"neg","L'ombre du conquérant":"neg","Bandits en déroute":"pos","Tempête soudaine":"neu","Le barman":"pos"};
 const TERRAINS = {
   desert:{name:"Désert brûlant",text:"Lourds +2. Chaque tour commence avec 1 endurance en moins."},
@@ -5666,7 +5666,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261014164149";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261014180824";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
