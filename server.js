@@ -54,7 +54,8 @@ setInterval(() => {
 const store = process.env.DATABASE_URL ? pgStore(process.env.DATABASE_URL) : jsonStore(process.env.ACCOUNTS_FILE || path.join(__dirname, "data", "accounts.json"));
 const ready = store.init().then(() => console.log("Comptes : stockage", store.kind)).catch(e => console.error("Comptes : erreur d'init", e.message));
 const VERSION = (() => { try { return require("./package.json").version; } catch (e) { return "0"; } })();
-const accounts = makeAccounts({ version: VERSION, ready, store, getDuel: code => docs["duels/" + code] || null, hasDuel: code => !!docs["duels/" + code] });
+const BUILD = (() => { try { return require("./package.json").build || ""; } catch (e) { return ""; } })();
+const accounts = makeAccounts({ version: VERSION, build: BUILD, ready, store, getDuel: code => docs["duels/" + code] || null, hasDuel: code => !!docs["duels/" + code] });
 
 // ---------- messages vocaux du chat versus (en mémoire, 2 h) ----------
 const voices = new Map(); let voiceBytes = 0; const voiceRate = new Map();

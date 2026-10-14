@@ -6,6 +6,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 - Terres désolées, équipement : plus de barre de confirmation en bas. Touche un objet (sac ou emplacement) et sa fiche s'ouvre juste dessus, avec les boutons Équiper / Utiliser / Retirer / Jeter. Une croix ou un tap à côté la ferme
 - Survole un objet sur PC, ou garde le doigt appuyé sur mobile, pour voir ses effets sans le choisir. Idées de maxgfive
+- Les corrections d'une même journée sont maintenant regroupées sous un seul numéro de version : le bandeau « Nouvelle version disponible » s'affiche quand même à chaque mise en ligne
 
 ## v0.99.93 — 2026-10-14
 

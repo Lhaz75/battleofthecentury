@@ -212,7 +212,7 @@ function pgStore(url, PgPool) {
 }
 
 // ---------------- logique ----------------
-function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
+function makeAccounts({ store, getDuel, hasDuel, version, build, ready }) {
   // administrateurs : pseudos listés dans la variable ADMINS (séparés par des virgules)
   const ADMINS = new Set(String(process.env.ADMINS || "").split(",").map(x => x.trim().toLowerCase()).filter(Boolean));
   const isAdmin = u => !!u && ADMINS.has(String(u.name).toLowerCase());
@@ -718,7 +718,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, ready }) {
       return [200, { online: onlineList() }];
     },
     "GET /api/online": async () => [200, { online: onlineList() }],
-    "GET /api/status": async () => [200, { version, maintenance: { on: maintOn(), msg: maint.msg, forced: process.env.MAINTENANCE === "1" } }],
+    "GET /api/status": async () => [200, { version, build, maintenance: { on: maintOn(), msg: maint.msg, forced: process.env.MAINTENANCE === "1" } }],
     "GET /api/rpgcfg": async () => [200, { ok: true, cfg: RPG_CFG }],
     "POST /api/admin/rpgcfg": async (req, body) => {
       const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];

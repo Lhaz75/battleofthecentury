@@ -15,7 +15,7 @@ Les idées en cours et le backlog sont dans :
 ## Comment travailler avec David
 
 - Il parle français argotique, réponses courtes et directes, pas de blabla. Rapports de bug en rafale, un par un.
-- **Chaque modif = une version** : nouvelle entrée en tête de `CHANGELOG` dans `public/index.html`, textes en **FR / EN / IT / JA**, puis `python3 tools/export_public.py`, commit, push sur `main` (Render redéploie tout seul).
+- **Une version par jour** (décidé le 14 oct. 2026) : la 1re modif du jour crée une nouvelle entrée en tête de `CHANGELOG` dans `public/index.html` (dernier chiffre +1 : 0.99.95, 0.99.96… puis 0.99.100, 0.99.101, on ne passe **jamais** à 1.0 avant la sortie officielle) ; les modifs suivantes du même jour **ajoutent leurs lignes à cette même entrée** (fr/en/it/ja) sans changer le numéro. Textes en **FR / EN / IT / JA**, puis `python3 tools/export_public.py` (il écrit aussi un `build` horodaté dans package.json et `APP_BUILD` : c'est lui qui fait apparaître « Nouvelle version disponible » aux joueurs même si le numéro ne change pas), commit, push sur `main` (Render redéploie tout seul).
 - **Vérifier soi-même avant de dire « c'est fait »** : captures Playwright (PC, mobile portrait, mobile paysage).
 - Crédite les testeurs dans le changelog quand l'idée/le bug vient d'eux (maxGfive, Jérôme R., Mordikar).
 - Envoie les fichiers en vrac, **pas de zip**.
