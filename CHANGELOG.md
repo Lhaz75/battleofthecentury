@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.93 — 2026-10-14
+
+- Terres désolées sur téléphone : l'écran d'équipement tient sur un écran (emplacements sur 2 colonnes, sac compact) et l'objet choisi s'affiche en bas avec ses boutons. La page ne remonte plus en haut à chaque tap
+- Sur la carte, la fiche de l'étape choisie (avec Combattre) arrive juste sous la carte, avant l'équipe. Signalé par Jérôme R.
+
 ## v0.99.92 — 2026-10-12
 
 - Terres désolées (en test), zone 2 plus corsée : on commence par le QG de la GOLAN (le Colonel et ses soldats), et Madara attend en sous-boss dans sa tanière juste avant Kiba Daioh. Idées de Jérôme R.
