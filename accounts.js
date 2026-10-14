@@ -605,7 +605,8 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready }) {
     // arcade : la tour, un étage à la fois dans l'ordre ; le combat secret (bonus) est facultatif, une fois par montée
     "POST /api/arc": async (req, body) => {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
-      const floor = Math.floor(+body.floor), won = !!body.win, bonus = !!body.bonus, st = u.stats, N = 8;
+      const tw = ["s", "c", "l"].includes(body.tower) ? body.tower : "c", N = { s: 5, c: 8, l: 12 }[tw], TOPB = { s: 20, c: 40, l: 80 }[tw];   // 3 tours : courte, classique, légende
+      const floor = Math.floor(+body.floor), won = !!body.win, bonus = !!body.bonus, st = u.stats;
       if (!(floor >= 1 && floor <= N)) return [400, { error: "bad" }];
       const now = Date.now();
       if (bonus) {
@@ -616,11 +617,12 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready }) {
       }
       if (!won) { st.arcRun = 0; st.arcBonusRun = 0; await store.saveStats(u.id, st); return [200, { user: pubUser(u), gain: 0 }]; }
       if (now - (lastArc.get(u.id) || 0) < 20000) return [429, { error: "slow" }];
-      if (floor !== 1 && floor !== (st.arcRun || 0) + 1) return [409, { error: "bad" }];
-      if (floor === 1) st.arcBonusRun = 0;
+      if (floor !== 1 && (floor !== (st.arcRun || 0) + 1 || (st.arcTw || "c") !== tw)) return [409, { error: "bad" }];
+      if (floor === 1) { st.arcBonusRun = 0; st.arcTw = tw; }
       lastArc.set(u.id, now);
-      let gain = 5 + 3 * floor; if (floor === N) { gain += 40; st.arcClears = (st.arcClears || 0) + 1; }
-      st.arcRun = floor === N ? 0 : floor; st.arc = Math.max(st.arc || 0, floor); st.pts += gain; bumpFav(st, body.team);
+      let gain = (tw === "s" ? 3 : 5) + 3 * floor; if (floor === N) { gain += TOPB; st.arcClears = (st.arcClears || 0) + 1; }
+      const bk = tw === "s" ? "arcS" : tw === "l" ? "arcL" : "arc";
+      st.arcRun = floor === N ? 0 : floor; st[bk] = Math.max(st[bk] || 0, floor); st.pts += gain; bumpFav(st, body.team);
       const ach = achCheck(st, body.feats);
       await store.saveStats(u.id, st);
       return [200, { user: pubUser(u), gain, ach }];

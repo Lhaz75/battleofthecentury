@@ -7,6 +7,10 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 - Terres désolées, équipement : plus de barre de confirmation en bas. Touche un objet (sac ou emplacement) et sa fiche s'ouvre juste dessus, avec les boutons Équiper / Utiliser / Retirer / Jeter. Une croix ou un tap à côté la ferme
 - Survole un objet sur PC, ou garde le doigt appuyé sur mobile, pour voir ses effets sans le choisir. Idées de maxgfive
 - Les corrections d'une même journée sont maintenant regroupées sous un seul numéro de version : le bandeau « Nouvelle version disponible » s'affiche quand même à chaque mise en ligne
+- Terres désolées (en test) : après chaque combat gagné, tes persos debout récupèrent 15 % de leurs PV max. Et les ultimes des sbires (pillards, soldats) tapent 25 % moins fort que ceux des chefs. Retour de maxGfive
+- Mode histoire, arc 2 : objectifs des étoiles assouplis (un peu plus de tours, de PV perdus ou gardés), et en difficile les adversaires de l'arc 2 ont +10 % de PV au lieu de +20 %
+- Dojo : après Maître, tous les 8 points tu gagnes une étoile de Maître (Maître ★1, ★2…), et les disciples deviennent plus coriaces à chaque étoile
+- Arcade : trois tours au choix. La tour du désert (5 étages, plus facile), la tour des écoles (les 8 étages habituels) et la tour des légendes (12 étages, IA plus dure, un combattant secret au sommet). Idées de maxGfive
 
 ## v0.99.93 — 2026-10-14
 
