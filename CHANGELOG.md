@@ -11,6 +11,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 - Mode histoire, arc 2 : objectifs des étoiles assouplis (un peu plus de tours, de PV perdus ou gardés), et en difficile les adversaires de l'arc 2 ont +10 % de PV au lieu de +20 %
 - Dojo : après Maître, tous les 8 points tu gagnes une étoile de Maître (Maître ★1, ★2…), et les disciples deviennent plus coriaces à chaque étoile
 - Arcade : trois tours au choix. La tour du désert (5 étages, plus facile), la tour des écoles (les 8 étages habituels) et la tour des légendes (12 étages, IA plus dure, un combattant secret au sommet). Idées de maxGfive
+- Boss mondial : les aiguilles de Jagi n'ont plus aucun effet contre lui (avant, elles divisaient son ultime par deux). La carte le précise
 
 ## v0.99.93 — 2026-10-14
 
