@@ -16,6 +16,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 - Nouvel événement (hors versus) : le barman. Tu lui donnes une carte de ta main : une attaque te rend autant de PV que ses dégâts, une autre carte te donne +1 rage. L'adversaire passe commande aussi. Idée de Jérôme R.
 - Nouveaux adversaires (illustrations de Lhaz) : la brigade du vent de Huey (Lance d'azur, Rafale, Le Zéphyr) et la brigade pourpre de Shuren (L'Archer ardent, La Lame pourpre, Le Bouclier de feu, La Pique écarlate). Leurs coups font +1 tant qu'un autre homme de la brigade ou leur chef est debout
 - Nouveau perso en boutique (illustration de Lhaz) : Biao Baifeng, le « Démon blanc » de Soten no Ken, premier disciple de Wei Ruiying au Kyokujūji Seiken. Son tout premier coup du combat fait +4. Lien « Frères d'armes » avec Liu Feiyan : +2 PV max chacun
+- Événements moins mortels (retour de maxGfive) : « Les vautours » ne retirent plus 2 PV, ils mettent tes coups à -1 pendant un tour ; « Pillards voleurs d'eau » ne retirent plus 4 PV, ils coûtent 2 endurance au prochain tour
 
 ## v0.99.93 — 2026-10-14
 

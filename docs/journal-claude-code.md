@@ -304,3 +304,4 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - v0.99.94 (suite) : illustration du barman (event-barman.webp 920×460 + -t 240×120, recadrée au centre)
 - v0.99.94 (suite) : 7 PNJ (art Lhaz) : hueysol1-3 (npc:"huey", brigade du vent) et shurensol1-4 (npc:"shuren", brigade pourpre), coût 2, clan truands, bonus de meute avec huey/shuren, ajoutés à SOLDIERS(). Art de biao (Biao Bai-Feng) déjà posé (PZ/EYES/assets) mais perso pas encore défini.
 - v0.99.94 (suite) : Biao Baifeng jouable (boutique : CHAR_SHOP + SHOP_LIST serveur, coût 3, clan nanto) : passif premier coup +4 (s.biaoHit), spéciale « L'étoile de la mort » (+4 rage, pioche 1, -3 PV), lien biaofeiyan (+2 PV max)
+- v0.99.94 (suite) : événements Les vautours (s.vult : coups -1 pendant un tour, décrémenté au début de tour) et Pillards voleurs d'eau (drain +2 au lieu de -4 PV), textes fr/en/it/ja + clés TX/TXJA (retour maxGfive)
