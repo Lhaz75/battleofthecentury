@@ -12,6 +12,8 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 - Dojo : après Maître, tous les 8 points tu gagnes une étoile de Maître (Maître ★1, ★2…), et les disciples deviennent plus coriaces à chaque étoile
 - Arcade : trois tours au choix. La tour du désert (5 étages, plus facile), la tour des écoles (les 8 étages habituels) et la tour des légendes (12 étages, IA plus dure, un combattant secret au sommet). Idées de maxGfive
 - Boss mondial : les aiguilles de Jagi n'ont plus aucun effet contre lui (avant, elles divisaient son ultime par deux). La carte le précise
+- Événements : au début du combat, ceux qui font mal sortent plus souvent ; vers la fin, ce sont ceux qui soignent ou aident. Idée de maxGfive
+- Nouvel événement (hors versus) : le barman. Tu lui donnes une carte de ta main : une attaque te rend autant de PV que ses dégâts, une autre carte te donne +1 rage. L'adversaire passe commande aussi. Idée de Jérôme R.
 
 ## v0.99.93 — 2026-10-14
 
