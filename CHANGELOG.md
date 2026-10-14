@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.94 — 2026-10-14
+
+- Terres désolées, équipement : plus de barre de confirmation en bas. Touche un objet (sac ou emplacement) et sa fiche s'ouvre juste dessus, avec les boutons Équiper / Utiliser / Retirer / Jeter. Une croix ou un tap à côté la ferme
+- Survole un objet sur PC, ou garde le doigt appuyé sur mobile, pour voir ses effets sans le choisir. Idées de maxgfive
+
 ## v0.99.93 — 2026-10-14
 
 - Terres désolées sur téléphone : l'écran d'équipement tient sur un écran (emplacements sur 2 colonnes, sac compact) et l'objet choisi s'affiche en bas avec ses boutons. La page ne remonte plus en haut à chaque tap
