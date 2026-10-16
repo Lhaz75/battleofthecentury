@@ -147,7 +147,10 @@ wss.on("connection", (ws, req) => {
     if (m.op === "get") return reply({ op: "ok", ...snap(p) });
     if ((m.op === "set" || m.op === "update") && m.data && typeof m.data === "object") {
       if (m.op === "update" && !docs[p]) return reply({ op: "err", code: "invalid_argument" });
-      docs[p] = m.op === "set" ? { ...m.data, _t: Date.now() } : { ...docs[p], ...m.data, _t: Date.now() };
+      const prev = docs[p], t = Date.now();
+      docs[p] = m.op === "set" ? { ...m.data, _t: t } : { ...prev, ...m.data, _t: t };
+      // _s : dernier coup joué (le chat ne compte pas), pour repérer un adversaire qui a fermé la page
+      docs[p]._s = "state" in m.data && (!prev || prev.state !== m.data.state) ? t : (prev && prev._s) || t;
       dirty = true;
       reply({ op: "ok" });
       return broadcast(p);

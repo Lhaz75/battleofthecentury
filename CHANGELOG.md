@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.95 — 2026-10-16
+
+- Combat contre l'IA abandonné en fermant la page : il compte maintenant comme une défaite (série remise à zéro) au combat suivant. Le bouton Quitter le comptait déjà
+- Versus : si ton adversaire ferme la page ou perd sa connexion, un bouton « Réclamer la victoire » apparaît après environ 1 min 40 sans qu'il joue. Victoire par abandon, points et Elo comme une vraie victoire. Question de maxgfive
+
 ## v0.99.94 — 2026-10-14
 
 - Terres désolées, équipement : plus de barre de confirmation en bas. Touche un objet (sac ou emplacement) et sa fiche s'ouvre juste dessus, avec les boutons Équiper / Utiliser / Retirer / Jeter. Une croix ou un tap à côté la ferme

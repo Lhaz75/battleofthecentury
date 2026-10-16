@@ -551,10 +551,20 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready }) {
     },
     "POST /api/result": async (req, body) => {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      const st = u.stats, now = Date.now();
+      // début d'un combat contre l'IA : si le précédent n'a jamais été terminé (page fermée en cours de route), il compte comme une défaite
+      if (body.mode === "open") {
+        const was = st.soloOpen && now - st.soloOpen < 6 * 3600e3;
+        if (was) { st.aiL++; streak(st, false); }
+        st.soloOpen = now; await store.saveStats(u.id, st);
+        return [200, { user: pubUser(u), abandoned: !!was }];
+      }
+      if (body.mode === "close") { if (st.soloOpen) { delete st.soloOpen; await store.saveStats(u.id, st); } return [200, { ok: true }]; }   // victoire admin (bouton WIN) : combat fermé sans résultat
       if (body.mode !== "solo") return [400, { error: "mode" }];
-      const now = Date.now(); if (now - (lastSolo.get(u.id) || 0) < 45000) return [429, { error: "slow" }];
+      if (st.soloOpen) { delete st.soloOpen; await store.saveStats(u.id, st); }
+      if (now - (lastSolo.get(u.id) || 0) < 45000) return [429, { error: "slow" }];
       lastSolo.set(u.id, now);
-      const st = u.stats, won = !!body.win;
+      const won = !!body.win;
       const LV = { easy: [5, 1], norm: [10, 2], hard: [15, 3], hokuto: [20, 4] }, lv = LV[body.lv] ? body.lv : "norm", gain = LV[lv][won ? 0 : 1];
       if (won) st.aiW++; else st.aiL++; st.pts += gain;
       streak(st, won); bumpFav(st, body.team);
@@ -711,6 +721,22 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready }) {
       const me = await store.byId(u.id);
       const ach = achCheck(me.stats, loser !== role ? body.feats : []); if (ach.length) await store.saveStats(me.id, me.stats);
       return [200, { user: pubUser(me), ach }];
+    },
+    // adversaire disparu (page fermée) : plus aucun coup depuis 90 s alors que c'est à lui de jouer → victoire réclamée
+    "POST /api/match/claim": async (req, body) => {
+      const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      const code = String(body.code || ""); const m = matches.get(code);
+      if (!m) return [404, { error: "nomatch" }]; if (m.done) return [409, { error: "done" }];
+      const role = m.host === u.id ? "host" : m.guest === u.id ? "guest" : null; if (!role) return [403, { error: "role" }];
+      const d = getDuel(code); if (!d || !d.state) return [404, { error: "nomatch" }];
+      if (Date.now() - (d._s || d._t || 0) < 90000) return [409, { error: "active" }];
+      let st; try { st = JSON.parse(d.state); } catch (e) { return [409, { error: "bad" }]; }
+      if (!st || st.over) return [409, { error: "over" }];
+      if (!st.pending && st.turn === (role === "host" ? "p" : "a")) return [409, { error: "yourturn" }];
+      const other = role === "host" ? "guest" : "host";
+      await settle(code, other);
+      const me = await store.byId(u.id);
+      return [200, { ok: true, user: pubUser(me) }];
     },
     // présence : chaque client connecté pingue toutes les 30 s
     "POST /api/ping": async (req, body) => {
