@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.95 — 2026-10-16
 
+- Personnages renommés d'après le manga/anime (illustrations de Lhaz) : Le Grand Couperet devient Golem, Le Rabatteur devient Shikaba (hommes de Yuda), Le Coupe-coupe devient Belga et Le Juge devient Bull (armée de Souther)
 - Combat contre l'IA abandonné en fermant la page : il compte maintenant comme une défaite (série remise à zéro) au combat suivant. Le bouton Quitter le comptait déjà
 - Versus : si ton adversaire ferme la page ou perd sa connexion, un bouton « Réclamer la victoire » apparaît après environ 1 min 40 sans qu'il joue. Victoire par abandon, points et Elo comme une vraie victoire. Question de maxgfive
 
