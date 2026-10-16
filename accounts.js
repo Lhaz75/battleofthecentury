@@ -2,7 +2,7 @@
 // Stockage : Postgres si DATABASE_URL est défini (Neon), sinon un fichier JSON local (dev / secours).
 const crypto = require("crypto");
 // ordre des chapitres du mode histoire (king-9 = interlude Barcom, joué avant le combat contre Shin)
-const STORY_TEST = /^arc2-/;   // arcs en test (lecture seule pour les joueurs) : vider la regex (/^$/) pour ouvrir
+const STORY_TEST = /^arc2-(?![12]$)/;   // arcs en test (lecture seule pour les joueurs) : vider la regex (/^$/) pour ouvrir
 // magasin de persos : prix selon le coût (fighters.json) ; persos de départ et persos de l'histoire exclus (à garder en phase avec CHAR_START / STORY_CH dans index.html)
 const SHOP_START = new Set(["maitre", "sage", "linh", "bat", "vieux", "dans", "huey", "shuren", "nuage", "shachi", "shoki", "general", "mamiya", "ein", "rima", "bella"]);
 const SHOP_STORY = new Set(["zeed", "ventre", "spade", "sarge", "colonel", "rival", "madara", "kiba", "joker", "jackal", "devil", "fourbe", "diamond", "club", "fox", "barcom", "amiba", "demon", "hyo", "boltz", "taiga", "solia", "uighur"]);
@@ -86,7 +86,7 @@ function rpgWithin(n, cur) {
   for (const x of all(n)) { const c = have.get(x) || 0; if (!c) return false; have.set(x, c - 1); }
   return true;
 }
-const STORY_ORDER = ["king-0", "king-1", "king-2", "king-3", "king-4", "king-5", "king-6", "king-7", "king-9", "king-8", "arc2-1", "arc2-2", "arc2-3", "arc2-4", "arc2-5", "arc2-6", "arc2-7", "arc2-8", "arc2-9", "arc2-10", "arc2-11", "arc2-12", "arc2-13", "arc2-14", "arc2-15", "arc2-16"];
+const STORY_ORDER = ["king-0", "king-1", "king-2", "king-3", "king-4", "king-5", "king-6", "king-7", "arc2-1", "king-10", "arc2-2", "king-11", "king-12", "king-13", "king-9", "king-8", "arc2-3", "arc2-4", "arc2-5", "arc2-6", "arc2-7", "arc2-8", "arc2-9", "arc2-10", "arc2-11", "arc2-12", "arc2-13", "arc2-14", "arc2-15", "arc2-16"];
 const fs = require("fs");
 const path = require("path");
 
