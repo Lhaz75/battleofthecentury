@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.95 — 2026-10-16
 
+- Nouvelles animations : un soin fait pulser un halo vert sur le portrait avec des petites croix qui montent, et la barre de PV se remplit en douceur. Un bonus d'endurance allume les losanges un par un en doré, un malus les fait trembler, virer au rouge et éclater
 - Terres désolées, zone 1 (Southern Cross) plus accueillante : +25 % de PV après chaque victoire (au lieu de 15 %), sbires 15 % moins costauds, et Spade n'est plus escorté que par Trey et un punk de KING. Retour de Jérôme R.
 - Plus aucun événement ne peut tuer : la horde à moto fait toujours 3 dégâts aux deux combattants, mais sans les faire tomber sous 1 PV
 - Événement « L'étoile de la mort » : toujours -3 PV et +4 rage, mais le combattant ne tombe plus jamais sous 1 PV. Idée de Jérôme R.
