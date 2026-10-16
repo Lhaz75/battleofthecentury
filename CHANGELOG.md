@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.95 — 2026-10-16
 
+- Histoire, arc 2 (en test) : le chapitre « La cité des pleurs » devient « L'effondrement de Cassandra » : l'escouade suicide de Ken-Oh, puis Bulg (l'ancien Kazim, renommé par Lhaz)
 - Histoire, arc 2 (en test) : nouveau chapitre « Les hommes-bêtes » avec Goda, l'Homme-Serpent et l'Homme-Mante, les cobayes d'Amiba (illustrations de Lhaz)
 - Histoire, arc 2 (en test) : nouveau chapitre « Le duel forcé », Kenshiro contre Rei sous les yeux de Kiba Daioh, et Toki affronte maintenant Ken-Oh entre Rei et Kenshiro dans le chapitre Ken-Oh
 - Histoire, arc 1 complété d'après l'anime : 4 nouveaux chapitres (Le dieu Dragon, Le médecin du volcan avec Dante, La cloche de Zaria, Scorpions contre Serpents avec Baron et Junk), qui débloquent Dragon, Dante, Zaria, Baron et Junk. La GOLAN et Jackal passent dans l'arc 1, à leur place dans l'histoire. L'arc 1 compte maintenant 16 chapitres
