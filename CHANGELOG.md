@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.96 — 2026-10-17
 
+- Histoire, arc 2 (en test) : les trois derniers jours de Rei, en 5 chapitres : La cité des remèdes (Galf), Le château de Yuda (Dagar), Blue Town, Le raid sur le village, puis Rei contre Yuda sur le barrage, avec Komak (illustration de Lhaz). L'arc 2 est maintenant complet
 - Histoire, arc 2 (en test) : nouveau chapitre « La vengeance de Gibara » avec Kemada, Gibara et Gojiba, du clan Kiba
 - Nouveaux adversaires : Mojo et Hank, punks de KING, et Bakuto, kamikaze de l'escouade suicide de Ken-Oh (il rejoint Bulg dans « L'effondrement de Cassandra »)
 - Nouvelles illustrations pour Han et pour l'événement du barman. Illustrations de Lhaz
