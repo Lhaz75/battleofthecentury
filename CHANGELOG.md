@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.95 — 2026-10-16
 
+- Tous les sbires ont maintenant un vrai nom propre au lieu d'un surnom (Le Fléau, La Pioche…). Par exemple : pillards Lardo, Butch, Odin, Yeti ; clan Kiba Garu, Rōga, Kōga ; hommes de KING Deuce, Trey, Pappas ; armée de Ken-Oh Garma, Zangi, Akagi ; GOLAN Krieg, Hartmann, Volkov. Demande de Lhaz
 - 6 punks à la solde de KING : La Langue verte, Le Gros Collecteur, Crête jaune, Le Boulet rouge, Crête bleue et La Muselière (bonus de meute avec les hommes de KING). Terres désolées : ce sont eux qui font la tournée du tribut au village, 3 au hasard. Illustrations de Lhaz
 - Nouveau soldat de Ken-Oh : Le Garde rouge. Nouvelle illustration pour Loup bleu (clan Kiba). Illustrations de Lhaz
 - Personnages renommés d'après le manga/anime (illustrations de Lhaz) : Le Grand Couperet devient Golem, Le Rabatteur devient Shikaba (hommes de Yuda), Le Coupe-coupe devient Belga et Le Juge devient Bull (armée de Souther)
