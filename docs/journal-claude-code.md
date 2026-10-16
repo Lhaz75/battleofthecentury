@@ -311,3 +311,4 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - v0.99.95 (suite) : kingpunk1-6 (npc:"king", coût 1, PV 17-20, art Lhaz) ; KING_PUNKS() ; rpgFoe passe un 3e paquet (punks de KING) ; sc_village foe:(p,k,t)=>t.slice(0,3) ; guides : marqueur "T" + rpgG_kpunks
 - v0.99.95 (suite) : 74 sbires renommés en noms propres (demande de David : pas de surnoms type « La Pioche ») ; nouvelles clés TX/TXJA (katakana) ; histoire club « Le Patriarche » → Pappas dans les 4 langues. D:\BOTC : correspondances.csv à jour + Outils\Renommer les sbires.bat pour renommer les fichiers. RÈGLE : nouveaux sbires = nom propre
 - v0.99.95 (suite) : nouvel art zeed (PZ [282,66,80]) ; bande de Zeed zeedsol1 Bronco / zeedsol2 Ziggy (npc:"zeed", pack avec zeed, ajoutés à SOLDIERS) ; sc_zeed et histoire king-2 : zeed + zeedsol1 + zeedsol2
+- v0.99.95 (suite) : arts détourés (fond transparent) de kenohsol3/4, galf2, qasim, zarqa ; punk15 redessiné ; PZ refaits pour punk15/qasim/zarqa
