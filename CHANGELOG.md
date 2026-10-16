@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.95 — 2026-10-16
 
+- Événement « L'étoile de la mort » : toujours -3 PV et +4 rage, mais le combattant ne tombe plus jamais sous 1 PV. Idée de Jérôme R.
 - Illustrations détourées proprement (vrai fond transparent) : Borgu, Ogon, Qasim et Zarqa (armée de Ken-Oh), Kell (hommes de Galf) et Grimm, redessiné (pillards). Merci Lhaz
 - Nouvelle illustration pour Zeed, et sa bande a enfin des visages : Bronco et Ziggy (bonus de meute avec Zeed). On les affronte avec lui dans l'histoire et au premier combat des terres désolées. Illustrations de Lhaz
 - Tous les sbires ont maintenant un vrai nom propre au lieu d'un surnom (Le Fléau, La Pioche…). Par exemple : pillards Lardo, Butch, Odin, Yeti ; clan Kiba Garu, Rōga, Kōga ; hommes de KING Deuce, Trey, Pappas ; armée de Ken-Oh Garma, Zangi, Akagi ; GOLAN Krieg, Hartmann, Volkov. Demande de Lhaz
