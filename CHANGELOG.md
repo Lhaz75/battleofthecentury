@@ -4,7 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.95 — 2026-10-16
 
-- Histoire, arc 2, chapitre 1 : au 2e combat, le Colonel de la GOLAN t'attend seul
+- Histoire, arc 2, chapitre 1 : au 2e combat, le Colonel de la GOLAN t'attend seul, mais bien plus coriace (PV ×2,6)
 - Effets de combat : la jauge de rage crache des flammes et le bouton Ultime s'embrase quand il est prêt ; un portrait K.O. se fissure et passe en gris, et le combattant suivant entre en glissant ; un nouveau terrain s'annonce en bannière ; le combo affiche un gros compteur de coups qui tremble, prend feu dès 3 et se déchaîne à 5 ; le butin des terres désolées se retourne carte par carte avec l'éclat de sa rareté
 - Nouvelles animations : un soin fait pulser un halo vert sur le portrait avec des petites croix qui montent, et la barre de PV se remplit en douceur. Un bonus d'endurance allume les losanges un par un en doré, un malus les fait trembler, virer au rouge et éclater
 - Terres désolées, zone 1 (Southern Cross) plus accueillante : +25 % de PV après chaque victoire (au lieu de 15 %), sbires 15 % moins costauds, et Spade n'est plus escorté que par Trey et un punk de KING. Retour de Jérôme R.
