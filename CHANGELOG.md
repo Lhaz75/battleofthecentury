@@ -4,6 +4,8 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.95 — 2026-10-16
 
+- Terres désolées, zone 1 (Southern Cross) plus accueillante : +25 % de PV après chaque victoire (au lieu de 15 %), sbires 15 % moins costauds, et Spade n'est plus escorté que par Trey et un punk de KING. Retour de Jérôme R.
+- Plus aucun événement ne peut tuer : la horde à moto fait toujours 3 dégâts aux deux combattants, mais sans les faire tomber sous 1 PV
 - Événement « L'étoile de la mort » : toujours -3 PV et +4 rage, mais le combattant ne tombe plus jamais sous 1 PV. Idée de Jérôme R.
 - Illustrations détourées proprement (vrai fond transparent) : Borgu, Ogon, Qasim et Zarqa (armée de Ken-Oh), Kell (hommes de Galf) et Grimm, redessiné (pillards). Merci Lhaz
 - Nouvelle illustration pour Zeed, et sa bande a enfin des visages : Bronco et Ziggy (bonus de meute avec Zeed). On les affronte avec lui dans l'histoire et au premier combat des terres désolées. Illustrations de Lhaz
