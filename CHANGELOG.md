@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.96 — 2026-10-17
+
+- Histoire, arc 2 (en test) : nouveau chapitre « La vengeance de Gibara » avec Kemada, Gibara et Gojiba, du clan Kiba
+- Nouveaux adversaires : Mojo et Hank, punks de KING, et Bakuto, kamikaze de l'escouade suicide de Ken-Oh (il rejoint Bulg dans « L'effondrement de Cassandra »)
+- Nouvelles illustrations pour Han et pour l'événement du barman. Illustrations de Lhaz
+
 ## v0.99.95 — 2026-10-16
 
 - Histoire, arc 2 (en test) : le chapitre « La cité des pleurs » devient « L'effondrement de Cassandra » : l'escouade suicide de Ken-Oh, puis Bulg (l'ancien Kazim, renommé par Lhaz)

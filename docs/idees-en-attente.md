@@ -37,8 +37,5 @@ Recherche faite (sources : hokuto.fandom, rq87.flyingomelette, ja.wikipedia 拳�
 - **Daruka** (16 oct., image dans D:\A TRAITER) : chef de bande, Kazan Kakutei Harite (manga ch. 113, anime ép. 89). Juza lui casse la nuque et prend ses captives et sa nourriture. Arc Juza / Gosha (l'armée de Raoh contre le Nanto).
 - **Daruja** (16 oct., image dans D:\A TRAITER) : capitaine de l'escadron d'exécution de la Zone X, au service de Jakoh, masse (manga ch. 136½). Il tue Shoza, crève l'œil gauche de Kokuoh, et finit tué par Kenshiro (Hokuto Sengoku Rakki Ken). Arc de l'empire de Ten (Hokuto no Ken 2).
 
-## Persos à dessiner pour l'histoire, arc 2 (16 oct.)
-David veut les dessiner (les 3 hommes-bêtes existaient déjà en image : faits le 16 oct., chapitre arc2-18). Ils manquent pour suivre l'anime (épisodes 23 à 49) :
-- **Gibara** (ép. 26) : membre du clan Kiba, veut venger son frère Kemada tué par Kenshiro et Rei.
-- **Gojiba** (ép. 26-27) : bras droit de Kiba Daioh, mène les raids du clan et enquête sur les familles de Kenshiro et de Rei.
-Une fois les images prêtes : chapitres « Le clan Kiba se venge » (Gibara, Gojiba) avant Madara.
+## Persos à dessiner pour l'histoire, arc 2
+Tous faits (16-17 oct.) : hommes-bêtes (arc2-18), Bulg (arc2-14), Gibara, Gojiba et Kemada (arc2-19), Bakuto de l'escouade suicide.
