@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.95 — 2026-10-16
 
+- 6 punks à la solde de KING : La Langue verte, Le Gros Collecteur, Crête jaune, Le Boulet rouge, Crête bleue et La Muselière (bonus de meute avec les hommes de KING). Terres désolées : ce sont eux qui font la tournée du tribut au village, 3 au hasard. Illustrations de Lhaz
 - Nouveau soldat de Ken-Oh : Le Garde rouge. Nouvelle illustration pour Loup bleu (clan Kiba). Illustrations de Lhaz
 - Personnages renommés d'après le manga/anime (illustrations de Lhaz) : Le Grand Couperet devient Golem, Le Rabatteur devient Shikaba (hommes de Yuda), Le Coupe-coupe devient Belga et Le Juge devient Bull (armée de Souther)
 - Combat contre l'IA abandonné en fermant la page : il compte maintenant comme une défaite (série remise à zéro) au combat suivant. Le bouton Quitter le comptait déjà
