@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.95 — 2026-10-16
 
+- Histoire, arc 2 (en test) : nouveau chapitre « Le duel forcé », Kenshiro contre Rei sous les yeux de Kiba Daioh, et Toki affronte maintenant Ken-Oh entre Rei et Kenshiro dans le chapitre Ken-Oh
 - Histoire, arc 1 complété d'après l'anime : 4 nouveaux chapitres (Le dieu Dragon, Le médecin du volcan avec Dante, La cloche de Zaria, Scorpions contre Serpents avec Baron et Junk), qui débloquent Dragon, Dante, Zaria, Baron et Junk. La GOLAN et Jackal passent dans l'arc 1, à leur place dans l'histoire. L'arc 1 compte maintenant 16 chapitres
 - Histoire, arc 2, chapitre 1 : au 2e combat, le Colonel de la GOLAN t'attend seul, mais bien plus coriace (PV ×2,6)
 - Effets de combat : la jauge de rage crache des flammes et le bouton Ultime s'embrase quand il est prêt ; un portrait K.O. se fissure et passe en gris, et le combattant suivant entre en glissant ; un nouveau terrain s'annonce en bannière ; le combo affiche un gros compteur de coups qui tremble, prend feu dès 3 et se déchaîne à 5 ; le butin des terres désolées se retourne carte par carte avec l'éclat de sa rareté
