@@ -335,3 +335,4 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - 2026-10-17 : alerte Render « Exited with status 1 » : pool.on('error') sur Postgres, filet uncaughtException/unhandledRejection (sauf erreur d'écoute), r.on('error') sur la vérif CDN.
 - 2026-10-17 : Discord : étoile « undefined » (firstKo avec 1 au lieu d'un id, arc3-7) corrigée ; butin perdu chez Jérôme (rpgLootErr) → rpgSync réessaie la victoire (429 : 21 s, sinon 3/6/9 s).
 - 2026-10-17 : équilibrage soins (choix de David) : Yuria soigne le seul réservé le plus blessé (+2), ruban de Lin +3 au plus blessé seulement.
+- 2026-10-17 : terrain shingan (Shingan, l'œil du cœur) : chacun voit le piège adverse (idée maxGfive).

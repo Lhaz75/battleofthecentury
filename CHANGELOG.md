@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.96 — 2026-10-17
 
+- Nouveau terrain « Shingan, l'œil du cœur » (idée de maxGfive, illustration de Lhaz) : tant qu'il est en jeu, chacun voit le piège posé par l'adversaire
 - Équilibrage des soins (retours de maxGfive et Jérôme R.) : Yuria ne soigne plus toute la réserve chaque tour, seulement le perso de réserve le plus blessé (+2 PV). Le ruban de Lin rend 3 PV au perso le plus blessé après un combat, au lieu de toute l'équipe
 - Terres désolées : si le serveur ne répond pas après une victoire, le jeu réessaie tout seul pendant quelques secondes au lieu de perdre le butin (merci Jérôme R.)
 - Nouvelle illustration pour Hartmann (GOLAN), et Raizō, l'escouade suicide de Cassandra, rejoint Bulg dans le chapitre « La cité des pleurs » (illustrations de Lhaz)
