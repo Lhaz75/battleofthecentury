@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.96 — 2026-10-17
 
+- Histoire, arc 2 : dans le chapitre de Ken-Oh, tu ne joues plus Rei et Toki pour perdre exprès : tu incarnes Ken-Oh contre Rei, puis contre Toki, avant de reprendre Kenshiro pour le vrai duel
 - Quand tu as une Esquive en main mais que l'adversaire termine un combo complet par un Lourd, le jeu l'indique maintenant clairement : « Combo complet : le Lourd ne s'esquive pas »
 - Histoire, arc 2 (en test) : les trois derniers jours de Rei, en 5 chapitres : La cité des remèdes (Galf), Le château de Yuda (Dagar), Blue Town, Le raid sur le village, puis Rei contre Yuda sur le barrage, avec Komak (illustration de Lhaz). L'arc 2 est maintenant complet
 - Histoire, arc 2 (en test) : nouveau chapitre « La vengeance de Gibara » avec Kemada, Gibara et Gojiba, du clan Kiba

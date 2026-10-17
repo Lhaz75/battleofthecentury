@@ -325,3 +325,4 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - v0.99.96 (17 oct.) : gibara / gojiba / kemada (npc kiba), kingpunk7 Mojo / kingpunk8 Hank (npc king), kenohsol8 Bakuto (npc kenoh, escouade suicide) ; chapitre arc2-19 « La vengeance de Gibara » après arc2-4 (Ken + Rei, foeHpW [0.9,1.3]) ; arc2-14 vague 1 = Bakuto + Borgu + Vipero (foeHpW [1.1,2.4], meHp 1.7) ; nouveaux arts han (PZ [345,75,70]) et event-barman (+ -t) ; bolge remplacé dans BOTC
 - 2026-10-17 : arc 2 terminé — 5 chapitres sur les 3 derniers jours de Rei (arc2-20 à arc2-24 : Galf, Dagar, Blue Town, raid, Rei contre Yuda). Nouveaux combattants galf et komak ; fin de l'arc 2 réécrite.
 - 2026-10-17 : Esquive bloquée par un combo complet : message « Combo complet : le Lourd ne s'esquive pas » (retour de Jérôme R.).
+- 2026-10-17 : chapitre Ken-Oh (arc2-16) : on joue Ken-Oh contre Rei puis Toki au lieu de perdre exprès (idée de David : jouer l'antagoniste quand le héros perd).
