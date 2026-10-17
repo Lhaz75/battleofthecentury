@@ -337,3 +337,4 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - 2026-10-17 : équilibrage soins (choix de David) : Yuria soigne le seul réservé le plus blessé (+2), ruban de Lin +3 au plus blessé seulement.
 - 2026-10-17 : terrain shingan (Shingan, l'œil du cœur) : chacun voit le piège adverse (idée maxGfive).
 - 2026-10-17 : nouvelles illus dans,yasaka,golan1,hueysol1,southsol6,yudasol3,punk13,punk18 ; anciennes dans BOTC Non utilisees.
+- 2026-10-17 : kingsol8 Dino (♦, sbire de Diamond) : king-4 vague 1, sc_diamond.
