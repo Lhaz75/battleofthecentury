@@ -24,6 +24,9 @@
 - **Mis de côté (David, 11 oct.)** : finishers (plusieurs ultimes / rage orange-rouge), « Tsubo éclair » et tsubo « coup critique » sur les cartes (réservé à Hokuto = tout le monde jouerait Hokuto). Ne pas reproposer sauf si David relance.
 
 ## Arc de Souther (histoire + terres désolées) — à faire, persos prêts (v0.99.87)
+- **Principe validé par David (17 oct.)** : quand le héros perd dans l'anime, on ne fait pas perdre le joueur exprès, on lui fait **jouer l'antagoniste** (comme king-0 avec Shin, et arc2-16 avec Ken-Oh contre Rei puis Toki). Arc 3 : Souther contre Shu, Souther contre Ken (1er combat), Raoh contre Toki.
+- **Décors** : pyramide de Souther déjà dessinée (`Non utilisees\Decors\pyramide-de-souther-paysage.webp` pour le fond d'histoire, `pyramide-de-souther.webp` pour un terrain). Optionnels : planque de la résistance de Shu, duel Toki/Raoh, château de Ryuga.
+- Découpage anime de la partie 3 : ép. 58-59 Ken contre Raoh, 60-68 Souther/Shu, 69-72 Toki/Raoh (Koryu, Zeus, Aus), 73-77 Ryuga (Abida, Gonzu, Garo).
 - **Shiba** (fils de Shu, `shiba`, pas jouable, `npc:"shu"` : +1 aux coups tant que Shu est debout) : à placer dans l'histoire et les terres désolées **après le premier combat Kenshiro contre Souther** (demande de David, 12 oct.).
 - **Galzus** (`galzus`, lieutenant de Souther, épisode 61 de l'anime : recrute, ment sur sa « sœur prisonnière de Souther », attaque le village de Suwannee) et son homme de main **La Lame de Galzus** (`galzsol`).
 - Soldats de Souther prêts : `southsol1` à `southsol7`, et les jumeaux **Beji et Giji** (`beji`, `giji`, Nanto Sōzan Ken, chapitre 87 / épisode 62 : Souther les envoie tester Kenshiro AVANT leur premier combat ; Kenshiro touche leurs points Jikyūkyō, ils perdent la vue en relief et s'entretuent avec leurs lames). Gardes de Ken-Oh : `kenohsol5`, `kenohsol6` (pour l'arc / la zone de Ken-Oh).
