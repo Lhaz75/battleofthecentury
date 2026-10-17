@@ -331,3 +331,4 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - 2026-10-17 : Kōga (kiba3) retiré : c'était Gojiba (même perso). Remplacé dans arc2-3/4/19, chapitre 1 du clan Kiba un peu allégé.
 - 2026-10-17 : doublons retirés (RETIRED) : Lardo/Bubba (punk1, kingpunk2), Pablo (punk8), Banko (kiba6) ; pools KING et Kiba filtrent RETIRED ; chapitres king-1, king-7, king-12, arc2-3, arc2-4 mis à jour.
 - 2026-10-17 : nouvelle illu golan2 (Hartmann) ; casssol4 Raizō (escouade suicide, npc cassandra) avec Bulg dans arc2-14 (foeHpW [1.1,1.4]).
+- 2026-10-17 : chapitre GOLAN (arc2-1) en 3 vagues : Krieg et Hartmann, puis Sarge et les bérets rouges, puis le Colonel seul.
