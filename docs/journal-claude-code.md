@@ -333,3 +333,4 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - 2026-10-17 : nouvelle illu golan2 (Hartmann) ; casssol4 Raizō (escouade suicide, npc cassandra) avec Bulg dans arc2-14 (foeHpW [1.1,1.4]).
 - 2026-10-17 : chapitre GOLAN (arc2-1) en 3 vagues : Krieg et Hartmann, puis Sarge et les bérets rouges, puis le Colonel seul.
 - 2026-10-17 : alerte Render « Exited with status 1 » : pool.on('error') sur Postgres, filet uncaughtException/unhandledRejection (sauf erreur d'écoute), r.on('error') sur la vérif CDN.
+- 2026-10-17 : Discord : étoile « undefined » (firstKo avec 1 au lieu d'un id, arc3-7) corrigée ; butin perdu chez Jérôme (rpgLootErr) → rpgSync réessaie la victoire (429 : 21 s, sinon 3/6/9 s).
