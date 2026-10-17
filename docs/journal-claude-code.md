@@ -328,3 +328,4 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - 2026-10-17 : chapitre Ken-Oh (arc2-16) : on joue Ken-Oh contre Rei puis Toki au lieu de perdre exprès (idée de David : jouer l'antagoniste quand le héros perd).
 - 2026-10-17 : bande de Jagi (jagisol1-4 : Rakan, Bozzo, Gaira, Dekker ; npc jagi, lien de meute avec fourbe), dans le chapitre Jagi (arc2-7).
 - 2026-10-17 : arc 3 « Le Saint Empereur » (arc3-1 à arc3-14, en test : ST_TEST [2,3], STORY_TEST serveur), Shiba compagnon, nouveaux zeus/aus/abida/gonzu/garo, fond pyramide.
+- 2026-10-17 : Kōga (kiba3) retiré : c'était Gojiba (même perso). Remplacé dans arc2-3/4/19, chapitre 1 du clan Kiba un peu allégé.
