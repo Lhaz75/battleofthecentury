@@ -326,3 +326,4 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - 2026-10-17 : arc 2 terminé — 5 chapitres sur les 3 derniers jours de Rei (arc2-20 à arc2-24 : Galf, Dagar, Blue Town, raid, Rei contre Yuda). Nouveaux combattants galf et komak ; fin de l'arc 2 réécrite.
 - 2026-10-17 : Esquive bloquée par un combo complet : message « Combo complet : le Lourd ne s'esquive pas » (retour de Jérôme R.).
 - 2026-10-17 : chapitre Ken-Oh (arc2-16) : on joue Ken-Oh contre Rei puis Toki au lieu de perdre exprès (idée de David : jouer l'antagoniste quand le héros perd).
+- 2026-10-17 : bande de Jagi (jagisol1-4 : Rakan, Bozzo, Gaira, Dekker ; npc jagi, lien de meute avec fourbe), dans le chapitre Jagi (arc2-7).
