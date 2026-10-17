@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.96 — 2026-10-17
 
+- Histoire (en test) : l'arc 3, « Le Saint Empereur », 14 chapitres des épisodes 58 à 77 : Souther et Shu, Toki contre Raoh, puis Ryuga. Dans certains chapitres, tu joues le méchant. Nouveaux personnages : Zeus et Aus (fils de Koryu), Abida, Gonzu et Garo (illustrations de Lhaz), et Shiba en compagnon
 - La bande de Jagi : Rakan, Bozzo, Dekker et Gaira, son lieutenant masqué (illustrations de Lhaz), accompagnent maintenant Jagi dans le mode histoire
 - Quand tu as une Esquive en main mais que l'adversaire termine un combo complet par un Lourd, le jeu l'indique maintenant clairement : « Combo complet : le Lourd ne s'esquive pas »
 - Histoire, arc 2 (en test) : les trois derniers jours de Rei, en 5 chapitres : La cité des remèdes (Galf), Le château de Yuda (Dagar), Blue Town, Le raid sur le village, puis Rei contre Yuda sur le barrage, avec Komak (illustration de Lhaz). L'arc 2 est maintenant complet

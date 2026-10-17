@@ -23,6 +23,7 @@
 
 - **Mis de côté (David, 11 oct.)** : finishers (plusieurs ultimes / rage orange-rouge), « Tsubo éclair » et tsubo « coup critique » sur les cartes (réservé à Hokuto = tout le monde jouerait Hokuto). Ne pas reproposer sauf si David relance.
 
+## Arc 3 « Le Saint Empereur » — FAIT en v0.99.96 (17 oct., en test) : arc3-1 à arc3-14 (ép. 58-77), Shiba en compagnon (with:["shiba"]), Zeus/Aus/Abida/Gonzu/Garo intégrés, fond story-pyramide. Reste : Terres désolées (zone de Souther / Jagi).
 ## Arc de Souther (histoire + terres désolées) — à faire, persos prêts (v0.99.87)
 - **Principe validé par David (17 oct.)** : quand le héros perd dans l'anime, on ne fait pas perdre le joueur exprès, on lui fait **jouer l'antagoniste** (comme king-0 avec Shin, et arc2-16 avec Ken-Oh contre Rei puis Toki). Arc 3 : Souther contre Shu, Souther contre Ken (1er combat), Raoh contre Toki.
 - **Décors** : pyramide de Souther déjà dessinée (`Non utilisees\Decors\pyramide-de-souther-paysage.webp` pour le fond d'histoire, `pyramide-de-souther.webp` pour un terrain). Optionnels : planque de la résistance de Shu, duel Toki/Raoh, château de Ryuga.
