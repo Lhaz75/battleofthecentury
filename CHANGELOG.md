@@ -5,7 +5,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 ## v0.99.96 — 2026-10-17
 
 - Dino, nouveau sbire de Diamond (illustration de Lhaz), dans le chapitre de Diamond et chez Diamond dans les Terres désolées
-- Nouvelles illustrations (Lhaz) pour Rei, Yasaka, Krieg, Hayate, Bull, Stellan, Rojo et Vito
+- Nouvelles illustrations (Lhaz) pour Rei, Yasaka, Baran, Borge, Krieg, Hayate, Bull, Stellan, Rojo et Vito
 - Nouveau terrain « Shingan, l'œil du cœur » (idée de maxGfive, illustration de Lhaz) : tant qu'il est en jeu, chacun voit le piège posé par l'adversaire
 - Équilibrage des soins (retours de maxGfive et Jérôme R.) : Yuria ne soigne plus toute la réserve chaque tour, seulement le perso de réserve le plus blessé (+2 PV). Le ruban de Lin rend 3 PV au perso le plus blessé après un combat, au lieu de toute l'équipe
 - Terres désolées : si le serveur ne répond pas après une victoire, le jeu réessaie tout seul pendant quelques secondes au lieu de perdre le butin (merci Jérôme R.)
