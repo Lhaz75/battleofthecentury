@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.96 — 2026-10-17
 
+- Nouvelle illustration pour Hartmann (GOLAN), et Raizō, l'escouade suicide de Cassandra, rejoint Bulg dans le chapitre « La cité des pleurs » (illustrations de Lhaz)
 - Histoire (en test) : l'arc 3, « Le Saint Empereur », 14 chapitres des épisodes 58 à 77 : Souther et Shu, Toki contre Raoh, puis Ryuga. Dans certains chapitres, tu joues le méchant. Nouveaux personnages : Zeus et Aus (fils de Koryu), Abida, Gonzu et Garo (illustrations de Lhaz), et Shiba en compagnon
 - La bande de Jagi : Rakan, Bozzo, Dekker et Gaira, son lieutenant masqué (illustrations de Lhaz), accompagnent maintenant Jagi dans le mode histoire
 - Quand tu as une Esquive en main mais que l'adversaire termine un combo complet par un Lourd, le jeu l'indique maintenant clairement : « Combo complet : le Lourd ne s'esquive pas »
