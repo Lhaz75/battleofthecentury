@@ -153,6 +153,7 @@ function jsonStore(file) {
 function pgStore(url, PgPool) {
   const { Pool } = PgPool || require("pg");
   const pool = new Pool({ connectionString: url, ssl: /sslmode=disable|localhost/.test(url) ? false : { rejectUnauthorized: false }, max: 4 });
+  pool.on("error", e => console.error("pg (connexion inactive coupée)", e.message));   // sans ça, une coupure de la base fait planter tout le serveur
   const q = (sql, args) => pool.query(sql, args);
   const row = r => r && ({ id: r.id, name: r.name, name_lc: r.name_lc, pass: r.pass, salt: r.salt, created: +r.created, avatar_v: r.avatar_v, banned: !!r.banned, stats: { ...DEFAULT_STATS(), ...(r.stats || {}) } });
   const COLS = "id,name,name_lc,pass,salt,created,avatar_v,banned,stats";

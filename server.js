@@ -24,10 +24,14 @@ const STAMP = (() => {
   lines.sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
   return require("crypto").createHash("sha1").update(lines.join("\n") + "\n").digest("hex");
 })();
+// filet de sécurité : une erreur imprévue est journalisée au lieu de faire tomber le serveur (alertes « Exited with status 1 » de Render)
+process.on("uncaughtException", e => { console.error("uncaughtException", e && e.stack || e); if (e && e.syscall === "listen") process.exit(1); });
+process.on("unhandledRejection", e => console.error("unhandledRejection", e && e.stack || e));
 let CDN_OK = false;
 function checkCdn() {
   if (!STAMP || process.env.ASSET_CDN === "off") return;
   require("https").get(CDN + "/cdn-version.txt?t=" + Date.now(), r => {
+    r.on("error", () => {});
     let b = ""; r.on("data", d => { b += d; if (b.length > 200) r.destroy(); });
     r.on("end", () => { const ok = r.statusCode === 200 && b.trim() === STAMP; if (ok !== CDN_OK) console.log("CDN images :", ok ? "actif" : "inactif", "(" + STAMP.slice(0, 7) + ")"); CDN_OK = ok; if (!ok) setTimeout(checkCdn, 60000); });
   }).on("error", () => setTimeout(checkCdn, 60000));
