@@ -4,7 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.97 — 2026-10-18
 
-- Terres désolées : nouveau bruitage de tissu quand tu retires un équipement
+- Terres désolées : nouveaux bruitages de tissu quand tu équipes ou retires un équipement
 - Nouveau chat intégré au jeu, à la place du bouton Discord : une barre en bas de l'écran montre le dernier message (réduite en bulle pendant les combats), clique sur un pseudo pour le défier. Le chat annonce aussi les nouveaux joueurs, les boss d'histoire vaincus, les grades du Dojo et l'avancée du boss mondial
 - Nouvelles illustrations (Lhaz) pour Asam, Kaioh, Ryuken, Shūken, Tesshin Kasumi, Zeus, Aus et Garo
 - Bonus d'équipe plus visibles (retour de maxGfive) : à la sélection, la fiche d'un perso montre ses liens et son bonus d'école (en doré quand ils sont actifs), les persos qui activeraient un lien avec ton équipe sont entourés d'or avec 🔗, et au début du combat un encart rappelle les bonus actifs
