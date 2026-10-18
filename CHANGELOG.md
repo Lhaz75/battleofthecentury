@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.97 — 2026-10-18
 
+- Sélection d'équipe : le nom du perso s'affiche sous son visage au lieu de le cacher
 - Le bouton Magasin a une bordure de feu rouge et or qui tourne en continu, pour mieux le repérer
 - Volume harmonisé : bruitages, voix des persos et musiques ont maintenant tous le même niveau (avant, certaines voix comme celle de Raoh étaient presque inaudibles et certains impacts beaucoup trop forts)
 - Bubba, homme de KING retiré du jeu, n'apparaît plus parmi les soldats ennemis
