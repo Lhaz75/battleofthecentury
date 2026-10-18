@@ -4,6 +4,8 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.97 — 2026-10-18
 
+- Défi de la semaine : une semaine sur deux, mode Blitz avec 15 s par tour et 8 s pour réagir (le chrono s'arrête pendant les animations)
+- Chrono : tic-tac sur les 5 dernières secondes et annonce « Time up! » quand il tombe à zéro (versus en ligne et Blitz)
 - Mode histoire : le chapitre « Le raid sur le village » est retiré de l'arc 2
 - Admin : l'image de chaque carte d'arc du mode histoire peut être recadrée (perso, position, zoom)
 - Mode histoire : nouvelles cartes d'arcs, alignées, avec le boss de l'arc et une barre de progression
