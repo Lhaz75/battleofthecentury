@@ -7,7 +7,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 - Nouveau bruitage quand tu joues une carte qui n'est pas une attaque
 - Nouveau bruitage au déclenchement d'un Ultime
 - Nouveau bruitage quand un piège se déclenche
-- Nouveau bruitage d'impact quand un événement apparaît (le commentateur ne l'annonce plus)
+- Nouveaux bruitages d'impact (2 au hasard) quand un événement apparaît (le commentateur ne l'annonce plus)
 - Nouveau bruitage pour les soins
 - Kenshiro ne dit plus « Omae wa mō shindeiru » quand il met un adversaire KO
 - Nouveau bruitage pour le coup final, en même temps que l'annonce du KO
