@@ -3,6 +3,8 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const { WebSocketServer } = require("ws");
+const zlib = require("zlib");
+const ZCACHE = new Map();   // fichiers texte compressés (clé : chemin + etag + encodage)
 const { jsonStore, pgStore, makeAccounts } = require("./accounts");
 
 const PORT = +(process.env.PORT || 8080);
@@ -119,6 +121,15 @@ const server = http.createServer((req, res) => {
     if (req.headers["if-none-match"] === etag) { res.writeHead(304, head); return res.end(); }
     fs.readFile(file, (e2, buf) => {
       if (e2) { res.writeHead(404); return res.end("Not found"); }
+      // compression des fichiers texte (la page fait ~1,8 Mo : ~470 Ko en brotli), gardée en mémoire par version du fichier
+      const ae = String(req.headers["accept-encoding"] || ""), enc = /\bbr\b/.test(ae) ? "br" : /\bgzip\b/.test(ae) ? "gzip" : "";
+      if (enc && buf.length > 1024 && /^(text\/|application\/(json|javascript|manifest)|image\/svg)/.test(head["Content-Type"])) {
+        const key = file + etag + enc; let z = ZCACHE.get(key);
+        if (!z) { z = enc === "br" ? zlib.brotliCompressSync(buf, { params: { [zlib.constants.BROTLI_PARAM_QUALITY]: 9, [zlib.constants.BROTLI_PARAM_SIZE_HINT]: buf.length } }) : zlib.gzipSync(buf, { level: 9 });
+          for (const k of ZCACHE.keys()) if (k.startsWith(file) && k.endsWith(enc)) ZCACHE.delete(k);
+          ZCACHE.set(key, z); }
+        res.writeHead(200, { ...head, "Content-Encoding": enc, "Vary": "Accept-Encoding", "Content-Length": z.length }); return res.end(z);
+      }
       res.writeHead(200, head); res.end(buf);
     });
   });
