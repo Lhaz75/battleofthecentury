@@ -10,7 +10,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 - Nouveau bruitage pour les soins
 - Kenshiro ne dit plus « Omae wa mō shindeiru » quand il met un adversaire KO
 - Nouveau bruitage pour le coup final, en même temps que l'annonce du KO
-- Nouveaux bruitages de coups : un son dédié aux coups légers et 7 sons tirés au hasard pour les Moyens
+- Nouveaux bruitages de coups : 3 sons au hasard pour les Légers, 2 pour les Moyens, 3 pour les gros coups, et un son à part pour les coups critiques
 - Terres désolées : nouveaux bruitages de tissu quand tu équipes ou retires un équipement
 - Nouveau chat intégré au jeu, à la place du bouton Discord : une barre en bas de l'écran montre le dernier message (réduite en bulle pendant les combats), clique sur un pseudo pour le défier. Le chat annonce aussi les nouveaux joueurs, les boss d'histoire vaincus, les grades du Dojo et l'avancée du boss mondial
 - Nouvelles illustrations (Lhaz) pour Asam, Kaioh, Ryuken, Shūken, Tesshin Kasumi, Zeus, Aus et Garo

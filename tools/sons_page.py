@@ -5,7 +5,7 @@ import os, re, json, subprocess
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PUB = os.path.join(ROOT, "public")
 
-USE = {"hitLight": "Coup léger, moins de 5 dégâts", "hitMid": "Coup moyen, 5 à 9 dégâts (au hasard)", "hitHeavy": "Gros coup, 10 dégâts et plus (au hasard)",
+USE = {"hitLight": "Coup léger, moins de 5 dégâts (au hasard)", "hitMid": "Coup moyen, 5 à 9 dégâts (au hasard)", "crit": "Coup critique", "hitHeavy": "Gros coup, 10 dégâts et plus (au hasard)",
        "guard": "Garde", "dodge": "Esquive", "counter": "Contre", "ko": "KO d'un perso", "trap": "Piège déclenché", "card": "Carte jouée",
        "event": "Événement affiché", "horde": "Horde de pillards", "relay": "Relais / étourdi", "ultstart": "Début d'ultime", "click": "Clic de menu",
        "unequip": "Terres désolées : retirer un équipement", "equip": "Terres désolées : équiper un objet", "finalhit": "Coup final (avec l'annonce KO)", "heal": "Soin"}
