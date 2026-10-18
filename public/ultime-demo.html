@@ -34,66 +34,53 @@ label{color:var(--mute);font-size:13px;display:flex;gap:6px;align-items:center}
 @keyframes cu1{0%{transform:skewY(8deg) translateX(-30%);opacity:0}15%{transform:skewY(8deg) translateX(0);opacity:1}85%{transform:skewY(8deg) translateX(4%);opacity:1}100%{opacity:0}}
 @keyframes nm1{0%,12%{opacity:0;transform:translateY(-50%) skewY(-8deg) translateX(60px)}25%,85%{opacity:1;transform:translateY(-50%) skewY(-8deg) translateX(0)}100%{opacity:0}}
 
-/* 2. REGARD : flash blanc, bande fine sur les yeux, nom qui claque */
-.a2{animation:bg2 2.1s ease-in-out forwards}
-.a2 .flash{position:absolute;inset:0;background:#fff;opacity:0;animation:fl2 2.1s ease-out forwards}
-.a2 .eyes{position:absolute;left:0;right:0;top:34%;height:18%;background-repeat:no-repeat;transform:scaleX(0);box-shadow:0 0 0 3px #000,0 0 0 5px #c2331a;animation:eye2 2.1s cubic-bezier(.2,.9,.2,1) forwards;filter:contrast(1.15) saturate(1.2)}
-.a2 .nm{position:absolute;left:0;right:0;top:56%;text-align:center;font-size:clamp(34px,7vw,100px);opacity:0;animation:nm2 2.1s ease-out forwards}
-@keyframes bg2{0%{background:rgba(0,0,0,0)}8%,85%{background:rgba(0,0,0,.85)}100%{background:rgba(0,0,0,0)}}
-@keyframes fl2{0%{opacity:0}4%{opacity:.95}14%{opacity:0}100%{opacity:0}}
-@keyframes eye2{0%,8%{transform:scaleX(0);opacity:1}18%,85%{transform:scaleX(1);opacity:1}100%{transform:scaleX(1);opacity:0}}
-@keyframes nm2{0%,30%{opacity:0;transform:scale(2.4)}38%{opacity:1;transform:scale(.95)}44%,85%{opacity:1;transform:scale(1)}100%{opacity:0}}
-
-/* 3. FRAPPE MANGA : deux cases qui tombent en biais + lignes de vitesse */
-.a3{animation:bg2 2s ease-in-out forwards}
-.a3 .lines{position:absolute;inset:-20%;background:repeating-conic-gradient(from 0deg at 30% 50%,rgba(255,255,255,.18) 0 1.2deg,transparent 1.2deg 7deg);opacity:0;animation:ln3 2s ease-out forwards}
-.a3 .p1,.a3 .p2{position:absolute;background-repeat:no-repeat;border:4px solid #fff;box-shadow:0 0 0 4px #000,8px 8px 0 4px #000}
-.a3 .p1{left:6%;top:10%;width:46%;height:80%;clip-path:polygon(0 0,100% 0,82% 100%,0 100%);animation:p13 2s cubic-bezier(.2,1.3,.4,1) forwards}
-.a3 .p2{right:6%;top:18%;width:40%;height:34%;clip-path:polygon(12% 0,100% 0,100% 100%,0 100%);animation:p23 2s cubic-bezier(.2,1.3,.4,1) forwards}
-.a3 .nm{position:absolute;right:7%;top:58%;width:44%;text-align:right;font-size:clamp(30px,5.6vw,80px);color:#ffde5a;text-shadow:4px 4px 0 #000,-2px -2px 0 #000,0 0 18px rgba(255,60,20,.9);opacity:0;animation:nm3 2s ease-out forwards}
-@keyframes ln3{0%{opacity:0}10%,80%{opacity:1}100%{opacity:0}}
-@keyframes p13{0%{transform:translate(-120%,-20%) rotate(-12deg);opacity:1}18%,82%{transform:none;opacity:1}100%{transform:none;opacity:0}}
-@keyframes p23{0%,12%{transform:translate(120%,-40%) rotate(10deg);opacity:1}30%,82%{transform:none;opacity:1}100%{transform:none;opacity:0}}
-@keyframes nm3{0%,32%{opacity:0;transform:translateY(30px) skewX(-10deg)}42%,82%{opacity:1;transform:skewX(-10deg)}100%{opacity:0}}
-
-/* 4. AURA : écran noir, le perso entier surgit dans une aura rouge, gros kanji */
-.a4{animation:bg4 2.2s ease-in-out forwards}
-.a4 .kj{position:absolute;right:4%;top:50%;transform:translateY(-50%);font:900 clamp(120px,30vw,380px)/1 serif;color:rgba(200,30,15,.0);-webkit-text-stroke:2px rgba(255,90,40,.6);animation:kj4 2.2s ease-out forwards}
-.a4 .fig{position:absolute;left:4%;bottom:0;height:96%;aspect-ratio:2/3;background-size:contain;background-repeat:no-repeat;background-position:bottom;filter:drop-shadow(0 0 14px #ff3a12) drop-shadow(0 0 40px rgba(255,40,10,.8));opacity:0;animation:fig4 2.2s cubic-bezier(.2,.9,.2,1) forwards}
-.a4 .nm{position:absolute;right:6%;bottom:12%;width:50%;text-align:right;font-size:clamp(30px,5.6vw,84px);opacity:0;animation:nm4 2.2s ease-out forwards}
-@keyframes bg4{0%{background:rgba(0,0,0,0)}10%,85%{background:radial-gradient(ellipse at 25% 70%,rgba(120,10,5,.9),rgba(0,0,0,.95) 60%)}100%{background:rgba(0,0,0,0)}}
-@keyframes kj4{0%,10%{opacity:0;transform:translateY(-50%) scale(1.6)}25%,85%{opacity:1;transform:translateY(-50%) scale(1)}100%{opacity:0}}
-@keyframes fig4{0%,6%{opacity:0;transform:translateY(8%) scale(.92)}20%{opacity:1;transform:translateY(0) scale(1.03)}85%{opacity:1;transform:scale(1.06)}100%{opacity:0}}
-@keyframes nm4{0%,30%{opacity:0;transform:translateX(40px)}40%,85%{opacity:1;transform:none}100%{opacity:0}}
-
-/* 5. SEPT ÉTOILES : la Grande Ourse s'allume, puis le perso apparaît derrière */
-.a5{animation:bg4 2.6s ease-in-out forwards}
-.a5 svg{position:absolute;left:50%;top:44%;width:min(70vw,560px);transform:translate(-50%,-50%);overflow:visible}
-.a5 circle{fill:#fff;filter:drop-shadow(0 0 6px #9fd0ff) drop-shadow(0 0 16px #5aa0ff);opacity:0;animation:st5 2.6s ease-out forwards}
-.a5 polyline{fill:none;stroke:rgba(160,210,255,.7);stroke-width:2;stroke-dasharray:900;stroke-dashoffset:900;animation:ln5 2.6s ease-out forwards}
-.a5 .fig{position:absolute;left:50%;top:6%;height:94%;aspect-ratio:2/3;transform:translateX(-50%);background-size:contain;background-repeat:no-repeat;background-position:bottom;opacity:0;filter:drop-shadow(0 0 30px rgba(90,160,255,.6));animation:fig5 2.6s ease-out forwards}
-.a5 .nm{position:absolute;left:0;right:0;bottom:8%;text-align:center;font-size:clamp(30px,6vw,88px);text-shadow:0 4px 0 #000,0 0 24px rgba(120,180,255,.9);opacity:0;animation:nm5 2.6s ease-out forwards}
-@keyframes st5{0%{opacity:0;transform:scale(0)}100%{opacity:0}}
-@keyframes ln5{0%,30%{stroke-dashoffset:900;opacity:1}55%,80%{stroke-dashoffset:0;opacity:1}100%{opacity:0;stroke-dashoffset:0}}
-@keyframes fig5{0%,45%{opacity:0;transform:translateX(-50%) scale(.9)}60%,85%{opacity:1;transform:translateX(-50%) scale(1)}100%{opacity:0}}
-@keyframes nm5{0%,55%{opacity:0;letter-spacing:.4em}68%,85%{opacity:1;letter-spacing:.02em}100%{opacity:0}}
-@keyframes star{0%{opacity:0;transform:scale(0)}40%{opacity:1;transform:scale(1.8)}70%,85%{opacity:1;transform:scale(1)}100%{opacity:0}}
+/* base commune : bande inclinée (réutilise .a1) */
+.b2,.b3,.b4,.b5,.b6{animation:bg1 2s ease-in-out forwards}
+.bb{position:absolute;left:-10%;right:-10%;top:28%;height:44%;transform:skewY(-8deg) scaleY(0);background:linear-gradient(180deg,#5a0f07,#c2331a 50%,#5a0f07);box-shadow:0 0 0 3px #000,0 0 0 5px #c98a2c,0 0 60px rgba(255,90,40,.6);animation:band1 2s ease-in-out forwards;overflow:hidden}
+.bb::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(100deg,transparent 0 18px,rgba(255,255,255,.07) 18px 22px);animation:sp 0.3s linear infinite}
+@keyframes sp{to{background-position:44px 0}}
+.bb .cu{position:absolute;top:-20%;height:140%;left:6%;width:66%;background-repeat:no-repeat;transform:skewY(8deg);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 62%,transparent);mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 62%,transparent);animation:cu1 2s cubic-bezier(.2,.9,.2,1) forwards}
+.bn{position:absolute;right:5%;top:50%;width:52%;text-align:right;transform:translateY(-50%) skewY(-8deg);font-size:clamp(34px,6.4vw,92px);animation:nm1 2s ease-out forwards}
+/* 2. Double bande : une 2e bande noire et or croise en sens inverse */
+.b2 .bb2{position:absolute;left:-10%;right:-10%;top:58%;height:9%;transform:skewY(6deg) scaleX(0);transform-origin:right;background:linear-gradient(90deg,#000,#1a1206 40%,#c98a2c 50%,#1a1206 60%,#000);box-shadow:0 0 0 2px #000,0 0 18px rgba(255,200,80,.4);animation:bb2 2s cubic-bezier(.2,.9,.2,1) forwards}
+@keyframes bb2{0%,8%{transform:skewY(6deg) scaleX(0);opacity:1}22%,85%{transform:skewY(6deg) scaleX(1);opacity:1}100%{transform:skewY(6deg) scaleX(1);opacity:0}}
+/* 3. Impact : flash + onde de choc + secousse à l'arrivée */
+.b3 .fl{position:absolute;inset:0;background:radial-gradient(circle at 35% 50%,#fff,rgba(255,220,160,.6) 30%,transparent 60%);opacity:0;animation:fl3 2s ease-out forwards}
+.b3 .ring{position:absolute;left:35%;top:50%;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;border:6px solid rgba(255,230,180,.9);opacity:0;animation:ring3 2s ease-out forwards}
+.b3 .bb{animation:band1 2s ease-in-out forwards,shk 2s linear forwards}
+@keyframes fl3{0%,10%{opacity:0}13%{opacity:1}30%,100%{opacity:0}}
+@keyframes ring3{0%,11%{opacity:0;transform:scale(.2)}14%{opacity:1}40%,100%{opacity:0;transform:scale(28)}}
+@keyframes shk{0%,12%,30%,100%{translate:0 0}14%{translate:-14px 6px}17%{translate:12px -8px}20%{translate:-8px 4px}24%{translate:5px -2px}}
+/* 4. Couleur d'école : bande teintée selon l'école du perso (ici bleu Hokuto / or Nanto / violet Gento…) */
+.b4 .bb{background:linear-gradient(180deg,color-mix(in srgb,var(--cl) 40%,#000),var(--cl) 50%,color-mix(in srgb,var(--cl) 40%,#000));box-shadow:0 0 0 3px #000,0 0 0 5px #fff6,0 0 70px color-mix(in srgb,var(--cl) 70%,transparent)}
+.b4 .bn{text-shadow:0 4px 0 #000,0 0 26px var(--cl)}
+/* 5. Nom gravé : le nom s'écrit lettre par lettre avec une traînée de feu */
+.b5 .bn{animation:none;opacity:1}
+.b5 .bn .ch{display:inline-block;opacity:0;animation:ch5 2s ease-out forwards}
+@keyframes ch5{0%{opacity:0;transform:translateY(-30px) scale(1.8);filter:blur(4px);color:#ffb04a}15%{opacity:1;transform:none;filter:none;color:#fff}85%{opacity:1}100%{opacity:0}}
+/* 6. Zoom lent : le perso avance doucement vers le visage pendant que la bande se referme */
+.b6 .bb .cu{animation:cu6 2s cubic-bezier(.2,.9,.2,1) forwards}
+@keyframes cu6{0%{transform:skewY(8deg) translateX(-30%) scale(1);opacity:0}15%{transform:skewY(8deg) scale(1);opacity:1}85%{transform:skewY(8deg) scale(1.35);opacity:1}100%{opacity:0;transform:skewY(8deg) scale(1.4)}}
+.b6 .bb{animation:band6 2s ease-in-out forwards}
+@keyframes band6{0%{transform:skewY(-8deg) scaleY(0)}10%{transform:skewY(-8deg) scaleY(1.15)}20%,70%{transform:skewY(-8deg) scaleY(1)}85%{transform:skewY(-8deg) scaleY(.55)}100%{transform:skewY(-8deg) scaleY(0)}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>Ultimes : 5 animations</h1>
+  <h1>Ultimes : variantes de la bande</h1>
   <p class="i">Chaque bouton lance l'ultime avec le son d'impact du jeu et la voix du perso. Change de perso pour voir le cadrage sur d'autres illustrations.</p>
   <div class="bar"><select id="who"></select><label><input type="checkbox" id="snd" checked> Son</label></div>
   <div id="list"></div>
 </div>
 <script>
+const CL={maitre:"#2f6fe0",colo:"#2f6fe0",sage:"#2f6fe0",rival:"#d9a520",emp:"#d9a520",fourbe:"#2f6fe0",nuage:"#5a8f3c",ventre:"#8c8c8c"};
 const F=[["maitre","Kenshiro","Hokuto Hyakuretsu Ken",[240,113],"ken_atatata"],["colo","Ken-Oh","Hokuto Gōshō Ha",[295,106],"rao034"],["sage","Toki","Tenshō Hyakuretsu Ken",[269,92],"toki"],["rival","Shin","Nanto Gokuto Ken",[286,80],"shin"],["emp","Souther","Tenshō Jūji Hō",[297,97],"souther"],["fourbe","Jagi","Hokuto Rakan Geki",[257,72],"jagi"],["nuage","Juza","Gekiheki Haisui Shō",[282,68],"rei_shaaaw"],["ventre","Heart","Furie sanglante",[284,75],"heart"]];
-const V=[["1","Actuel","La bande inclinée rouge actuelle, le perso glisse, le nom arrive à droite.","a1",1900],
-["2","Le regard","Flash blanc, écran noir, une bande fine sur les yeux du perso, puis le nom qui claque.","a2",2100],
-["3","Frappe manga","Deux cases de BD tombent en biais (corps + visage) avec des lignes de vitesse.","a3",2000],
-["4","Aura","Écran noir, le perso entier surgit dans une aura rouge avec un grand kanji 奥義 derrière.","a4",2200],
-["5","Sept étoiles","La Grande Ourse s'allume étoile par étoile, puis le perso apparaît derrière.","a5",2600]];
+const V=[["1","Actuel","La bande inclinée rouge qu'on a maintenant.","a1",1900],
+["2","Double bande","Une 2e bande fine noire et or croise la première en sens inverse.","b2",2000],
+["3","Impact","Flash blanc, onde de choc et secousse au moment où la bande s'ouvre.","b3",2000],
+["4","Couleur d'école","La bande prend la couleur de l'école du perso (bleu Hokuto, or Nanto, vert Goshasei…).","b4",2000],
+["5","Nom gravé","Le nom de la technique s'écrit lettre par lettre, comme s'il tombait du ciel.","b5",2000],
+["6","Zoom lent","Le perso avance doucement vers nous et la bande se referme en serrant le cadre.","b6",2000]];
 const $=s=>document.querySelector(s), esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 $("#who").innerHTML=F.map((f,i)=>`<option value="${i}">${f[1]}</option>`).join("");
 $("#list").innerHTML=V.map(v=>`<div class="v"><div class="t"><b>${v[0]}. ${v[1]}</b><span>${v[2]}</span></div><button class="go" data-v="${v[0]}">Lancer</button></div>`).join("");
@@ -111,16 +98,13 @@ async function run(n){
   document.querySelectorAll(".stage").forEach(x=>x.remove());
   const d=document.createElement("div"); d.className="stage "+v[3];
   const N=`<div class="nm"><small>${esc(name)}</small>${esc(ult)}</div>`;
-  d.innerHTML={a1:`<div class="band"><div class="cu"></div></div>${N}`,a2:`<div class="flash"></div><div class="eyes"></div>${N}`,
-    a3:`<div class="lines"></div><div class="p1"></div><div class="p2"></div>${N}`,a4:`<div class="kj">奥義</div><div class="fig" style="background-image:url(assets/${id}.webp)"></div>${N}`,
-    a5:`<div class="fig" style="background-image:url(assets/${id}.webp)"></div><svg viewBox="0 0 440 160"><polyline points="${STARS.map(p=>p.join(",")).join(" ")}"/>${STARS.map((p,i)=>`<circle cx="${p[0]}" cy="${p[1]}" r="6" style="animation:star 2.6s ease-out ${(i*.14).toFixed(2)}s forwards;transform-origin:${p[0]}px ${p[1]}px"/>`).join("")}</svg>${N}`}[v[3]];
+  const B=v[3]; const nmTxt=B==="b5"?`<small>${esc(name)}</small>`+(()=>{ let i=0; return ult.split(" ").map(w=>`<span style="white-space:nowrap;display:inline-block">${[...w].map(c=>`<span class="ch" style="animation-delay:${(.25+(i++)*.045).toFixed(2)}s">${esc(c)}</span>`).join("")}</span>`).join(" "); })():`<small>${esc(name)}</small>${esc(ult)}`;
+  d.style.setProperty("--cl",CL[id]||"#c2331a");
+  d.innerHTML=B==="a1"?`<div class="band"><div class="cu"></div></div>${N}`:`${B==="b3"?'<div class="fl"></div><div class="ring"></div>':""}<div class="bb"><div class="cu"></div></div>${B==="b2"?'<div class="bb2"></div>':""}<div class="nm bn">${nmTxt}</div>`;
   document.body.appendChild(d);
   const cu=d.querySelector(".cu"); if(cu) frame(cu,id,eyes,1.6);
-  const ey=d.querySelector(".eyes"); if(ey) frame(ey,id,eyes,2.6);
-  const p1=d.querySelector(".p1"); if(p1) frame(p1,id,[eyes[0],eyes[1]+170],1);
-  const p2=d.querySelector(".p2"); if(p2) frame(p2,id,eyes,2.4);
   const [imp,vo]=await Promise.all([snd("ultime_impact"),snd(voice)]);
-  play(imp,0,.9); play(vo,{a1:550,a2:700,a3:500,a4:600,a5:1300}[v[3]],1);
+  play(imp,0,.9); play(vo,550,1);
   setTimeout(()=>d.remove(),v[4]+80);
 }
 $("#list").onclick=e=>{ const b=e.target.closest("[data-v]"); if(b) run(b.dataset.v); };
