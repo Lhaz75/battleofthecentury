@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.97 — 2026-10-18
 
+- Bubba, homme de KING retiré du jeu, n'apparaît plus parmi les soldats ennemis
 - Les cartes d'événement restent affichées une seconde de plus pour avoir le temps de les lire
 - Les chiffres de dégâts s'affichent maintenant au centre de la carte touchée (ils tombaient dans le bas de la carte)
 - Nouveaux liens vers Threads et X (@hokutolegacy) à côté de Facebook
