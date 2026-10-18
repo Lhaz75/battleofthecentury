@@ -102,9 +102,9 @@ h1 em{font-style:normal;color:var(--blood)}
 .clan h3 b{font:700 18px var(--f-display);text-transform:uppercase;letter-spacing:.1em;color:var(--bone)}
 .clan h3 span{font-size:12px;color:var(--mute);font-weight:400}
 .fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:6px}
-.ftile{position:relative;padding:0;border:0;border-radius:3px;overflow:hidden;cursor:pointer;aspect-ratio:4/5;background:linear-gradient(170deg,color-mix(in srgb,var(--cl) 55%,#140c0a),#0c0807 75%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);transition:transform .12s,filter .15s}
+.ftile{position:relative;padding:0;border:0;border-radius:3px;overflow:hidden;cursor:pointer;aspect-ratio:4/5.95;background:linear-gradient(170deg,color-mix(in srgb,var(--cl) 55%,#140c0a),#0c0807 75%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);transition:transform .12s,filter .15s}
 .ftile::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,transparent 0 10px,rgba(0,0,0,.18) 10px 12px)}
-.ftile img{position:absolute;inset:0 0 19px 0;width:100%;height:calc(100% - 19px);object-fit:cover;object-position:50% 12%;filter:drop-shadow(0 0 6px rgba(0,0,0,.7))}
+.ftile img{position:absolute;inset:0;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:50% 0;filter:drop-shadow(0 0 6px rgba(0,0,0,.7))}
 .ftile .fn{position:absolute;left:-4px;right:-4px;bottom:0;padding:3px 8px 3px;background:linear-gradient(90deg,var(--cl),color-mix(in srgb,var(--cl) 40%,#000));transform:skewX(-14deg);font:700 11px var(--f-display);text-transform:uppercase;letter-spacing:.03em;color:#fff;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:1px 1px 0 #000}
 .ftile .cc{position:absolute;top:4px;left:4px;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#ffd27a,#c06a1c);color:#1a0f08;font:800 12px var(--f-display);box-shadow:0 1px 3px #000}
 .ftile .ord{position:absolute;top:4px;right:4px;min-width:20px;height:20px;display:grid;place-items:center;background:#fff;color:#000;font:800 12px var(--f-display);transform:skewX(-12deg);box-shadow:0 1px 3px #000}
@@ -6026,7 +6026,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261018190013";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261018190700";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
