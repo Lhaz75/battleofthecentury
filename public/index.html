@@ -2157,7 +2157,6 @@ body.koslow.kofin .screen.board{animation:koz2 4.3s ease-out}
 .wfc{display:flex;flex-direction:column;align-items:center;gap:6px;flex:0 1 190px;min-width:0}
 .wfa{width:100%;aspect-ratio:3/4;border-radius:12px;overflow:hidden;border:2px solid #e0402a;box-shadow:0 0 22px rgba(224,64,42,.45),0 8px 18px rgba(0,0,0,.7);background:#120806}
 .wfa img{width:100%;height:100%;object-fit:cover;object-position:50% 6%;display:block}
-.wfc:nth-child(2) .wfa{transform:translateY(-8px) scale(1.04)}
 .wfc b{font:700 clamp(13px,1.8vw,18px) Oswald,var(--f-display);text-transform:uppercase;letter-spacing:.04em;color:#ff9a7e;text-align:center;line-height:1.1}
 .wkmods{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:12px}
 .wkmods span{font:600 13px var(--f-body);padding:5px 12px;border-radius:999px;background:rgba(0,0,0,.6);border:1px solid rgba(224,64,42,.5);color:#ffcdbf}
@@ -6087,7 +6086,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261018221537";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261018222134";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
