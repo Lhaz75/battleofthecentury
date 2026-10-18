@@ -217,6 +217,14 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready }) {
   // administrateurs : pseudos listés dans la variable ADMINS (séparés par des virgules)
   const ADMINS = new Set(String(process.env.ADMINS || "").split(",").map(x => x.trim().toLowerCase()).filter(Boolean));
   const isAdmin = u => !!u && ADMINS.has(String(u.name).toLowerCase());
+  // mot de passe perdu (admin) : variable RESET_PW="Pseudo:nouveaumotdepasse" sur Render, puis la retirer une fois connecté
+  if (process.env.RESET_PW) Promise.resolve(ready).then(async () => {
+    const raw = String(process.env.RESET_PW), i = raw.indexOf(":"), name = raw.slice(0, i).trim(), pw = raw.slice(i + 1);
+    if (i < 1 || pw.length < 6) return console.log("RESET_PW ignoré : format Pseudo:motdepasse (6 caractères minimum)");
+    const t = await store.byName(name); if (!t) return console.log("RESET_PW : pseudo introuvable", name);
+    const salt = crypto.randomBytes(16).toString("hex"); await store.setPassword(t.id, await scrypt(pw, salt), salt);
+    console.log(`RESET_PW : mot de passe de ${t.name} remplacé. Retire la variable RESET_PW sur Render.`);
+  }).catch(e => console.error("RESET_PW", e.message));
   // testeurs : voient les arcs en test comme les admins (liste d'ids gérée depuis l'admin, stockée en base)
   let testers = new Set();
   Promise.resolve(ready).then(() => store.getSetting("testers")).then(v => { if (Array.isArray(v)) testers = new Set(v); }).catch(() => {});
