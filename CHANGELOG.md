@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.97 — 2026-10-18
+
+- Bonus d'équipe plus visibles (retour de maxGfive) : à la sélection, la fiche d'un perso montre ses liens et son bonus d'école (en doré quand ils sont actifs), les persos qui activeraient un lien avec ton équipe sont entourés d'or avec 🔗, et au début du combat un encart rappelle les bonus actifs
+
 ## v0.99.96 — 2026-10-17
 
 - Dino, nouveau sbire de Diamond (illustration de Lhaz), dans le chapitre de Diamond et chez Diamond dans les Terres désolées
