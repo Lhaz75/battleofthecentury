@@ -795,9 +795,16 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
     "GET /api/frames": async () => [200, { frames }],
     "POST /api/admin/frame": async (req, body) => {
       const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];
-      const id = String(body.id || ""), kind = body.kind === "b" ? "b" : body.kind === "u" ? "u" : "p"; frames.u = frames.u || {}; if (!/^[a-z0-9]{2,12}$/.test(id)) return [400, { error: "bad" }];
+      const id = String(body.id || ""), kind = body.kind === "b" ? "b" : body.kind === "u" ? "u" : body.kind === "a" ? "a" : "p"; frames.u = frames.u || {}; frames.a = frames.a || {}; if (!/^[a-z0-9]{2,12}$/.test(id)) return [400, { error: "bad" }];
       if (body.reset) { delete frames[kind][id]; if (kind === "b") await store.setSetting("bust:" + id, null); await store.setSetting("frames", frames); return [200, { frames }]; }
       const c = body.crop || {}, n = v => Math.round(Number(v) || 0), crop = { x: n(c.x), y: n(c.y), w: Math.max(40, Math.min(1200, n(c.w))) };
+      if (kind === "a") {   // carte d'arc du mode histoire : position (x,y en %), zoom (w en %) et perso affiché (f)
+        const k = v => Math.max(0, Math.min(100, n(v)));
+        const a = { x: k(c.x), y: k(c.y), w: Math.max(100, Math.min(400, n(c.w) || 100)), t: Date.now().toString(36) };
+        if (/^[a-z0-9]{2,12}$/.test(String(c.f || ""))) a.f = String(c.f);
+        frames.a[id] = a; await store.setSetting("frames", frames); console.log(`Cadrage de la carte ${id} modifié par ${u.name}`);
+        return [200, { frames }];
+      }
       if (kind === "b") {
         const m = /^data:(image\/(?:webp|png|jpeg));base64,([A-Za-z0-9+/=]+)$/.exec(String(body.image || ""));
         if (!m) return [400, { error: "image" }];
