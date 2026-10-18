@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.97 — 2026-10-18
 
+- Petit bruit de « swish » quand la souris survole les menus
 - Nouveau bruitage quand tu joues une carte qui n'est pas une attaque
 - Nouveau bruitage au déclenchement d'un Ultime
 - Nouveau bruitage quand un piège se déclenche
