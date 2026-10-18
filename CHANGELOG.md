@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.97 — 2026-10-18
 
+- Nouveau bruitage pour les soins
 - Kenshiro ne dit plus « Omae wa mō shindeiru » quand il met un adversaire KO
 - Nouveau bruitage pour le coup final, en même temps que l'annonce du KO
 - Nouveaux bruitages de coups : 6 sons tirés au hasard pour les Légers et les Moyens
