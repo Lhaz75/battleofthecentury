@@ -40,7 +40,7 @@ checkCdn();
 setInterval(() => { if (CDN_OK) { CDN_OK = false; checkCdn(); } }, 6 * 3600 * 1000);   // revérifie de temps en temps
 
 const TYPES = { ".html":"text/html; charset=utf-8", ".js":"text/javascript", ".css":"text/css",
-  ".webp":"image/webp", ".png":"image/png", ".jpg":"image/jpeg", ".woff2":"font/woff2", ".json":"application/json", ".ico":"image/x-icon", ".svg":"image/svg+xml", ".mp3":"audio/mpeg", ".webmanifest":"application/manifest+json", ".css":"text/css; charset=utf-8" };
+  ".webp":"image/webp", ".pdf":"application/pdf", ".png":"image/png", ".jpg":"image/jpeg", ".woff2":"font/woff2", ".json":"application/json", ".ico":"image/x-icon", ".svg":"image/svg+xml", ".mp3":"audio/mpeg", ".webmanifest":"application/manifest+json", ".css":"text/css; charset=utf-8" };
 
 // ---------- documents de partie (en mémoire + sauvegarde disque) ----------
 let docs = {};

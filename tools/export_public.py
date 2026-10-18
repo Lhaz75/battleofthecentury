@@ -49,4 +49,7 @@ open(ix, "w", encoding="utf-8", newline="\n").write(re.sub(r'APP_BUILD="[^"]*"',
 try:
     import importlib.util as _u; _s=_u.spec_from_file_location("sons_page", os.path.join(ROOT, "tools", "sons_page.py")); _m=_u.module_from_spec(_s); _s.loader.exec_module(_m); _m.build()
 except Exception as e: print("sons.html : erreur", e)
+try:
+    _s=_u.spec_from_file_location("combattants_pdf", os.path.join(ROOT, "tools", "combattants_pdf.py")); _m=_u.module_from_spec(_s); _s.loader.exec_module(_m); print("PDF combattants :", _m.build())
+except Exception as e: print("PDF combattants : erreur", e)
 print("export ok, version", v, "build", build, "-", len(live["fighters"]), "combattants")
