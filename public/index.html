@@ -2440,6 +2440,7 @@ body[data-terr="jagi"]{--terrbg:url("assets/story-jagi.webp")}body[data-terr="ja
 @keyframes gcping{0%{box-shadow:0 0 0 0 rgba(232,176,74,.7)}100%{box-shadow:0 0 0 12px rgba(232,176,74,0)}}
 #gchat.fight{width:44px;height:44px;padding:0;justify-content:center;border-radius:50%;left:10px;right:auto;bottom:auto;top:calc(60px + env(safe-area-inset-top,0px));opacity:.75}
 #gchat.fight:hover{opacity:1}
+#gchat.mini{width:42px;height:42px;padding:0;justify-content:center;border-radius:50%}#gchat.mini .gclast{display:none}#gchat.mini .gcbadge{position:absolute;top:-5px;right:-5px}
 #gchat.fight .gclast{display:none}#gchat.fight .gcbadge{position:absolute;top:-5px;right:-5px}
 body:has(.screen.gatescr) #gchat{display:none}
 body:has(#gchat) .newstoast{bottom:64px}
@@ -6026,7 +6027,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261018190700";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261018191142";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
@@ -6762,6 +6763,10 @@ const GCHAT={msgs:[], me:null, open:false, seen:0, tok:undefined, ok:false, mute
 try{ GCHAT.seen=+localStorage.getItem("boc-chat-seen")||0; }catch(e){}
 function gcSeen(){ const t=GCHAT.msgs.length?GCHAT.msgs[GCHAT.msgs.length-1].t:0; if(t>GCHAT.seen){ GCHAT.seen=t; try{ localStorage.setItem("boc-chat-seen",String(t)); }catch(e){} } }
 function gcUnread(){ const me=ACC.user&&ACC.user.id; return GCHAT.msgs.filter(m=>m.t>GCHAT.seen && m.uid!==me).length; }
+function gcCovers(){ const w=Math.min(380,innerWidth-(innerWidth<=600?20:32)), r=innerWidth<=600?10:16, bot=innerHeight-10, top=bot-42, left=innerWidth-r-w;
+  for(let i=0;i<=6;i++) for(const y of [top+6,top+21,bot-6]){ const x=left+6+(w-12)*i/6;
+    for(const el of document.elementsFromPoint(x,y)){ if(el.closest("#gchat,#gcpan")) continue; const hit=el.closest("button,a[href],input,select,textarea,.btn,.ftile,.daily,.bstile"); if(hit){ const bar=hit.closest(".teambar")||hit; return Math.min(...[bar.getBoundingClientRect().top]); } if(el===document.body||el.id==="app") break; } }
+  return 0; }
 function gcFighting(){ return !!document.querySelector(".screen.board"); }
 function gcSub(){ if(!window.DOOM_WS) return; GCHAT.tok=ACC.token||null; window.DOOM_WS.send({op:"chatSub",tok:ACC.token||""}); }
 function gcSysText(m){ const a=m.a||[];
@@ -6846,7 +6851,8 @@ function dcChatInit(){
   window.DOOM_WS.listen(gcOnWs, gcSub);
   gcSub(); gcBar();
   // repli en combat, reconnexion au changement de compte
-  setInterval(()=>{ if(GCHAT.tok!==(ACC.token||null)) gcSub(); const b=$("#gchat"); if(b && b.classList.contains("fight")!==gcFighting()){ if(gcFighting() && GCHAT.open) gcToggle(false,true); gcBar(); } },1000);
+  setInterval(()=>{ if(GCHAT.tok!==(ACC.token||null)) gcSub(); const b=$("#gchat"); if(b && b.classList.contains("fight")!==gcFighting()){ if(gcFighting() && GCHAT.open) gcToggle(false,true); gcBar(); }
+    if(b && !gcFighting()){ const t=gcCovers(); b.classList.toggle("mini",!!t); b.style.bottom=t?Math.max(10,Math.round(innerHeight-t+8))+"px":""; } },700);
 }
 /* ---------- Labo des sons : /?labo lance un faux combat et un panneau pour déclencher chaque son avec ses effets ---------- */
 function laboStart(){
