@@ -2475,7 +2475,6 @@ body:has(#gchat) .newstoast{bottom:64px}
 #gcpan .gcmenu button:hover:not([disabled]){background:rgba(232,176,74,.14)}#gcpan .gcmenu button[disabled]{opacity:.5;cursor:default}
 #gcpan .gcmenu small{color:#8d7c66;font-size:11px}
 @media (max-width:600px){#gchat,#gcpan{right:10px;width:calc(100vw - 20px)}#gcpan{height:min(540px,calc(100dvh - 70px))}#gchat.fight{width:38px;height:38px;font-size:15px;left:auto;right:8px;top:auto;bottom:calc(282px + env(safe-area-inset-bottom,0px))}}
-body:has(#gchat):not(:has(.screen.board)) #app{padding-bottom:58px}
 .bstile.dead img{filter:grayscale(1)}.bstile.dead .bslive{color:#e8b23a}
 .bosspg{max-width:980px;margin:0 auto;padding:4px 0 30px;color:#f2e6d8}
 .bshd{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:14px}
@@ -6027,7 +6026,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261018193241";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261018194118";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
@@ -6765,7 +6764,7 @@ function gcSeen(){ const t=GCHAT.msgs.length?GCHAT.msgs[GCHAT.msgs.length-1].t:0
 function gcUnread(){ const me=ACC.user&&ACC.user.id; return GCHAT.msgs.filter(m=>m.t>GCHAT.seen && m.uid!==me).length; }
 function gcCovers(){ const w=Math.min(380,innerWidth-(innerWidth<=600?20:32)), r=innerWidth<=600?10:16, bot=innerHeight-10, top=bot-42, left=innerWidth-r-w;
   for(let i=0;i<=6;i++) for(const y of [top+6,top+21,bot-6]){ const x=left+6+(w-12)*i/6;
-    for(const el of document.elementsFromPoint(x,y)){ if(el.closest("#gchat,#gcpan")) continue; const hit=el.closest("button,a[href],input,select,textarea,.btn,.ftile,.daily,.bstile"); if(hit){ const bar=hit.closest(".teambar")||hit; return Math.min(...[bar.getBoundingClientRect().top]); } if(el===document.body||el.id==="app") break; } }
+    for(const el of document.elementsFromPoint(x,y)){ if(el.closest("#gchat,#gcpan")) continue; const hit=el.closest("button,a[href],input,select,textarea,.btn,.ftile,.daily,.bstile,.betanote,.fanmade"); if(hit){ const bar=hit.closest(".teambar")||hit; return Math.min(...[bar.getBoundingClientRect().top]); } if(el===document.body||el.id==="app") break; } }
   return 0; }
 function gcFighting(){ return !!document.querySelector(".screen.board"); }
 function gcSub(){ if(!window.DOOM_WS) return; GCHAT.tok=ACC.token||null; window.DOOM_WS.send({op:"chatSub",tok:ACC.token||""}); }
