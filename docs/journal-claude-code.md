@@ -340,3 +340,4 @@ Retours Discord du 10 oct. (après-midi), pas encore traités :
 - 2026-10-17 : kingsol8 Dino (♦, sbire de Diamond) : king-4 vague 1, sc_diamond.
 - 2026-10-18 : v0.99.97 — bonus d'équipe visibles : lkPosHTML (fiche du perso), lkHit (tuiles dorées 🔗), teamBonusFx (encart au début du combat).
 - 2026-10-18 : RESET_PW (variable Render "Pseudo:motdepasse") pour récupérer un compte admin sans mot de passe.
+- 2026-10-18 : chat global maison (chat.js, ops WebSocket chat*, réglages chat/chatMute en base), remplace WidgetBot ; correctif boardFx en tutoriel

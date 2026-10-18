@@ -213,7 +213,8 @@ function pgStore(url, PgPool) {
 }
 
 // ---------------- logique ----------------
-function makeAccounts({ store, getDuel, hasDuel, version, build, ready }) {
+function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = {} }) {
+  const sys = (k, a) => { try { hooks.sys && hooks.sys(k, a); } catch (e) {} };   // messages système du chat
   // administrateurs : pseudos listés dans la variable ADMINS (séparés par des virgules)
   const ADMINS = new Set(String(process.env.ADMINS || "").split(",").map(x => x.trim().toLowerCase()).filter(Boolean));
   const isAdmin = u => !!u && ADMINS.has(String(u.name).toLowerCase());
@@ -409,6 +410,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready }) {
       const u = await store.createUser(name, await scrypt(pw, salt), salt);
       if (!u) return [409, { error: "taken" }];
       await store.touch(u.id, ip);
+      sys("chNew", [u.name]);
       return [200, { token: await newSession(u), user: pubUser(u) }];
     },
     "POST /api/login": async (req, body, ip) => {
@@ -494,6 +496,8 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready }) {
       let killed = false;
       if (b.hp <= 0 && !b.dead) { b.hp = 0; b.dead = true; b.killer = { id: u.id, name: u.name }; b.killedAt = Date.now(); killed = true; }
       await bossSave(b);
+      if (!BOSS_TEST) { const p0 = Math.ceil(hp0 / b.max * 4), p1 = Math.ceil(b.hp / b.max * 4);
+        if (killed) sys("chBossKill", [b.id, u.name]); else if (p1 < p0) sys("chBossPct", [b.id, Math.round(b.hp / b.max * 100)]); }
       if (killed && !BOSS_TEST) await bossAward(b).catch(er => console.error("boss award", er.message));
       const me = killed && !BOSS_TEST ? await store.byId(u.id) : null;
       return [200, { raw, counted, capped: !b.dead && counted < Math.min(raw, hp0), killed, ...(me ? { user: pubUser(me) } : {}), ...bossPub(b, u, BOSS_TEST) }];
@@ -604,6 +608,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready }) {
       let best = stars; if (!easy && pc(mk) === stars - 1) { M[ch] = (M[ch] || 0) | mk; best = Math.max(stars, 1 + pc(M[ch])); }
       let gain = 0; if (had < 0) gain += 20; gain += 10 * Math.max(0, best - Math.max(0, had));
       prog[ch] = Math.max(best, had); st.pts += gain;
+      if (had < 0 && body.boss) sys("chStory", [u.name, ch]);
       if (body.diff === "h" && stars >= 3) { const H = st.storyH = st.storyH || {}; if (!H[ch]) { H[ch] = 1; st.pts += 15; gain += 15; } }
       const ach = achCheck(st, body.feats); await store.saveStats(u.id, st);
       return [200, { user: pubUser(u), gain, ach }];
@@ -655,7 +660,9 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready }) {
       lastDojo.set(u.id, now);
       const rank = p => Math.max(0, Math.min(20, Math.floor(p / 4))), before = st.dojo || 0;
       const gain = won ? [6, 10, 15][tier] + Math.floor(rank(before) / 2) : 1;
-      st.dojo = Math.max(0, before + (won ? tier + 1 : -1)); st.dojoBest = Math.max(st.dojoBest || 0, rank(st.dojo));
+      const best0 = st.dojoBest || 0;
+      st.dojo = Math.max(0, before + (won ? tier + 1 : -1)); st.dojoBest = Math.max(best0, rank(st.dojo));
+      if (st.dojoBest > best0 && st.dojoBest >= 3) sys("chDojo", [u.name, st.dojoBest]);
       if (won) st.dojoW = (st.dojoW || 0) + 1;
       st.pts += gain; bumpFav(st, body.team);
       const ach = achCheck(st, won ? body.feats : []);
@@ -902,7 +909,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready }) {
       catch (e) { console.error("api", url.pathname, e.message); send(500, { error: "server" }); }
     });
   }
-  return { handle, ipBanned, auth };
+  return { handle, ipBanned, auth, isAdmin };
 }
 
 module.exports = { jsonStore, pgStore, makeAccounts };

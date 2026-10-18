@@ -59,7 +59,8 @@ const store = process.env.DATABASE_URL ? pgStore(process.env.DATABASE_URL) : jso
 const ready = store.init().then(() => console.log("Comptes : stockage", store.kind)).catch(e => console.error("Comptes : erreur d'init", e.message));
 const VERSION = (() => { try { return require("./package.json").version; } catch (e) { return "0"; } })();
 const BUILD = (() => { try { return require("./package.json").build || ""; } catch (e) { return ""; } })();
-const accounts = makeAccounts({ version: VERSION, build: BUILD, ready, store, getDuel: code => docs["duels/" + code] || null, hasDuel: code => !!docs["duels/" + code] });
+const hooks = {};
+const accounts = makeAccounts({ hooks, version: VERSION, build: BUILD, ready, store, getDuel: code => docs["duels/" + code] || null, hasDuel: code => !!docs["duels/" + code] });
 
 // ---------- messages vocaux du chat versus (en mémoire, 2 h) ----------
 const voices = new Map(); let voiceBytes = 0; const voiceRate = new Map();
@@ -128,18 +129,21 @@ const wss = new WebSocketServer({ server, path: "/ws", maxPayload: 512 * 1024 })
 const subs = new Map(); // path -> Set(ws)
 function snap(p) { const d = docs[p]; if (!d) return { exists: false }; const { _t, ...data } = d; return { exists: true, data }; }
 function broadcast(p) { const msg = JSON.stringify({ op: "snap", path: p, ...snap(p) }); for (const ws of subs.get(p) || []) if (ws.readyState === 1) ws.send(msg); }
+const chat = require("./chat").makeChat({ store, ready, auth: accounts.auth, isAdmin: accounts.isAdmin });
+hooks.sys = chat.sys;
 const mm = require("./matchmaking").makeMatchmaking({ docs, markDirty: () => { dirty = true; }, broadcast, auth: accounts.auth });
 
 wss.on("connection", (ws, req) => {
   const wip = (req.headers["x-forwarded-for"] || req.socket.remoteAddress || "").split(",")[0].trim();
   if (accounts.ipBanned(wip)) return ws.close();
-  ws.mine = new Set(); ws.count = 0; ws.since = Date.now();
+  ws.ip = wip; ws.mine = new Set(); ws.count = 0; ws.since = Date.now();
   ws.on("message", raw => {
     // limite simple : 40 messages par seconde
     const now = Date.now(); if (now - ws.since > 1000) { ws.since = now; ws.count = 0; }
     if (++ws.count > 40) return;
     let m; try { m = JSON.parse(raw); } catch (e) { return; }
     const reply = o => ws.readyState === 1 && ws.send(JSON.stringify({ id: m.id, ...o }));
+    if (m && typeof m.op === "string" && m.op.startsWith("chat")) { chat.onMessage(ws, m).catch(e => console.error("chat", e.message)); return; }
     if (typeof m.path !== "string" || !PATH_OK.test(m.path)) return reply({ op: "err", code: "invalid_argument" });
     const p = m.path;
     if (m.op === "sub") {
@@ -161,7 +165,7 @@ wss.on("connection", (ws, req) => {
     }
     reply({ op: "err", code: "invalid_argument" });
   });
-  ws.on("close", () => { for (const p of ws.mine) subs.get(p)?.delete(ws); });
+  ws.on("close", () => { chat.drop(ws); for (const p of ws.mine) subs.get(p)?.delete(ws); });
 });
 
 server.listen(PORT, () => console.log(`Battle of the Century v${VERSION} sur http://localhost:${PORT}`));
