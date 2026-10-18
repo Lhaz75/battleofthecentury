@@ -3882,6 +3882,8 @@ function newGame(team,foe,prep){
   S = { p:makeSide(team,myDeckPool()), a:makeSide(foe||randomTeam(team)), terrain:null, round:0, turn:null, busy:true, over:false, react:null,
         log:L("start"), sub:"", gid:Date.now()+"-"+Math.random().toString(36).slice(2,6) };
   if(prep) prep(S);
+  // images HD des ultimes : préchargées dès le début du combat (seulement les persos des deux équipes)
+  try{ [...S.p.team,...S.a.team].forEach(f=>{ if(f&&HD.has(f.id)){ const im=new Image(); im.decoding="async"; im.src=ultImg(f.id); } }); }catch(e){}
   SFX.ann("fight",{delay:150});
   startTurn("p");
   setTimeout(()=>teamBonusFx(ME),900);
@@ -6026,7 +6028,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261018154937";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261018155237";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
