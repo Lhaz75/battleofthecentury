@@ -2417,6 +2417,16 @@ body[data-terr="jagi"]{--terrbg:url("assets/story-jagi.webp")}body[data-terr="ja
   .onl.go .onlgo{display:inline;margin-left:4px;padding-left:8px;border-left:1px solid rgba(232,176,74,.4);color:#7ee59a;font-weight:700}
   .onl.go{border-color:rgba(79,211,107,.55)}.onl.go:hover{border-color:#4fd36b;box-shadow:0 0 12px rgba(79,211,107,.35)}
 }
+.labo{position:fixed;left:10px;top:50%;transform:translateY(-50%);z-index:70;width:250px;max-height:calc(100dvh - 20px);display:flex;flex-direction:column;background:rgba(18,13,11,.96);border:1px solid #e8b04a;border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.7);font:13px var(--f-body,inherit);color:#efe4d2}
+.labo .labhd{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border-bottom:1px solid #3d2b1c}.labo .labhd b{color:#e8b04a}
+.labo .labhd button{background:none;border:0;color:#efe4d2;font-size:20px;cursor:pointer;line-height:1}
+.labo .labbody{overflow-y:auto;padding:4px 10px 10px}.labo.min .labbody{display:none}
+.labo h4{margin:10px 0 5px;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#9c8a74}
+.labo .labg{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:4px}
+.labo .labg button{background:#2a1c14;border:1px solid #4a321b;border-radius:7px;color:#efe4d2;padding:5px 8px;font:inherit;cursor:pointer}.labo .labg button:hover{border-color:#e8b04a}.labo .labg button:active{background:#b8401f}
+.labo select{width:100%;background:#2a1c14;border:1px solid #4a321b;border-radius:7px;color:#efe4d2;padding:5px;font:inherit}
+.labo .labn{color:#9c8a74;font-size:11px;margin:8px 0 0}
+@media (max-width:600px){.labo{top:auto;bottom:8px;transform:none;width:calc(100vw - 20px);max-height:45dvh}}
 #gchat{position:fixed;right:16px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:45;width:min(380px,calc(100vw - 32px));height:42px;display:flex;align-items:center;gap:9px;padding:0 12px;border-radius:21px;border:1px solid #6b4a24;background:rgba(18,12,9,.94);color:#e9dcc6;font:14px var(--f-body,inherit);cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.55);text-align:left;transition:border-color .2s,width .25s,opacity .2s}
 #gchat:hover{border-color:#e8b04a}
 #gchat .gcico{font-size:18px;flex:none}
@@ -6007,7 +6017,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261018134915";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261018135154";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
@@ -6826,6 +6836,39 @@ function dcChatInit(){
   gcSub(); gcBar();
   // repli en combat, reconnexion au changement de compte
   setInterval(()=>{ if(GCHAT.tok!==(ACC.token||null)) gcSub(); const b=$("#gchat"); if(b && b.classList.contains("fight")!==gcFighting()){ if(gcFighting() && GCHAT.open) gcToggle(false,true); gcBar(); } },1000);
+}
+/* ---------- Labo des sons : /?labo lance un faux combat et un panneau pour déclencher chaque son avec ses effets ---------- */
+function laboStart(){
+  MODE="solo"; ME="p";
+  newGame(["maitre","sage","nuage"],["colo","rival","emp"],aiPrep(aiLvGet(),false)); soloOpen();
+  setTimeout(laboPanel,600);
+}
+function laboPanel(){
+  document.querySelectorAll(".labo").forEach(x=>x.remove());
+  const me=()=>act(S.p), foe=()=>act(S.a), hit=(d,tag)=>{ SFX.hit(d); fx("a",`-${d}`); if(d>=10) shake && shake("a"); if(tag) SFX.ann("critical",{delay:120}); };
+  const ko=last=>{ const f=foe(); SFX.play("ko"); SFX.voice(DEATH_VOICE[f.id],1400); SFX.ann(last?"finalko":"ko",{delay:120}); if(last) setTimeout(()=>SFX.play("finalhit"),120);
+    if(!last) shout(`${esc(nm(f.id))}<br>KO`); flash(); deathFx("a",DEATH_CRIES[rnd(DEATH_CRIES.length)]); };
+  const ev=()=>{ const e=EVENTS[rnd(EVENTS.length)]; SFX.play("event"); SFX.ann("event",{delay:250}); eventCard(tr(e.name),tr(e.text),EV_TONE[e.name],EV_IMG[e.name]); };
+  const ult=()=>{ const f=me(), u=FIGHTERS[f.id].ult; cutin("p",f.id,tr(u.name)); flash(); quake(); SFX.play("ultstart"); SFX.voice(ULT_VOICE[f.id],550); };
+  const B=[
+    ["Coups",[["Léger (3)",()=>hit(3)],["Moyen (6)",()=>hit(6)],["Gros (12)",()=>hit(12)],["Critique",()=>hit(8,true)],["Rafale ×4",()=>[0,1,2,3].forEach(i=>setTimeout(()=>hit(3+i),i*260))]]],
+    ["Réactions",[["Garde",()=>SFX.play("guard")],["Esquive",()=>SFX.play("dodge")],["Contre",()=>SFX.play("counter")],["Carte",()=>SFX.play("card")],["Piège",()=>SFX.play("trap")],["Relais",()=>SFX.play("relay")],["Horde",()=>SFX.play("horde")]]],
+    ["Moments",[["Soin",()=>{ SFX.play("heal"); fx("p","+4","h"); }],["Événement",ev],["Ultime",ult],["KO",()=>ko(false)],["KO final",()=>ko(true)]]],
+    ["Commentateur",[["Fight",()=>SFX.ann("fight")],["Ton tour",()=>SFX.ann("turn",{local:true})],["Combo",()=>SFX.ann("combo")],["Spécial",()=>SFX.ann("special")],["Victoire",()=>SFX.ann("win",{local:true})],["Défaite",()=>SFX.ann("lose",{local:true})]]],
+    ["Terres désolées",[["Équiper",()=>SFX.play("equip")],["Retirer",()=>SFX.play("unequip")]]]
+  ];
+  const voices=[...new Set([...Object.keys(ULT_VOICE),...Object.keys(ENTER_VOICE),...Object.keys(DEATH_VOICE)])].filter(id=>FIGHTERS[id]).sort((a,b)=>nm(a).localeCompare(nm(b)));
+  const w=document.createElement("aside"); w.className="labo";
+  w.innerHTML=`<div class="labhd"><b>🔊 Labo des sons</b><button data-min title="Réduire">–</button></div><div class="labbody">${B.map(([t,bs],gi)=>`<h4>${t}</h4><div class="labg">${bs.map(([n],i)=>`<button data-b="${gi}-${i}">${n}</button>`).join("")}</div>`).join("")}
+    <h4>Voix d'un perso</h4><div class="labg"><select>${voices.map(id=>`<option value="${id}">${esc(nm(id))}</option>`).join("")}</select></div>
+    <div class="labg"><button data-v="enter">Entrée</button><button data-v="ult">Ultime</button><button data-v="death">Mort</button></div>
+    <p class="labn">Le combat continue normalement : tu peux aussi jouer tes cartes.</p></div>`;
+  document.body.append(w);
+  w.onclick=e=>{ const b=e.target.closest("button"); if(!b) return;
+    if(b.dataset.min!=null){ w.classList.toggle("min"); return; }
+    if(b.dataset.b){ const [g,i]=b.dataset.b.split("-").map(Number); try{ B[g][1][i][1](); }catch(err){ console.error(err); } return; }
+    if(b.dataset.v){ const id=w.querySelector("select").value, n=(b.dataset.v==="enter"?ENTER_VOICE:b.dataset.v==="ult"?ULT_VOICE:DEATH_VOICE)[id];
+      if(n) SFX.voice(n,0); else { b.textContent="—"; setTimeout(()=>b.textContent={enter:"Entrée",ult:"Ultime",death:"Mort"}[b.dataset.v],900); } } };
 }
 function bindBossTile(sel){ if($("#bsban") && $("#bsban").tagName==="BUTTON") $("#bsban").onclick=()=>{ SFX.play("click"); renderBoss(sel); }; }
 function renderBoss(sel=TITLE_SEL){
@@ -9559,6 +9602,7 @@ Object.assign(TXJA,{"Aigle en deuil : ses Moyens font +2 si l'adversaire est sou
 Object.assign(UI.ja,{"lk_fugen": "フゲンの弟子", "lkd_fugen": "ジュガイとシン：中攻撃+1。", "lk_lastland": "敵対する父子", "lkd_lastland": "セイジとサンガ：片方が倒れると、もう片方の攻撃+2。"});
 document.documentElement.lang=LANG;
 renderTitle(); facesLoad(); accInit().then(statusStart); setTimeout(newsToast,1500);
+if(/[?&]labo\b/.test(location.search)) setTimeout(laboStart,400);
 
 /* histoire, arc 2 complété (16 oct.) : Kenshiro contre Rei, Toki contre Ken-Oh */
 Object.assign(UI.fr,{"st_t_arc2-17": "Le duel forcé", "st_i_arc2-17": "Kiba Daioh tient Mamiya et Airi, la sœur de Rei. Son marché : que Kenshiro et Rei s'entretuent, et le survivant récupérera les femmes. Les deux hommes se mettent en garde… mais chacun a son plan.", "st_o_arc2-17": "Les deux corps tombent dans la poussière. Daioh éclate de rire, trop tôt : Kenshiro et Rei se relèvent. Ils ont frappé juste à côté des points vitaux. Il est temps d'aller chercher le roi des crocs.", "st_m_arc2-16": "Un seul doigt a suffi. Ken-Oh a frappé le point vital Shinketsushū : il reste trois jours à vivre à Rei. Kenshiro arrive, mais Toki le devance : il fige son frère d'un point vital et fait face à Raoh. « Regarde, Ken, et apprends. »", "st_m_arc2-16_2": "Raoh a cloué les pieds de Toki au sol et l'a écrasé de toute sa force. Le point vital qui retenait Kenshiro cède : il se relève. À lui, maintenant.", "st_o_arc2-16": "Les deux frères sont à bout de forces, et aucun ne tombe. Ken-Oh remonte sur Kokuoh et s'éloigne : ce combat-là n'est que remis."});
