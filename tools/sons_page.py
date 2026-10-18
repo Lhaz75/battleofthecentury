@@ -10,7 +10,7 @@ USE = {"hitLight": "Coup léger, moins de 5 dégâts (au hasard)", "hitMid": "Co
        "event": "Événement affiché", "horde": "Horde de pillards", "relay": "Relais / étourdi", "ultstart": "Début d'ultime", "click": "Clic de menu",
        "unequip": "Terres désolées : retirer un équipement", "equip": "Terres désolées : équiper un objet", "finalhit": "Coup final (avec l'annonce KO)", "heal": "Soin"}
 ANN = {"fight": "« Fight » au début du combat", "combo": "Combo complet", "critical": "Coup critique", "event": "Événement", "ko": "KO",
-       "finalko": "KO final", "special": "Ultime", "win": "Victoire", "lose": "Défaite", "turn": "Ton tour", "challenger": "« Here comes a new challenger! » (défi reçu, versus en ligne)", "timeup": "« Time's up! » (chrono à zéro : versus en ligne, défi blitz)"}
+       "finalko": "KO final", "special": "Ultime", "win": "Victoire", "lose": "Défaite", "turn": "Ton tour", "challenger": "« Here comes a new challenger! » (défi reçu, versus en ligne)", "timeup": "« Time over! » (chrono à zéro : versus en ligne, défi blitz)"}
 
 
 def dur(p):
