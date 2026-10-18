@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.97 — 2026-10-18
 
+- Les chiffres de dégâts s'affichent maintenant au centre de la carte touchée (ils tombaient dans le bas de la carte)
 - Nouveaux liens vers Threads et X (@hokutolegacy) à côté de Facebook
 - La liste des combattants s'exporte en PDF (bouton dans « Combattants », puis « Enregistrer en PDF ») pour la consulter hors ligne : PV, coût, passif, techniques, spéciale, piège et ultime de chaque perso
 - Petit bruit de « swish » quand la souris survole les menus, les boutons du haut, les liens et les défis. Les tuiles Défi du jour et Défi de la semaine s'illuminent au survol et se cliquent en entier
