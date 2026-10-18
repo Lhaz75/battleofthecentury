@@ -6027,7 +6027,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261018191715";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261018193241";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
@@ -8511,7 +8511,7 @@ function homeHTML(sel){
   return `<div class="hm"><div class="hmL"><div class="hmlist">${ms.map(([m,n],i)=>`<button class="hmi${i===0?" on":""}" data-m="${m}"${m==="online"?' id="online"':""} style="--hc:var(--hm-${m})"><img class="hmp" src="assets/${HM_ART[m]}.webp" alt="" loading="lazy"><span class="hmt"><b>${n}</b><small>${L("hmd_"+m)}</small></span></button>`).join("")}</div>
     <div class="hmch">${hmDailyHTML()}${weeklyBannerHTML(sel)}${bossTileHTML()}</div></div>
     <div class="hmstage" style="--hc:var(--hm-${m0})"><img id="hmimg" src="assets/${HM_ART[m0]}.webp" alt=""><div class="hminfo"><div class="k">${L("hmMode")}</div><h1 id="hmh">${ms[0][1]}</h1><p id="hmd">${L("hmd_"+m0)}</p><button class="btn hmplay" id="hmplay" data-m="${m0}">${L("hmPlay")}</button><div class="hmstats" id="hmstats">${hmStatsHTML(m0)}</div>${hmNewsHTML()}</div></div></div>
-    <div class="hmlinks">${stUnlock()&&ACC.user?`<button class="btn sm shopbtn" id="shop">${KOBAN()}${L("shopBtn")}${[1,2,3,4,5,6].map(i=>`<i class="spk k${i}" aria-hidden="true"></i>`).join("")}</button>`:""}<button class="btn ghost sm" id="roster">${L("rosterBtn")}</button><button class="btn ghost sm" id="rules">${L("rulesBtn")}</button>${ACC.on?`<button class="btn ghost sm" id="hof">${L("hofBtn")}</button>`:""}${socialHTML(true)}</div>
+    <div class="hmlinks">${stUnlock()&&ACC.user?`<button class="btn sm shopbtn" id="shop">${KOBAN()}${L("shopBtn")}${[1,2,3,4,5,6].map(i=>`<i class="spk k${i}" aria-hidden="true"></i>`).join("")}</button>`:""}<button class="btn ghost sm" id="roster">${L("rosterBtn")}</button><button class="btn ghost sm" id="rules">${L("rulesBtn")}</button>${ACC.on?`<button class="btn ghost sm" id="hof">${L("hofBtn")}</button>`:""}${socialHTML()}</div>
     <p class="betanote hmbeta">${L("betaNote")}</p><p class="fanmade">${L("fanMade")}</p>`;
 }
 function hmEnter(m,sel){
