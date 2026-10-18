@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.97 — 2026-10-18
 
+- Nouveaux bruitages de coups : 7 sons tirés au hasard pour les Légers et les Moyens
 - Terres désolées : nouveaux bruitages de tissu quand tu équipes ou retires un équipement
 - Nouveau chat intégré au jeu, à la place du bouton Discord : une barre en bas de l'écran montre le dernier message (réduite en bulle pendant les combats), clique sur un pseudo pour le défier. Le chat annonce aussi les nouveaux joueurs, les boss d'histoire vaincus, les grades du Dojo et l'avancée du boss mondial
 - Nouvelles illustrations (Lhaz) pour Asam, Kaioh, Ryuken, Shūken, Tesshin Kasumi, Zeus, Aus et Garo
