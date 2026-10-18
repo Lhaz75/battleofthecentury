@@ -46,4 +46,7 @@ t = re.sub(r'"build": "[^"]*"', f'"build": "{build}"', t, count=1) if '"build"' 
 open(pk, "w", encoding="utf-8").write(t)
 ix = os.path.join(PUB, "index.html"); h = open(ix, encoding="utf-8").read()
 open(ix, "w", encoding="utf-8", newline="\n").write(re.sub(r'APP_BUILD="[^"]*"', f'APP_BUILD="{build}"', h, count=1))
+try:
+    import importlib.util as _u; _s=_u.spec_from_file_location("sons_page", os.path.join(ROOT, "tools", "sons_page.py")); _m=_u.module_from_spec(_s); _s.loader.exec_module(_m); _m.build()
+except Exception as e: print("sons.html : erreur", e)
 print("export ok, version", v, "build", build, "-", len(live["fighters"]), "combattants")

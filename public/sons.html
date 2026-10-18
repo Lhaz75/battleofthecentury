@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Sons du jeu · Battle of the Century</title>
+<style>
+:root{--bg:#120d0b;--panel:#1d1511;--line:#3d2b1c;--txt:#efe4d2;--mute:#9c8a74;--gold:#e8b04a;--red:#c8442a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.4 system-ui,Segoe UI,sans-serif}
+header{position:sticky;top:0;z-index:5;background:rgba(18,13,11,.97);border-bottom:1px solid var(--line);padding:12px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+h1{margin:0 10px 0 0;font-size:19px;color:var(--gold);letter-spacing:.5px}
+input[type=range]{accent-color:var(--gold)}
+input[type=search]{background:var(--panel);color:var(--txt);border:1px solid var(--line);border-radius:8px;padding:7px 10px;font:inherit;min-width:160px;flex:1;max-width:260px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:var(--panel);color:var(--txt);border:1px solid var(--line);border-radius:20px;padding:5px 11px;font:inherit;font-size:13px;cursor:pointer}
+.chip.on{border-color:var(--gold);color:var(--gold)}
+.vol{display:flex;align-items:center;gap:6px;color:var(--mute);font-size:13px;margin-left:auto}
+main{padding:12px 16px 40px;max-width:900px;margin:0 auto}
+h2{font-size:14px;text-transform:uppercase;letter-spacing:1px;color:var(--mute);margin:22px 0 8px;border-bottom:1px solid var(--line);padding-bottom:6px}
+.row{display:flex;align-items:center;gap:12px;padding:8px 10px;border-radius:10px;background:var(--panel);border:1px solid transparent;margin-bottom:6px}
+.row.playing{border-color:var(--gold)}
+.play{flex:none;width:40px;height:40px;border-radius:50%;border:0;background:var(--red);color:#fff;font-size:16px;cursor:pointer;display:grid;place-items:center}
+.row.playing .play{background:var(--gold);color:#1a120c}
+.info{flex:1;min-width:0}
+.n{font-weight:700;font-family:ui-monospace,Consolas,monospace;font-size:14px}
+.u{color:var(--mute);font-size:13px}
+.bar{height:3px;background:#2c2018;border-radius:2px;margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--gold)}
+.d{flex:none;color:var(--mute);font-size:12px;font-variant-numeric:tabular-nums;width:46px;text-align:right}
+.cat-Pas .row{opacity:.6}
+.empty{color:var(--mute);text-align:center;padding:40px}
+@media (max-width:600px){.vol{margin-left:0}}
+</style>
+</head>
+<body>
+<header>
+  <h1>🔊 Sons du jeu</h1>
+  <input id="q" type="search" placeholder="Chercher un son…">
+  <div class="chips" id="chips"></div>
+  <label class="vol">Volume <input id="vol" type="range" min="0" max="1" step="0.05" value="0.8"></label>
+</header>
+<main id="list"></main>
+<script>
+const DATA=[{"f": "sfx/ann_combo.mp3", "n": "ann_combo", "c": "Commentateur", "u": "Combo complet", "d": 1.65}, {"f": "sfx/ann_critical.mp3", "n": "ann_critical", "c": "Commentateur", "u": "Coup critique", "d": 1.91}, {"f": "sfx/ann_event.mp3", "n": "ann_event", "c": "Commentateur", "u": "Événement", "d": 1.28}, {"f": "sfx/ann_fight.mp3", "n": "ann_fight", "c": "Commentateur", "u": "« Fight » au début du combat", "d": 2.22}, {"f": "sfx/ann_finalko.mp3", "n": "ann_finalko", "c": "Commentateur", "u": "KO final", "d": 1.62}, {"f": "sfx/ann_ko.mp3", "n": "ann_ko", "c": "Commentateur", "u": "KO", "d": 1.28}, {"f": "sfx/ann_lose.mp3", "n": "ann_lose", "c": "Commentateur", "u": "Défaite", "d": 2.04}, {"f": "sfx/ann_special.mp3", "n": "ann_special", "c": "Commentateur", "u": "Ultime", "d": 1.2}, {"f": "sfx/ann_turn.mp3", "n": "ann_turn", "c": "Commentateur", "u": "Ton tour", "d": 1.88}, {"f": "sfx/ann_win.mp3", "n": "ann_win", "c": "Commentateur", "u": "Victoire", "d": 1.75}, {"f": "sfx/block.mp3", "n": "block", "c": "Bruitages", "u": "Garde", "d": 2.45}, {"f": "sfx/bonus.mp3", "n": "bonus", "c": "Pas utilisés", "u": "Fichier présent mais le jeu ne le joue pas", "d": 3.17}, {"f": "sfx/chara_heart.mp3", "n": "chara_heart", "c": "Voix", "u": "Voix de perso (ultime / entrée en jeu)", "d": 1.73}, {"f": "sfx/chara_jagi.mp3", "n": "chara_jagi", "c": "Voix", "u": "Voix de perso (ultime / entrée en jeu)", "d": 4.61}, {"f": "sfx/chara_kenshiro.mp3", "n": "chara_kenshiro", "c": "Voix", "u": "Voix de perso (ultime / entrée en jeu)", "d": 3.64}, {"f": "sfx/chara_raoh.mp3", "n": "chara_raoh", "c": "Voix", "u": "Voix de perso (ultime / entrée en jeu)", "d": 2.77}, {"f": "sfx/chara_shin.mp3", "n": "chara_shin", "c": "Voix", "u": "Voix de perso (ultime / entrée en jeu)", "d": 1.3}, {"f": "sfx/chara_souther.mp3", "n": "chara_souther", "c": "Voix", "u": "Voix de perso (ultime / entrée en jeu)", "d": 5.15}, {"f": "sfx/chara_toki.mp3", "n": "chara_toki", "c": "Voix", "u": "Voix de perso (ultime / entrée en jeu)", "d": 2.74}, {"f": "sfx/chara_yuda.mp3", "n": "chara_yuda", "c": "Voix", "u": "Voix de perso (ultime / entrée en jeu)", "d": 1.69}, {"f": "sfx/cibler.mp3", "n": "cibler", "c": "Bruitages", "u": "Carte jouée", "d": 1.26}, {"f": "sfx/cloth.mp3", "n": "cloth", "c": "Bruitages", "u": "Terres désolées : retirer un équipement", "d": 1.36}, {"f": "sfx/cloth_grab.mp3", "n": "cloth_grab", "c": "Bruitages", "u": "Terres désolées : équiper un objet", "d": 0.34}, {"f": "sfx/contrer.mp3", "n": "contrer", "c": "Bruitages", "u": "Contre", "d": 0.97}, {"f": "sfx/coup1.mp3", "n": "coup1", "c": "Bruitages", "u": "Coup léger / moyen (au hasard)", "d": 1.28}, {"f": "sfx/coup2.mp3", "n": "coup2", "c": "Bruitages", "u": "Coup léger / moyen (au hasard)", "d": 0.89}, {"f": "sfx/coup4.mp3", "n": "coup4", "c": "Bruitages", "u": "Coup léger / moyen (au hasard)", "d": 0.55}, {"f": "sfx/coup5.mp3", "n": "coup5", "c": "Bruitages", "u": "Coup léger / moyen (au hasard)", "d": 0.57}, {"f": "sfx/coup6.mp3", "n": "coup6", "c": "Bruitages", "u": "Coup léger / moyen (au hasard)", "d": 1.04}, {"f": "sfx/coup7.mp3", "n": "coup7", "c": "Bruitages", "u": "Coup léger / moyen (au hasard)", "d": 1.49}, {"f": "sfx/coup_final.mp3", "n": "coup_final", "c": "Bruitages", "u": "Coup final (avec l'annonce KO)", "d": 2.93}, {"f": "sfx/critical.mp3", "n": "critical", "c": "Bruitages", "u": "Gros coup, 10 dégâts et plus (au hasard)", "d": 0.79}, {"f": "sfx/damage.mp3", "n": "damage", "c": "Bruitages", "u": "Gros coup, 10 dégâts et plus (au hasard)", "d": 0.9}, {"f": "sfx/death.mp3", "n": "death", "c": "Bruitages", "u": "KO d'un perso", "d": 0.76}, {"f": "sfx/esquive.mp3", "n": "esquive", "c": "Bruitages", "u": "Esquive", "d": 0.79}, {"f": "sfx/event_impact.mp3", "n": "event_impact", "c": "Bruitages", "u": "Événement affiché", "d": 2.98}, {"f": "sfx/falco.mp3", "n": "falco", "c": "Voix", "u": "Voix de perso (ultime / entrée en jeu)", "d": 2.95}, {"f": "sfx/heart.mp3", "n": "heart", "c": "Voix", "u": "Voix de perso (ultime / entrée en jeu)", "d": 4.54}, {"f": "sfx/hien_yubu.mp3", "n": "hien_yubu", "c": "Voix", "u": "Voix de perso (ultime / entrée en jeu)", "d": 2.45}, {"f": "sfx/hiko.mp3", "n": "hiko", "c": "Voix", "u": "Voix de perso (ultime / entrée en jeu)", "d": 1.51}, {"f": "sfx/hit1.mp3", "n": "hit1", "c": "Pas utilisés", "u": "Fichier présent mais le jeu ne le joue pas", "d": 0.47}, {"f": "sfx/hit2.mp3", "n": "hit2", "c": "Pas utilisés", "u": "Fichier présent mais le jeu ne le joue pas", "d": 0.54}, {"f": "sfx/hit3.mp3", "n": "hit3", "c": "Pas utilisés", "u": "Fichier présent mais le jeu ne le joue pas", "d": 0.65}, {"f": "sfx/hit4.mp3", "n": "hit4", "c": "Pas utilisés", "u": "Fichier présent mais le jeu ne le joue pas", "d": 1.01}, {"f": "sfx/hit5.mp3", "n": "hit5", "c": "Pas utilisés", "u": "Fichier présent mais le jeu ne le joue pas", "d": 0.32}, {"f": "sfx/hit6.mp3", "n": "hit6", "c": "Pas utilisés", "u": "Fichier présent mais le jeu ne le joue pas", "d": 0.5}, {"f": "sfx/hit7.mp3", "n": "hit7", "c": "Pas utilisés", "u": "Fichier présent mais le jeu ne le joue pas", "d": 0.61}, {"f": "sfx/hit8.mp3", "n": "hit8", "c": "Pas utilisés", "u": "Fichier présent mais le jeu ne le joue pas", "d": 0.79}, {"f": "sfx/jagi.mp3", "n": "jagi", "c": "Voix", "u": "Voix de perso (ultime / entrée en jeu)", "d": 4.57}, {"f": "sfx/kaioh.mp3", "n": "kaioh", "c": "Voix", "u": "Voix de perso (ultime / entrée en jeu)", "d": 2.66}, {"f": "sfx/ken_atatata.mp3", "n": "ken_atatata", "c": "Voix", "u": "Voix de perso (ultime / entrée en jeu)", "d": 3.38}, {"f": "sfx/menu.mp3", "n": "menu", "c": "Bruitages", "u": "Clic de menu", "d": 1.04}, {"f": "sfx/omaewamo.mp3", "n": "omaewamo", "c": "Pas utilisés", "u": "Fichier présent mais le jeu ne le joue pas", "d": 2.41}, {"f": "sfx/punch1.mp3", "n": "punch1", "c": "Pas utilisés", "u": "Fichier présent mais le jeu ne le joue pas", "d": 0.25}, {"f": "sfx/punch2.mp3", "n": "punch2", "c": "Pas utilisés", "u": "Fichier présent mais le jeu ne le joue pas", "d": 0.54}, {"f": "sfx/punch3.mp3", "n": "punch3", "c": "Pas utilisés", "u": "Fichier présent mais le jeu ne le joue pas", "d": 0.47}, {"f": "sfx/punch4.mp3", "n": "punch4", "c": "Pas utilisés", "u": "Fichier présent mais le jeu ne le joue pas", "d": 0.4}, {"f": "sfx/punch5.mp3", "n": "punch5", "c": "Pas utilisés", "u": "Fichier présent mais le jeu ne le joue pas", "d": 0.32}, {"f": "sfx/punk1.mp3", "n": "punk1", "c": "Bruitages", "u": "Horde de pillards", "d": 1.87}, {"f": "sfx/rao034.mp3", "n": "rao034", "c": "Voix", "u": "Voix de perso (ultime / entrée en jeu)", "d": 2.74}, {"f": "sfx/rei_shaaaw.mp3", "n": "rei_shaaaw", "c": "Voix", "u": "Voix de perso (ultime / entrée en jeu)", "d": 2.09}, {"f": "sfx/shin.mp3", "n": "shin", "c": "Voix", "u": "Voix de perso (ultime / entrée en jeu)", "d": 1.3}, {"f": "sfx/shin_death.mp3", "n": "shin_death", "c": "Voix", "u": "Cri de mort", "d": 1.58}, {"f": "sfx/shu.mp3", "n": "shu", "c": "Voix", "u": "Voix de perso (ultime / entrée en jeu)", "d": 4.54}, {"f": "sfx/soin.mp3", "n": "soin", "c": "Bruitages", "u": "Soin", "d": 5.8}, {"f": "sfx/souther.mp3", "n": "souther", "c": "Voix", "u": "Voix de perso (ultime / entrée en jeu)", "d": 5.15}, {"f": "sfx/stun.mp3", "n": "stun", "c": "Bruitages", "u": "Relais / étourdi", "d": 1.51}, {"f": "sfx/toki.mp3", "n": "toki", "c": "Voix", "u": "Voix de perso (ultime / entrée en jeu)", "d": 2.74}, {"f": "sfx/toki_death.mp3", "n": "toki_death", "c": "Voix", "u": "Cri de mort", "d": 0.83}, {"f": "sfx/ultime.mp3", "n": "ultime", "c": "Bruitages", "u": "Début d'ultime", "d": 1.54}, {"f": "sfx/warning.mp3", "n": "warning", "c": "Bruitages", "u": "Piège déclenché", "d": 1.19}, {"f": "sfx/yuda_death.mp3", "n": "yuda_death", "c": "Voix", "u": "Cri de mort", "d": 1.66}, {"f": "music/combat1.mp3", "n": "combat1", "c": "Musiques", "u": "Musique de combat", "d": 135.73}, {"f": "music/combat2.mp3", "n": "combat2", "c": "Musiques", "u": "Musique de combat", "d": 93.31}, {"f": "music/combat3.mp3", "n": "combat3", "c": "Musiques", "u": "Musique de combat", "d": 83.28}, {"f": "music/combat4.mp3", "n": "combat4", "c": "Musiques", "u": "Musique de combat", "d": 71.26}, {"f": "music/combat5.mp3", "n": "combat5", "c": "Musiques", "u": "Musique de combat", "d": 74.14}, {"f": "music/combat6.mp3", "n": "combat6", "c": "Musiques", "u": "Musique de combat", "d": 83.62}, {"f": "music/combat7.mp3", "n": "combat7", "c": "Musiques", "u": "Musique de combat", "d": 162.74}, {"f": "music/combat8.mp3", "n": "combat8", "c": "Musiques", "u": "Musique de combat", "d": 100.99}, {"f": "music/combat9.mp3", "n": "combat9", "c": "Musiques", "u": "Musique de combat", "d": 64.73}, {"f": "music/halloffame.mp3", "n": "halloffame", "c": "Musiques", "u": "Panthéon", "d": 121.42}, {"f": "music/menu.mp3", "n": "menu", "c": "Musiques", "u": "Musique du menu", "d": 217.6}, {"f": "music/tournoi.mp3", "n": "tournoi", "c": "Musiques", "u": "Musique de tournoi", "d": 12.17}];
+const ORDER=["Bruitages","Commentateur","Voix","Musiques","Pas utilisés"];
+let cat="Tous", cur=null, curRow=null;
+const audio=new Audio(); audio.preload="none";
+const $=s=>document.querySelector(s), esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmt=d=>d==null?"":d>=60?Math.floor(d/60)+":"+String(Math.round(d%60)).padStart(2,"0"):d.toFixed(1)+" s";
+$("#chips").innerHTML=["Tous",...ORDER].filter(c=>c==="Tous"||DATA.some(x=>x.c===c)).map(c=>`<button class="chip${c==="Tous"?" on":""}" data-c="${c}">${c} ${c==="Tous"?DATA.length:DATA.filter(x=>x.c===c).length}</button>`).join("");
+function render(){
+  const q=$("#q").value.trim().toLowerCase();
+  const items=DATA.filter(x=>(cat==="Tous"||x.c===cat)&&(!q||(x.n+" "+x.u).toLowerCase().includes(q)));
+  if(!items.length){ $("#list").innerHTML=`<p class="empty">Aucun son trouvé.</p>`; return; }
+  $("#list").innerHTML=ORDER.filter(c=>items.some(x=>x.c===c)).map(c=>`<section class="cat-${c.split(" ")[0]}"><h2>${c}</h2>${items.filter(x=>x.c===c).map(x=>
+    `<div class="row${cur===x.f?" playing":""}" data-f="${esc(x.f)}"><button class="play" aria-label="Écouter ${esc(x.n)}">${cur===x.f?"■":"▶"}</button><div class="info"><div class="n">${esc(x.n)}</div><div class="u">${esc(x.u)}</div><div class="bar"><i></i></div></div><span class="d">${fmt(x.d)}</span></div>`).join("")}</section>`).join("");
+  curRow=cur?document.querySelector(`.row[data-f="${CSS.escape(cur)}"]`):null;
+}
+function stop(){ audio.pause(); cur=null; document.querySelectorAll(".row.playing").forEach(r=>{ r.classList.remove("playing"); r.querySelector(".play").textContent="▶"; r.querySelector(".bar i").style.width="0"; }); curRow=null; }
+$("#list").onclick=e=>{ const r=e.target.closest(".row"); if(!r) return; const f=r.dataset.f;
+  if(cur===f){ stop(); return; } stop();
+  cur=f; curRow=r; r.classList.add("playing"); r.querySelector(".play").textContent="■";
+  audio.src=f; audio.volume=+$("#vol").value; audio.currentTime=0; audio.play().catch(()=>stop()); };
+audio.ontimeupdate=()=>{ if(curRow && audio.duration) curRow.querySelector(".bar i").style.width=(audio.currentTime/audio.duration*100)+"%"; };
+audio.onended=stop;
+$("#vol").oninput=e=>{ audio.volume=+e.target.value; };
+$("#q").oninput=render;
+$("#chips").onclick=e=>{ const b=e.target.closest(".chip"); if(!b) return; cat=b.dataset.c; document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",x===b)); render(); };
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") stop(); });
+render();
+</script>
+</body>
+</html>
