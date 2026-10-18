@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.97 — 2026-10-18
 
+- Mode histoire : nouvelles cartes d'arcs, alignées, avec le boss de l'arc et une barre de progression
 - Accueil : Magasin, Combattants, Règles et Classement passent dans la barre du haut, les réseaux sociaux en bas de page
 - Ultimes en haute définition : l'illustration du perso dans l'animation d'ultime est maintenant nette, même en plein écran (versions upscalées de Lhaz)
 - Sélection d'équipe : le nom du perso s'affiche sous son visage au lieu de le cacher
