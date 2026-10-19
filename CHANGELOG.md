@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.97 — 2026-10-18
 
+- Lien « Six étoiles du Nanto » : le bonus +2 PV max s'active dès 3 étoiles (avant : 4, impossible avec le budget de 10 points). Merci Jérôme R. !
 - Nouvelles illustrations (Lhaz) pour Amiba, Ein, Garuda, Han, Hyō, Huey, Juza, Ogai, Shuren, Mang Kuangyun, Rofu et Zhang Taiyan
 - Nouvelle voix du commentateur, avec un écho d'arène, et deux annonces en plus : « Here comes a new challenger! » et « Time over! »
 - Défi de la semaine : une semaine sur deux, mode Blitz avec 15 s par tour et 8 s pour réagir (le chrono s'arrête pendant les animations)
