@@ -37,7 +37,17 @@ md = "# Journal des modifications\n\nGénéré depuis le jeu (`CHANGELOG` dans p
 md += "".join(f"## v{e['v']} — {e['d']}\n\n" + "".join(f"- {x}\n" for x in e["fr"]) + "\n" for e in live["log"])
 open(os.path.join(ROOT, "CHANGELOG.md"), "w", encoding="utf-8").write(md.rstrip("\n") + "\n")
 sw = os.path.join(PUB, "sw.js"); t = open(sw, encoding="utf-8").read()
-open(sw, "w", encoding="utf-8").write(re.sub(r'const VERSION = "[^"]*"', f'const VERSION = "{v}"', t, count=1))
+# empreinte du contenu des images et sons : le cache du navigateur est vidé dès qu'un fichier change (nouvelle illustration, nouveau son)
+import hashlib
+_h = hashlib.sha1()
+for d in ("assets", "sfx", "fonts"):
+    for r, _, fs in sorted(os.walk(os.path.join(PUB, d))):
+        for f in sorted(fs):
+            fp = os.path.join(r, f); _h.update(os.path.relpath(fp, PUB).encode()); _h.update(hashlib.md5(open(fp, "rb").read()).digest())
+astamp = _h.hexdigest()[:10]
+t = re.sub(r'const VERSION = "[^"]*"', f'const VERSION = "{v}"', t, count=1)
+t = re.sub(r'const ASTAMP = "[^"]*"', f'const ASTAMP = "{astamp}"', t, count=1) if "const ASTAMP" in t else t.replace(f'const VERSION = "{v}";', f'const VERSION = "{v}";\nconst ASTAMP = "{astamp}";   // empreinte des images / sons (écrite par tools/export_public.py)', 1)
+open(sw, "w", encoding="utf-8").write(t)
 pk = os.path.join(ROOT, "package.json"); t = open(pk, encoding="utf-8").read()
 t = re.sub(r'"version": "[^"]*"', f'"version": "{v}"', t, count=1)
 # build : change à chaque mise en ligne, même quand la version reste la même (une version par jour)
