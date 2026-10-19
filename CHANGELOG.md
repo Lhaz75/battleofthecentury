@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.98 — 2026-10-19
 
+- Admin, recadrages : les outils travaillent sur l'image HD, et les vignettes recadrées sont enregistrées en deux fois plus de pixels (plus nettes, même zoomées)
 - Nouvelles illustrations (Lhaz) pour Diamond, Rozario, Targel, Bella, Shachi, Spade, Heart, Kaioh, Fudō et Bat (adulte), avec leurs ultimes en HD
 - Histoire, arc 4 : dans « Le cœur de la Montagne », Raoh affronte Fudō le Démon, le Fudō d'avant Yuria (nouvel adversaire, illustration de Lhaz)
 - Mode histoire : l'arc 2 « Les frères de Hokuto » est ouvert à tous ! 21 chapitres, de la GOLAN jusqu'à Ken-Oh, avec ses succès et sa couronne. Merci à Jérôme R., maxGfive et Mordikar pour les tests
