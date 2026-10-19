@@ -6,6 +6,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 - Mode histoire : l'arc 2 « Les frères de Hokuto » est ouvert à tous ! 21 chapitres, de la GOLAN jusqu'à Ken-Oh, avec ses succès et sa couronne. Merci à Jérôme R., maxGfive et Mordikar pour les tests
 - Nouvelle illustration (Lhaz) pour Gyūki & Habu
+- Les hommes de Shuren s'appellent maintenant l'« armée écarlate » (朱の軍団, son nom d'origine), plus la « brigade pourpre »
 
 ## v0.99.97 — 2026-10-18
 
