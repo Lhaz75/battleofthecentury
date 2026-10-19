@@ -5,6 +5,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 ## v0.99.98 — 2026-10-19
 
 - Mode histoire : l'arc 2 « Les frères de Hokuto » est ouvert à tous ! 21 chapitres, de la GOLAN jusqu'à Ken-Oh, avec ses succès et sa couronne. Merci à Jérôme R., maxGfive et Mordikar pour les tests
+- Nouvelle illustration (Lhaz) pour Gyūki & Habu
 
 ## v0.99.97 — 2026-10-18
 
