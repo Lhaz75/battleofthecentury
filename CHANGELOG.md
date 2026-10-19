@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.98 — 2026-10-19
 
+- Nouveau perso au magasin : Kenshin Kasumi (Himuka), fils adoptif de Tesshin, Hokuto Shinken et Tento Seiin Ken (illustration de Lhaz)
 - Nouveau perso au magasin : Ryu adulte, fils de Raoh et élève de Kenshiro (école Hokuto, illustration originale de Lhaz)
 - Nouvelle illustration (Lhaz) pour Raoh et Souther
 - Ultimes en HD (upscales de Lhaz) pour Bugal, David, Glen, Morgan et Daruka : tous les persos ont maintenant leur ultime en HD
