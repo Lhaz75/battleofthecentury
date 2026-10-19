@@ -4,7 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.98 — 2026-10-19
 
-- Nouvelle illustration (Lhaz) pour Raoh
+- Nouvelle illustration (Lhaz) pour Raoh et Souther
 - Ultimes en HD (upscales de Lhaz) pour Bugal, David, Glen, Morgan et Daruka : tous les persos ont maintenant leur ultime en HD
 - Admin, recadrages : les outils travaillent sur l'image HD, et les vignettes recadrées sont enregistrées en deux fois plus de pixels (plus nettes, même zoomées)
 - Nouvelles illustrations (Lhaz) pour Diamond, Rozario, Targel, Bella, Shachi, Spade, Heart, Kaioh, Fudō et Bat (adulte), avec leurs ultimes en HD
