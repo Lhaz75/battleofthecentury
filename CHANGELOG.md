@@ -4,6 +4,8 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.98 — 2026-10-19
 
+- Nouvelles illustrations (Lhaz) pour Diamond, Rozario, Targel, Bella, Shachi, Spade, Heart, Kaioh, Fudō et Bat (adulte), avec leurs ultimes en HD
+- Histoire, arc 4 : dans « Le cœur de la Montagne », Raoh affronte Fudō le Démon, le Fudō d'avant Yuria (nouvel adversaire, illustration de Lhaz)
 - Mode histoire : l'arc 2 « Les frères de Hokuto » est ouvert à tous ! 21 chapitres, de la GOLAN jusqu'à Ken-Oh, avec ses succès et sa couronne. Merci à Jérôme R., maxGfive et Mordikar pour les tests
 - Nouvelle illustration (Lhaz) pour Gyūki & Habu
 - Les hommes de Shuren s'appellent maintenant l'« armée écarlate » (朱の軍団, son nom d'origine), plus la « brigade pourpre »
