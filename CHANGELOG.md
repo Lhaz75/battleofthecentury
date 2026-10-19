@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.98 — 2026-10-19
 
+- Ultimes en HD (upscales de Lhaz) pour Bugal, David, Glen, Morgan et Daruka : tous les persos ont maintenant leur ultime en HD
 - Admin, recadrages : les outils travaillent sur l'image HD, et les vignettes recadrées sont enregistrées en deux fois plus de pixels (plus nettes, même zoomées)
 - Nouvelles illustrations (Lhaz) pour Diamond, Rozario, Targel, Bella, Shachi, Spade, Heart, Kaioh, Fudō et Bat (adulte), avec leurs ultimes en HD
 - Histoire, arc 4 : dans « Le cœur de la Montagne », Raoh affronte Fudō le Démon, le Fudō d'avant Yuria (nouvel adversaire, illustration de Lhaz)
