@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.98 — 2026-10-19
+
+- Mode histoire : l'arc 2 « Les frères de Hokuto » est ouvert à tous ! 21 chapitres, de la GOLAN jusqu'à Ken-Oh, avec ses succès et sa couronne. Merci à Jérôme R., maxGfive et Mordikar pour les tests
+
 ## v0.99.97 — 2026-10-18
 
 - Lien « Six étoiles du Nanto » : le bonus +2 PV max s'active dès 3 étoiles (avant : 4, impossible avec le budget de 10 points). Merci Jérôme R. !

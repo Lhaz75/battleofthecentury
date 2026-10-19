@@ -2,7 +2,7 @@
 // Stockage : Postgres si DATABASE_URL est défini (Neon), sinon un fichier JSON local (dev / secours).
 const crypto = require("crypto");
 // ordre des chapitres du mode histoire (king-9 = interlude Barcom, joué avant le combat contre Shin)
-const STORY_TEST = /^arc2-(?![12]$)|^arc3-/;   // arcs en test (lecture seule pour les joueurs) : vider la regex (/^$/) pour ouvrir
+const STORY_TEST = /^arc3-/;   // arcs en test (lecture seule pour les joueurs) : vider la regex (/^$/) pour ouvrir
 // magasin de persos : prix selon le coût (fighters.json) ; persos de départ et persos de l'histoire exclus (à garder en phase avec CHAR_START / STORY_CH dans index.html)
 const SHOP_START = new Set(["maitre", "sage", "linh", "bat", "vieux", "dans", "huey", "shuren", "nuage", "shachi", "shoki", "general", "mamiya", "ein", "rima", "bella"]);
 const SHOP_STORY = new Set(["zeed", "ventre", "spade", "sarge", "colonel", "rival", "madara", "kiba", "joker", "jackal", "devil", "fourbe", "diamond", "club", "fox", "barcom", "amiba", "demon", "hyo", "boltz", "taiga", "solia", "uighur"]);
