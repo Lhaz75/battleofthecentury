@@ -69,7 +69,7 @@ Repères dans `public/index.html` (numéros de ligne approximatifs, v0.97.16) :
 - `SURV` (~6110) — mode Survie ; `DOJO` juste après (`DOJO_T`, `dojoPrep`, `/api/dojo` côté serveur)
 - `RPG` — mode Voyage, juste avant `quitPress` (`RPG_ITEMS`, `RPG_ZONE`, `rpgPrep`, `/api/rpg` côté serveur) ; visible des admins et testeurs seulement (`rpgOpen()`)
 
-Côté serveur (`accounts.js`) : `STORY_TEST` (regex `/^arc3-/` depuis v0.99.98), `SHOP_START`, `SHOP_LIST`, `SHOP_COST`, `STORY_ORDER` (ajouter chaque nouveau chapitre ici, dans l'ordre).
+Côté serveur (`accounts.js`) : `STORY_TEST` (regex `/^arc3-|^arc4-/` depuis v0.99.98), `SHOP_START`, `SHOP_LIST`, `SHOP_COST`, `STORY_ORDER` (ajouter chaque nouveau chapitre ici, dans l'ordre).
 
 ⚠️ Les ids internes des persos ne sont pas leurs noms (ex. `maitre`, `sage`, `linh`…) : toujours vérifier dans `FIGHTERS`.
 
@@ -88,7 +88,7 @@ cd public && python3 -m http.server 8811 &   # le client tourne sans le serveur 
 ## Ce que contient le jeu (résumé)
 
 - **Combat** : équipes de 2 à 5 persos en relais, budget de 10 points (coût 1 à 5 par perso). Cartes Légère/Moyenne/Lourde propres à chaque perso, combos (Enchaînement) avec bonus, barre de rage à 8 segments → ultime, cartes terrain et pièges liés au lore, passifs, spéciales et **liens** entre persos (ex. Frères de sang Toki/Ken-Oh, Kenshiro/Hyō). Relais gratuit au premier tour.
-- **Modes** : Entraînement contre l'IA (4 niveaux, choix de l'adversaire), Versus en ligne (matchmaking + code d'invitation, « Here comes a new challenger »), Tournoi, Survie, **Dojo** (combats sans fin, grades novice → Maître), **Les terres désolées** (ex-« Voyage », mode RPG, en test : carte, butin, équipement), Arcade (tour), Défi du jour, Défi de la semaine, **Boss mondial** hebdo (PV partagés, essais limités, Devil Rebirth en premier), **Mode histoire** (arc 1 « KING » 9 chapitres avec 3 étoiles, arc 2 « Les frères de Hokuto », 21 chapitres jusqu'à Ken-Oh, ouvert à tous depuis v0.99.98 ; arc 3 « Le Saint Empereur » en test réservé admins/testeurs).
+- **Modes** : Entraînement contre l'IA (4 niveaux, choix de l'adversaire), Versus en ligne (matchmaking + code d'invitation, « Here comes a new challenger »), Tournoi, Survie, **Dojo** (combats sans fin, grades novice → Maître), **Les terres désolées** (ex-« Voyage », mode RPG, en test : carte, butin, équipement), Arcade (tour), Défi du jour, Défi de la semaine, **Boss mondial** hebdo (PV partagés, essais limités, Devil Rebirth en premier), **Mode histoire** (arc 1 « KING » 9 chapitres avec 3 étoiles, arc 2 « Les frères de Hokuto », 21 chapitres jusqu'à Ken-Oh, ouvert à tous depuis v0.99.98 ; arc 3 « Le Saint Empereur » et arc 4 « Le Dernier Général » (20 chapitres, ép. 83-108) en test réservés admins/testeurs).
 - **Comptes** : profil, avatar, decks sauvegardés, points/Elo/rang, succès, Hall of Fame, ryō + magasin de persos (prêt, coupé pour les joueurs en bêta), « Mes cartes » (3 terrains + 3 pièges).
 - **Admin** : gestion des comptes, rôle testeur, maintenance, outil de cadrage des illus (miniature + combat + ultime), « Boss : +1 essai ».
 - **Divers** : ~90+ persos (dont Soten no Ken), voix d'ultime par perso, sons, vibrations mobile, appui long pour inspecter un réserviste, chat Discord intégré, tutoriel, pages Nouveautés/Codex, interface FR/EN/IT/JA.

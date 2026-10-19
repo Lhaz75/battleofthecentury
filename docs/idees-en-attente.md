@@ -24,6 +24,15 @@
 - **Mis de côté (David, 11 oct.)** : finishers (plusieurs ultimes / rage orange-rouge), « Tsubo éclair » et tsubo « coup critique » sur les cartes (réservé à Hokuto = tout le monde jouerait Hokuto). Ne pas reproposer sauf si David relance.
 
 ## Arc 3 « Le Saint Empereur » — FAIT en v0.99.96 (17 oct., en test) : arc3-1 à arc3-14 (ép. 58-77), Shiba en compagnon (with:["shiba"]), Zeus/Aus/Abida/Gonzu/Garo intégrés, fond story-pyramide. Reste : Terres désolées (zone de Souther / Jagi).
+## Arc 4 « Le Dernier Général » — FAIT en v0.99.98 (19 oct., en test) : arc4-1 à arc4-20 (ép. 83-108)
+- Chapitres : Bugal, camp de recrues (Glen puis David), Raoh contre la brigade du Vent puis Huey, Morgan, Raoh contre l'armée écarlate puis Shuren (fond story-shuren), Kogure et sa bande (Ken + Fudō), faux soldats (brigand1 Bragg, brigand2 Oldo), Juza contre Daruka puis Gelga, lanciers puis Yakob, Zenda et Dolphy, pont gardé puis Baruda, Jemoni, archers puis Hiruka, Raoh contre Juza (fond story-raohfort), escouade de l'ombre (fond story-nanto), Raoh contre le corps de la Mer puis Rihaku, Musō Tensei (Ken contre Raoh), moines puis Genshō, Raoh contre Fudō puis ses gardes, combat final (boss).
+- Déblocages : rihaku (arc4-16), lastgen (arc4-17), geant (arc4-19), yuria (arc4-20).
+- Nouveaux PNJ (31) : bugal, david, glen, morgan, daruka (illustrations déjà dans D:\BOTC) ; gelga, yakob, dolphy, zenda, baruda, jemoni, hiruka, hirukasol1-2 (Brann, Cort), kogure, guzuri, jira, naburi, brigand1-2, ombre1-2 (Saizō, Kotarō), mersol1-2 (Okita, Sōma), gensho, genshosol1-2 (Ensai, Kōhan), kenohgarde1-2 (Grom, Vadim), kenohsol9 (Hargo), toh (Tō, prête mais pas encore dans un chapitre).
+- Meutes : npc kenoh compte aussi raoh, npc rihaku compte rihaku. Données et constructeur : tools/atelier/arc4_data.py, arc4.py.
+- Robot (tools/atelier/robot, accéléré) : 4/4 à 6/6 sur la plupart, Musō Tensei 5/6, combat final 6/8.
+- Katakana non vérifiés (sources japonaises inaccessibles) : ブーガル, ダビデ, グレン, モーガン, ダルカ, ヤコブ, バルダ, ジェモニ, ヒルカ, コグレ.
+- Pas encore de succès ni de couronne pour les arcs 3 et 4.
+
 ## Arc de Souther (histoire + terres désolées) — à faire, persos prêts (v0.99.87)
 - **Principe validé par David (17 oct.)** : quand le héros perd dans l'anime, on ne fait pas perdre le joueur exprès, on lui fait **jouer l'antagoniste** (comme king-0 avec Shin, et arc2-16 avec Ken-Oh contre Rei puis Toki). Arc 3 : Souther contre Shu, Souther contre Ken (1er combat), Raoh contre Toki.
 - **Décors** : pyramide de Souther déjà dessinée (`Non utilisees\Decors\pyramide-de-souther-paysage.webp` pour le fond d'histoire, `pyramide-de-souther.webp` pour un terrain). Optionnels : planque de la résistance de Shu, duel Toki/Raoh, château de Ryuga.

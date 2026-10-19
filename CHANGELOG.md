@@ -7,6 +7,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 - Mode histoire : l'arc 2 « Les frères de Hokuto » est ouvert à tous ! 21 chapitres, de la GOLAN jusqu'à Ken-Oh, avec ses succès et sa couronne. Merci à Jérôme R., maxGfive et Mordikar pour les tests
 - Nouvelle illustration (Lhaz) pour Gyūki & Habu
 - Les hommes de Shuren s'appellent maintenant l'« armée écarlate » (朱の軍団, son nom d'origine), plus la « brigade pourpre »
+- Histoire (en test) : l'arc 4, « Le Dernier Général », 20 chapitres des épisodes 83 à 108 : les Cinq Chariots du Nanto, Juza, Fudō, Rihaku, puis le dernier combat contre Raoh. Dans plusieurs chapitres, tu joues Raoh ou Juza. Nouveaux personnages (illustrations de Lhaz) : Bugal, David et Glen, Morgan, Kogure et sa bande, Daruka, Gelga, Yakob, Dolphy et Zenda, Baruda, Jemoni, Hiruka et ses archers, l'escouade de l'ombre, le corps de la Mer, Genshō et ses moines, les gardes de Raoh et Tō, avec 3 nouveaux décors (château de Shuren, capitale du Nanto, forteresse de Raoh)
 
 ## v0.99.97 — 2026-10-18
 
