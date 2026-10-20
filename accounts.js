@@ -4,6 +4,7 @@ const crypto = require("crypto");
 // ordre des chapitres du mode histoire (king-9 = interlude Barcom, joué avant le combat contre Shin)
 const STORY_TEST = /^arc3-|^arc4-/;   // arcs en test (lecture seule pour les joueurs) : vider la regex (/^$/) pour ouvrir
 // magasin de persos : prix selon le coût (fighters.json) ; persos de départ et persos de l'histoire exclus (à garder en phase avec CHAR_START / STORY_CH dans index.html)
+const RPG_BAG = 36;   // taille du sac des Terres désolées (à garder égale à RPG_BAG dans index.html)
 const SHOP_START = new Set(["maitre", "sage", "linh", "bat", "vieux", "dans", "huey", "shuren", "nuage", "shachi", "shoki", "general", "mamiya", "ein", "rima", "bella"]);
 const SHOP_STORY = new Set(["zeed", "ventre", "spade", "sarge", "colonel", "rival", "madara", "kiba", "joker", "jackal", "devil", "fourbe", "diamond", "club", "fox", "barcom", "amiba", "demon", "hyo", "boltz", "taiga", "solia", "uighur"]);
 const SHOP_LIST = new Set(["kenshin", "ryu", "biao", "kasumi", "shuken", "tesshin", "ogai", "rofu", "wei", "feiyan", "jugai", "garuda", "asura", "mang", "charles", "liu", "yasaka", "taiyan", "dayan", "sanga", "seiji", "frieda", "asam", "kai", "bukoh", "satora"]);   // seuls persos en vente (liste de David) ; les autres s'obtiennent par l'histoire
@@ -71,7 +72,7 @@ function rpgRoll(kind, leg, zone, legRate) {
   return out;
 }
 function rpgClean(inv) {
-  const bag = (Array.isArray(inv && inv.bag) ? inv.bag : []).filter(rpgOk).slice(0, 24), eq = {};
+  const bag = (Array.isArray(inv && inv.bag) ? inv.bag : []).filter(rpgOk).slice(0, RPG_BAG), eq = {};
   for (const [f, o] of Object.entries(inv && typeof inv.eq === "object" && inv.eq || {}).slice(0, 150)) {
     if (!/^[a-z0-9]{1,16}$/.test(f) || !o || typeof o !== "object") continue;
     const e = {}; for (const k of ["head", "body", "waist", "hands", "feet", "relic"]) if (rpgOk(o[k])) e[k] = o[k];
@@ -685,12 +686,12 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
         if (!aw) { gain = (first ? RPG_PTS : RPG_PTS_AGAIN)[kind]; st.pts += gain; bumpFav(st, body.team); if (kind === "boss") st.rpgClears = (st.rpgClears || 0) + 1; }
         // un objet la première fois sur chaque étape ; le boss en lâche à chaque fois
         const rolls = first || kind === "boss" ? rpgRoll(kind, rpgLeg(zone).leg, zone, rpgLeg(zone).rate) : kind === "event" ? rpgRoll("again", null, zone) : [];   // événement refait : un petit objet
-        for (const it of rolls) { if (inv.bag.length < 24) { inv.bag.push(it); loot.push(it); } else lost++; }
+        for (const it of rolls) { if (inv.bag.length < RPG_BAG) { inv.bag.push(it); loot.push(it); } else lost++; }
         if (!aw) ach = achCheck(st, body.feats);
       } else if (act === "buy") {
         const item = String(body.item || ""), price = rpgPrice(item);
         if (!price) return [400, { error: "bad" }];
-        if (inv.bag.length >= 24) return [409, { error: "full" }];
+        if (inv.bag.length >= RPG_BAG) return [409, { error: "full" }];
         if ((st.pts || 0) - (st.ryoSpent || 0) < price) return [402, { error: "poor" }];
         st.ryoSpent = (st.ryoSpent || 0) + price; inv.bag.push(item);
       } else if (act === "save") {

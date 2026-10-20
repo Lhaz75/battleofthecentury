@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.98 — 2026-10-19
 
+- Terres désolées : sac agrandi à 36 places, avec des onglets Tout / Équipement / Consommables (idée de Jérôme R. et maxGfive)
 - Histoire : un perso tombé à la vague précédente n'a plus ses cartes dans le paquet à la vague suivante (elles bloquaient la main). Merci Jérôme R. !
 - Souther, nouveau passif : son cœur à droite fausse les points vitaux, les coups de l'école Hokuto lui font 3 de moins (pas les ultimes), les autres écoles le touchent normalement (avant : le 1er coup de chaque tour faisait 2 de moins)
 - Nouveau perso au magasin : Kenshin Kasumi (Himuka), fils adoptif de Tesshin, Hokuto Shinken et Tento Seiin Ken (illustration de Lhaz)
