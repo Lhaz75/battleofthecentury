@@ -276,6 +276,10 @@ body:not([data-me="a"]) .strike .sd-a, body[data-me="a"] .strike .sd-p{color:#ff
 
 .volbox{width:min(420px,100%)!important}.volrow{display:grid!important;grid-template-columns:90px 1fr 52px;align-items:center;gap:10px;margin:2px 0!important;font:700 13px var(--f-display);letter-spacing:.05em;text-transform:uppercase;color:#e8d3ad}
 .volrow input{width:100%;accent-color:#e8b04a}.volrow b{text-align:right;color:#ffd25a;font-variant-numeric:tabular-nums}
+.fxtp{position:fixed;left:50%;transform:translateX(-50%);top:60px;z-index:400;width:min(300px,calc(100vw - 24px));padding:12px;border-radius:12px;background:rgba(18,10,7,.95);border:1px solid #e8b04a;box-shadow:0 10px 30px rgba(0,0,0,.7);display:flex;flex-direction:column;gap:8px;color:#f3e2bf;font-size:13px}
+.fxtp>b{font:700 14px var(--f-display);letter-spacing:.08em;text-transform:uppercase;color:#e8b04a}
+.fxtfps{font:700 13px var(--f-display)}.fxtfps span{font-size:28px;font-variant-numeric:tabular-nums}.fxtfps span.ok{color:#6ad06a}.fxtfps span.mid{color:#ffc84a}.fxtfps span.bad{color:#ff5a3a}
+.fxtfps small{display:block;font:400 12px var(--f-body,inherit);line-height:1.4;color:#e8d3ad;margin-top:4px}.fxtb{display:grid;grid-template-columns:1fr 1fr;gap:6px}.fxtb .btn{padding:7px 4px!important;font-size:12px!important}
 /* roue du destin */
 .wheelbtn{display:inline-flex!important;align-items:center;gap:7px}.wheelbtn img{width:22px;height:22px;border-radius:50%;object-fit:cover;border:1px solid #e8b04a;transform:skewX(8deg)}
 .wheelbtn.ready{animation:whpulse 1.8s ease-in-out infinite;box-shadow:0 0 0 2px #ffd25a,0 0 16px rgba(255,200,80,.6)!important}
@@ -5579,7 +5583,7 @@ function renderAccount(sel=[], tab="login"){
       <label class="mlbl">${L("maintMsgLbl")}<textarea id="mmsg" maxlength="400" rows="3" placeholder="${esc(L("maintDefault"))}">${esc(STATUS.maint.msg||"")}</textarea></label>
       ${STATUS.maint.forced?`<p class="note">${L("maintForced")}</p>`:""}
       <div class="row"><button class="btn sm" id="msave">${L("save")}</button><span class="err" id="merr"></span></div>
-      <div class="row"><button class="btn sm" id="tousers">${L("admUsers")}</button><button class="btn sm" id="tofst">${L("fsTitle")}</button><button class="btn sm" id="tofaces">${L("faTitle")}</button><button class="btn sm" id="toframes">${L("frTitle")}</button><button class="btn sm" id="torpgadm">Terres désolées</button></div></details>`:""}
+      <div class="row"><button class="btn sm" id="tousers">${L("admUsers")}</button><button class="btn sm" id="tofst">${L("fsTitle")}</button><button class="btn sm" id="tofaces">${L("faTitle")}</button><button class="btn sm" id="toframes">${L("frTitle")}</button><button class="btn sm" id="torpgadm">Terres désolées</button><button class="btn sm" id="tofxt">Test des effets</button></div></details>`:""}
     ${pfSec("stats",L("pfStats"),`<div class="stgrid">${cell("st_elo",st.elo??1000,rk.elo?"#"+rk.elo:"")}${cell("st_pts",st.pts||0,rk.pts?"#"+rk.pts:"")}${cell("st_aiW",st.aiW||0)}${cell("st_aiL",st.aiL||0)}${cell("st_vsW",st.vsW||0)}${cell("st_vsL",st.vsL||0)}${cell("st_streak",st.streak||0)}${cell("st_best",st.best||0)}${cell("st_tW",st.tW||0)}${cell("st_surv",st.surv||0)}${cell("st_arc",(st.arc||0)+"/8")}${cell("st_dojo",esc(dojoGradeP(st.dojo)))}</div>
       ${favs.length?`<h3 class="pfh">${L("favs")}</h3><div class="favs">${favs.map(([id,n])=>`<div class="fav cl-${CLAN[id]}"><img src="${FACE(id)}" alt=""><b>${esc(nm(id))}</b><span>×${n}</span></div>`).join("")}</div>`:""}`)}
     ${pfSec("ach",`${L("achTitle")} <small class="achn">${ACH_LIST.filter(a=>(st.ach||{})[a[0]]).length}/${ACH_LIST.length}</small>`,achHTML(st))}</div><div class="pfcolL">
@@ -5596,6 +5600,7 @@ function renderAccount(sel=[], tab="login"){
         <div class="err" role="alert"></div><button class="btn sm" type="submit">${L("save")}</button></form>`)}
     <p class="note">${L("hofHow")}</p></div></div>`,sel);
   document.querySelectorAll("[data-lkf],[data-lkt]").forEach(b=>b.onclick=async()=>{ SFX.play("click"); const body={act:"look"}; if(b.dataset.lkf!=null) body.frame=b.dataset.lkf; else body.title=b.dataset.lkt; const r=await api("POST","/api/wheel",body); if(r.ok&&r.user){ ACC.user=r.user; PF_OPEN.add("look"); renderAccount(sel); } });
+  if($("#tofxt")) $("#tofxt").onclick=()=>{ SFX.play("click"); fxTest(); };
   $("#logout").onclick=async()=>{ SFX.play("click"); try{ await api("POST","/api/logout"); }catch(e){} accForget(); ACC.ready=true; renderTitle(sel); };
   $("#tohof").onclick=()=>{ SFX.play("click"); renderHof(sel); };
   { const drawDk=()=>{ const b=$("#dkbox"); if(!b) return; b.innerHTML=decksProfileHTML(sel); bindDecksProfile(sel,drawDk); }; bindDecksProfile(sel,drawDk); decksLoad(true).then(drawDk); }
@@ -6292,7 +6297,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261021172124";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261021172507";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
@@ -8526,6 +8531,35 @@ function openVolume(){ document.querySelectorAll(".volw").forEach(x=>x.remove())
     clearTimeout(t); t=setTimeout(()=>{ try{ if(k==="sfx") SFX.play("hitMid"); else if(k==="voice") SFX.ann("fight",{local:true}); }catch(e){} },180); }; });
   w.onclick=e=>{ if(e.target===w||e.target.closest("[data-x]")){ w.remove(); SFX.play("click"); } }; }
 document.addEventListener("click",e=>{ if(e.target.closest(".volb")){ SFX.play("click"); openVolume(); } });
+/* ===== page de test des effets (?fxtest) : déclenche KO, ultime, gros coups… et mesure la fluidité sur la machine du joueur ===== */
+function fxTest(){
+  journalReset(); MODE="fxtest"; ME="p";
+  S={ p:makeSide(["maitre","dans","sage"]), a:makeSide(["ventre","fourbe","rival"]), terrain:null, round:1, turn:"p", busy:true, over:false, react:null, log:"Test des effets", sub:"" };
+  render(); document.querySelectorAll(".coachwrap").forEach(x=>x.remove());
+  const flush=()=>{ while(FXQ.length) FXQ.shift()(); };
+  const P=document.createElement("div"); P.className="fxtp";
+  const B=[["kofin","KO final"],["ko","KO"],["ult","Ultime"],["hit","Gros coup"],["blood","Sang écran"],["all","Tout d'un coup"]];
+  P.innerHTML=`<b>Test des effets</b><div class="fxtfps"><span id="fxnow">–</span> img/s<small id="fxlast">Lance un effet : je mesure sa fluidité.</small></div><div class="fxtb">${B.map(([k,n])=>`<button class="btn sm" data-fx="${k}">${n}</button>`).join("")}</div><button class="btn ghost sm" id="fxq">Quitter</button>`;
+  document.body.appendChild(P);
+  // compteur en direct + mesure de 4,5 s après chaque effet
+  let fr=0, t0=performance.now(), meas=null, live=true;
+  const loop=now=>{ if(!live) return; fr++; if(now-t0>=500){ const v=Math.round(fr*1000/(now-t0)); const el=document.getElementById("fxnow"); if(el){ el.textContent=v; el.className=v>=50?"ok":v>=30?"mid":"bad"; } fr=0; t0=now; }
+    if(meas){ const dt=now-meas.last; meas.last=now; meas.n++; if(dt>meas.worst) meas.worst=dt; if(dt>34) meas.slow++;
+      if(now-meas.t>=4500){ const avg=Math.round(meas.n*1000/(now-meas.t)), lag=Math.round(meas.slow*100/meas.n), el=document.getElementById("fxlast");
+        if(el) el.innerHTML=`<b>${meas.name}</b> : ${avg} img/s en moyenne · pire image ${Math.round(meas.worst)} ms · ${lag} % d'images lentes ${avg>=50&&lag<10?"✔ fluide":avg>=30?"≈ correct":"✘ ça rame"}`; meas=null; } }
+    requestAnimationFrame(loop); };
+  requestAnimationFrame(loop);
+  const go=k=>{ const foe=act(S.a), name=(B.find(b=>b[0]===k)||[0,k])[1];
+    document.querySelectorAll(".kofx,.kobig,.sblood,.cutin").forEach(x=>x.remove()); document.body.classList.remove("koslow","kofin"); const pa=$("#por-a"); if(pa) pa.style.visibility="";
+    if(k==="kofin"||k==="all"){ SFX.play("ko"); SFX.ann("finalko",{delay:120,local:true}); flash(); koFx("a","boom",foe.id,true); }
+    if(k==="ko"){ SFX.play("ko"); flash(); koFx("a","tear",foe.id,false); }
+    if(k==="ult"||k==="all"){ cutin("p",act(S.p).id,tr(FIGHTERS[act(S.p).id].ult.name)); flash(); quake(); ultImpact("a",14); }
+    if(k==="hit"||k==="all"){ hitfx("a",12); quake(); }
+    if(k==="blood"||k==="all") screenBlood(2);
+    flush(); const n=performance.now(); meas={name,t:n,last:n,n:0,worst:0,slow:0}; };
+  P.onclick=e=>{ const b=e.target.closest("[data-fx]"); if(b) go(b.dataset.fx); if(e.target.closest("#fxq")){ live=false; P.remove(); S=null; MODE=null; try{ history.replaceState(null,"",location.pathname); }catch(x){} renderTitle(TITLE_SEL); } };
+}
+if(/[?&#]fxtest\b/.test(location.search+location.hash)) setTimeout(()=>{ try{ fxTest(); }catch(e){ console.error(e); } },1200);
 function openWheel(done){
   const w=document.createElement("div"); w.className="askw whwrap";
   const draw=(R,spun)=>{ const W=wheelSt(), ready=wheelReady();
