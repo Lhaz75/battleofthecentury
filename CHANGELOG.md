@@ -2,7 +2,7 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
-## v0.99.98 — 2026-10-19
+## v0.99.99 — 2026-10-21
 
 - Carte brisée refaite (KO et gros coups) : vraie fissure de verre qui part du point d'impact, différente à chaque fois
 - Ultime plus léger (assombrissement et lignes de vitesse calculés par la carte graphique). Nouvelle option « Effets allégés » dans le panneau Volume pour les machines modestes : moins d'effets plein écran, combat plus fluide
@@ -13,6 +13,9 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 - Mang, fidèle au manga : sa spéciale devient le Hiko-Heni (2 tours où le Hokuto lui fait 3 dégâts de moins, +2 rage, -3 PV) et son ultime Kyōshinkon (16) le plonge dans l'esprit de la folie : +2 dégâts sur tous ses coups, -1 PV par tour
 - Nouvelle icône pour les ryō : la médaille du dragon aux 7 étoiles
 - Équilibrage (simulations) : Souther 23 PV et, contre les écoles autres que Hokuto, le 1er coup encaissé chaque tour fait 2 de moins ; Kenshin Kasumi 26 PV, +1 dégât contre les écoles autres que Hokuto et Ruée du Tento Seiin à 11
+
+## v0.99.98 — 2026-10-19
+
 - Terres désolées : sac agrandi à 36 places, avec des onglets Tout / Équipement / Consommables (idée de Jérôme R. et maxGfive)
 - Histoire : un perso tombé à la vague précédente n'a plus ses cartes dans le paquet à la vague suivante (elles bloquaient la main). Merci Jérôme R. !
 - Souther, nouveau passif : son cœur à droite fausse les points vitaux, les coups de l'école Hokuto lui font 3 de moins (pas les ultimes), les autres écoles le touchent normalement (avant : le 1er coup de chaque tour faisait 2 de moins)
