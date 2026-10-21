@@ -281,12 +281,12 @@ body:not([data-me="a"]) .strike .sd-a, body[data-me="a"] .strike .sd-p{color:#ff
 .whbox{width:min(520px,100%)!important;text-align:center;max-height:calc(100dvh - 24px);overflow:auto}
 .whstage{position:relative;width:min(330px,76vw);aspect-ratio:1;margin:14px auto 12px}
 .whrot{position:relative;z-index:1;width:100%;height:100%;transform-origin:50% 50%}.whsvg{width:100%;height:100%;display:block;filter:drop-shadow(0 10px 22px rgba(0,0,0,.8))}
-.whptr{position:absolute;left:50%;top:-16px;transform:translateX(-50%);width:34px;height:48px;z-index:3;filter:drop-shadow(0 3px 4px rgba(0,0,0,.8))}
+.whptr{position:absolute;left:50%;top:-10px;transform:translateX(-50%);width:34px;height:48px;z-index:3;filter:drop-shadow(0 3px 4px rgba(0,0,0,.8))}
 .whhalo{position:absolute;inset:-8%;border-radius:50%;background:radial-gradient(circle,rgba(255,200,90,.28) 40%,rgba(255,200,90,0) 70%);animation:whhalo 3s ease-in-out infinite;pointer-events:none}
 .whrays{position:absolute;inset:-22%;border-radius:50%;background:repeating-conic-gradient(rgba(255,214,120,.13) 0 6deg,rgba(255,214,120,0) 6deg 18deg);-webkit-mask:radial-gradient(circle,#000 30%,transparent 70%);mask:radial-gradient(circle,#000 30%,transparent 70%);animation:whrays 40s linear infinite;pointer-events:none}
 .whstage.done .whrays{animation-duration:12s;background:repeating-conic-gradient(rgba(255,214,120,.28) 0 6deg,rgba(255,214,120,0) 6deg 18deg)}
 @keyframes whrays{to{transform:rotate(360deg)}}@keyframes whhalo{0%,100%{opacity:.6}50%{opacity:1}}
-.whs{stroke:none}.whsg.win .whs{animation:whwin 1s ease-in-out infinite}.whsg.win .whi{fill:#fff6c8}
+.whs{stroke:none;mix-blend-mode:color;opacity:.85}.whsg.win .whs{animation:whwin 1s ease-in-out infinite}.whsg.win .whi{fill:#fff6c8}
 @keyframes whwin{0%,100%{filter:brightness(1.1)}50%{filter:brightness(1.9) saturate(1.3)}}
 .whi{font:900 18px serif;fill:#ffd25a;text-anchor:middle;dominant-baseline:central}.whi-doom{fill:#ff5a3a}.whi-jackpot{fill:#fff3b0}
 .whl{font:700 9px var(--f-display);fill:#f6e6c4;text-anchor:middle;dominant-baseline:central;letter-spacing:.04em;text-transform:uppercase;paint-order:stroke;stroke:#0a0503;stroke-width:2.5px}
@@ -6279,7 +6279,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261021160802";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261021162211";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
@@ -8478,33 +8478,19 @@ function lookHTML(st){ const W=st.wheel||{}, fr=W.frames||[], ti=W.titles||[], l
   if(!fr.length && !ti.length) return `<p class="note">${L("lookNone")}</p>`;
   return `${fr.length?`<h3 class="pfh">${L("lookFrames")}</h3><div class="lkrow"><button class="lkb ${!lk.frame?"on":""}" data-lkf=""><span class="uav noav">–</span><small>${L("lookOff")}</small></button>${fr.map(f=>`<button class="lkb ${lk.frame===f?"on":""}" data-lkf="${f}">${avatarHTML({...ACC.user,look:{frame:f}})}<small>${L("whF_"+f)}</small></button>`).join("")}</div>`:""}
     ${ti.length?`<h3 class="pfh">${L("lookTitles")}</h3><div class="lkrow">${[["",L("lookOff")],...ti.map(t=>[t,L("whT_"+t)])].map(([t,n])=>`<button class="lkt ${(lk.title||"")===t?"on":""}" data-lkt="${t}">${esc(n)}</button>`).join("")}</div>`:""}`; }
-function wheelSVG(){ const R=132, seg=WHEEL_SEG.length, a=360/seg;
+const WHEEL_OFF=22.5;   // la roue illustrée a ses rayons à 0°, 45°… : chaque case est centrée à 22,5° + i × 45°
+function wheelSVG(){ const R1=46, R2=119, a=45;
   const ICO={ryo:"両",fav:"★",bless:"☯",ryo100:"両",trial:"拳",treasure:"宝",jackpot:"✦",doom:"☠"};
-  const COL={ryo:["#5a3c12","#1c1006"],fav:["#24426e","#0a1424"],bless:["#2f5a2a","#0c1a0a"],ryo100:["#7a5214","#241406"],trial:["#7a2416","#22080404"],treasure:["#4e2c6a","#160a22"],jackpot:["#b8861c","#3a2404"],doom:["#3a0606","#080000"]};
+  const COL={ryo:"#c08a2a",fav:"#3a6ac0",bless:"#4a9a3a",ryo100:"#e0a020",trial:"#c0381e",treasure:"#8a4ac0",jackpot:"#ffd040",doom:"#8a0a0a"};
   const p=(r,deg)=>[160+r*Math.sin(deg*Math.PI/180),160-r*Math.cos(deg*Math.PI/180)];
-  const studs=Array.from({length:32},(_,i)=>{ const [x,y]=p(149,i*360/32+5.625); return `<circle cx="${x}" cy="${y}" r="3.4" fill="url(#whStud)"/>`; }).join("");
-  const ticks=Array.from({length:96},(_,i)=>{ const [x1,y1]=p(139,i*3.75),[x2,y2]=p(i%4?136:133,i*3.75); return `<path d="M${x1} ${y1}L${x2} ${y2}"/>`; }).join("");
-  return `<svg viewBox="0 0 320 320" class="whsvg" aria-hidden="true"><defs>
-    <radialGradient id="whRim" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="#ffe9a8"/><stop offset=".35" stop-color="#d49a34"/><stop offset=".7" stop-color="#8a5414"/><stop offset="1" stop-color="#3e2206"/></radialGradient>
-    <linearGradient id="whRim2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5a2c10"/><stop offset=".5" stop-color="#2a1206"/><stop offset="1" stop-color="#140802"/></linearGradient>
-    <radialGradient id="whStud" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#fffbe0"/><stop offset=".4" stop-color="#ffcf4a"/><stop offset="1" stop-color="#7a4a06"/></radialGradient>
-    <radialGradient id="whGloss" cx=".5" cy=".5" r=".5"><stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset=".9" stop-color="#fff" stop-opacity=".07"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
-    <filter id="whGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    ${WHEEL_SEG.map(k=>`<radialGradient id="whS_${k}" cx="160" cy="160" r="${R}" gradientUnits="userSpaceOnUse"><stop offset=".25" stop-color="${COL[k][1]}"/><stop offset="1" stop-color="${COL[k][0]}"/></radialGradient>`).join("")}
-    </defs>
-    <circle cx="160" cy="163" r="158" fill="#000" opacity=".55"/>
-    <circle cx="160" cy="160" r="158" fill="url(#whRim2)"/><circle cx="160" cy="160" r="157" fill="none" stroke="url(#whRim)" stroke-width="3"/>
-    ${studs}
-    <circle cx="160" cy="160" r="142" fill="url(#whRim)"/><circle cx="160" cy="160" r="140" fill="#1a0e06"/>
-    <g stroke="#e8b04a" stroke-width="1" opacity=".75">${ticks}</g>
-    <g class="whsegs">${WHEEL_SEG.map((k,i)=>{ const s=i*a-a/2, e=s+a, [x1,y1]=p(R,s), [x2,y2]=p(R,e), [tx,ty]=p(R*.89,i*a), [lx,ly]=p(R*.59,i*a), la=i*a<=180?i*a-90:i*a+90;
-      return `<g class="whsg" data-k="${k}"><path d="M160 160L${x1} ${y1}A${R} ${R} 0 0 1 ${x2} ${y2}Z" fill="url(#whS_${k})" class="whs whs-${k}"/>
-      <text x="${tx}" y="${ty}" class="whi whi-${k}" filter="url(#whGlow)" transform="rotate(${i*a} ${tx} ${ty})">${ICO[k]}</text>
+  const sector=(c)=>{ const s=c-a/2+3.6, e=c+a/2-3.6, [x1,y1]=p(R2,s),[x2,y2]=p(R2,e),[x3,y3]=p(R1,e),[x4,y4]=p(R1,s); return `M${x1} ${y1}A${R2} ${R2} 0 0 1 ${x2} ${y2}L${x3} ${y3}A${R1} ${R1} 0 0 0 ${x4} ${y4}Z`; };
+  return `<svg viewBox="0 0 320 320" class="whsvg" aria-hidden="true"><defs><filter id="whGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+    <image href="assets/roue.webp" x="0" y="6.5" width="320" height="320"/>
+    <g class="whsegs">${WHEEL_SEG.map((k,i)=>{ const c=WHEEL_OFF+i*a, [tx,ty]=p(R2*.84,c), [lx,ly]=p(R2*.6,c), la=c<=180?c-90:c+90;
+      return `<g class="whsg" data-k="${k}"><path d="${sector(c)}" fill="${COL[k]}" class="whs whs-${k}"/>
+      <text x="${tx}" y="${ty}" class="whi whi-${k}" filter="url(#whGlow)" transform="rotate(${c} ${tx} ${ty})">${ICO[k]}</text>
       <text x="${lx}" y="${ly}" class="whl" transform="rotate(${la} ${lx} ${ly})">${esc(L("whS_"+k))}</text></g>`; }).join("")}</g>
-    ${WHEEL_SEG.map((k,i)=>{ const [x,y]=p(R,i*a-a/2), [x0,y0]=p(44,i*a-a/2); return `<path d="M${x0} ${y0}L${x} ${y}" stroke="url(#whRim)" stroke-width="2.4"/><circle cx="${x}" cy="${y}" r="4.2" fill="url(#whStud)"/>`; }).join("")}
-    <circle cx="160" cy="160" r="${R}" fill="url(#whGloss)" pointer-events="none"/>
-    <circle cx="160" cy="160" r="46" fill="url(#whRim)"/><circle cx="160" cy="160" r="42" fill="#120a06"/>
-    <image href="assets/ryo-l.webp" x="120" y="120" width="80" height="80"/></svg>`; }
+    <image href="assets/ryo-l.webp" x="130" y="130" width="60" height="60"/></svg>`; }
 function wheelResHTML(R){ if(!R) return ""; const k=R.seg, bits=[];
   if(R.ryo) bits.push(`+${R.ryo} ${L("ryoWord")}`);
   if(R.fighter) bits.push(`<b>${esc(nm(R.fighter))}</b>`);
@@ -8528,11 +8514,11 @@ function openWheel(done){
       ${!ready||spun?wheelActiveHTML():""}
       <p class="note whstreak">${L("whStreak",W.streak||0)}</p>
       <div class="row"><button class="btn sm" id="whgo" ${ready&&!spun?"":"disabled"}>${ready&&!spun?L("whSpin"):L("whTomorrow")}</button><button class="btn ghost sm" id="whx">${L("close")}</button></div></div>`;
-    const rot=w.querySelector(".whrot"); if(W.last&&!ready&&!spun){ rot.style.transform=`rotate(${-WHEEL_SEG.indexOf(W.last.seg)*45}deg)`; const ws=rot.querySelector(`.whsg[data-k="${W.last.seg}"]`); if(ws) ws.classList.add("win"); }
+    const rot=w.querySelector(".whrot"); if(W.last&&!ready&&!spun){ rot.style.transform=`rotate(${-(WHEEL_OFF+WHEEL_SEG.indexOf(W.last.seg)*45)}deg)`; const ws=rot.querySelector(`.whsg[data-k="${W.last.seg}"]`); if(ws) ws.classList.add("win"); }
     w.querySelector("#whx").onclick=()=>{ w.remove(); SFX.play("click"); if(done) done(); };
     const go=w.querySelector("#whgo"); if(ready&&!spun) go.onclick=async()=>{ go.disabled=true; SFX.play("go");
       const r=await api("POST","/api/wheel",{}); if(!r.ok||!r.res){ go.textContent=L("whErr"); return; }
-      const turn=360*6-r.seg*45+(Math.random()*24-12); rot.style.transition="transform 4.6s cubic-bezier(.15,.7,.1,1)"; rot.style.transform=`rotate(${turn}deg)`;
+      const turn=360*6-(WHEEL_OFF+r.seg*45)+(Math.random()*24-12); rot.style.transition="transform 4.6s cubic-bezier(.15,.7,.1,1)"; rot.style.transform=`rotate(${turn}deg)`;
       let t=0; const tick=setInterval(()=>{ if(++t>14) return clearInterval(tick); try{ SFX.play("click"); }catch(e){} },160+t*10);
       setTimeout(()=>{ ACC.user=r.user; WHEEL.doomDone=false; const keep=rot.style.transform; draw(r.res,true); const nr=w.querySelector(".whrot"); nr.style.transform=keep; const ws=nr.querySelector(`.whsg[data-k="${r.res.seg}"]`); if(ws) ws.classList.add("win"); w.querySelector(".whstage").classList.add("done");
         SFX.play(r.res.seg==="doom"?"lose":"win"); if(r.res.seg!=="doom") document.querySelectorAll(".wheelbtn").forEach(b=>b.classList.remove("ready")); },4800); }; };
