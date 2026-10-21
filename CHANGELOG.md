@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.100 — 2026-10-22
 
+- Nouvelles illustrations : Liu Zongwu et Belga
 - Boss mondial : rotation de 19 boss à partir du 26 octobre, une semaine chacun (Uighur, Fudō le Démon, Ken-Oh, Kaioh, Hyō, Han, Falco, Jagi, Souther, Shūken, Juza, Toki, Yasaka, Liu Zongwu, Zhang Taiyan, Shin, Yuda, Shu, Ryuken)
 
 ## v0.99.99 — 2026-10-21
