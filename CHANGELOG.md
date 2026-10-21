@@ -5,7 +5,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 ## v0.99.99 — 2026-10-21
 
 - Roue du destin : une tuile dorée en tête des défis sur l'accueil, la roue tourne et brille tant que ton tour du jour t'attend
-- Nouvelles illustrations : Jugai, Jūkei et Shachi
+- Nouvelles illustrations : Jugai, Jūkei, Shachi et Shoki
 - Carte brisée refaite (KO et gros coups) : vraie fissure de verre qui part du point d'impact, différente à chaque fois
 - Ultime plus léger (assombrissement et lignes de vitesse calculés par la carte graphique). Nouvelle option « Effets allégés » dans le panneau Volume pour les machines modestes : moins d'effets plein écran, combat plus fluide
 - KO final plus fluide sur les petites machines : les effets plein écran (filtre sur tout le combat, giclée de sang en fusion) sont remplacés par des calques bien plus légers, même rendu
