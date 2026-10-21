@@ -343,7 +343,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
   }
   const lastWk = new Map();
   // ---- boss mondial : un boss par semaine, PV communs, 3 essais par jour, dégâts comptés jusqu'à un plafond par joueur ----
-  const BOSS_LIST = ["uighur", "fudodemon", "colo", "demon"];   // rotation, un par semaine (choix de David, 22 oct.) : Uighur dès la semaine du 26 oct., puis Fudō le Démon, Ken-Oh, Kaioh
+  const BOSS_LIST = ["uighur", "fudodemon", "colo", "demon", "hyo", "han", "general", "fourbe", "emp"];   // rotation, un par semaine (choix de David, 22 oct.) : Uighur dès la semaine du 26 oct., puis Fudō le Démon, Ken-Oh, Kaioh, Hyō, Han, Falco, Jagi, Souther
   const BOSS_TEST = true;               // phase test : réservé aux testeurs, sans récompenses (boss séparé)
   const BOSS_TRIES = 3, BOSS_RUN_MAX = 600, BOSS_HP_PER = 180, BOSS_HP_MIN = 1500;
   const BOSS_CAP = test => test ? .35 : .15;
@@ -357,7 +357,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
       const wi = Math.floor(Date.parse(weekKey() + "T12:00:00Z") / (7 * 864e5));
       let max = 800;
       if (!test) { const act = (await store.listUsers()).filter(x => !x.banned && x.last_seen && Date.now() - x.last_seen < 14 * 864e5).length; max = Math.max(BOSS_HP_MIN, Math.round(act * BOSS_HP_PER / 100) * 100); }
-      b = { k, id: BOSS_LIST[wi % BOSS_LIST.length], max, hp: max, entries: {}, tries: {}, dead: false, killer: null, killedAt: 0, created: Date.now() };
+      b = { k, id: BOSS_LIST[(((wi - 2964) % BOSS_LIST.length) + BOSS_LIST.length) % BOSS_LIST.length], max, hp: max, entries: {}, tries: {}, dead: false, killer: null, killedAt: 0, created: Date.now() };
       await store.setSetting(k, b);
     }
     bossCache.set(k, b); return b;
