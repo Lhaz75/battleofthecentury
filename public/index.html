@@ -6377,7 +6377,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261021235035";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261021235322";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
@@ -8599,10 +8599,10 @@ const WHEEL_SVGI={
  skull:'<path d="M12 2.6c-5 0-8.6 3.5-8.6 8.2 0 2.7 1.3 4.6 3 5.7v2.4c0 1 .8 1.8 1.8 1.8h7.6c1 0 1.8-.8 1.8-1.8v-2.4c1.7-1.1 3-3 3-5.7 0-4.7-3.6-8.2-8.6-8.2z"/><ellipse cx="8.6" cy="11.2" rx="2.3" ry="2.6" class="wk"/><ellipse cx="15.4" cy="11.2" rx="2.3" ry="2.6" class="wk"/><path d="M12 13.6l-1.5 2.6h3z" class="wk"/><path d="M9.6 18.4v2.2M12 18.4v2.2M14.4 18.4v2.2" class="wl"/>'};
 const WHEEL_ICON={ryo:"coin",fav:"star",bless:"yin",ryo100:"coins",trial:"fist",treasure:"chest",jackpot:"crown",doom:"skull"};
 const whIcon=(k,x,y,s)=>`<g transform="translate(${x-s/2} ${y-s/2}) scale(${s/24})" class="wico wico-${k}">${WHEEL_SVGI[WHEEL_ICON[k]]}</g>`;
-const WHEEL_CX=160, WHEEL_CY=160, WHEEL_DX=(627-626.8)/1254*320, WHEEL_DY=(627-610)/1254*320;   // l'illustration est posée telle quelle, juste décalée pour que le centre du disque (626.8, 610) tombe au centre de la roue
+const WHEEL_CX=160, WHEEL_CY=160, WHEEL_DX=(627-626.8)/1254*320, WHEEL_DY=(627-610)/1254*320;   // l'illustration est posée telle quelle (resserrée de 1,6 % en largeur : son disque fait 1240 px de large pour 1220 de haut), juste décalée pour que le centre du disque (626.8, 610) tombe au centre de la roue
 function wheelSVG(){ const a=45, RI=80, p=(r,deg)=>[WHEEL_CX+r*Math.sin(deg*Math.PI/180),WHEEL_CY-r*Math.cos(deg*Math.PI/180)];
   // la roue illustrée seule ; des repères invisibles servent juste à faire briller la case gagnée
-  return `<svg viewBox="0 0 320 320" class="whsvg" aria-hidden="true"><image href="assets/roue.webp" x="${WHEEL_DX}" y="${WHEEL_DY}" width="320" height="320"/>
+  return `<svg viewBox="0 0 320 320" class="whsvg" aria-hidden="true"><image href="assets/roue.webp" x="${WHEEL_DX}" y="${WHEEL_DY}" width="320" height="320" transform="translate(160 0) scale(.984 1) translate(-160 0)"/>
     <g class="whsegs">${WHEEL_SEG.map((k,i)=>{ const c=WHEEL_OFF+i*a, s=c-a/2+3.5, e=c+a/2-3.5, R1=46, R2=119, [x1,y1]=p(R2,s),[x2,y2]=p(R2,e),[x3,y3]=p(R1,e),[x4,y4]=p(R1,s);
       return `<g class="whsg" data-k="${k}"><path d="M${x1} ${y1}A${R2} ${R2} 0 0 1 ${x2} ${y2}L${x3} ${y3}A${R1} ${R1} 0 0 0 ${x4} ${y4}Z" class="whhl"/></g>`; }).join("")}</g>
     <image href="assets/ryo-l.webp" x="${WHEEL_CX-30}" y="${WHEEL_CY-30}" width="60" height="60"/></svg>`; }
