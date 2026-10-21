@@ -4,7 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.100 — 2026-10-22
 
-- Boss mondial : rotation de 9 boss à partir du 26 octobre, une semaine chacun : Uighur, Fudō le Démon, Ken-Oh, Kaioh, Hyō, Han, Falco, Jagi, Souther
+- Boss mondial : rotation de 10 boss à partir du 26 octobre, une semaine chacun : Uighur, Fudō le Démon, Ken-Oh, Kaioh, Hyō, Han, Falco, Jagi, Souther, Shūken
 
 ## v0.99.99 — 2026-10-21
 
