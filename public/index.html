@@ -6241,7 +6241,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261021114622";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261021114931";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
@@ -7299,7 +7299,7 @@ function renderStoryChapter(i){
   pageShell(L("stTitle"),`<div class="stchap ${c.boss?"boss":""}">
     <div class="start"><img src="${CONFIG.imgs[art]}" alt=""></div>
     <div class="sttext"><div class="kicker">${L("stArc"+stArcOf(i))} · ${stNum(i)}</div><h2 class="arcn">${L("st_t_"+c.id)}</h2>
-    ${NARR(L("st_i_"+c.id))}
+    ${NARR(L("st_i_"+c.id),c.id)}
     ${c.rule==="fat"?`<p class="note stwarn">⚠ ${L("stFat")}</p>`:""}${c.foeTrap?`<p class="note stwarn">⚠ ${L("stTrap")}</p>`:""}
     <div class="stvs"><div><small>${L("stYou")}</small>${survFaces(c.me)}</div><div class="svvs">VS</div><div><small>${L("stFoe")}</small>${survFaces(foe)}</div></div>
     <h3 class="pfh">${L("stObj")} ${stStarsOf(c.id)?stStarRow(stStarsOf(c.id)):""}${stCrown(c.id)}</h3><ul class="stobj">${objs.map((o,k)=>`<li class="${(k===0?stStarsOf(c.id)>0:stObjDone(c.id,k-1))?"ok":""}">★ ${stObjText(o)}</li>`).join("")}</ul>
@@ -8419,8 +8419,10 @@ function accFormsHTML(){
 }
 // après la création d'un compte : proposer le tutoriel (on peut passer)
 const DOSHI_LAUGH=/h[ée]h? h[ée]|eh eh|ほっ|ふぉ|わは|はっは|[!！]|\bvite\b|\bcours\b|quickly|\brun\b|presto|\bcorri\b|急げ|走れ/iu;   // il rit, il est content ou pressé : portrait hilare
-const DOSHI_F=t=>`assets/doshi-face${DOSHI_LAUGH.test(String(t))?"3":[...String(t)].reduce((a,c)=>a+c.charCodeAt(0),0)%2?"2":""}.webp`;   // 2 portraits, toujours le même pour un texte donné
-const NARR=t=>`<div class="narr"><img class="narrf" src="${DOSHI_F(t)}" alt=""><div class="narrb"><p class="stintro">${t}</p></div></div>`;
+// chapitres graves (morts, sacrifices, duels à mort) : portrait sérieux
+const DOSHI_GRAVE=new Set(["king-8","king-11","arc2-6","arc2-13","arc2-14","arc2-19","arc2-20","arc2-21","arc2-24","arc3-1","arc3-7","arc3-11","arc3-14","arc4-14","arc4-16","arc4-18","arc4-19"]);
+const DOSHI_F=(t,id)=>`assets/doshi-face${DOSHI_GRAVE.has(id)?"4":DOSHI_LAUGH.test(String(t))?"3":[...String(t)].reduce((a,c)=>a+c.charCodeAt(0),0)%2?"2":""}.webp`;   // 2 portraits, toujours le même pour un texte donné
+const NARR=(t,id)=>`<div class="narr"><img class="narrf" src="${DOSHI_F(t,id)}" alt=""><div class="narrb"><p class="stintro">${t}</p></div></div>`;
 function tutoOffer(){ if(MODE==="vs" || (S && !S.over && document.querySelector(".screen.board"))) return;
   const w=document.createElement("div"); w.className="askw";
   w.innerHTML=`<div class="askbox" role="dialog"><div class="tuoff"><img src="assets/doshi-2.webp" alt=""><div><h3>${esc(L("tutoOfferT",ACC.user?ACC.user.name:""))}</h3><p class="note">${L("tutoOfferD")}</p></div></div><div class="row"><button class="btn sm" data-go>${L("tutoOfferGo")}</button><button class="btn ghost sm" data-x>${L("tutoOfferNo")}</button></div></div>`;
