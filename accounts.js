@@ -15,7 +15,7 @@ function SHOP_PRICE(id) {
   return { 1: 100, 2: 150, 3: 250, 4: 400, 5: 600 }[SHOP_COST[id]] || 250;
 }
 // voyage (mode RPG) : à garder en phase avec RPG_ITEMS, RPG_ZONE, RPG_DROP, RPG_PTS et RPG_PRICE dans index.html
-const RPG_IT = { "bottes-desert": [0, 1], "bandes-poing": [0, 1], "bandages": [0, 0], "gourde": [0, 0], "bandana": [0, 1], "gants-cloutes": [1, 1], "epaulettes": [1, 1], "casque-punk": [1, 1], "viande-sechee": [1, 0],
+const RPG_IT = { "raryuban": [3, 0], "sept-etoiles": [3, 0], "bottes-desert": [0, 1], "bandes-poing": [0, 1], "bandages": [0, 0], "gourde": [0, 0], "bandana": [0, 1], "gants-cloutes": [1, 1], "epaulettes": [1, 1], "casque-punk": [1, 1], "viande-sechee": [1, 0],
   "talisman-yuria": [2, 1], "carte-puits": [2, 0], "masque-fer": [2, 1], "ceinturon-clous": [2, 1], "ceinture-ermite": [3, 1], "brassard-nanto": [3, 1], "epaulette-shin": [4, 1], "casque-jagi": [5, 1], "ceinture-king": [5, 1],
   "bottes-cuir": [1, 1], "bottes-ferrees": [3, 1], "bottes-sang": [4, 1], "casque-pointes": [1, 1], "heaume-noir": [3, 1], "heaume-sang": [4, 1], "heaume-daioh": [5, 1], "collier-crocs": [5, 1],
   "bandes-cloutees": [1, 1], "bandes-rouges": [3, 1], "bandes-lion": [4, 1], "gantelets-pointes": [3, 1], "gantelets-sang": [4, 1],
@@ -62,10 +62,11 @@ function rpgCfgClean(c) {   // ne garde que des valeurs sûres
     for (const k of Object.keys(x)) if (x[k] === undefined) delete x[k]; if (Object.keys(x).length) o.fighters[id] = x; } }
   return o;
 }
+const WHEEL_ONLY = new Set(["raryuban", "sept-etoiles"]);   // objets de la roue du destin : jamais en butin ni au bazar
 function rpgRoll(kind, leg, zone, legRate) {
   const w = rpgDropW(kind), rnd = n => Math.floor(Math.random() * n);
   let x = Math.random() * w.reduce((s, v) => s + v, 0), r = 0; while (r < w.length - 1 && x >= w[r]) { x -= w[r]; r++; }
-  const ids = Object.keys(RPG_IT).filter(id => rpgRar(id) === r && !cfgIt(id).off && (!rpgZoneOf(id) || rpgZoneOf(id) === zone)); if (!ids.length) return []; let it = ids[rnd(ids.length)];
+  const ids = Object.keys(RPG_IT).filter(id => rpgRar(id) === r && !WHEEL_ONLY.has(id) && !cfgIt(id).off && (!rpgZoneOf(id) || rpgZoneOf(id) === zone)); if (!ids.length) return []; let it = ids[rnd(ids.length)];
   // qualité (objets équipables) : 6 % parfait, 24 % renforcé
   if (RPG_IT[it][1]) { const q = Math.random(); if (q < 0.06) it += "~" + ["hp3", "lg1", "my1", "ld1", "rg1"][rnd(5)]; else if (q < 0.30) it += "~" + ["hp1", "hp2"][rnd(2)]; }
   const out = [it];
@@ -287,6 +288,43 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
   const ACH_PTS = { 1: 10, 2: 25, 3: 50 };
   const DAILY_PTS = 40;
   const dayKey = () => new Date().toLocaleDateString("sv-SE", { timeZone: "Europe/Brussels" });
+  // roue du destin (le Dōshi) : un tour par jour ; le serveur tire le résultat
+  const WHEEL_SEG = ["ryo", "fav", "bless", "ryo100", "trial", "treasure", "jackpot", "doom"];   // ordre des cases sur la roue
+  const WHEEL_W = { ryo: 26, fav: 12, bless: 12, ryo100: 12, trial: 10, treasure: 12, jackpot: 4, doom: 12 };
+  const WHEEL_FRAMES = ["or", "sang", "etoiles", "raryu", "nuit"], WHEEL_TITLES = ["protege", "survivant", "elu"];
+  const dayBefore = d => { const x = new Date(d + "T12:00:00Z"); x.setUTCDate(x.getUTCDate() - 1); return x.toISOString().slice(0, 10); };
+  const ryoGive = (st, n) => { st.ryoSpent = (st.ryoSpent || 0) - n; };   // les ryō offerts ne touchent pas aux points
+  // après un combat : étoile protectrice (victoire avec le perso désigné) et étoile de la mort (combat suivant, gagné) doublent les ryō
+  const wheelWin = (st, team, won, gain, pvp) => { const W = st.wheel; if (!W || !gain) { if (W && W.doom && !pvp) delete W.doom; return 0; } const day = dayKey(); let x = 0;
+    if (won && W.fav && W.fav.day === day && Array.isArray(team) && team.includes(W.fav.id)) x += gain;
+    if (W.doom && !pvp) { if (won) x += gain; delete W.doom; }
+    if (x > 0) ryoGive(st, x); return x; };
+  function wheelSpin(u) {
+    const st = u.stats, W = st.wheel = st.wheel || {}, day = dayKey(), rnd = n => Math.floor(Math.random() * n);
+    if (W.day === day) return null;
+    W.streak = W.day === dayBefore(day) ? (W.streak || 0) + 1 : 1; W.day = day; W.n = (W.n || 0) + 1;
+    const lucky = W.streak % 7 === 0;   // 7e jour d'affilée : forcément une bonne étoile
+    const pool = lucky ? ["ryo100", "fav", "trial", "jackpot"] : WHEEL_SEG;
+    let x = Math.random() * pool.reduce((s, k) => s + WHEEL_W[k], 0), seg = pool[0]; for (const k of pool) { if (x < WHEEL_W[k]) { seg = k; break; } x -= WHEEL_W[k]; }
+    const R = { seg, lucky }, own = W.frames = W.frames || [], tit = W.titles = W.titles || [];
+    const frame = () => { const f = WHEEL_FRAMES.filter(f => !own.includes(f)); if (!f.length) return null; const k = f[rnd(f.length)]; own.push(k); return k; };
+    const title = k => { if (tit.includes(k)) return null; tit.push(k); return k; };
+    const tester = isTester(u), inv = tester ? (st.rpg = rpgClean(st.rpg)) : null, bagOk = inv && inv.bag.length < RPG_BAG;
+    if (seg === "ryo") { R.ryo = [20, 30, 40, 50][rnd(4)]; ryoGive(st, R.ryo); }
+    else if (seg === "ryo100") { R.ryo = 100; ryoGive(st, 100); }
+    else if (seg === "fav") { const played = Object.entries(st.fav || {}).sort((a, b) => b[1] - a[1]).slice(0, 8).map(e => e[0]);
+      if (played.length) { R.fighter = played[rnd(played.length)]; W.fav = { id: R.fighter, day }; } else { R.seg = "ryo"; R.ryo = 50; ryoGive(st, 50); } }
+    else if (seg === "trial") { const own2 = Array.isArray(st.chars) ? st.chars : [], left = [...SHOP_LIST].filter(id => !own2.includes(id));
+      if (left.length) { R.fighter = left[rnd(left.length)]; W.trial = { id: R.fighter, day }; } else { R.seg = "ryo100"; R.ryo = 100; ryoGive(st, 100); } }
+    else if (seg === "bless") W.bless = day;
+    else if (seg === "treasure") {
+      if (bagOk) { const r = Math.random(), it = r < 0.25 ? "raryuban" : r < 0.5 ? "sept-etoiles" : rpgRoll("elite", null, null)[0]; if (it) { inv.bag.push(it); R.item = it; } }
+      if (!R.item) { const f = frame(); if (f) R.frame = f; else { R.ryo = 50; ryoGive(st, 50); } } }
+    else if (seg === "jackpot") { R.ryo = 300; ryoGive(st, 300); const f = frame(); if (f) R.frame = f; R.title = title("elu"); }
+    else if (seg === "doom") { W.doom = 1; W.doomN = (W.doomN || 0) + 1; if (W.doomN >= 3) R.title = title("survivant"); }
+    if (W.streak >= 7) { const t = title("protege"); if (t) R.title = R.title || t; }
+    W.last = R; return R;
+  }
   // défi de la semaine : clé = lundi de la semaine (heure de Bruxelles)
   const weekKey = (off = 0) => { const d = new Date(dayKey() + "T12:00:00Z"); const wd = (d.getUTCDay() + 6) % 7; d.setUTCDate(d.getUTCDate() - wd + off * 7); return d.toISOString().slice(0, 10); };
   const wkCache = new Map();
@@ -387,7 +425,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
       W.stats.elo += d; Lo.stats.elo = Math.max(100, Lo.stats.elo - d);
     }
     const nc = !!(getDuel(code) || {}).newch;   // défi lancé pendant un combat contre l'IA : +50 % de points
-    if (W) { W.stats.vsW++; W.stats.pts += nc ? 38 : 25; streak(W.stats, true); bumpFav(W.stats, m.teams && m.teams[winRole]); achCheck(W.stats); await store.saveStats(W.id, W.stats); }
+    if (W) { W.stats.vsW++; W.stats.pts += nc ? 38 : 25; wheelWin(W.stats, m.teams && m.teams[winRole], true, nc ? 38 : 25, true); streak(W.stats, true); bumpFav(W.stats, m.teams && m.teams[winRole]); achCheck(W.stats); await store.saveStats(W.id, W.stats); }
     if (Lo) { Lo.stats.vsL++; Lo.stats.pts += nc ? 8 : 5; streak(Lo.stats, false); bumpFav(Lo.stats, m.teams && m.teams[loserRole]); achCheck(Lo.stats); await store.saveStats(Lo.id, Lo.stats); }
     { const d = getDuel(code) || {}; const tW = (m.teams && m.teams[winRole]) || d[winRole + "Team"], tL = (m.teams && m.teams[loserRole]) || d[loserRole + "Team"]; fRecord(tW, true, "v"); fRecord(tL, false, "v"); fstats.n = fstats.n || { v: 0, a: 0 }; fstats.n.v++; }
     for (const h of settleHooks) { try { await h(code, loserRole); } catch (e) { console.error("settle hook", e.message); } }
@@ -526,6 +564,19 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
       const ach = achCheck(st); await store.saveStats(u.id, st);
       return [200, { user: pubUser(u), gain: DAILY_PTS, ach }];
     },
+    "POST /api/wheel": async (req, body) => {
+      const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      const st = u.stats, W = st.wheel = st.wheel || {};
+      if (body.act === "look") {   // cadre et titre choisis parmi ceux gagnés
+        const L = st.look = st.look || {}, f = body.frame == null ? null : String(body.frame), t = body.title == null ? null : String(body.title);
+        if (f !== null) { if (f === "" ) delete L.frame; else if ((W.frames || []).includes(f)) L.frame = f; else return [400, { error: "bad" }]; }
+        if (t !== null) { if (t === "") delete L.title; else if ((W.titles || []).includes(t)) L.title = t; else return [400, { error: "bad" }]; }
+        await store.saveStats(u.id, st); return [200, { user: pubUser(u) }];
+      }
+      const R = wheelSpin(u); if (!R) return [409, { error: "done" }];
+      await store.saveStats(u.id, st);
+      return [200, { user: pubUser(u), res: R, seg: WHEEL_SEG.indexOf(R.seg) }];
+    },
     "GET /api/decks": async req => {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
       return [200, { decks: u.stats.decks || [] }];
@@ -581,12 +632,12 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
       lastSolo.set(u.id, now);
       const won = !!body.win;
       const LV = { easy: [5, 1], norm: [10, 2], hard: [15, 3], hokuto: [20, 4] }, lv = LV[body.lv] ? body.lv : "norm", gain = LV[lv][won ? 0 : 1];
-      if (won) st.aiW++; else st.aiL++; st.pts += gain;
+      if (won) st.aiW++; else st.aiL++; st.pts += gain; const wb = wheelWin(st, body.team, won, gain);
       streak(st, won); bumpFav(st, body.team);
       if (lv === "norm") { fRecord(body.team, won, "a"); fstats.n = fstats.n || { v: 0, a: 0 }; fstats.n.a++; }   // stats d'équilibrage : niveau normal seulement
       const ach = achCheck(st, won ? body.feats : []);
       await store.saveStats(u.id, st);
-      return [200, { user: pubUser(u), ach, gain }];
+      return [200, { user: pubUser(u), ach, gain, wb }];
     },
     // histoire : un chapitre à la fois, dans l'ordre ; 20 pts au premier passage, +10 par nouvelle étoile
     "POST /api/story": async (req, body) => {
@@ -612,8 +663,8 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
       prog[ch] = Math.max(best, had); st.pts += gain;
       if (had < 0 && body.boss) sys("chStory", [u.name, ch]);
       if (body.diff === "h" && stars >= 3) { const H = st.storyH = st.storyH || {}; if (!H[ch]) { H[ch] = 1; st.pts += 15; gain += 15; } }
-      const ach = achCheck(st, body.feats); await store.saveStats(u.id, st);
-      return [200, { user: pubUser(u), gain, ach }];
+      const wb = wheelWin(st, body.team, true, gain); const ach = achCheck(st, body.feats); await store.saveStats(u.id, st);
+      return [200, { user: pubUser(u), gain, ach, wb }];
     },
     // magasin (v1.0) : persos à débloquer avec les ryō (ryō = points gagnés - ryō dépensés ; les points de niveau ne bougent pas)
     "POST /api/shop": async (req, body) => {
@@ -641,17 +692,17 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
         lastArc.set(u.id, now); st.arcBonusRun = 1; st.arcSecret = (st.arcSecret || 0) + 1; st.pts += 30;
         const ach = achCheck(st, body.feats); await store.saveStats(u.id, st); return [200, { user: pubUser(u), gain: 30, ach }];
       }
-      if (!won) { st.arcRun = 0; st.arcBonusRun = 0; await store.saveStats(u.id, st); return [200, { user: pubUser(u), gain: 0 }]; }
+      if (!won) { st.arcRun = 0; st.arcBonusRun = 0; wheelWin(st, null, false, 0); await store.saveStats(u.id, st); return [200, { user: pubUser(u), gain: 0 }]; }
       if (now - (lastArc.get(u.id) || 0) < 20000) return [429, { error: "slow" }];
       if (floor !== 1 && (floor !== (st.arcRun || 0) + 1 || (st.arcTw || "c") !== tw)) return [409, { error: "bad" }];
       if (floor === 1) { st.arcBonusRun = 0; st.arcTw = tw; }
       lastArc.set(u.id, now);
       let gain = (tw === "s" ? 3 : 5) + 3 * floor; if (floor === N) { gain += TOPB; st.arcClears = (st.arcClears || 0) + 1; }
       const bk = tw === "s" ? "arcS" : tw === "l" ? "arcL" : "arc";
-      st.arcRun = floor === N ? 0 : floor; st[bk] = Math.max(st[bk] || 0, floor); st.pts += gain; bumpFav(st, body.team);
+      st.arcRun = floor === N ? 0 : floor; st[bk] = Math.max(st[bk] || 0, floor); st.pts += gain; bumpFav(st, body.team); const wb = wheelWin(st, body.team, true, gain);
       const ach = achCheck(st, body.feats);
       await store.saveStats(u.id, st);
-      return [200, { user: pubUser(u), gain, ach }];
+      return [200, { user: pubUser(u), gain, ach, wb }];
     },
     // dojo : combats sans fin contre des disciples ; 4 points par grade (0 novice … 20 Maître), +1/+2/+3 selon l'adversaire, -1 à la défaite
     "POST /api/dojo": async (req, body) => {
@@ -666,17 +717,17 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
       st.dojo = Math.max(0, before + (won ? tier + 1 : -1)); st.dojoBest = Math.max(best0, rank(st.dojo));
       if (st.dojoBest > best0 && st.dojoBest >= 3) sys("chDojo", [u.name, st.dojoBest]);
       if (won) st.dojoW = (st.dojoW || 0) + 1;
-      st.pts += gain; bumpFav(st, body.team);
+      st.pts += gain; bumpFav(st, body.team); const wb = wheelWin(st, body.team, won, won ? gain : 0);
       const ach = achCheck(st, won ? body.feats : []);
       await store.saveStats(u.id, st);
-      return [200, { user: pubUser(u), gain, ach }];
+      return [200, { user: pubUser(u), gain, ach, wb }];
     },
     // voyage (mode RPG, zone 1 en test : admins et testeurs). Le serveur tire le butin et garde le sac : le client ne peut que déplacer ou retirer des objets.
     "POST /api/rpg": async (req, body) => {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
       if (!isTester(u)) return [403, { error: "test" }];
       const st = u.stats, act = String(body.act || "save"), inv = st.rpg = rpgClean(st.rpg);
-      let gain = 0, ach = [], loot = [], lost = 0, first = false, saved = "ok";
+      let gain = 0, ach = [], loot = [], lost = 0, first = false, saved = "ok", wb = 0;
       if (act === "win") {
         const zone = String(body.zone || "mamiya"), Z = RPG_ZONES[zone], node = String(body.node || ""), kind = Z && Z.nodes[node]; if (!kind) return [400, { error: "bad" }];
         if (Z.need && ![].concat(Z.need).some(k => (st.rpgSeen || {})[k])) return [403, { error: "locked" }];
@@ -684,7 +735,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
         const now = Date.now(); if (!aw && now - (lastRpg.get(u.id) || 0) < 20000) return [429, { error: "slow" }];
         if (!aw) lastRpg.set(u.id, now);
         const seen = st.rpgSeen = st.rpgSeen || {}, key = zone + ":" + node; first = !seen[key]; seen[key] = 1;
-        if (!aw) { gain = (first ? RPG_PTS : RPG_PTS_AGAIN)[kind]; st.pts += gain; bumpFav(st, body.team); if (kind === "boss") st.rpgClears = (st.rpgClears || 0) + 1; }
+        if (!aw) { gain = (first ? RPG_PTS : RPG_PTS_AGAIN)[kind]; st.pts += gain; bumpFav(st, body.team); wb = wheelWin(st, body.team, true, gain); if (kind === "boss") st.rpgClears = (st.rpgClears || 0) + 1; }
         // un objet la première fois sur chaque étape ; le boss en lâche à chaque fois
         const rolls = first || kind === "boss" ? rpgRoll(kind, rpgLeg(zone).leg, zone, rpgLeg(zone).rate) : kind === "event" ? rpgRoll("again", null, zone) : [];   // événement refait : un petit objet
         for (const it of rolls) { if (inv.bag.length < RPG_BAG) { inv.bag.push(it); loot.push(it); } else lost++; }
@@ -700,7 +751,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
       } else return [400, { error: "bad" }];
       st.rpg.bag.sort((x, y) => RPG_IT[y.split("~")[0]][0] - RPG_IT[x.split("~")[0]][0]);
       await store.saveStats(u.id, st);
-      return [200, { user: pubUser(u), gain, ach, loot, lost, first, saved }];
+      return [200, { user: pubUser(u), gain, ach, loot, lost, first, saved, wb }];
     },
     // survie : une vague à la fois, dans l'ordre (la vague 1 lance une nouvelle série)
     "POST /api/surv": async (req, body) => {
@@ -708,15 +759,15 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
       const wave = Math.floor(+body.wave), won = !!body.win, st = u.stats;
       if (!(wave >= 1 && wave <= 999)) return [400, { error: "bad" }];
       const now = Date.now();
-      if (!won) { st.survRun = 0; await store.saveStats(u.id, st); return [200, { user: pubUser(u), gain: 0 }]; }
+      if (!won) { st.survRun = 0; wheelWin(st, null, false, 0); await store.saveStats(u.id, st); return [200, { user: pubUser(u), gain: 0 }]; }
       if (now - (lastSurv.get(u.id) || 0) < 20000) return [429, { error: "slow" }];
       if (wave !== 1 && wave !== (st.survRun || 0) + 1) return [409, { error: "bad" }];
       lastSurv.set(u.id, now);
       const gain = 5 + wave;
-      st.survRun = wave; st.surv = Math.max(st.surv || 0, wave); st.pts += gain; bumpFav(st, body.team);
+      st.survRun = wave; st.surv = Math.max(st.surv || 0, wave); st.pts += gain; bumpFav(st, body.team); const wb = wheelWin(st, body.team, true, gain);
       const ach = achCheck(st, body.feats);
       await store.saveStats(u.id, st);
-      return [200, { user: pubUser(u), gain, ach }];
+      return [200, { user: pubUser(u), gain, ach, wb }];
     },
     "POST /api/match": async (req, body) => {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
@@ -863,7 +914,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
     },
     // lecture publique pour les widgets du site hokutolegacy.com (aucune donnée privée)
     "GET /api/public/board": async () => {
-      const slim = u => { const p = pubUser(u); return { id: p.id, name: p.name, avatar: p.avatar || null, elo: p.stats ? p.stats.elo : p.elo, pts: p.stats ? p.stats.pts : p.pts, w: p.stats ? (p.stats.vsW || 0) + (p.stats.aiW || 0) : 0 }; };
+      const slim = u => { const p = pubUser(u); return { id: p.id, name: p.name, avatar: p.avatar || null, elo: p.stats ? p.stats.elo : p.elo, look: p.stats && p.stats.look || null, pts: p.stats ? p.stats.pts : p.pts, w: p.stats ? (p.stats.vsW || 0) + (p.stats.aiW || 0) : 0 }; };
       const [elo, pts] = await Promise.all([store.top("elo", 10), store.top("pts", 10)]);
       const k = weekKey(), w = await wkGet(k), r = wkRank(w);
       const prev = wkRank(await wkGet(weekKey(-1))).slice(0, 3).map(e => ({ name: e.name, cost: e.cost, rounds: e.rounds, lost: e.lost, team: e.team }));

@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.98 — 2026-10-19
 
+- Nouveau : la roue du destin du Dōshi, un tour par jour (bouton sur l'accueil). Ryō, étoile protectrice (ryō doublés avec un de tes persos), essai d'un jour d'un perso du magasin, bénédiction (+2 rage), trésors, gros lot… ou l'étoile de la mort. 7 jours d'affilée = bonne étoile garantie. Cadres de portrait et titres à gagner (profil → Apparence)
 - Le Dōshi, le vieux taoïste de Sōten no Ken, devient le narrateur : il raconte les chapitres du mode histoire à sa façon et te guide dans le tutoriel
 - Mang, fidèle au manga : sa spéciale devient le Hiko-Heni (2 tours où le Hokuto lui fait 3 dégâts de moins, +2 rage, -3 PV) et son ultime Kyōshinkon (16) le plonge dans l'esprit de la folie : +2 dégâts sur tous ses coups, -1 PV par tour
 - Nouvelle icône pour les ryō : la médaille du dragon aux 7 étoiles
