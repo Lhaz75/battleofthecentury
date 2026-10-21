@@ -310,7 +310,8 @@ html.lite .whrays,html.lite .whhalo{display:none}
 .whs{stroke:none;mix-blend-mode:color;opacity:.85}.whsg.win .whs{animation:whwin 1s ease-in-out infinite}.whsg.win .whi{fill:#fff6c8}
 @keyframes whwin{0%,100%{filter:brightness(1.1)}50%{filter:brightness(1.9) saturate(1.3)}}
 .whi{font:900 18px serif;fill:#ffd25a;text-anchor:middle;dominant-baseline:central}.whi-doom{fill:#ff5a3a}.whi-jackpot{fill:#fff3b0}
-.whl{font:700 9px var(--f-display);fill:#f6e6c4;text-anchor:middle;dominant-baseline:central;letter-spacing:.04em;text-transform:uppercase;paint-order:stroke;stroke:#0a0503;stroke-width:2.5px}
+.whl{font:800 10px var(--f-display);fill:#fff4d6;text-anchor:middle;dominant-baseline:central;letter-spacing:.03em;text-transform:uppercase}
+.whlbg{fill:rgba(10,5,2,.78);stroke:#e8b04a;stroke-width:.8}
 .whout .narr{margin:4px auto 6px}.whgain{margin:6px 0 0;font:700 14px var(--f-display);color:#ffd25a;letter-spacing:.03em}
 .whact{list-style:none;padding:0;margin:4px 0;display:flex;flex-direction:column;gap:4px;font-size:13px;color:#e8d3ad}.whact li::before{content:"✦ ";color:#e8b04a}
 .whstreak{margin:4px 0}.whtoast i{background:#1d1512!important;overflow:hidden}.whtoast i img{width:100%;height:100%;object-fit:cover}
@@ -6369,7 +6370,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261021210819";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261021211238";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
@@ -8585,8 +8586,10 @@ function wheelSVG(){ const R1=46, R2=119, a=45;
     <g class="whsegs">${WHEEL_SEG.map((k,i)=>{ const c=WHEEL_OFF+i*a, [tx,ty]=p(R2*.84,c), [lx,ly]=p(R2*.6,c), la=c<=180?c-90:c+90;
       return `<g class="whsg" data-k="${k}"><path d="${sector(c)}" fill="${COL[k]}" class="whs whs-${k}"/>
       <text x="${tx}" y="${ty}" class="whi whi-${k}" filter="url(#whGlow)" transform="rotate(${c} ${tx} ${ty})">${ICO[k]}</text>
-      <text x="${lx}" y="${ly}" class="whl" transform="rotate(${la} ${lx} ${ly})">${esc(L("whS_"+k))}</text></g>`; }).join("")}</g>
+      <g class="whlg" data-c="${c}" data-x="${lx}" data-y="${ly}" transform="rotate(${la} ${lx} ${ly})"><rect x="${lx-27}" y="${ly-8}" width="54" height="16" rx="4" class="whlbg"/><text x="${lx}" y="${ly+.5}" class="whl" textLength="${Math.min(50,L("whS_"+k).length*6.2)}" lengthAdjust="spacingAndGlyphs">${esc(L("whS_"+k))}</text></g></g>`; }).join("")}</g>
     <image href="assets/ryo-l.webp" x="130" y="130" width="60" height="60"/></svg>`; }
+// textes de la roue toujours lisibles (jamais à l'envers) une fois la roue arrêtée
+function wheelOrient(root,rot){ root.querySelectorAll(".whlg").forEach(g=>{ const c=+g.dataset.c, n=a=>((a%360)+540)%360-180; const a1=c-90, a2=c+90, la=Math.abs(n(a1+rot))<=90?a1:a2; g.setAttribute("transform",`rotate(${la} ${g.dataset.x} ${g.dataset.y})`); }); }
 function wheelResHTML(R){ if(!R) return ""; const k=R.seg, bits=[];
   if(R.ryo) bits.push(`+${R.ryo} ${L("ryoWord")}`);
   if(R.fighter) bits.push(`<b>${esc(nm(R.fighter))}</b>`);
@@ -8649,13 +8652,13 @@ function openWheel(done){
       ${!ready||spun?wheelActiveHTML():""}
       <p class="note whstreak">${L("whStreak",W.streak||0)}</p>
       <div class="row"><button class="btn sm" id="whgo" ${ready&&!spun?"":"disabled"}>${ready&&!spun?L("whSpin"):L("whTomorrow")}</button><button class="btn ghost sm" id="whx">${L("close")}</button></div></div>`;
-    const rot=w.querySelector(".whrot"); if(W.last&&!ready&&!spun){ rot.style.transform=`rotate(${-(WHEEL_OFF+WHEEL_SEG.indexOf(W.last.seg)*45)}deg)`; const ws=rot.querySelector(`.whsg[data-k="${W.last.seg}"]`); if(ws) ws.classList.add("win"); }
+    const rot=w.querySelector(".whrot"); if(W.last&&!ready&&!spun){ const r0=-(WHEEL_OFF+WHEEL_SEG.indexOf(W.last.seg)*45); rot.style.transform=`rotate(${r0}deg)`; wheelOrient(rot,r0); const ws=rot.querySelector(`.whsg[data-k="${W.last.seg}"]`); if(ws) ws.classList.add("win"); }
     w.querySelector("#whx").onclick=()=>{ w.remove(); SFX.play("click"); if(done) done(); };
     const go=w.querySelector("#whgo"); if(ready&&!spun) go.onclick=async()=>{ go.disabled=true; SFX.play("go");
       const r=await api("POST","/api/wheel",{}); if(!r.ok||!r.res){ go.textContent=L("whErr"); return; }
       const turn=360*6-(WHEEL_OFF+r.seg*45)+(Math.random()*24-12); rot.style.transition="transform 4.6s cubic-bezier(.15,.7,.1,1)"; rot.style.transform=`rotate(${turn}deg)`;
       let t=0; const tick=setInterval(()=>{ if(++t>14) return clearInterval(tick); try{ SFX.play("click"); }catch(e){} },160+t*10);
-      setTimeout(()=>{ ACC.user=r.user; WHEEL.doomDone=false; const keep=rot.style.transform; draw(r.res,true); const nr=w.querySelector(".whrot"); nr.style.transform=keep; const ws=nr.querySelector(`.whsg[data-k="${r.res.seg}"]`); if(ws) ws.classList.add("win"); w.querySelector(".whstage").classList.add("done");
+      setTimeout(()=>{ ACC.user=r.user; WHEEL.doomDone=false; const keep=rot.style.transform; draw(r.res,true); const nr=w.querySelector(".whrot"); nr.style.transform=keep; wheelOrient(nr,turn); const ws=nr.querySelector(`.whsg[data-k="${r.res.seg}"]`); if(ws) ws.classList.add("win"); w.querySelector(".whstage").classList.add("done");
         SFX.play(r.res.seg==="doom"?"lose":"win"); if(r.res.seg!=="doom") document.querySelectorAll(".wheelbtn").forEach(b=>b.classList.remove("ready")); },4800); }; };
   draw(null,false); document.body.appendChild(w);
   w.onclick=e=>{ if(e.target===w){ w.remove(); if(done) done(); } }; }
