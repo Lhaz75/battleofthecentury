@@ -343,7 +343,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
   }
   const lastWk = new Map();
   // ---- boss mondial : un boss par semaine, PV communs, 3 essais par jour, dégâts comptés jusqu'à un plafond par joueur ----
-  const BOSS_LIST = ["devil"];          // rotation, un par semaine
+  const BOSS_LIST = ["uighur", "fudodemon", "colo", "demon"];   // rotation, un par semaine (choix de David, 22 oct.) : Uighur dès la semaine du 26 oct., puis Fudō le Démon, Ken-Oh, Kaioh
   const BOSS_TEST = true;               // phase test : réservé aux testeurs, sans récompenses (boss séparé)
   const BOSS_TRIES = 3, BOSS_RUN_MAX = 600, BOSS_HP_PER = 180, BOSS_HP_MIN = 1500;
   const BOSS_CAP = test => test ? .35 : .15;

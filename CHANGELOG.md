@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.99 — 2026-10-21
 
+- Boss mondial : rotation de 4 boss à partir du 26 octobre, une semaine chacun : Uighur, Fudō le Démon, Ken-Oh, Kaioh
 - Roue du destin : une tuile dorée en tête des défis sur l'accueil, la roue tourne et brille tant que ton tour du jour t'attend
 - Nouvelles illustrations : Jugai, Jūkei, Shachi et Shoki
 - Carte brisée refaite (KO et gros coups) : vraie fissure de verre qui part du point d'impact, différente à chaque fois
