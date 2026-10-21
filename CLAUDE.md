@@ -34,7 +34,7 @@ Les idées en cours et le backlog sont dans :
 - Les objets du futur mode RPG ne marchent **que** dans ce mode, jamais en versus.
 - Testeurs (Jérôme R., maxGfive, Mordikar) restent testeurs après la 1.0 : ils voient les arcs en test, sans récompenses ni trophées de ces arcs.
 - À la 1.0 : verrouillage des persos activé, tout le monde repart à zéro (petit cadeau possible aux testeurs), persos verrouillés interdits en versus.
-  - Le reset de la 1.0 efface AUSSI les achats faits pendant la bêta (stats.chars, ryoSpent), la roue du destin (stats.wheel, look) et les ryō : les testeurs voient le magasin depuis le 21 oct. et y achètent pour tester, rien de ça ne doit survivre (demande de David). Seul le butin des Terres désolées est à garder (décision antérieure).
+  - Le reset de la 1.0 efface AUSSI les achats faits pendant la bêta (stats.chars, ryoSpent), la roue du destin (stats.wheel, look) et les ryō : les testeurs voient le magasin depuis le 21 oct. et y achètent pour tester, rien de ça ne doit survivre (demande de David). Le butin des Terres désolées est effacé lui aussi : à la 1.0 on remet TOUT à zéro, sans exception (David, 21 oct., remplace la décision de garder le butin).
 
 ## Stack et hébergement
 
