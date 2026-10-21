@@ -6370,7 +6370,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261021211342";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261021212143";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
@@ -7346,7 +7346,9 @@ Object.assign(UI.ja,{onlGo:"対戦",dcChat:"Discordチャット",dcOpen:"Discord
 const ST_TEST=[3,4]; // arcs en test : visibles mais verrouillés pour les joueurs (admins seulement) — vider pour ouvrir
 const stTest=c=>ST_TEST.includes(c.arc||1) && !(ACC.user&&(ACC.user.admin||ACC.user.tester));
 const ST_UNLOCK_ALL=false; // remettre à true pour la version 1.0 (déblocages de persos : histoire + magasin)
-const stUnlock=()=>ST_UNLOCK_ALL || !!(ACC.on&&ACC.user&&ACC.user.admin); // en attendant : actif pour les admins seulement (test)
+const stUnlock=()=>ST_UNLOCK_ALL || !!(ACC.on&&ACC.user&&ACC.user.admin);
+const shopOwned=id=>stUnlock()?charOwned(id):(CHAR_START.has(id)||!!(ACC.user&&Array.isArray(ACC.user.stats&&ACC.user.stats.chars)&&ACC.user.stats.chars.includes(id)));   // magasin : ce que le compte a vraiment acheté
+const shopOn=()=>stUnlock() || !!(ACC.on&&ACC.user&&ACC.user.tester);   // testeurs : ils voient le magasin et achètent, mais gardent tout le roster // en attendant : actif pour les admins seulement (test)
 // persos dispo d'office ; les autres se débloquent par l'histoire (STORY_CH[].unlock) ou au magasin (ryō)
 const CHAR_START=new Set(["maitre", "sage", "linh", "bat", "vieux", "dans", "huey", "shuren", "nuage", "shachi", "shoki", "general", "mamiya", "ein", "rima","bella"]);
 const CHAR_PRICE={1:100,2:150,3:250,4:400,5:600};
@@ -8757,7 +8759,7 @@ const KOBAN3D=()=>{ const sv=c=>`<img class="koban ${c}" src="assets/ryo-l.webp"
 function renderShop(sel=[]){
   const r=ryoNow(), list=[...CHAR_SHOP].filter(id=>FIGHTERS[id]).sort((a,b)=>charPrice(a)-charPrice(b)||nm(a).localeCompare(nm(b)));
   const own=list.filter(charOwned).length;
-  const card=id=>{ const f=FIGHTERS[id], o=charOwned(id), pr=charPrice(id), can=!o&&r>=pr, sp=SPECS[id], tp=Object.keys(TRAPS).find(k=>TRAPS[k].own===id);
+  const card=id=>{ const f=FIGHTERS[id], o=shopOwned(id), pr=charPrice(id), can=!o&&r>=pr, sp=SPECS[id], tp=Object.keys(TRAPS).find(k=>TRAPS[k].own===id);
     const dm=f.techs.map(t=>Array.isArray(t)?t[3]:t.dmg), extra=sp?`<div class="shx"><span>${L("shSpec")}</span>${tr(sp.text)}</div>`:tp?`<div class="shx"><span>${L("ownTrap")}</span>${tr(TRAPS[tp].text)}</div>`:"";
     return `<article class="shc cl-${CLAN[id]}${o?" own":can?" can":" poor"}">
       <div class="sha"><img src="assets/${id}.webp" alt="" loading="lazy" decoding="async"><span class="shclan">${L("clan_"+CLAN[id])}</span>${o?`<span class="shown">✓ ${L("shOwned")}</span>`:""}
@@ -9034,7 +9036,7 @@ function hmStatsHTML(m){
 }
 function hmNewsHTML(){ const c=CHANGELOG[0]; if(!c) return ""; const lg=(typeof LANG!=="undefined"&&c[LANG])?LANG:"fr", items=(c[lg]||c.fr||[]).slice(0,2);
   return `<button class="hmnews" id="hmnews" type="button"><span class="hmnk">${L("hmsNews")} · v${c.v}</span>${items.map(x=>`<span class="hmni">${esc(x.length>120?x.slice(0,117)+"…":x)}</span>`).join("")}<span class="hmnm">${L("hmsMore")} →</span></button>`; }
-function ryoPillHTML(){ if(!ACC.on||!ACC.user||!stUnlock()) return ""; return `<button class="ryob" id="ryob" title="${esc(L("shopBtn"))}">${KOBAN()}<b>${ryoNow()}</b></button>`; }
+function ryoPillHTML(){ if(!ACC.on||!ACC.user||!shopOn()) return ""; return `<button class="ryob" id="ryob" title="${esc(L("shopBtn"))}">${KOBAN()}<b>${ryoNow()}</b></button>`; }
 function homeHTML(sel){
   const ms=hmModes(), m0=ms[0][0];
   return `<div class="hm"><div class="hmL"><div class="hmlist">${ms.map(([m,n],i)=>`<button class="hmi${i===0?" on":""}" data-m="${m}"${m==="online"?' id="online"':""} style="--hc:var(--hm-${m})"><img class="hmp" src="assets/${HM_ART[m]}.webp" alt="" loading="lazy"><span class="hmt"><b>${n}</b><small>${L("hmd_"+m)}</small></span></button>`).join("")}</div>
@@ -9043,7 +9045,7 @@ function homeHTML(sel){
     <div class="hmgl hmmob">${hmGameLinks()}</div><p class="betanote hmbeta">${L("betaNote")}</p><div class="hmfoot">${socialHTML()}<p class="fanmade">${L("fanMade")}</p></div>`;
 }
 // accueil : Magasin / Combattants / Règles / Classement dans la barre du haut
-function hmGameLinks(){ return `${stUnlock()&&ACC.user?`<button class="btn sm shopbtn" id="shop">${KOBAN()}${L("shopBtn")}</button>`:""}<button class="btn ghost sm" id="roster">${L("rosterBtn")}</button><button class="btn ghost sm" id="rules">${L("rulesBtn")}</button>${ACC.on?`<button class="btn ghost sm" id="hof">${L("hofBtn")}</button>`:""}`; }
+function hmGameLinks(){ return `${shopOn()&&ACC.user?`<button class="btn sm shopbtn" id="shop">${KOBAN()}${L("shopBtn")}</button>`:""}<button class="btn ghost sm" id="roster">${L("rosterBtn")}</button><button class="btn ghost sm" id="rules">${L("rulesBtn")}</button>${ACC.on?`<button class="btn ghost sm" id="hof">${L("hofBtn")}</button>`:""}`; }
 function hmEnter(m,sel){
   if(m==="tour") return renderTourHome(sel);
   if(m==="story") return renderStory(sel);
