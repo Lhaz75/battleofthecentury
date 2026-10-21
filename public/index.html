@@ -295,6 +295,11 @@ html.lite .whrays,html.lite .whhalo{display:none}
 .whti{width:58px;height:58px;flex:none;filter:drop-shadow(0 3px 6px rgba(0,0,0,.7))}.whtile.ready .whti{animation:whspin 9s linear infinite}
 @keyframes whspin{to{transform:rotate(360deg)}}.whtb{flex:1;min-width:0}.whtd{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid #e8b04a;flex:none}
 .whtile.ready{animation:whglow 2.2s ease-in-out infinite}@keyframes whglow{0%,100%{box-shadow:0 6px 20px rgba(0,0,0,.5),0 0 0 rgba(255,200,80,0)}50%{box-shadow:0 6px 20px rgba(0,0,0,.5),0 0 22px rgba(255,200,80,.55)}}
+.whleg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:4px 0 2px}
+.whleg span{display:flex;align-items:center;gap:6px;padding:5px 7px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid #3a2a1a;font:700 12px var(--f-display);letter-spacing:.04em;text-transform:uppercase;color:#f3e2bf;white-space:nowrap;min-width:0}
+.whleg i{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font:900 13px serif;font-style:normal;color:#ffe9a8;box-shadow:inset 0 0 0 1px rgba(255,220,140,.6)}
+.whleg span.on{border-color:#ffd25a;background:rgba(255,210,90,.16);color:#fff;box-shadow:0 0 12px rgba(255,200,80,.35)}
+@media (max-width:520px){.whleg{grid-template-columns:repeat(2,1fr)}}
 /* roue du destin */
 .wheelbtn{display:inline-flex!important;align-items:center;gap:7px}.wheelbtn img{width:22px;height:22px;border-radius:50%;object-fit:cover;border:1px solid #e8b04a;transform:skewX(8deg)}
 .wheelbtn.ready{animation:whpulse 1.8s ease-in-out infinite;box-shadow:0 0 0 2px #ffd25a,0 0 16px rgba(255,200,80,.6)!important}
@@ -6370,7 +6375,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261021223302";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261021223638";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
@@ -8580,7 +8585,7 @@ function lookHTML(st){ const W=st.wheel||{}, fr=W.frames||[], ti=W.titles||[], l
   return `${fr.length?`<h3 class="pfh">${L("lookFrames")}</h3><div class="lkrow"><button class="lkb ${!lk.frame?"on":""}" data-lkf=""><span class="uav noav">–</span><small>${L("lookOff")}</small></button>${fr.map(f=>`<button class="lkb ${lk.frame===f?"on":""}" data-lkf="${f}">${avatarHTML({...ACC.user,look:{frame:f}})}<small>${L("whF_"+f)}</small></button>`).join("")}</div>`:""}
     ${ti.length?`<h3 class="pfh">${L("lookTitles")}</h3><div class="lkrow">${[["",L("lookOff")],...ti.map(t=>[t,L("whT_"+t)])].map(([t,n])=>`<button class="lkt ${(lk.title||"")===t?"on":""}" data-lkt="${t}">${esc(n)}</button>`).join("")}</div>`:""}`; }
 const WHEEL_OFF=22.5;   // la roue illustrée a ses rayons à 0°, 45°… : chaque case est centrée à 22,5° + i × 45°
-function wheelSVG(){ const R1=46, R2=119, a=45, RT=100, RI=72;
+function wheelSVG(){ const R1=46, R2=119, a=45, RT=100, RI=86;
   const ICO={ryo:"両",fav:"★",bless:"☯",ryo100:"両",trial:"拳",treasure:"宝",jackpot:"✦",doom:"☠"};
   const COL={ryo:"#c08a2a",fav:"#3a6ac0",bless:"#4a9a3a",ryo100:"#e0a020",trial:"#c0381e",treasure:"#8a4ac0",jackpot:"#ffd040",doom:"#8a0a0a"};
   const p=(r,deg)=>[160+r*Math.sin(deg*Math.PI/180),160-r*Math.cos(deg*Math.PI/180)];
@@ -8594,12 +8599,14 @@ function wheelSVG(){ const R1=46, R2=119, a=45, RT=100, RI=72;
     <g class="whsegs">${WHEEL_SEG.map((k,i)=>{ const c=WHEEL_OFF+i*a, [tx,ty]=p(RI,c);
       return `<g class="whsg" data-k="${k}"><path d="${sector(c)}" fill="${COL[k]}" class="whs whs-${k}"/>
       <g class="whig" data-c="${c}" data-x="${tx}" data-y="${ty}" transform="rotate(${c} ${tx} ${ty})"><text x="${tx}" y="${ty}" class="whi whi-${k}" filter="url(#whGlow)">${ICO[k]}</text></g>
-      <text class="whl" data-i="${i}" data-c="${c}"><textPath href="#wha${i}" startOffset="50%">${esc(L("whS_"+k))}</textPath></text></g>`; }).join("")}</g>
+</g>`; }).join("")}</g>
     <image href="assets/ryo-l.webp" x="130" y="130" width="60" height="60"/></svg>`; }
 // noms courbés le long de la jante, toujours dans le bon sens une fois la roue arrêtée ; icônes droites
 function wheelOrient(root,rot){ const n=a=>((a%360)+540)%360-180;
   root.querySelectorAll(".whl[data-i]").forEach(t=>{ const c=+t.dataset.c, i=t.dataset.i, top=Math.abs(n(c+rot))<=90; t.querySelector("textPath").setAttribute("href",`#wh${top?"a":"b"}${i}`); });
   root.querySelectorAll(".whig").forEach(g=>g.setAttribute("transform",`rotate(${-rot} ${g.dataset.x} ${g.dataset.y})`)); }
+const WHEEL_ICO={ryo:"両",fav:"★",bless:"☯",ryo100:"両",trial:"拳",treasure:"宝",jackpot:"✦",doom:"☠"}, WHEEL_COL={ryo:"#c08a2a",fav:"#3a6ac0",bless:"#4a9a3a",ryo100:"#e0a020",trial:"#c0381e",treasure:"#8a4ac0",jackpot:"#ffd040",doom:"#8a0a0a"};
+const wheelLegend=win=>`<div class="whleg">${WHEEL_SEG.map(k=>`<span class="${k===win?"on":""}"><i style="background:${WHEEL_COL[k]}">${WHEEL_ICO[k]}</i>${esc(L("whS_"+k))}</span>`).join("")}</div>`;
 function wheelResHTML(R){ if(!R) return ""; const k=R.seg, bits=[];
   if(R.ryo) bits.push(`+${R.ryo} ${L("ryoWord")}`);
   if(R.fighter) bits.push(`<b>${esc(nm(R.fighter))}</b>`);
@@ -8657,7 +8664,7 @@ function openWheel(done){
   const w=document.createElement("div"); w.className="askw whwrap";
   const draw=(R,spun)=>{ const W=wheelSt(), ready=wheelReady();
     w.innerHTML=`<div class="askbox whbox" role="dialog"><h3>${L("whTitle")}</h3>
-      <div class="whstage"><i class="whrays"></i><i class="whhalo"></i><svg class="whptr" viewBox="0 0 40 56" aria-hidden="true"><defs><linearGradient id="whPg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff3b8"/><stop offset=".5" stop-color="#e0a630"/><stop offset="1" stop-color="#6a3a06"/></linearGradient><radialGradient id="whPgem" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#ffb0a0"/><stop offset=".5" stop-color="#d8261a"/><stop offset="1" stop-color="#4a0604"/></radialGradient></defs><path d="M20 55L5 20A15 15 0 1 1 35 20Z" fill="url(#whPg)" stroke="#3a2004" stroke-width="1.5"/><circle cx="20" cy="15" r="7" fill="url(#whPgem)" stroke="#3a2004" stroke-width="1"/><circle cx="17.5" cy="12.5" r="2" fill="#fff" opacity=".8"/></svg><div class="whrot">${wheelSVG()}</div></div>
+      ${wheelLegend(spun&&R?R.seg:(!ready&&W.last?W.last.seg:null))}<div class="whstage"><i class="whrays"></i><i class="whhalo"></i><svg class="whptr" viewBox="0 0 40 56" aria-hidden="true"><defs><linearGradient id="whPg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff3b8"/><stop offset=".5" stop-color="#e0a630"/><stop offset="1" stop-color="#6a3a06"/></linearGradient><radialGradient id="whPgem" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#ffb0a0"/><stop offset=".5" stop-color="#d8261a"/><stop offset="1" stop-color="#4a0604"/></radialGradient></defs><path d="M20 55L5 20A15 15 0 1 1 35 20Z" fill="url(#whPg)" stroke="#3a2004" stroke-width="1.5"/><circle cx="20" cy="15" r="7" fill="url(#whPgem)" stroke="#3a2004" stroke-width="1"/><circle cx="17.5" cy="12.5" r="2" fill="#fff" opacity=".8"/></svg><div class="whrot">${wheelSVG()}</div></div>
       <div class="whout">${spun||!ready?wheelResHTML(R||W.last):`<div class="narr"><img class="narrf" src="assets/doshi-face.webp" alt=""><div class="narrb"><p class="stintro">${L("whIntro")}</p></div></div>`}</div>
       ${!ready||spun?wheelActiveHTML():""}
       <p class="note whstreak">${L("whStreak",W.streak||0)}</p>
