@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.98 — 2026-10-19
 
+- Carte brisée refaite (KO et gros coups) : vraie fissure de verre qui part du point d'impact, différente à chaque fois
 - Ultime plus léger (assombrissement et lignes de vitesse calculés par la carte graphique). Nouvelle option « Effets allégés » dans le panneau Volume pour les machines modestes : moins d'effets plein écran, combat plus fluide
 - KO final plus fluide sur les petites machines : les effets plein écran (filtre sur tout le combat, giclée de sang en fusion) sont remplacés par des calques bien plus légers, même rendu
 - Réglage du volume : musique, effets et voix séparément (bouton à curseurs dans le menu ⚙ et en combat)
