@@ -2320,7 +2320,12 @@ img.koban:not(.kbig):not(.kbe):not(.kbf){filter:brightness(1.18) contrast(1.08) 
 .shb{display:flex;flex-direction:column;gap:7px;padding:10px 12px;flex:1}.shx{font-size:12.5px;line-height:1.4;color:#e2d2ba}.shx span{display:inline-block;margin-right:6px;padding:1px 6px;border-radius:4px;background:rgba(232,176,74,.18);color:#f2c27a;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
 .shf{padding:0 12px 12px;display:flex;flex-direction:column;gap:4px;align-items:stretch}
 .shbuy{display:flex!important;align-items:center;justify-content:center;gap:8px;width:100%}.shbuy b{font:800 18px var(--f-display)}.shbuy span{opacity:.9}
-.shbuy[disabled]{opacity:.55}.shmiss{text-align:center;color:#c99a7a;font-size:12px}
+.shbuy[disabled]{opacity:.55}
+.shbuy{transition:transform .15s,box-shadow .15s,filter .15s,background .15s}
+.shbuy:not([disabled]):hover{background:linear-gradient(180deg,#ff7a4a,#d23a1a 55%,#9a220c)!important;transform:skewX(-8deg) translateY(-2px) scale(1.04);box-shadow:0 0 0 2px #ffd25a,0 0 18px rgba(255,190,60,.65),0 6px 14px rgba(0,0,0,.5)!important;filter:brightness(1.08)}
+.shbuy:not([disabled]):hover b,.shbuy:not([disabled]):hover span{color:#fff;text-shadow:0 0 8px rgba(255,220,120,.8)}
+.shbuy:not([disabled]):hover>img.koban{transform:skewX(8deg) scale(1.18) rotate(-12deg)!important;transition:transform .2s}
+.shbuy:not([disabled]):active{transform:skewX(-8deg) translateY(0) scale(.98)}.shmiss{text-align:center;color:#c99a7a;font-size:12px}
 .shc.own{border-color:rgba(127,190,110,.55)}.shok{text-align:center;color:#8fd07a;font-weight:800;padding:9px 0}
 @media (max-width:520px){.shgrid{grid-template-columns:1fr 1fr;gap:10px}.sha{height:190px}.shname b{font-size:16px}.shst span{min-width:0;flex:1;font-size:12px;padding:2px 2px;white-space:nowrap}.shst{gap:3px}.shst i{font-size:8px}.shx{font-size:11.5px}.shb{padding:8px}.shf{padding:0 8px 10px}.shbuy span{display:none}.shhero{padding:12px 14px;gap:12px}.shpurse b{font-size:32px}}
 .frult{position:relative;width:200px;height:88px;overflow:hidden;border-radius:6px;background:linear-gradient(180deg,#5a0f07,#c2331a 50%,#5a0f07)}.frult .cu{position:absolute;inset:0;background-repeat:no-repeat}.frtest{margin-top:4px}
@@ -6217,7 +6222,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261021110119";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261021110430";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
