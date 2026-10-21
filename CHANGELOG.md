@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.98 — 2026-10-19
 
+- Ultime plus léger (assombrissement et lignes de vitesse calculés par la carte graphique). Nouvelle option « Effets allégés » dans le panneau Volume pour les machines modestes : moins d'effets plein écran, combat plus fluide
 - KO final plus fluide sur les petites machines : les effets plein écran (filtre sur tout le combat, giclée de sang en fusion) sont remplacés par des calques bien plus légers, même rendu
 - Réglage du volume : musique, effets et voix séparément (bouton à curseurs dans le menu ⚙ et en combat)
 - Nouveau : la roue du destin du Dōshi, un tour par jour (bouton sur l'accueil). Ryō, étoile protectrice (ryō doublés avec un de tes persos), essai d'un jour d'un perso du magasin, bénédiction (+2 rage), trésors, gros lot… ou l'étoile de la mort. 7 jours d'affilée = bonne étoile garantie. Cadres de portrait et titres à gagner (profil → Apparence)
