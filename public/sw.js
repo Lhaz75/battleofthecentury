@@ -14,6 +14,7 @@ self.addEventListener("fetch", e => {
   const req = e.request, url = new URL(req.url);
   if (req.method !== "GET" || url.origin !== location.origin) return;
   if (url.pathname.startsWith("/api/") || url.pathname.startsWith("/music/") || req.headers.has("range")) return;
+  if (url.searchParams.has("nc")) return;   // pages de cadrage : toujours le fichier du serveur, jamais le cache
   // la page : réseau d'abord (nouvelle version tout de suite), cache si hors ligne
   if (req.mode === "navigate" || url.pathname === "/" || url.pathname.endsWith(".html")) {
     e.respondWith(fetch(req, { cache: "no-cache" }).then(r => { if (r.ok) { const c = r.clone(); caches.open(CACHE).then(x => x.put("./", c)); } return r; })
