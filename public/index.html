@@ -2688,6 +2688,10 @@ body:has(#gchat) .newstoast{bottom:64px}
 .hmfoot .social{margin:0!important}.hmfoot .fanmade{margin:0!important}
 .hmfoot .soc{width:34px;height:34px}
 .hmnav{display:none}
+.hmnav .btn{flex:none;white-space:nowrap}
+/* barre du haut : la roue du destin réduite à la tête du Dōshi */
+.hmnav .wheelbtn{padding:0!important;width:40px;height:40px;border-radius:50%!important;justify-content:center;overflow:hidden;transform:none!important;border:2px solid #e8b04a!important;background:#1d1512!important}
+.hmnav .wheelbtn span{display:none}.hmnav .wheelbtn img{width:100%;height:100%;border:0;transform:none;border-radius:50%}
 @media (min-width:1000px){
   .hmnav{display:flex;flex:1;justify-content:center;flex-wrap:nowrap;min-width:0}
   .hmmob{display:none}
@@ -6285,7 +6289,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261021162918";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261021171651";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
@@ -8912,7 +8916,7 @@ function homeHTML(sel){
     <div class="hmgl hmmob">${hmGameLinks()}</div><p class="betanote hmbeta">${L("betaNote")}</p><div class="hmfoot">${socialHTML()}<p class="fanmade">${L("fanMade")}</p></div>`;
 }
 // accueil : Magasin / Combattants / Règles / Classement dans la barre du haut
-function hmGameLinks(){ return `${ACC.user?`<button class="btn sm wheelbtn ${wheelReady()?"ready":""}" id="wheel"><img src="assets/doshi-face3.webp" alt="">${L("whBtn")}</button>`:""}${stUnlock()&&ACC.user?`<button class="btn sm shopbtn" id="shop">${KOBAN()}${L("shopBtn")}</button>`:""}<button class="btn ghost sm" id="roster">${L("rosterBtn")}</button><button class="btn ghost sm" id="rules">${L("rulesBtn")}</button>${ACC.on?`<button class="btn ghost sm" id="hof">${L("hofBtn")}</button>`:""}`; }
+function hmGameLinks(){ return `${ACC.user?`<button class="btn sm wheelbtn ${wheelReady()?"ready":""}" id="wheel" title="${L("whBtn")}" aria-label="${L("whBtn")}"><img src="assets/doshi-face3.webp" alt=""><span>${L("whBtn")}</span></button>`:""}${stUnlock()&&ACC.user?`<button class="btn sm shopbtn" id="shop">${KOBAN()}${L("shopBtn")}</button>`:""}<button class="btn ghost sm" id="roster">${L("rosterBtn")}</button><button class="btn ghost sm" id="rules">${L("rulesBtn")}</button>${ACC.on?`<button class="btn ghost sm" id="hof">${L("hofBtn")}</button>`:""}`; }
 function hmEnter(m,sel){
   if(m==="tour") return renderTourHome(sel);
   if(m==="story") return renderStory(sel);
