@@ -6371,7 +6371,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261021221010";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261021222517";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
@@ -8587,7 +8587,7 @@ function wheelSVG(){ const R1=46, R2=119, a=45;
   const p=(r,deg)=>[160+r*Math.sin(deg*Math.PI/180),160-r*Math.cos(deg*Math.PI/180)];
   const sector=(c)=>{ const s=c-a/2+3.6, e=c+a/2-3.6, [x1,y1]=p(R2,s),[x2,y2]=p(R2,e),[x3,y3]=p(R1,e),[x4,y4]=p(R1,s); return `M${x1} ${y1}A${R2} ${R2} 0 0 1 ${x2} ${y2}L${x3} ${y3}A${R1} ${R1} 0 0 0 ${x4} ${y4}Z`; };
   return `<svg viewBox="0 0 320 320" class="whsvg" aria-hidden="true"><defs><filter id="whGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-    <image href="assets/roue.webp" x="0" y="6.5" width="320" height="320"/>
+    <image href="assets/roue.webp" x="0" y="0" width="320" height="320"/>
     <g class="whsegs">${WHEEL_SEG.map((k,i)=>{ const c=WHEEL_OFF+i*a, [tx,ty]=p(R2*.84,c), [lx,ly]=p(R2*.6,c), la=c<=180?c-90:c+90;
       return `<g class="whsg" data-k="${k}"><path d="${sector(c)}" fill="${COL[k]}" class="whs whs-${k}"/>
       <text x="${tx}" y="${ty}" class="whi whi-${k}" filter="url(#whGlow)" transform="rotate(${c} ${tx} ${ty})">${ICO[k]}</text>
@@ -8657,7 +8657,7 @@ function openWheel(done){
       ${!ready||spun?wheelActiveHTML():""}
       <p class="note whstreak">${L("whStreak",W.streak||0)}</p>
       <div class="row"><button class="btn sm" id="whgo" ${ready&&!spun?"":"disabled"}>${ready&&!spun?L("whSpin"):L("whTomorrow")}</button><button class="btn ghost sm" id="whx">${L("close")}</button></div></div>`;
-    const rot=w.querySelector(".whrot"); if(W.last&&!ready&&!spun){ const r0=-(WHEEL_OFF+WHEEL_SEG.indexOf(W.last.seg)*45); rot.style.transform=`rotate(${r0}deg)`; wheelOrient(rot,r0); const ws=rot.querySelector(`.whsg[data-k="${W.last.seg}"]`); if(ws) ws.classList.add("win"); }
+    const rot=w.querySelector(".whrot"); wheelOrient(rot,0); if(W.last&&!ready&&!spun){ const r0=-(WHEEL_OFF+WHEEL_SEG.indexOf(W.last.seg)*45); rot.style.transform=`rotate(${r0}deg)`; wheelOrient(rot,r0); const ws=rot.querySelector(`.whsg[data-k="${W.last.seg}"]`); if(ws) ws.classList.add("win"); }
     w.querySelector("#whx").onclick=()=>{ w.remove(); SFX.play("click"); if(done) done(); };
     const go=w.querySelector("#whgo"); if(ready&&!spun) go.onclick=async()=>{ go.disabled=true; SFX.play("go");
       const r=await api("POST","/api/wheel",{}); if(!r.ok||!r.res){ go.textContent=L("whErr"); return; }
