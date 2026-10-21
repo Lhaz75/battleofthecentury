@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.98 — 2026-10-19
 
+- Nouvelle icône pour les ryō : la médaille du dragon aux 7 étoiles
 - Équilibrage (simulations) : Souther 23 PV et, contre les écoles autres que Hokuto, le 1er coup encaissé chaque tour fait 2 de moins ; Kenshin Kasumi 26 PV, +1 dégât contre les écoles autres que Hokuto et Ruée du Tento Seiin à 11
 - Terres désolées : sac agrandi à 36 places, avec des onglets Tout / Équipement / Consommables (idée de Jérôme R. et maxGfive)
 - Histoire : un perso tombé à la vague précédente n'a plus ses cartes dans le paquet à la vague suivante (elles bloquaient la main). Merci Jérôme R. !
