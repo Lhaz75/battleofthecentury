@@ -289,7 +289,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
   const DAILY_PTS = 40;
   const dayKey = () => new Date().toLocaleDateString("sv-SE", { timeZone: "Europe/Brussels" });
   // roue du destin (le Dōshi) : un tour par jour ; le serveur tire le résultat
-  const WHEEL_SEG = ["ryo", "fav", "bless", "ryo100", "trial", "treasure", "jackpot", "doom"];   // ordre des cases sur la roue
+  const WHEEL_SEG = ["fav", "bless", "jackpot", "treasure", "ryo100", "doom", "ryo", "trial"];   // ordre des cases sur la roue illustrée (bleu, vert, or, violet, argent, noir, brun, rouge)   // ordre des cases sur la roue
   const WHEEL_W = { ryo: 26, fav: 12, bless: 12, ryo100: 12, trial: 10, treasure: 12, jackpot: 4, doom: 12 };
   const WHEEL_FRAMES = ["or", "sang", "etoiles", "raryu", "nuit"], WHEEL_TITLES = ["protege", "survivant", "elu"];
   const dayBefore = d => { const x = new Date(d + "T12:00:00Z"); x.setUTCDate(x.getUTCDate() - 1); return x.toISOString().slice(0, 10); };

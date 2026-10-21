@@ -6377,7 +6377,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261021230207";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261021231139";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
@@ -8573,7 +8573,7 @@ const DOSHI_GRAVE=new Set(["king-8","king-11","arc2-6","arc2-13","arc2-14","arc2
 const DOSHI_F=(t,id)=>`assets/doshi-face${DOSHI_GRAVE.has(id)?"4":DOSHI_LAUGH.test(String(t))?"3":[...String(t)].reduce((a,c)=>a+c.charCodeAt(0),0)%2?"2":""}.webp`;   // 2 portraits, toujours le même pour un texte donné
 /* ===== roue du destin : le Dōshi lit tes étoiles, un tour par jour (le serveur tire le résultat) ===== */
 const WHEEL={doomDone:false};
-const WHEEL_SEG=["ryo","fav","bless","ryo100","trial","treasure","jackpot","doom"];
+const WHEEL_SEG=["fav","bless","jackpot","treasure","ryo100","doom","ryo","trial"];
 const WHEEL_FR=["or","sang","etoiles","raryu","nuit"];
 const wheelToday=()=>new Date().toLocaleDateString("sv-SE",{timeZone:"Europe/Brussels"});
 const wheelSt=()=>ACC.user&&ACC.user.stats&&ACC.user.stats.wheel||{};
@@ -8612,7 +8612,7 @@ function wheelSVG(){ const a=45, RI=80;
     <image href="assets/ryo-l.webp" x="130" y="130" width="60" height="60"/></svg>`; }
 // noms courbés le long de la jante, toujours dans le bon sens une fois la roue arrêtée ; icônes droites
 function wheelOrient(root,rot){ root.querySelectorAll(".whig").forEach(g=>g.setAttribute("transform",`rotate(${-rot} ${g.dataset.x} ${g.dataset.y})`)); }
-const WHEEL_ICO={ryo:"両",fav:"★",bless:"☯",ryo100:"両",trial:"拳",treasure:"宝",jackpot:"✦",doom:"☠"}, WHEEL_COL={ryo:"#b8925a",fav:"#2f62c8",bless:"#3f9a32",ryo100:"#159aa0",trial:"#c42a2a",treasure:"#8a3cc8",jackpot:"#ffd040",doom:"#141414"};
+const WHEEL_ICO={ryo:"両",fav:"★",bless:"☯",ryo100:"両",trial:"拳",treasure:"宝",jackpot:"✦",doom:"☠"}, WHEEL_COL={ryo:"#8a5a32",fav:"#2f62c8",bless:"#1f8a5a",ryo100:"#9aa0a8",trial:"#c42a1a",treasure:"#7a3cc0",jackpot:"#e0a820",doom:"#1c1c1c"};
 const wheelLegend=win=>`<div class="whleg">${WHEEL_SEG.map(k=>`<span class="${k===win?"on":""}"><i style="background:${WHEEL_COL[k]}"><svg viewBox="0 0 24 24" class="wico wico-${k}">${WHEEL_SVGI[WHEEL_ICON[k]]}</svg></i>${esc(L("whS_"+k))}</span>`).join("")}</div>`;
 function wheelResHTML(R){ if(!R) return ""; const k=R.seg, bits=[];
   if(R.ryo) bits.push(`+${R.ryo} ${L("ryoWord")}`);
