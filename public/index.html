@@ -6378,7 +6378,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261022001627";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261022001739";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
@@ -8604,7 +8604,7 @@ const WHEEL_IMG_CX=627, WHEEL_IMG_CY=610, WHEEL_RIN=497;   // centre du disque d
 function wheelSVG(){ const a=45, k=320/1254, cx=WHEEL_IMG_CX*k, cy=WHEEL_IMG_CY*k, rin=WHEEL_RIN*k, p=(r,deg)=>[cx+r*Math.sin(deg*Math.PI/180),cy-r*Math.cos(deg*Math.PI/180)];
   // seul le disque intérieur tourne (découpé dans la même image, au même endroit) : le contour reste l'image d'origine, fixe
   return `<svg viewBox="0 0 320 320" class="whsvg" aria-hidden="true"><defs><clipPath id="whclip"><circle cx="${cx}" cy="${cy}" r="${rin}"/></clipPath></defs>
-    <g clip-path="url(#whclip)"><image href="assets/roue.webp" x="0" y="0" width="320" height="320"/></g>
+    <g clip-path="url(#whclip)"><image href="assets/roue.webp?v=d7ab7297" x="0" y="0" width="320" height="320"/></g>
     <g class="whsegs">${WHEEL_SEG.map((kk,i)=>{ const c=WHEEL_OFF+i*a, s=c-a/2+3.5, e=c+a/2-3.5, R1=46, R2=119, [x1,y1]=p(R2,s),[x2,y2]=p(R2,e),[x3,y3]=p(R1,e),[x4,y4]=p(R1,s);
       return `<g class="whsg" data-k="${kk}"><path d="M${x1} ${y1}A${R2} ${R2} 0 0 1 ${x2} ${y2}L${x3} ${y3}A${R1} ${R1} 0 0 0 ${x4} ${y4}Z" class="whhl"/></g>`; }).join("")}</g>
     <image href="assets/ryo-l.webp" x="${cx-30}" y="${cy-30}" width="60" height="60"/></svg>`; }
@@ -8669,7 +8669,7 @@ function openWheel(done){
   const w=document.createElement("div"); w.className="askw whwrap";
   const draw=(R,spun)=>{ const W=wheelSt(), ready=wheelReady();
     w.innerHTML=`<div class="askbox whbox" role="dialog"><h3>${L("whTitle")}</h3>
-      ${wheelLegend(spun&&R?R.seg:(!ready&&W.last?W.last.seg:null))}<div class="whstage"><i class="whrays"></i><i class="whhalo"></i><svg class="whptr" viewBox="0 0 40 56" aria-hidden="true"><defs><linearGradient id="whPg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff3b8"/><stop offset=".5" stop-color="#e0a630"/><stop offset="1" stop-color="#6a3a06"/></linearGradient><radialGradient id="whPgem" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#ffb0a0"/><stop offset=".5" stop-color="#d8261a"/><stop offset="1" stop-color="#4a0604"/></radialGradient></defs><path d="M20 55L5 20A15 15 0 1 1 35 20Z" fill="url(#whPg)" stroke="#3a2004" stroke-width="1.5"/><circle cx="20" cy="15" r="7" fill="url(#whPgem)" stroke="#3a2004" stroke-width="1"/><circle cx="17.5" cy="12.5" r="2" fill="#fff" opacity=".8"/></svg><img class="whfix" src="assets/roue.webp" alt=""><div class="whrot">${wheelSVG()}</div></div>
+      ${wheelLegend(spun&&R?R.seg:(!ready&&W.last?W.last.seg:null))}<div class="whstage"><i class="whrays"></i><i class="whhalo"></i><svg class="whptr" viewBox="0 0 40 56" aria-hidden="true"><defs><linearGradient id="whPg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff3b8"/><stop offset=".5" stop-color="#e0a630"/><stop offset="1" stop-color="#6a3a06"/></linearGradient><radialGradient id="whPgem" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#ffb0a0"/><stop offset=".5" stop-color="#d8261a"/><stop offset="1" stop-color="#4a0604"/></radialGradient></defs><path d="M20 55L5 20A15 15 0 1 1 35 20Z" fill="url(#whPg)" stroke="#3a2004" stroke-width="1.5"/><circle cx="20" cy="15" r="7" fill="url(#whPgem)" stroke="#3a2004" stroke-width="1"/><circle cx="17.5" cy="12.5" r="2" fill="#fff" opacity=".8"/></svg><img class="whfix" src="assets/roue.webp?v=d7ab7297" alt=""><div class="whrot">${wheelSVG()}</div></div>
       <div class="whout">${spun||!ready?wheelResHTML(R||W.last):`<div class="narr"><img class="narrf" src="assets/doshi-face.webp" alt=""><div class="narrb"><p class="stintro">${L("whIntro")}</p></div></div>`}</div>
       ${!ready||spun?wheelActiveHTML():""}
       <p class="note whstreak">${L("whStreak",W.streak||0)}</p>
@@ -9036,7 +9036,7 @@ function pickHeadHTML(){ return `<div class="pickhead"><button class="backbtn" i
 // accueil : tuile de la roue du destin (bien visible, en tête des défis)
 function wheelTileHTML(){ if(!ACC.on || !ACC.user) return ""; const ready=wheelReady(), W=wheelSt(), R=W.last;
   const res=!ready&&R?`${L("whS_"+R.seg)}${R.ryo?` · +${R.ryo} ${L("ryoWord")}`:""}${R.fighter?` · ${esc(nm(R.fighter))}`:""}${R.item?` · ${esc(rpgName(R.item))}`:""}`:"";
-  return `<div class="daily hmc whtile ${ready?"ready":""}" id="whtile" role="button" tabindex="0"><img class="whti" src="assets/roue.webp" alt=""><div class="whtb"><div class="dyhead"><span class="dytag">${L("whBtn")}</span>${ready?`<b>${L("whTileNew")}</b>`:""}</div><p>${ready?L("whTileReady"):L("whTileDone",res)}</p></div><img class="whtd" src="assets/doshi-face${ready?"3":"2"}.webp" alt=""></div>`; }
+  return `<div class="daily hmc whtile ${ready?"ready":""}" id="whtile" role="button" tabindex="0"><img class="whti" src="assets/roue.webp?v=d7ab7297" alt=""><div class="whtb"><div class="dyhead"><span class="dytag">${L("whBtn")}</span>${ready?`<b>${L("whTileNew")}</b>`:""}</div><p>${ready?L("whTileReady"):L("whTileDone",res)}</p></div><img class="whtd" src="assets/doshi-face${ready?"3":"2"}.webp" alt=""></div>`; }
 function hmDailyHTML(){
   if(!ACC.on || !ACC.user || !DAILY.day || DAILY.done) return "";
   const d=dailyDef(DAILY.day), desc=d.kind==="team"?L("dyTeam"):d.kind==="boss"?L("dyBoss",d.foe.map(nm).join(", ")):L("dyFlawless");
