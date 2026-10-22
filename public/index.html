@@ -308,7 +308,8 @@ html.lite .whrays,html.lite .whhalo{display:none}
 @keyframes whpulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.25)}}
 .whbox{width:min(520px,100%)!important;text-align:center;max-height:calc(100dvh - 24px);overflow:auto}
 .whstage{position:relative;width:min(330px,76vw);aspect-ratio:1;margin:14px auto 12px}
-.whrot{position:relative;z-index:1;width:100%;height:100%;transform-origin:50% 50%}.whsvg{width:100%;height:100%;display:block;filter:drop-shadow(0 10px 22px rgba(0,0,0,.8))}
+.whfix{position:absolute;inset:0;width:100%;height:100%;z-index:1;filter:drop-shadow(0 10px 22px rgba(0,0,0,.8))}
+.whrot{position:absolute;inset:0;z-index:2;width:100%;height:100%;transform-origin:50% 48.64%}.whrot .whsvg{filter:none}.whsvg{width:100%;height:100%;display:block;filter:drop-shadow(0 10px 22px rgba(0,0,0,.8))}
 .whptr{position:absolute;left:50%;top:-10px;transform:translateX(-50%);width:34px;height:48px;z-index:3;filter:drop-shadow(0 3px 4px rgba(0,0,0,.8))}
 .whhalo{position:absolute;inset:-8%;border-radius:50%;background:radial-gradient(circle,rgba(255,200,90,.28) 40%,rgba(255,200,90,0) 70%);animation:whhalo 3s ease-in-out infinite;pointer-events:none}
 .whrays{position:absolute;inset:-22%;border-radius:50%;background:repeating-conic-gradient(rgba(255,214,120,.13) 0 6deg,rgba(255,214,120,0) 6deg 18deg);-webkit-mask:radial-gradient(circle,#000 30%,transparent 70%);mask:radial-gradient(circle,#000 30%,transparent 70%);animation:whrays 40s linear infinite;pointer-events:none}
@@ -6377,7 +6378,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261021235322";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261022001627";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
@@ -8599,13 +8600,14 @@ const WHEEL_SVGI={
  skull:'<path d="M12 2.6c-5 0-8.6 3.5-8.6 8.2 0 2.7 1.3 4.6 3 5.7v2.4c0 1 .8 1.8 1.8 1.8h7.6c1 0 1.8-.8 1.8-1.8v-2.4c1.7-1.1 3-3 3-5.7 0-4.7-3.6-8.2-8.6-8.2z"/><ellipse cx="8.6" cy="11.2" rx="2.3" ry="2.6" class="wk"/><ellipse cx="15.4" cy="11.2" rx="2.3" ry="2.6" class="wk"/><path d="M12 13.6l-1.5 2.6h3z" class="wk"/><path d="M9.6 18.4v2.2M12 18.4v2.2M14.4 18.4v2.2" class="wl"/>'};
 const WHEEL_ICON={ryo:"coin",fav:"star",bless:"yin",ryo100:"coins",trial:"fist",treasure:"chest",jackpot:"crown",doom:"skull"};
 const whIcon=(k,x,y,s)=>`<g transform="translate(${x-s/2} ${y-s/2}) scale(${s/24})" class="wico wico-${k}">${WHEEL_SVGI[WHEEL_ICON[k]]}</g>`;
-const WHEEL_CX=160, WHEEL_CY=160, WHEEL_DX=(627-626.8)/1254*320, WHEEL_DY=(627-610)/1254*320;   // l'illustration est posée telle quelle (resserrée de 1,6 % en largeur : son disque fait 1240 px de large pour 1220 de haut), juste décalée pour que le centre du disque (626.8, 610) tombe au centre de la roue
-function wheelSVG(){ const a=45, RI=80, p=(r,deg)=>[WHEEL_CX+r*Math.sin(deg*Math.PI/180),WHEEL_CY-r*Math.cos(deg*Math.PI/180)];
-  // la roue illustrée seule ; des repères invisibles servent juste à faire briller la case gagnée
-  return `<svg viewBox="0 0 320 320" class="whsvg" aria-hidden="true"><image href="assets/roue.webp" x="${WHEEL_DX}" y="${WHEEL_DY}" width="320" height="320" transform="translate(160 0) scale(.984 1) translate(-160 0)"/>
-    <g class="whsegs">${WHEEL_SEG.map((k,i)=>{ const c=WHEEL_OFF+i*a, s=c-a/2+3.5, e=c+a/2-3.5, R1=46, R2=119, [x1,y1]=p(R2,s),[x2,y2]=p(R2,e),[x3,y3]=p(R1,e),[x4,y4]=p(R1,s);
-      return `<g class="whsg" data-k="${k}"><path d="M${x1} ${y1}A${R2} ${R2} 0 0 1 ${x2} ${y2}L${x3} ${y3}A${R1} ${R1} 0 0 0 ${x4} ${y4}Z" class="whhl"/></g>`; }).join("")}</g>
-    <image href="assets/ryo-l.webp" x="${WHEEL_CX-30}" y="${WHEEL_CY-30}" width="60" height="60"/></svg>`; }
+const WHEEL_IMG_CX=627, WHEEL_IMG_CY=610, WHEEL_RIN=497;   // centre du disque dans l'illustration 1254×1254 de David, et rayon de l'anneau doré intérieur
+function wheelSVG(){ const a=45, k=320/1254, cx=WHEEL_IMG_CX*k, cy=WHEEL_IMG_CY*k, rin=WHEEL_RIN*k, p=(r,deg)=>[cx+r*Math.sin(deg*Math.PI/180),cy-r*Math.cos(deg*Math.PI/180)];
+  // seul le disque intérieur tourne (découpé dans la même image, au même endroit) : le contour reste l'image d'origine, fixe
+  return `<svg viewBox="0 0 320 320" class="whsvg" aria-hidden="true"><defs><clipPath id="whclip"><circle cx="${cx}" cy="${cy}" r="${rin}"/></clipPath></defs>
+    <g clip-path="url(#whclip)"><image href="assets/roue.webp" x="0" y="0" width="320" height="320"/></g>
+    <g class="whsegs">${WHEEL_SEG.map((kk,i)=>{ const c=WHEEL_OFF+i*a, s=c-a/2+3.5, e=c+a/2-3.5, R1=46, R2=119, [x1,y1]=p(R2,s),[x2,y2]=p(R2,e),[x3,y3]=p(R1,e),[x4,y4]=p(R1,s);
+      return `<g class="whsg" data-k="${kk}"><path d="M${x1} ${y1}A${R2} ${R2} 0 0 1 ${x2} ${y2}L${x3} ${y3}A${R1} ${R1} 0 0 0 ${x4} ${y4}Z" class="whhl"/></g>`; }).join("")}</g>
+    <image href="assets/ryo-l.webp" x="${cx-30}" y="${cy-30}" width="60" height="60"/></svg>`; }
 // noms courbés le long de la jante, toujours dans le bon sens une fois la roue arrêtée ; icônes droites
 function wheelOrient(root,rot){ root.querySelectorAll(".whig").forEach(g=>g.setAttribute("transform",`rotate(${-rot} ${g.dataset.x} ${g.dataset.y})`)); }
 const WHEEL_ICO={ryo:"両",fav:"★",bless:"☯",ryo100:"両",trial:"拳",treasure:"宝",jackpot:"✦",doom:"☠"}, WHEEL_COL={ryo:"#8a5a32",fav:"#2f62c8",bless:"#1f8a5a",ryo100:"#9aa0a8",trial:"#c42a1a",treasure:"#7a3cc0",jackpot:"#e0a820",doom:"#1c1c1c"};
@@ -8667,7 +8669,7 @@ function openWheel(done){
   const w=document.createElement("div"); w.className="askw whwrap";
   const draw=(R,spun)=>{ const W=wheelSt(), ready=wheelReady();
     w.innerHTML=`<div class="askbox whbox" role="dialog"><h3>${L("whTitle")}</h3>
-      ${wheelLegend(spun&&R?R.seg:(!ready&&W.last?W.last.seg:null))}<div class="whstage"><i class="whrays"></i><i class="whhalo"></i><svg class="whptr" viewBox="0 0 40 56" aria-hidden="true"><defs><linearGradient id="whPg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff3b8"/><stop offset=".5" stop-color="#e0a630"/><stop offset="1" stop-color="#6a3a06"/></linearGradient><radialGradient id="whPgem" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#ffb0a0"/><stop offset=".5" stop-color="#d8261a"/><stop offset="1" stop-color="#4a0604"/></radialGradient></defs><path d="M20 55L5 20A15 15 0 1 1 35 20Z" fill="url(#whPg)" stroke="#3a2004" stroke-width="1.5"/><circle cx="20" cy="15" r="7" fill="url(#whPgem)" stroke="#3a2004" stroke-width="1"/><circle cx="17.5" cy="12.5" r="2" fill="#fff" opacity=".8"/></svg><div class="whrot">${wheelSVG()}</div></div>
+      ${wheelLegend(spun&&R?R.seg:(!ready&&W.last?W.last.seg:null))}<div class="whstage"><i class="whrays"></i><i class="whhalo"></i><svg class="whptr" viewBox="0 0 40 56" aria-hidden="true"><defs><linearGradient id="whPg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff3b8"/><stop offset=".5" stop-color="#e0a630"/><stop offset="1" stop-color="#6a3a06"/></linearGradient><radialGradient id="whPgem" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#ffb0a0"/><stop offset=".5" stop-color="#d8261a"/><stop offset="1" stop-color="#4a0604"/></radialGradient></defs><path d="M20 55L5 20A15 15 0 1 1 35 20Z" fill="url(#whPg)" stroke="#3a2004" stroke-width="1.5"/><circle cx="20" cy="15" r="7" fill="url(#whPgem)" stroke="#3a2004" stroke-width="1"/><circle cx="17.5" cy="12.5" r="2" fill="#fff" opacity=".8"/></svg><img class="whfix" src="assets/roue.webp" alt=""><div class="whrot">${wheelSVG()}</div></div>
       <div class="whout">${spun||!ready?wheelResHTML(R||W.last):`<div class="narr"><img class="narrf" src="assets/doshi-face.webp" alt=""><div class="narrb"><p class="stintro">${L("whIntro")}</p></div></div>`}</div>
       ${!ready||spun?wheelActiveHTML():""}
       <p class="note whstreak">${L("whStreak",W.streak||0)}</p>
