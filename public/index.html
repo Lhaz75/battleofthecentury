@@ -302,6 +302,10 @@ html.lite .whrays,html.lite .whhalo{display:none}
 @media (max-width:520px){.whleg{grid-template-columns:repeat(2,1fr)}}
 .wico{fill:#fffaf0;stroke:rgba(30,15,5,.55);stroke-width:.9px;stroke-linejoin:round}.wico .wk{fill:rgba(20,10,4,.85);stroke:none}.wico .wl{fill:none;stroke:rgba(20,10,4,.8);stroke-width:1.4px;stroke-linecap:round}
 .wico-doom{fill:#f2ece0}.wico-jackpot{fill:#fff6d0}.whleg i svg{width:15px;height:15px}
+/* roue du destin sur l'accueil : au centre sur grand écran (sous les nouveautés), dans la colonne des défis sur mobile */
+.hmwheel{display:none}.hmwheel .whtile{max-width:430px;margin-top:10px}
+.hmwheel .whtile{display:flex!important;align-items:center;gap:12px;padding:8px 12px!important}.hmwheel .whtile img{position:static!important;inset:auto!important;transform:none;max-width:none!important;max-height:none!important;object-fit:cover;opacity:1!important;filter:none!important;animation:none}.hmwheel .whti{width:52px!important;height:52px!important;object-fit:contain!important}.hmwheel .whtile.ready .whti{animation:whspin 9s linear infinite!important}.hmwheel .whtd{width:40px!important;height:40px!important;border-radius:50%}.hmwheel .whtb{flex:1;min-width:0}.hmwheel .whtile .dyhead{display:flex!important;flex-direction:row!important;justify-content:flex-start!important;gap:10px}.hmwheel .whtile .dytag{flex:none;width:auto}.hmwheel .whtile p{display:block;margin:2px 0 0;font-size:12.5px}
+@media (min-width:1000px){.hmwheel{display:block}.hmwmob{display:none}}
 /* roue du destin */
 .wheelbtn{display:inline-flex!important;align-items:center;gap:7px}.wheelbtn img{width:22px;height:22px;border-radius:50%;object-fit:cover;border:1px solid #e8b04a;transform:skewX(8deg)}
 .wheelbtn.ready{animation:whpulse 1.8s ease-in-out infinite;box-shadow:0 0 0 2px #ffd25a,0 0 16px rgba(255,200,80,.6)!important}
@@ -6378,7 +6382,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261022002207";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261022002406";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
@@ -8928,7 +8932,8 @@ function renderTitle(sel=[],focus=null){ NOCACHE=0; TITLE_SEL=sel; SURV.on=false
   if($("#hmback")) $("#hmback").onclick=()=>{ SFX.play("click"); HOME_M=null; renderTitle(sel); };
   if(!HOME_M) bindHome(sel);
   bindDeckChips(sel,redo); if($("#mycards")) $("#mycards").onclick=()=>{ SFX.play("click"); myCardsOpen(); };
-  if($("#whtile")) $("#whtile").onclick=()=>{ SFX.play("click"); openWheel(()=>renderTitle(sel)); };
+  document.querySelectorAll(".whtile").forEach(t=>t.onclick=()=>{ SFX.play("click"); openWheel(()=>renderTitle(sel)); });
+  if(0) $("#whtile").onclick=()=>{ SFX.play("click"); openWheel(()=>renderTitle(sel)); };
   if($("#dygo")) $("#dygo").onclick=()=>{ SFX.play("go"); const d=dailyDef(DAILY.day); if(HOME_M || d.kind==="team") dailyStart(sel); else { HOME_M="daily"; renderTitle(sel); } };
   if($("#lkon")) $("#lkon").onclick=()=>{ SFX.play("click"); linksPop(sel); };
   dcChatInit();
@@ -9036,7 +9041,7 @@ function pickHeadHTML(){ return `<div class="pickhead"><button class="backbtn" i
 // accueil : tuile de la roue du destin (bien visible, en tête des défis)
 function wheelTileHTML(){ if(!ACC.on || !ACC.user) return ""; const ready=wheelReady(), W=wheelSt(), R=W.last;
   const res=!ready&&R?`${L("whS_"+R.seg)}${R.ryo?` · +${R.ryo} ${L("ryoWord")}`:""}${R.fighter?` · ${esc(nm(R.fighter))}`:""}${R.item?` · ${esc(rpgName(R.item))}`:""}`:"";
-  return `<div class="daily hmc whtile ${ready?"ready":""}" id="whtile" role="button" tabindex="0"><img class="whti" src="assets/roue.png?v=10823732" alt=""><div class="whtb"><div class="dyhead"><span class="dytag">${L("whBtn")}</span>${ready?`<b>${L("whTileNew")}</b>`:""}</div><p>${ready?L("whTileReady"):L("whTileDone",res)}</p></div><img class="whtd" src="assets/doshi-face${ready?"3":"2"}.webp" alt=""></div>`; }
+  return `<div class="daily hmc whtile ${ready?"ready":""}" role="button" tabindex="0"><img class="whti" src="assets/roue.png?v=10823732" alt=""><div class="whtb"><div class="dyhead"><span class="dytag">${L("whBtn")}</span>${ready?`<b>${L("whTileNew")}</b>`:""}</div><p>${ready?L("whTileReady"):L("whTileDone",res)}</p></div><img class="whtd" src="assets/doshi-face${ready?"3":"2"}.webp" alt=""></div>`; }
 function hmDailyHTML(){
   if(!ACC.on || !ACC.user || !DAILY.day || DAILY.done) return "";
   const d=dailyDef(DAILY.day), desc=d.kind==="team"?L("dyTeam"):d.kind==="boss"?L("dyBoss",d.foe.map(nm).join(", ")):L("dyFlawless");
@@ -9064,8 +9069,8 @@ function ryoPillHTML(){ if(!ACC.on||!ACC.user||!shopOn()) return ""; return `<bu
 function homeHTML(sel){
   const ms=hmModes(), m0=ms[0][0];
   return `<div class="hm"><div class="hmL"><div class="hmlist">${ms.map(([m,n],i)=>`<button class="hmi${i===0?" on":""}" data-m="${m}"${m==="online"?' id="online"':""} style="--hc:var(--hm-${m})"><img class="hmp" src="assets/${HM_ART[m]}.webp" alt="" loading="lazy"><span class="hmt"><b>${n}</b><small>${L("hmd_"+m)}</small></span></button>`).join("")}</div>
-    <div class="hmch">${wheelTileHTML()}${hmDailyHTML()}${weeklyBannerHTML(sel)}${bossTileHTML()}</div></div>
-    <div class="hmstage" style="--hc:var(--hm-${m0})"><img id="hmimg" src="assets/${HM_ART[m0]}.webp" alt=""><div class="hminfo"><div class="k">${L("hmMode")}</div><h1 id="hmh">${ms[0][1]}</h1><p id="hmd">${L("hmd_"+m0)}</p><button class="btn hmplay" id="hmplay" data-m="${m0}">${L("hmPlay")}</button><div class="hmstats" id="hmstats">${hmStatsHTML(m0)}</div>${hmNewsHTML()}</div></div></div>
+    <div class="hmch"><div class="hmwmob">${wheelTileHTML()}</div>${hmDailyHTML()}${weeklyBannerHTML(sel)}${bossTileHTML()}</div></div>
+    <div class="hmstage" style="--hc:var(--hm-${m0})"><img id="hmimg" src="assets/${HM_ART[m0]}.webp" alt=""><div class="hminfo"><div class="k">${L("hmMode")}</div><h1 id="hmh">${ms[0][1]}</h1><p id="hmd">${L("hmd_"+m0)}</p><button class="btn hmplay" id="hmplay" data-m="${m0}">${L("hmPlay")}</button><div class="hmstats" id="hmstats">${hmStatsHTML(m0)}</div>${hmNewsHTML()}<div class="hmwheel">${wheelTileHTML()}</div></div></div></div>
     <div class="hmgl hmmob">${hmGameLinks()}</div><p class="betanote hmbeta">${L("betaNote")}</p><div class="hmfoot">${socialHTML()}<p class="fanmade">${L("fanMade")}</p></div>`;
 }
 // accueil : Magasin / Combattants / Règles / Classement dans la barre du haut
