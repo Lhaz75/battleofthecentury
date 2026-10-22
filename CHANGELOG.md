@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.100 — 2026-10-22
 
+- Histoire : le déguisement de Tō tient aussi sur la liste des chapitres et l'écran de présentation (plus de spoil, merci maxGfive). Roue du destin : l'étoile de la mort retire 2 PV à toute l'équipe, pas seulement au combattant en jeu (merci Jérôme R.)
 - Histoire, arc 4 « Les pièges de Rihaku » : Tō apparaît vraiment déguisée en Dernier général (portrait de Yuria, passif masqué), puis se démasque après sa première attaque. Merci maxGfive !
 - KO final : plus de bandes noires en haut et en bas, on voit toute la carte se briser (merci maxGfive)
 - Accueil : la tuile de la roue du destin reste alignée sous les nouveautés, et le nom du mode rapetisse au lieu de passer sous l'illustration
