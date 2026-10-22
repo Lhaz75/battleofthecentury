@@ -297,7 +297,7 @@ html.lite .whrays,html.lite .whhalo{display:none}
 .whtile.ready{animation:whglow 2.2s ease-in-out infinite}@keyframes whglow{0%,100%{box-shadow:0 6px 20px rgba(0,0,0,.5),0 0 0 rgba(255,200,80,0)}50%{box-shadow:0 6px 20px rgba(0,0,0,.5),0 0 22px rgba(255,200,80,.55)}}
 .whleg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:4px 0 2px}
 .whleg span{display:flex;align-items:center;gap:6px;padding:5px 7px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid #3a2a1a;font:700 12px var(--f-display);letter-spacing:.04em;text-transform:uppercase;color:#f3e2bf;white-space:nowrap;min-width:0}
-.whleg i{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font:900 13px serif;font-style:normal;color:#ffe9a8;box-shadow:inset 0 0 0 1px rgba(255,220,140,.6)}
+.whleg i{flex:none;width:12px;height:12px;border-radius:3px;box-shadow:0 0 0 1px rgba(255,220,140,.55)}
 .whleg span.on{border-color:#ffd25a;background:rgba(255,210,90,.16);color:#fff;box-shadow:0 0 12px rgba(255,200,80,.35)}
 @media (max-width:520px){.whleg{grid-template-columns:repeat(2,1fr)}}
 .wico{fill:#fffaf0;stroke:rgba(30,15,5,.55);stroke-width:.9px;stroke-linejoin:round}.wico .wk{fill:rgba(20,10,4,.85);stroke:none}.wico .wl{fill:none;stroke:rgba(20,10,4,.8);stroke-width:1.4px;stroke-linecap:round}
@@ -6382,7 +6382,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261022002406";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261022002457";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
@@ -8614,8 +8614,8 @@ function wheelSVG(){ const a=45, k=320/WHEEL_IMG, cx=WHEEL_IMG_CX*k, cy=WHEEL_IM
     <image href="assets/ryo-l.webp" x="${cx-30}" y="${cy-30}" width="60" height="60"/></svg>`; }
 // noms courbés le long de la jante, toujours dans le bon sens une fois la roue arrêtée ; icônes droites
 function wheelOrient(root,rot){ root.querySelectorAll(".whig").forEach(g=>g.setAttribute("transform",`rotate(${-rot} ${g.dataset.x} ${g.dataset.y})`)); }
-const WHEEL_ICO={ryo:"両",fav:"★",bless:"☯",ryo100:"両",trial:"拳",treasure:"宝",jackpot:"✦",doom:"☠"}, WHEEL_COL={ryo:"#8a5a32",fav:"#2f62c8",bless:"#1f8a5a",ryo100:"#9aa0a8",trial:"#c42a1a",treasure:"#7a3cc0",jackpot:"#e0a820",doom:"#1c1c1c"};
-const wheelLegend=win=>`<div class="whleg">${WHEEL_SEG.map(k=>`<span class="${k===win?"on":""}"><i style="background:${WHEEL_COL[k]}"><svg viewBox="0 0 24 24" class="wico wico-${k}">${WHEEL_SVGI[WHEEL_ICON[k]]}</svg></i>${esc(L("whS_"+k))}</span>`).join("")}</div>`;
+const WHEEL_ICO={ryo:"両",fav:"★",bless:"☯",ryo100:"両",trial:"拳",treasure:"宝",jackpot:"✦",doom:"☠"}, WHEEL_COL={ryo:"#8a4e2c",fav:"#2a5cc8",bless:"#1f7a52",ryo100:"#a8a8ac",trial:"#c82418",treasure:"#7a38c0",jackpot:"#d8a020",doom:"#2a2a2a"};
+const wheelLegend=win=>`<div class="whleg">${WHEEL_SEG.map(k=>`<span class="${k===win?"on":""}"><i style="background:${WHEEL_COL[k]}"></i>${esc(L("whS_"+k))}</span>`).join("")}</div>`;
 function wheelResHTML(R){ if(!R) return ""; const k=R.seg, bits=[];
   if(R.ryo) bits.push(`+${R.ryo} ${L("ryoWord")}`);
   if(R.fighter) bits.push(`<b>${esc(nm(R.fighter))}</b>`);
