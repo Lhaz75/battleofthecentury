@@ -5,7 +5,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 ## v0.99.101 — 2026-10-23
 
 - Histoire, arc 4 : Tō déguisée en Dernier général a maintenant sa propre illustration, Yuria en armure (Lhaz)
-- Nouvelles illustrations (Lhaz) pour Yuria et Sanga, et 18 nouveaux personnages gardés pour la suite de l'histoire (Lui, Lin & Lui, Sayaka, Nagato, les hommes de Shura, les pirates d'Akashachi, les soldats du Tentei…)
+- Nouvelles illustrations (Lhaz) pour Yuria et Sanga, et de nouveaux personnages gardés pour la suite de l'histoire : 15 combattants (Nagato, Rock, les hommes de Shura, les pirates d'Akashachi, les soldats du Tentei…) et Lui, Lin & Lui et Sayaka, qui ne combattent pas
 - Nouveau succès « Le triplé » : gagner 3 défis de la semaine d'affilée. Idée de Jérôme R.
 - Nouvelle illustration : Boltz
 - Nouvelle illustration : Taiga
