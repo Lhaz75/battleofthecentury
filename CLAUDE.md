@@ -100,4 +100,4 @@ Lire d'abord `docs/journal-claude-code.md` : tout ce qui a été fait du 9 au 10
 
 Fait depuis : mode Voyage zone 1 (butin côté serveur, qualité des objets, guide de la zone), arc 2 chapitres 10 à 16 (Cassandra puis Ken-Oh), Airi, 16 punks, soldats de Ken-Oh / Galf / Cassandra. À venir : retours Discord en attente (ceintures du Dojo), autres zones du Voyage, Survie v2, placer Galf, couronne de l'arc 2, Raoh en récompense d'un chapitre futur, illustrations fournies mais pas intégrées.
 
-- **Skins (idée pour plus tard)** : illustrations alternatives gardées dans `tools/atelier/skins/` (ex. `liu-moine.webp`, Liu Zongwu en moine, 22 oct.), à utiliser si un jour on ajoute un système de skins.
+- **Skins (idée pour plus tard)** : illustrations alternatives gardées dans `tools/atelier/skins/` (ex. `liu-moine.webp`, Liu Zongwu en moine, 22 oct. ; `yuria-2.webp` variante de Yuria et `yuria-casque.webp` Yuria en armure de Dernier général, 23 oct.), à utiliser si un jour on ajoute un système de skins.
