@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.101 — 2026-10-23
+
+- Boss mondial : si un piège ou un vol de rage empêche l'ultime du tour 5, le boss le relance au tour suivant (merci Jérôme R.)
+- Boss mondial : le détail des dégâts tour par tour s'affiche aussi quand tu n'as rien fait au 1er tour (merci Jérôme R.)
+- Fiche des combattants : la carte piège personnelle (ex. « Instinct du vétéran » de Ryuken) est maintenant affichée (merci Jérôme R.)
+
 ## v0.99.100 — 2026-10-22
 
 - Histoire : le déguisement de Tō tient aussi sur la liste des chapitres et l'écran de présentation (plus de spoil, merci maxGfive). Roue du destin : l'étoile de la mort retire 2 PV à toute l'équipe, pas seulement au combattant en jeu (merci Jérôme R.)
