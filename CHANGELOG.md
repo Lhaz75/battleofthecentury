@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.101 — 2026-10-23
 
+- Nouveau succès « Le triplé » : gagner 3 défis de la semaine d'affilée. Idée de Jérôme R.
 - Nouvelle illustration : Boltz
 - Nouvelle illustration : Taiga
 - Boss mondial : si un piège ou un vol de rage empêche l'ultime du tour 5, le boss le relance au tour suivant (merci Jérôme R.)

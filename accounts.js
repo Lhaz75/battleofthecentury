@@ -338,7 +338,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
     w.awarded = true; await wkSave(pk, w);
     const top = wkRank(w).slice(0, 3);
     for (let i = 0; i < top.length; i++) { const u = await store.byId(top[i].id); if (!u) continue;
-      u.stats.pts += WK_PRIZE[i]; u.stats.wkPod = (u.stats.wkPod || 0) + 1; if (i === 0) u.stats.wkWin = (u.stats.wkWin || 0) + 1;
+      u.stats.pts += WK_PRIZE[i]; u.stats.wkPod = (u.stats.wkPod || 0) + 1; if (i === 0) { u.stats.wkWin = (u.stats.wkWin || 0) + 1; u.stats.wkRun = u.stats.wkLastW === weekKey(-2) ? (u.stats.wkRun || 0) + 1 : 1; u.stats.wkLastW = pk; }
       achCheck(u.stats); await store.saveStats(u.id, u.stats); }
   }
   const lastWk = new Map();
@@ -395,7 +395,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
     storylegend2: { t: 3, c: s => s.storyH && STORY_ORDER.filter(k => /^arc2-/.test(k)).every(k => s.storyH[k]) },
     story2s: { t: 3, c: s => s.story && Object.keys(s.story).filter(k => /^arc2-/.test(k)).reduce((a, k) => a + s.story[k], 0) >= 27 },
     bosshit: { t: 1, c: s => (s.bossN || 0) >= 1 }, bosskill: { t: 2, c: s => (s.bossKill || 0) >= 1 },
-    weekpod: { t: 2, c: s => (s.wkPod || 0) >= 1 }, weekwin: { t: 3, c: s => (s.wkWin || 0) >= 1 },
+    weekpod: { t: 2, c: s => (s.wkPod || 0) >= 1 }, weekwin: { t: 3, c: s => (s.wkWin || 0) >= 1 }, weekwin3: { t: 3, c: s => (s.wkRun || 0) >= 3 },
     daily1: { t: 1, c: s => (s.dailyN || 0) >= 1 }, daily10: { t: 2, c: s => (s.dailyN || 0) >= 10 }, daily30: { t: 3, c: s => (s.dailyN || 0) >= 30 },
     dojokyu: { t: 1, c: s => (s.dojoBest || 0) >= 6 }, dojodan: { t: 2, c: s => (s.dojoBest || 0) >= 11 }, dojomaster: { t: 3, c: s => (s.dojoBest || 0) >= 20 },
     duo: { t: 1, f: 1 }, quintet: { t: 1, f: 1 }, clanwin: { t: 1, f: 1 }, cheap: { t: 2, f: 1 }
