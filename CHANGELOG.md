@@ -10,7 +10,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 - Histoire, arc 4 : Tō déguisée en Dernier général a maintenant sa propre illustration, Yuria en armure (Lhaz)
 - Nouvelles illustrations (Lhaz) pour Yuria et Sanga, et de nouveaux personnages gardés pour la suite de l'histoire : 15 combattants (Nagato, Rock, les hommes de Shura, les pirates d'Akashachi, les soldats du Tentei…) et Lui, Lin & Lui et Sayaka, qui ne combattent pas
 - Nouveau succès « Le triplé » : gagner 3 défis de la semaine d'affilée. Idée de Jérôme R.
-- Nouvelles illustrations : Kenshiro, Rei, Mamiya, Toki, Asam, Bukoh et Boltz
+- Nouvelles illustrations : Kenshiro, Rei, Mamiya, Toki, Asam, Bukoh, Kai, Satora et Boltz
 - Nouvelle illustration : Taiga
 - Boss mondial : si un piège ou un vol de rage empêche l'ultime du tour 5, le boss le relance au tour suivant (merci Jérôme R.)
 - Boss mondial : le détail des dégâts tour par tour s'affiche aussi quand tu n'as rien fait au 1er tour (merci Jérôme R.)
