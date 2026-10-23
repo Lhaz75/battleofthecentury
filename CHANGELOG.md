@@ -4,7 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.101 — 2026-10-23
 
-- Nouveaux pillards (Lhaz) : Razor, Tusk, Viper, Hatchet, Brute, Spike, Grill et Slash remplacent les anciens punks (Butch, Krug, Nero, Hoke, Brock, Dex, Gecko, Knox, Grimm et Tony), dans l'histoire comme en Survie, en Arcade et dans les Terres désolées
+- Nouveaux pillards (Lhaz) : Razor, Tusk, Viper, Hatchet, Brute, Spike, Grill, Slash et Tank remplacent les anciens punks (Butch, Krug, Nero, Hoke, Brock, Dex, Gecko, Knox, Grimm et Tony), dans l'histoire comme en Survie, en Arcade et dans les Terres désolées
 - Histoire, arc 1 : nouveau chapitre « Jennifer et le canon du Sud » (épisodes 18 à 20 de l'anime), avant le coup d'État de Barcom. Kenshiro affronte Mahari, Garekki, Hydra, Toda et l'armée de Shin, avec Jennifer à ses côtés. Mahari, Garekki, Hydra et Toda se débloquent en les battant (illustrations de Lhaz)
 - 4 soldats de l'armée de Hokuto (Lhaz), les hommes de Bat et Lin, gardés pour la suite de l'histoire
 - Admin : nouvel outil « Visuels de l'accueil » pour choisir le perso de chaque mode et régler sa position et son zoom, sur PC et sur mobile
