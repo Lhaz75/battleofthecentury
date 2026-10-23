@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.101 — 2026-10-23
 
+- Histoire, arc 1 : nouveau chapitre « Jennifer et le canon du Sud » (épisodes 18 à 20 de l'anime), avant le coup d'État de Barcom. Kenshiro affronte Hydra et l'armée de Shin, avec Jennifer à ses côtés. Hydra se débloque en le battant (illustrations de Lhaz)
 - 4 soldats de l'armée de Hokuto (Lhaz), les hommes de Bat et Lin, gardés pour la suite de l'histoire
 - Admin : nouvel outil « Visuels de l'accueil » pour choisir le perso de chaque mode et régler sa position et son zoom, sur PC et sur mobile
 - Histoire, arc 4 : Tō déguisée en Dernier général a maintenant sa propre illustration, Yuria en armure (Lhaz)

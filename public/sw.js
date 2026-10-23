@@ -1,6 +1,6 @@
 // Battle of the Century : cache hors ligne des images, sons et polices (la page et l'API restent toujours à jour)
 const VERSION = "0.99.101";
-const ASTAMP = "9ab1e70fdc";   // empreinte des images / sons (écrite par tools/export_public.py)
+const ASTAMP = "3931d05216";   // empreinte des images / sons (écrite par tools/export_public.py)
 const CACHE = "boc2-" + VERSION + "-" + (typeof ASTAMP === "string" ? ASTAMP : "");   // boc2 : on repart de zéro (anciennes images restées dans le cache du navigateur)
 const PRECACHE = ["./", "assets/icon-192.png", "assets/bg-city.webp", "assets/bg-ruins.webp"];
 

@@ -89,7 +89,7 @@ function rpgWithin(n, cur) {
   for (const x of all(n)) { const c = have.get(x) || 0; if (!c) return false; have.set(x, c - 1); }
   return true;
 }
-const STORY_ORDER = ["king-0", "king-1", "king-2", "king-3", "king-4", "king-5", "king-6", "king-7", "arc2-1", "king-10", "arc2-2", "king-11", "king-12", "king-13", "king-9", "king-8", "arc2-3", "arc2-4", "arc2-19", "arc2-5", "arc2-17", "arc2-6", "arc2-7", "arc2-18", "arc2-8", "arc2-9", "arc2-10", "arc2-11", "arc2-12", "arc2-13", "arc2-14", "arc2-15", "arc2-16", "arc2-20", "arc2-21", "arc2-22", "arc2-24", "arc3-1", "arc3-2", "arc3-3", "arc3-4", "arc3-5", "arc3-6", "arc3-7", "arc3-8", "arc3-9", "arc3-10", "arc3-11", "arc3-12", "arc3-13", "arc3-14", "arc4-1", "arc4-2", "arc4-3", "arc4-4", "arc4-5", "arc4-6", "arc4-7", "arc4-8", "arc4-9", "arc4-10", "arc4-11", "arc4-12", "arc4-13", "arc4-14", "arc4-15", "arc4-16", "arc4-17", "arc4-18", "arc4-19", "arc4-20"];
+const STORY_ORDER = ["king-0", "king-1", "king-2", "king-3", "king-4", "king-5", "king-6", "king-7", "arc2-1", "king-10", "arc2-2", "king-11", "king-12", "king-13", "king-14", "king-9", "king-8", "arc2-3", "arc2-4", "arc2-19", "arc2-5", "arc2-17", "arc2-6", "arc2-7", "arc2-18", "arc2-8", "arc2-9", "arc2-10", "arc2-11", "arc2-12", "arc2-13", "arc2-14", "arc2-15", "arc2-16", "arc2-20", "arc2-21", "arc2-22", "arc2-24", "arc3-1", "arc3-2", "arc3-3", "arc3-4", "arc3-5", "arc3-6", "arc3-7", "arc3-8", "arc3-9", "arc3-10", "arc3-11", "arc3-12", "arc3-13", "arc3-14", "arc4-1", "arc4-2", "arc4-3", "arc4-4", "arc4-5", "arc4-6", "arc4-7", "arc4-8", "arc4-9", "arc4-10", "arc4-11", "arc4-12", "arc4-13", "arc4-14", "arc4-15", "arc4-16", "arc4-17", "arc4-18", "arc4-19", "arc4-20"];
 const fs = require("fs");
 const path = require("path");
 
