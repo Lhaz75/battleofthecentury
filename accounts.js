@@ -848,9 +848,16 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
     "GET /api/frames": async () => [200, { frames }],
     "POST /api/admin/frame": async (req, body) => {
       const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];
-      const id = String(body.id || ""), kind = body.kind === "b" ? "b" : body.kind === "u" ? "u" : body.kind === "a" ? "a" : "p"; frames.u = frames.u || {}; frames.a = frames.a || {}; if (!/^[a-z0-9]{2,12}$/.test(id)) return [400, { error: "bad" }];
+      const id = String(body.id || ""), kind = body.kind === "b" ? "b" : body.kind === "u" ? "u" : body.kind === "a" ? "a" : body.kind === "h" ? "h" : "p"; frames.u = frames.u || {}; frames.a = frames.a || {}; frames.h = frames.h || {}; if (!/^[a-z0-9]{2,12}$/.test(id)) return [400, { error: "bad" }];
       if (body.reset) { delete frames[kind][id]; if (kind === "b") await store.setSetting("bust:" + id, null); await store.setSetting("frames", frames); return [200, { frames }]; }
       const c = body.crop || {}, n = v => Math.round(Number(v) || 0), crop = { x: n(c.x), y: n(c.y), w: Math.max(40, Math.min(1200, n(c.w))) };
+      if (kind === "h") {   // accueil : perso affiché (f), grand visuel PC (x,y décalage %, w zoom %) et vignette mobile (tx,ty position %, tw zoom %)
+        const cl = (v, lo, hi, d) => { const x = Number(v); return Number.isFinite(x) ? Math.max(lo, Math.min(hi, Math.round(x))) : d; };
+        const hh = { x: cl(c.x, -60, 60, 0), y: cl(c.y, -40, 40, 0), w: cl(c.w, 50, 200, 100), tx: cl(c.tx, 0, 100, 50), ty: cl(c.ty, 0, 100, 0), tw: cl(c.tw, 100, 300, 100), t: Date.now().toString(36) };
+        if (/^[a-z0-9]{2,12}$/.test(String(c.f || ""))) hh.f = String(c.f);
+        frames.h[id] = hh; await store.setSetting("frames", frames); console.log(`Accueil : visuel du mode ${id} modifié par ${u.name}`);
+        return [200, { frames }];
+      }
       if (kind === "a") {   // carte d'arc du mode histoire : position (x,y en %), zoom (w en %) et perso affiché (f)
         const k = v => Math.max(0, Math.min(100, n(v)));
         const a = { x: k(c.x), y: k(c.y), w: Math.max(100, Math.min(400, n(c.w) || 100)), t: Date.now().toString(36) };

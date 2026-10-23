@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.101 — 2026-10-23
 
+- Admin : nouvel outil « Visuels de l'accueil » pour choisir le perso de chaque mode et régler sa position et son zoom, sur PC et sur mobile
 - Histoire, arc 4 : Tō déguisée en Dernier général a maintenant sa propre illustration, Yuria en armure (Lhaz)
 - Nouvelles illustrations (Lhaz) pour Yuria et Sanga, et de nouveaux personnages gardés pour la suite de l'histoire : 15 combattants (Nagato, Rock, les hommes de Shura, les pirates d'Akashachi, les soldats du Tentei…) et Lui, Lin & Lui et Sayaka, qui ne combattent pas
 - Nouveau succès « Le triplé » : gagner 3 défis de la semaine d'affilée. Idée de Jérôme R.
