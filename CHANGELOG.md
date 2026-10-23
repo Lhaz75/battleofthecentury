@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.102 — 2026-10-24
+
+- Kenshin Kasumi : ses techniques portent maintenant leurs vrais noms de l'anime Sōten no Ken Regenesis (Tōgeki, Hikō Shin Ketsushū, ultime Kokudō Tensatsu…)
+
 ## v0.99.101 — 2026-10-23
 
 - Nouveaux pillards (Lhaz) : Razor, Tusk, Viper, Hatchet, Brute, Spike, Grill, Slash et Tank remplacent les anciens punks (Butch, Krug, Nero, Hoke, Brock, Dex, Gecko, Knox, Grimm et Tony), dans l'histoire comme en Survie, en Arcade et dans les Terres désolées
