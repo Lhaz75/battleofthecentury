@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.101 — 2026-10-23
 
+- Nouvelle illustration : Boltz
 - Nouvelle illustration : Taiga
 - Boss mondial : si un piège ou un vol de rage empêche l'ultime du tour 5, le boss le relance au tour suivant (merci Jérôme R.)
 - Boss mondial : le détail des dégâts tour par tour s'affiche aussi quand tu n'as rien fait au 1er tour (merci Jérôme R.)
