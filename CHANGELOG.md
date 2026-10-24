@@ -4,6 +4,8 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Toki et Ogai : leur soin vise maintenant le plus blessé de toute l'équipe, eux compris (merci Jérôme)
+- Carte spéciale ajoutée pour Ken, Toki, Shu, Ryuken, Jukei et Jagi jeunes, ainsi que Hydra, Garekki, Mahari et Toda
 - Nouvelles illustrations pour Kai, Bukoh, Satora et Jagi jeune (versions cheveux noirs et blonds)
 - Wolf, le démolisseur de l'armée de KING (épisode 18), ouvre le chapitre « Jennifer et le canon du Sud ». Kai retrouve son illustration d'avant (l'image envoyée par erreur était celle de Wolf)
 - Au magasin : Kenshiro jeune, Toki jeune, Shu jeune, Ryuken jeune, Jūkei jeune et Jagi jeune, les héros des souvenirs (illustrations de Lhaz)
