@@ -8,7 +8,7 @@ const EXTRA_AFTER = { "extra-4": "arc2-7", "extra-1": "arc2-15", "extra-2": "arc
 const RPG_BAG = 36;   // taille du sac des Terres désolées (à garder égale à RPG_BAG dans index.html)
 const SHOP_START = new Set(["maitre", "sage", "linh", "bat", "vieux", "dans", "huey", "shuren", "nuage", "shachi", "shoki", "general", "mamiya", "ein", "rima", "bella"]);
 const SHOP_STORY = new Set(["zeed", "ventre", "spade", "sarge", "colonel", "rival", "madara", "kiba", "joker", "jackal", "devil", "fourbe", "diamond", "club", "fox", "barcom", "amiba", "demon", "hyo", "boltz", "taiga", "solia", "uighur"]);
-const SHOP_LIST = new Set(["ryukenj", "jukeij", "jagij", "kenshin", "ryu", "biao", "kasumi", "shuken", "tesshin", "ogai", "rofu", "wei", "feiyan", "jugai", "garuda", "asura", "mang", "charles", "liu", "yasaka", "taiyan", "dayan", "sanga", "seiji", "frieda", "asam", "kai", "bukoh", "satora"]);   // seuls persos en vente (liste de David) ; les autres s'obtiennent par l'histoire
+const SHOP_LIST = new Set(["kenj", "tokij", "shuj", "ryukenj", "jukeij", "jagij", "kenshin", "ryu", "biao", "kasumi", "shuken", "tesshin", "ogai", "rofu", "wei", "feiyan", "jugai", "garuda", "asura", "mang", "charles", "liu", "yasaka", "taiyan", "dayan", "sanga", "seiji", "frieda", "asam", "kai", "bukoh", "satora"]);   // seuls persos en vente (liste de David) ; les autres s'obtiennent par l'histoire
 let SHOP_COST = null;
 function SHOP_PRICE(id) {
   if (!SHOP_COST) { SHOP_COST = {}; try { const f = JSON.parse(fs.readFileSync(path.join(__dirname, "public", "fighters.json"), "utf8")); for (const x of f.fighters || []) if (!x.npc) SHOP_COST[x.id] = x.cost; } catch (e) {} }
