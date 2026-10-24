@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Terres désolées : taux revus (merci Jérôme). Légendaire du boss 5 % au lieu de 10 %, mythiques au boss 16 % au lieu de 8 % (environ 2 % par mythique). Les élites refaites donnent maintenant le butin d'un combat normal
 - Toki et Ogai : leur soin vise maintenant le plus blessé de toute l'équipe, eux compris (merci Jérôme)
 - Carte spéciale ajoutée pour Ken, Toki, Shu, Ryuken, Jukei et Jagi jeunes, ainsi que Hydra, Garekki, Mahari et Toda
 - Nouvelles illustrations pour Kai, Bukoh, Satora et Jagi jeune (versions cheveux noirs et blonds)

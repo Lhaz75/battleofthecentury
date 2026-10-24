@@ -25,12 +25,12 @@ const RPG_IT = { "raryuban": [3, 0], "sept-etoiles": [3, 0], "bottes-desert": [0
   "remede-medicine": [2, 0], "eau-pure": [3, 0], "grenade": [2, 0], "tsubo-toki": [4, 0], "essence": [1, 0],
   "ceinture-munitions": [0, 1], "ceinture-cuir": [1, 1], "ceinture-lion": [3, 1], "ceinture-crane": [4, 1],
   "jambieres-rouille": [1, 1], "jambieres-pointes": [3, 1], "jambieres-sang": [4, 1], "bandana-bat": [3, 1], "ruban-lin": [3, 1], "livre-amiba": [5, 1], "masque-souther": [5, 1] };   // id : [rareté, équipable]
-// zones : étapes qui donnent du butin, étape à avoir battue pour ouvrir la zone, légendaire du boss (10 %)
+// zones : étapes qui donnent du butin, étape à avoir battue pour ouvrir la zone, légendaire du boss (5 %)
 const RPG_ZONES = { mamiya: { need: ["sc:sc_shin", "mamiya:jagi"], nodes: { zeed: "fight", old: "event", kiba: "elite", ruines: "fight", madara: "elite", daioh: "boss" }, leg: "collier-crocs" },   // Jagi aura sa zone (3), avec le Casque de Jagi
   sc: { nodes: { sc_zeed: "fight", sc_spade: "fight", sc_village: "event", sc_diamond: "elite", sc_club: "fight", sc_chateau: "fight", sc_heart: "elite", sc_shin: "boss" }, leg: "ceinture-king" },
   so: { need: ["yuda:yuda"], nodes: { so_galzus: "fight", so_village: "event", so_jumeaux: "elite", so_chantier: "fight", so_garde: "elite", so_souther: "boss" }, leg: "masque-souther" } };
 const RPG_PTS = { fight: 6, event: 8, elite: 10, boss: 25 }, RPG_PTS_AGAIN = { fight: 1, event: 1, elite: 2, boss: 5 };   // première fois / étape déjà faite
-const RPG_DROP = { fight: [60, 30, 10], event: [0, 0, 100], elite: [0, 48, 35, 15, 2], boss: [0, 0, 0, 92, 8], again: [70, 30] };   // again : événement déjà fait (commun / peu commun)   // poids par rareté
+const RPG_DROP = { fight: [60, 30, 10], event: [0, 0, 100], elite: [0, 48, 35, 15, 2], boss: [0, 0, 0, 84, 16], again: [70, 30] };   // again : événement déjà fait (commun / peu commun)   // poids par rareté
 const RPG_SHOP = { "bottes-desert": 20, "bandes-poing": 20, "ceinture-munitions": 20, "ceinture-cuir": 40, "bandages": 20, "gourde": 20, "bandana": 20, "gants-cloutes": 40, "epaulettes": 40, "casque-punk": 40, "bottes-cuir": 40, "casque-pointes": 40, "bandes-cloutees": 40, "plastron-rouille": 40, "essence": 40, "viande-sechee": 40, "talisman-yuria": 80, "carte-puits": 80, "remede-medicine": 80, "masque-fer": 80, "ceinturon-clous": 80 };
 const RPG_ID = /^[a-z][a-z-]{1,23}(~(hp[123]|lg1|my1|ld1|rg1))?$/;   // objet, avec ou sans bonus de qualité
 const rpgOk = x => typeof x === "string" && RPG_ID.test(x) && !!RPG_IT[x.split("~")[0]];
@@ -42,7 +42,7 @@ const rpgRar = id => cfgIt(id).r != null ? cfgIt(id).r : RPG_IT[id][0];
 const rpgZoneOf = id => cfgIt(id).zone !== undefined ? (cfgIt(id).zone || null) : (RPG_ZONEONLY[id] || null);
 const rpgDropW = kind => (RPG_CFG.drop && RPG_CFG.drop[kind]) || RPG_DROP[kind];
 const rpgPrice = id => cfgIt(id).price != null ? cfgIt(id).price : RPG_SHOP[id];
-const rpgLeg = zone => { const c = RPG_CFG.zones && RPG_CFG.zones[zone] || {}, Z = RPG_ZONES[zone] || {}; return { leg: c.leg !== undefined ? (c.leg || null) : Z.leg, rate: c.legRate != null ? c.legRate : 0.1 }; };
+const rpgLeg = zone => { const c = RPG_CFG.zones && RPG_CFG.zones[zone] || {}, Z = RPG_ZONES[zone] || {}; return { leg: c.leg !== undefined ? (c.leg || null) : Z.leg, rate: c.legRate != null ? c.legRate : 0.05 }; };
 function rpgCfgClean(c) {   // ne garde que des valeurs sûres
   const o = {}, num = (v, a, b) => { v = Number(v); return Number.isFinite(v) ? Math.min(b, Math.max(a, Math.round(v * 100) / 100)) : undefined; }, idOk = s => typeof s === "string" && /^[a-z0-9][a-z0-9_-]{0,23}$/.test(s);
   if (c && c.items && typeof c.items === "object") { o.items = {}; for (const [id, v] of Object.entries(c.items).slice(0, 300)) { if (!RPG_IT[id] || !v || typeof v !== "object") continue; const x = {};
@@ -71,7 +71,7 @@ function rpgRoll(kind, leg, zone, legRate) {
   // qualité (objets équipables) : 6 % parfait, 24 % renforcé
   if (RPG_IT[it][1]) { const q = Math.random(); if (q < 0.06) it += "~" + ["hp3", "lg1", "my1", "ld1", "rg1"][rnd(5)]; else if (q < 0.30) it += "~" + ["hp1", "hp2"][rnd(2)]; }
   const out = [it];
-  if (kind === "boss") { out.push(...rpgRoll("fight", null, zone)); if (leg && Math.random() < (legRate == null ? 0.1 : legRate)) out.unshift(leg); }
+  if (kind === "boss") { out.push(...rpgRoll("fight", null, zone)); if (leg && Math.random() < (legRate == null ? 0.05 : legRate)) out.unshift(leg); }
   return out;
 }
 function rpgClean(inv) {
@@ -738,7 +738,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
         const seen = st.rpgSeen = st.rpgSeen || {}, key = zone + ":" + node; first = !seen[key]; seen[key] = 1;
         if (!aw) { gain = (first ? RPG_PTS : RPG_PTS_AGAIN)[kind]; st.pts += gain; bumpFav(st, body.team); wb = wheelWin(st, body.team, true, gain); if (kind === "boss") st.rpgClears = (st.rpgClears || 0) + 1; }
         // un objet la première fois sur chaque étape ; le boss en lâche à chaque fois
-        const rolls = first || kind === "boss" ? rpgRoll(kind, rpgLeg(zone).leg, zone, rpgLeg(zone).rate) : kind === "event" ? rpgRoll("again", null, zone) : [];   // événement refait : un petit objet
+        const rolls = first || kind === "boss" ? rpgRoll(kind, rpgLeg(zone).leg, zone, rpgLeg(zone).rate) : kind === "event" ? rpgRoll("again", null, zone) : kind === "elite" ? rpgRoll("fight", null, zone) : [];   // élite refaite : butin d'un combat normal   // événement refait : un petit objet
         for (const it of rolls) { if (inv.bag.length < RPG_BAG) { inv.bag.push(it); loot.push(it); } else lost++; }
         if (!aw) ach = achCheck(st, body.feats);
       } else if (act === "buy") {
