@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Histoire : nouveau type de chapitre « Tenir N tours » : il suffit de survivre. Premier exemple dans l'arc 6, le dernier combat de Shachi contre Kaioh (5 tours)
 - Histoire (en test) : l'arc 6, « La terre de Shura », 21 chapitres des épisodes 124 à 152 : le Shura sans nom, Alf, Kaiser, Han, Rock et sa bande, Gameleo, Jūkei contre Hyō, Kaioh, Cain, Gyoko, Nagato, les deux frères, Shachi, Zebra et Samoto, le sacrifice de Kuroyasha, jusqu'au dernier combat contre Kaioh. Tu joues aussi Shachi, Han, Rock, Hyō, Kaioh et Kuroyasha
 - Nouveaux personnages gardés pour l'arc de Shura : Samoto (Numeri dans le manga), le prétendant de Lin, et Zebra, le Shura à la chaîne (illustration de Lhaz)
 - Histoire (en test) : l'arc 5, « L'Empire du Ciel », 14 chapitres des épisodes 110 à 124 : Bat et Lin adultes, le retour de Kenshiro, Ein, Solia, Falco (que tu joues plusieurs fois), les frères Harn, Boltz, Jakoh, Lui la Tentei, les pirates d'Akashachi, jusqu'à l'arrivée sur la terre de Shura
