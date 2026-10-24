@@ -4,15 +4,13 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
-- Histoire, arc 6 (en test) : nouveau chapitre souvenir « Le démon de Jūkei », après Han. Tu joues Ryuken jeune contre Jūkei jeune, qui bascule dans le Makai en plein combat (illustrations de Lhaz)
+- Histoire : nouvel onglet « Extra : Souvenirs » (en test), pour les flashbacks. Chaque souvenir se débloque en finissant le chapitre de l'histoire qui le précède (idée de Jérôme R.). Trois souvenirs pour commencer : Raoh contre son maître Ryuken, Souther à 15 ans contre Ogai, et Ryuken jeune contre Jūkei jeune, qui bascule dans le Makai en plein combat (illustrations de Lhaz)
 - Admin : les illustrations alternatives (Hyō démon et torse nu, Kaioh sans masque, Toki Sekkatsu-kō, Rei cheveux blancs, Yuria en armure) apparaissent dans « Recadrage » et « Pastilles »
 - Histoire : quand un perso change d'illustration en plein combat (Kaioh sans masque, Hyō, Toki…), son portrait et son ultime sont recadrés sur la nouvelle image (la tête n'est plus coupée). Merci maxGfive
 - Histoire, arc 6 : pendant le combat final, Kaioh arrache son masque quand il passe sous la moitié de ses PV (illustration de Lhaz)
 - Histoire, arc 3 : pour son dernier combat contre Raoh, Toki apparaît avec le corps qu'il s'est forgé grâce au point secret Sekkatsu-kō, au prix de ce qui lui restait de vie (illustration de Lhaz)
 - Histoire, arc 2 : contre Yuda, Rei a maintenant les cheveux blancs, le prix du point Shinreidai que Toki lui a frappé pour prolonger sa vie, au prix d'une douleur atroce (illustration de Lhaz)
 - Histoire, arc 6 : Hyō prend son visage de démon (illustration de Lhaz) après la mort de Sayaka, contre Nagato puis face à Kenshiro. Pendant le duel des deux frères, il redevient lui-même quand la mémoire lui revient, torse nu (illustrations de Lhaz)
-- Histoire, arc 2 : nouveau chapitre souvenir « Le maître et le disciple », juste avant Ken-Oh. Tu joues Raoh contre son maître Ryuken
-- Histoire, arc 3 (en test) : nouveau chapitre souvenir « L'épreuve du bandeau », juste avant Ken contre Souther. Tu joues Souther à 15 ans contre son maître Ogai (illustration de Lhaz)
 - Histoire : 2 nouveaux chapitres. Arc 2 « La vieille du désert » (Dekai Babaa, ép. 46) et arc 3 « Le seigneur Sabato » (ép. 75). Sha & Zan rejoignent Kaiser dans l'arc 6
 - Histoire : nouveau type de chapitre « Tenir N tours » : il suffit de survivre. Premier exemple dans l'arc 6, le dernier combat de Shachi contre Kaioh (5 tours)
 - Histoire (en test) : l'arc 6, « La terre de Shura », 21 chapitres des épisodes 124 à 152 : le Shura sans nom, Alf, Kaiser, Han, Rock et sa bande, Gameleo, Jūkei contre Hyō, Kaioh, Cain, Gyoko, Nagato, les deux frères, Shachi, Zebra et Samoto, le sacrifice de Kuroyasha, jusqu'au dernier combat contre Kaioh. Tu joues aussi Shachi, Han, Rock, Hyō, Kaioh et Kuroyasha
