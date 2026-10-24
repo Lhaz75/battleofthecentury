@@ -4,7 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
-- Nouveau personnage gardé pour l'arc de Shura : Samoto (Numeri dans le manga), le prétendant de Lin (illustration de Lhaz)
+- Nouveaux personnages gardés pour l'arc de Shura : Samoto (Numeri dans le manga), le prétendant de Lin, et Zebra, le Shura à la chaîne (illustration de Lhaz)
 - Histoire (en test) : l'arc 5, « L'Empire du Ciel », 14 chapitres des épisodes 110 à 124 : Bat et Lin adultes, le retour de Kenshiro, Ein, Solia, Falco (que tu joues plusieurs fois), les frères Harn, Boltz, Jakoh, Lui la Tentei, les pirates d'Akashachi, jusqu'à l'arrivée sur la terre de Shura
 - Kenshin Kasumi : ses techniques portent maintenant leurs vrais noms de l'anime Sōten no Ken Regenesis (Tōgeki, Hikō Shin Ketsushū, ultime Kokudō Tensatsu…)
 
