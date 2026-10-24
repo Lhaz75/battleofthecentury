@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Extra : nouveau souvenir « La jalousie de Jagi », débloqué après Jagi dans l'arc 2. Kenshiro jeune contre Jagi jeune, avec seulement leurs coups de base et un seul ultime chacun : Hokuto Hyakuretsu Ken et Hokuto Senju Satsu (illustrations de Lhaz)
 - Histoire : nouvel onglet « Extra : Souvenirs » (en test), pour les flashbacks. Chaque souvenir se débloque en finissant le chapitre de l'histoire qui le précède (idée de Jérôme R.). Trois souvenirs pour commencer : Raoh contre son maître Ryuken, Souther à 15 ans contre Ogai, et Ryuken jeune contre Jūkei jeune, qui bascule dans le Makai en plein combat (illustrations de Lhaz)
 - Admin : les illustrations alternatives (Hyō démon et torse nu, Kaioh sans masque, Toki Sekkatsu-kō, Rei cheveux blancs, Yuria en armure) apparaissent dans « Recadrage » et « Pastilles »
 - Histoire : quand un perso change d'illustration en plein combat (Kaioh sans masque, Hyō, Toki…), son portrait et son ultime sont recadrés sur la nouvelle image (la tête n'est plus coupée). Merci maxGfive
