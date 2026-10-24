@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Admin : les illustrations alternatives (Hyō démon et torse nu, Kaioh sans masque, Toki Sekkatsu-kō, Rei cheveux blancs, Yuria en armure) apparaissent dans « Recadrage » et « Pastilles »
 - Histoire : quand un perso change d'illustration en plein combat (Kaioh sans masque, Hyō, Toki…), son portrait et son ultime sont recadrés sur la nouvelle image (la tête n'est plus coupée). Merci maxGfive
 - Histoire, arc 6 : pendant le combat final, Kaioh arrache son masque quand il passe sous la moitié de ses PV (illustration de Lhaz)
 - Histoire, arc 3 : pour son dernier combat contre Raoh, Toki apparaît avec le corps qu'il s'est forgé grâce au point secret Sekkatsu-kō, au prix de ce qui lui restait de vie (illustration de Lhaz)
