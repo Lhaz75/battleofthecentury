@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Wolf, le démolisseur de l'armée de KING (épisode 18), ouvre le chapitre « Jennifer et le canon du Sud ». Kai retrouve son illustration d'avant (l'image envoyée par erreur était celle de Wolf)
 - Au magasin : Kenshiro jeune, Toki jeune, Shu jeune, Ryuken jeune, Jūkei jeune et Jagi jeune, les héros des souvenirs (illustrations de Lhaz)
 - Extra : nouveau souvenir « La jalousie de Jagi », débloqué après Jagi dans l'arc 2. Kenshiro jeune contre Jagi jeune, avec seulement leurs coups de base et un seul ultime chacun : Hokuto Hyakuretsu Ken et Hokuto Senju Satsu (illustrations de Lhaz)
 - Histoire : nouvel onglet « Extra : Souvenirs » (en test), pour les flashbacks. Chaque souvenir se débloque en finissant le chapitre de l'histoire qui le précède (idée de Jérôme R.). Trois souvenirs pour commencer : Raoh contre son maître Ryuken, Souther à 15 ans contre Ogai, et Ryuken jeune contre Jūkei jeune, qui bascule dans le Makai en plein combat (illustrations de Lhaz)
@@ -23,13 +24,13 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 ## v0.99.101 — 2026-10-23
 
 - Nouveaux pillards (Lhaz) : Razor, Tusk, Viper, Hatchet, Brute, Spike, Grill, Slash et Tank remplacent les anciens punks (Rex, Butch, Krug, Nero, Hoke, Brock, Dex, Gecko, Knox, Grimm et Tony), dans l'histoire comme en Survie, en Arcade et dans les Terres désolées
-- Histoire, arc 1 : nouveau chapitre « Jennifer et le canon du Sud » (épisodes 18 à 20 de l'anime), avant le coup d'État de Barcom. Kenshiro affronte Mahari, Garekki, Hydra, Toda et l'armée de Shin, avec Jennifer à ses côtés. Mahari, Garekki, Hydra et Toda se débloquent en les battant (illustrations de Lhaz)
+- Histoire, arc 1 : nouveau chapitre « Jennifer et le canon du Sud » (épisodes 18 à 20 de l'anime), avant le coup d'État de Barcom. Kenshiro affronte Wolf, Mahari, Garekki, Hydra, Toda et l'armée de Shin, avec Jennifer à ses côtés. Wolf, Mahari, Garekki, Hydra et Toda se débloquent en les battant (illustrations de Lhaz)
 - 4 soldats de l'armée de Hokuto (Lhaz), les hommes de Bat et Lin, gardés pour la suite de l'histoire
 - Admin : nouvel outil « Visuels de l'accueil » pour choisir le perso de chaque mode et régler sa position et son zoom, sur PC et sur mobile
 - Histoire, arc 4 : Tō déguisée en Dernier général a maintenant sa propre illustration, Yuria en armure (Lhaz)
 - Nouvelles illustrations (Lhaz) pour Yuria et Sanga, et de nouveaux personnages gardés pour la suite de l'histoire : 15 combattants (Nagato, Rock, les hommes de Shura, les pirates d'Akashachi, les soldats du Tentei…) et Lui, Lin & Lui et Sayaka, qui ne combattent pas
 - Nouveau succès « Le triplé » : gagner 3 défis de la semaine d'affilée. Idée de Jérôme R.
-- Nouvelles illustrations : Kenshiro, Rei, Mamiya, Toki, Asam, Bukoh, Kai, Satora, Souther et Boltz
+- Nouvelles illustrations : Kenshiro, Rei, Mamiya, Toki, Asam, Bukoh, Satora, Souther et Boltz
 - Nouvelle illustration : Taiga
 - Boss mondial : si un piège ou un vol de rage empêche l'ultime du tour 5, le boss le relance au tour suivant (merci Jérôme R.)
 - Boss mondial : le détail des dégâts tour par tour s'affiche aussi quand tu n'as rien fait au 1er tour (merci Jérôme R.)
