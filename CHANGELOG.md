@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Histoire : 2 nouveaux chapitres. Arc 2 « La vieille du désert » (Dekai Babaa, ép. 46) et arc 3 « Le seigneur Sabato » (ép. 75). Sha & Zan rejoignent Kaiser dans l'arc 6
 - Histoire : nouveau type de chapitre « Tenir N tours » : il suffit de survivre. Premier exemple dans l'arc 6, le dernier combat de Shachi contre Kaioh (5 tours)
 - Histoire (en test) : l'arc 6, « La terre de Shura », 21 chapitres des épisodes 124 à 152 : le Shura sans nom, Alf, Kaiser, Han, Rock et sa bande, Gameleo, Jūkei contre Hyō, Kaioh, Cain, Gyoko, Nagato, les deux frères, Shachi, Zebra et Samoto, le sacrifice de Kuroyasha, jusqu'au dernier combat contre Kaioh. Tu joues aussi Shachi, Han, Rock, Hyō, Kaioh et Kuroyasha
 - Nouveaux personnages gardés pour l'arc de Shura : Samoto (Numeri dans le manga), le prétendant de Lin, et Zebra, le Shura à la chaîne (illustration de Lhaz)
