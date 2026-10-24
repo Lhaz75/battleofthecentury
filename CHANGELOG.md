@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Histoire, arc 6 : Hyō prend son visage de démon (illustration de Lhaz) après la mort de Sayaka, contre Nagato puis face à Kenshiro. Pendant le duel des deux frères, il redevient lui-même quand la mémoire lui revient
 - Histoire, arc 2 : nouveau chapitre souvenir « Le maître et le disciple », juste avant Ken-Oh. Tu joues Raoh contre son maître Ryuken
 - Histoire, arc 3 (en test) : nouveau chapitre souvenir « L'épreuve du bandeau », juste avant Ken contre Souther. Tu joues Souther à 15 ans contre son maître Ogai (illustration de Lhaz)
 - Histoire : 2 nouveaux chapitres. Arc 2 « La vieille du désert » (Dekai Babaa, ép. 46) et arc 3 « Le seigneur Sabato » (ép. 75). Sha & Zan rejoignent Kaiser dans l'arc 6
