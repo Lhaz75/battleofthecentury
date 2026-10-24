@@ -4,7 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
-- Nouvelles illustrations pour Kai et Jagi jeune (versions cheveux noirs et blonds)
+- Nouvelles illustrations pour Kai, Bukoh et Jagi jeune (versions cheveux noirs et blonds)
 - Wolf, le démolisseur de l'armée de KING (épisode 18), ouvre le chapitre « Jennifer et le canon du Sud ». Kai retrouve son illustration d'avant (l'image envoyée par erreur était celle de Wolf)
 - Au magasin : Kenshiro jeune, Toki jeune, Shu jeune, Ryuken jeune, Jūkei jeune et Jagi jeune, les héros des souvenirs (illustrations de Lhaz)
 - Extra : nouveau souvenir « La jalousie de Jagi », débloqué après Jagi dans l'arc 2. Kenshiro jeune contre Jagi jeune, avec seulement leurs coups de base et un seul ultime chacun : Hokuto Hyakuretsu Ken et Hokuto Senju Satsu (illustrations de Lhaz)
