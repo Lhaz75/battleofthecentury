@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Histoire, arc 3 : pour son dernier combat contre Raoh, Toki apparaît avec le corps qu'il s'est forgé grâce à un point secret, au prix de ce qui lui restait de vie (illustration de Lhaz)
 - Histoire, arc 2 : contre Yuda, Rei a maintenant les cheveux blancs, le prix du point Shinreidai que Toki lui a frappé pour prolonger sa vie, au prix d'une douleur atroce (illustration de Lhaz)
 - Histoire, arc 6 : Hyō prend son visage de démon (illustration de Lhaz) après la mort de Sayaka, contre Nagato puis face à Kenshiro. Pendant le duel des deux frères, il redevient lui-même quand la mémoire lui revient
 - Histoire, arc 2 : nouveau chapitre souvenir « Le maître et le disciple », juste avant Ken-Oh. Tu joues Raoh contre son maître Ryuken
