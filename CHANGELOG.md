@@ -4,7 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
-- Nouvel adversaire prêt pour la suite de l'histoire : Kōketsu, le petit dictateur qui flattait Raoh (illustration de Lhaz)
+- Nouvel adversaire prêt pour la suite de l'histoire : Kōketsu, le petit dictateur qui flattait Raoh, et Pet, sa créature (illustrations de Lhaz)
 - Nouveau son quand un passif bloque un coup (son fourni par Lhaz)
 - Nouvelle illustration pour Baran
 - Nouveau perso au magasin (600 ryō) : Raoh, légende de Shura. Le sauveur attendu : +1 rage au début de chacun de ses tours, +2 aux coups contre Shura et le Hokuto Ryūken. Ultime Tenshō Honretsu, carte spéciale « Légende vivante » (illustration de Lhaz)
