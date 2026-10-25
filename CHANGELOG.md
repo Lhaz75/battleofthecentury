@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Histoire, arc 3 (en test) : contre Kenshiro, Ryuga apparaît en loup assoiffé de sang, et redevient lui-même sous 30 % de ses PV (illustration de Lhaz)
 - Nouvelle illustration pour Ryuga
 - Admin, cadrage sur mobile : l'image est un peu plus petite, les boutons du bas ne recouvrent plus les flèches
 - Raizō est retiré : il avait la même illustration que Bakuto. Dans « L'effondrement de Cassandra », Bulg est maintenant accompagné de Tariq
