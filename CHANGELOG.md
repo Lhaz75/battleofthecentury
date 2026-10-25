@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Mode histoire : le « Bloqué ! » de Heart s'affiche aussi dans son chapitre (merci maxGfive)
 - Nouvelle illustration pour Kaioh sans casque (combat final de l'arc 6)
 - Quand un passif bloque un coup (Heart contre les Légers, Dragon contre le premier Lourd…), tu l'entends et tu le vois : son de garde, « Bloqué ! » avec le nom du passif. Quand un passif réduit les dégâts, une petite bulle 🛡 montre combien (idée de maxGfive)
 - Histoire, arc 3 (en test) : nouveau chapitre « Le loup et le saint ». Tu joues Ryuga, en loup assoiffé de sang, contre Toki affaibli, juste avant Ken contre Ryuga
