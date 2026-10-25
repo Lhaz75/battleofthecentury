@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Histoire, arc 4 (en test) : Raoh porte son casque de Ken-Oh dans son combat contre Fudo (illustration de Lhaz)
 - Histoire, arc 6 : nouveau décor volcanique pour le combat final Kenshiro contre Kaioh, en portrait et en paysage (illustration de Lhaz)
 - Histoire, arc 6 (en test) : le combat final contre Kaioh a 3 formes. Avec masque, sans masque sous 50 % de ses PV, puis torse nu sous 22 %, armure brisée par son Matōki (illustration de Lhaz)
 - Mode histoire : le « Bloqué ! » de Heart s'affiche aussi dans son chapitre (merci maxGfive)
