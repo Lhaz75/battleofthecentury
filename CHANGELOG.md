@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Admin, cadrage : le bouton « Tester l'ultime » marche aussi pour les images alternatives (Hyō démon, Kaioh sans masque, Raoh…)
 - Kōketsu est un lâche : la première fois qu'il passe sous la moitié de ses PV, il s'enfuit et laisse un allié (Pet) se battre à sa place
 - Nouvel adversaire prêt pour la suite de l'histoire : Kōketsu, le petit dictateur qui flattait Raoh, et Pet, sa créature (illustrations de Lhaz)
 - Nouveau son quand un passif bloque un coup (son fourni par Lhaz)
