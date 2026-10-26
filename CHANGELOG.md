@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Terres désolées : le butin du boss affiche maintenant la bonne chance pour le légendaire, 1 sur 20 (merci Jérôme)
 - « Qui porte quoi » : les persos les mieux équipés passent en premier, et un bouton « Tout récupérer » vide d'un coup tous les persos hors de l'équipe
 - Terres désolées : au choix de la zone, tu vois l'équipement de chaque perso de ton équipe avant de partir (merci Jérôme). Le texte « Déjà pillé » des étapes refaites est corrigé
 - Terres désolées, équipement : nouvelle liste « Qui porte quoi » sous le sac, avec tous tes persos équipés (même hors de l'équipe) et un bouton « Récupérer » pour remettre leur équipement dans le sac (idée de maxGfive)
