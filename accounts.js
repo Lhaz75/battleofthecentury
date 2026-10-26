@@ -5,7 +5,7 @@ const crypto = require("crypto");
 const STORY_TEST = /^arc3-|^arc4-|^arc5-|^arc6-|^extra-/;
 const EXTRA_AFTER = { "extra-4": "arc2-7", "extra-1": "arc2-15", "extra-2": "arc3-8", "extra-3": "arc6-4" };   // souvenirs : débloqués par un chapitre de l'histoire   // arcs en test (lecture seule pour les joueurs) : vider la regex (/^$/) pour ouvrir
 // magasin de persos : prix selon le coût (fighters.json) ; persos de départ et persos de l'histoire exclus (à garder en phase avec CHAR_START / STORY_CH dans index.html)
-const RPG_BAG = 36;   // taille du sac des Terres désolées (à garder égale à RPG_BAG dans index.html)
+const RPG_BAG = 48;   // taille du sac des Terres désolées (à garder égale à RPG_BAG dans index.html)
 const SHOP_START = new Set(["maitre", "sage", "linh", "bat", "vieux", "dans", "huey", "shuren", "nuage", "shachi", "shoki", "general", "mamiya", "ein", "rima", "bella"]);
 const SHOP_STORY = new Set(["zeed", "ventre", "spade", "sarge", "colonel", "rival", "madara", "kiba", "joker", "jackal", "devil", "fourbe", "diamond", "club", "fox", "barcom", "amiba", "demon", "hyo", "boltz", "taiga", "solia", "uighur"]);
 const SHOP_LIST = new Set(["raohshura", "kenj", "tokij", "shuj", "ryukenj", "jukeij", "jagij", "kenshin", "ryu", "biao", "kasumi", "shuken", "tesshin", "ogai", "rofu", "wei", "feiyan", "jugai", "garuda", "asura", "mang", "charles", "liu", "yasaka", "taiyan", "dayan", "sanga", "seiji", "frieda", "asam", "kai", "bukoh", "satora"]);   // seuls persos en vente (liste de David) ; les autres s'obtiennent par l'histoire
@@ -747,6 +747,10 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
         if (inv.bag.length >= RPG_BAG) return [409, { error: "full" }];
         if ((st.pts || 0) - (st.ryoSpent || 0) < price) return [402, { error: "poor" }];
         st.ryoSpent = (st.ryoSpent || 0) + price; inv.bag.push(item);
+      } else if (act === "sell") {   // vendre un objet au bazar
+        const item = String(body.item || ""), k = inv.bag.indexOf(item); if (k < 0 || !rpgOk(item)) return [400, { error: "bad" }];
+        const price = [5, 10, 20, 35, 60, 100][rpgRar(item.split("~")[0])] || 5;
+        inv.bag.splice(k, 1); ryoGive(st, price); gain = price;
       } else if (act === "save") {
         if (body.inv) { const n = rpgClean(body.inv); if (rpgWithin(n, inv)) st.rpg = n; else saved = "rejected"; }
       } else return [400, { error: "bad" }];

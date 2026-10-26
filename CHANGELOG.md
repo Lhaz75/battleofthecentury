@@ -4,6 +4,9 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Terres désolées : tu peux vendre tes objets au bazar (5 à 100 ryō selon la rareté), et le sac passe de 36 à 48 places (idée de Jérôme et maxGfive)
+- Bazar en paysage sur téléphone : le texte des objets et les boutons d'achat sont remis en place (merci Jérôme)
+- « Qui porte quoi » : touche une icône pour voir l'objet et son effet, pratique sur téléphone
 - Terres désolées : le butin du boss affiche maintenant la bonne chance pour le légendaire, 1 sur 20 (merci Jérôme)
 - « Qui porte quoi » : les persos les mieux équipés passent en premier, et un bouton « Tout récupérer » vide d'un coup tous les persos hors de l'équipe
 - Terres désolées : au choix de la zone, tu vois l'équipement de chaque perso de ton équipe avant de partir (merci Jérôme). Le texte « Déjà pillé » des étapes refaites est corrigé
