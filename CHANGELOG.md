@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Terres désolées : un combat déjà gagné lâche maintenant un objet commun ou peu commun à chaque victoire, pour équiper plus vite tes autres équipes (idée de maxGfive)
 - Terres désolées : le sac est trié automatiquement, dans l'ordre des emplacements (tête, corps, taille, mains, pieds, relique, puis consommables), puis par rareté (idée de maxGfive)
 - Succès « Sept étoiles… et plus » : le texte est corrigé, il faut 27 étoiles dans l'arc 1, qui en compte maintenant 45 (merci Jérôme)
 - Admin, cadrage : le bouton « Tester l'ultime » marche aussi pour les images alternatives (Hyō démon, Kaioh sans masque, Raoh…)

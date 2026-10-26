@@ -738,7 +738,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
         const seen = st.rpgSeen = st.rpgSeen || {}, key = zone + ":" + node; first = !seen[key]; seen[key] = 1;
         if (!aw) { gain = (first ? RPG_PTS : RPG_PTS_AGAIN)[kind]; st.pts += gain; bumpFav(st, body.team); wb = wheelWin(st, body.team, true, gain); if (kind === "boss") st.rpgClears = (st.rpgClears || 0) + 1; }
         // un objet la première fois sur chaque étape ; le boss en lâche à chaque fois
-        const rolls = first || kind === "boss" ? rpgRoll(kind, rpgLeg(zone).leg, zone, rpgLeg(zone).rate) : kind === "event" ? rpgRoll("again", null, zone) : kind === "elite" ? rpgRoll("fight", null, zone) : [];   // élite refaite : butin d'un combat normal   // événement refait : un petit objet
+        const rolls = first || kind === "boss" ? rpgRoll(kind, rpgLeg(zone).leg, zone, rpgLeg(zone).rate) : kind === "event" ? rpgRoll("again", null, zone) : kind === "elite" ? rpgRoll("fight", null, zone) : kind === "fight" ? rpgRoll("again", null, zone) : [];   // combat refait : un objet blanc ou bleu, pour équiper les autres équipes   // élite refaite : butin d'un combat normal   // événement refait : un petit objet
         for (const it of rolls) { if (inv.bag.length < RPG_BAG) { inv.bag.push(it); loot.push(it); } else lost++; }
         if (!aw) ach = achCheck(st, body.feats);
       } else if (act === "buy") {
