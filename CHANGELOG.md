@@ -4,6 +4,8 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Terres désolées, en combat : sous le passif de chaque perso, une ligne « Équipement » résume ses bonus (Légers, Moyens, Lourds, PV, rage). Touche-la pour voir le détail des objets (idée de Jérôme)
+- Bazar : choisir un objet à vendre ne fait plus remonter la page en haut (merci Jérôme)
 - Histoire, arc 2 : Uighur est moins brutal (moins de PV, démarre avec moins de rage, Kenshiro un peu plus solide). Merci Jérôme
 - Accueil : le petit mot « Mode » au-dessus du nom du mode est retiré, il s'affichait parfois coupé (merci Jérôme)
 - Les effets en plus des dégâts des ultimes sont maintenant affichés sur les fiches : Toki (soigne 10 PV), Toki jeune (4 PV), Jagi (défausse 2 cartes), Mang (folie). Le soin de l'ultime s'affiche aussi dans le combat (merci maxGfive)
