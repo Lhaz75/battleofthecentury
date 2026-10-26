@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Terres désolées : le sac est trié automatiquement, dans l'ordre des emplacements (tête, corps, taille, mains, pieds, relique, puis consommables), puis par rareté (idée de maxGfive)
 - Succès « Sept étoiles… et plus » : le texte est corrigé, il faut 27 étoiles dans l'arc 1, qui en compte maintenant 45 (merci Jérôme)
 - Admin, cadrage : le bouton « Tester l'ultime » marche aussi pour les images alternatives (Hyō démon, Kaioh sans masque, Raoh…)
 - Kōketsu est un lâche : la première fois qu'il passe sous la moitié de ses PV, il s'enfuit et laisse un allié (Pet) se battre à sa place
