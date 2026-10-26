@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Téléphone en paysage : la ligne « Équipement » devient un petit bouton 🎒 qui ouvre le détail, les autres membres de l'équipe sont de nouveau visibles (merci Jérôme)
 - Terres désolées, en combat : sous le passif de chaque perso, une ligne « Équipement » résume ses bonus (Légers, Moyens, Lourds, PV, rage). Touche-la pour voir le détail des objets (idée de Jérôme)
 - Bazar : choisir un objet à vendre ne fait plus remonter la page en haut (merci Jérôme)
 - Histoire, arc 2 : Uighur est moins brutal (moins de PV, démarre avec moins de rage, Kenshiro un peu plus solide). Merci Jérôme
