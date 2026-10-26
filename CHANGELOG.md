@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Les effets en plus des dégâts des ultimes sont maintenant affichés sur les fiches : Toki (soigne 10 PV), Toki jeune (4 PV), Jagi (défausse 2 cartes), Mang (folie). Le soin de l'ultime s'affiche aussi dans le combat (merci maxGfive)
 - Terres désolées : tu peux vendre tes objets au bazar (5 à 100 ryō selon la rareté), et le sac passe de 36 à 48 places (idée de Jérôme et maxGfive)
 - Bazar en paysage sur téléphone : le texte des objets et les boutons d'achat sont remis en place (merci Jérôme)
 - « Qui porte quoi » : touche une icône pour voir l'objet et son effet, pratique sur téléphone
