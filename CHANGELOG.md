@@ -4,7 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
-- Terres désolées (en test) : nouvelle zone 4, le domaine d'Amiba ! Elle s'ouvre quand tu as battu Jagi. Les chasseurs de cobayes, le village des miracles, Goum, Gyūki et Habu, la cave des bêtes (Goda, l'Homme-Serpent, l'Homme-Mante), et Amiba en boss (Traité d'Amiba, 1 chance sur 20). Carte de Lhaz
+- Terres désolées (en test) : nouvelle zone 4, le domaine d'Amiba ! Elle s'ouvre quand tu as battu Jagi. Les hommes du faux Toki, le village des miracles, Goum, Gyūki et Habu, la cave des bêtes (Goda, l'Homme-Serpent, l'Homme-Mante), et Amiba en boss (Traité d'Amiba, 1 chance sur 20). Carte de Lhaz
 - Combat : un nom trop long (« Raoh (légende de Shura) »…) est coupé avec « … » au lieu de passer sur deux lignes et de pousser la réserve sous les cartes (merci Jérôme)
 - Téléphone en paysage : le bouton 🎒 de l'équipement passe à côté des persos en réserve, qui restent visibles au-dessus des cartes (merci Jérôme)
 - Terres désolées (en test) : nouvelle zone 3, le territoire de Jagi ! Elle s'ouvre quand tu as battu Kiba Daioh. Les pillards, la ville aux 7 étoiles, Jackal, Fox et Devil Rebirth, la garde de Jagi, et Jagi en boss (Casque de Jagi, 1 chance sur 20). Carte de Lhaz
