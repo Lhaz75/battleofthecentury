@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Terres désolées : nouvelle carte pour la zone 1 (Southern Cross), chaque étape a maintenant son lieu (camp de Zeed, tour de Spade, pont de Club, château en feu, arène de Heart…). Carte de Lhaz
 - Terres désolées (en test) : nouvelle zone 5, Cassandra ! Elle s'ouvre quand tu as battu Amiba. Seeker, les familles des prisonniers, Targel, les portes gardées par Raiga & Fūga et Sōjin, et Uighur en boss. Nouveau légendaire : le Fouet de Cassandra (mains, PV max +2, Légers +2, Moyens +1), 1 chance sur 20. Carte de Lhaz
 - Nouvelle illustration pour Cassandra (terrain et décor de l'histoire), en portrait et en paysage (illustrations de Lhaz)
 - Terres désolées (en test) : nouvelle zone 4, le domaine d'Amiba ! Elle s'ouvre quand tu as battu Jagi. Les hommes du faux Toki, le village des miracles, Goum, Gyūki et Habu, la cave des bêtes (Goda, l'Homme-Serpent, l'Homme-Mante), et Amiba en boss (Traité d'Amiba, 1 chance sur 20). Carte de Lhaz
