@@ -6588,7 +6588,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261027210059";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261027210245";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
@@ -8165,7 +8165,7 @@ const RPG_ZONES={mamiya:{id:"mamiya",n:2,len:6,boss:"daioh",face:"kiba",leg:"col
   so_souther:{t:"boss",x:86,y:24,next:[],ai:.95,boss:1.6,foe:p=>["emp","southsol1","southsol6"]}
  },locked:[]}};
 const RZ_FLEE=k=>S.rpg && k!==ME && RPG.run && RPG.run.at==="sc_chateau" && act(S[k]) && act(S[k]).id==="joker";   // château de Shin : Joker fuit au lieu de tomber
-const RPG_EV_ART={jg:"rpg-ev-jg"};   // illustration de l'événement par zone
+const RPG_EV_ART={jg:"rpg-ev-jg",am:"rpg-ev-am"};   // illustration de l'événement par zone
 const RZ=()=>RPG_ZONES[(RPG.run&&RPG.run.zone)||RPG.zone||"sc"]||RPG_ZONES.sc;
 // need : une des étapes de la liste suffit (les testeurs qui avaient battu Jagi quand sa zone était la 1re gardent l'accès)
 const rpgZoneOk=z=>{ const Z=RPG_ZONES[z]; if(!Z) return false; if(!Z.need) return true; const seen=ACC.user&&ACC.user.stats&&ACC.user.stats.rpgSeen||{}; return [].concat(Z.need).some(k=>seen[k]); };
