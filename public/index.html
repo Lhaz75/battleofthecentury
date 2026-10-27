@@ -6588,7 +6588,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261027195809";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261027195955";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
@@ -8154,6 +8154,7 @@ const RPG_ZONES={mamiya:{id:"mamiya",n:2,len:6,boss:"daioh",face:"kiba",leg:"col
   so_souther:{t:"boss",x:86,y:24,next:[],ai:.95,boss:1.6,foe:p=>["emp","southsol1","southsol6"]}
  },locked:[]}};
 const RZ_FLEE=k=>S.rpg && k!==ME && RPG.run && RPG.run.at==="sc_chateau" && act(S[k]) && act(S[k]).id==="joker";   // château de Shin : Joker fuit au lieu de tomber
+const RPG_EV_ART={jg:"rpg-ev-jg"};   // illustration de l'événement par zone
 const RZ=()=>RPG_ZONES[(RPG.run&&RPG.run.zone)||RPG.zone||"sc"]||RPG_ZONES.sc;
 // need : une des étapes de la liste suffit (les testeurs qui avaient battu Jagi quand sa zone était la 1re gardent l'accès)
 const rpgZoneOk=z=>{ const Z=RPG_ZONES[z]; if(!Z) return false; if(!Z.need) return true; const seen=ACC.user&&ACC.user.stats&&ACC.user.stats.rpgSeen||{}; return [].concat(Z.need).some(k=>seen[k]); };
@@ -8323,7 +8324,7 @@ function renderRpgEvent(){
   const ev=k=>L(k==="rpgEvC"||k==="rpgEvC1"||/2$/.test(k)?k:zk(k));
   const hp0=rpgHp(), eqR=r.team.reduce((a,id,i)=>a+(hp0[i]>0?rpgStat(id,"rage"):0),0), full=eqR>=rpgRageCap();   // la rage de départ est plafonnée à 7 : l'offrande ne sert à rien si l'équipement y arrive déjà
   const ch=(k,gain)=>{ const off=k==="B"&&full; return `<button class="rgch" data-c="${k}"${off?" disabled":""}><b>${ev("rpgEv"+k)}</b><span>${ev("rpgEv"+k+"1")}</span>${gain?`<em>${off?L("rpgRageFull",rpgRageCap()):ev("rpgEv"+k+"2")}</em>`:""}</button>`; };
-  pageShell(L("rpgTitle"),`<div class="rgpage"><span class="rgtag">${L("rpgT_event")}</span><h3 class="rgh">${esc(L("rpgNodes")[r.at])}</h3><img class="rgart" src="assets/rpg-vieil-homme.webp" alt="">
+  pageShell(L("rpgTitle"),`<div class="rgpage"><span class="rgtag">${L("rpgT_event")}</span><h3 class="rgh">${esc(L("rpgNodes")[r.at])}</h3><img class="rgart" src="assets/${RPG_EV_ART[RZ().id]||"rpg-vieil-homme"}.webp" alt="">
     <p>${L(zk("rpgEvP"))}</p><blockquote>${L(zk("rpgEvQ"))}</blockquote>${ch("A",1)}${ch("B",1)}${ch("C",0)}
     <h3 class="pfh">${L("rpgTeam")}</h3>${survFaces(r.team,rpgHp(),rpgMaxes())}</div>`,r.team);
   document.querySelectorAll(".rgch").forEach(b=>b.onclick=()=>{ const c=b.dataset.c;
