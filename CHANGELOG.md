@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Téléphone en paysage : le bouton 🎒 de l'équipement passe à côté des persos en réserve, qui restent visibles au-dessus des cartes (merci Jérôme)
 - Terres désolées (en test) : nouvelle zone 3, le territoire de Jagi ! Elle s'ouvre quand tu as battu Kiba Daioh. Les pillards, la ville aux 7 étoiles, Jackal, Fox et Devil Rebirth, la garde de Jagi, et Jagi en boss (Casque de Jagi, 1 chance sur 20). Carte de Lhaz
 - Téléphone en paysage : la ligne « Équipement » devient un petit bouton 🎒 qui ouvre le détail, les autres membres de l'équipe sont de nouveau visibles (merci Jérôme)
 - Terres désolées, en combat : sous le passif de chaque perso, une ligne « Équipement » résume ses bonus (Légers, Moyens, Lourds, PV, rage). Touche-la pour voir le détail des objets (idée de Jérôme)
