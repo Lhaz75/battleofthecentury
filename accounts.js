@@ -34,7 +34,7 @@ const RPG_ZONES = { mamiya: { need: ["sc:sc_shin", "mamiya:jagi"], nodes: { zeed
   yd: { need: ["cs:cs_uighur"], nodes: { yd_route: "fight", yd_village: "event", yd_galf: "elite", yd_convoi: "fight", yd_dagar: "elite", yd_yuda: "boss" }, leg: "epaulette-rei" },
   so: { need: ["yuda:yuda"], nodes: { so_galzus: "fight", so_village: "event", so_jumeaux: "elite", so_chantier: "fight", so_garde: "elite", so_souther: "boss" }, leg: "masque-souther" } };
 const RPG_PTS = { fight: 6, event: 8, elite: 10, boss: 25 }, RPG_PTS_AGAIN = { fight: 1, event: 1, elite: 2, boss: 5 };   // première fois / étape déjà faite
-const RPG_DROP = { fight: [60, 30, 10], event: [0, 0, 100], elite: [0, 48, 35, 15, 2], boss: [0, 0, 0, 84, 16], again: [70, 30] };   // again : événement déjà fait (commun / peu commun)   // poids par rareté
+const RPG_DROP = { fight: [50, 35, 15], event: [0, 0, 100], elite: [0, 48, 35, 15, 2], boss: [0, 0, 0, 84, 16], again: [60, 30, 10] };   // again : événement déjà fait (commun / peu commun)   // poids par rareté
 const RPG_SHOP = { "bottes-desert": 20, "bandes-poing": 20, "ceinture-munitions": 20, "ceinture-cuir": 40, "bandages": 20, "gourde": 20, "bandana": 20, "gants-cloutes": 40, "epaulettes": 40, "casque-punk": 40, "bottes-cuir": 40, "casque-pointes": 40, "bandes-cloutees": 40, "plastron-rouille": 40, "essence": 40, "viande-sechee": 40, "talisman-yuria": 80, "carte-puits": 80, "remede-medicine": 80, "masque-fer": 80, "ceinturon-clous": 80 };
 const RPG_ID = /^[a-z][a-z-]{1,23}(~(hp[123]|lg1|my1|ld1|rg1))?$/;   // objet, avec ou sans bonus de qualité
 const rpgOk = x => typeof x === "string" && RPG_ID.test(x) && !!RPG_IT[x.split("~")[0]];
@@ -43,6 +43,7 @@ const RPG_ZONEONLY = { "heaume-sang": "sc", "gantelets-sang": "sc", "epauliere-s
 let RPG_CFG = {};
 const cfgIt = id => (RPG_CFG.items && RPG_CFG.items[id]) || {};
 const rpgRar = id => cfgIt(id).r != null ? cfgIt(id).r : RPG_IT[id][0];
+const SANG_Z = ["jg", "am", "cs", "yd"];   // le set de sang tombe aussi dans les zones 3 à 6 (demande de Jérôme)
 const rpgZoneOf = id => cfgIt(id).zone !== undefined ? (cfgIt(id).zone || null) : (RPG_ZONEONLY[id] || null);
 const rpgDropW = kind => (RPG_CFG.drop && RPG_CFG.drop[kind]) || RPG_DROP[kind];
 const rpgPrice = id => cfgIt(id).price != null ? cfgIt(id).price : RPG_SHOP[id];
@@ -71,7 +72,7 @@ const WHEEL_ONLY = new Set(["raryuban", "sept-etoiles"]);   // objets de la roue
 function rpgRoll(kind, leg, zone, legRate) {
   const w = rpgDropW(kind), rnd = n => Math.floor(Math.random() * n);
   let x = Math.random() * w.reduce((s, v) => s + v, 0), r = 0; while (r < w.length - 1 && x >= w[r]) { x -= w[r]; r++; }
-  const ids = Object.keys(RPG_IT).filter(id => rpgRar(id) === r && !WHEEL_ONLY.has(id) && !cfgIt(id).off && (!rpgZoneOf(id) || rpgZoneOf(id) === zone)); if (!ids.length) return []; let it = ids[rnd(ids.length)];
+  const ids = Object.keys(RPG_IT).filter(id => rpgRar(id) === r && !WHEEL_ONLY.has(id) && !cfgIt(id).off && (!rpgZoneOf(id) || rpgZoneOf(id) === zone || (/-sang$/.test(id) && SANG_Z.includes(zone)))); if (!ids.length) return []; let it = ids[rnd(ids.length)];
   // qualité (objets équipables) : 6 % parfait, 24 % renforcé
   if (RPG_IT[it][1]) { const q = Math.random(); if (q < 0.06) it += "~" + ["hp3", "lg1", "my1", "ld1", "rg1"][rnd(5)]; else if (q < 0.30) it += "~" + ["hp1", "hp2"][rnd(2)]; }
   const out = [it];
