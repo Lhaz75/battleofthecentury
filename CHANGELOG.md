@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Terres désolées (en test) : nouvelle zone 6, le territoire de Yuda ! Elle s'ouvre quand tu as battu Uighur. L'embuscade, le village de Mamiya (Toki et le tsubo qui prolonge la vie de Rei), Galf à Medicine City, le convoi d'esclaves, Dagar dans la tour de Yuda, et Yuda avec Komak au barrage. Nouveau légendaire : l'Épaulette de Rei (corps, PV max +2, endurance +1, Légers +1), 1 chance sur 20. Carte de Lhaz
 - Terres désolées : nouvelle carte pour la zone 4 (Amiba), avec le village des miracles, le bar de Habu, la falaise des bêtes et la tour d'Amiba sous l'orage. Carte de Lhaz
 - Terres désolées : nouvelle carte pour la zone 3 (Jagi), avec la prison de Villainy éventrée, la ville aux 7 étoiles, la statue de Jagi et sa tour en feu. Carte de Lhaz
 - Terres désolées : nouvelle carte pour la zone 2 (Mamiya), chaque étape a son lieu (QG de la GOLAN, cabane du vieil homme, camp des Kiba, tanière de Madara, repaire de Kiba Daioh sous le volcan…). Carte de Lhaz

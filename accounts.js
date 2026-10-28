@@ -24,13 +24,14 @@ const RPG_IT = { "raryuban": [3, 0], "sept-etoiles": [3, 0], "bottes-desert": [0
   "epauliere-cloutee": [1, 1], "epauliere-ferree": [3, 1], "epauliere-sang": [4, 1],
   "remede-medicine": [2, 0], "eau-pure": [3, 0], "grenade": [2, 0], "tsubo-toki": [4, 0], "essence": [1, 0],
   "ceinture-munitions": [0, 1], "ceinture-cuir": [1, 1], "ceinture-lion": [3, 1], "ceinture-crane": [4, 1],
-  "jambieres-rouille": [1, 1], "jambieres-pointes": [3, 1], "jambieres-sang": [4, 1], "bandana-bat": [3, 1], "ruban-lin": [3, 1], "livre-amiba": [5, 1], "masque-souther": [5, 1], "fouet-cassandra": [5, 1] };   // id : [rareté, équipable]
+  "jambieres-rouille": [1, 1], "jambieres-pointes": [3, 1], "jambieres-sang": [4, 1], "bandana-bat": [3, 1], "ruban-lin": [3, 1], "livre-amiba": [5, 1], "masque-souther": [5, 1], "fouet-cassandra": [5, 1], "epaulette-rei": [5, 1] };   // id : [rareté, équipable]
 // zones : étapes qui donnent du butin, étape à avoir battue pour ouvrir la zone, légendaire du boss (5 %)
 const RPG_ZONES = { mamiya: { need: ["sc:sc_shin", "mamiya:jagi"], nodes: { zeed: "fight", old: "event", kiba: "elite", ruines: "fight", madara: "elite", daioh: "boss" }, leg: "collier-crocs" },   // Jagi aura sa zone (3), avec le Casque de Jagi
   sc: { nodes: { sc_zeed: "fight", sc_spade: "fight", sc_village: "event", sc_diamond: "elite", sc_club: "fight", sc_chateau: "fight", sc_heart: "elite", sc_shin: "boss" }, leg: "ceinture-king" },
   jg: { need: ["mamiya:daioh", "mamiya:jagi"], nodes: { jg_entree: "fight", jg_ville: "event", jg_jackal: "elite", jg_rues: "fight", jg_garde: "elite", jg_jagi: "boss" }, leg: "casque-jagi" },
   am: { need: ["jg:jg_jagi"], nodes: { am_route: "fight", am_village: "event", am_goum: "elite", am_pont: "fight", am_cave: "elite", am_amiba: "boss" }, leg: "livre-amiba" },
   cs: { need: ["am:am_amiba"], nodes: { cs_seeker: "fight", cs_village: "event", cs_targel: "elite", cs_ruines: "fight", cs_portes: "elite", cs_uighur: "boss" }, leg: "fouet-cassandra" },
+  yd: { need: ["cs:cs_uighur"], nodes: { yd_route: "fight", yd_village: "event", yd_galf: "elite", yd_convoi: "fight", yd_dagar: "elite", yd_yuda: "boss" }, leg: "epaulette-rei" },
   so: { need: ["yuda:yuda"], nodes: { so_galzus: "fight", so_village: "event", so_jumeaux: "elite", so_chantier: "fight", so_garde: "elite", so_souther: "boss" }, leg: "masque-souther" } };
 const RPG_PTS = { fight: 6, event: 8, elite: 10, boss: 25 }, RPG_PTS_AGAIN = { fight: 1, event: 1, elite: 2, boss: 5 };   // première fois / étape déjà faite
 const RPG_DROP = { fight: [60, 30, 10], event: [0, 0, 100], elite: [0, 48, 35, 15, 2], boss: [0, 0, 0, 84, 16], again: [70, 30] };   // again : événement déjà fait (commun / peu commun)   // poids par rareté
