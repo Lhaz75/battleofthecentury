@@ -10,7 +10,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 - Terres désolées : le compteur d'étapes des zones 3 à 6 affiche le bon total (6 et non 8)
 - Terres désolées (en test) : nouvelle zone 6, le territoire de Yuda ! Elle s'ouvre quand tu as battu Uighur. L'embuscade, le village de Mamiya (Toki et le tsubo qui prolonge la vie de Rei), Galf à Medicine City, le convoi d'esclaves, Dagar dans la tour de Yuda, et Yuda avec Komak au barrage. Nouveau légendaire : l'Épaulette de Rei (corps, PV max +2, endurance +1, Légers +1), 1 chance sur 20. Carte de Lhaz
 - Terres désolées : nouvelle carte pour la zone 4 (Amiba), avec le village des miracles, le bar de Habu, la falaise des bêtes et la tour d'Amiba sous l'orage. Carte de Lhaz
-- Terres désolées : nouvelle carte pour la zone 3 (Jagi), avec la prison de Villainy éventrée, la ville aux 7 étoiles, la statue de Jagi et sa tour en feu. Carte de Lhaz
+- Terres désolées : nouvelle carte pour la zone 3 (Jagi), avec la prison de Villainy éventrée, la ville de la statue, la statue de Jagi et sa tour en feu. Carte de Lhaz
 - Terres désolées : nouvelle carte pour la zone 2 (Mamiya), chaque étape a son lieu (QG de la GOLAN, cabane du vieil homme, camp des Kiba, tanière de Madara, repaire de Kiba Daioh sous le volcan…). Carte de Lhaz
 - Terres désolées : nouvelle carte pour la zone 1 (Southern Cross), chaque étape a maintenant son lieu (camp de Zeed, tour de Spade, pont de Club, château en feu, arène de Heart…). Carte de Lhaz
 - Terres désolées (en test) : nouvelle zone 5, Cassandra ! Elle s'ouvre quand tu as battu Amiba. Seeker, les familles des prisonniers, Targel, les portes gardées par Raiga & Fūga et Sōjin, et Uighur en boss. Nouveau légendaire : le Fouet de Cassandra (mains, PV max +2, Légers +2, Moyens +1), 1 chance sur 20. Carte de Lhaz
@@ -18,7 +18,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 - Terres désolées (en test) : nouvelle zone 4, le domaine d'Amiba ! Elle s'ouvre quand tu as battu Jagi. Les hommes du faux Toki, le village des miracles, Goum, Gyūki et Habu, la falaise des bêtes (Goda, l'Homme-Serpent, l'Homme-Mante), et Amiba en boss (Traité d'Amiba, 1 chance sur 20). Carte de Lhaz
 - Combat : un nom trop long (« Raoh (légende de Shura) »…) est coupé avec « … » au lieu de passer sur deux lignes et de pousser la réserve sous les cartes (merci Jérôme)
 - Téléphone en paysage : le bouton 🎒 de l'équipement passe à côté des persos en réserve, qui restent visibles au-dessus des cartes (merci Jérôme)
-- Terres désolées (en test) : nouvelle zone 3, le territoire de Jagi ! Elle s'ouvre quand tu as battu Kiba Daioh. Les pillards, la ville aux 7 étoiles, Jackal, Fox et Devil Rebirth, la garde de Jagi, et Jagi en boss (Casque de Jagi, 1 chance sur 20). Carte de Lhaz
+- Terres désolées (en test) : nouvelle zone 3, le territoire de Jagi ! Elle s'ouvre quand tu as battu Kiba Daioh. Les pillards, la ville de la statue, Jackal, Fox et Devil Rebirth, la garde de Jagi, et Jagi en boss (Casque de Jagi, 1 chance sur 20). Carte de Lhaz
 - Téléphone en paysage : la ligne « Équipement » devient un petit bouton 🎒 qui ouvre le détail, les autres membres de l'équipe sont de nouveau visibles (merci Jérôme)
 - Terres désolées, en combat : sous le passif de chaque perso, une ligne « Équipement » résume ses bonus (Légers, Moyens, Lourds, PV, rage). Touche-la pour voir le détail des objets (idée de Jérôme)
 - Bazar : choisir un objet à vendre ne fait plus remonter la page en haut (merci Jérôme)
