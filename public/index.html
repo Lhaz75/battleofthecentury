@@ -6588,7 +6588,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261029200331";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261029203609";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
@@ -8087,7 +8087,7 @@ const RPG_ITEMS={
   "ceinture-ermite":{s:"waist",r:3,end:1}, "brassard-nanto":{s:"hands",r:3,dmg:[0,2,0]},
   "casque-jagi":{s:"head",r:5,dmg:[0,0,2],noCounter:1}, "fouet-cassandra":{s:"hands",r:5,hp:2,dmg:[2,1,0]}, "epaulette-rei":{s:"body",r:5,hp:2,end:1,dmg:[1,0,0]}, "bandes-azur":{s:"hands",r:2,hp:1,dmg:[0,1,0]}, "jambieres-soleil":{s:"feet",r:2,hp:3,rage:1}, "etoile-chariot":{s:"relic",r:4,hp:2,rage:2}, "veste-moto":{s:"body",r:2,hp:3,rage:1}, "photo-jaunie":{s:"relic",r:0,hp:2}, "croc-loup":{s:"relic",r:1,hp:1,rage:1}, "cuirasse-etoiles":{s:"body",r:4,hp:4,dmg:[0,0,1]}, "gantelets-successeur":{s:"hands",r:4,hp:1,dmg:[0,0,2]}, "bottes-ourse":{s:"feet",r:4,hp:3,dmg:[0,0,1]}, "robe-toki":{s:"body",r:4,hp:4,mend:1}, "bandes-genie":{s:"hands",r:4,hp:1,dmg:[0,2,0]}, "sandales-saint":{s:"feet",r:4,hp:4,rage:1}, "cuirasse-geolier":{s:"body",r:4,hp:6}, "chaines-cassandra":{s:"hands",r:4,hp:1,dmg:[1,1,0]}, "bottes-pleurs":{s:"feet",r:4,hp:4,dmg:[0,0,1]}, "ceinture-king":{s:"waist",r:5,dmg:[2,0,0],noDodge:1},
   "bottes-cuir":{s:"feet",r:1,hp:3}, "bottes-ferrees":{s:"feet",r:3,hp:3,dmg:[1,0,0]}, "bottes-sang":{s:"feet",r:4,dmg:[1,0,0],blood:1},
-  "casque-pointes":{s:"head",r:1,hp:1,rage:1}, "heaume-noir":{s:"head",r:3,hp:4,dmg:[0,0,1]}, "heaume-sang":{s:"head",r:4,rage:1,blood:1}, "heaume-daioh":{s:"head",r:5,dmg:[0,2,0]},"masque-souther":{s:"head",r:5,hp:3,dmg:[0,0,2]}, "collier-crocs":{s:"relic",r:5,hp:3,steel:1},
+  "casque-pointes":{s:"head",r:1,hp:1,rage:1}, "heaume-noir":{s:"head",r:3,hp:4,dmg:[0,0,1]}, "heaume-sang":{s:"head",r:4,rage:1,blood:1}, "heaume-daioh":{s:"head",r:5,dmg:[0,2,0]}, "armure-kenoh":{s:"body",r:4,hp:5,dmg:[0,0,1]}, "gantelets-kenoh":{s:"hands",r:4,hp:1,dmg:[0,1,1]}, "ceinture-kenoh":{s:"waist",r:4,hp:3,rage:1}, "bottes-kenoh":{s:"feet",r:4,hp:3,dmg:[0,0,1]},"masque-souther":{s:"head",r:5,hp:3,dmg:[0,0,2]}, "collier-crocs":{s:"relic",r:5,hp:3,steel:1},
   "bandes-cloutees":{s:"hands",r:1,hp:1,dmg:[1,0,0]}, "bandes-rouges":{s:"hands",r:3,rage:1,dmg:[0,1,0]}, "bandes-lion":{s:"hands",r:4,hp:2,dmg:[1,1,0]},
   "gantelets-pointes":{s:"hands",r:3,dmg:[1,0,1]}, "gantelets-sang":{s:"hands",r:4,dmg:[0,0,1],blood:1},
   "plastron-rouille":{s:"body",r:1,hp:4}, "plastron-ferre":{s:"body",r:3,hp:4,dmg:[0,1,0]}, "plastron-sang":{s:"body",r:4,hp:2,blood:1},
@@ -8096,8 +8096,8 @@ const RPG_ITEMS={
   "bandana":{s:"head",r:0,rage:1}, "casque-punk":{s:"head",r:1,hp:3}, "masque-fer":{s:"head",r:2,hp:5},
   "viande-sechee":{s:"use",r:1,heal:10}, "raryuban":{s:"use",r:3,raryu:1}, "sept-etoiles":{s:"use",r:3,well:1}, "remede-medicine":{s:"use",r:2,heal:18}, "eau-pure":{s:"use",r:3,heal:8,revive:.4}, "grenade":{s:"use",r:2,bomb:6}, "essence":{s:"use",r:1,fuel:1}, "tsubo-toki":{s:"use",r:4,tsubo:.4,revive:.25}, "ceinturon-clous":{s:"waist",r:2,dmg:[0,1,0]}, "epaulette-shin":{s:"body",r:4,dmg:[1,1,1]}
 };
-const RPG_ART=new Set(["ceinture-ferree","gantelets-ferres","heaume-ferre","cuirasse-etoiles","robe-toki","sept-etoiles","sandales-saint","raryuban","bottes-pleurs","chaines-cassandra","cuirasse-geolier","bandes-genie","bottes-ourse","gantelets-successeur","croc-loup","photo-jaunie","veste-moto","bandes-azur","jambieres-soleil","etoile-chariot","epaulette-rei","fouet-cassandra","masque-souther","collier-crocs","livre-amiba","ruban-lin","bandana-bat","jambieres-rouille","jambieres-pointes","jambieres-sang","ceinture-munitions","ceinture-cuir","ceinture-lion","ceinture-crane","essence","grenade","tsubo-toki","eau-pure","remede-medicine","epauliere-cloutee","epauliere-ferree","epauliere-sang","plastron-rouille","plastron-ferre","plastron-sang","bandes-cloutees","bandes-rouges","bandes-lion","gantelets-pointes","gantelets-sang","bottes-cuir","bottes-ferrees","bottes-sang","casque-pointes","heaume-noir","heaume-sang","heaume-daioh","ceinture-king","bandes-poing","bandages","bottes-desert","brassard-nanto","carte-puits","casque-jagi","ceinture-ermite","epaulettes","gants-cloutes","gourde","talisman-yuria","bandana","casque-punk","masque-fer","viande-sechee","ceinturon-clous","epaulette-shin"]);   // objets qui ont leur icône assets/item-<id>.webp (illustrations de David) ; les autres montrent le pictogramme de leur place
-const RPG_ZONEONLY={"cuirasse-etoiles":"jg","gantelets-successeur":"jg","bottes-ourse":"jg","robe-toki":"am","bandes-genie":"am","sandales-saint":"am","cuirasse-geolier":"cs","chaines-cassandra":"cs","bottes-pleurs":"cs","ceinture-ferree":"sc","gantelets-ferres":"mamiya","bottes-ferrees":"jg","epauliere-ferree":"am","heaume-ferre":"cs","plastron-ferre":"yd","heaume-sang":"sc","gantelets-sang":"sc","epauliere-sang":"sc","plastron-sang":"mamiya","bottes-sang":"mamiya","jambieres-sang":"mamiya"};   // objets qui ne tombent que dans une zone (set de sang) ; à garder en phase avec accounts.js
+const RPG_ART=new Set(["armure-kenoh","ceinture-kenoh","gantelets-kenoh","bottes-kenoh","ceinture-ferree","gantelets-ferres","heaume-ferre","cuirasse-etoiles","robe-toki","sept-etoiles","sandales-saint","raryuban","bottes-pleurs","chaines-cassandra","cuirasse-geolier","bandes-genie","bottes-ourse","gantelets-successeur","croc-loup","photo-jaunie","veste-moto","bandes-azur","jambieres-soleil","etoile-chariot","epaulette-rei","fouet-cassandra","masque-souther","collier-crocs","livre-amiba","ruban-lin","bandana-bat","jambieres-rouille","jambieres-pointes","jambieres-sang","ceinture-munitions","ceinture-cuir","ceinture-lion","ceinture-crane","essence","grenade","tsubo-toki","eau-pure","remede-medicine","epauliere-cloutee","epauliere-ferree","epauliere-sang","plastron-rouille","plastron-ferre","plastron-sang","bandes-cloutees","bandes-rouges","bandes-lion","gantelets-pointes","gantelets-sang","bottes-cuir","bottes-ferrees","bottes-sang","casque-pointes","heaume-noir","heaume-sang","heaume-daioh","ceinture-king","bandes-poing","bandages","bottes-desert","brassard-nanto","carte-puits","casque-jagi","ceinture-ermite","epaulettes","gants-cloutes","gourde","talisman-yuria","bandana","casque-punk","masque-fer","viande-sechee","ceinturon-clous","epaulette-shin"]);   // objets qui ont leur icône assets/item-<id>.webp (illustrations de David) ; les autres montrent le pictogramme de leur place
+const RPG_ZONEONLY={"cuirasse-etoiles":"jg","gantelets-successeur":"jg","bottes-ourse":"jg","robe-toki":"am","bandes-genie":"am","sandales-saint":"am","cuirasse-geolier":"cs","chaines-cassandra":"cs","bottes-pleurs":"cs","ceinture-ferree":"sc","gantelets-ferres":"mamiya","bottes-ferrees":"jg","epauliere-ferree":"am","heaume-ferre":"cs","plastron-ferre":"yd","armure-kenoh":"kenoh","gantelets-kenoh":"kenoh","ceinture-kenoh":"kenoh","bottes-kenoh":"kenoh","heaume-sang":"sc","gantelets-sang":"sc","epauliere-sang":"sc","plastron-sang":"mamiya","bottes-sang":"mamiya","jambieres-sang":"mamiya"};   // objets qui ne tombent que dans une zone (set de sang) ; à garder en phase avec accounts.js
 const RPG_PRICE=[20,40,80], RPG_SELL=[5,10,20,35,60,100], RPG_PTS={fight:6,event:8,elite:10,boss:25}, RPG_PTS_AGAIN={fight:1,event:1,elite:2,boss:5};   // points la première fois / sur une étape déjà faite ; à garder en phase avec /api/rpg
 // qualité d'un objet : "id~bonus" (tiré par le serveur). hp1 / hp2 = renforcé, les autres = parfait
 const RPG_AFF={hp1:{hp:1},hp2:{hp:2},hp3:{hp:3},lg1:{dmg:[1,0,0]},my1:{dmg:[0,1,0]},ld1:{dmg:[0,0,1]},rg1:{rage:1}};
@@ -8228,7 +8228,7 @@ function rpgFx(id){ const it=rpgDef(id), o=[], [b,a]=id.split("~"), base=RPG_ITE
   if(it.noDodge) o.push(L("rpgFxNoDodge"));
   if(it.noCounter) o.push(L("rpgFxNoCounter"));
   if(it.blood) o.push(L("rpgFxBlood"));
-  if(RPG_FER.includes(b)) o.push(L("rpgFxFer"));
+  { const st=rpgSetOf(b); if(st) o.push(L(st.tx)); }
   if(it.steal) o.push(L("rpgFxSteal"));
   if(it.fuel) o.push(L("rpgFxFuel"));
   if(it.raryu) o.push(L("rpgFxRaryu"));
@@ -8245,11 +8245,14 @@ function rpgFixSlots(v){ for(const [f,e] of Object.entries(v.eq||{})){ for(const
 function rpgInv(){ const st=ACC.user&&ACC.user.stats, v=st?(st.rpg||(st.rpg={})):(RPG.inv||(RPG.inv={}));
   v.bag=(Array.isArray(v.bag)?v.bag:[]).filter(id=>rpgDef(id)); if(!v.eq||typeof v.eq!=="object") v.eq={}; if(v.fixed!==3){ rpgFixSlots(v); v.fixed=3; delete v.fixed2; } return v; }
 function rpgAdd(id){ const b=rpgInv().bag; if(b.length>=RPG_BAG) return false; b.push(id); b.sort((x,y)=>rpgDef(y).r-rpgDef(x).r); return true; }
-const RPG_FER=["ceinture-ferree","gantelets-ferres","bottes-ferrees","epauliere-ferree","heaume-ferre","plastron-ferre"], RPG_FER_B={3:{end:1},5:{hp:4}};   // set ferré : une pièce par zone, bonus à 3 et 5 pièces portées
-const rpgFerN=e=>RPG_SLOTS.filter(sl=>RPG_FER.includes(String(e[sl]||"").split("~")[0])).length;
+const RPG_SETS={   // sets : bonus selon le nombre de pièces portées par le même perso
+  fer:{ids:["ceinture-ferree","gantelets-ferres","bottes-ferrees","epauliere-ferree","heaume-ferre","plastron-ferre"],b:{3:{end:1},5:{hp:4}},tx:"rpgFxFer"},   // une pièce par zone
+  kenoh:{ids:["heaume-daioh","armure-kenoh","gantelets-kenoh","ceinture-kenoh","bottes-kenoh"],b:{3:{rage:1},5:{dmg:[0,0,1]}},tx:"rpgFxKenoh"} };   // réservé à la future zone de Ken-Oh
+const rpgSetOf=id=>Object.values(RPG_SETS).find(st=>st.ids.includes(String(id||"").split("~")[0]));
+const rpgSetN=(e,st)=>RPG_SLOTS.filter(sl=>st.ids.includes(String(e[sl]||"").split("~")[0])).length;
 function rpgStat(fid,key,lvl){ const e=rpgInv().eq[fid]||{}; let n=0;
   for(const s of RPG_SLOTS){ const it=rpgDef(e[s]); if(it&&it[key]) n+=key==="dmg"?(it.dmg[lvl]||0):it[key]; }
-  if(key!=="dmg"){ const c=rpgFerN(e); for(const [k,b] of Object.entries(RPG_FER_B)) if(c>=+k&&b[key]) n+=b[key]; } return n; }
+  for(const st of Object.values(RPG_SETS)){ const c=rpgSetN(e,st); for(const [k,b] of Object.entries(st.b)) if(c>=+k&&b[key]) n+=key==="dmg"?(b.dmg[lvl]||0):b[key]; } return n; }
 const rpgMax=i=>RPG.run.base[i]+rpgStat(RPG.run.team[i],"hp");
 const rpgMaxes=()=>RPG.run.team.map((_,i)=>rpgMax(i));
 const rpgHp=()=>RPG.run.hp.map((h,i)=>Math.min(h,rpgMax(i)));
@@ -8969,6 +8972,14 @@ Object.assign(UI.it,{rpgFxFer:"Set ferrato: 3 pezzi indossati → +1 resistenza 
 Object.assign(UI.it.rpgItems,{"ceinture-ferree": "Cintura ferrata", "gantelets-ferres": "Guanti ferrati", "heaume-ferre": "Elmo ferrato"});
 Object.assign(UI.ja,{rpgFxFer:"鉄のセット：3つ装備で毎ターンスタミナ+1、5つで最大HP+4"});
 Object.assign(UI.ja.rpgItems,{"ceinture-ferree": "鉄の帯", "gantelets-ferres": "鉄の籠手", "heaume-ferre": "鉄の兜"});
+Object.assign(UI.fr,{rpgFxKenoh:"Set de Ken-Oh : 3 pièces portées → +1 rage au début du combat ; 5 pièces → Lourds +1"});
+Object.assign(UI.fr.rpgItems,{"armure-kenoh": "Armure de Ken-Oh", "gantelets-kenoh": "Brassards de Ken-Oh", "ceinture-kenoh": "Ceinture de Ken-Oh", "bottes-kenoh": "Bottes de Ken-Oh"});
+Object.assign(UI.en,{rpgFxKenoh:"Ken-Oh set: 3 pieces worn → +1 rage at the start of the fight; 5 pieces → Heavies +1"});
+Object.assign(UI.en.rpgItems,{"armure-kenoh": "Ken-Oh's armor", "gantelets-kenoh": "Ken-Oh's bracers", "ceinture-kenoh": "Ken-Oh's belt", "bottes-kenoh": "Ken-Oh's boots"});
+Object.assign(UI.it,{rpgFxKenoh:"Set di Ken-Oh: 3 pezzi indossati → +1 rabbia a inizio combattimento; 5 pezzi → Pesanti +1"});
+Object.assign(UI.it.rpgItems,{"armure-kenoh": "Armatura di Ken-Oh", "gantelets-kenoh": "Bracciali di Ken-Oh", "ceinture-kenoh": "Cintura di Ken-Oh", "bottes-kenoh": "Stivali di Ken-Oh"});
+Object.assign(UI.ja,{rpgFxKenoh:"拳王のセット：3つ装備で戦闘開始時に怒り+1、5つで重攻撃+1"});
+Object.assign(UI.ja.rpgItems,{"armure-kenoh": "拳王の鎧", "gantelets-kenoh": "拳王の腕甲", "ceinture-kenoh": "拳王の帯", "bottes-kenoh": "拳王のブーツ"});
 const DOSHI_GRAVE=new Set(["extra-3","extra-1","extra-2","arc6-8","arc6-10","arc6-12","arc6-16","arc6-18","arc6-20","arc5-11","arc5-14","king-8","king-11","arc2-6","arc2-13","arc2-14","arc2-19","arc2-20","arc2-21","arc2-24","arc3-1","arc3-7","arc3-11","arc3-14","arc4-14","arc4-16","arc4-18","arc4-19"]);
 const DOSHI_F=(t,id)=>`assets/doshi-face${DOSHI_GRAVE.has(id)?"4":DOSHI_LAUGH.test(String(t))?"3":[...String(t)].reduce((a,c)=>a+c.charCodeAt(0),0)%2?"2":""}.webp`;   // 2 portraits, toujours le même pour un texte donné
 /* ===== roue du destin : le Dōshi lit tes étoiles, un tour par jour (le serveur tire le résultat) ===== */
