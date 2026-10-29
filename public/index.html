@@ -1692,7 +1692,7 @@ body[data-terr="medicine"]{--terrbg:url("assets/terrain-medicine.webp")}body[dat
 /* événement, repos, bazar */
 .rgpage{display:flex;flex-direction:column;align-items:center;gap:12px;width:100%;max-width:760px;margin:0 auto;padding:0 12px 18px;box-sizing:border-box;text-align:center}
 .rgpage h3.rgh{margin:0;font:700 30px/1.05 var(--f-display);color:#fff2d6;text-shadow:0 2px 0 #3a0a00}
-.rgmap.z-yd{background-image:linear-gradient(180deg,rgba(13,9,7,.10),rgba(13,9,7,.30)),url(assets/rpg-carte-yd.webp)}.rgz.z-yd{background-image:linear-gradient(180deg,rgba(13,9,7,.45),rgba(13,9,7,.85)),url(assets/rpg-carte-yd.webp);background-position:center,40% center}.rgmap.z-cs{background-image:linear-gradient(180deg,rgba(13,9,7,.10),rgba(13,9,7,.30)),url(assets/rpg-carte-cs.webp)}.rgz.z-cs{background-image:linear-gradient(180deg,rgba(13,9,7,.45),rgba(13,9,7,.85)),url(assets/rpg-carte-cs.webp);background-position:center,88% center}.rgmap.z-am{background-image:linear-gradient(180deg,rgba(13,9,7,.10),rgba(13,9,7,.30)),url(assets/rpg-carte-am.webp)}.rgz.z-am{background-image:linear-gradient(180deg,rgba(13,9,7,.45),rgba(13,9,7,.85)),url(assets/rpg-carte-am.webp);background-position:center,85% center}.rgmap.z-jg{background-image:linear-gradient(180deg,rgba(13,9,7,.12),rgba(13,9,7,.35)),url(assets/rpg-carte-jg.webp)}.rgz.z-jg{background-image:linear-gradient(180deg,rgba(13,9,7,.45),rgba(13,9,7,.85)),url(assets/rpg-carte-jg.webp);background-position:center,70% center}.rgmap.z-mamiya,.rgmap.z-sc,.rgmap.z-jg,.rgmap.z-am,.rgmap.z-cs,.rgmap.z-yd,.rgmap.z-so{aspect-ratio:1586/992;background-size:cover,100% 100%;background-position:center,center}
+.rgmap.z-yd{background-image:linear-gradient(180deg,rgba(13,9,7,.10),rgba(13,9,7,.30)),url(assets/rpg-carte-yd.webp)}.rgz.z-yd{background-image:linear-gradient(180deg,rgba(13,9,7,.45),rgba(13,9,7,.85)),url(assets/rpg-carte-yd.webp);background-position:center,40% center}.rgmap.z-cs{background-image:linear-gradient(180deg,rgba(13,9,7,.10),rgba(13,9,7,.30)),url(assets/rpg-carte-cs.webp)}.rgz.z-cs{background-image:linear-gradient(180deg,rgba(13,9,7,.45),rgba(13,9,7,.85)),url(assets/rpg-carte-cs.webp);background-position:center,88% center}.rgmap.z-am{background-image:linear-gradient(180deg,rgba(13,9,7,.10),rgba(13,9,7,.30)),url(assets/rpg-carte-am.webp)}.rgz.z-am{background-image:linear-gradient(180deg,rgba(13,9,7,.45),rgba(13,9,7,.85)),url(assets/rpg-carte-am.webp);background-position:center,85% center}.rgmap.z-jg{background-image:linear-gradient(180deg,rgba(13,9,7,.12),rgba(13,9,7,.35)),url(assets/rpg-carte-jg.webp)}.rgz.z-jg{background-image:linear-gradient(180deg,rgba(13,9,7,.45),rgba(13,9,7,.85)),url(assets/rpg-carte-jg.webp);background-position:center,70% center}.rgmap.z-mamiya,.rgmap.z-sc,.rgmap.z-jg,.rgmap.z-am,.rgmap.z-cs,.rgmap.z-yd,.rgmap.z-so{aspect-ratio:1586/992;background-size:cover,100% 100%;background-position:center,center}.rgmap.z-yd{aspect-ratio:1536/864}
 @media (max-width:760px){.rgmapsc{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:16px;scrollbar-width:thin}.rgmapsc .rgmap{min-width:720px}}   /* petit écran : la carte garde sa taille et défile de gauche à droite */
 .rgmap.z-mamiya{background-image:linear-gradient(180deg,rgba(13,9,7,.12),rgba(13,9,7,.35)),url(assets/rpg-carte-mamiya.webp)}
 .rgmap.z-sc{background-image:linear-gradient(180deg,rgba(13,9,7,.12),rgba(13,9,7,.35)),url(assets/rpg-carte-sc.webp)}
@@ -6588,7 +6588,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261029203609";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261029211146";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
@@ -8152,16 +8152,16 @@ const RPG_ZONES={mamiya:{id:"mamiya",n:2,len:6,boss:"daioh",face:"kiba",leg:"col
   cs_uighur:{t:"boss",x:89,y:14,next:[],ai:.9,boss:1.55,foe:p=>["uighur","casssol1","casssol3"]}
  },locked:[{k:"yudz",x:94,y:90,to:"yd"}]},
  yd:{id:"yd",n:6,len:6,boss:"yd_yuda",face:"narc",leg:"epaulette-rei",ev:"_yd",need:["cs:cs_uighur"],nodes:{
-  start:{t:"start",x:15,y:86,nm:"yd_start",next:["yd_route"]},
-  yd_route:{t:"fight",x:19,y:64,next:["yd_village"],ai:.78,hp:1.3,foe:p=>["yudasol1","yudasol2",p[0]]},
-  yd_village:{t:"event",x:49,y:43,next:["yd_galf","yd_convoi"],ai:.78,hp:1.3,foe:p=>["yudasol3","yudasol4","yudasol5"]},
-  yd_galf:{t:"elite",x:11,y:27,next:["bazar","oasis"],ai:.88,hp:1.3,foe:p=>["galf","galf1","galf2"]},
-  yd_convoi:{t:"fight",x:52,y:65,next:["bazar","oasis"],ai:.8,hp:1.3,foe:p=>["yudasol6","yudasol2",p[0]]},
-  bazar:{t:"shop",x:63,y:77,next:["yd_dagar"]},
-  oasis:{t:"rest",x:87,y:71,nm:"yd_inn",next:["yd_dagar"]},
-  yd_dagar:{t:"elite",x:40,y:16,next:["yd_yuda"],ai:.86,hp:1.22,foe:p=>["dagar","doubleyuda","yudasol5"]},
-  yd_yuda:{t:"boss",x:83,y:20,next:[],ai:.92,boss:1.6,foe:p=>["narc","komak","yudasol6"]}
- },locked:[{k:"soz",x:91,y:50}]},
+  start:{t:"start",x:10,y:83,nm:"yd_start",next:["yd_route"]},
+  yd_route:{t:"fight",x:30,y:70,next:["yd_village"],ai:.78,hp:1.3,foe:p=>["yudasol1","yudasol2",p[0]]},
+  yd_village:{t:"event",x:50,y:56,next:["yd_galf","yd_convoi"],ai:.78,hp:1.3,foe:p=>["yudasol3","yudasol4","yudasol5"]},
+  yd_galf:{t:"elite",x:13,y:37,next:["bazar","oasis"],ai:.88,hp:1.3,foe:p=>["galf","galf1","galf2"]},
+  yd_convoi:{t:"fight",x:66,y:80,next:["bazar","oasis"],ai:.8,hp:1.3,foe:p=>["yudasol6","yudasol2",p[0]]},
+  bazar:{t:"shop",x:87,y:68,next:["yd_dagar"]},
+  oasis:{t:"rest",x:78,y:38,nm:"yd_inn",next:["yd_dagar"]},
+  yd_dagar:{t:"elite",x:40,y:23,next:["yd_yuda"],ai:.86,hp:1.22,foe:p=>["dagar","doubleyuda","yudasol5"]},
+  yd_yuda:{t:"boss",x:89,y:24,next:[],ai:.92,boss:1.6,foe:p=>["narc","komak","yudasol6"]}
+ },locked:[{k:"soz",x:91,y:46}]},
  sc:{id:"sc",n:1,len:8,boss:"sc_shin",face:"rival",leg:"ceinture-king",ev:"_sc",nodes:{
   start:{t:"start",x:6,y:77,nm:"sc_start",next:["sc_zeed"]},
   sc_zeed:{t:"fight",x:16,y:64,next:["sc_spade"],ai:.4,foe:p=>["zeed","zeedsol1","zeedsol2"]},
