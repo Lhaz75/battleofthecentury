@@ -6588,7 +6588,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261029121703";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261029185600";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
@@ -8137,7 +8137,7 @@ const RPG_ZONES={mamiya:{id:"mamiya",n:2,len:6,boss:"daioh",face:"kiba",leg:"col
   am_pont:{t:"fight",x:47,y:45,next:["bazar","oasis"],ai:.75,hp:1.2,foe:p=>["gyukihabu","chasseur2",p[0]]},
   bazar:{t:"shop",x:62,y:62,next:["am_cave"]},
   oasis:{t:"rest",x:76,y:45,next:["am_cave"]},
-  am_cave:{t:"elite",x:71,y:80,next:["am_amiba"],ai:.82,hp:1.15,foe:p=>["goda","snakeman","mantisman"]},
+  am_cave:{t:"elite",x:71,y:80,next:["am_amiba"],ai:.78,hp:1.1,foe:p=>["goda","snakeman","mantisman"]},
   am_amiba:{t:"boss",x:88,y:20,next:[],ai:.88,boss:1.45,foe:p=>["amiba",...shuffle(["goda","snakeman","mantisman"]).slice(0,2)]}
  },locked:[{k:"casz",x:88,y:82,to:"cs"}]},
  cs:{id:"cs",n:5,len:6,boss:"cs_uighur",face:"uighur",leg:"fouet-cassandra",ev:"_cs",need:["am:am_amiba"],nodes:{
@@ -8159,7 +8159,7 @@ const RPG_ZONES={mamiya:{id:"mamiya",n:2,len:6,boss:"daioh",face:"kiba",leg:"col
   yd_convoi:{t:"fight",x:52,y:65,next:["bazar","oasis"],ai:.8,hp:1.3,foe:p=>["yudasol6","yudasol2",p[0]]},
   bazar:{t:"shop",x:63,y:77,next:["yd_dagar"]},
   oasis:{t:"rest",x:87,y:71,nm:"yd_inn",next:["yd_dagar"]},
-  yd_dagar:{t:"elite",x:40,y:16,next:["yd_yuda"],ai:.9,hp:1.3,foe:p=>["dagar","doubleyuda","yudasol5"]},
+  yd_dagar:{t:"elite",x:40,y:16,next:["yd_yuda"],ai:.86,hp:1.22,foe:p=>["dagar","doubleyuda","yudasol5"]},
   yd_yuda:{t:"boss",x:83,y:20,next:[],ai:.92,boss:1.6,foe:p=>["narc","komak","yudasol6"]}
  },locked:[{k:"soz",x:91,y:50}]},
  sc:{id:"sc",n:1,len:8,boss:"sc_shin",face:"rival",leg:"ceinture-king",ev:"_sc",nodes:{
