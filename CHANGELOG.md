@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Terres désolées : le set ferré devient un vrai set ! 6 pièces, une seule par zone (Ceinture ferrée zone 1, Gantelets ferrés zone 2, Bottes zone 3, Épaulière zone 4, Heaume ferré zone 5, Plastron zone 6). 3 pièces portées : +1 endurance par tour, 5 pièces : +4 PV max. La falaise des bêtes et la tour de Yuda sont un peu plus faciles
 - Terres désolées, équilibrage : les sets de Jagi, du faux Toki et de Cassandra sont renforcés (+1 PV sur la plupart des pièces) pour rejoindre le set de sang. Plastron ferré et Jambières à pointes : PV max +5 → +4
 - Terres désolées : 15 nouveaux objets ! 3 rares (Bandes bleues, Jambières du soleil, Veste de motard), 2 reliques simples (Photo jaunie, Croc de loup), l'Étoile du Grand Chariot (relique mythique), et un set mythique propre à chaque zone : zone 3 (Veste de Jagi, Gantelets de Jagi, Bottes de Jagi), zone 4 (Robe du faux Toki, Bandes du génie, Bottes du saint), zone 5 (Cuirasse du geôlier, Chaînes de Cassandra, Bottes de la cité des pleurs). Illustrations de Lhaz, à venir pour certains
 - Terres désolées : les pièces du set de sang tombent maintenant aussi dans les zones 3 à 6 (merci Jérôme)
