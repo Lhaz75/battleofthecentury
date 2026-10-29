@@ -24,7 +24,7 @@ const RPG_IT = { "raryuban": [3, 0], "sept-etoiles": [3, 0], "bottes-desert": [0
   "epauliere-cloutee": [1, 1], "epauliere-ferree": [3, 1], "epauliere-sang": [4, 1],
   "remede-medicine": [2, 0], "eau-pure": [3, 0], "grenade": [2, 0], "tsubo-toki": [4, 0], "essence": [1, 0],
   "ceinture-munitions": [0, 1], "ceinture-cuir": [1, 1], "ceinture-lion": [3, 1], "ceinture-crane": [4, 1],
-  "jambieres-rouille": [1, 1], "jambieres-pointes": [3, 1], "jambieres-sang": [4, 1], "bandana-bat": [3, 1], "ruban-lin": [3, 1], "livre-amiba": [5, 1], "masque-souther": [5, 1], "fouet-cassandra": [5, 1], "epaulette-rei": [5, 1] };   // id : [rareté, équipable]
+  "jambieres-rouille": [1, 1], "jambieres-pointes": [3, 1], "jambieres-sang": [4, 1], "bandana-bat": [3, 1], "ruban-lin": [3, 1], "livre-amiba": [5, 1], "masque-souther": [5, 1], "fouet-cassandra": [5, 1], "epaulette-rei": [5, 1], "bandes-azur": [2, 1], "jambieres-soleil": [2, 1], "etoile-chariot": [4, 1], "veste-moto": [2, 1], "photo-jaunie": [0, 1], "croc-loup": [1, 1], "cuirasse-etoiles": [4, 1], "gantelets-successeur": [4, 1], "bottes-ourse": [4, 1], "robe-toki": [4, 1], "bandes-genie": [4, 1], "sandales-saint": [4, 1], "cuirasse-geolier": [4, 1], "chaines-cassandra": [4, 1], "bottes-pleurs": [4, 1] };   // id : [rareté, équipable]
 // zones : étapes qui donnent du butin, étape à avoir battue pour ouvrir la zone, légendaire du boss (5 %)
 const RPG_ZONES = { mamiya: { need: ["sc:sc_shin", "mamiya:jagi"], nodes: { zeed: "fight", old: "event", kiba: "elite", ruines: "fight", madara: "elite", daioh: "boss" }, leg: "collier-crocs" },   // Jagi aura sa zone (3), avec le Casque de Jagi
   sc: { nodes: { sc_zeed: "fight", sc_spade: "fight", sc_village: "event", sc_diamond: "elite", sc_club: "fight", sc_chateau: "fight", sc_heart: "elite", sc_shin: "boss" }, leg: "ceinture-king" },
@@ -38,7 +38,7 @@ const RPG_DROP = { fight: [50, 35, 15], event: [0, 0, 100], elite: [0, 48, 35, 1
 const RPG_SHOP = { "bottes-desert": 20, "bandes-poing": 20, "ceinture-munitions": 20, "ceinture-cuir": 40, "bandages": 20, "gourde": 20, "bandana": 20, "gants-cloutes": 40, "epaulettes": 40, "casque-punk": 40, "bottes-cuir": 40, "casque-pointes": 40, "bandes-cloutees": 40, "plastron-rouille": 40, "essence": 40, "viande-sechee": 40, "talisman-yuria": 80, "carte-puits": 80, "remede-medicine": 80, "masque-fer": 80, "ceinturon-clous": 80 };
 const RPG_ID = /^[a-z][a-z-]{1,23}(~(hp[123]|lg1|my1|ld1|rg1))?$/;   // objet, avec ou sans bonus de qualité
 const rpgOk = x => typeof x === "string" && RPG_ID.test(x) && !!RPG_IT[x.split("~")[0]];
-const RPG_ZONEONLY = { "heaume-sang": "sc", "gantelets-sang": "sc", "epauliere-sang": "sc", "plastron-sang": "mamiya", "bottes-sang": "mamiya", "jambieres-sang": "mamiya" };   // set de sang : chaque pièce ne tombe que dans sa zone
+const RPG_ZONEONLY = { "cuirasse-etoiles": "jg", "gantelets-successeur": "jg", "bottes-ourse": "jg", "robe-toki": "am", "bandes-genie": "am", "sandales-saint": "am", "cuirasse-geolier": "cs", "chaines-cassandra": "cs", "bottes-pleurs": "cs", "heaume-sang": "sc", "gantelets-sang": "sc", "epauliere-sang": "sc", "plastron-sang": "mamiya", "bottes-sang": "mamiya", "jambieres-sang": "mamiya" };   // set de sang : chaque pièce ne tombe que dans sa zone
 // réglages des terres désolées modifiables depuis l'admin (stockés en base, "rpgcfg") : rareté, prix, zone, retrait du butin, poids de butin, légendaire et taux du boss
 let RPG_CFG = {};
 const cfgIt = id => (RPG_CFG.items && RPG_CFG.items[id]) || {};
