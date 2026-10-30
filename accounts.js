@@ -5,7 +5,8 @@ const crypto = require("crypto");
 const STORY_TEST = /^arc3-|^arc4-|^arc5-|^arc6-|^extra-/;
 const EXTRA_AFTER = { "extra-4": "arc2-7", "extra-1": "arc2-15", "extra-2": "arc3-8", "extra-3": "arc6-4" };   // souvenirs : débloqués par un chapitre de l'histoire   // arcs en test (lecture seule pour les joueurs) : vider la regex (/^$/) pour ouvrir
 // magasin de persos : prix selon le coût (fighters.json) ; persos de départ et persos de l'histoire exclus (à garder en phase avec CHAR_START / STORY_CH dans index.html)
-const RPG_BAG = 48;   // taille du sac des Terres désolées (à garder égale à RPG_BAG dans index.html)
+const RPG_BAG = 96;   // taille du sac des Terres désolées (à garder égale à RPG_BAG dans index.html) : les objets identiques s'empilent, une pile = une place
+const rpgRoom = (bag, it) => bag.includes(it) || new Set(bag).size < RPG_BAG;
 const SHOP_START = new Set(["maitre", "sage", "linh", "bat", "vieux", "dans", "huey", "shuren", "nuage", "shachi", "shoki", "general", "mamiya", "ein", "rima", "bella"]);
 const SHOP_STORY = new Set(["zeed", "ventre", "spade", "sarge", "colonel", "rival", "madara", "kiba", "joker", "jackal", "devil", "fourbe", "diamond", "club", "fox", "barcom", "amiba", "demon", "hyo", "boltz", "taiga", "solia", "uighur"]);
 const SHOP_LIST = new Set(["raohshura", "kenj", "tokij", "shuj", "ryukenj", "jukeij", "jagij", "kenshin", "ryu", "biao", "kasumi", "shuken", "tesshin", "ogai", "rofu", "wei", "feiyan", "jugai", "garuda", "asura", "mang", "charles", "liu", "yasaka", "taiyan", "dayan", "sanga", "seiji", "frieda", "asam", "kai", "bukoh", "satora"]);   // seuls persos en vente (liste de David) ; les autres s'obtiennent par l'histoire
@@ -80,17 +81,20 @@ function rpgRoll(kind, leg, zone, legRate) {
   return out;
 }
 function rpgClean(inv) {
-  const bag = (Array.isArray(inv && inv.bag) ? inv.bag : []).filter(rpgOk).slice(0, RPG_BAG), eq = {};
-  for (const [f, o] of Object.entries(inv && typeof inv.eq === "object" && inv.eq || {}).slice(0, 150)) {
-    if (!/^[a-z0-9]{1,16}$/.test(f) || !o || typeof o !== "object") continue;
-    const e = {}; for (const k of ["head", "body", "waist", "hands", "feet", "relic"]) if (rpgOk(o[k])) e[k] = o[k];
-    if (Object.keys(e).length) eq[f] = e;
-  }
-  return { bag, eq };
+  const bag = []; for (const x of (Array.isArray(inv && inv.bag) ? inv.bag : []).slice(0, 2000)) if (rpgOk(x) && rpgRoom(bag, x)) bag.push(x);
+  const cleanEq = src => { const eq = {};
+    for (const [f, o] of Object.entries(src && typeof src === "object" && src || {}).slice(0, 150)) {
+      if (!/^[a-z0-9]{1,16}$/.test(f) || !o || typeof o !== "object") continue;
+      const e = {}; for (const k of ["head", "body", "waist", "hands", "feet", "relic"]) if (rpgOk(o[k])) e[k] = o[k];
+      if (Object.keys(e).length) eq[f] = e;
+    } return eq; };
+  const eq = cleanEq(inv && inv.eq), eq2 = cleanEq(inv && inv.eq2), on = {};   // deux tenues par perso : eq = la tenue portée, eq2 = l'autre ; on[f] = 2 si la tenue portée est la tenue 2
+  for (const [f, v] of Object.entries(inv && typeof inv.on === "object" && inv.on || {}).slice(0, 150)) if (/^[a-z0-9]{1,16}$/.test(f) && v === 2) on[f] = 2;
+  return { bag, eq, eq2, on };
 }
 // le nouvel inventaire ne contient que des objets déjà possédés (on peut déplacer, utiliser, jeter ; jamais ajouter)
 function rpgWithin(n, cur) {
-  const all = v => [...v.bag, ...Object.values(v.eq).flatMap(e => Object.values(e))], have = new Map();
+  const all = v => [...v.bag, ...[v.eq, v.eq2 || {}].flatMap(q => Object.values(q).flatMap(e => Object.values(e)))], have = new Map();
   for (const x of all(cur)) have.set(x, (have.get(x) || 0) + 1);
   for (const x of all(n)) { const c = have.get(x) || 0; if (!c) return false; have.set(x, c - 1); }
   return true;
@@ -315,7 +319,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
     const R = { seg, lucky }, own = W.frames = W.frames || [], tit = W.titles = W.titles || [];
     const frame = () => { const f = WHEEL_FRAMES.filter(f => !own.includes(f)); if (!f.length) return null; const k = f[rnd(f.length)]; own.push(k); return k; };
     const title = k => { if (tit.includes(k)) return null; tit.push(k); return k; };
-    const tester = isTester(u), inv = tester ? (st.rpg = rpgClean(st.rpg)) : null, bagOk = inv && inv.bag.length < RPG_BAG;
+    const tester = isTester(u), inv = tester ? (st.rpg = rpgClean(st.rpg)) : null, bagOk = !!inv;
     if (seg === "ryo") { R.ryo = [20, 30, 40, 50][rnd(4)]; ryoGive(st, R.ryo); }
     else if (seg === "ryo100") { R.ryo = 100; ryoGive(st, 100); }
     else if (seg === "fav") { const played = Object.entries(st.fav || {}).sort((a, b) => b[1] - a[1]).slice(0, 8).map(e => e[0]);
@@ -324,7 +328,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
       if (left.length) { R.fighter = left[rnd(left.length)]; W.trial = { id: R.fighter, day }; } else { R.seg = "ryo100"; R.ryo = 100; ryoGive(st, 100); } }
     else if (seg === "bless") W.bless = day;
     else if (seg === "treasure") {
-      if (bagOk) { const r = Math.random(), it = r < 0.25 ? "raryuban" : r < 0.5 ? "sept-etoiles" : rpgRoll("elite", null, null)[0]; if (it) { inv.bag.push(it); R.item = it; } }
+      if (bagOk) { const r = Math.random(), it = r < 0.25 ? "raryuban" : r < 0.5 ? "sept-etoiles" : rpgRoll("elite", null, null)[0]; if (it && rpgRoom(inv.bag, it)) { inv.bag.push(it); R.item = it; } }
       if (!R.item) { const f = frame(); if (f) R.frame = f; else { R.ryo = 50; ryoGive(st, 50); } } }
     else if (seg === "jackpot") { R.ryo = 300; ryoGive(st, 300); const f = frame(); if (f) R.frame = f; R.title = title("elu"); }
     else if (seg === "doom") { W.doom = 1; W.doomN = (W.doomN || 0) + 1; if (W.doomN >= 3) R.title = title("survivant"); }
@@ -744,12 +748,12 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
         if (!aw) { gain = (first ? RPG_PTS : RPG_PTS_AGAIN)[kind]; st.pts += gain; bumpFav(st, body.team); wb = wheelWin(st, body.team, true, gain); if (kind === "boss") st.rpgClears = (st.rpgClears || 0) + 1; }
         // un objet la première fois sur chaque étape ; le boss en lâche à chaque fois
         const rolls = first || kind === "boss" ? rpgRoll(kind, rpgLeg(zone).leg, zone, rpgLeg(zone).rate) : kind === "event" ? rpgRoll("again", null, zone) : kind === "elite" ? rpgRoll("fight", null, zone) : kind === "fight" ? rpgRoll("again", null, zone) : [];   // combat refait : un objet blanc ou bleu, pour équiper les autres équipes   // élite refaite : butin d'un combat normal   // événement refait : un petit objet
-        for (const it of rolls) { if (inv.bag.length < RPG_BAG) { inv.bag.push(it); loot.push(it); } else lost++; }
+        for (const it of rolls) { if (rpgRoom(inv.bag, it)) { inv.bag.push(it); loot.push(it); } else lost++; }
         if (!aw) ach = achCheck(st, body.feats);
       } else if (act === "buy") {
         const item = String(body.item || ""), price = rpgPrice(item);
         if (!price) return [400, { error: "bad" }];
-        if (inv.bag.length >= RPG_BAG) return [409, { error: "full" }];
+        if (!rpgRoom(inv.bag, item)) return [409, { error: "full" }];
         if ((st.pts || 0) - (st.ryoSpent || 0) < price) return [402, { error: "poor" }];
         st.ryoSpent = (st.ryoSpent || 0) + price; inv.bag.push(item);
       } else if (act === "sell") {   // vendre un objet au bazar
