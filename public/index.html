@@ -6589,7 +6589,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261030213546";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261030223633";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
@@ -8250,7 +8250,7 @@ const rpgUsed=b=>new Set(b).size, rpgRoom=id=>{ const b=rpgInv().bag; return b.i
 const rpgStacks=b=>{ const m=new Map(); b.forEach((id,i)=>{ const x=m.get(id); if(x) x.n++; else m.set(id,{i,n:1}); }); return m; };   // id -> {i : 1er index, n : nombre}
 const rpgOut=f=>(rpgInv().on[f]===2?2:1);   // tenue portée par le perso
 function rpgSetOut(f,n){ const v=rpgInv(); if(rpgOut(f)===n) return; const a=v.eq[f], b=v.eq2[f]; if(b) v.eq[f]=b; else delete v.eq[f]; if(a) v.eq2[f]=a; else delete v.eq2[f]; if(n===2) v.on[f]=2; else delete v.on[f]; }
-function rpgAdd(id){ const b=rpgInv().bag; if(!rpgRoom(id)) return false; b.push(id); b.sort((x,y)=>rpgDef(y).r-rpgDef(x).r); return true; }
+function rpgAdd(id){ if(!rpgRoom(id)) return false; const b=rpgInv().bag;   /* rpgInv() recrée le tableau du sac : le lire APRÈS rpgRoom */ b.push(id); b.sort((x,y)=>rpgDef(y).r-rpgDef(x).r); return true; }
 const RPG_SETS={   // sets : bonus selon le nombre de pièces portées par le même perso
   fer:{ids:["ceinture-ferree","gantelets-ferres","bottes-ferrees","epauliere-ferree","heaume-ferre","plastron-ferre"],b:{3:{end:1},5:{hp:4}},tx:"rpgFxFer"},   // une pièce par zone
   kenoh:{ids:["heaume-daioh","armure-kenoh","gantelets-kenoh","ceinture-kenoh","bottes-kenoh","bride-kokuoh"],b:{3:{rage:1},5:{dmg:[0,0,1]}},tx:"rpgFxKenoh"},
@@ -8998,10 +8998,10 @@ Object.assign(UI.it,{rpgFxDesert:"Set del vagabondo: 3 pezzi indossati → quest
 Object.assign(UI.it.rpgItems,{"cheche": "Turbante del deserto", "cache-poussiere": "Spolverino", "ceinture-gourde": "Cintura con borraccia", "mitaines-cuir": "Mezzi guanti di cuoio", "lunettes-sable": "Occhiali da sabbia"});
 Object.assign(UI.ja,{rpgFxDesert:"放浪者のセット：3つ装備で勝利のたびにこの拳士のHPが2回復、5つで毎ターンスタミナ+1"});
 Object.assign(UI.ja.rpgItems,{"cheche": "砂漠の頭巾", "cache-poussiere": "ダスターコート", "ceinture-gourde": "水筒付きベルト", "mitaines-cuir": "革の指なし手袋", "lunettes-sable": "砂よけゴーグル"});
-Object.assign(UI.fr,{rpgOutN:n=>`Tenue ${n}`,rpgOutHint:"Choisis la tenue de chaque perso pour ce voyage. La tenue 2 commence vide : pars avec elle pour la remplir."});
-Object.assign(UI.en,{rpgOutN:n=>`Outfit ${n}`,rpgOutHint:"Pick each fighter's outfit for this journey. Outfit 2 starts empty: set off with it to fill it."});
-Object.assign(UI.it,{rpgOutN:n=>`Tenuta ${n}`,rpgOutHint:"Scegli la tenuta di ogni combattente per questo viaggio. La tenuta 2 parte vuota: parti con lei per riempirla."});
-Object.assign(UI.ja,{rpgOutN:n=>`装備${n}`,rpgOutHint:"この旅で使う各拳士の装備セットを選ぼう。装備2は最初は空っぽ。装備2で出発して埋めよう。"});
+Object.assign(UI.fr,{rpgOutN:n=>`Tenue ${n}`,rpgOutHint:"Chaque perso a 2 tenues. Celle que tu choisis ici, il la porte pendant tout le voyage ; l'autre reste rangée sur lui (pas dans le sac). La tenue 2 commence vide : choisis-la, pars, et équipe-la en route."});
+Object.assign(UI.en,{rpgOutN:n=>`Outfit ${n}`,rpgOutHint:"Each fighter has 2 outfits. The one you pick here is worn for the whole journey; the other stays stored on them (not in the bag). Outfit 2 starts empty: pick it, set off, and gear it up on the way."});
+Object.assign(UI.it,{rpgOutN:n=>`Tenuta ${n}`,rpgOutHint:"Ogni combattente ha 2 tenute. Quella che scegli qui la indossa per tutto il viaggio; l'altra resta riposta su di lui (non nella borsa). La tenuta 2 parte vuota: sceglila, parti e equipaggiala strada facendo."});
+Object.assign(UI.ja,{rpgOutN:n=>`装備${n}`,rpgOutHint:"各拳士は装備セットを2つ持つ。ここで選んだ方を旅の間ずっと身につけ、もう一方は本人が保管する（バッグには入らない）。装備2は最初は空っぽ。選んで出発し、道中で装備しよう。"});
 const DOSHI_GRAVE=new Set(["extra-3","extra-1","extra-2","arc6-8","arc6-10","arc6-12","arc6-16","arc6-18","arc6-20","arc5-11","arc5-14","king-8","king-11","arc2-6","arc2-13","arc2-14","arc2-19","arc2-20","arc2-21","arc2-24","arc3-1","arc3-7","arc3-11","arc3-14","arc4-14","arc4-16","arc4-18","arc4-19"]);
 const DOSHI_F=(t,id)=>`assets/doshi-face${DOSHI_GRAVE.has(id)?"4":DOSHI_LAUGH.test(String(t))?"3":[...String(t)].reduce((a,c)=>a+c.charCodeAt(0),0)%2?"2":""}.webp`;   // 2 portraits, toujours le même pour un texte donné
 /* ===== roue du destin : le Dōshi lit tes étoiles, un tour par jour (le serveur tire le résultat) ===== */
