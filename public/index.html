@@ -1705,7 +1705,7 @@ body[data-terr="medicine"]{--terrbg:url("assets/terrain-medicine.webp")}body[dat
 .rgart{display:block;width:100%;max-height:44vh;aspect-ratio:16/9;object-fit:cover;border-radius:14px;border:1px solid rgba(232,176,74,.3)}
 .rgpage>p{margin:0;font-size:17px;line-height:1.45;color:#e8d9c2}
 .rgpage blockquote{margin:0;padding:2px 0 2px 14px;border-left:3px solid #8a6a44;font-style:italic;font-size:17px;line-height:1.45;color:#f3e7d3;text-align:left}
-.rgch{display:flex;flex-direction:column;align-items:flex-start;gap:5px;width:100%;padding:14px 16px;border-radius:12px;border:1px solid rgba(232,176,74,.4);background:rgba(18,10,6,.75);color:#efe5d2;text-align:left;font:inherit;cursor:pointer}.tbtn.admwin{width:auto;padding:0 10px;font:700 12px/1 var(--f-ui,inherit);color:#8fd19e;border-color:#3f9a55;letter-spacing:.04em}.pipeq{margin-left:6px;font:600 11px/1 var(--f-ui,inherit);color:#e8b04a;white-space:nowrap;align-self:center}@media (max-width:700px){.bar-actions .grow{position:relative}.pipeq{position:absolute;left:0;bottom:calc(100% + 4px);margin:0;padding:3px 7px;border-radius:7px;background:rgba(10,6,4,.85);border:1px solid rgba(232,176,74,.35);z-index:3}}.rgch:disabled{opacity:.5;cursor:not-allowed;filter:grayscale(.6)}
+.rgch{display:flex;flex-direction:column;align-items:flex-start;gap:5px;width:100%;padding:14px 16px;border-radius:12px;border:1px solid rgba(232,176,74,.4);background:rgba(18,10,6,.75);color:#efe5d2;text-align:left;font:inherit;cursor:pointer}.tbtn.admwin{width:auto;padding:0 10px;font:700 12px/1 var(--f-ui,inherit);color:#8fd19e;border-color:#3f9a55;letter-spacing:.04em}.pipeq{margin-left:6px;font:600 11px/1 var(--f-ui,inherit);color:#e8b04a;white-space:nowrap;align-self:center}@media (max-width:999px){.bar-actions .grow{position:relative}.pipeq{position:absolute;left:0;bottom:calc(100% + 4px);margin:0;padding:3px 7px;border-radius:7px;background:rgba(10,6,4,.85);border:1px solid rgba(232,176,74,.35);z-index:3}}.rgch:disabled{opacity:.5;cursor:not-allowed;filter:grayscale(.6)}
 .rgch:hover,.rgch:focus-visible{border-color:#e8b04a;background:rgba(232,176,74,.1)}
 .rgch b{font:700 18px/1.1 Oswald,var(--f-display)}.rgch span{font-size:14px;color:#cdb79a}.rgch em{font-style:normal;font-size:13px;color:#9cc3f5}
 @media (max-width:860px){
@@ -6589,7 +6589,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261030212831";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261030213546";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
