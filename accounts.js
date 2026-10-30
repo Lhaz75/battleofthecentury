@@ -763,9 +763,11 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
       } else if (act === "save") {
         if (body.inv) { const n = rpgClean(body.inv); if (rpgWithin(n, inv)) st.rpg = n; else saved = "rejected"; }
       } else return [400, { error: "bad" }];
+      const gift = [];   // objets rendus par un admin
+      if (Array.isArray(st.rpgGift) && st.rpgGift.length) { for (const g of st.rpgGift) if (rpgOk(g) && rpgRoom(st.rpg.bag, g)) { st.rpg.bag.push(g); gift.push(g); } delete st.rpgGift; }
       st.rpg.bag.sort((x, y) => RPG_IT[y.split("~")[0]][0] - RPG_IT[x.split("~")[0]][0]);
       await store.saveStats(u.id, st);
-      return [200, { user: pubUser(u), gain, ach, loot, lost, first, saved, wb }];
+      return [200, { user: pubUser(u), gain, ach, loot, lost, first, saved, wb, gift }];
     },
     // survie : une vague à la fois, dans l'ordre (la vague 1 lance une nouvelle série)
     "POST /api/surv": async (req, body) => {
@@ -912,6 +914,11 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
     "POST /api/admin/user": async (req, body) => {
       const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];
       const t = await store.byId(+body.id); if (!t) return [404, { error: "notfound" }];
+      if (body.action === "give") {   // rendre un objet à un joueur (objets perdus) : il arrive dans son sac à sa prochaine action dans les Terres désolées
+        const item = String(body.item || ""); if (!rpgOk(item)) return [400, { error: "bad" }];
+        const st = t.stats || {}; st.rpgGift = [...(Array.isArray(st.rpgGift) ? st.rpgGift : []), item].slice(-50);
+        await store.saveStats(t.id, st); console.log(`Admin ${u.name} : donne ${item} à ${t.name}`); return [200, { ok: true }];
+      }
       if (isAdmin(t) && body.action !== "reset") return [400, { error: "self" }];
       if (body.action === "reset") {
         const A = "abcdefghjkmnpqrstuvwxyz23456789"; const pw = Array.from(crypto.randomBytes(10), b => A[b % A.length]).join("");
