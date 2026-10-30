@@ -916,8 +916,8 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
       const t = await store.byId(+body.id); if (!t) return [404, { error: "notfound" }];
       if (body.action === "give") {   // rendre un objet à un joueur (objets perdus) : il arrive dans son sac à sa prochaine action dans les Terres désolées
         const item = String(body.item || ""); if (!rpgOk(item)) return [400, { error: "bad" }];
-        const st = t.stats || {}; st.rpgGift = [...(Array.isArray(st.rpgGift) ? st.rpgGift : []), item].slice(-50);
-        await store.saveStats(t.id, st); console.log(`Admin ${u.name} : donne ${item} à ${t.name}`); return [200, { ok: true }];
+        const n = Math.max(1, Math.min(20, Math.floor(+body.n) || 1)), st = t.stats || {}; st.rpgGift = [...(Array.isArray(st.rpgGift) ? st.rpgGift : []), ...Array(n).fill(item)].slice(-60);
+        await store.saveStats(t.id, st); console.log(`Admin ${u.name} : donne ${n} × ${item} à ${t.name}`); return [200, { ok: true }];
       }
       if (isAdmin(t) && body.action !== "reset") return [400, { error: "self" }];
       if (body.action === "reset") {

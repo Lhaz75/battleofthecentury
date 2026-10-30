@@ -1650,7 +1650,7 @@ body[data-terr="medicine"]{--terrbg:url("assets/terrain-medicine.webp")}body[dat
 .rgslot.sel,.rgcell.sel{outline:2px solid #fff2d6;outline-offset:1px}
 .rgbagh{font:600 13px/1 Oswald,var(--f-display);letter-spacing:.18em;text-transform:uppercase;color:#d8c19b;margin-bottom:10px}
 .rgbag{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
-.agive{display:inline-flex;gap:4px;align-items:center}.agive select{max-width:190px;font:inherit;font-size:12px;padding:4px;border-radius:6px;background:#1a120c;color:#efe5d2;border:1px solid rgba(232,176,74,.35)}
+.agive{display:inline-flex;gap:4px;align-items:center}.agive .agn{width:48px;font:inherit;font-size:12px;padding:4px;border-radius:6px;background:#1a120c;color:#efe5d2;border:1px solid rgba(232,176,74,.35)}.agive select{max-width:190px;font:inherit;font-size:12px;padding:4px;border-radius:6px;background:#1a120c;color:#efe5d2;border:1px solid rgba(232,176,74,.35)}
 .rgcell .rgn{position:absolute!important;right:3px!important;bottom:3px!important;left:auto!important;top:auto!important;width:auto!important;height:auto!important;margin:0!important;padding:1px 3px;border-radius:4px;background:rgba(0,0,0,.55);font:700 11px/1 var(--fb,sans-serif);color:#fff;text-shadow:0 0 3px #000,0 0 2px #000;pointer-events:none}.rgouts{display:flex;gap:4px;flex:0 0 auto}.rgout{font:600 11px/1 inherit;padding:5px 8px;border-radius:999px;border:1px solid rgba(232,176,74,.35);background:transparent;color:inherit;cursor:pointer;opacity:.7}.rgout.on{background:rgba(232,176,74,.22);border-color:#e8b04a;opacity:1}.rgot{font-size:10px;opacity:.75;margin-right:4px;font-weight:600}.rgwcol{display:flex;flex-direction:column;gap:3px}.rgcell{position:relative}
 .rgcell{aspect-ratio:1;border-radius:10px;border:2px solid var(--rc);background:color-mix(in srgb,var(--rc) 14%,transparent);color:color-mix(in srgb,var(--rc) 70%,#fff);display:grid;place-items:center;padding:0;cursor:pointer}
 .rgcell.empty{border:1px dashed #4a3a2c;background:none;cursor:default}
@@ -6590,7 +6590,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261030224835";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261030230556";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
@@ -8823,7 +8823,7 @@ function drawAdmin(sel){
       ${avatarHTML(u)}<div class="ainfo"><b>${esc(u.name)}${u.admin?` <i class="atag">admin</i>`:""}${u.tester&&!u.admin?` <i class="atag tst">${L("admTester")}</i>`:""}${u.banned?` <i class="atag red">${L("admBanned")}</i>`:""}${u.ipBanned?` <i class="atag red">IP</i>`:""}</b>
       <span>${L("admCreated")} ${fmtDate(u.created)} · ${L("admSeen")} ${fmtDate(u.last_seen)}</span>
       <span>IP ${esc(u.last_ip||"—")}${u.first_ip&&u.first_ip!==u.last_ip?` (${L("admFirst")} ${esc(u.first_ip)})`:""} · ${u.stats.pts||0} pts · Elo ${u.stats.elo??1000} · ${(u.stats.aiW||0)+(u.stats.vsW||0)}-${(u.stats.aiL||0)+(u.stats.vsL||0)}</span></div>
-      <div class="aacts">${btn("reset",u.id,L("admReset"))}${u.admin?"":btn(u.tester?"untester":"tester",u.id,L(u.tester?"admUntester":"admMkTester"))}${u.tester||u.admin?btn("untry",u.id,L("admUntry")):""}${u.admin?"":(u.banned?btn("unban",u.id,L("admUnban")):btn("ban",u.id,L("admBan"),"warn"))}${!u.admin&&u.last_ip?(u.ipBanned?btn("ipunban",u.id,L("admIpUnban")):btn("ipban",u.id,L("admIpBan"),"warn")):""}${u.admin?"":btn("delete",u.id,L("admDelete"),"danger")}${u.tester||u.admin?`<span class="agive"><select data-givesel="${u.id}">${GIVE_OPTS()}</select><button class="abtn" data-give="${u.id}">${L("admGive")}</button></span>`:""}</div></div>`).join("")||`<p class="note">—</p>`}</div>
+      <div class="aacts">${btn("reset",u.id,L("admReset"))}${u.admin?"":btn(u.tester?"untester":"tester",u.id,L(u.tester?"admUntester":"admMkTester"))}${u.tester||u.admin?btn("untry",u.id,L("admUntry")):""}${u.admin?"":(u.banned?btn("unban",u.id,L("admUnban")):btn("ban",u.id,L("admBan"),"warn"))}${!u.admin&&u.last_ip?(u.ipBanned?btn("ipunban",u.id,L("admIpUnban")):btn("ipban",u.id,L("admIpBan"),"warn")):""}${u.admin?"":btn("delete",u.id,L("admDelete"),"danger")}${u.tester||u.admin?`<span class="agive"><select data-givesel="${u.id}">${GIVE_OPTS()}</select><input type="number" min="1" max="20" value="1" data-given="${u.id}" class="agn" aria-label="×"><button class="abtn" data-give="${u.id}">${L("admGive")}</button></span>`:""}</div></div>`).join("")||`<p class="note">—</p>`}</div>
     <h3 class="pfh">${L("admIpList")}</h3>
     <div class="admips">${ADM.ipBans.length?ADM.ipBans.map(b=>`<div class="arow small"><div class="ainfo"><b>${esc(b.ip)}</b><span>${esc(b.who||"")} · ${fmtDate(b.t)}</span></div><div class="aacts"><button class="abtn" data-unip="${esc(b.ip)}">${L("admIpUnban")}</button></div></div>`).join(""):`<p class="note">—</p>`}
       <form id="ipform" class="admtop"><input id="ipin" placeholder="${esc(L("admIpPh"))}"><button class="btn sm" type="submit">${L("admIpBan")}</button></form></div>
@@ -8843,7 +8843,7 @@ function drawAdmin(sel){
     refresh(act==="reset"?L("admNewPw",esc(u.name),`<code>${esc(r.password)}</code>`):L("admDone"));
   });
   box.querySelectorAll("[data-give]").forEach(b=>b.onclick=async()=>{ const id=+b.dataset.give, it=box.querySelector(`[data-givesel="${id}"]`).value, u=ADM.users.find(x=>x.id===id); if(!it||!u) return; SFX.play("click");
-    const r=await api("POST","/api/admin/user",{id,action:"give",item:it}).catch(()=>({ok:false})); refresh(r.ok?L("admGiven",esc(rpgName(it)),esc(u.name)):`<span class="err">${accErr(r.error)}</span>`); });
+    const n=Math.max(1,Math.min(20,+(box.querySelector(`[data-given="${id}"]`)||{}).value||1)); const r=await api("POST","/api/admin/user",{id,action:"give",item:it,n}).catch(()=>({ok:false})); refresh(r.ok?L("admGiven",(n>1?n+" × ":"")+esc(rpgName(it)),esc(u.name)):`<span class="err">${accErr(r.error)}</span>`); });
   box.querySelectorAll("[data-unip]").forEach(b=>b.onclick=async()=>{ const r=await api("POST","/api/admin/ipban",{ip:b.dataset.unip,ban:false}).catch(()=>({ok:false})); refresh(r.ok?L("admDone"):`<span class="err">${accErr(r.error)}</span>`); });
   $("#ipform").onsubmit=async e=>{ e.preventDefault(); const ip=$("#ipin").value.trim(); if(!ip) return; const r=await api("POST","/api/admin/ipban",{ip,ban:true}).catch(()=>({ok:false})); refresh(r.ok?L("admDone"):`<span class="err">${accErr(r.error)}</span>`); };
 }
