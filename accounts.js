@@ -37,7 +37,10 @@ const RPG_ZONES = { mamiya: { need: ["sc:sc_shin", "mamiya:jagi"], nodes: { zeed
 const RPG_PTS = { fight: 6, event: 8, elite: 10, boss: 25 }, RPG_PTS_AGAIN = { fight: 1, event: 1, elite: 2, boss: 5 };   // première fois / étape déjà faite
 const RPG_DROP = { fight: [50, 35, 15], event: [0, 0, 100], elite: [0, 48, 35, 15, 2], boss: [0, 0, 0, 84, 16], again: [60, 30, 10] };   // again : événement déjà fait (commun / peu commun)   // poids par rareté
 const RPG_SHOP = { "bottes-desert": 20, "veste-loques": 20, "bandes-poing": 20, "ceinture-munitions": 20, "ceinture-cuir": 40, "bandages": 20, "gourde": 20, "bandana": 20, "gants-cloutes": 40, "epaulettes": 40, "casque-punk": 40, "bottes-cuir": 40, "casque-pointes": 40, "bandes-cloutees": 40, "plastron-rouille": 40, "essence": 40, "viande-sechee": 40, "talisman-yuria": 80, "carte-puits": 80, "remede-medicine": 80, "masque-fer": 80, "ceinturon-clous": 80 };
-const RPG_ID = /^[a-z][a-z-]{1,23}(~(hp[123]|lg1|my1|ld1|rg1))?$/;   // objet, avec ou sans bonus de qualité
+const RPG_ID = /^[a-z][a-z-]{1,23}(~(hp[1235]|lg1h?|my1h?|ld1h?|rg1h?))?$/;
+// forge : 2 objets identiques -> le même avec une étoile de plus (★★★ au plus). À garder en phase avec rpgForgeNext dans index.html
+const FORGE_NEXT = { "": "hp2", hp1: "hp3", hp2: "hp3", hp3: "hp5", lg1: "lg1h", my1: "my1h", ld1: "ld1h", rg1: "rg1h" }, FORGE_FEE = [10, 20, 40, 70, 120, 200];
+const rpgForgeNext = id => { const [b, q = ""] = String(id).split("~"); if (!RPG_IT[b] || !RPG_IT[b][1] || !(q in FORGE_NEXT)) return null; return b + "~" + FORGE_NEXT[q]; };   // objet, avec ou sans bonus de qualité
 const rpgOk = x => typeof x === "string" && RPG_ID.test(x) && !!RPG_IT[x.split("~")[0]];
 const RPG_ZONEONLY = { "cuirasse-etoiles": "jg", "gantelets-successeur": "jg", "bottes-ourse": "jg", "robe-toki": "am", "bandes-genie": "am", "sandales-saint": "am", "cuirasse-geolier": "cs", "chaines-cassandra": "cs", "bottes-pleurs": "cs", "ceinture-ferree": "sc", "gantelets-ferres": "mamiya", "bottes-ferrees": "jg", "medaillon-ferre": "am", "heaume-ferre": "cs", "plastron-ferre": "yd", "armure-kenoh": "kenoh", "gantelets-kenoh": "kenoh", "ceinture-kenoh": "kenoh", "bottes-kenoh": "kenoh", "bride-kokuoh": "kenoh", "heaume-sang": "sc", "gantelets-sang": "sc", "ceinture-sang": "sc", "epauliere-sang": "old", "plastron-sang": "mamiya", "bottes-sang": "mamiya", "amulette-sang": "mamiya", "jambieres-sang": "old" };   // set de sang : chaque pièce ne tombe que dans sa zone
 // réglages des terres désolées modifiables depuis l'admin (stockés en base, "rpgcfg") : rareté, prix, zone, retrait du butin, poids de butin, légendaire et taux du boss
@@ -760,6 +763,11 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
         if (!rpgRoom(inv.bag, item)) return [409, { error: "full" }];
         if ((st.pts || 0) - (st.ryoSpent || 0) < price) return [402, { error: "poor" }];
         st.ryoSpent = (st.ryoSpent || 0) + price; inv.bag.push(item);
+      } else if (act === "forge") {   // forge du bazar : 2 objets identiques du sac -> 1 objet avec une étoile de plus, contre des ryō
+        const item = String(body.item || ""), out = rpgOk(item) && rpgForgeNext(item); if (!out || !rpgOk(out)) return [400, { error: "bad" }];
+        const ks = inv.bag.reduce((r, x, i) => (x === item ? [...r, i] : r), []); if (ks.length < 2) return [400, { error: "bad" }];
+        const fee = FORGE_FEE[rpgRar(item.split("~")[0])] || 10; if ((st.pts || 0) - (st.ryoSpent || 0) < fee) return [402, { error: "poor" }];
+        st.ryoSpent = (st.ryoSpent || 0) + fee; inv.bag.splice(ks[1], 1); inv.bag.splice(ks[0], 1, out); loot = [out];
       } else if (act === "sell") {   // vendre un objet au bazar
         const item = String(body.item || ""), k = inv.bag.indexOf(item); if (k < 0 || !rpgOk(item)) return [400, { error: "bad" }];
         const price = [5, 10, 20, 35, 60, 100][rpgRar(item.split("~")[0])] || 5;
