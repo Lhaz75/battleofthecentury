@@ -44,6 +44,7 @@ const RPG_ZONEONLY = { "cuirasse-etoiles": "jg", "gantelets-successeur": "jg", "
 let RPG_CFG = {};
 const cfgIt = id => (RPG_CFG.items && RPG_CFG.items[id]) || {};
 const rpgRar = id => cfgIt(id).r != null ? cfgIt(id).r : RPG_IT[id][0];
+const PUNK_CRIES = ["abeshi", "hidebu", "tawaba", "uwaraba", "pappippu", "chinya", "awabyu"];   // à garder en phase avec PUNK_CRIES dans index.html
 const SANG_Z = ["jg", "am", "cs", "yd"], SANG_SET = new Set(["heaume-sang", "gantelets-sang", "ceinture-sang", "plastron-sang", "bottes-sang", "amulette-sang"]);   // le set de sang tombe aussi dans les zones 3 à 6 (demande de Jérôme)
 const rpgZoneOf = id => cfgIt(id).zone !== undefined ? (cfgIt(id).zone || null) : (RPG_ZONEONLY[id] || null);
 const rpgDropW = kind => (RPG_CFG.drop && RPG_CFG.drop[kind]) || RPG_DROP[kind];
@@ -410,7 +411,8 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
     daily1: { t: 1, c: s => (s.dailyN || 0) >= 1 }, daily10: { t: 2, c: s => (s.dailyN || 0) >= 10 }, daily30: { t: 3, c: s => (s.dailyN || 0) >= 30 },
     dojokyu: { t: 1, c: s => (s.dojoBest || 0) >= 6 }, dojodan: { t: 2, c: s => (s.dojoBest || 0) >= 11 }, dojomaster: { t: 3, c: s => (s.dojoBest || 0) >= 20 },
     duo: { t: 1, f: 1 }, quintet: { t: 1, f: 1 }, clanwin: { t: 1, f: 1 }, cheap: { t: 2, f: 1 },
-    ko100: { t: 1, c: s => (s.kos || 0) >= 100 }, ko500: { t: 2, c: s => (s.kos || 0) >= 500 }, ko1000: { t: 2, c: s => (s.kos || 0) >= 1000 }, ko5000: { t: 3, c: s => (s.kos || 0) >= 5000 }, ko10000: { t: 3, c: s => (s.kos || 0) >= 10000 }
+    ko100: { t: 1, c: s => (s.kos || 0) >= 100 }, ko500: { t: 2, c: s => (s.kos || 0) >= 500 }, ko1000: { t: 2, c: s => (s.kos || 0) >= 1000 }, ko5000: { t: 3, c: s => (s.kos || 0) >= 5000 }, ko10000: { t: 3, c: s => (s.kos || 0) >= 10000 },
+    cry1: { t: 1, c: s => Object.keys(s.cries || {}).length >= 1 }, cryall: { t: 3, c: s => PUNK_CRIES.every(k => (s.cries || {})[k]) }
   };
   // débloque ce qui est atteint ; renvoie les nouveaux succès (les points sont ajoutés aux stats)
   function achCheck(st, feats) {
@@ -918,8 +920,10 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
       const n = Math.floor(+body.n); if (!(n >= 1 && n <= 20)) return [400, { error: "bad" }];
       const now = Date.now(); if (now - (lastKo.get(u.id) || 0) < 5000) return [429, { error: "slow" }]; lastKo.set(u.id, now);
-      const st = u.stats; st.kos = (st.kos || 0) + n; const ach = achCheck(st); await store.saveStats(u.id, st);
-      return [200, { user: pubUser(u), ach }];
+      const st = u.stats; st.kos = (st.kos || 0) + n; const newCries = [];
+      for (const c of (Array.isArray(body.cries) ? body.cries : []).slice(0, 7)) if (PUNK_CRIES.includes(c) && !(st.cries || {})[c]) { st.cries = st.cries || {}; st.cries[c] = Date.now(); newCries.push(c); }   // cris des punks débloqués (combo ou ultime)
+      const ach = achCheck(st); await store.saveStats(u.id, st);
+      return [200, { user: pubUser(u), ach, newCries }];
     },
     "POST /api/admin/user": async (req, body) => {
       const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];

@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Nouveau : les cris des punks (idée de Jérôme) ! Achève un punk au combo (4 coups ou plus) ou à l'ultime pour débloquer son cri : ABESHI, HIDEBU, TAWABA… Il s'affiche ensuite en gros à chaque fois que ce punk tombe. 7 cris à collectionner (profil) et 2 succès
 - Terres désolées : le Masque de Souther passe dans l'emplacement relique (il se range tout seul si vous le portiez sur la tête)
 - Terres désolées : les sets ferré et de sang ont maintenant une pièce par emplacement (merci Jérôme). Nouveau Médaillon ferré (relique, zone 4) à la place de l'Épaulière ferrée, nouvelles Ceinture de sang (zone 1) et Amulette de sang (zone 2) à la place de l'Épaulière et des Jambières de sang. Les anciennes pièces restent dans vos sacs mais ne comptent plus pour le set
 - Terres désolées : nouvel objet commun pour le corps, la Veste en loques (+2 PV), aussi vendue au bazar
