@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Terres désolées : les sets ferré et de sang ont maintenant une pièce par emplacement (merci Jérôme). Nouveau Médaillon ferré (relique, zone 4) à la place de l'Épaulière ferrée, nouvelles Ceinture de sang (zone 1) et Amulette de sang (zone 2) à la place de l'Épaulière et des Jambières de sang. Les anciennes pièces restent dans vos sacs mais ne comptent plus pour le set
 - Terres désolées : nouvel objet commun pour le corps, la Veste en loques (+2 PV), aussi vendue au bazar
 - Nouveau : le compteur de KO (idée de maxGfive) ! Chaque adversaire mis KO compte, dans tous les modes, et s'affiche dans tes statistiques. 5 nouveaux succès à 100, 500, 1 000, 5 000 et 10 000 KO
 - Terres désolées : la zone 7, l'empire de Souther, est ouverte ! Elle se débloque après avoir battu Yuda. Galzus, Beji et Giji, la garde de la pyramide et le Saint Empereur lui-même. Légendaire : le Masque de Souther
