@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Terres désolées : nouvel objet commun pour le corps, la Veste en loques (+2 PV), aussi vendue au bazar
 - Nouveau : le compteur de KO (idée de maxGfive) ! Chaque adversaire mis KO compte, dans tous les modes, et s'affiche dans tes statistiques. 5 nouveaux succès à 100, 500, 1 000, 5 000 et 10 000 KO
 - Terres désolées : la zone 7, l'empire de Souther, est ouverte ! Elle se débloque après avoir battu Yuda. Galzus, Beji et Giji, la garde de la pyramide et le Saint Empereur lui-même. Légendaire : le Masque de Souther
 - Terres désolées : le sac passe à 96 places et les objets identiques s'empilent sur une seule case (×2, ×3…). Les objets avec des étoiles différentes gardent chacun leur case. Nouveau : deux tenues par perso ! Choisis la tenue 1 ou 2 de chaque perso au départ du voyage (idée de maxGfive)
