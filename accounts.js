@@ -266,6 +266,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
   const lastArc = new Map();
   const lastDojo = new Map();     // uid -> timestamp (dojo)
   const lastRpg = new Map();      // uid -> timestamp (voyage)
+  const lastKo = new Map();       // uid -> timestamp (compteur de KO)
   const lastStory = new Map();      // uid -> timestamp (arcade)
   const tries = new Map();        // ip -> { n, t }
 
@@ -408,7 +409,8 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
     weekpod: { t: 2, c: s => (s.wkPod || 0) >= 1 }, weekwin: { t: 3, c: s => (s.wkWin || 0) >= 1 }, weekwin3: { t: 3, c: s => (s.wkRun || 0) >= 3 },
     daily1: { t: 1, c: s => (s.dailyN || 0) >= 1 }, daily10: { t: 2, c: s => (s.dailyN || 0) >= 10 }, daily30: { t: 3, c: s => (s.dailyN || 0) >= 30 },
     dojokyu: { t: 1, c: s => (s.dojoBest || 0) >= 6 }, dojodan: { t: 2, c: s => (s.dojoBest || 0) >= 11 }, dojomaster: { t: 3, c: s => (s.dojoBest || 0) >= 20 },
-    duo: { t: 1, f: 1 }, quintet: { t: 1, f: 1 }, clanwin: { t: 1, f: 1 }, cheap: { t: 2, f: 1 }
+    duo: { t: 1, f: 1 }, quintet: { t: 1, f: 1 }, clanwin: { t: 1, f: 1 }, cheap: { t: 2, f: 1 },
+    ko100: { t: 1, c: s => (s.kos || 0) >= 100 }, ko500: { t: 2, c: s => (s.kos || 0) >= 500 }, ko1000: { t: 2, c: s => (s.kos || 0) >= 1000 }, ko5000: { t: 3, c: s => (s.kos || 0) >= 5000 }, ko10000: { t: 3, c: s => (s.kos || 0) >= 10000 }
   };
   // débloque ce qui est atteint ; renvoie les nouveaux succès (les points sont ajoutés aux stats)
   function achCheck(st, feats) {
@@ -910,6 +912,14 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
       const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];
       const list = (await store.listUsers()).map(x => ({ ...x, admin: isAdmin(x), tester: isTesterOnly(x), avatar: x.avatar_v ? `/api/avatar/${x.id}?v=${x.avatar_v}` : null, ipBanned: ipBanned(x.last_ip) }));
       return [200, { users: list, ipBans }];
+    },
+    // compteur de KO (idée de maxGfive) : chaque perso adverse mis KO, tous modes confondus ; envoyé par le client en fin de combat
+    "POST /api/kos": async (req, body) => {
+      const u = await auth(req); if (!u) return [401, { error: "auth" }];
+      const n = Math.floor(+body.n); if (!(n >= 1 && n <= 20)) return [400, { error: "bad" }];
+      const now = Date.now(); if (now - (lastKo.get(u.id) || 0) < 5000) return [429, { error: "slow" }]; lastKo.set(u.id, now);
+      const st = u.stats; st.kos = (st.kos || 0) + n; const ach = achCheck(st); await store.saveStats(u.id, st);
+      return [200, { user: pubUser(u), ach }];
     },
     "POST /api/admin/user": async (req, body) => {
       const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];
