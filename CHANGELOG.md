@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Terres désolées, zone 7 : nouveau set de la Croix Sainte (Souther et Shu) ! Masque de Souther (relique), Armure de Souther ou Veste de Shu au choix pour le torse, et les Bottes de Shu, nouvelle légendaire pour les pieds (sur l'élite « La garde de la pyramide »). 2 pièces : Moyens +1 ; 3 pièces : toute l'équipe récupère 2 PV après chaque victoire
 - Butin : un objet commun ne tombe plus qu'avec ★ au plus, comme à la forge (merci Jérôme)
 - Forge (retours de Jérôme) : tu choisis maintenant le bonus de chaque fusion (+2 PV, Légers, Moyens, Lourds ou rage). Étoiles max selon la rareté : ★ pour les communs, ★★ pour les peu communs, ★★★ à partir des rares. Rage plafonnée à +2 par objet. Les objets déjà forgés restent comme ils sont
 - Forge : passer de ★ à ★★ tire maintenant le bonus au hasard comme au butin (PV, Légers, Moyens, Lourds ou rage), au lieu de toujours donner des PV (merci Jérôme)
