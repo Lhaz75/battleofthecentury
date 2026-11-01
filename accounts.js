@@ -82,7 +82,7 @@ function rpgRoll(kind, leg, zone, legRate) {
   let x = Math.random() * w.reduce((s, v) => s + v, 0), r = 0; while (r < w.length - 1 && x >= w[r]) { x -= w[r]; r++; }
   const ids = Object.keys(RPG_IT).filter(id => rpgRar(id) === r && !WHEEL_ONLY.has(id) && !cfgIt(id).off && (!rpgZoneOf(id) || rpgZoneOf(id) === zone || (SANG_SET.has(id) && SANG_Z.includes(zone)))); if (!ids.length) return []; let it = ids[rnd(ids.length)];
   // qualité (objets équipables) : 6 % parfait, 24 % renforcé
-  if (RPG_IT[it][1]) { const q = Math.random(); if (q < 0.06) it += "~" + ["hp3", "lg1", "my1", "ld1", "rg1"][rnd(5)]; else if (q < 0.30) it += "~" + ["hp1", "hp2"][rnd(2)]; }
+  if (RPG_IT[it][1]) { const q = Math.random(), cap = FORGE_CAP[rpgRar(it)] ?? 3; if (q < 0.06 && cap >= 2) it += "~" + ["hp3", "lg1", "my1", "ld1", "rg1"][rnd(5)]; else if (q < 0.30) it += "~" + ["hp1", "hp2"][rnd(2)]; }   // étoiles max selon la rareté (communs : ★ au plus)
   const out = [it];
   if (kind === "boss") { out.push(...rpgRoll("fight", null, zone)); if (leg && Math.random() < (legRate == null ? 0.05 : legRate)) out.unshift(leg); }
   return out;

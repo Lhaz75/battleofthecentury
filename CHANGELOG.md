@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Butin : un objet commun ne tombe plus qu'avec ★ au plus, comme à la forge (merci Jérôme)
 - Forge (retours de Jérôme) : tu choisis maintenant le bonus de chaque fusion (+2 PV, Légers, Moyens, Lourds ou rage). Étoiles max selon la rareté : ★ pour les communs, ★★ pour les peu communs, ★★★ à partir des rares. Rage plafonnée à +2 par objet. Les objets déjà forgés restent comme ils sont
 - Forge : passer de ★ à ★★ tire maintenant le bonus au hasard comme au butin (PV, Légers, Moyens, Lourds ou rage), au lieu de toujours donner des PV (merci Jérôme)
 - Terres désolées : la forge arrive au bazar (idée de Jérôme) ! Fusionne 2 objets identiques pour en faire un seul avec une étoile de plus, jusqu'à ★★★ (nouvelles étoiles seulement à la forge). Coût en ryō selon la rareté
