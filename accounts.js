@@ -40,7 +40,8 @@ const RPG_SHOP = { "bottes-desert": 20, "veste-loques": 20, "bandes-poing": 20, 
 const RPG_ID = /^[a-z][a-z-]{1,23}(~(hp[1235]|lg1h?|my1h?|ld1h?|rg1h?))?$/;
 // forge : 2 objets identiques -> le même avec une étoile de plus (★★★ au plus). À garder en phase avec rpgForgeNext dans index.html
 const FORGE_NEXT = { "": "hp2", hp1: "hp3", hp2: "hp3", hp3: "hp5", lg1: "lg1h", my1: "my1h", ld1: "ld1h", rg1: "rg1h" }, FORGE_FEE = [10, 20, 40, 70, 120, 200];
-const rpgForgeNext = id => { const [b, q = ""] = String(id).split("~"); if (!RPG_IT[b] || !RPG_IT[b][1] || !(q in FORGE_NEXT)) return null; return b + "~" + FORGE_NEXT[q]; };   // objet, avec ou sans bonus de qualité
+const FORGE_2 = ["hp3", "lg1", "my1", "ld1", "rg1"];   // ★ -> ★★ : bonus tiré au hasard comme au butin (remarque de Jérôme : pas que des PV)
+const rpgForgeNext = (id, roll) => { const [b, q = ""] = String(id).split("~"); if (!RPG_IT[b] || !RPG_IT[b][1] || !(q in FORGE_NEXT)) return null; return b + "~" + (roll && (q === "hp1" || q === "hp2") ? FORGE_2[Math.floor(Math.random() * FORGE_2.length)] : FORGE_NEXT[q]); };   // objet, avec ou sans bonus de qualité
 const rpgOk = x => typeof x === "string" && RPG_ID.test(x) && !!RPG_IT[x.split("~")[0]];
 const RPG_ZONEONLY = { "cuirasse-etoiles": "jg", "gantelets-successeur": "jg", "bottes-ourse": "jg", "robe-toki": "am", "bandes-genie": "am", "sandales-saint": "am", "cuirasse-geolier": "cs", "chaines-cassandra": "cs", "bottes-pleurs": "cs", "ceinture-ferree": "sc", "gantelets-ferres": "mamiya", "bottes-ferrees": "jg", "medaillon-ferre": "am", "heaume-ferre": "cs", "plastron-ferre": "yd", "armure-kenoh": "kenoh", "gantelets-kenoh": "kenoh", "ceinture-kenoh": "kenoh", "bottes-kenoh": "kenoh", "bride-kokuoh": "kenoh", "heaume-sang": "sc", "gantelets-sang": "sc", "ceinture-sang": "sc", "epauliere-sang": "old", "plastron-sang": "mamiya", "bottes-sang": "mamiya", "amulette-sang": "mamiya", "jambieres-sang": "old" };   // set de sang : chaque pièce ne tombe que dans sa zone
 // réglages des terres désolées modifiables depuis l'admin (stockés en base, "rpgcfg") : rareté, prix, zone, retrait du butin, poids de butin, légendaire et taux du boss
@@ -764,7 +765,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
         if ((st.pts || 0) - (st.ryoSpent || 0) < price) return [402, { error: "poor" }];
         st.ryoSpent = (st.ryoSpent || 0) + price; inv.bag.push(item);
       } else if (act === "forge") {   // forge du bazar : 2 objets identiques du sac -> 1 objet avec une étoile de plus, contre des ryō
-        const item = String(body.item || ""), out = rpgOk(item) && rpgForgeNext(item); if (!out || !rpgOk(out)) return [400, { error: "bad" }];
+        const item = String(body.item || ""), out = rpgOk(item) && rpgForgeNext(item, true); if (!out || !rpgOk(out)) return [400, { error: "bad" }];
         const ks = inv.bag.reduce((r, x, i) => (x === item ? [...r, i] : r), []); if (ks.length < 2) return [400, { error: "bad" }];
         const fee = FORGE_FEE[rpgRar(item.split("~")[0])] || 10; if ((st.pts || 0) - (st.ryoSpent || 0) < fee) return [402, { error: "poor" }];
         st.ryoSpent = (st.ryoSpent || 0) + fee; inv.bag.splice(ks[1], 1); inv.bag.splice(ks[0], 1, out); loot = [out];

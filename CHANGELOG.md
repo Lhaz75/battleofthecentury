@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Forge : passer de ★ à ★★ tire maintenant le bonus au hasard comme au butin (PV, Légers, Moyens, Lourds ou rage), au lieu de toujours donner des PV (merci Jérôme)
 - Terres désolées : la forge arrive au bazar (idée de Jérôme) ! Fusionne 2 objets identiques pour en faire un seul avec une étoile de plus, jusqu'à ★★★ (nouvelles étoiles seulement à la forge). Coût en ryō selon la rareté
 - Nouveau : les cris des punks (idée de Jérôme) ! Achève un punk au combo (4 coups ou plus) ou à l'ultime pour débloquer son cri : ABESHI, HIDEBU, TAWABA… Il s'affiche ensuite en gros à chaque fois que ce punk tombe. 7 cris à collectionner (profil) et 2 succès
 - Terres désolées : le Masque de Souther passe dans l'emplacement relique (il se range tout seul si vous le portiez sur la tête)
