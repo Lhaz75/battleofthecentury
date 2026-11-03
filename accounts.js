@@ -43,7 +43,9 @@ const FORGE_FEE = [10, 20, 40, 70, 120, 200], FORGE_CAP = [1, 2, 3, 3, 3, 3], FO
 const RPG_RAGE = {"talisman-yuria": 2, "jambieres-soleil": 1, "etoile-chariot": 2, "veste-moto": 1, "croc-loup": 1, "sandales-saint": 1, "casque-pointes": 1, "heaume-sang": 1, "ceinture-kenoh": 1, "bride-kokuoh": 1, "cheche": 1, "lunettes-sable": 1, "bandes-rouges": 1, "ceinture-crane": 1, "epauliere-cloutee": 1, "epauliere-sang": 1, "ceinture-sang": 1, "bandana": 1};   // rage de base des objets (plafond de rage à la forge)
 const rpgStars = a => { if (!a) return 0; const [lp, fp = ""] = a.split("+"); return (lp ? ((lp === "hp1" || lp === "hp2") ? 1 : (lp === "hp5" || /h$/.test(lp)) ? 3 : 2) : 0) + fp.length; };
 const rpgRageOf = id => { const [b, a = ""] = id.split("~"), [lp, fp = ""] = a.split("+"); return (RPG_RAGE[b] || 0) + (/^rg1/.test(lp) ? 1 : 0) + fp.split("").filter(c => c === "r").length; };
-const rpgForgeOut = (id, c) => { const [b, a = ""] = id.split("~"), [lp, fp = ""] = a.split("+"); return b + "~" + lp + "+" + (fp + c).split("").sort().join(""); };
+// forme unique : un bonus de forge "+h" sans bonus de butin = le même objet que "~hp2" (Jérôme, 3 nov.) -> on range le "h" en hp2 pour que les deux s'empilent et se forgent ensemble
+const rpgCanon = id => { if (typeof id !== "string") return id; const [b, a] = id.split("~"); if (a == null) return id; let [lp, fp = ""] = a.split("+"); if (!lp && fp.includes("h")) { lp = "hp2"; fp = fp.replace("h", ""); } return b + "~" + lp + (fp ? "+" + fp : ""); };
+const rpgForgeOut = (id, c) => { const [b, a = ""] = id.split("~"), [lp, fp = ""] = a.split("+"); return rpgCanon(b + "~" + lp + "+" + (fp + c).split("").sort().join("")); };
 const rpgOk = x => typeof x === "string" && RPG_ID.test(x) && !!RPG_IT[x.split("~")[0]];
 const RPG_ZONEONLY = { "cuirasse-etoiles": "jg", "gantelets-successeur": "jg", "bottes-ourse": "jg", "robe-toki": "am", "bandes-genie": "am", "sandales-saint": "am", "cuirasse-geolier": "cs", "chaines-cassandra": "cs", "bottes-pleurs": "cs", "ceinture-ferree": "sc", "gantelets-ferres": "mamiya", "bottes-ferrees": "jg", "medaillon-ferre": "am", "heaume-ferre": "cs", "plastron-ferre": "yd", "armure-kenoh": "kenoh", "gantelets-kenoh": "kenoh", "ceinture-kenoh": "kenoh", "bottes-kenoh": "kenoh", "bride-kokuoh": "kenoh", "armure-souther": "so", "veste-shu": "so", "bottes-shu": "so", "heaume-sang": "sc", "gantelets-sang": "sc", "ceinture-sang": "sc", "epauliere-sang": "old", "plastron-sang": "mamiya", "bottes-sang": "mamiya", "amulette-sang": "mamiya", "jambieres-sang": "old" };   // set de sang : chaque pièce ne tombe que dans sa zone
 // réglages des terres désolées modifiables depuis l'admin (stockés en base, "rpgcfg") : rareté, prix, zone, retrait du butin, poids de butin, légendaire et taux du boss
@@ -88,11 +90,11 @@ function rpgRoll(kind, leg, zone, legRate) {
   return out;
 }
 function rpgClean(inv) {
-  const bag = []; for (const x of (Array.isArray(inv && inv.bag) ? inv.bag : []).slice(0, 2000)) if (rpgOk(x) && rpgRoom(bag, x)) bag.push(x);
+  const bag = []; for (const x0 of (Array.isArray(inv && inv.bag) ? inv.bag : []).slice(0, 2000)) { const x = rpgCanon(x0); if (rpgOk(x) && rpgRoom(bag, x)) bag.push(x); }
   const cleanEq = src => { const eq = {};
     for (const [f, o] of Object.entries(src && typeof src === "object" && src || {}).slice(0, 150)) {
       if (!/^[a-z0-9]{1,16}$/.test(f) || !o || typeof o !== "object") continue;
-      const e = {}; for (const k of ["head", "body", "waist", "hands", "feet", "relic"]) if (rpgOk(o[k])) e[k] = o[k];
+      const e = {}; for (const k of ["head", "body", "waist", "hands", "feet", "relic"]) { const v = rpgCanon(o[k]); if (rpgOk(v)) e[k] = v; }
       if (Object.keys(e).length) eq[f] = e;
     } return eq; };
   const eq = cleanEq(inv && inv.eq), eq2 = cleanEq(inv && inv.eq2), on = {};   // deux tenues par perso : eq = la tenue portée, eq2 = l'autre ; on[f] = 2 si la tenue portée est la tenue 2

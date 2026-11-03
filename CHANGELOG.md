@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Forge : un objet forgé « +2 PV » et le même objet trouvé avec ★ (+2 PV) sont maintenant le même objet : ils s'empilent et se forgent ensemble (merci Jérôme)
 - Forge : les stats actuelles de l'objet choisi s'affichent avant de choisir le bonus (merci Jérôme)
 - Armure de Souther : « Pas besoin de garde » remplace le Corps inversé (le premier coup de chaque combat fait +2 dégâts)
 - Terres désolées, zone 7 : nouveau set de la Croix Sainte (Souther et Shu) ! Masque de Souther (relique), Armure de Souther ou Veste de Shu au choix pour le torse, et les Bottes de Shu, nouvelle légendaire pour les pieds (sur l'élite « La garde de la pyramide »). 2 pièces : Moyens +1 ; 3 pièces : toute l'équipe récupère 2 PV après chaque victoire
