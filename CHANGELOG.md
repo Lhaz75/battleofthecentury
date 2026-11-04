@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Toki (jeune) « Premiers soins » et Ogai « Amour du maître » : le perso soigné et les PV rendus s'affichent maintenant, même quand c'est un perso en réserve qui est soigné
 - Forge : un objet forgé « +2 PV » et le même objet trouvé avec ★ (+2 PV) sont maintenant le même objet : ils s'empilent et se forgent ensemble (merci Jérôme)
 - Forge : les stats actuelles de l'objet choisi s'affichent avant de choisir le bonus (merci Jérôme)
 - Armure de Souther : « Pas besoin de garde » remplace le Corps inversé (le premier coup de chaque combat fait +2 dégâts)
