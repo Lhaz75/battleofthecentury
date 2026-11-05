@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Zone 7 : les Bottes de Shu (légendaire, 3e pièce du set de la Croix Sainte) apparaissent maintenant dans la liste des objets de la zone : elles tombent sur l'élite « La garde de la pyramide » (5 %) (merci Jérôme)
 - Règle des légendes affichée : les combattants à 5 points ont +1 dégât sur tous leurs coups et +20 % de PV (badge « Légende » sur leur fiche, et dans les règles). Défi du jour « boss » adouci : +15 % de PV et 2 rage au départ (au lieu de +25 % et 3) (merci Jérôme)
 - PC : avec beaucoup d'équipes enregistrées, la fiche du perso choisi ne passe plus sous la barre du bas (la liste des équipes défile) (signalé par Jérôme)
 - Terres désolées : quitter un combat ne fait plus perdre tout le voyage. Tu fuis le combat et tu reprends la carte avec les PV que tu avais à ce moment-là (signalé par Jérôme)
