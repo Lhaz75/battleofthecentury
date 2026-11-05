@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- PC : avec beaucoup d'équipes enregistrées, la fiche du perso choisi ne passe plus sous la barre du bas (la liste des équipes défile) (signalé par Jérôme)
 - Terres désolées : quitter un combat ne fait plus perdre tout le voyage. Tu fuis le combat et tu reprends la carte avec les PV que tu avais à ce moment-là (signalé par Jérôme)
 - Toki (jeune) « Premiers soins » et Ogai « Amour du maître » : le perso soigné et les PV rendus s'affichent maintenant, même quand c'est un perso en réserve qui est soigné
 - Forge : un objet forgé « +2 PV » et le même objet trouvé avec ★ (+2 PV) sont maintenant le même objet : ils s'empilent et se forgent ensemble (merci Jérôme)
