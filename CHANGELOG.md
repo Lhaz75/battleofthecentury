@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- L'Épaulière ferrée, qui ne fait plus partie du set ferré, s'appelle maintenant « Épaulière du pillard » pour éviter la confusion (même objet, mêmes stats)
 - Terres désolées : chaque zone affiche combien de fois tu l'as terminée, et dans combien de victoires sa légendaire est garantie (idée de Jérôme). Le compteur part d'aujourd'hui
 - Terres désolées : garantie de légendaire ! Si la légendaire d'un boss (ou les Bottes de Shu sur l'élite de la garde) n'est pas tombée en 14 victoires, la 15e la donne forcément. Le compteur repart à zéro quand elle tombe. Les règles du voyage sont aussi corrigées : une étape refaite donne toujours un petit objet
 - Zone 7 : les Bottes de Shu (légendaire, 3e pièce du set de la Croix Sainte) apparaissent maintenant dans la liste des objets de la zone : elles tombent sur l'élite « La garde de la pyramide » (5 %) (merci Jérôme)
