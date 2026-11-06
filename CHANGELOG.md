@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Bazar : tous les objets communs, peu communs et rares peuvent maintenant y être vendus (avant, les objets récents comme le Chèche, le Cache-poussière ou la Veste de motard n'y apparaissaient jamais). La liste des objets n'affiche plus « Bazar » pour les objets qui n'y sont pas vendus (merci Jérôme)
 - L'Épaulière ferrée, qui ne fait plus partie du set ferré, s'appelle maintenant « Épaulière du pillard » pour éviter la confusion (même objet, mêmes stats)
 - Terres désolées : chaque zone affiche combien de fois tu l'as terminée, et dans combien de victoires sa légendaire est garantie (idée de Jérôme). Le compteur part d'aujourd'hui
 - Terres désolées : garantie de légendaire ! Si la légendaire d'un boss (ou les Bottes de Shu sur l'élite de la garde) n'est pas tombée en 14 victoires, la 15e la donne forcément. Le compteur repart à zéro quand elle tombe. Les règles du voyage sont aussi corrigées : une étape refaite donne toujours un petit objet
