@@ -758,7 +758,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
         const now = Date.now(); if (!aw && now - (lastRpg.get(u.id) || 0) < 20000) return [429, { error: "slow" }];
         if (!aw) lastRpg.set(u.id, now);
         const seen = st.rpgSeen = st.rpgSeen || {}, key = zone + ":" + node; first = !seen[key]; seen[key] = 1;
-        if (!aw) { gain = (first ? RPG_PTS : RPG_PTS_AGAIN)[kind]; st.pts += gain; bumpFav(st, body.team); wb = wheelWin(st, body.team, true, gain); if (kind === "boss") st.rpgClears = (st.rpgClears || 0) + 1; }
+        if (!aw) { gain = (first ? RPG_PTS : RPG_PTS_AGAIN)[kind]; st.pts += gain; bumpFav(st, body.team); wb = wheelWin(st, body.team, true, gain); if (kind === "boss") { st.rpgClears = (st.rpgClears || 0) + 1; const zc = st.rpgZC = st.rpgZC || {}; zc[zone] = (zc[zone] || 0) + 1; } }   // rpgZC : boss battu par zone (Jérôme, 6 nov.)
         // un objet la première fois sur chaque étape ; le boss en lâche à chaque fois
         const rolls = first || kind === "boss" ? rpgRoll(kind, rpgLeg(zone).leg, zone, rpgLeg(zone).rate) : kind === "event" ? rpgRoll("again", null, zone) : kind === "elite" ? rpgRoll("fight", null, zone) : kind === "fight" ? rpgRoll("again", null, zone) : [];   // combat refait : un objet blanc ou bleu, pour équiper les autres équipes   // élite refaite : butin d'un combat normal   // événement refait : un petit objet
         if (zone === "so" && node === "so_garde" && Math.random() < rpgLeg(zone).rate) rolls.unshift("bottes-shu");   // légendaire de Shu sur l'élite de la garde (zone 7)
