@@ -35,6 +35,7 @@ const RPG_ZONES = { mamiya: { need: ["sc:sc_shin", "mamiya:jagi"], nodes: { zeed
   yd: { need: ["cs:cs_uighur"], nodes: { yd_route: "fight", yd_village: "event", yd_galf: "elite", yd_convoi: "fight", yd_dagar: "elite", yd_yuda: "boss" }, leg: "epaulette-rei" },
   so: { need: ["yd:yd_yuda", "yuda:yuda"], nodes: { so_galzus: "fight", so_village: "event", so_jumeaux: "elite", so_chantier: "fight", so_garde: "elite", so_souther: "boss" }, leg: "masque-souther" } };
 const RPG_PTS = { fight: 6, event: 8, elite: 10, boss: 25 }, RPG_PTS_AGAIN = { fight: 1, event: 1, elite: 2, boss: 5 };   // première fois / étape déjà faite
+const RPG_PITY = 15;   // victoires max sans la légendaire d'une source (boss de zone, élite de la garde)
 const RPG_DROP = { fight: [50, 35, 15], event: [0, 0, 100], elite: [0, 48, 35, 15, 2], boss: [0, 0, 0, 84, 16], again: [60, 30, 10] };   // again : événement déjà fait (commun / peu commun)   // poids par rareté
 const RPG_SHOP = { "bottes-desert": 20, "veste-loques": 20, "bandes-poing": 20, "ceinture-munitions": 20, "ceinture-cuir": 40, "bandages": 20, "gourde": 20, "bandana": 20, "gants-cloutes": 40, "epaulettes": 40, "casque-punk": 40, "bottes-cuir": 40, "casque-pointes": 40, "bandes-cloutees": 40, "plastron-rouille": 40, "essence": 40, "viande-sechee": 40, "talisman-yuria": 80, "carte-puits": 80, "remede-medicine": 80, "masque-fer": 80, "ceinturon-clous": 80 };
 const RPG_ID = /^[a-z][a-z-]{1,23}(~((hp[1235]|lg1h?|my1h?|ld1h?|rg1h?)(\+[hlmdr]{1,3})?|\+[hlmdr]{1,3}))?$/;   // objet, avec ou sans bonus de qualité (butin) et bonus de forge (+lettres)
@@ -761,6 +762,10 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
         // un objet la première fois sur chaque étape ; le boss en lâche à chaque fois
         const rolls = first || kind === "boss" ? rpgRoll(kind, rpgLeg(zone).leg, zone, rpgLeg(zone).rate) : kind === "event" ? rpgRoll("again", null, zone) : kind === "elite" ? rpgRoll("fight", null, zone) : kind === "fight" ? rpgRoll("again", null, zone) : [];   // combat refait : un objet blanc ou bleu, pour équiper les autres équipes   // élite refaite : butin d'un combat normal   // événement refait : un petit objet
         if (zone === "so" && node === "so_garde" && Math.random() < rpgLeg(zone).rate) rolls.unshift("bottes-shu");   // légendaire de Shu sur l'élite de la garde (zone 7)
+        // garantie de légendaire (6 nov.) : la RPG_PITY-ième victoire sans la légendaire de cette source la donne forcément ; compteur par source, remis à zéro quand elle tombe
+        if (!aw) { const L = rpgLeg(zone).leg, src = kind === "boss" && L ? [zone, L] : zone === "so" && node === "so_garde" ? ["so_garde", "bottes-shu"] : null;
+          if (src) { const p = st.rpgPity = st.rpgPity || {}, [pk, pid] = src;
+            if (rolls.includes(pid)) p[pk] = 0; else { p[pk] = (p[pk] || 0) + 1; if (p[pk] >= RPG_PITY) { rolls.unshift(pid); p[pk] = 0; } } } }
         for (const it of rolls) { if (rpgRoom(inv.bag, it)) { inv.bag.push(it); loot.push(it); } else lost++; }
         if (!aw) ach = achCheck(st, body.feats);
       } else if (act === "buy") {
