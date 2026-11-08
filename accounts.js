@@ -101,7 +101,8 @@ function rpgClean(inv) {
     } return eq; };
   const eq = cleanEq(inv && inv.eq), eq2 = cleanEq(inv && inv.eq2), on = {};   // deux tenues par perso : eq = la tenue portée, eq2 = l'autre ; on[f] = 2 si la tenue portée est la tenue 2
   for (const [f, v] of Object.entries(inv && typeof inv.on === "object" && inv.on || {}).slice(0, 150)) if (/^[a-z0-9]{1,16}$/.test(f) && v === 2) on[f] = 2;
-  return { bag, eq, eq2, on };
+  const lock = [...new Set((Array.isArray(inv && inv.lock) ? inv.lock : []).slice(0, 200).map(rpgCanon).filter(rpgOk))];   // objets verrouillés (favoris) : ne se vendent pas (Jérôme, 8 nov.)
+  return { bag, eq, eq2, on, lock };
 }
 // le nouvel inventaire ne contient que des objets déjà possédés (on peut déplacer, utiliser, jeter ; jamais ajouter)
 function rpgWithin(n, cur) {
@@ -784,7 +785,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
         const fee = FORGE_FEE[rpgRar(item.split("~")[0])] || 10; if ((st.pts || 0) - (st.ryoSpent || 0) < fee) return [402, { error: "poor" }];
         st.ryoSpent = (st.ryoSpent || 0) + fee; inv.bag.splice(ks[1], 1); inv.bag.splice(ks[0], 1, out); loot = [out];
       } else if (act === "sell") {   // vendre un objet au bazar
-        const item = String(body.item || ""), k = inv.bag.indexOf(item); if (k < 0 || !rpgOk(item)) return [400, { error: "bad" }];
+        const item = String(body.item || ""), k = inv.bag.indexOf(item); if (k < 0 || !rpgOk(item) || (inv.lock || []).includes(item)) return [400, { error: "bad" }];
         const price = [5, 10, 20, 35, 60, 100][rpgRar(item.split("~")[0])] || 5;
         inv.bag.splice(k, 1); ryoGive(st, price); gain = price;
       } else if (act === "save") {
