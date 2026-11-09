@@ -2,45 +2,85 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
-## v0.99.102 — 2026-10-24
+## v0.99.118 — 2026-11-09
 
 - Terres désolées : un boss ne peut plus perdre plus de 40 % de ses PV max en un seul coup, même avec le meilleur équipement. Fini les boss battus dès le premier tour (signalé par Jérôme)
+
+## v0.99.117 — 2026-11-08
+
 - Terres désolées : tu peux verrouiller un objet (🔒) depuis ton sac. Un objet verrouillé n'apparaît plus à la vente ni à la forge, et ne peut pas être jeté (idée de Jérôme)
+
+## v0.99.116 — 2026-11-07
+
 - Terres désolées : 4 objets cultes ! Fusil de Jagi (relique épique : coup de feu en traître au début de chaque combat), Yo-yo de Mamiya (mains rare : +1 à partir du 3e coup d'un combo), Dynamite de Jackal (consommable épique : 9 dégâts au premier adversaire, 3 à ton premier perso) et la Veste de Kenshiro (légendaire, sur Jagi en zone 3 : sous la moitié des PV, +2 aux coups)
+
+## v0.99.115 — 2026-11-06
+
 - Bazar : tous les objets communs, peu communs et rares peuvent maintenant y être vendus (avant, les objets récents comme le Chèche, le Cache-poussière ou la Veste de motard n'y apparaissaient jamais). La liste des objets n'affiche plus « Bazar » pour les objets qui n'y sont pas vendus (merci Jérôme)
 - L'Épaulière ferrée, qui ne fait plus partie du set ferré, s'appelle maintenant « Épaulière du pillard » pour éviter la confusion (même objet, mêmes stats)
 - Terres désolées : chaque zone affiche combien de fois tu l'as terminée, et dans combien de victoires sa légendaire est garantie (idée de Jérôme). Le compteur part d'aujourd'hui
 - Terres désolées : garantie de légendaire ! Si la légendaire d'un boss (ou les Bottes de Shu sur l'élite de la garde) n'est pas tombée en 14 victoires, la 15e la donne forcément. Le compteur repart à zéro quand elle tombe. Les règles du voyage sont aussi corrigées : une étape refaite donne toujours un petit objet
+
+## v0.99.114 — 2026-11-05
+
 - Zone 7 : les Bottes de Shu (légendaire, 3e pièce du set de la Croix Sainte) apparaissent maintenant dans la liste des objets de la zone : elles tombent sur l'élite « La garde de la pyramide » (5 %) (merci Jérôme)
 - Règle des légendes affichée : les combattants à 5 points ont +1 dégât sur tous leurs coups et +20 % de PV (badge « Légende » sur leur fiche, et dans les règles). Défi du jour « boss » adouci : +15 % de PV et 2 rage au départ (au lieu de +25 % et 3) (merci Jérôme)
 - PC : avec beaucoup d'équipes enregistrées, la fiche du perso choisi ne passe plus sous la barre du bas (la liste des équipes défile) (signalé par Jérôme)
+
+## v0.99.113 — 2026-11-04
+
 - Terres désolées : quitter un combat ne fait plus perdre tout le voyage. Tu fuis le combat et tu reprends la carte avec les PV que tu avais à ce moment-là (signalé par Jérôme)
 - Toki (jeune) « Premiers soins » et Ogai « Amour du maître » : le perso soigné et les PV rendus s'affichent maintenant, même quand c'est un perso en réserve qui est soigné
+
+## v0.99.112 — 2026-11-03
+
 - Forge : un objet forgé « +2 PV » et le même objet trouvé avec ★ (+2 PV) sont maintenant le même objet : ils s'empilent et se forgent ensemble (merci Jérôme)
+
+## v0.99.111 — 2026-11-02
+
 - Forge : les stats actuelles de l'objet choisi s'affichent avant de choisir le bonus (merci Jérôme)
+
+## v0.99.110 — 2026-11-01
+
 - Armure de Souther : « Pas besoin de garde » remplace le Corps inversé (le premier coup de chaque combat fait +2 dégâts)
 - Terres désolées, zone 7 : nouveau set de la Croix Sainte (Souther et Shu) ! Masque de Souther (relique), Armure de Souther ou Veste de Shu au choix pour le torse, et les Bottes de Shu, nouvelle légendaire pour les pieds (sur l'élite « La garde de la pyramide »). 2 pièces : Moyens +1 ; 3 pièces : toute l'équipe récupère 2 PV après chaque victoire
 - Butin : un objet commun ne tombe plus qu'avec ★ au plus, comme à la forge (merci Jérôme)
 - Forge (retours de Jérôme) : tu choisis maintenant le bonus de chaque fusion (+2 PV, Légers, Moyens, Lourds ou rage). Étoiles max selon la rareté : ★ pour les communs, ★★ pour les peu communs, ★★★ à partir des rares. Rage plafonnée à +2 par objet. Les objets déjà forgés restent comme ils sont
 - Forge : passer de ★ à ★★ tire maintenant le bonus au hasard comme au butin (PV, Légers, Moyens, Lourds ou rage), au lieu de toujours donner des PV (merci Jérôme)
+
+## v0.99.109 — 2026-10-31
+
 - Terres désolées : la forge arrive au bazar (idée de Jérôme) ! Fusionne 2 objets identiques pour en faire un seul avec une étoile de plus, jusqu'à ★★★ (nouvelles étoiles seulement à la forge). Coût en ryō selon la rareté
 - Nouveau : les cris des punks (idée de Jérôme) ! Achève un punk au combo (4 coups ou plus) ou à l'ultime pour débloquer son cri : ABESHI, HIDEBU, TAWABA… Il s'affiche ensuite en gros à chaque fois que ce punk tombe. 7 cris à collectionner (profil) et 2 succès
 - Terres désolées : le Masque de Souther passe dans l'emplacement relique (il se range tout seul si vous le portiez sur la tête)
 - Terres désolées : les sets ferré et de sang ont maintenant une pièce par emplacement (merci Jérôme). Nouveau Médaillon ferré (relique, zone 4) à la place de l'Épaulière ferrée, nouvelles Ceinture de sang (zone 1) et Amulette de sang (zone 2) à la place de l'Épaulière et des Jambières de sang. Les anciennes pièces restent dans vos sacs mais ne comptent plus pour le set
 - Terres désolées : nouvel objet commun pour le corps, la Veste en loques (+2 PV), aussi vendue au bazar
 - Nouveau : le compteur de KO (idée de maxGfive) ! Chaque adversaire mis KO compte, dans tous les modes, et s'affiche dans tes statistiques. 5 nouveaux succès à 100, 500, 1 000, 5 000 et 10 000 KO
+
+## v0.99.108 — 2026-10-30
+
 - Terres désolées : la zone 7, l'empire de Souther, est ouverte ! Elle se débloque après avoir battu Yuda. Galzus, Beji et Giji, la garde de la pyramide et le Saint Empereur lui-même. Légendaire : le Masque de Souther
 - Terres désolées : le sac passe à 96 places et les objets identiques s'empilent sur une seule case (×2, ×3…). Les objets avec des étoiles différentes gardent chacun leur case. Nouveau : deux tenues par perso ! Choisis la tenue 1 ou 2 de chaque perso au départ du voyage (idée de maxGfive)
 - Terres désolées : nouveau set du vagabond (rare, tombe dans toutes les zones) : Chèche, Cache-poussière, Ceinture à gourde, Mitaines de cuir, Lunettes de sable et les Bottes du désert. 3 pièces portées : le perso récupère 2 PV après chaque victoire, 5 pièces : +1 endurance par tour
+
+## v0.99.107 — 2026-10-29
+
 - Terres désolées : le set ferré devient un vrai set ! 6 pièces, une seule par zone (Ceinture ferrée zone 1, Gantelets ferrés zone 2, Bottes zone 3, Épaulière zone 4, Heaume ferré zone 5, Plastron zone 6). 3 pièces portées : +1 endurance par tour, 5 pièces : +4 PV max. La falaise des bêtes et la tour de Yuda sont un peu plus faciles
 - Terres désolées, équilibrage : les sets de Jagi, du faux Toki et de Cassandra sont renforcés (+1 PV sur la plupart des pièces) pour rejoindre le set de sang. Plastron ferré et Jambières à pointes : PV max +5 → +4
 - Terres désolées : 15 nouveaux objets ! 3 rares (Bandes bleues, Jambières du soleil, Veste de motard), 2 reliques simples (Photo jaunie, Croc de loup), l'Étoile du Grand Chariot (relique mythique), et un set mythique propre à chaque zone : zone 3 (Veste de Jagi, Gantelets de Jagi, Bottes de Jagi), zone 4 (Robe du faux Toki, Bandes du génie, Bottes du saint), zone 5 (Cuirasse du geôlier, Chaînes de Cassandra, Bottes de la cité des pleurs). Illustrations de Lhaz, à venir pour certains
+- Terres désolées : nouvelle carte pour la zone 3 (Jagi), avec la prison de Villainy éventrée, la ville de la statue, la statue de Jagi et sa tour en feu. Carte de Lhaz
+- Terres désolées (en test) : nouvelle zone 3, le territoire de Jagi ! Elle s'ouvre quand tu as battu Kiba Daioh. Les pillards, la ville de la statue, Jackal, Fox et Devil Rebirth, la garde de Jagi, et Jagi en boss (Casque de Jagi, 1 chance sur 20). Carte de Lhaz
+
+## v0.99.106 — 2026-10-28
+
 - Terres désolées : les pièces du set de sang tombent maintenant aussi dans les zones 3 à 6 (merci Jérôme)
 - Terres désolées : plus de rares en combat (15 % au lieu de 10 % la 1re fois, et 10 % aussi quand tu refais une étape)
 - Terres désolées : le compteur d'étapes des zones 3 à 6 affiche le bon total (6 et non 8)
 - Terres désolées (en test) : nouvelle zone 6, le territoire de Yuda ! Elle s'ouvre quand tu as battu Uighur. L'embuscade, le village de Mamiya (Toki et le tsubo qui prolonge la vie de Rei), Galf à Medicine City, le convoi d'esclaves, Dagar dans la tour de Yuda, et Yuda avec Komak au barrage. Nouveau légendaire : l'Épaulette de Rei (corps, PV max +2, endurance +1, Légers +1), 1 chance sur 20. Carte de Lhaz
+
+## v0.99.105 — 2026-10-27
+
 - Terres désolées : nouvelle carte pour la zone 4 (Amiba), avec le village des miracles, le bar de Habu, la falaise des bêtes et la tour d'Amiba sous l'orage. Carte de Lhaz
-- Terres désolées : nouvelle carte pour la zone 3 (Jagi), avec la prison de Villainy éventrée, la ville de la statue, la statue de Jagi et sa tour en feu. Carte de Lhaz
 - Terres désolées : nouvelle carte pour la zone 2 (Mamiya), chaque étape a son lieu (QG de la GOLAN, cabane du vieil homme, camp des Kiba, tanière de Madara, repaire de Kiba Daioh sous le volcan…). Carte de Lhaz
 - Terres désolées : nouvelle carte pour la zone 1 (Southern Cross), chaque étape a maintenant son lieu (camp de Zeed, tour de Spade, pont de Club, château en feu, arène de Heart…). Carte de Lhaz
 - Terres désolées (en test) : nouvelle zone 5, Cassandra ! Elle s'ouvre quand tu as battu Amiba. Seeker, les familles des prisonniers, Targel, les portes gardées par Raiga & Fūga et Sōjin, et Uighur en boss. Nouveau légendaire : le Fouet de Cassandra (mains, PV max +2, Légers +2, Moyens +1), 1 chance sur 20. Carte de Lhaz
@@ -48,7 +88,9 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 - Terres désolées (en test) : nouvelle zone 4, le domaine d'Amiba ! Elle s'ouvre quand tu as battu Jagi. Les hommes du faux Toki, le village des miracles, Goum, Gyūki et Habu, la falaise des bêtes (Goda, l'Homme-Serpent, l'Homme-Mante), et Amiba en boss (Traité d'Amiba, 1 chance sur 20). Carte de Lhaz
 - Combat : un nom trop long (« Raoh (légende de Shura) »…) est coupé avec « … » au lieu de passer sur deux lignes et de pousser la réserve sous les cartes (merci Jérôme)
 - Téléphone en paysage : le bouton 🎒 de l'équipement passe à côté des persos en réserve, qui restent visibles au-dessus des cartes (merci Jérôme)
-- Terres désolées (en test) : nouvelle zone 3, le territoire de Jagi ! Elle s'ouvre quand tu as battu Kiba Daioh. Les pillards, la ville de la statue, Jackal, Fox et Devil Rebirth, la garde de Jagi, et Jagi en boss (Casque de Jagi, 1 chance sur 20). Carte de Lhaz
+
+## v0.99.104 — 2026-10-26
+
 - Téléphone en paysage : la ligne « Équipement » devient un petit bouton 🎒 qui ouvre le détail, les autres membres de l'équipe sont de nouveau visibles (merci Jérôme)
 - Terres désolées, en combat : sous le passif de chaque perso, une ligne « Équipement » résume ses bonus (Légers, Moyens, Lourds, PV, rage). Touche-la pour voir le détail des objets (idée de Jérôme)
 - Bazar : choisir un objet à vendre ne fait plus remonter la page en haut (merci Jérôme)
@@ -65,6 +107,9 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 - Terres désolées : un combat déjà gagné lâche maintenant un objet commun ou peu commun à chaque victoire, pour équiper plus vite tes autres équipes (idée de maxGfive)
 - Terres désolées : le sac est trié automatiquement, dans l'ordre des emplacements (tête, corps, taille, mains, pieds, relique, puis consommables), puis par rareté (idée de maxGfive)
 - Succès « Sept étoiles… et plus » : le texte est corrigé, il faut 27 étoiles dans l'arc 1, qui en compte maintenant 45 (merci Jérôme)
+
+## v0.99.103 — 2026-10-25
+
 - Admin, cadrage : le bouton « Tester l'ultime » marche aussi pour les images alternatives (Hyō démon, Kaioh sans masque, Raoh…)
 - Kōketsu est un lâche : la première fois qu'il passe sous la moitié de ses PV, il s'enfuit et laisse un allié (Pet) se battre à sa place
 - Nouvel adversaire prêt pour la suite de l'histoire : Kōketsu, le petit dictateur qui flattait Raoh, et Pet, sa créature (illustrations de Lhaz)
@@ -84,6 +129,9 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 - Nouvelle illustration pour Ryuga
 - Admin, cadrage sur mobile : l'image est un peu plus petite, les boutons du bas ne recouvrent plus les flèches
 - Raizō est retiré : il avait la même illustration que Bakuto. Dans « L'effondrement de Cassandra », Bulg est maintenant accompagné de Tariq
+
+## v0.99.102 — 2026-10-24
+
 - Terres désolées : taux revus (merci Jérôme). Légendaire du boss 5 % au lieu de 10 %, mythiques au boss 16 % au lieu de 8 % (environ 2 % par mythique). Les élites refaites donnent maintenant le butin d'un combat normal
 - Toki et Ogai : leur soin vise maintenant le plus blessé de toute l'équipe, eux compris (merci Jérôme)
 - Carte spéciale ajoutée pour Ken, Toki, Shu, Ryuken, Jukei et Jagi jeunes, ainsi que Hydra, Garekki, Mahari et Toda
