@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.102 — 2026-10-24
 
+- Terres désolées : un boss ne peut plus perdre plus de 40 % de ses PV max en un seul coup, même avec le meilleur équipement. Fini les boss battus dès le premier tour (signalé par Jérôme)
 - Terres désolées : tu peux verrouiller un objet (🔒) depuis ton sac. Un objet verrouillé n'apparaît plus à la vente ni à la forge, et ne peut pas être jeté (idée de Jérôme)
 - Terres désolées : 4 objets cultes ! Fusil de Jagi (relique épique : coup de feu en traître au début de chaque combat), Yo-yo de Mamiya (mains rare : +1 à partir du 3e coup d'un combo), Dynamite de Jackal (consommable épique : 9 dégâts au premier adversaire, 3 à ton premier perso) et la Veste de Kenshiro (légendaire, sur Jagi en zone 3 : sous la moitié des PV, +2 aux coups)
 - Bazar : tous les objets communs, peu communs et rares peuvent maintenant y être vendus (avant, les objets récents comme le Chèche, le Cache-poussière ou la Veste de motard n'y apparaissaient jamais). La liste des objets n'affiche plus « Bazar » pour les objets qui n'y sont pas vendus (merci Jérôme)
