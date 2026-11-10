@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.119 — 2026-11-10
 
+- Arène du tyran : seule la rage des coups encaissés et des Contres est doublée. Les cartes, passifs, spéciales et liens donnent leur rage normale (Raoh ou Bat ne prennent plus +6 d'un coup) (merci Jérôme)
 - Journal de combat : quand un passif réduit un coup (ex. Souther contre l'école Hokuto : −3), le journal affiche maintenant la réduction et les dégâts vraiment encaissés. Le plafond des boss indique aussi combien de dégâts passent (merci Jérôme)
 
 ## v0.99.118 — 2026-11-09
