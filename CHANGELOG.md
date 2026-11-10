@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.119 — 2026-11-10
+
+- Journal de combat : quand un passif réduit un coup (ex. Souther contre l'école Hokuto : −3), le journal affiche maintenant la réduction et les dégâts vraiment encaissés. Le plafond des boss indique aussi combien de dégâts passent (merci Jérôme)
+
 ## v0.99.118 — 2026-11-09
 
 - Terres désolées : un boss ne peut plus perdre plus de 40 % de ses PV max en un seul coup, même avec le meilleur équipement. Fini les boss battus dès le premier tour (signalé par Jérôme)

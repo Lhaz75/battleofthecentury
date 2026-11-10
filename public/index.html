@@ -4786,7 +4786,7 @@ async function attack(k,c){
     if(act(d).id==="liu" && c.lvl===2 && real>0) gainRage(d,2,"pas");
     if(act(s).id==="kasumi" && real>0 && c.lvl===2) gainRage(s,2,"pas");
     if(act(d).id==="rima" && real>0) d.rimaUp=Math.min(4,(d.rimaUp||0)+1);
-    { const cut=dmg-(real-amibaD); if(cut>0 && dmg>0) passiveFx(defK,cut,real<=0); else if(act(d).id==="ventre" && c.lvl===0) passiveFx(defK,0,true); }   // passif défensif : son + bulle (et gros message si le coup est annulé)
+    { const cut=dmg-(real-amibaD); if(cut>0 && dmg>0){ passiveFx(defK,cut,real<=0); S.sub=(S.sub?S.sub+" ":"")+L("passCut",esc(nm(act(d).id)),cut,real); } else if(act(d).id==="ventre" && c.lvl===0) passiveFx(defK,0,true); }   // passif défensif : son + bulle (et gros message si le coup est annulé)
     const victim=act(d);
     hurt(defK,real);
     if(act(s).id==="rival" && s.combo.n===3) gainRage(s,2,"pas");
@@ -4850,7 +4850,7 @@ function hurt(k,dmg){
   const s=S[k], f=act(s); if(dmg>0 && k!==ME) S.hits=(S.hits||0)+1;
   if(dmg>0 && f.id==="hyo" && hasLink(s,"kuro")){ const kr=s.team.find(t=>t.id==="kuroyasha"&&!t.ko); if(kr && kr.hp>1){ const ab=Math.min(2,dmg,kr.hp-1); kr.hp-=ab; dmg-=ab; S.sub=(S.sub?S.sub+" ":"")+L("kuroAbsorb",ab); } }
   if(dmg<=0){ fx(k,"0","g"); return; }
-  if(S.rpgBoss && k==="a" && (S.rpgBoss===1||f.id===S.rpgBoss) && dmg>Math.ceil(f.max*.4)){ dmg=Math.ceil(f.max*.4); S.sub=(S.sub?S.sub+" ":"")+L("bossCap"); }   // Terres désolées : un boss ne perd jamais plus de 40 % de ses PV max en un coup (Jérôme, 9 nov.)
+  if(S.rpgBoss && k==="a" && (S.rpgBoss===1||f.id===S.rpgBoss) && dmg>Math.ceil(f.max*.4)){ dmg=Math.ceil(f.max*.4); S.sub=(S.sub?S.sub+" ":"")+L("bossCap",dmg); }   // Terres désolées : un boss ne perd jamais plus de 40 % de ses PV max en un coup (Jérôme, 9 nov.)
   if(f.id==="doubleyuda" && !f.lure){ f.lure=true; dmg=Math.ceil(dmg/2); S.sub=(S.sub?S.sub+" ":"")+L("lureHalf"); }
   bossHit(k,dmg,f);
   f.hp=Math.max(0,f.hp-dmg);
@@ -6198,6 +6198,7 @@ Object.assign(UI.en,{rpgTabAll:"All",rpgTabEq:"Gear",rpgTabUse:"Consumables"});
 Object.assign(UI.it,{rpgTabAll:"Tutto",rpgTabEq:"Equipaggiamento",rpgTabUse:"Consumabili"});
 Object.assign(UI.ja,{rpgTabAll:"すべて",rpgTabEq:"装備",rpgTabUse:"消耗品"});
 const CHANGELOG=[
+ {v:"0.99.119",d:"2026-11-10",fr:["Journal de combat : quand un passif réduit un coup (ex. Souther contre l'école Hokuto : −3), le journal affiche maintenant la réduction et les dégâts vraiment encaissés. Le plafond des boss indique aussi combien de dégâts passent (merci Jérôme)"],en:["Combat log: when a passive reduces a hit (e.g. Souther vs the Hokuto school: −3), the log now shows the reduction and the damage actually taken. The boss cap also shows how much damage gets through (thanks Jérôme)"],it:["Registro di combattimento: quando un passivo riduce un colpo (es. Souther contro la scuola Hokuto: −3), il registro mostra ora la riduzione e i danni realmente subiti. Il limite dei boss indica anche quanti danni passano (grazie Jérôme)"],ja:["戦闘ログ：特性が攻撃を軽減したとき（例：北斗の拳に対するサウザー −3）、軽減量と実際に受けたダメージが表示されるように。ボスの上限も通ったダメージ量を表示（Jérômeに感謝）"]},
  {v:"0.99.118",d:"2026-11-09",fr:["Terres désolées : un boss ne peut plus perdre plus de 40 % de ses PV max en un seul coup, même avec le meilleur équipement. Fini les boss battus dès le premier tour (signalé par Jérôme)"],en:["The Wasteland: a boss can no longer lose more than 40% of its max HP in a single hit, even with the best gear. No more bosses beaten on turn one (reported by Jérôme)"],it:["Terre desolate: un boss non può più perdere oltre il 40% dei PV max in un solo colpo, anche col miglior equipaggiamento. Basta boss battuti al primo turno (segnalato da Jérôme)"],ja:["荒野：最強装備でも、ボスが一撃で最大HPの40%を超えて失うことはなくなった。1ターン目でボスを倒すことはもうできない（Jérômeの報告）"]},
  {v:"0.99.117",d:"2026-11-08",fr:["Terres désolées : tu peux verrouiller un objet (🔒) depuis ton sac. Un objet verrouillé n'apparaît plus à la vente ni à la forge, et ne peut pas être jeté (idée de Jérôme)"],en:["The Wasteland: you can lock an item (🔒) from your bag. A locked item no longer shows up for sale or at the forge, and can't be thrown away (Jérôme's idea)"],it:["Terre desolate: puoi bloccare un oggetto (🔒) dalla borsa. Un oggetto bloccato non appare più in vendita né alla forgia, e non può essere buttato (idea di Jérôme)"],ja:["荒野：バッグからアイテムをロック（🔒）できるように。ロック中のアイテムは売却・鍛冶の一覧に出ず、捨てられない（Jérômeのアイデア）"]},
  {v:"0.99.116",d:"2026-11-07",fr:["Terres désolées : 4 objets cultes ! Fusil de Jagi (relique épique : coup de feu en traître au début de chaque combat), Yo-yo de Mamiya (mains rare : +1 à partir du 3e coup d'un combo), Dynamite de Jackal (consommable épique : 9 dégâts au premier adversaire, 3 à ton premier perso) et la Veste de Kenshiro (légendaire, sur Jagi en zone 3 : sous la moitié des PV, +2 aux coups)"],en:["The Wasteland: 4 iconic items! Jagi's shotgun (epic relic: a cheap shot at the start of each fight), Mamiya's yo-yos (rare hands: +1 from the 3rd hit of a combo), Jackal's dynamite (epic consumable: 9 damage to the first opponent, 3 to your first fighter) and Kenshiro's jacket (legendary, from Jagi in zone 3: below half HP, +2 to hits)"],it:["Terre desolate: 4 oggetti di culto! Fucile di Jagi (reliquia epica: colpo a tradimento all'inizio di ogni combattimento), Yo-yo di Mamiya (mani rare: +1 dal 3° colpo di una combo), Dinamite di Jackal (consumabile epico: 9 danni al primo avversario, 3 al tuo primo combattente) e la Giacca di Kenshiro (leggendaria, da Jagi nella zona 3: sotto metà PV, +2 ai colpi)"],ja:["荒野：伝説のアイテム4つ！ジャギのショットガン（エピックのレリック：各戦闘の開始時に不意打ち）、マミヤのヨーヨー（レアの手：コンボ3撃目以降+1）、ジャッカルのダイナマイト（エピックの消耗品：最初の相手に9ダメージ、自分の先頭の拳士に3）、ケンシロウのジャケット（レジェンダリー、ゾーン3のジャギから：HP半分以下で攻撃+2）"]},
@@ -6628,7 +6629,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261109180117";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261110173326";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
@@ -9147,6 +9148,10 @@ Object.assign(UI.fr,{bossCap:"Le boss encaisse : un coup ne peut pas lui retirer
 Object.assign(UI.en,{bossCap:"The boss holds on: a single hit can't take more than 40% of its HP."});
 Object.assign(UI.it,{bossCap:"Il boss resiste: un colpo non può togliergli più del 40% dei PV."});
 Object.assign(UI.ja,{bossCap:"ボスが耐える：一撃で最大HPの40%を超えるダメージは与えられない。"});
+Object.assign(UI.fr,{passCut:(n,c,r)=>`Passif de ${n} : −${c}, il encaisse ${r}.`,bossCap:n=>`Le boss encaisse : un coup ne peut pas lui retirer plus de 40 % de ses PV (${n} dégâts passent).`});
+Object.assign(UI.en,{passCut:(n,c,r)=>`${n}'s passive: −${c}, takes ${r}.`,bossCap:n=>`The boss holds on: a single hit can't take more than 40% of its HP (${n} damage gets through).`});
+Object.assign(UI.it,{passCut:(n,c,r)=>`Passivo di ${n}: −${c}, subisce ${r}.`,bossCap:n=>`Il boss resiste: un colpo non può togliergli più del 40% dei PV (passano ${n} danni).`});
+Object.assign(UI.ja,{passCut:(n,c,r)=>`${n}の特性：−${c}、受けたダメージ${r}。`,bossCap:n=>`ボスが耐える：一撃で最大HPの40%を超えるダメージは与えられない（${n}ダメージが通る）。`});
 const DOSHI_GRAVE=new Set(["extra-3","extra-1","extra-2","arc6-8","arc6-10","arc6-12","arc6-16","arc6-18","arc6-20","arc5-11","arc5-14","king-8","king-11","arc2-6","arc2-13","arc2-14","arc2-19","arc2-20","arc2-21","arc2-24","arc3-1","arc3-7","arc3-11","arc3-14","arc4-14","arc4-16","arc4-18","arc4-19"]);
 const DOSHI_F=(t,id)=>`assets/doshi-face${DOSHI_GRAVE.has(id)?"4":DOSHI_LAUGH.test(String(t))?"3":[...String(t)].reduce((a,c)=>a+c.charCodeAt(0),0)%2?"2":""}.webp`;   // 2 portraits, toujours le même pour un texte donné
 /* ===== roue du destin : le Dōshi lit tes étoiles, un tour par jour (le serveur tire le résultat) ===== */
