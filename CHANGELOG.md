@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.120 — 2026-11-11
+
+- Terres désolées : l'écran de butin affiche maintenant le soin du set de la Croix Sainte (+2 PV à toute l'équipe), qui marchait déjà mais restait invisible (merci Jérôme)
+
 ## v0.99.119 — 2026-11-10
 
 - Arène du tyran : seule la rage des coups encaissés et des Contres est doublée. Les cartes, passifs, spéciales et liens donnent leur rage normale (Raoh ou Bat ne prennent plus +6 d'un coup) (merci Jérôme)
