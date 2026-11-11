@@ -5,6 +5,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 ## v0.99.120 — 2026-11-11
 
 - Terres désolées : l'écran de butin affiche maintenant le soin du set de la Croix Sainte (+2 PV à toute l'équipe), qui marchait déjà mais restait invisible (merci Jérôme)
+- Mamiya : illustration en meilleure qualité (upscalée)
 
 ## v0.99.119 — 2026-11-10
 
