@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.120 — 2026-11-11
 
+- Terres désolées : nouvelle difficulté « Étoile de la mort », débloquée zone par zone une fois le boss battu. Les ennemis sont équipés : sbires +10 PV et +1 rage, élites +13 PV, Légers +1 et +2 rage, boss +15 PV, Légers +1 et +3 rage. En échange, rare minimum sur les élites et les boss, légendaire deux fois plus fréquente, points doublés, et un compteur ☠ par zone (idée de Jérôme, avec maxGfive)
 - Terres désolées : l'écran de butin affiche maintenant le soin du set de la Croix Sainte (+2 PV à toute l'équipe), qui marchait déjà mais restait invisible (merci Jérôme)
 - Mamiya : illustration en meilleure qualité (upscalée)
 

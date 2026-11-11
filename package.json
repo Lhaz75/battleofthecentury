@@ -1,7 +1,7 @@
 {
   "name": "doomstar-server",
   "version": "0.99.120",
-  "build": "20261111152214",
+  "build": "20261111201740",
   "private": true,
   "description": "Serveur Battle of the Century : jeu, parties en ligne, comptes et Hall of Fame",
   "main": "server.js",
