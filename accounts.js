@@ -298,7 +298,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
   let faces = {};
   Promise.resolve(ready).then(() => store.getSetting("faces")).then(v => { if (v && typeof v === "object") faces = v; }).catch(() => {});
   // cadrages des illustrations (combat) et vignettes refaites par l'admin
-  let frames = { p: {}, b: {} };
+  let frames = { p: {}, b: {} }; let framesAt = 0;
   Promise.resolve(ready).then(() => store.getSetting("frames")).then(v => { if (v && v.p && v.b) frames = v; }).catch(() => {});
   let fstats = { since: Date.now(), f: {}, n: { v: 0, a: 0 } }, fDirty = false;
   Promise.resolve(ready).then(() => store.getSetting("fstats")).then(v => { if (v && v.f) fstats = v; }).catch(() => {});
@@ -910,9 +910,11 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
       console.log(`Pastille de ${id} recadrée par ${u.name}`);
       return [200, { faces }];
     },
-    "GET /api/frames": async () => [200, { frames }],
+    "GET /api/frames": async () => { const now = Date.now(); if (now - framesAt > 60000) { framesAt = now; try { const v = await store.getSetting("frames"); if (v && v.p && v.b) frames = v; } catch (e) {} } return [200, { frames }]; },   // relu en base au plus une fois par minute (cadrages faits sur un autre serveur pendant un redéploiement)
     "POST /api/admin/frame": async (req, body) => {
       const u = await auth(req); if (!isAdmin(u)) return [403, { error: "admin" }];
+      // relit les cadrages en base avant de modifier : pendant un redéploiement, l'ancien et le nouveau serveur tournent ensemble et l'un écraserait le travail de l'autre (12 nov.)
+      try { const v = await store.getSetting("frames"); if (v && v.p && v.b) frames = v; } catch (e) {}
       const id = String(body.id || ""), kind = body.kind === "b" ? "b" : body.kind === "u" ? "u" : body.kind === "a" ? "a" : body.kind === "h" ? "h" : "p"; frames.u = frames.u || {}; frames.a = frames.a || {}; frames.h = frames.h || {}; if (!/^[a-z0-9]{2,12}$/.test(id)) return [400, { error: "bad" }];
       if (body.reset) { delete frames[kind][id]; if (kind === "b") await store.setSetting("bust:" + id, null); await store.setSetting("frames", frames); return [200, { frames }]; }
       const c = body.crop || {}, n = v => Math.round(Number(v) || 0), crop = { x: n(c.x), y: n(c.y), w: Math.max(40, Math.min(1200, n(c.w))) };
