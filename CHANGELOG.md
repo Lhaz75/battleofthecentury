@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.121 — 2026-11-12
 
+- Mode histoire : les arcs 3 à 6 (Le Saint Empereur, Le Dernier Général, L'Empire du Ciel, La terre de Shura) et les souvenirs de l'onglet Extra sont ouverts à tous ! 16 nouveaux succès : un ou deux combats marquants par arc, les étoiles de chaque arc et une couronne par arc (tous les chapitres en Difficile 3 étoiles). Les testeurs rejouent ces arcs pour de vrai pour gagner points et succès
 - Étoile de la mort : les combats d'événement (le combat optionnel du village, etc.) ont maintenant eux aussi des ennemis renforcés, comme un combat normal (merci Jérôme)
 
 ## v0.99.120 — 2026-11-11

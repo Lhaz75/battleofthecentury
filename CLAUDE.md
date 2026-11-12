@@ -70,7 +70,7 @@ Repères dans `public/index.html` (numéros de ligne approximatifs, v0.97.16) :
 - `SURV` (~6110) — mode Survie ; `DOJO` juste après (`DOJO_T`, `dojoPrep`, `/api/dojo` côté serveur)
 - `RPG` — mode Voyage, juste avant `quitPress` (`RPG_ITEMS`, `RPG_ZONE`, `rpgPrep`, `/api/rpg` côté serveur) ; visible des admins et testeurs seulement (`rpgOpen()`)
 
-Côté serveur (`accounts.js`) : `STORY_TEST` (regex `/^arc3-|^arc4-/` depuis v0.99.98), `SHOP_START`, `SHOP_LIST`, `SHOP_COST`, `STORY_ORDER` (ajouter chaque nouveau chapitre ici, dans l'ordre).
+Côté serveur (`accounts.js`) : `STORY_TEST` (regex : `/^$/` depuis le 12 nov. 2026, toute l'histoire est ouverte ; y mettre les préfixes des arcs en test, ex. `/^arc7-/`, et pareil pour `ST_TEST` côté client), `SHOP_START`, `SHOP_LIST`, `SHOP_COST`, `STORY_ORDER` (ajouter chaque nouveau chapitre ici, dans l'ordre).
 
 ⚠️ Les ids internes des persos ne sont pas leurs noms (ex. `maitre`, `sage`, `linh`…) : toujours vérifier dans `FIGHTERS`.
 

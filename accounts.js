@@ -2,7 +2,10 @@
 // Stockage : Postgres si DATABASE_URL est défini (Neon), sinon un fichier JSON local (dev / secours).
 const crypto = require("crypto");
 // ordre des chapitres du mode histoire (king-9 = interlude Barcom, joué avant le combat contre Shin)
-const STORY_TEST = /^arc3-|^arc4-|^arc5-|^arc6-|^extra-/;
+// succès des arcs 3 à 6 (12 nov.) : étoiles d'un arc, couronne sur tous ses chapitres
+const stArc = (s, a, n) => !!s.story && Object.keys(s.story).filter(k => k.startsWith("arc" + a + "-")).reduce((x, k) => x + s.story[k], 0) >= n;
+const stCrownAll = (s, a) => !!s.storyH && STORY_ORDER.filter(k => k.startsWith("arc" + a + "-")).every(k => s.storyH[k]);
+const STORY_TEST = /^$/;
 const EXTRA_AFTER = { "extra-4": "arc2-7", "extra-1": "arc2-15", "extra-2": "arc3-8", "extra-3": "arc6-4" };   // souvenirs : débloqués par un chapitre de l'histoire   // arcs en test (lecture seule pour les joueurs) : vider la regex (/^$/) pour ouvrir
 // magasin de persos : prix selon le coût (fighters.json) ; persos de départ et persos de l'histoire exclus (à garder en phase avec CHAR_START / STORY_CH dans index.html)
 const RPG_BAG = 96;   // taille du sac des Terres désolées (à garder égale à RPG_BAG dans index.html) : les objets identiques s'empilent, une pile = une place
@@ -417,6 +420,22 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
     rpgz1: { t: 2, c: s => !!(s.rpgSeen && s.rpgSeen["sc:sc_shin"]) }, rpgz2: { t: 2, c: s => !!(s.rpgSeen && s.rpgSeen["mamiya:daioh"]) },
     storylegend2: { t: 3, c: s => s.storyH && STORY_ORDER.filter(k => /^arc2-/.test(k)).every(k => s.storyH[k]) },
     story2s: { t: 3, c: s => s.story && Object.keys(s.story).filter(k => /^arc2-/.test(k)).reduce((a, k) => a + s.story[k], 0) >= 27 },
+    story3a: { t: 2, c: s => s.story && s.story["arc3-9"] != null },
+    story3b: { t: 2, c: s => s.story && s.story["arc3-14"] != null },
+    story3s: { t: 3, c: s => stArc(s, 3, 27) },
+    storylegend3: { t: 3, c: s => stCrownAll(s, 3) },
+    story4a: { t: 2, c: s => s.story && s.story["arc4-14"] != null },
+    story4b: { t: 2, c: s => s.story && s.story["arc4-20"] != null },
+    story4s: { t: 3, c: s => stArc(s, 4, 36) },
+    storylegend4: { t: 3, c: s => stCrownAll(s, 4) },
+    story5a: { t: 2, c: s => s.story && s.story["arc5-10"] != null },
+    story5b: { t: 2, c: s => s.story && s.story["arc5-12"] != null },
+    story5s: { t: 3, c: s => stArc(s, 5, 27) },
+    storylegend5: { t: 3, c: s => stCrownAll(s, 5) },
+    story6a: { t: 2, c: s => s.story && s.story["arc6-17"] != null },
+    story6b: { t: 2, c: s => s.story && s.story["arc6-21"] != null },
+    story6s: { t: 3, c: s => stArc(s, 6, 36) },
+    storylegend6: { t: 3, c: s => stCrownAll(s, 6) },
     bosshit: { t: 1, c: s => (s.bossN || 0) >= 1 }, bosskill: { t: 2, c: s => (s.bossKill || 0) >= 1 },
     weekpod: { t: 2, c: s => (s.wkPod || 0) >= 1 }, weekwin: { t: 3, c: s => (s.wkWin || 0) >= 1 }, weekwin3: { t: 3, c: s => (s.wkRun || 0) >= 3 },
     daily1: { t: 1, c: s => (s.dailyN || 0) >= 1 }, daily10: { t: 2, c: s => (s.dailyN || 0) >= 10 }, daily30: { t: 3, c: s => (s.dailyN || 0) >= 30 },
