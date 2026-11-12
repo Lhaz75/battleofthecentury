@@ -9,6 +9,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 - Étoile de la mort : le souffle après chaque victoire rend 15 % des PV max dans toutes les zones, zone 1 comprise (au lieu de 25 % en zone 1). Le mode Normal ne change pas (merci Jérôme)
 - Admin, cartes d'arc du mode histoire : le choix du perso propose aussi les illustrations alternatives (Raoh casqué, Toki Sekkatsu-kō…), et un cadrage enregistré pendant une mise à jour du serveur n'est plus perdu
 - Histoire, arc 1 : Brute quitte le combat de Diamond (il reste Dino, puis Diamond et Bruno) ; Heart arrive maintenant avec ses hommes, Lenny et Rocco, avant le combat contre lui ; l'avertissement du chapitre de Heart dit clairement « Tes Légers ne font rien à Heart »
+- Histoire, arc 1 : le chapitre de Joker passe juste avant Barcom et Shin, comme dans l'anime (Kenshiro ne le tue qu'à Southern Cross, épisode 21) ; la fin du chapitre de Heart raconte que Kenshiro découvre que KING est Shin, déjà parti avec Yuria
 
 ## v0.99.120 — 2026-11-11
 
