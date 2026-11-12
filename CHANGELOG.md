@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.121 — 2026-11-12
+
+- Étoile de la mort : les combats d'événement (le combat optionnel du village, etc.) ont maintenant eux aussi des ennemis renforcés, comme un combat normal (merci Jérôme)
+
 ## v0.99.120 — 2026-11-11
 
 - Terres désolées : nouvelle difficulté « Étoile de la mort », débloquée zone par zone une fois le boss battu. Les ennemis sont équipés : sbires +10 PV et +1 rage, élites +13 PV, Légers +1 et +2 rage, boss +15 PV, Légers +1 et +3 rage. En échange, rare minimum sur les élites et les boss, légendaire deux fois plus fréquente, points doublés, et un compteur ☠ par zone (idée de Jérôme, avec maxGfive)
