@@ -8,6 +8,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 - Dragon : nouvelle illustration, sans Patra (elle a maintenant sa propre carte)
 - Histoire, arc 1, « Jackal et le démon » : Slash quitte le combat. On affronte d'abord Fox, puis Jackal avec Devil Rebirth. Fox arrive avec Zorro, un des hommes de Jackal
 - Mode histoire : le bouton Retour de l'écran d'un chapitre ramène à la liste des chapitres, et quitter un combat d'histoire ramène au chapitre, au lieu de l'écran d'accueil du jeu
+- Hank, un des collecteurs de KING, est retiré du jeu (Terres désolées et Survie)
 
 ## v0.99.121 — 2026-11-12
 
