@@ -6,6 +6,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 - Nouvelle combattante : Patra, la sorcière qui tient la dernière réserve d'eau (épisodes 9-10). Dans le chapitre « Le dieu Dragon », on l'affronte avant Dragon, à la place de Brute et Zorro. Son passif Illusion (le premier Lourd encaissé ne lui fait rien) était celui de Dragon, qui a maintenant Souffle de feu : ses Lourds font +2
 - Dragon : nouvelle illustration, sans Patra (elle a maintenant sa propre carte)
+- Histoire, arc 1, « Jackal et le démon » : Slash quitte le combat. On affronte d'abord Fox, puis Jackal avec Devil Rebirth
 
 ## v0.99.121 — 2026-11-12
 
