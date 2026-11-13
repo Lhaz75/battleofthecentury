@@ -4,6 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 
 ## v0.99.122 — 2026-11-13
 
+- Le boss mondial est ouvert à tous ! Chaque semaine, tout le monde frappe le même boss : 3 essais par jour, +100 points pour chaque participant quand il tombe, +150 de plus pour le top 3
 - Nouvelle combattante : Patra, la sorcière qui tient la dernière réserve d'eau (épisodes 9-10). Dans le chapitre « Le dieu Dragon », on l'affronte avant Dragon, à la place de Brute et Zorro. Son passif Illusion (le premier Lourd encaissé ne lui fait rien) était celui de Dragon, qui a maintenant Souffle de feu : ses Lourds font +2
 - Dragon : nouvelle illustration, sans Patra (elle a maintenant sa propre carte)
 - Histoire, arc 1, « Jackal et le démon » : Slash quitte le combat. On affronte d'abord Fox, puis Jackal avec Devil Rebirth. Fox arrive avec Zorro, un des hommes de Jackal
