@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.122 — 2026-11-13
+
+- Nouvelle combattante : Patra, la sorcière qui tient la dernière réserve d'eau (épisodes 9-10). Dans le chapitre « Le dieu Dragon », on l'affronte avant Dragon, à la place de Brute et Zorro. Son passif Illusion (le premier Lourd encaissé ne lui fait rien) était celui de Dragon, qui a maintenant Souffle de feu : ses Lourds font +2
+
 ## v0.99.121 — 2026-11-12
 
 - Mode histoire : les arcs 3 à 6 (Le Saint Empereur, Le Dernier Général, L'Empire du Ciel, La terre de Shura) et les souvenirs de l'onglet Extra sont ouverts à tous ! 16 nouveaux succès : un ou deux combats marquants par arc, les étoiles de chaque arc et une couronne par arc (tous les chapitres en Difficile 3 étoiles). Les testeurs rejouent ces arcs pour de vrai pour gagner points et succès
