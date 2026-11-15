@@ -811,6 +811,8 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
         const item = String(body.item || ""), k = inv.bag.indexOf(item); if (k < 0 || !rpgOk(item) || (inv.lock || []).includes(item)) return [400, { error: "bad" }];
         const price = [5, 10, 20, 35, 60, 100][rpgRar(item.split("~")[0])] || 5;
         inv.bag.splice(k, 1); ryoGive(st, price); gain = price;
+      } else if (act === "start") {   // nouveau voyage : simple compteur pour les statistiques
+        st.rpgRuns = Math.max(st.rpgRuns || 0, st.rpgClears || 0) + 1;
       } else if (act === "save") {
         if (body.inv) { const n = rpgClean(body.inv); if (rpgWithin(n, inv)) st.rpg = n; else saved = "rejected"; }
       } else return [400, { error: "bad" }];

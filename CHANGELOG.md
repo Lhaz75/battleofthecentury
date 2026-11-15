@@ -5,6 +5,8 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via
 ## v0.99.123 — 2026-11-15
 
 - Profil : le cadre de portrait choisi s'affiche maintenant aussi sur le grand avatar du profil, il était écrasé par l'ombre de l'avatar (merci Jérôme)
+- Boss mondial : le texte du plafond affichait par erreur la règle des Terres désolées (40 %). Il indique de nouveau ton total compté sur la semaine et le plafond par joueur
+- Statistiques : nombre de voyages dans les Terres désolées et de zones terminées (le compteur de voyages démarre aujourd'hui, idée de Jérôme)
 
 ## v0.99.122 — 2026-11-13
 
