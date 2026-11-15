@@ -1,6 +1,9 @@
 """Régénère les fichiers publics à partir du jeu (public/index.html) :
 public/fighters.json, public/rules.json, public/changelog.json, CHANGELOG.md,
 la version de public/sw.js et de package.json.
+Le journal des versions est en deux morceaux pour alléger la page : les versions récentes dans `CHANGELOG`
+(public/index.html), les anciennes dans public/changelog-old.json (chargé à l'ouverture de la page Nouveautés).
+Quand `CHANGELOG` dépasse CL_MAX entrées, ce script range les plus anciennes dans changelog-old.json.
 Usage : python3 tools/export_public.py   (nécessite Playwright + Chromium)"""
 import json, re, subprocess, sys, time, os, socket
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -30,10 +33,24 @@ v = live["ver"]
 dump = lambda o: json.dumps(o, ensure_ascii=False, separators=(",", ":"))
 open(os.path.join(PUB, "fighters.json"), "w", encoding="utf-8").write(dump({"v": v, "clans": live["clans"], "fighters": live["fighters"]}))
 open(os.path.join(PUB, "rules.json"), "w", encoding="utf-8").write(dump({"v": v, "rules": live["rules"]}))
+# archive des anciennes versions : la page n'en garde que CL_KEEP, le reste part dans changelog-old.json
+CL_KEEP, CL_MAX = 15, 40
+ao = os.path.join(PUB, "changelog-old.json")
+arch = json.load(open(ao, encoding="utf-8"))["versions"] if os.path.exists(ao) else []
+if len(live["log"]) > CL_MAX:
+    ix0 = os.path.join(PUB, "index.html"); h0 = open(ix0, encoding="utf-8").read()
+    c = h0.index("const CHANGELOG=[\n"); e = h0.index("\n];", c); first = live["log"][CL_KEEP]["v"]
+    k = h0.index('{v:"%s"' % first, c); assert k < e and h0.count('{v:"%s"' % first) == 1
+    k = h0.rindex("\n", c, k)
+    open(ix0, "w", encoding="utf-8", newline="\n").write(h0[:k] + h0[e:])
+    arch = live["log"][CL_KEEP:] + arch; live["log"] = live["log"][:CL_KEEP]
+    open(ao, "w", encoding="utf-8").write(dump({"versions": arch}))
+    print("journal :", len(arch), "anciennes versions dans changelog-old.json,", CL_KEEP, "dans la page")
+live["log"] = live["log"] + arch
 cj = os.path.join(PUB, "changelog.json"); old = json.load(open(cj, encoding="utf-8"))
 old["version"] = v; old["versions"] = live["log"]
 open(cj, "w", encoding="utf-8").write(dump(old))
-md = "# Journal des modifications\n\nGénéré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.\n\n"
+md = "# Journal des modifications\n\nGénéré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions dans public/changelog-old.json). Visible en jeu via le bouton de version.\n\n"
 md += "".join(f"## v{e['v']} — {e['d']}\n\n" + "".join(f"- {x}\n" for x in e["fr"]) + "\n" for e in live["log"])
 open(os.path.join(ROOT, "CHANGELOG.md"), "w", encoding="utf-8").write(md.rstrip("\n") + "\n")
 sw = os.path.join(PUB, "sw.js"); t = open(sw, encoding="utf-8").read()

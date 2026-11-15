@@ -1,13 +1,14 @@
 // Comptes joueurs, scores et Hall of Fame.
 // Stockage : Postgres si DATABASE_URL est défini (Neon), sinon un fichier JSON local (dev / secours).
 const crypto = require("crypto");
+const T = o => Object.assign(Object.create(null), o);   // table sans prototype : une clé envoyée par le client ("constructor", "toString"…) n'y trouve jamais rien
 // ordre des chapitres du mode histoire (king-9 = interlude Barcom, joué avant le combat contre Shin)
 // succès des arcs 3 à 6 (12 nov.) : étoiles d'un arc, couronne sur tous ses chapitres
-const STORY_NEED = { "king-9": "king-14" };   // chapitre déplacé (Joker avant Barcom, 12 nov.) : Barcom demande aussi Jennifer (à garder en phase avec ST_NEED dans index.html)
+const STORY_NEED = T({ "king-9": "king-14" });   // chapitre déplacé (Joker avant Barcom, 12 nov.) : Barcom demande aussi Jennifer (à garder en phase avec ST_NEED dans index.html)
 const stArc = (s, a, n) => !!s.story && Object.keys(s.story).filter(k => k.startsWith("arc" + a + "-")).reduce((x, k) => x + s.story[k], 0) >= n;
 const stCrownAll = (s, a) => !!s.storyH && STORY_ORDER.filter(k => k.startsWith("arc" + a + "-")).every(k => s.storyH[k]);
 const STORY_TEST = /^$/;
-const EXTRA_AFTER = { "extra-4": "arc2-7", "extra-1": "arc2-15", "extra-2": "arc3-8", "extra-3": "arc6-4" };   // souvenirs : débloqués par un chapitre de l'histoire   // arcs en test (lecture seule pour les joueurs) : vider la regex (/^$/) pour ouvrir
+const EXTRA_AFTER = T({ "extra-4": "arc2-7", "extra-1": "arc2-15", "extra-2": "arc3-8", "extra-3": "arc6-4" });   // souvenirs : débloqués par un chapitre de l'histoire   // arcs en test (lecture seule pour les joueurs) : vider la regex (/^$/) pour ouvrir
 // magasin de persos : prix selon le coût (fighters.json) ; persos de départ et persos de l'histoire exclus (à garder en phase avec CHAR_START / STORY_CH dans index.html)
 const RPG_BAG = 96;   // taille du sac des Terres désolées (à garder égale à RPG_BAG dans index.html) : les objets identiques s'empilent, une pile = une place
 const rpgRoom = (bag, it) => bag.includes(it) || new Set(bag).size < RPG_BAG;
@@ -21,7 +22,7 @@ function SHOP_PRICE(id) {
   return { 1: 100, 2: 150, 3: 250, 4: 400, 5: 600 }[SHOP_COST[id]] || 250;
 }
 // voyage (mode RPG) : à garder en phase avec RPG_ITEMS, RPG_ZONE, RPG_DROP, RPG_PTS et RPG_PRICE dans index.html
-const RPG_IT = { "raryuban": [3, 0], "sept-etoiles": [3, 0], "bottes-desert": [0, 1], "veste-loques": [0, 1], "bandes-poing": [0, 1], "bandages": [0, 0], "gourde": [0, 0], "bandana": [0, 1], "gants-cloutes": [1, 1], "epaulettes": [1, 1], "casque-punk": [1, 1], "viande-sechee": [1, 0],
+const RPG_IT = T({ "raryuban": [3, 0], "sept-etoiles": [3, 0], "bottes-desert": [0, 1], "veste-loques": [0, 1], "bandes-poing": [0, 1], "bandages": [0, 0], "gourde": [0, 0], "bandana": [0, 1], "gants-cloutes": [1, 1], "epaulettes": [1, 1], "casque-punk": [1, 1], "viande-sechee": [1, 0],
   "talisman-yuria": [2, 1], "carte-puits": [2, 0], "masque-fer": [2, 1], "ceinturon-clous": [2, 1], "ceinture-ermite": [3, 1], "brassard-nanto": [3, 1], "epaulette-shin": [4, 1], "casque-jagi": [5, 1], "ceinture-king": [5, 1],
   "bottes-cuir": [1, 1], "bottes-ferrees": [3, 1], "bottes-sang": [4, 1], "casque-pointes": [1, 1], "heaume-noir": [3, 1], "heaume-sang": [4, 1], "heaume-daioh": [5, 1], "collier-crocs": [5, 1],
   "bandes-cloutees": [1, 1], "bandes-rouges": [3, 1], "bandes-lion": [4, 1], "gantelets-pointes": [3, 1], "gantelets-sang": [4, 1],
@@ -29,20 +30,21 @@ const RPG_IT = { "raryuban": [3, 0], "sept-etoiles": [3, 0], "bottes-desert": [0
   "epauliere-cloutee": [1, 1], "epauliere-ferree": [3, 1], "medaillon-ferre": [3, 1], "ceinture-ferree": [3, 1], "gantelets-ferres": [3, 1], "heaume-ferre": [3, 1], "armure-kenoh": [4, 1], "gantelets-kenoh": [4, 1], "ceinture-kenoh": [4, 1], "bottes-kenoh": [4, 1], "bride-kokuoh": [4, 1], "armure-souther": [4, 1], "veste-shu": [4, 1], "bottes-shu": [5, 1], "veste-ken": [5, 1], "fusil-jagi": [3, 1], "yoyo-mamiya": [2, 1], "dynamite-jackal": [3, 0], "cheche": [2, 1], "cache-poussiere": [2, 1], "ceinture-gourde": [2, 1], "mitaines-cuir": [2, 1], "lunettes-sable": [2, 1], "epauliere-sang": [4, 1], "ceinture-sang": [4, 1], "amulette-sang": [4, 1],
   "remede-medicine": [2, 0], "eau-pure": [3, 0], "grenade": [2, 0], "tsubo-toki": [4, 0], "essence": [1, 0],
   "ceinture-munitions": [0, 1], "ceinture-cuir": [1, 1], "ceinture-lion": [3, 1], "ceinture-crane": [4, 1],
-  "jambieres-rouille": [1, 1], "jambieres-pointes": [3, 1], "jambieres-sang": [4, 1], "bandana-bat": [3, 1], "ruban-lin": [3, 1], "livre-amiba": [5, 1], "masque-souther": [5, 1], "fouet-cassandra": [5, 1], "epaulette-rei": [5, 1], "bandes-azur": [2, 1], "jambieres-soleil": [2, 1], "etoile-chariot": [4, 1], "veste-moto": [2, 1], "photo-jaunie": [0, 1], "croc-loup": [1, 1], "cuirasse-etoiles": [4, 1], "gantelets-successeur": [4, 1], "bottes-ourse": [4, 1], "robe-toki": [4, 1], "bandes-genie": [4, 1], "sandales-saint": [4, 1], "cuirasse-geolier": [4, 1], "chaines-cassandra": [4, 1], "bottes-pleurs": [4, 1] };   // id : [rareté, équipable]
+  "jambieres-rouille": [1, 1], "jambieres-pointes": [3, 1], "jambieres-sang": [4, 1], "bandana-bat": [3, 1], "ruban-lin": [3, 1], "livre-amiba": [5, 1], "masque-souther": [5, 1], "fouet-cassandra": [5, 1], "epaulette-rei": [5, 1], "bandes-azur": [2, 1], "jambieres-soleil": [2, 1], "etoile-chariot": [4, 1], "veste-moto": [2, 1], "photo-jaunie": [0, 1], "croc-loup": [1, 1], "cuirasse-etoiles": [4, 1], "gantelets-successeur": [4, 1], "bottes-ourse": [4, 1], "robe-toki": [4, 1], "bandes-genie": [4, 1], "sandales-saint": [4, 1], "cuirasse-geolier": [4, 1], "chaines-cassandra": [4, 1], "bottes-pleurs": [4, 1] });   // id : [rareté, équipable]
 // zones : étapes qui donnent du butin, étape à avoir battue pour ouvrir la zone, légendaire du boss (5 %)
-const RPG_ZONES = { mamiya: { need: ["sc:sc_shin", "mamiya:jagi"], nodes: { zeed: "fight", old: "event", kiba: "elite", ruines: "fight", madara: "elite", daioh: "boss" }, leg: "collier-crocs" },   // Jagi aura sa zone (3), avec le Casque de Jagi
+const RPG_ZONES = T({ mamiya: { need: ["sc:sc_shin", "mamiya:jagi"], nodes: { zeed: "fight", old: "event", kiba: "elite", ruines: "fight", madara: "elite", daioh: "boss" }, leg: "collier-crocs" },   // Jagi aura sa zone (3), avec le Casque de Jagi
   sc: { nodes: { sc_zeed: "fight", sc_spade: "fight", sc_village: "event", sc_diamond: "elite", sc_club: "fight", sc_chateau: "fight", sc_heart: "elite", sc_shin: "boss" }, leg: "ceinture-king" },
   jg: { need: ["mamiya:daioh", "mamiya:jagi"], nodes: { jg_entree: "fight", jg_ville: "event", jg_jackal: "elite", jg_rues: "fight", jg_garde: "elite", jg_jagi: "boss" }, leg: "casque-jagi" },
   am: { need: ["jg:jg_jagi"], nodes: { am_route: "fight", am_village: "event", am_goum: "elite", am_pont: "fight", am_cave: "elite", am_amiba: "boss" }, leg: "livre-amiba" },
   cs: { need: ["am:am_amiba"], nodes: { cs_seeker: "fight", cs_village: "event", cs_targel: "elite", cs_ruines: "fight", cs_portes: "elite", cs_uighur: "boss" }, leg: "fouet-cassandra" },
   yd: { need: ["cs:cs_uighur"], nodes: { yd_route: "fight", yd_village: "event", yd_galf: "elite", yd_convoi: "fight", yd_dagar: "elite", yd_yuda: "boss" }, leg: "epaulette-rei" },
-  so: { need: ["yd:yd_yuda", "yuda:yuda"], nodes: { so_galzus: "fight", so_village: "event", so_jumeaux: "elite", so_chantier: "fight", so_garde: "elite", so_souther: "boss" }, leg: "masque-souther" } };
-const RPG_PTS = { fight: 6, event: 8, elite: 10, boss: 25 }, RPG_PTS_AGAIN = { fight: 1, event: 1, elite: 2, boss: 5 };   // première fois / étape déjà faite
+  so: { need: ["yd:yd_yuda", "yuda:yuda"], nodes: { so_galzus: "fight", so_village: "event", so_jumeaux: "elite", so_chantier: "fight", so_garde: "elite", so_souther: "boss" }, leg: "masque-souther" } });
+for (const z of Object.values(RPG_ZONES)) z.nodes = T(z.nodes);
+const RPG_PTS = T({ fight: 6, event: 8, elite: 10, boss: 25 }), RPG_PTS_AGAIN = T({ fight: 1, event: 1, elite: 2, boss: 5 });   // première fois / étape déjà faite
 const RPG_PITY = 15;
-const RPG_LEG2 = { so: ["so_garde", "bottes-shu"], jg: ["jg_jagi", "veste-ken"] };   // à garder en phase avec RPG_LEG2 dans index.html   // victoires max sans la légendaire d'une source (boss de zone, élite de la garde)
+const RPG_LEG2 = T({ so: ["so_garde", "bottes-shu"], jg: ["jg_jagi", "veste-ken"] });   // à garder en phase avec RPG_LEG2 dans index.html   // victoires max sans la légendaire d'une source (boss de zone, élite de la garde)
 const RPG_DROP = { fight: [50, 35, 15], event: [0, 0, 100], elite: [0, 48, 35, 15, 2], boss: [0, 0, 0, 84, 16], again: [60, 30, 10], dmFight: [0, 30, 45, 20, 5], dmElite: [0, 0, 50, 35, 15] };   // dm* : Étoile de la mort (11 nov., idée de Jérôme)   // again : événement déjà fait (commun / peu commun)   // poids par rareté
-const RPG_SHOP = { "bottes-desert": 20, "veste-loques": 20, "bandes-poing": 20, "ceinture-munitions": 20, "ceinture-cuir": 40, "bandages": 20, "gourde": 20, "bandana": 20, "gants-cloutes": 40, "epaulettes": 40, "casque-punk": 40, "bottes-cuir": 40, "casque-pointes": 40, "bandes-cloutees": 40, "plastron-rouille": 40, "essence": 40, "viande-sechee": 40, "talisman-yuria": 80, "carte-puits": 80, "remede-medicine": 80, "masque-fer": 80, "ceinturon-clous": 80, "bandes-azur": 80, "jambieres-soleil": 80, "veste-moto": 80, "photo-jaunie": 20, "croc-loup": 40, "cheche": 80, "cache-poussiere": 80, "ceinture-gourde": 80, "mitaines-cuir": 80, "lunettes-sable": 80, "jambieres-rouille": 40, "epauliere-cloutee": 40, "grenade": 80 };
+const RPG_SHOP = T({ "bottes-desert": 20, "veste-loques": 20, "bandes-poing": 20, "ceinture-munitions": 20, "ceinture-cuir": 40, "bandages": 20, "gourde": 20, "bandana": 20, "gants-cloutes": 40, "epaulettes": 40, "casque-punk": 40, "bottes-cuir": 40, "casque-pointes": 40, "bandes-cloutees": 40, "plastron-rouille": 40, "essence": 40, "viande-sechee": 40, "talisman-yuria": 80, "carte-puits": 80, "remede-medicine": 80, "masque-fer": 80, "ceinturon-clous": 80, "bandes-azur": 80, "jambieres-soleil": 80, "veste-moto": 80, "photo-jaunie": 20, "croc-loup": 40, "cheche": 80, "cache-poussiere": 80, "ceinture-gourde": 80, "mitaines-cuir": 80, "lunettes-sable": 80, "jambieres-rouille": 40, "epauliere-cloutee": 40, "grenade": 80 });
 const RPG_ID = /^[a-z][a-z-]{1,23}(~((hp[1235]|lg1h?|my1h?|ld1h?|rg1h?)(\+[hlmdr]{1,3})?|\+[hlmdr]{1,3}))?$/;   // objet, avec ou sans bonus de qualité (butin) et bonus de forge (+lettres)
 // forge : 2 objets identiques -> le même avec une étoile de plus, bonus choisi par le joueur. À garder en phase avec index.html (FORGE_*)
 const FORGE_FEE = [10, 20, 40, 70, 120, 200], FORGE_CAP = [1, 2, 3, 3, 3, 3], FORGE_RAGE = 2;
@@ -56,7 +58,7 @@ const rpgOk = x => typeof x === "string" && RPG_ID.test(x) && !!RPG_IT[x.split("
 const RPG_ZONEONLY = { "cuirasse-etoiles": "jg", "gantelets-successeur": "jg", "bottes-ourse": "jg", "robe-toki": "am", "bandes-genie": "am", "sandales-saint": "am", "cuirasse-geolier": "cs", "chaines-cassandra": "cs", "bottes-pleurs": "cs", "ceinture-ferree": "sc", "gantelets-ferres": "mamiya", "bottes-ferrees": "jg", "medaillon-ferre": "am", "heaume-ferre": "cs", "plastron-ferre": "yd", "armure-kenoh": "kenoh", "gantelets-kenoh": "kenoh", "ceinture-kenoh": "kenoh", "bottes-kenoh": "kenoh", "bride-kokuoh": "kenoh", "armure-souther": "so", "veste-shu": "so", "bottes-shu": "so", "veste-ken": "jg", "heaume-sang": "sc", "gantelets-sang": "sc", "ceinture-sang": "sc", "epauliere-sang": "old", "plastron-sang": "mamiya", "bottes-sang": "mamiya", "amulette-sang": "mamiya", "jambieres-sang": "old" };   // set de sang : chaque pièce ne tombe que dans sa zone
 // réglages des terres désolées modifiables depuis l'admin (stockés en base, "rpgcfg") : rareté, prix, zone, retrait du butin, poids de butin, légendaire et taux du boss
 let RPG_CFG = {};
-const cfgIt = id => (RPG_CFG.items && RPG_CFG.items[id]) || {};
+const cfgIt = id => (RPG_CFG.items && Object.prototype.hasOwnProperty.call(RPG_CFG.items, id) && RPG_CFG.items[id]) || {};
 const rpgRar = id => cfgIt(id).r != null ? cfgIt(id).r : RPG_IT[id][0];
 const PUNK_CRIES = ["abeshi", "hidebu", "tawaba", "uwaraba", "pappippu", "chinya", "awabyu"];   // à garder en phase avec PUNK_CRIES dans index.html
 const SANG_Z = ["jg", "am", "cs", "yd"], SANG_SET = new Set(["heaume-sang", "gantelets-sang", "ceinture-sang", "plastron-sang", "bottes-sang", "amulette-sang"]);   // le set de sang tombe aussi dans les zones 3 à 6 (demande de Jérôme)
@@ -288,6 +290,10 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
 
   const limited = ip => { const now = Date.now(); const e = tries.get(ip) || { n: 0, t: now }; if (now - e.t > 60000) { e.n = 0; e.t = now; } e.n++; tries.set(ip, e); return e.n > 12; };
   const pubUser = u => ({ id: u.id, name: u.name, avatar: u.avatar_v ? `/api/avatar/${u.id}?v=${u.avatar_v}` : null, stats: (({ decks, survRun, arcRun, arcBonusRun, ...r }) => r)(u.stats || {}), created: u.created, ...(isAdmin(u) ? { admin: true } : {}), ...(isTesterOnly(u) ? { tester: true } : {}) });
+  // version allégée pour les listes (joueurs en ligne, Hall of Fame) : sans sac, histoire ni succès, sinon chaque ping renvoie des dizaines de Ko
+  const SLIM = ["pts", "elo", "look", "vsW", "vsL", "aiW", "aiL", "tW", "dojo", "surv", "best"];
+  const slimUser = u => { const p = pubUser(u), s = p.stats || {}, st = {}; for (const k of SLIM) if (s[k] != null) st[k] = s[k];
+    const fav = Object.entries(s.fav || {}).sort((a, b) => b[1] - a[1])[0]; if (fav) st.fav = { [fav[0]]: fav[1] }; return { ...p, stats: st }; };
   async function newSession(u) { const tok = crypto.randomBytes(32).toString("hex"); await store.addSession(sha(tok), u.id); return tok; }
   const seen = new Map();
   async function auth(req) { const h = req.headers.authorization || ""; const tok = h.startsWith("Bearer ") ? h.slice(7) : ""; if (!/^[0-9a-f]{64}$/.test(tok)) return null;
@@ -318,7 +324,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
   // roue du destin (le Dōshi) : un tour par jour ; le serveur tire le résultat
   const WHEEL_SEG = ["fav", "bless", "jackpot", "treasure", "ryo100", "doom", "ryo", "trial"];   // ordre des cases sur la roue illustrée (bleu, vert, or, violet, argent, noir, brun, rouge)   // ordre des cases sur la roue
   const WHEEL_W = { ryo: 26, fav: 12, bless: 12, ryo100: 12, trial: 10, treasure: 12, jackpot: 4, doom: 12 };
-  const WHEEL_FRAMES = ["or", "sang", "etoiles", "raryu", "nuit"], WHEEL_TITLES = ["protege", "survivant", "elu"];
+  const WHEEL_FRAMES = ["or", "sang", "etoiles", "raryu", "nuit"];
   const dayBefore = d => { const x = new Date(d + "T12:00:00Z"); x.setUTCDate(x.getUTCDate() - 1); return x.toISOString().slice(0, 10); };
   const ryoGive = (st, n) => { st.ryoSpent = (st.ryoSpent || 0) - n; };   // les ryō offerts ne touchent pas aux points
   // après un combat : étoile protectrice (victoire avec le perso désigné) et étoile de la mort (combat suivant, gagné) doublent les ryō
@@ -676,7 +682,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
       if (now - (lastSolo.get(u.id) || 0) < 45000) return [429, { error: "slow" }];
       lastSolo.set(u.id, now);
       const won = !!body.win;
-      const LV = { easy: [5, 1], norm: [10, 2], hard: [15, 3], hokuto: [20, 4] }, lv = LV[body.lv] ? body.lv : "norm", gain = LV[lv][won ? 0 : 1];
+      const LV = T({ easy: [5, 1], norm: [10, 2], hard: [15, 3], hokuto: [20, 4] }), lv = LV[body.lv] ? body.lv : "norm", gain = LV[lv][won ? 0 : 1];
       if (won) st.aiW++; else st.aiL++; st.pts += gain; const wb = wheelWin(st, body.team, won, gain);
       streak(st, won); bumpFav(st, body.team);
       if (lv === "norm") { fRecord(body.team, won, "a"); fstats.n = fstats.n || { v: 0, a: 0 }; fstats.n.a++; }   // stats d'équilibrage : niveau normal seulement
@@ -880,7 +886,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
     "POST /api/ping": async (req, body) => {
       const u = await auth(req); if (!u) return [401, { error: "auth" }];
       const where = ["menu", "ai", "solo", "surv", "dojo", "arc", "story", "vs", "queue", "tour"].includes(body.where) ? body.where : "menu";
-      presence.set(u.id, { ...pubUser(u), where, t: Date.now() });
+      presence.set(u.id, { ...slimUser(u), where, t: Date.now() });
       return [200, { online: onlineList() }];
     },
     "GET /api/online": async () => [200, { online: onlineList() }],
@@ -1016,7 +1022,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
     },
     "GET /api/top": async (req, body, ip, url) => {
       const k = url.searchParams.get("kind"), kind = k === "pts" || k === "surv" || k === "dojo" ? k : "elo";
-      return [200, { kind, list: (await store.top(kind, 50)).map(pubUser) }];
+      return [200, { kind, list: (await store.top(kind, 50)).map(slimUser) }];
     }
   };
 
@@ -1024,6 +1030,7 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
   const ext = { routes, auth, pubUser, store, getDuel, hasDuel, matches, onSettle: fn => settleHooks.push(fn), settle };
   require("./tourney").install(ext);
 
+  const locks = new Map();   // jeton -> dernière requête en cours de ce joueur
   async function handle(req, res) {
     const url = new URL(req.url, "http://x");
     const send = (code, obj, extra) => { res.writeHead(code, { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store", ...extra }); res.end(JSON.stringify(obj)); };
@@ -1057,9 +1064,18 @@ function makeAccounts({ store, getDuel, hasDuel, version, build, ready, hooks = 
     req.on("end", async () => {
       if (big) return;
       let body = {}; if (raw) { try { body = JSON.parse(raw); } catch (e) { return send(400, { error: "json" }); } }
+      if (!body || typeof body !== "object" || Array.isArray(body)) body = {};
       const ip = (req.headers["x-forwarded-for"] || req.socket.remoteAddress || "").split(",")[0].trim();
-      try { const [code, obj] = await fn(req, body, ip, url); send(code, obj, url.pathname.startsWith("/api/public/") ? { "Access-Control-Allow-Origin": "*", "Cache-Control": "public, max-age=60" } : undefined); }
-      catch (e) { console.error("api", url.pathname, e.message); send(500, { error: "server" }); }
+      const run = async () => {
+        try { const [code, obj] = await fn(req, body, ip, url); send(code, obj, url.pathname.startsWith("/api/public/") ? { "Access-Control-Allow-Origin": "*", "Cache-Control": "public, max-age=60" } : undefined); }
+        catch (e) { console.error("api", url.pathname, e.message); send(500, { error: "server" }); }
+      };
+      // un joueur à la fois : chaque route lit les stats, les modifie puis les réécrit en entier. Deux requêtes simultanées du même joueur
+      // (fin de combat + compteur de KO, par exemple) s'écrasaient l'une l'autre : butin ou points perdus. Elles passent maintenant l'une après l'autre.
+      const key = req.method !== "GET" && /^Bearer [0-9a-f]{64}$/.test(req.headers.authorization || "") ? req.headers.authorization : "";
+      if (!key) return run();
+      const next = (locks.get(key) || Promise.resolve()).then(run, run); locks.set(key, next);
+      next.finally(() => { if (locks.get(key) === next) locks.delete(key); });
     });
   }
   return { handle, ipBanned, auth, isAdmin };

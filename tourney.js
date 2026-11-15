@@ -7,7 +7,7 @@ const NAME_MAX = 32;
 const WIN_BONUS = 100;
 
 function install(x) {
-  const { routes, auth, pubUser, store, hasDuel, onSettle, settle, matches } = x;
+  const { routes, auth, pubUser, store, hasDuel, onSettle, matches } = x;
   const cache = new Map();            // code -> tournoi (copie de travail)
   const byMatch = new Map();          // code de duel -> code de tournoi
   const locks = new Map();

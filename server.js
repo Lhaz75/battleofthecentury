@@ -41,7 +41,7 @@ function checkCdn() {
 checkCdn();
 setInterval(() => { if (CDN_OK) { CDN_OK = false; checkCdn(); } }, 6 * 3600 * 1000);   // revérifie de temps en temps
 
-const TYPES = { ".html":"text/html; charset=utf-8", ".js":"text/javascript", ".css":"text/css",
+const TYPES = { ".html":"text/html; charset=utf-8", ".js":"text/javascript",
   ".webp":"image/webp", ".png":"image/png", ".jpg":"image/jpeg", ".woff2":"font/woff2", ".json":"application/json", ".ico":"image/x-icon", ".svg":"image/svg+xml", ".mp3":"audio/mpeg", ".webmanifest":"application/manifest+json", ".css":"text/css; charset=utf-8" };
 
 // ---------- documents de partie (en mémoire + sauvegarde disque) ----------
@@ -68,7 +68,7 @@ const accounts = makeAccounts({ hooks, version: VERSION, build: BUILD, ready, st
 const voices = new Map(); let voiceBytes = 0; const voiceRate = new Map();
 const VOICE_MAX = 400 * 1024, VOICE_TOTAL = 60 * 1024 * 1024, VOICE_TTL = 2 * 3600e3;
 const VOICE_TYPES = /^audio\/(webm|ogg|mp4|aac|mpeg)(;.*)?$/;
-setInterval(() => { const now = Date.now(); for (const [id, v] of voices) if (now - v.t > VOICE_TTL) { voiceBytes -= v.buf.length; voices.delete(id); } }, 60000);
+setInterval(() => { const now = Date.now(); for (const [id, v] of voices) if (now - v.t > VOICE_TTL) { voiceBytes -= v.buf.length; voices.delete(id); } for (const [ip, r] of voiceRate) if (now - r.t > 60000) voiceRate.delete(ip); }, 60000);
 function voiceApi(req, res, url) {
   const send = (c, o) => { res.writeHead(c, { "Content-Type": "application/json", "Cache-Control": "no-store" }); res.end(JSON.stringify(o)); };
   const g = /^\/api\/voice\/([a-z0-9]{16})$/.exec(url.pathname);
@@ -102,7 +102,7 @@ const server = http.createServer((req, res) => {
   if ((req.url || "").startsWith("/api/mm/") || (req.url || "").startsWith("/api/ch/")) return mm.handle(req, res, new URL(req.url, "http://x"));
   if ((req.url || "").startsWith("/api/voice")) return voiceApi(req, res, new URL(req.url, "http://x"));
   if ((req.url || "").startsWith("/api/")) return accounts.handle(req, res);
-  let p = decodeURIComponent((req.url || "/").split("?")[0]);
+  let p; try { p = decodeURIComponent((req.url || "/").split("?")[0]); } catch (e) { res.writeHead(400); return res.end(); }   // adresse mal formée (%zz) : 400 au lieu d'une requête qui reste en l'air
   if (p === "/") p = "/index.html";
   // images, sons et musiques : servis par GitHub Pages (gratuit) pour ne pas consommer la bande passante Render
   if (CDN_OK && req.method === "GET" && /^\/(assets|sfx|music)\//.test(p)) {

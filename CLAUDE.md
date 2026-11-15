@@ -52,7 +52,8 @@ server.js        serveur HTTP + WebSocket (versus en ligne, /api/ch/, /api/mm/, 
 accounts.js      comptes, scores, Elo, admin, maintenance, magasin, histoire côté serveur
 matchmaking.js   file d'attente / lobby versus
 tourney.js       tournois (4 ou 8 places, code à 5 lettres)
-public/index.html  ~1,2 Mo : TOUT le client (données, moteur de combat, IA, UI, i18n)
+public/index.html  ~2 Mo : TOUT le client (données, moteur de combat, IA, UI, i18n)
+public/changelog-old.json  anciennes versions du journal (chargées à l'ouverture des Nouveautés)
 public/assets/   illustrations (<id>.webp, bust-<id>.webp, assets/hd pour les ultimes)
 public/music, public/sfx   sons
 public/fighters.json, rules.json, changelog.json   générés, lus par hokutolegacy.com (CORS ouvert)
@@ -64,7 +65,7 @@ tools/atelier/   scripts de la session Claude Code (nettoyage des images, cadrag
 Repères dans `public/index.html` (numéros de ligne approximatifs, v0.97.16) :
 - `FIGHTERS` (~2324), `TRAPS` (~2724), `TERRAINS` (~2863)
 - `RAGE_MAX = 8, HAND = 6, ENDURANCE = 5` (~3047)
-- `CHANGELOG` (~4823) — sa première entrée donne `APP_VERSION`
+- `CHANGELOG` (~4823) — sa première entrée donne `APP_VERSION`. Il ne garde que les versions récentes : au-delà de 40 entrées, `tools/export_public.py` range les plus anciennes dans `public/changelog-old.json` (15 restent dans la page). `changelog.json` et `CHANGELOG.md` contiennent toujours tout.
 - `DC_CHAT` (~5846) — chat Discord WidgetBot
 - `ST_TEST` (arcs en test), `ST_UNLOCK_ALL` (false en bêta, true pour la 1.0), `CHAR_START`, `CHAR_SHOP`, `STORY_CH` (~5966-5986)
 - `SURV` (~6110) — mode Survie ; `DOJO` juste après (`DOJO_T`, `dojoPrep`, `/api/dojo` côté serveur)
@@ -85,6 +86,9 @@ cd public && python3 -m http.server 8811 &   # le client tourne sans le serveur 
 - Tests Playwright (Python, Chromium) : simuler la connexion dans la page (`ACC.on=true; ACC.user={admin:true,stats:{...}}`), puis `MODE="solo"; ME="p"` et lancer un combat direct avec `newGame(team, foe, prep)`.
 - Après la modif : entrée `CHANGELOG` (fr/en/it/ja) → `python3 tools/export_public.py` → commit → push.
 - Une seule session à la fois qui pousse sur `main` (il y a déjà eu un conflit entre deux sessions).
+- **Toujours lancer `tools/export_public.py` après avoir changé une image ou un son** : le cache hors ligne (`sw.js`) sert les fichiers déjà téléchargés sans redemander le serveur, et ne se renouvelle que quand l'empreinte `ASTAMP` (écrite par l'export) change.
+- Revue de code du 15 nov. 2026, trois contrôles à refaire de temps en temps : ESLint (`no-unused-vars`, `no-undef`, `no-dupe-keys`) sur le script extrait de `index.html` et sur les `.js` du serveur ; clés `UI` / `TX` / `TXJA` définies plusieurs fois ou jamais lues ; classes CSS absentes du script.
+- Côté serveur (`accounts.js`) : les tables lues avec une clé venant du client passent par `T({...})` (objet sans prototype), et les requêtes d'un même joueur sont traitées l'une après l'autre (`locks` dans `handle`) parce que chaque route réécrit les stats en entier.
 
 ## Ce que contient le jeu (résumé)
 

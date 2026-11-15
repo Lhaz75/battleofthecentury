@@ -21,13 +21,12 @@ self.addEventListener("fetch", e => {
       .catch(() => caches.match("./").then(r => r || caches.match(req))));
     return;
   }
-  // images, sons, polices : cache immédiat + mise à jour en arrière-plan
+  // images, sons, polices : cache d'abord, réseau seulement la première fois
   if (/^\/(assets|sfx|fonts)\//.test(url.pathname)) {
     e.respondWith(caches.open(CACHE).then(async c => {
       const hit = await c.match(req);
-      const net = fetch(req, { cache: "no-cache" }).then(r => { if (r.ok && r.status === 200) c.put(req, r.clone()); return r; }).catch(() => hit);
-      if (hit) { e.waitUntil(net); return hit; }
-      return net;
+      if (hit) return hit;   // déjà en cache : aucune requête. Le nom du cache contient l'empreinte des fichiers (ASTAMP) : une image modifiée = un nouveau cache
+      return fetch(req, { cache: "no-cache" }).then(r => { if (r.ok && r.status === 200) c.put(req, r.clone()); return r; });
     }));
   }
 });
