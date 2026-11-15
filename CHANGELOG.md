@@ -35,6 +35,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 - Rōga revient avec une nouvelle illustration (fourrure brune) et attaque le village de Mamiya. Plus aucun sbire du clan Kiba n'apparaît deux fois
 - Nouvelle illustration pour Madara, la bête du clan Kiba (illustration de David)
 - Admin, cadrages : on peut dézoomer au-delà de l'illustration entière (pour les persos trop imposants), et enregistrer ne recharge plus toute la liste
+- Coups et KO : les entailles lumineuses et l'ancienne fissure sont remplacées par un impact dans une vitre (étoile d'impact, fissures fines, anneaux), plus ou moins marqué selon les dégâts
 
 ## v0.99.122 — 2026-11-13
 
