@@ -6,7 +6,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 
 - Profil : le cadre de portrait choisi s'affiche maintenant aussi sur le grand avatar du profil, il était écrasé par l'ombre de l'avatar (merci Jérôme)
 - Boss mondial : le texte du plafond affichait par erreur la règle des Terres désolées (40 %). Il indique de nouveau ton total compté sur la semaine et le plafond par joueur
-- Statistiques : nombre de voyages dans les Terres désolées et de zones terminées (le compteur de voyages démarre aujourd'hui, idée de Jérôme)
+- Statistiques : voyages terminés dans les Terres désolées et zones terminées sur le total, par exemple 7/7 (idées de Jérôme)
 - Jeu plus léger : la page pèse 20 % de moins et se charge plus vite (les anciennes versions du journal ne sont chargées qu'à l'ouverture des Nouveautés, textes et styles inutilisés retirés)
 - Images déjà téléchargées : elles s'affichent sans redemander le serveur
 - Serveur : deux actions envoyées en même temps (fin de combat et compteur de KO, par exemple) ne s'écrasent plus l'une l'autre, ce qui pouvait faire perdre des points ou du butin
