@@ -32,6 +32,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 - Mode histoire, arc 2 : Bella est forcée par Uighur à combattre Kenshiro, puis tuée par Targel, que Ken venge ; Dagar est laissé en vie, dans la douleur, pour porter le message à Yuda. Clan Kiba : Rōga et Tetsuga, trop proches de Kemada (même fourrure bleue), quittent le jeu ; Kemada, qui tue Kō, arrive dans « La nuit des crocs »
 - Deux nouveaux membres du clan Kiba (illustrations de David) : Nakne, le barbare à la hache, et Zanga, le guerrier au sabre. Dans « La nuit des crocs », Kemada arrive seul après eux
 - Tetsuga revient avec une nouvelle illustration (fourrure brune, griffes d'acier) et se bat dans « La vengeance de Gibara »
+- Rōga revient avec une nouvelle illustration (fourrure brune) et attaque le village de Mamiya. Plus aucun sbire du clan Kiba n'apparaît deux fois
 
 ## v0.99.122 — 2026-11-13
 
