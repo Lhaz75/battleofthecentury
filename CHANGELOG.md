@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions dans public/changelog-old.json). Visible en jeu via le bouton de version.
 
+## v0.99.124 — 2026-11-16
+
+- Visuels de l'accueil (admin) : le réglage se fait maintenant directement sur la vraie page d'accueil. Le panneau flotte dans un coin (réductible), on glisse le perso sur la page et on voit exactement où il tombe par rapport au titre, au bouton Jouer et aux encarts.
+
 ## v0.99.123 — 2026-11-15
 
 - Profil : le cadre de portrait choisi s'affiche maintenant aussi sur le grand avatar du profil, il était écrasé par l'ombre de l'avatar (merci Jérôme)
