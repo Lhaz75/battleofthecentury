@@ -20,6 +20,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 - Mode histoire : Giggs et Smokey, soldats de KING, accompagnent maintenant Heart, et Lenny et Rocco passent dans le chapitre de Jennifer (Wolf, puis Hydra)
 - Équilibrage : Giggs et Smokey prennent les PV et la puissance de Lenny et Rocco, et inversement, pour que les chapitres de Heart et de Jennifer gardent leur difficulté. L'élite de Heart dans les Terres désolées est renforcée en conséquence
 - Mode histoire : le combat contre Joker se fait maintenant sans punks, Joker seul (plus costaud en compensation). Hatchet et Odin y apparaissaient alors qu'ils sont déjà ailleurs dans l'arc 1
+- Mode histoire : Rojo et Mojo remplacent Razor et Tusk chez Dante, et Leo remplace Spike chez Baron. Plus aucun punk n'apparaît deux fois dans l'arc 1
 
 ## v0.99.122 — 2026-11-13
 
