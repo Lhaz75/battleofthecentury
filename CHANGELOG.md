@@ -34,6 +34,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 - Tetsuga revient avec une nouvelle illustration (fourrure brune, griffes d'acier) et se bat dans « La vengeance de Gibara »
 - Rōga revient avec une nouvelle illustration (fourrure brune) et attaque le village de Mamiya. Plus aucun sbire du clan Kiba n'apparaît deux fois
 - Nouvelle illustration pour Madara, la bête du clan Kiba (illustration de David)
+- Admin, cadrages : on peut dézoomer au-delà de l'illustration entière (pour les persos trop imposants), et enregistrer ne recharge plus toute la liste
 
 ## v0.99.122 — 2026-11-13
 
