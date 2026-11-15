@@ -14,6 +14,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 - Mode histoire : l'écran de fin de chapitre indique le nombre total de tours, toutes vagues confondues (idée de Jérôme)
 - Hommes de KING (Wolf et les autres soldats) : la description du passif précise que le +1 marche aussi avec un autre soldat de KING dans l'équipe, comme c'était déjà le cas en combat (merci Jérôme)
 - Mode histoire, chapitre de Wolf à Toda : Jennifer t'aide enfin. Elle fait diversion à moto et annule le premier Lourd adverse du chapitre (question de Jérôme)
+- Combattants : les persos à 5 points (Kenshiro, Ken-Oh…) affichent leur bonus de Légende, +1 dégât sur tous leurs coups et +20 % de PV, aussi dans la liste des combattants et le PDF (idée de Jérôme)
 
 ## v0.99.122 — 2026-11-13
 
