@@ -11,6 +11,8 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 - Images déjà téléchargées : elles s'affichent sans redemander le serveur
 - Serveur : deux actions envoyées en même temps (fin de combat et compteur de KO, par exemple) ne s'écrasent plus l'une l'autre, ce qui pouvait faire perdre des points ou du butin
 - Liste des joueurs en ligne et Hall of Fame : échanges avec le serveur beaucoup plus légers
+- Mode histoire : l'écran de fin de chapitre indique le nombre total de tours, toutes vagues confondues (idée de Jérôme)
+- Hommes de KING (Wolf et les autres soldats) : la description du passif précise que le +1 marche aussi avec un autre soldat de KING dans l'équipe, comme c'était déjà le cas en combat (merci Jérôme)
 
 ## v0.99.122 — 2026-11-13
 
