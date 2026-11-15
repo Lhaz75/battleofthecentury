@@ -36,6 +36,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 - Nouvelle illustration pour Madara, la bête du clan Kiba (illustration de David)
 - Admin, cadrages : on peut dézoomer au-delà de l'illustration entière (pour les persos trop imposants), et enregistrer ne recharge plus toute la liste
 - Coups et KO : les entailles lumineuses et l'ancienne fissure sont remplacées par un impact dans une vitre (étoile d'impact, fissures fines, anneaux), plus ou moins marqué selon les dégâts
+- Cadrage (admin) : l'aperçu et la carte de combat coupaient le bas de l'illustration (les genoux de Borgu par exemple) même quand le cadre le montrait. Ce que tu vois dans le cadre est maintenant ce qui s'affiche en jeu.
 
 ## v0.99.122 — 2026-11-13
 
