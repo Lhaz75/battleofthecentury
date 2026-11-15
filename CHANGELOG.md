@@ -5,6 +5,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 ## v0.99.124 — 2026-11-16
 
 - Visuels de l'accueil (admin) : le réglage se fait maintenant directement sur la vraie page d'accueil. Le panneau flotte dans un coin (réductible), on glisse le perso sur la page et on voit exactement où il tombe par rapport au titre, au bouton Jouer et aux encarts.
+- Cadrage (admin) : le cadre peut maintenant sortir de l'illustration (jusqu'à 40 %), pour descendre un perso dans sa carte ou le décaler sur le côté (demande de Lhaz).
 
 ## v0.99.123 — 2026-11-15
 
