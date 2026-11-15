@@ -30,7 +30,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 - Mode histoire : le début suit l'anime. « Le village assiégé » et « Zeed » ne font plus qu'un chapitre : Tusk et Spike, puis Zeed. Lin, enlevée par Zeed, et Bat ne sont pas encore avec Kenshiro. Tes étoiles ne bougent pas, et les chapitres suivants restent ouverts
 - Mode histoire : après Zeed, Lin reste au village. Elle est absente contre Spade et Diamond (seul Bat t'aide), puis enlevée par les hommes de Club et libérée juste avant le combat contre lui
 - Mode histoire, arc 2 : Bella est forcée par Uighur à combattre Kenshiro, puis tuée par Targel, que Ken venge ; Dagar est laissé en vie, dans la douleur, pour porter le message à Yuda. Clan Kiba : Rōga et Tetsuga, trop proches de Kemada (même fourrure bleue), quittent le jeu ; Kemada, qui tue Kō, arrive dans « La nuit des crocs »
-- Nouveau membre du clan Kiba : Nakne, le barbare à la hache (illustration de David). Il attaque dans « La nuit des crocs » et « La vengeance de Gibara »
+- Deux nouveaux membres du clan Kiba (illustrations de David) : Nakne, le barbare à la hache, et Zanga, le guerrier au sabre. Dans « La nuit des crocs », Kemada arrive seul après eux
 
 ## v0.99.122 — 2026-11-13
 
