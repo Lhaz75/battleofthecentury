@@ -23,6 +23,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 - Mode histoire : Rojo et Mojo remplacent Razor et Tusk chez Dante, et Leo remplace Spike chez Baron. Plus aucun punk n'apparaît deux fois dans l'arc 1
 - Les punks de KING (Lenny, Rocco, Jinx, Zappa, Mojo…) sont maintenant de simples pillards : passif Racaille, +1 tant qu'un autre pillard de leur équipe est debout. Le passif « Collecteur de KING » disparaît
 - Les soldats de KING (Giggs, Smokey…) deviennent eux aussi de simples pillards. Seuls Spade, Diamond, Club, Heart, Joker, Dragon, Patra, Zaria, Dante, Barcom, Mahari, Garekki, Hydra, Toda et Wolf sont des hommes de KING ; Wolf a +1 tant que l'un d'eux est debout dans son équipe
+- Mode histoire, chapitre de Jennifer : trois vagues au lieu de quatre. Wolf et Mahari, puis Garekki et Hydra, puis Rocco et Toda. Lenny quitte le chapitre
 
 ## v0.99.122 — 2026-11-13
 
