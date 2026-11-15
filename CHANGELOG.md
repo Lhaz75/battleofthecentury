@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html). Visible en jeu via le bouton de version.
 
+## v0.99.123 — 2026-11-15
+
+- Profil : le cadre de portrait choisi s'affiche maintenant aussi sur le grand avatar du profil, il était écrasé par l'ombre de l'avatar (merci Jérôme)
+
 ## v0.99.122 — 2026-11-13
 
 - Le boss mondial est ouvert à tous ! Chaque semaine, tout le monde frappe le même boss : 3 essais par jour, +100 points pour chaque participant quand il tombe, +150 de plus pour le top 3
