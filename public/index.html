@@ -6642,7 +6642,7 @@ const CHANGELOG=[
   en:["First online release: solo vs AI, online versus, tutorial, FR / EN / IT"],
   it:["Prima versione online: solo contro l'IA, versus online, tutorial, FR / EN / IT"]}
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261115093425";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261115093916";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
   const fmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(LANG==="en"?"en-GB":LANG==="it"?"it-IT":LANG==="ja"?"ja-JP":"fr-BE",{day:"numeric",month:"long",year:"numeric"}); }catch(e){ return d; } };
@@ -9186,6 +9186,10 @@ Object.assign(UI.fr,{st_rpgRuns:"Voyages dans les Terres désolées",st_rpgClear
 Object.assign(UI.en,{st_rpgRuns:"Wasteland journeys",st_rpgClears:"Zones cleared"});
 Object.assign(UI.it,{st_rpgRuns:"Viaggi nelle Terre desolate",st_rpgClears:"Zone completate"});
 Object.assign(UI.ja,{st_rpgRuns:"荒野の旅",st_rpgClears:"制覇したエリア"});
+Object.assign(UI.fr,{hmsRuns:"voyages"});
+Object.assign(UI.en,{hmsRuns:"journeys"});
+Object.assign(UI.it,{hmsRuns:"viaggi"});
+Object.assign(UI.ja,{hmsRuns:"旅"});
 const DOSHI_GRAVE=new Set(["extra-3","extra-1","extra-2","arc6-8","arc6-10","arc6-12","arc6-16","arc6-18","arc6-20","arc5-11","arc5-14","king-8","king-11","arc2-6","arc2-13","arc2-14","arc2-19","arc2-20","arc2-21","arc2-24","arc3-1","arc3-7","arc3-11","arc3-14","arc4-14","arc4-16","arc4-18","arc4-19"]);
 const DOSHI_F=(t,id)=>`assets/doshi-face${DOSHI_GRAVE.has(id)?"4":DOSHI_LAUGH.test(String(t))?"3":[...String(t)].reduce((a,c)=>a+c.charCodeAt(0),0)%2?"2":""}.webp`;   // 2 portraits, toujours le même pour un texte donné
 /* ===== roue du destin : le Dōshi lit tes étoiles, un tour par jour (le serveur tire le résultat) ===== */
@@ -9682,7 +9686,7 @@ function hmStatsHTML(m){
   if(m==="arc") return it(st.arc||0,L("hmsFloor"))+it(st.arcClears||0,L("hmsClears"))+it(st.arcSecret||0,L("hmsSecret"));
   if(m==="surv") return it(st.surv||0,L("hmsWave"));
   if(m==="dojo") return it(`<span class="hmsbelt">${dojoIcon(dojoRank(st.dojo),52,{anim:1})}${esc(dojoGradeP(st.dojo))}</span>`,L("hmsGrade"))+it(st.dojoW||0,L("hmsWins"));
-  if(m==="rpg") return it(st.rpgClears||0,L("hmsZones"))+it(((st.rpg&&st.rpg.bag)||[]).length,L("hmsItems"));
+  if(m==="rpg") return it(Math.max(st.rpgRuns||0,st.rpgClears||0),L("hmsRuns"))+it(st.rpgClears||0,L("hmsZones"))+it(((st.rpg&&st.rpg.bag)||[]).length,L("hmsItems"));
   if(m==="ai") return it(`${st.aiW||0}`,L("hmsWins"))+it(`${st.aiL||0}`,L("hmsLosses"))+it(`${st.best||0}`,L("hmsBest"));
   if(m==="online") return it(st.elo??1000,"Elo")+it(`${st.vsW||0}–${st.vsL||0}`,L("hmsVs"))+it(`${Math.max(1,(ONLINE.list||[]).length)}`,L("hmsOnline"));
   if(m==="tour") return it(st.tW||0,L("hmsTour"));
