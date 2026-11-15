@@ -22,6 +22,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 - Mode histoire : le combat contre Joker se fait maintenant sans punks, Joker seul (plus costaud en compensation). Hatchet et Odin y apparaissaient alors qu'ils sont déjà ailleurs dans l'arc 1
 - Mode histoire : Rojo et Mojo remplacent Razor et Tusk chez Dante, et Leo remplace Spike chez Baron. Plus aucun punk n'apparaît deux fois dans l'arc 1
 - Les punks de KING (Lenny, Rocco, Jinx, Zappa, Mojo…) sont maintenant de simples pillards : passif Racaille, +1 tant qu'un autre pillard de leur équipe est debout. Le passif « Collecteur de KING » disparaît
+- Les soldats de KING (Giggs, Smokey…) deviennent eux aussi de simples pillards. Seuls Spade, Diamond, Club, Heart, Joker, Dragon, Patra, Zaria, Dante, Barcom, Mahari, Garekki, Hydra, Toda et Wolf sont des hommes de KING ; Wolf a +1 tant que l'un d'eux est debout dans son équipe
 
 ## v0.99.122 — 2026-11-13
 
