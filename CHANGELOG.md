@@ -18,6 +18,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 - Journal du combat : deux coups identiques joués d'affilée (deux Coups de poing, par exemple) s'affichent bien sur deux lignes. Le deuxième écrasait le premier (signalé par Jérôme)
 - Mode histoire, chapitre de Zaria : Oboro et Jinpachi, deux cultistes de Zaria, remplacent Viper et Leo avant le combat contre Zaria (nouveaux combattants, illustrations de David)
 - Mode histoire : Giggs et Smokey, soldats de KING, accompagnent maintenant Heart, et Lenny et Rocco passent dans le chapitre de Jennifer (Wolf, puis Hydra)
+- Équilibrage : Giggs et Smokey prennent les PV et la puissance de Lenny et Rocco, et inversement, pour que les chapitres de Heart et de Jennifer gardent leur difficulté. L'élite de Heart dans les Terres désolées est renforcée en conséquence
 
 ## v0.99.122 — 2026-11-13
 
