@@ -27,6 +27,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 - Nouveau combattant : Gorath, chef de l'Armée du Tonnerre de KING (anime, ép. 18). Il prend Lin et Bat en otages et fonce dans son char : les Légers lui font 1 de moins. Chapitre de Jennifer : Wolf et Gorath, puis Mahari et Garekki, puis Hydra et Toda (illustration de David)
 - Chapitre de Jennifer : l'histoire raconte maintenant Gorath, son Armée du Tonnerre et la prise d'otages de Lin et Bat
 - Chapitre de Jennifer : pendant la première vague (Wolf et Gorath), Lin et Bat sont otages et ne t'aident pas
+- Mode histoire : le début suit l'anime. « Le village assiégé » et « Zeed » ne font plus qu'un chapitre : Tusk et Spike, puis Zeed. Lin, enlevée par Zeed, et Bat ne sont pas encore avec Kenshiro. Tes étoiles ne bougent pas, et les chapitres suivants restent ouverts
 
 ## v0.99.122 — 2026-11-13
 
