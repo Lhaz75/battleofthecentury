@@ -17,6 +17,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 - Combattants : les persos à 5 points (Kenshiro, Ken-Oh…) affichent leur bonus de Légende, +1 dégât sur tous leurs coups et +20 % de PV, aussi dans la liste des combattants et le PDF (idée de Jérôme)
 - Journal du combat : deux coups identiques joués d'affilée (deux Coups de poing, par exemple) s'affichent bien sur deux lignes. Le deuxième écrasait le premier (signalé par Jérôme)
 - Mode histoire, chapitre de Zaria : Oboro et Jinpachi, deux cultistes de Zaria, remplacent Viper et Leo avant le combat contre Zaria (nouveaux combattants, illustrations de David)
+- Mode histoire : Giggs et Smokey, soldats de KING, accompagnent maintenant Heart, et Lenny et Rocco passent dans le chapitre de Jennifer (Wolf, puis Hydra)
 
 ## v0.99.122 — 2026-11-13
 
