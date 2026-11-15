@@ -33,6 +33,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 - Deux nouveaux membres du clan Kiba (illustrations de David) : Nakne, le barbare à la hache, et Zanga, le guerrier au sabre. Dans « La nuit des crocs », Kemada arrive seul après eux
 - Tetsuga revient avec une nouvelle illustration (fourrure brune, griffes d'acier) et se bat dans « La vengeance de Gibara »
 - Rōga revient avec une nouvelle illustration (fourrure brune) et attaque le village de Mamiya. Plus aucun sbire du clan Kiba n'apparaît deux fois
+- Nouvelle illustration pour Madara, la bête du clan Kiba (illustration de David)
 
 ## v0.99.122 — 2026-11-13
 
