@@ -7,6 +7,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 - Visuels de l'accueil (admin) : le réglage se fait maintenant directement sur la vraie page d'accueil. Le panneau flotte dans un coin (réductible), on glisse le perso sur la page et on voit exactement où il tombe par rapport au titre, au bouton Jouer et aux encarts.
 - Cadrage (admin) : le cadre peut maintenant sortir de l'illustration (jusqu'à 40 %), pour descendre un perso dans sa carte ou le décaler sur le côté (demande de Lhaz).
 - Illustrations : 17 persos (Dosu, Joker, Feiyan, Rihaku, Kibas, Seiji, Sarge, Kasumi, Dernier général, Kuroyasha, Daruka, Linh, David, Charles, Asura, Frieda…) affichaient en combat une ancienne version zoomée de leur image, alors que l'outil de cadrage montrait la nouvelle. Le combat utilise maintenant la même image que le cadrage (repéré par Lhaz).
+- Pastilles (admin) : après un enregistrement, seule la pastille modifiée se met à jour, la page ne se recharge plus et reste à sa place (demande de Lhaz).
 
 ## v0.99.123 — 2026-11-15
 
