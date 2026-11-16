@@ -10,6 +10,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 - Pastilles (admin) : après un enregistrement, seule la pastille modifiée se met à jour, la page ne se recharge plus et reste à sa place (demande de Lhaz).
 - Administration : le bloc est rangé en quatre parties (Maintenance, Joueurs, Visuels, Tests) avec des boutons alignés (demande de Lhaz).
 - Boss mondial : le boss a maintenant une aura de combat qui pulse autour de lui, des braises qui montent, de la fumée au sol et un éclair de temps en temps (demande de Lhaz).
+- Ultimes : dans les noms d'ultimes en deux lignes, les accents des majuscules (È, É…) touchaient la ligne du dessus, comme dans « Cloche funèbre » de Kōhan. Les lignes sont un peu plus espacées (repéré par Lhaz).
 
 ## v0.99.123 — 2026-11-15
 
