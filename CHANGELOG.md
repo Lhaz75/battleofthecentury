@@ -11,6 +11,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 - Administration : le bloc est rangé en quatre parties (Maintenance, Joueurs, Visuels, Tests) avec des boutons alignés (demande de Lhaz).
 - Boss mondial : le boss a maintenant une aura de combat qui pulse autour de lui, des braises qui montent, de la fumée au sol et un éclair de temps en temps (demande de Lhaz).
 - Ultimes : dans les noms d'ultimes en deux lignes, les accents des majuscules (È, É…) touchaient la ligne du dessus, comme dans « Cloche funèbre » de Kōhan. Les lignes sont un peu plus espacées (repéré par Lhaz).
+- Cadrage des cartes d'arcs (admin) : l'aperçu est maintenant une copie exacte de la vraie carte (même taille, titre et étoiles), et la carte de la page bouge en même temps. Avant, l'aperçu était plus large et le cadrage tombait différemment (repéré par Lhaz).
 
 ## v0.99.123 — 2026-11-15
 
