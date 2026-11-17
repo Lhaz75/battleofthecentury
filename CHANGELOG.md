@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions dans public/changelog-old.json). Visible en jeu via le bouton de version.
 
+## v0.99.125 — 2026-11-17
+
+- Défi de la semaine : sur mobile, l'illustration de l'adversaire pouvait déborder et recouvrir toute la page (repéré par Jérôme R.).
+
 ## v0.99.124 — 2026-11-16
 
 - Visuels de l'accueil (admin) : le réglage se fait maintenant directement sur la vraie page d'accueil. Le panneau flotte dans un coin (réductible), on glisse le perso sur la page et on voit exactement où il tombe par rapport au titre, au bouton Jouer et aux encarts.
