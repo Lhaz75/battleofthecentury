@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions dans public/changelog-old.json). Visible en jeu via le bouton de version.
 
+## v0.99.126 — 2026-11-19
+
+- Combat : quand tu n'as plus aucune carte jouable (ni ultime), le bouton « Fin du tour » s'allume et pulse (demande de Lhaz).
+- Boss mondial : sur PC, tout tient sur un écran sans défiler. Le classement, les récompenses et les règles passent dans une troisième colonne (demande de Lhaz).
+
 ## v0.99.125 — 2026-11-17
 
 - Défi de la semaine : sur mobile, l'illustration de l'adversaire pouvait déborder et recouvrir toute la page (repéré par Jérôme R.).
