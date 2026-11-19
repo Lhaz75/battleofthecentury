@@ -10,6 +10,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 - Mode histoire, arc 2 : Gojiba se bat maintenant aux côtés de Kiba Daioh dans le chapitre « Kiba Daioh » (demande de Lhaz).
 - Mode histoire, arc 2 : Kenshiro affronte Madara seul (sans Rei, Mamiya, Bat ni Lin), les PV sont ajustés (demande de Lhaz).
 - Mode histoire, arc 2 : Bat et Lin ne sont plus là pendant le duel forcé contre Rei ni contre Kiba Daioh (demande de Lhaz).
+- Mode histoire, arc 2 : Jagi passe sur deux chapitres. D'abord « Le buste de Jagi », au village où Rakan, Dekker et Gaira font croire que Jagi est l'homme aux sept cicatrices, puis Kenshiro contre Jagi en duel (demande de Lhaz).
 
 ## v0.99.125 — 2026-11-17
 
