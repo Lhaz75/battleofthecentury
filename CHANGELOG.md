@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions dans public/changelog-old.json). Visible en jeu via le bouton de version.
 
+## v0.99.127 — 2026-11-20
+
+- Nouvelles illustrations : Jagi, Taiga, Zhang Dayan et Zeus.
+
 ## v0.99.126 — 2026-11-19
 
 - Combat : quand tu n'as plus aucune carte jouable (ni ultime), le bouton « Fin du tour » s'allume et pulse (demande de Lhaz).
