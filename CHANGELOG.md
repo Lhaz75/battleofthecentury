@@ -4,7 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 
 ## v0.99.127 — 2026-11-20
 
-- Nouvelles illustrations : Jagi, Taiga, Zhang Dayan, Zeus et Temur.
+- Nouvelles illustrations : Jagi, Taiga, Zhang Dayan, Zeus, Temur et Souther.
 
 ## v0.99.126 — 2026-11-19
 
