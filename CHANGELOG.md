@@ -4,7 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 
 ## v0.99.128 — 2026-11-21
 
-- Nouvelles illustrations : Ken-Oh, Shuren, Smokey, Shin, Zangi et Solia.
+- Nouvelles illustrations : Ken-Oh, Shuren, Smokey, Shin, Zangi, Solia et Rugo.
 
 ## v0.99.127 — 2026-11-20
 
