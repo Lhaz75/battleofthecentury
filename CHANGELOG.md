@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions dans public/changelog-old.json). Visible en jeu via le bouton de version.
 
+## v0.99.128 — 2026-11-21
+
+- Nouvelle illustration : Ken-Oh.
+
 ## v0.99.127 — 2026-11-20
 
 - Nouvelles illustrations : Jagi, Taiga, Zhang Dayan, Zeus, Temur, Souther, Kōryū et Leo.
