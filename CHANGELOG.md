@@ -4,7 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 
 ## v0.99.128 — 2026-11-21
 
-- Nouvelle illustration : Ken-Oh.
+- Nouvelles illustrations : Ken-Oh et Shuren.
 
 ## v0.99.127 — 2026-11-20
 
