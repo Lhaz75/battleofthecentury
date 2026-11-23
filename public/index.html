@@ -5838,7 +5838,7 @@ function reactHTML(R){
 }
 function renderEnd(win){ disgAllOff(); if(S&&S.dead) return; koCount(); if(S && !S.annEnd){ S.annEnd=true; SFX.ann(win?"win":"lose",{local:true}); } rpCapture(true); if(SURV.on && MODE==="solo" && S && S.surv) return survAfter(win); if(ARC.on && MODE==="solo" && S && S.arc) return arcAfter(win); if(DOJO.on && MODE==="solo" && S && S.dojo) return dojoAfter(win); if(RPG.on && MODE==="solo" && S && S.rpg) return rpgAfter(win); if(MODE==="solo" && S && S.weekly) return weeklyAfter(win); if(MODE==="solo" && S && S.boss) return bossAfter(win); if(MODE==="solo" && S && S.story && STORY.on) return storyAfter(win); MUSIC.want("menu");
   SFX.play(win?"win":"lose");
-  $("#app").innerHTML=`<div class="screen" style="overflow-y:auto"><div class="center">
+  $("#app").innerHTML=`<div class="screen" style="overflow-y:auto;overflow-x:hidden"><div class="center">
     <div class="kicker">${win?L("foeDown"):L("meDown")}</div>
     <h1>${win?L("win"):`<em>${L("lose")}</em>`}</h1>
     <p class="note" id="accline">${ACC.on&&(MODE==="solo"||MODE==="vs")&&!ACC.user?L("notLogged"):""}</p>
@@ -6224,7 +6224,7 @@ Object.assign(UI.en,{rpgTabAll:"All",rpgTabEq:"Gear",rpgTabUse:"Consumables"});
 Object.assign(UI.it,{rpgTabAll:"Tutto",rpgTabEq:"Equipaggiamento",rpgTabUse:"Consumabili"});
 Object.assign(UI.ja,{rpgTabAll:"すべて",rpgTabEq:"装備",rpgTabUse:"消耗品"});
 const CHANGELOG=[
-{v:"0.99.130",d:"2026-11-23",fr:["Nouvelles illustrations : Rihaku, Gaira, Ogon, Qasim, Rakan, Hal, Fudō, Baron, Giggs, Barcom, Goldo, Gonzu et Dante."],en:["New artwork: Rihaku, Gaira, Ogon, Qasim, Rakan, Hal, Fudō, Baron, Giggs, Barcom, Goldo, Gonzu and Dante."],it:["Nuove illustrazioni: Rihaku, Gaira, Ogon, Qasim, Rakan, Hal, Fudō, Baron, Giggs, Barcom, Goldo, Gonzu e Dante."],ja:["新しいイラスト：リハク、ガイラ、オーゴン、カシム、ラカン、ハル、フドウ、バロン、ギグス、バーコム、ゴルド、ゴンズ、ダンテ。"]},
+{v:"0.99.130",d:"2026-11-23",fr:["Nouvelles illustrations : Rihaku, Gaira, Ogon, Qasim, Rakan, Hal, Fudō, Baron, Giggs, Barcom, Goldo, Gonzu et Dante.","Terres désolées : l'écran de fin de combat ne glisse plus vers la droite sur mobile quand un objet rare tombe (merci Jérôme R.)."],en:["New artwork: Rihaku, Gaira, Ogon, Qasim, Rakan, Hal, Fudō, Baron, Giggs, Barcom, Goldo, Gonzu and Dante.","Wastelands: the end-of-fight screen no longer slides sideways on mobile when a rare item drops (thanks Jérôme R.)."],it:["Nuove illustrazioni: Rihaku, Gaira, Ogon, Qasim, Rakan, Hal, Fudō, Baron, Giggs, Barcom, Goldo, Gonzu e Dante.","Terre desolate: la schermata di fine combattimento non scorre più di lato su mobile quando cade un oggetto raro (grazie Jérôme R.)."],ja:["新しいイラスト：リハク、ガイラ、オーゴン、カシム、ラカン、ハル、フドウ、バロン、ギグス、バーコム、ゴルド、ゴンズ、ダンテ。","荒野：レアアイテム入手時、スマホで戦闘終了画面が横にずれなくなった（ジェローム R. さんに感謝）。"]},
 {v:"0.99.129",d:"2026-11-22",fr:["Nouvelles illustrations : Goum, Joker, Junk, Jugai, Rima, Stellan, Tank et Viper."],en:["New artwork: Goum, Joker, Junk, Jugai, Rima, Stellan, Tank and Viper."],it:["Nuove illustrazioni: Goum, Joker, Junk, Jugai, Rima, Stellan, Tank e Viper."],ja:["新しいイラスト：ゴウム、ジョーカー、ジャンク、ジュウガイ、リマ、ステラン、タンク、ヴァイパー。"]},
 {v:"0.99.128",d:"2026-11-21",fr:["Nouvelles illustrations : Ken-Oh, Shuren, Smokey, Shin, Zangi, Solia, Rugo, Wolf, Targel, Seiji, Sabato et Zenda."],en:["New artwork: Ken-Oh, Shuren, Smokey, Shin, Zangi, Solia, Rugo, Wolf, Targel, Seiji, Sabato and Zenda."],it:["Nuove illustrazioni: Ken-Oh, Shuren, Smokey, Shin, Zangi, Solia, Rugo, Wolf, Targel, Seiji, Sabato e Zenda."],ja:["新しいイラスト：拳王、シュレン、スモーキー、シン、ザンギ、ソリア、ルゴ、ウルフ、ターゲル、セイジ、サバト、ゼンダ。"]},
 {v:"0.99.127",d:"2026-11-20",fr:["Nouvelles illustrations : Jagi, Taiga, Zhang Dayan, Zeus, Temur, Souther, Kōryū et Leo."],en:["New artwork: Jagi, Taiga, Zhang Dayan, Zeus, Temur, Souther, Kōryū and Leo."],it:["Nuove illustrazioni: Jagi, Taiga, Zhang Dayan, Zeus, Temur, Souther, Kōryū e Leo."],ja:["新しいイラスト：ジャギ、タイガ、張大炎、ゼウス、テムル、サウザー、コウリュウ、レオ。"]},
@@ -6247,7 +6247,7 @@ const CHANGELOG=[
  {v:"0.99.110",d:"2026-11-01",fr:["Armure de Souther : « Pas besoin de garde » remplace le Corps inversé (le premier coup de chaque combat fait +2 dégâts)", "Terres désolées, zone 7 : nouveau set de la Croix Sainte (Souther et Shu) ! Masque de Souther (relique), Armure de Souther ou Veste de Shu au choix pour le torse, et les Bottes de Shu, nouvelle légendaire pour les pieds (sur l'élite « La garde de la pyramide »). 2 pièces : Moyens +1 ; 3 pièces : toute l'équipe récupère 2 PV après chaque victoire", "Butin : un objet commun ne tombe plus qu'avec ★ au plus, comme à la forge (merci Jérôme)", "Forge (retours de Jérôme) : tu choisis maintenant le bonus de chaque fusion (+2 PV, Légers, Moyens, Lourds ou rage). Étoiles max selon la rareté : ★ pour les communs, ★★ pour les peu communs, ★★★ à partir des rares. Rage plafonnée à +2 par objet. Les objets déjà forgés restent comme ils sont", "Forge : passer de ★ à ★★ tire maintenant le bonus au hasard comme au butin (PV, Légers, Moyens, Lourds ou rage), au lieu de toujours donner des PV (merci Jérôme)"],en:["Souther's armor: \"No need for a guard\" replaces Inverted body (the first hit of each fight deals +2 damage)", "The Wasteland, zone 7: new Holy Cross set (Souther and Shu)! Souther's mask (relic), Souther's armor or Shu's jacket for the body, and Shu's boots, a new feet legendary (from the elite \"The pyramid guard\"). 2 pieces: Mediums +1; 3 pieces: the whole team recovers 2 HP after each win", "Loot: common items now drop with ★ at most, like at the forge (thanks Jérôme)", "Forge (Jérôme's feedback): you now pick the bonus of each fusion (+2 HP, Lights, Mediums, Heavies or rage). Max stars by rarity: ★ for commons, ★★ for uncommons, ★★★ from rares up. Rage capped at +2 per item. Items already forged stay as they are", "Forge: going from ★ to ★★ now rolls the bonus at random like loot (HP, Lights, Mediums, Heavies or rage) instead of always giving HP (thanks Jérôme)"],it:["Armatura di Souther: «Nessun bisogno di guardia» sostituisce Corpo invertito (il primo colpo di ogni combattimento fa +2 danni)", "Terre desolate, zona 7: nuovo set della Santa Croce (Souther e Shu)! Maschera di Souther (reliquia), Armatura di Souther o Giacca di Shu a scelta per il corpo, e gli Stivali di Shu, nuovo leggendario per i piedi (dall'élite \"La guardia della piramide\"). 2 pezzi: Medi +1; 3 pezzi: tutta la squadra recupera 2 PV dopo ogni vittoria", "Bottino: un oggetto comune cade ora al massimo con ★, come alla forgia (grazie Jérôme)", "Forgia (feedback di Jérôme): ora scegli il bonus di ogni fusione (+2 PV, Leggeri, Medi, Pesanti o rabbia). Stelle max per rarità: ★ per i comuni, ★★ per i non comuni, ★★★ dai rari in su. Rabbia limitata a +2 per oggetto. Gli oggetti già forgiati restano come sono", "Forgia: passare da ★ a ★★ ora estrae il bonus a caso come nel bottino (PV, Leggeri, Medi, Pesanti o rabbia), invece di dare sempre PV (grazie Jérôme)"],ja:["サウザーの鎧：「逆転の体」に代わり「構えは不要」（各戦闘の最初の攻撃のダメージ+2）", "荒野ゾーン7：新しい聖十字のセット（サウザーとシュウ）！サウザーの仮面（レリック）、胴はサウザーの鎧かシュウの上着を選択、そして足の新レジェンダリー「シュウのブーツ」（エリート「ピラミッドの衛兵」からドロップ）。2つで中攻撃+1、3つで勝利のたびにチーム全員のHPが2回復", "ドロップ：コモン装備の星は鍛冶場と同じく最大★に（Jérômeに感謝）", "鍛冶場（Jérômeの意見）：合成ごとにボーナスを選べるように（HP+2、軽・中・重攻撃、怒り）。レア度ごとの最大の星：コモン★、アンコモン★★、レア以上★★★。怒りは1アイテム+2まで。鍛え済みのアイテムはそのまま", "鍛冶場：★から★★にするとき、ボーナスがドロップと同じくランダムに（HP、軽・中・重攻撃、怒り）。常にHPではなくなった（Jérômeに感謝）"]},
  {v:"0.99.109",d:"2026-10-31",fr:["Terres désolées : la forge arrive au bazar (idée de Jérôme) ! Fusionne 2 objets identiques pour en faire un seul avec une étoile de plus, jusqu'à ★★★ (nouvelles étoiles seulement à la forge). Coût en ryō selon la rareté", "Nouveau : les cris des punks (idée de Jérôme) ! Achève un punk au combo (4 coups ou plus) ou à l'ultime pour débloquer son cri : ABESHI, HIDEBU, TAWABA… Il s'affiche ensuite en gros à chaque fois que ce punk tombe. 7 cris à collectionner (profil) et 2 succès", "Terres désolées : le Masque de Souther passe dans l'emplacement relique (il se range tout seul si vous le portiez sur la tête)", "Terres désolées : les sets ferré et de sang ont maintenant une pièce par emplacement (merci Jérôme). Nouveau Médaillon ferré (relique, zone 4) à la place de l'Épaulière ferrée, nouvelles Ceinture de sang (zone 1) et Amulette de sang (zone 2) à la place de l'Épaulière et des Jambières de sang. Les anciennes pièces restent dans vos sacs mais ne comptent plus pour le set", "Terres désolées : nouvel objet commun pour le corps, la Veste en loques (+2 PV), aussi vendue au bazar", "Nouveau : le compteur de KO (idée de maxGfive) ! Chaque adversaire mis KO compte, dans tous les modes, et s'affiche dans tes statistiques. 5 nouveaux succès à 100, 500, 1 000, 5 000 et 10 000 KO"],en:["The Wasteland: the forge arrives at the bazaar (Jérôme's idea)! Fuse 2 identical items into one with one more star, up to ★★★ (a new level only available at the forge). Costs ryō depending on rarity", "New: punk death cries (Jérôme's idea)! Finish a punk with a combo (4 hits or more) or an ultimate to unlock its cry: ABESHI, HIDEBU, TAWABA… It then shows big every time that punk falls. 7 cries to collect (profile) and 2 achievements", "The Wasteland: Souther's mask moves to the relic slot (it moves by itself if you wore it on the head)", "The Wasteland: the iron and blood sets now have one piece per slot (thanks Jérôme). New Iron medallion (relic, zone 4) replaces the Iron pauldron; new Blood belt (zone 1) and Blood amulet (zone 2) replace the Blood pauldron and Blood greaves. Old pieces stay in your bag but no longer count for the set", "The Wasteland: new common body item, the Ragged vest (+2 HP), also sold at the bazaar", "New: the KO counter (maxGfive's idea)! Every opponent you knock out counts, in every mode, and shows in your statistics. 5 new achievements at 100, 500, 1,000, 5,000 and 10,000 KOs"],it:["Terre desolate: la forgia arriva al bazar (idea di Jérôme)! Fondi 2 oggetti identici in uno solo con una stella in più, fino a ★★★ (livello ottenibile solo alla forgia). Costa ryō in base alla rarità", "Novità: le urla dei punk (idea di Jérôme)! Finisci un punk con una combo (4 colpi o più) o con l'ultimate per sbloccare il suo urlo: ABESHI, HIDEBU, TAWABA… Poi appare in grande ogni volta che quel punk cade. 7 urla da collezionare (profilo) e 2 trofei", "Terre desolate: la Maschera di Souther passa nel posto reliquia (si sposta da sola se la indossavi in testa)", "Terre desolate: i set ferrato e di sangue hanno ora un pezzo per posto (grazie Jérôme). Nuovo Medaglione ferrato (reliquia, zona 4) al posto dello Spallaccio ferrato; nuove Cintura di sangue (zona 1) e Amuleto di sangue (zona 2) al posto dello Spallaccio e degli Schinieri di sangue. I vecchi pezzi restano nella borsa ma non contano più per il set", "Terre desolate: nuovo oggetto comune per il corpo, il Gilet logoro (+2 PV), venduto anche al bazar", "Novità: il contatore di KO (idea di maxGfive)! Ogni avversario messo KO conta, in tutte le modalità, e appare nelle tue statistiche. 5 nuovi trofei a 100, 500, 1.000, 5.000 e 10.000 KO"],ja:["荒野：バザーに鍛冶場が登場（Jérômeのアイデア）！同じアイテム2つを合成して星を1つ増やす。最大★★★（鍛冶場でのみ入手可能）。費用はレア度に応じた両", "新機能：雑魚の断末魔（Jérômeのアイデア）！コンボ（4ヒット以上）か奥義で雑魚にとどめを刺すと断末魔が解放：あべし、ひでぶ、たわば…以後その雑魚が倒れるたびに大きく表示。集める断末魔は7つ（プロフィール）、実績2つ", "荒野：サウザーの仮面がレリック枠に変更（頭に装備していた場合は自動で移動）", "荒野：鉄のセットと血のセットが装備枠ごとに1つずつに（Jérômeに感謝）。鉄の肩当ての代わりに新しい「鉄のメダリオン」（レリック、ゾーン4）、血の肩当てと血のすね当ての代わりに「血の帯」（ゾーン1）と「血のアミュレット」（ゾーン2）。古い装備はバッグに残るが、セットにはもう数えられない", "荒野：胴の新コモン装備「ぼろぼろのベスト」（HP+2）、バザーでも販売", "新機能：KOカウンター（maxGfiveのアイデア）！全モードで倒した相手の数を数え、統計に表示。100、500、1,000、5,000、10,000KOで新しい実績5つ"]},
 ];
-const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261123203849";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
+const APP_VERSION=CHANGELOG[0].v, APP_BUILD="20261123221024";   // APP_BUILD : écrit par tools/export_public.py à chaque mise en ligne (plusieurs par version possibles)
 let CL_OLD=null;   // versions archivées (public/changelog-old.json)
 function renderChangelog(sel=[]){
   try{ localStorage.setItem("boc-seen-ver",APP_VERSION); }catch(e){}
@@ -6971,7 +6971,7 @@ async function weeklyAfter(win){ rpCapture(true);
   MUSIC.want("menu"); SFX.play(win?"win":"lose");
   const team=S.p.team.map(t=>t.id), cost=teamCost(team), rounds=S.round||1, lost=S.p.team.reduce((a,t)=>a+(t.max-Math.max(0,t.ko?0:t.hp)),0);
   const res={cost,rounds,lost};
-  $("#app").innerHTML=`<div class="screen" style="overflow-y:auto"><div class="center">
+  $("#app").innerHTML=`<div class="screen" style="overflow-y:auto;overflow-x:hidden"><div class="center">
     <div class="kicker">${L("wkTitle")}</div>
     <h1>${win?L("win"):`<em>${L("lose")}</em>`}</h1>
     ${win?`<p class="svheal">${wkScore(res)}</p><p class="note" id="wkres">${L("connecting")}</p>`:`<p class="note">${L("wkLoseNote")}</p>`}
@@ -7210,7 +7210,7 @@ async function bossAfter(win){ rpCapture(true);
   const why=win?L("bossKO"):S.p.team.every(t=>t.ko)?L("bossFell",n):L("bossTime",BOSS_TURNS);
   const T=Array.from({length:BOSS_TURNS},(_,i)=>+B.turns[i]||0), mx=Math.max(1,...T);
   const bars=Array.from({length:BOSS_TURNS},(_,i)=>`<i class="${i<n?"":"off"}"><u style="height:${Math.round(T[i]/mx*44)}px"></u><s>${i+1}</s></i>`).join("");
-  $("#app").innerHTML=`<div class="screen" style="overflow-y:auto"><div class="center bsres">
+  $("#app").innerHTML=`<div class="screen" style="overflow-y:auto;overflow-x:hidden"><div class="center bsres">
     <div class="kicker">${L("bossTitle")} · ${esc(nm(B.id))}</div>
     <p class="bswhy">${why}</p>
     <div class="bsbig" id="bscount">0</div><div class="bsdl">${L("bossDealt",esc(nm(B.id)))}</div>
@@ -7439,7 +7439,7 @@ async function storyAfter(win){ rpCapture(true);
   MUSIC.want("menu"); SFX.play(win?"win":"lose");
   const stars=storyEval(c,win), had=stStarsOf(c.id), last=STORY.i>=STORY_CH.length-1, arcEnd=last||stArcOf(STORY.i+1)!==stArc(c);
   STORY.acc=null; STORY.hp=null; STORY.relayN=0;
-  $("#app").innerHTML=`<div class="screen" style="overflow-y:auto"><div class="center stend">
+  $("#app").innerHTML=`<div class="screen" style="overflow-y:auto;overflow-x:hidden"><div class="center stend">
     <div class="kicker">${L("stArc"+stArcOf(STORY.i))} · ${stNum(STORY.i)} · ${L("stDiff_"+(S.stDiff||"n"))}</div>
     <h1>${win?L("stWin"):`<em>${L("stLose")}</em>`}</h1>
     ${win?`<div class="stbig">${stStarRow(stars)}</div>${NARR(L("st_o_"+c.id))}`:""}
@@ -7591,7 +7591,7 @@ function dojoAfter(win){ rpCapture(true);
   MUSIC.want("menu"); SFX.play(win?"win":"lose");
   const o=DOJO.cur, before=dojoPts(), after=Math.max(0,before+(win?o.i+1:-1)), r0=dojoRank(before), r1=dojoRank(after);
   const s0=dojoMS(before), s1=dojoMS(after), note=r1>r0?L("djUp",dojoGrade(r1)):s1>s0&&r1>=DOJO_TOP?L("djUp",dojoGradeP(after)):s1<s0&&r1>=DOJO_TOP?L("djDown",dojoGradeP(after)):r1<r0?L("djDown",dojoGrade(r1)):after!==before?L("djPts",after-before):"";
-  $("#app").innerHTML=`<div class="screen" style="overflow-y:auto"><div class="center">
+  $("#app").innerHTML=`<div class="screen" style="overflow-y:auto;overflow-x:hidden"><div class="center">
     <div class="kicker">${L("dojoTitle")} · ${esc(L("djDisc",nm(o.foe[0])))}</div>
     <h1>${win?L("djWin"):`<em>${L("djLose")}</em>`}</h1>
     ${dojoHead(after,r1>r0||s1>s0)}
@@ -7733,7 +7733,7 @@ function arcAfter(win){ rpCapture(true);
       if(ARC.tw!=="l" && !ARC.bonusDone && n>=2 && n<=Math.min(6,arcN()-2) && Math.random()<.35){ ARC.bonusDone=true; ARC.pending=arcSecret(ARC.team); sub=L("arcSomeone"); } }
   } else { head=L("arcFall",n); ARC.on=false; }
   if(ARC.floor>ARC.best && !bonus) ARC.best=Math.max(ARC.best,win?n:n-1);
-  $("#app").innerHTML=`<div class="screen" style="overflow-y:auto"><div class="center">
+  $("#app").innerHTML=`<div class="screen" style="overflow-y:auto;overflow-x:hidden"><div class="center">
     ${ARC.team?`<div class="arcw">${arcTower()}</div>`:""}
     <div class="kicker">${bonus?L("arcSecretK"):L("arcFloor",n,arcN())}</div>
     <h1>${win?head:`<em>${head}</em>`}</h1>
@@ -7770,7 +7770,7 @@ function survAfter(win){ rpCapture(true);
     SURV.wave=n+1; SURV.foe=survFoe(n+1,SURV.team);
   }
   if(rec) SURV.best=cleared;
-  $("#app").innerHTML=`<div class="screen" style="overflow-y:auto"><div class="center">
+  $("#app").innerHTML=`<div class="screen" style="overflow-y:auto;overflow-x:hidden"><div class="center">
     <div class="kicker">${win?L("survCleared",n):L("survDead")}</div>
     <h1>${win?L("win"):`<em>${cleared?L("survOver",cleared):L("survNone")}</em>`}</h1>
     ${win?`<p class="svheal">${note}</p>${survFaces(SURV.team,SURV.hp,SURV.max,prevHp)}`:""}
@@ -8265,7 +8265,7 @@ function rpgAfter(win){ rpCapture(true);
       res.rep=rpgSync({act:"win",zone:r.zone,node:n,team:r.team,dm:r.dm?1:0,feats:featsFor(true)}).then(x=>{ const ok=!!(x&&x.ok); res.loot=ok?(x.loot||[]):[]; res.lost=ok?(x.lost||0):0; res.err=!ok; res.gain=ok?(x.gain||0):0; return x; }); }
     else { RPG.run=null; rpgSave(); } }
   const res=S.rpgRes, r=RPG.run, ok=win&&r;
-  $("#app").innerHTML=`<div class="screen" style="overflow-y:auto"><div class="center">
+  $("#app").innerHTML=`<div class="screen" style="overflow-y:auto;overflow-x:hidden"><div class="center">
     <div class="kicker">${L("rpgTitle")} · ${esc(L("rpgNodes")[n])}</div>
     <h1>${ok?(kind==="boss"?L("rpgBossWin"):L("rpgLootT")):`<em>${L("rpgLose")}</em>`}</h1>
     ${ok&&res.rest?`<p class="svheal">${L("rpgWinHeal",Math.round(rpgWinHeal()*100))}</p>`:""}${ok&&res.croix?`<p class="svheal">${L("rpgCroixHeal")}</p>`:""}${ok&&res.lin?`<p class="svheal">${L("rpgMendHeal",typeof res.lin==="string"?res.lin:L("rpgItems")["ruban-lin"])}</p>`:""}${ok&&res.find?`<p class="svheal">${L("rpgFindHeal",RPG_FIND_HP)}</p>`:""}${ok?`<div id="rgloot"><p class="note">${L("rpgLootWait")}</p></div>${survFaces(r.team,rpgHp(),rpgMaxes())}`:`<p class="svheal">${L("rpgLoseD")}</p>`}
@@ -9573,7 +9573,7 @@ async function renderQuick(team,nick){
 }
 
 async function renderLobby(team){ MUSIC.want("menu");
-  $("#app").innerHTML=`<div class="screen" style="overflow-y:auto"><div class="kicker">${L("vsOnline")}</div><h2 style="font-size:34px;color:var(--sand)">${L("vsTitle")}</h2><p class="note">${L("connecting")}</p></div>`;
+  $("#app").innerHTML=`<div class="screen" style="overflow-y:auto;overflow-x:hidden"><div class="kicker">${L("vsOnline")}</div><h2 style="font-size:34px;color:var(--sand)">${L("vsTitle")}</h2><p class="note">${L("connecting")}</p></div>`;
   const ok=await netInit();
   if(!ok){
     $("#app").innerHTML=`<div class="screen"><div class="kicker">${L("vsOnline")}</div><h2 style="font-size:34px;color:var(--sand)">${L("vsTitle")}</h2><p class="lead">${L("offline")}</p><div class="row"><button class="btn ghost" id="back">${L("back")}</button></div></div>`;
