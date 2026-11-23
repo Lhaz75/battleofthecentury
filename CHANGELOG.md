@@ -4,7 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 
 ## v0.99.130 — 2026-11-23
 
-- Nouvelles illustrations : Rihaku et Gaira.
+- Nouvelles illustrations : Rihaku, Gaira et Ogon.
 
 ## v0.99.129 — 2026-11-22
 
