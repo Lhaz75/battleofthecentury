@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions dans public/changelog-old.json). Visible en jeu via le bouton de version.
 
+## v0.99.130 — 2026-11-23
+
+- Nouvelle illustration : Rihaku.
+
 ## v0.99.129 — 2026-11-22
 
 - Nouvelles illustrations : Goum, Joker, Junk, Jugai, Rima, Stellan, Tank et Viper.
