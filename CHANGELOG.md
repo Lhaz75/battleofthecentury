@@ -4,7 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 
 ## v0.99.130 — 2026-11-23
 
-- Nouvelles illustrations : Rihaku, Gaira, Ogon, Qasim, Rakan, Hal, Fudō, Baron, Giggs, Barcom, Goldo et Gonzu.
+- Nouvelles illustrations : Rihaku, Gaira, Ogon, Qasim, Rakan, Hal, Fudō, Baron, Giggs, Barcom, Goldo, Gonzu et Dante.
 
 ## v0.99.129 — 2026-11-22
 
