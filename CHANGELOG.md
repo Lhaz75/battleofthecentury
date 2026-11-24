@@ -2,6 +2,11 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions dans public/changelog-old.json). Visible en jeu via le bouton de version.
 
+## v0.99.131 — 2026-11-24
+
+- La roue du destin ne glisse plus vers la droite sur mobile (merci Jérôme R.).
+- Le barman : quand une attaque ferait plus que les PV qui te manquent, la carte l'indique « (PV max) ». Ex. : Wheel Rush fait 9, mais s'il ne te manque que 6 PV, tu récupères 6 (merci Jérôme R.).
+
 ## v0.99.130 — 2026-11-23
 
 - Nouvelles illustrations : Rihaku, Gaira, Ogon, Qasim, Rakan, Hal, Fudō, Baron, Giggs, Barcom, Goldo, Gonzu et Dante.
