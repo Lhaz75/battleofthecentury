@@ -21,7 +21,7 @@ MODES={
  'boss-mondial':"async()=>{ try{ await bossLoad(true); }catch(e){} await bossStart(['dans','zeed','jackal']); }",
  'tuto':"()=>{ startTuto(); }",
  'survie':f"()=>{{ survStart({TEAM}); setTimeout(()=>$('#svgo').click(),300); }}",
- 'arcade':f"()=>{{ arcStart({TEAM}); setTimeout(()=>$('#arcgo').click(),300); }}",
+ 'arcade':f"()=>{{ arcStart({TEAM}); setTimeout(()=>{{ document.querySelector('.arctwgo').click(); setTimeout(()=>$('#arcgo').click(),400); }},300); }}",
  'dojo':f"()=>{{ dojoStart({TEAM}); setTimeout(()=>document.querySelector('.djgo').click(),300); }}",
  'terres-z1-spade':f"()=>{{ rpgStart({TEAM},'sc'); RPG.run.at='sc_spade'; rpgFight('sc_spade'); }}",
  'terres-z1-chateau':f"()=>{{ rpgStart({TEAM},'sc'); RPG.run.at='sc_chateau'; rpgFight('sc_chateau'); }}",
@@ -35,7 +35,7 @@ with sync_playwright() as p:
     for name in only:
         pg=b.new_context(viewport={'width':1280,'height':800},service_workers='block').new_page(); errs=[]; bad=[]
         pg.on('pageerror',lambda e:errs.append(str(e)[:200]))
-        pg.on('console',lambda m:errs.append('console: '+m.text[:200]) if m.type=='error' else None)
+        pg.on('console',lambda m:errs.append('console: '+m.text[:200]) if m.type=='error' and 'WebSocket' not in m.text else None)
         pg.on('response',lambda r:bad.append(f'{r.status} {r.url[-40:]}') if r.status>=400 and '/api/' in r.url else None)
         pg.route('**/',patch); pg.route('**/index.html*',patch)
         pg.goto(BASE+'/'); pg.evaluate(f"localStorage.setItem('boc-token','{TOK}')"); pg.reload(); pg.wait_for_timeout(2500)

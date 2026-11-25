@@ -2,6 +2,12 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions dans public/changelog-old.json). Visible en jeu via le bouton de version.
 
+## v0.99.133 — 2026-11-25
+
+- Choix de l'équipe sur téléphone : en portrait, le logo ne passe plus sous les pastilles ; en paysage, le haut de page tient sur une seule ligne et la fiche du perso n'est plus coupée.
+- Combat sur téléphone : la bulle du chat se pose au-dessus de ta main au lieu de cacher une carte.
+- Version japonaise : les coups et passifs de Gorath, Fudō le Démon, Oboro, Jinpachi, Nakne, Zanga et Ryu sont enfin traduits.
+
 ## v0.99.132 — 2026-11-25
 
 - Défi de la semaine et boss mondial : la carte « Aiguilles crachées » de Jagi n'est plus distribuée, ni à toi ni au boss (merci Jérôme R.).
