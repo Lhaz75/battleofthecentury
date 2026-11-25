@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions dans public/changelog-old.json). Visible en jeu via le bouton de version.
 
+## v0.99.132 — 2026-11-25
+
+- Défi de la semaine : la carte « Aiguilles crachées » de Jagi n'est plus distribuée, ni à toi ni au boss (merci Jérôme R.).
+
 ## v0.99.131 — 2026-11-24
 
 - La roue du destin ne glisse plus vers la droite sur mobile (merci Jérôme R.).
