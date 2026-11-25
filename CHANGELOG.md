@@ -8,6 +8,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 - La roue du destin tient entièrement à l'écran, sans faire défiler, sur téléphone (portrait et paysage) comme sur PC.
 - Les boutons des réseaux sociaux en bas de l'accueil sont de nouveau bien ronds.
 - Boss mondial : l'illustration du boss est en haute définition (elle était floue sur téléphone) et le kanji à côté de son nom est retiré.
+- Boss mondial et défi de la semaine : l'heure de remise à zéro est affichée à ton heure, plus en « heure belge ».
 
 ## v0.99.133 — 2026-11-25
 
