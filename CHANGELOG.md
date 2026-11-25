@@ -9,7 +9,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 - Les boutons des réseaux sociaux en bas de l'accueil sont de nouveau bien ronds.
 - Boss mondial : l'illustration du boss est en haute définition (elle était floue sur téléphone) et le kanji à côté de son nom est retiré.
 - Boss mondial et défi de la semaine : l'heure de remise à zéro est affichée à ton heure, plus en « heure belge ».
-- Choix de l'équipe sur téléphone : la fiche du perso a un fond plus sombre, son texte se lit bien par-dessus l'illustration.
+- Choix de l'équipe sur téléphone : la fiche du perso est allégée (fond sombre, détail du piège masqué, bonus d'équipe repliés : touche « liens » pour les voir).
 
 ## v0.99.133 — 2026-11-25
 
