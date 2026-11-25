@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions dans public/changelog-old.json). Visible en jeu via le bouton de version.
 
+## v0.99.134 — 2026-11-26
+
+- Le logo s'anime : un reflet balaie les lettres et le logo brille doucement.
+
 ## v0.99.133 — 2026-11-25
 
 - Nouveau logo pour le jeu.
