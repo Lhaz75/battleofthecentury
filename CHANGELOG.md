@@ -10,6 +10,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 - Boss mondial : l'illustration du boss est en haute définition (elle était floue sur téléphone) et le kanji à côté de son nom est retiré.
 - Boss mondial et défi de la semaine : l'heure de remise à zéro est affichée à ton heure, plus en « heure belge ».
 - Choix de l'équipe sur téléphone : la fiche du perso est allégée (fond sombre, détail du piège masqué, bonus d'équipe repliés : touche « liens » pour les voir).
+- Magasin : le nom de l'école ne cache plus le visage des persos.
 
 ## v0.99.133 — 2026-11-25
 
