@@ -4,7 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 
 ## v0.99.132 — 2026-11-25
 
-- Défi de la semaine : la carte « Aiguilles crachées » de Jagi n'est plus distribuée, ni à toi ni au boss (merci Jérôme R.).
+- Défi de la semaine et boss mondial : la carte « Aiguilles crachées » de Jagi n'est plus distribuée, ni à toi ni au boss (merci Jérôme R.).
 
 ## v0.99.131 — 2026-11-24
 
