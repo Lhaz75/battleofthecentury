@@ -6,6 +6,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 
 - Le logo s'anime : un reflet balaie les lettres et le logo brille doucement.
 - La roue du destin tient entièrement à l'écran, sans faire défiler, sur téléphone (portrait et paysage) comme sur PC.
+- Les boutons des réseaux sociaux en bas de l'accueil sont de nouveau bien ronds.
 
 ## v0.99.133 — 2026-11-25
 
