@@ -4,7 +4,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 
 ## v0.99.135 — 2026-11-27
 
-- Nouvelles illustrations : Gonzu, Akashachi, Goda, Falco, Aus et Sanga.
+- Nouvelles illustrations : Gonzu, Akashachi, Goda, Falco, Aus, Sanga, Alf, Raoh (légende de Shura), Gorgo et Pappas.
 - Histoire : Amiba a une nouvelle illustration pour son dernier combat contre Kenshiro.
 
 ## v0.99.134 — 2026-11-26
