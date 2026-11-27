@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions dans public/changelog-old.json). Visible en jeu via le bouton de version.
 
+## v0.99.135 — 2026-11-27
+
+- Nouvelles illustrations : Gonzu, Akashachi, Goda, Falco et Aus.
+
 ## v0.99.134 — 2026-11-26
 
 - Le logo s'anime : un reflet balaie les lettres et le logo brille doucement.
