@@ -4,7 +4,9 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 
 ## v0.99.135 — 2026-11-27
 
-- Nouvelles illustrations : Gonzu, Akashachi, Goda, Falco, Aus, Sanga, Alf, Raoh (légende de Shura), Gorgo et Pappas.
+- Nouvelles illustrations : Gonzu, Akashachi, Goda, Falco, Aus, Sanga, Alf, Raoh (légende de Shura), Gorgo, Pappas, Selim, Falco et Kiba Daioh.
+- Histoire, chapitre de Kiba Daioh : sous la moitié de ses PV, il lance le Kazan Kōgai Kohō et son corps se change en acier (nouvelle illustration, +2 rage).
+- Le soldat de Jakō à la capuche bleue s'appelle désormais Varok (il portait le même nom que Gorgo).
 - Histoire : Amiba a une nouvelle illustration pour son dernier combat contre Kenshiro.
 
 ## v0.99.134 — 2026-11-26
