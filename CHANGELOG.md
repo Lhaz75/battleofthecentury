@@ -2,6 +2,10 @@
 
 Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions dans public/changelog-old.json). Visible en jeu via le bouton de version.
 
+## v0.99.136 — 2026-11-28
+
+- Nouvelles illustrations : Krug, Jocko, Bozzo, Garma, Raoh, Raoh (casque de Ken-Oh), Raoh (armure noire) et Raoh (dernier combat).
+
 ## v0.99.135 — 2026-11-27
 
 - Nouvelles illustrations : Gonzu, Akashachi, Goda, Falco, Aus, Sanga, Alf, Raoh (légende de Shura), Gorgo, Pappas, Selim, Falco et Kiba Daioh.
