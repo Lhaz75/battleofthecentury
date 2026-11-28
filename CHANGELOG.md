@@ -5,6 +5,7 @@ Généré depuis le jeu (`CHANGELOG` dans public/index.html, anciennes versions 
 ## v0.99.136 — 2026-11-28
 
 - Nouvelles illustrations : Krug, Jocko, Bozzo, Garma, Raoh, Raoh (casque de Ken-Oh), Raoh (armure noire) et Raoh (dernier combat).
+- Kiba Daioh (corps d'acier) : le halo gris autour de son illustration a disparu.
 
 ## v0.99.135 — 2026-11-27
 
